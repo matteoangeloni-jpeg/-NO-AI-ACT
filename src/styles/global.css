@@ -1,0 +1,87 @@
+/* ============================================================
+   NO AI ACT — design token e shell CSS
+   Art direction: distopia amministrativa, brutalismo digitale.
+   ============================================================ */
+
+:root {
+  /* Palette — token colore */
+  --c-night: #0a1020;        /* blu notte, fondale */
+  --c-night-2: #101a30;      /* blu notte chiaro, pannelli */
+  --c-iron: #4a5260;         /* grigio ferro, bordi e testo secondario */
+  --c-carbon: #07090f;       /* nero carbone */
+  --c-paper: #d8d6cd;        /* bianco sporco, testo primario */
+  --c-alert: #d23b3b;        /* rosso alert */
+  --c-warning: #d9a521;      /* giallo warning */
+  --c-ok: #3fa66a;           /* verde, solo decisioni corrette */
+  --c-accent: #5d7fb8;       /* blu istituzionale per focus/hover */
+
+  /* Tipografia */
+  --font-mono: "IBM Plex Mono", "Cascadia Code", "Consolas", "DejaVu Sans Mono", monospace;
+  --font-ui: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  /* Spaziature, radius, ombre */
+  --space-1: 4px; --space-2: 8px; --space-3: 16px; --space-4: 24px; --space-5: 40px;
+  --radius: 2px;             /* brutalismo: angoli quasi vivi */
+  --shadow-panel: 0 4px 24px rgba(0, 0, 0, 0.6);
+  --border-panel: 1px solid var(--c-iron);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  background: var(--c-carbon);
+  color: var(--c-paper);
+  font-family: var(--font-mono);
+  overflow: hidden;
+}
+
+#app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at 50% 0%, #0d1426 0%, var(--c-carbon) 70%);
+}
+
+#game-container { position: relative; }
+#game-container canvas { display: block; }
+
+/* ---- Scanline / CRT overlay (disattivabile: body.reduced-motion) ---- */
+#crt-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0)   0px,
+    rgba(0, 0, 0, 0)   2px,
+    rgba(0, 0, 0, 0.08) 3px
+  );
+  mix-blend-mode: multiply;
+}
+
+#crt-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,0.45) 100%);
+}
+
+body.reduced-motion #crt-overlay { display: none; }
+
+/* Flicker leggerissimo del monitor */
+@keyframes crt-flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.96; }
+  94% { opacity: 1; }
+}
+body:not(.reduced-motion) #crt-overlay { animation: crt-flicker 7s infinite; }
+
+/* Focus visibile per eventuali elementi DOM (accessibilità) */
+:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
