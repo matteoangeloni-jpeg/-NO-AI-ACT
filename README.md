@@ -1,9 +1,29 @@
-# NO AI ACT
-### Simulatore di una società non regolata
+<div align="center">
+
+![NO AI ACT — Simulatore di una società non regolata](docs/banner.svg)
+
+[![Licenza codice: MIT](https://img.shields.io/badge/codice-MIT-3fa66a)](LICENSE)
+[![Contenuti: CC BY 4.0](https://img.shields.io/badge/contenuti-CC%20BY%204.0-5d7fb8)](LICENSE)
+[![Stack](https://img.shields.io/badge/stack-TypeScript%20%2B%20Phaser%203%20%2B%20Vite-101a30)](#stack)
+[![Test](https://img.shields.io/badge/test-Vitest-d9a521)](tests/)
+[![Stato](https://img.shields.io/badge/stato-vertical%20slice%20v0.1-d23b3b)](#roadmap)
+
+**Serious game investigativo sull'AI Act europeo · browser, zero asset esterni, salvataggio locale**
+
+[Avvio rapido](#installazione-e-avvio) ·
+[Come si gioca](#come-si-gioca) ·
+[Casi](#casi-implementati) ·
+[Game Design Document](docs/GDD.md) ·
+[Checklist smoke](docs/SMOKE_CHECKLIST.md) ·
+[Licenze](#licenze)
+
+</div>
+
+---
 
 > Anno 2032. In una città europea alternativa l'AI Act non è mai entrato in vigore.
 > La città è efficiente, automatizzata, predittiva. Nessuno riesce più a capire,
-> contestare o correggere le decisioni algoritmiche. Tu sei l'Ispettore.
+> contestare o correggere le decisioni algoritmiche. **Tu sei l'Ispettore.**
 
 Serious game investigativo per browser. Ogni caso è una catastrofe algoritmica
 plausibile; risolverlo significa classificare il sistema secondo la piramide del
@@ -152,3 +172,25 @@ semplificata". La rilevanza del rischio dipende sempre dal contesto d'uso.
 - **0.3** — modalità docente, esportazione report finale, domande di debriefing, scheda didattica PDF.
 - **0.4** — localizzazione IT/EN, PWA installabile, build desktop (Tauri).
 - **1.0** — playtest strutturati, revisione giuridica, asset originali, pubblicazione.
+
+---
+
+## English summary
+
+**NO AI ACT — Simulator of an unregulated society** is a browser-based
+investigative serious game about the EU AI Act (Regulation (EU) 2024/1689).
+It is 2032 in an alternate European city where the AI Act never entered into
+force: you are the Inspector for Algorithmic Incidents. Each case is a
+plausible algorithmic disaster — social scoring, opaque AI recruiting,
+unlabeled synthetic government media, emotion recognition in schools — to
+investigate, classify under the AI Act risk pyramid and remedy. Four city
+indicators react to every decision and determine one of three endings.
+
+Built with TypeScript, Phaser 3 and Vite; every graphic and sound is generated
+procedurally (no external assets, fully traced licensing). Educational
+simplification of the AI Act — not legal advice. Code: MIT · narrative and
+didactic content: CC BY 4.0.
+
+```bash
+npm install && npm run dev
+```

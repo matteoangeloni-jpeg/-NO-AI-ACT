@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-label="NO AI ACT — Simulatore di una società non regolata">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="0%" r="90%">
+      <stop offset="0%" stop-color="#101a30"/>
+      <stop offset="100%" stop-color="#07090f"/>
+    </radialGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M 64 0 L 0 0 0 64" fill="none" stroke="#1a2440" stroke-width="1"/>
+    </pattern>
+    <pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="2" fill="#000000" opacity="0.12"/>
+    </pattern>
+  </defs>
+
+  <rect width="1280" height="320" fill="url(#bg)"/>
+  <rect width="1280" height="320" fill="url(#grid)"/>
+
+  <!-- canale che attraversa la città -->
+  <path d="M -20 60 C 380 110, 680 160, 1300 130" fill="none" stroke="#16233f" stroke-width="22"/>
+
+  <!-- isolati -->
+  <g fill="#4a5260" opacity="0.14">
+    <rect x="90" y="210" width="56" height="30"/>
+    <rect x="170" y="180" width="40" height="60"/>
+    <rect x="1080" y="200" width="64" height="36"/>
+    <rect x="1170" y="160" width="44" height="76"/>
+    <rect x="990" y="230" width="52" height="28"/>
+    <rect x="120" y="120" width="36" height="44"/>
+  </g>
+
+  <!-- mirino di sorveglianza -->
+  <g stroke="#5d7fb8" stroke-width="2" fill="none" opacity="0.55">
+    <circle cx="1105" cy="95" r="34"/>
+    <circle cx="1105" cy="95" r="6"/>
+    <path d="M 1105 47 v 20 M 1105 123 v 20 M 1057 95 h 20 M 1133 95 h 20"/>
+  </g>
+
+  <!-- titolo -->
+  <g font-family="Consolas, 'DejaVu Sans Mono', Menlo, monospace">
+    <text x="640" y="118" text-anchor="middle" font-size="20" letter-spacing="6" fill="#9a988f">REPUBBLICA MUNICIPALE AUTOMATIZZATA — ANNO 2032</text>
+    <text x="643" y="198" text-anchor="middle" font-size="92" font-weight="bold" fill="#d23b3b" opacity="0.45">NO AI ACT</text>
+    <text x="640" y="195" text-anchor="middle" font-size="92" font-weight="bold" fill="#d8d6cd">NO AI ACT</text>
+    <text x="640" y="240" text-anchor="middle" font-size="24" letter-spacing="2" fill="#5d7fb8">Simulatore di una società non regolata</text>
+    <text x="640" y="286" text-anchor="middle" font-size="15" fill="#9a988f">indagine seriosa sull'AI Act europeo · versione didattica semplificata · non è consulenza legale</text>
+  </g>
+
+  <!-- timbro ispettorato -->
+  <g transform="translate(150 70) rotate(-8)" font-family="Consolas, 'DejaVu Sans Mono', monospace">
+    <rect x="-78" y="-26" width="156" height="52" fill="none" stroke="#d23b3b" stroke-width="2" opacity="0.6"/>
+    <text x="0" y="-4" text-anchor="middle" font-size="15" fill="#d23b3b" opacity="0.7">NON CLASSIFICATO</text>
+    <text x="0" y="16" text-anchor="middle" font-size="15" fill="#d23b3b" opacity="0.7">ISPETTORATO AX</text>
+  </g>
+
+  <rect width="1280" height="320" fill="url(#scan)"/>
+  <rect x="0.5" y="0.5" width="1279" height="319" fill="none" stroke="#4a5260" stroke-width="1"/>
+</svg>

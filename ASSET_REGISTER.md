@@ -31,6 +31,8 @@ verificabili dal campo `license` dei rispettivi pacchetti installati.
 | Scanline/CRT/glitch | CSS + tween Phaser | `global.css`, scene | repo | MIT (codice) | effetti visivi | n/a | procedural fallback |
 | Testi narrativi, casi, carte norma | contenuto editoriale | `src/game/data/` | repo | CC BY 4.0 | gameplay e didattica | sì, per chi li riusa (vedi LICENSE Sez. 2) | approved |
 | Font | font stack di sistema (IBM Plex Mono *se presente localmente*, altrimenti Consolas/DejaVu/monospace) | sistema operativo utente | n/a | nessun file font distribuito | tipografia | no | approved |
+| Banner repository | SVG disegnato a mano | `docs/banner.svg` | repo | MIT (vedi LICENSE Sez. 1) | testata README/GitHub | n/a | approved |
+| Badge README | immagini generate da shields.io al momento della visualizzazione | https://shields.io | README.md | servizio esterno (CC0 per i badge generati); nessun file distribuito nel repo o nella build | decorazione documentazione | no | approved |
 
 ## Asset valutati e scartati (per questa versione)
 
