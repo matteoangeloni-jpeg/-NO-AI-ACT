@@ -29,7 +29,7 @@ export class FinaleScene extends Phaser.Scene {
     else AudioSystem.alert();
 
     const titleColor =
-      ending.id === 'ending_governata' ? COLOR_STR.ok : ending.id === 'ending_opaca' ? COLOR_STR.alert : COLOR_STR.warning;
+      ending.id === 'ending_governata' ? COLOR_STR.ok : ending.id === 'ending_opaca' ? COLOR_STR.alertText : COLOR_STR.warning;
 
     this.add.text(cx, 70, 'RAPPORTO CONCLUSIVO DELL\'ISPETTORATO', textStyle(13, COLOR_STR.paperDim)).setOrigin(0.5);
     this.add.text(cx, 110, ending.title, textStyle(28, titleColor, { fontStyle: 'bold' })).setOrigin(0.5);
@@ -41,7 +41,7 @@ export class FinaleScene extends Phaser.Scene {
 
     // stato finale degli indicatori
     this.add.rectangle(cx + 340, 290, 320, 230, COLORS.carbon, 0.85).setStrokeStyle(1, COLORS.iron);
-    this.add.text(cx + 200, 190, 'STATO FINALE DELLA CITTÀ', textStyle(11, COLOR_STR.paperDim));
+    this.add.text(cx + 200, 190, 'STATO FINALE DELLA CITTÀ', textStyle(12, COLOR_STR.paperDim));
     new IndicatorHud(this, cx + 200, 214, 270);
 
     // messaggio finale obbligatorio

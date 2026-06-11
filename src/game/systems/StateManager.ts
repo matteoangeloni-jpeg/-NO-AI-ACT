@@ -30,6 +30,10 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
     return this.data.reducedMotion;
   }
 
+  get crtOverlay(): boolean {
+    return this.data.crtOverlay;
+  }
+
   get endingId(): string | null {
     return this.data.endingId;
   }
@@ -52,15 +56,17 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
 
   /** Registra l'esito di un caso, aggiorna indicatori e sblocca la norma. */
   resolveCase(caseId: string, normId: string, quality: OutcomeQuality): IndicatorState {
-    const before = { ...this.data.indicators };
     this.data.indicators = applyOutcome(this.data.indicators, quality);
     this.data.completedCases[caseId] = quality;
     if (!this.data.unlockedNorms.includes(normId)) {
       this.data.unlockedNorms.push(normId);
     }
     this.persist();
-    this.emit('indicators-changed', before, this.indicators, quality);
     return this.indicators;
+  }
+
+  caseQuality(caseId: string): OutcomeQuality | undefined {
+    return this.data.completedCases[caseId];
   }
 
   setEnding(endingId: string): void {
@@ -83,18 +89,27 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
     this.data.reducedMotion = reduced;
     this.persist();
     document.body.classList.toggle('reduced-motion', reduced);
-    this.emit('reduced-motion-changed', reduced);
+  }
+
+  setCrtOverlay(enabled: boolean): void {
+    this.data.crtOverlay = enabled;
+    this.persist();
+    document.body.classList.toggle('no-crt', !enabled);
   }
 
   newGame(): void {
-    const prefs = { audioMuted: this.data.audioMuted, reducedMotion: this.data.reducedMotion };
+    const prefs = {
+      audioMuted: this.data.audioMuted,
+      reducedMotion: this.data.reducedMotion,
+      crtOverlay: this.data.crtOverlay
+    };
     this.data = { ...SaveSystem.reset(), ...prefs };
     this.persist();
-    this.emit('game-reset');
   }
 
   applyDomPreferences(): void {
     document.body.classList.toggle('reduced-motion', this.data.reducedMotion);
+    document.body.classList.toggle('no-crt', !this.data.crtOverlay);
   }
 
   private persist(): void {

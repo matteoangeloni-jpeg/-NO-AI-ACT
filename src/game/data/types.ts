@@ -90,6 +90,7 @@ export interface SaveData {
   unlockedNorms: string[];
   audioMuted: boolean;
   reducedMotion: boolean;
+  crtOverlay: boolean;
   endingId: string | null;
   briefingSeen: boolean;
 }

@@ -29,7 +29,7 @@ export class BriefingScene extends Phaser.Scene {
 
     new Panel(this, cx, GAME_HEIGHT / 2, 860, 560);
     this.add.text(cx - 400, 90, 'ISPETTORATO PER GLI INCIDENTI ALGORITMICI', textStyle(13, COLOR_STR.alert));
-    this.add.text(cx - 400, 112, 'BRIEFING RISERVATO — PRATICA AX/2032', textStyle(11, COLOR_STR.paperDim));
+    this.add.text(cx - 400, 112, 'BRIEFING RISERVATO — PRATICA AX/2032', textStyle(12, COLOR_STR.paperDim));
 
     const body = new TypewriterText(this, cx - 400, 150, 15, COLOR_STR.paper, 800);
     const btn = new Button(this, cx, GAME_HEIGHT - 90, 'ACCEDI ALLA MAPPA CIVICA', () => {

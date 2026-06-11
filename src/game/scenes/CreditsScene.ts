@@ -23,7 +23,7 @@ export class CreditsScene extends Phaser.Scene {
     for (const entry of LicenseNoticeSystem.entries()) {
       this.add.text(left, y, entry.name.toUpperCase(), textStyle(13, COLOR_STR.accent));
       this.add.text(left + 280, y, `${entry.type} — ${entry.license}`, textStyle(12, COLOR_STR.paper, { wordWrap: { width: 560 } }));
-      this.add.text(left + 280, y + 17, entry.source, textStyle(10.5, COLOR_STR.paperDim));
+      this.add.text(left + 280, y + 17, entry.source, textStyle(12, COLOR_STR.paperDim));
       y += 46;
     }
 

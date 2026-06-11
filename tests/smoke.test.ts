@@ -3,7 +3,7 @@ import { CASES, CASES_REQUIRED_FOR_FINALE, LOCATIONS, PLAYABLE_CASES, getCase } 
 import { NORMS, getNorm } from '../src/game/data/norms';
 import { ENDINGS, computeEnding, FINAL_MESSAGE } from '../src/game/data/endings';
 import { INITIAL_INDICATORS, applyOutcome, clampIndicator } from '../src/game/data/indicators';
-import { evaluateDecision } from '../src/game/systems/CaseSystem';
+import { evaluateDecision, isAdjacentClassification } from '../src/game/systems/CaseSystem';
 
 describe('integrità dei dati di gioco', () => {
   it('ha 6 luoghi e 6 casi, di cui almeno 4 giocabili', () => {
@@ -67,6 +67,27 @@ describe('valutazione delle decisioni', () => {
     expect(evaluateDecision(ospedale, 'alto_rischio', 'blocco')).toBe('partial');
     // il blocco prudente non deve mai equivalere a "nessuna misura"
     expect(evaluateDecision(lavoro, 'alto_rischio', 'nessuna')).toBe('wrong');
+  });
+});
+
+describe('matrice di adiacenza delle classificazioni', () => {
+  it('una classificazione non è mai adiacente a sé stessa', () => {
+    expect(isAdjacentClassification('vietata', 'vietata')).toBe(false);
+    expect(isAdjacentClassification('alto_rischio', 'alto_rischio')).toBe(false);
+  });
+
+  it('vietata ↔ alto rischio sono adiacenti; alto rischio ↔ trasparenza idem', () => {
+    expect(isAdjacentClassification('vietata', 'alto_rischio')).toBe(true);
+    expect(isAdjacentClassification('alto_rischio', 'vietata')).toBe(true);
+    expect(isAdjacentClassification('alto_rischio', 'trasparenza')).toBe(true);
+    expect(isAdjacentClassification('trasparenza', 'alto_rischio')).toBe(true);
+  });
+
+  it('negare il problema non è mai adiacente', () => {
+    expect(isAdjacentClassification('vietata', 'non_rilevante')).toBe(false);
+    expect(isAdjacentClassification('vietata', 'basso_rischio')).toBe(false);
+    expect(isAdjacentClassification('alto_rischio', 'non_rilevante')).toBe(false);
+    expect(isAdjacentClassification('trasparenza', 'non_rilevante')).toBe(false);
   });
 });
 

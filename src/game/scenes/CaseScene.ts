@@ -31,7 +31,7 @@ export class CaseScene extends Phaser.Scene {
     this.tweens.add({ targets: dossier, alpha: 1, y: GAME_HEIGHT / 2, duration: 350, ease: 'Cubic.easeOut' });
 
     const left = cx - 410;
-    this.add.text(left, 70, `FASCICOLO ${this.caseData.fileCode}`, textStyle(13, COLOR_STR.alert));
+    this.add.text(left, 70, `FASCICOLO ${this.caseData.fileCode}`, textStyle(13, COLOR_STR.alertText));
     this.add.text(left, 92, this.caseData.locationName.toUpperCase(), textStyle(12, COLOR_STR.paperDim));
     this.add.text(left, 124, this.caseData.title.toUpperCase(), textStyle(26, COLOR_STR.paper, { fontStyle: 'bold' }));
     this.add.rectangle(cx, 165, 820, 1, COLORS.iron).setOrigin(0.5);

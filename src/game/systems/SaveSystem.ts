@@ -11,6 +11,7 @@ export function defaultSave(): SaveData {
     unlockedNorms: [],
     audioMuted: false,
     reducedMotion: false,
+    crtOverlay: true,
     endingId: null,
     briefingSeen: false
   };
@@ -47,13 +48,7 @@ export const SaveSystem = {
   },
 
   hasSave(): boolean {
-    try {
-      const raw = localStorage.getItem(KEY);
-      if (!raw) return false;
-      const parsed = JSON.parse(raw) as SaveData;
-      return Object.keys(parsed.completedCases ?? {}).length > 0 || parsed.briefingSeen;
-    } catch {
-      return false;
-    }
+    const data = this.load();
+    return Object.keys(data.completedCases).length > 0 || data.briefingSeen;
   }
 };

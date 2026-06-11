@@ -22,7 +22,9 @@ indicatori della città → (dopo 4 casi) finale.
 - **Decisione in due passi**: classificazione (5 opzioni) poi misura (7 opzioni).
 - **Valutazione a tre livelli**: corretta / parziale / non conforme
   (vedi `CaseSystem.evaluateDecision`: classificazioni "adiacenti" con misura
-  giusta valgono parziale; negare il problema è sempre errore).
+  giusta valgono parziale; bloccare un sistema correttamente classificato come
+  alto rischio è eccesso di cautela → parziale; negare il problema è sempre
+  errore).
 - **Collezione**: 6 carte norma consultabili nell'Archivio.
 
 ## 5. Indicatori

@@ -20,6 +20,9 @@ export const COLOR_STR = {
   paper: '#d8d6cd',
   paperDim: '#9a988f',
   alert: '#d23b3b',
+  /** Variante chiara del rosso per il TESTO: il rosso pieno è sotto il
+   *  contrasto AA su fondo scuro; #e25b5b regge ~5.5:1 su nero carbone. */
+  alertText: '#e25b5b',
   warning: '#d9a521',
   ok: '#3fa66a',
   accent: '#5d7fb8'

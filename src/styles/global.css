@@ -74,6 +74,10 @@ html, body {
 
 body.reduced-motion #crt-overlay { display: none; }
 
+/* Toggle dedicato per l'overlay CRT (aule/proiettori): indipendente
+   dalla riduzione delle animazioni. */
+body.no-crt #crt-overlay { display: none; }
+
 /* Flicker leggerissimo del monitor */
 @keyframes crt-flicker {
   0%, 100% { opacity: 1; }

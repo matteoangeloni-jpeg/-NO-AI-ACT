@@ -106,10 +106,15 @@ perché **non ci sono asset esterni**: tutto è generato proceduralmente
 
 ## Accessibilità
 
-- Contrasto elevato, font monospace ≥ 11px, valori numerici sempre accanto alle barre.
+- Contrasto AA: il testo rosso usa una variante chiara (#e25b5b, ~5.5:1 su fondo scuro).
+- Font monospace ≥ 12px, valori numerici sempre accanto alle barre.
 - L'informazione non è mai affidata al solo colore (etichette testuali ovunque).
-- Toggle "ANIMAZIONI: RIDOTTE" (persistito): disattiva typewriter, glitch, scanline e pulse.
-- Audio disattivabile e persistito; ESC torna alla mappa; click per saltare i testi.
+- Toggle "ANIMAZIONI: RIDOTTE" (persistito): disattiva typewriter, glitch, shake e pulse.
+- Toggle "EFFETTO CRT" separato (persistito): rimuove scanline/vignettatura — pensato
+  per proiettori e aule.
+- Tastiera: tasti 1–5 / 1–7 per le decisioni, ESC per tornare indietro.
+- Audio disattivabile e persistito; click per saltare i testi.
+- Limite noto: nessun supporto screen reader (rendering canvas).
 
 ## Fonti normative
 
@@ -136,7 +141,8 @@ semplificata". La rilevanza del rischio dipende sempre dal contesto d'uso.
 
 - Vertical slice: 4 casi giocabili su 6.
 - Il contenuto giuridico è semplificato e non sostituisce il testo del regolamento.
-- Navigazione da tastiera basilare (ESC/click); navigazione completa a frecce in roadmap.
+- Tastiera: scorciatoie numeriche e ESC; navigazione a frecce/focus completo in roadmap.
+- Nessun supporto screen reader (canvas).
 - Lingua: solo italiano (EN in roadmap).
 - Bundle Phaser ~360 KB gzip: accettabile per un gioco, non ottimizzato per mobile-first.
 

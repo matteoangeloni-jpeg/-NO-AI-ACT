@@ -9,7 +9,7 @@ export function showToast(scene: Phaser.Scene, message: string, kind: ToastKind 
   const colors: Record<ToastKind, { stroke: number; text: string; prefix: string }> = {
     info: { stroke: COLORS.accent, text: COLOR_STR.paper, prefix: 'AVVISO' },
     warning: { stroke: COLORS.warning, text: COLOR_STR.warning, prefix: 'ATTENZIONE' },
-    alert: { stroke: COLORS.alert, text: COLOR_STR.alert, prefix: 'ALLARME' },
+    alert: { stroke: COLORS.alert, text: COLOR_STR.alertText, prefix: 'ALLARME' },
     ok: { stroke: COLORS.ok, text: COLOR_STR.ok, prefix: 'REGISTRATO' }
   };
   const c = colors[kind];

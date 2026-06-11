@@ -20,8 +20,8 @@ export class IndicatorBar {
     this.width = width;
     this.value = value;
 
-    this.labelText = scene.add.text(x, y, label, textStyle(11, COLOR_STR.paperDim));
-    this.valueText = scene.add.text(x + width, y, String(value), textStyle(11, COLOR_STR.paper)).setOrigin(1, 0);
+    this.labelText = scene.add.text(x, y, label, textStyle(12, COLOR_STR.paperDim));
+    this.valueText = scene.add.text(x + width, y, String(value), textStyle(12, COLOR_STR.paper)).setOrigin(1, 0);
     this.barBg = scene.add.rectangle(x, y + 16, width, 8, COLORS.carbon).setOrigin(0, 0);
     this.barFill = scene.add
       .rectangle(x, y + 16, (width * value) / 100, 8, this.colorFor(value))
@@ -55,7 +55,7 @@ export class IndicatorBar {
     if (delta !== 0) {
       const sign = delta > 0 ? '+' : '';
       const deltaText = this.scene.add
-        .text(this.valueText.x + 8, this.valueText.y, `${sign}${delta}`, textStyle(11, delta > 0 ? COLOR_STR.accent : COLOR_STR.warning))
+        .text(this.valueText.x + 8, this.valueText.y, `${sign}${delta}`, textStyle(12, delta > 0 ? COLOR_STR.accent : COLOR_STR.warning))
         .setOrigin(0, 0);
       this.scene.tweens.add({
         targets: deltaText,

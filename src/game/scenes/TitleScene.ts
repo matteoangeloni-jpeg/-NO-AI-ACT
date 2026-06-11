@@ -17,6 +17,7 @@ export class TitleScene extends Phaser.Scene {
   create(): void {
     const cx = GAME_WIDTH / 2;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
+    AudioSystem.stopDrone(); // il drone ambientale appartiene alla città, non al menu
     this.add.image(cx, GAME_HEIGHT / 2, 'citymap').setAlpha(0.25);
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.5);
 
@@ -47,14 +48,15 @@ export class TitleScene extends Phaser.Scene {
       new Button(this, cx, y, 'RESET SALVATAGGIO', () => {
         StateManager.newGame();
         showToast(this, 'Salvataggio azzerato.', 'warning');
-        this.scene.restart();
+        // lascia il tempo di leggere il toast prima che il restart lo distrugga
+        this.time.delayedCall(900, () => this.scene.restart());
       }, { variant: 'danger', height: 40, fontSize: 13 });
     }
 
     this.buildPrefsToggles();
 
     this.add
-      .text(cx, GAME_HEIGHT - 24, 'Versione didattica semplificata dell\'AI Act (Reg. UE 2024/1689). Non costituisce consulenza legale.', textStyle(11, COLOR_STR.paperDim))
+      .text(cx, GAME_HEIGHT - 24, 'Versione didattica semplificata dell\'AI Act (Reg. UE 2024/1689). Non costituisce consulenza legale.', textStyle(12, COLOR_STR.paperDim))
       .setOrigin(0.5);
   }
 
@@ -85,12 +87,23 @@ export class TitleScene extends Phaser.Scene {
       },
       { width: 160, height: 34, fontSize: 12, variant: 'ghost' }
     );
+    // toggle dedicato per aule/proiettori: indipendente dalle animazioni
+    const crtBtn = new Button(
+      this,
+      x - 90,
+      114,
+      StateManager.crtOverlay ? 'EFFETTO CRT: ON' : 'EFFETTO CRT: OFF',
+      () => {
+        StateManager.setCrtOverlay(!StateManager.crtOverlay);
+        crtBtn.setLabel(StateManager.crtOverlay ? 'EFFETTO CRT: ON' : 'EFFETTO CRT: OFF');
+      },
+      { width: 160, height: 34, fontSize: 12, variant: 'ghost' }
+    );
   }
 
   private startGame(isNew: boolean): void {
     AudioSystem.init();
     AudioSystem.confirm();
-    AudioSystem.startDrone();
     this.cameras.main.fadeOut(300, 0, 0, 0);
     this.cameras.main.once('camerafadeoutcomplete', () => {
       if (isNew || !StateManager.briefingSeen) this.scene.start('Briefing');

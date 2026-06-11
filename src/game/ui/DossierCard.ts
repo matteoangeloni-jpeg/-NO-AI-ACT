@@ -18,7 +18,7 @@ export class DossierCard extends Phaser.GameObjects.Container {
     height: number,
     clue: Clue,
     index: number,
-    private onReveal: (allRevealedCheck: () => void) => void
+    private onReveal: () => void
   ) {
     super(scene, x, y);
 
@@ -54,7 +54,7 @@ export class DossierCard extends Phaser.GameObjects.Container {
         body.setVisible(true);
         bg.setStrokeStyle(1, COLORS.warning);
         scene.tweens.add({ targets: [title, body], alpha: { from: 0, to: 1 }, duration: 250 });
-        this.onReveal(() => undefined);
+        this.onReveal();
       });
   }
 

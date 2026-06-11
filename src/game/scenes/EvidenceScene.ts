@@ -27,7 +27,7 @@ export class EvidenceScene extends Phaser.Scene {
     this.cameras.main.fadeIn(250, 0, 0, 0);
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
 
-    this.add.text(cx, 56, `FASCICOLO ${this.caseData.fileCode} — REPERTI`, textStyle(14, COLOR_STR.alert)).setOrigin(0.5);
+    this.add.text(cx, 56, `FASCICOLO ${this.caseData.fileCode} — REPERTI`, textStyle(14, COLOR_STR.alertText)).setOrigin(0.5);
     this.add.text(cx, 80, 'Esaminare tutti i reperti per procedere alla classificazione.', textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
     this.add.rectangle(cx, 100, 900, 1, COLORS.iron);
 

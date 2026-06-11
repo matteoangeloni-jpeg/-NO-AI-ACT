@@ -103,7 +103,7 @@ export class Button extends Phaser.GameObjects.Container {
 
   private textColor(): string {
     switch (this.opts.variant) {
-      case 'danger': return COLOR_STR.alert;
+      case 'danger': return COLOR_STR.alertText;
       case 'ok': return COLOR_STR.ok;
       case 'ghost': return COLOR_STR.paperDim;
       default: return COLOR_STR.paper;

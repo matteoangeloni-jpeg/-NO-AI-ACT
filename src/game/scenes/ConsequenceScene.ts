@@ -4,6 +4,7 @@ import type { CaseData, Classification, Measure, OutcomeQuality } from '../data/
 import { consequenceFor, noteFor } from '../systems/CaseSystem';
 import { IndicatorHud, randomComment } from '../systems/IndicatorSystem';
 import { StateManager } from '../systems/StateManager';
+import type { IndicatorState } from '../data/types';
 import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
 import { TypewriterText } from '../ui/TypewriterText';
@@ -14,12 +15,14 @@ interface ConsequenceParams {
   classification: Classification;
   measure: Measure;
   quality: OutcomeQuality;
+  before: IndicatorState;
+  after: IndicatorState;
 }
 
 const QUALITY_LABELS: Record<OutcomeQuality, { text: string; color: string }> = {
   correct: { text: 'DECISIONE CONFORME', color: COLOR_STR.ok },
   partial: { text: 'DECISIONE PARZIALE', color: COLOR_STR.warning },
-  wrong: { text: 'DECISIONE NON CONFORME', color: COLOR_STR.alert }
+  wrong: { text: 'DECISIONE NON CONFORME', color: COLOR_STR.alertText }
 };
 
 /** Esito della decisione: conseguenza narrativa + aggiornamento indicatori. */
@@ -43,9 +46,8 @@ export class ConsequenceScene extends Phaser.Scene {
     this.cameras.main.fadeIn(250, 0, 0, 0);
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
 
-    // applica l'esito allo stato (salvataggio automatico incluso)
-    const before = StateManager.indicators;
-    const after = StateManager.resolveCase(this.caseData.id, this.caseData.normId, quality);
+    // l'esito è già stato registrato da DecisionScene: qui si mostra soltanto
+    const { before, after } = this.params;
 
     if (quality === 'wrong' && !StateManager.reducedMotion) {
       this.cameras.main.shake(220, 0.004);
@@ -64,18 +66,18 @@ export class ConsequenceScene extends Phaser.Scene {
 
     // conseguenza narrativa
     new Panel(this, cx - 190, 300, 620, 320);
-    this.add.text(cx - 480, 158, 'ESITO SUL TERRITORIO', textStyle(11, COLOR_STR.paperDim));
+    this.add.text(cx - 480, 158, 'ESITO SUL TERRITORIO', textStyle(12, COLOR_STR.paperDim));
     const consequence = new TypewriterText(this, cx - 480, 184, 14, COLOR_STR.paper, 580);
 
     // nota investigativa
-    this.add.text(cx - 480, 380, 'NOTA INVESTIGATIVA', textStyle(11, COLOR_STR.paperDim));
+    this.add.text(cx - 480, 380, 'NOTA INVESTIGATIVA', textStyle(12, COLOR_STR.paperDim));
     const note = this.add
-      .text(cx - 480, 404, noteFor(this.caseData, quality), textStyle(13, quality === 'wrong' ? COLOR_STR.alert : COLOR_STR.accent, { wordWrap: { width: 580 }, lineSpacing: 5 }))
+      .text(cx - 480, 404, noteFor(this.caseData, quality), textStyle(13, quality === 'wrong' ? COLOR_STR.alertText : COLOR_STR.accent, { wordWrap: { width: 580 }, lineSpacing: 5 }))
       .setAlpha(0);
 
     // pannello indicatori animati
     this.add.rectangle(cx + 330, 280, 320, 240, COLORS.carbon, 0.85).setStrokeStyle(1, COLORS.iron);
-    this.add.text(cx + 190, 172, 'STATO DELLA CITTÀ', textStyle(11, COLOR_STR.paperDim));
+    this.add.text(cx + 190, 172, 'STATO DELLA CITTÀ', textStyle(12, COLOR_STR.paperDim));
     const hud = new IndicatorHud(this, cx + 190, 200, 270);
     hud.setState(before);
     this.time.delayedCall(600, () => hud.animateTo(this, before, after));
