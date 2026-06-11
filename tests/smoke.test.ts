@@ -60,6 +60,37 @@ describe('valutazione delle decisioni', () => {
     expect(evaluateDecision(scoring, 'non_rilevante', 'nessuna')).toBe('wrong');
     expect(evaluateDecision(lavoro, 'basso_rischio', 'nessuna')).toBe('wrong');
   });
+
+  it('eccesso di cautela: blocco su alto rischio classificato bene → partial, mai wrong', () => {
+    expect(evaluateDecision(lavoro, 'alto_rischio', 'blocco')).toBe('partial');
+    const ospedale = getCase('case_ospedale');
+    expect(evaluateDecision(ospedale, 'alto_rischio', 'blocco')).toBe('partial');
+    // il blocco prudente non deve mai equivalere a "nessuna misura"
+    expect(evaluateDecision(lavoro, 'alto_rischio', 'nessuna')).toBe('wrong');
+  });
+});
+
+describe('accuratezza dei testi normativi', () => {
+  it('biometria: il divieto è circoscritto alle finalità di contrasto, non generalizzato', () => {
+    const biometria = getNorm('norm_biometria');
+    expect(biometria.explanation).toContain('finalità di contrasto');
+    expect(biometria.explanation).toContain('alto rischio');
+    expect(biometria.explanation).not.toMatch(/in linea generale vietata/);
+  });
+
+  it('art. 50: distingue i due obblighi e segnala il cumulo con altre categorie', () => {
+    const trasparenza = getNorm('norm_trasparenza_sintetici');
+    expect(trasparenza.explanation).toMatch(/cumular/);
+    expect(trasparenza.explanation).toContain('(1)');
+    expect(trasparenza.explanation).toContain('(2)');
+  });
+
+  it('nessun caso giocabile presenta "attenzione" come emozione inferita', () => {
+    for (const c of PLAYABLE_CASES) {
+      const allText = [c.scenario, ...c.clues.map((k) => `${k.title} ${k.text}`)].join(' ');
+      expect(allText.toLowerCase()).not.toContain('attenzione');
+    }
+  });
 });
 
 describe('indicatori', () => {
@@ -99,6 +130,13 @@ describe('finali multipli', () => {
 
   it('governance fragile nei casi intermedi', () => {
     expect(computeEnding({ efficienza: 70, controllo: 50, diritti: 50, fiducia: 55 }).id).toBe('ending_fragile');
+  });
+
+  it('boundary esatti: 40 non è opaca, 59 è fragile, 60 è governata', () => {
+    expect(computeEnding({ efficienza: 70, controllo: 50, diritti: 40, fiducia: 40 }).id).toBe('ending_fragile');
+    expect(computeEnding({ efficienza: 70, controllo: 50, diritti: 59, fiducia: 80 }).id).toBe('ending_fragile');
+    expect(computeEnding({ efficienza: 70, controllo: 50, diritti: 80, fiducia: 59 }).id).toBe('ending_fragile');
+    expect(computeEnding({ efficienza: 70, controllo: 50, diritti: 60, fiducia: 60 }).id).toBe('ending_governata');
   });
 
   it('esistono tre finali e il messaggio finale obbligatorio', () => {

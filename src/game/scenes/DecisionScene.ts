@@ -44,15 +44,27 @@ export class DecisionScene extends Phaser.Scene {
   private showClassificationStep(): void {
     const cx = GAME_WIDTH / 2;
     this.header('DECISIONE 1 DI 2 — CLASSIFICAZIONE', 'Come si qualifica questo sistema rispetto all\'AI Act?');
+    this.add
+      .text(
+        cx,
+        170,
+        'Nel regolamento, il rischio non dipende solo dalla tecnologia, ma dal contesto d\'uso, dalla finalità e dagli effetti sulle persone.',
+        textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: 880 }, align: 'center' })
+      )
+      .setOrigin(0.5, 0);
 
     CLASSIFICATIONS.forEach((cls, i) => {
-      new Button(this, cx, 210 + i * 64, CLASSIFICATION_LABELS[cls].toUpperCase(), () => {
+      new Button(this, cx, 230 + i * 64, CLASSIFICATION_LABELS[cls].toUpperCase(), () => {
         this.classification = cls;
         AudioSystem.confirm();
-        // distruggi tutto (input compreso) prima di costruire il secondo step
-        this.children.list.slice().forEach((child) => child.destroy());
-        this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
-        this.showMeasureStep();
+        // distruggi i children fuori dal dispatch dell'input: distruggere
+        // oggetti interattivi dentro il loro stesso handler pointerdown è
+        // territorio da bug intermittente in Phaser
+        this.time.delayedCall(0, () => {
+          this.children.list.slice().forEach((child) => child.destroy());
+          this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+          this.showMeasureStep();
+        });
       }, { width: 460 });
     });
 

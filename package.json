@@ -6,10 +6,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit && vite build && node scripts/copy-notices.mjs",
     "preview": "vite preview",
     "test": "vitest run"
   },
+  "license": "(MIT AND CC-BY-4.0)",
   "dependencies": {
     "phaser": "^3.87.0"
   },

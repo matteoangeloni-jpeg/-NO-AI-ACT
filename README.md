@@ -124,9 +124,13 @@ semplificata". La rilevanza del rischio dipende sempre dal contesto d'uso.
 
 ## Licenze
 
-Codice e contenuti del repository: vedi `LICENSE_NOTES.md`.
-Librerie: Phaser (MIT), Vite (MIT), TypeScript (Apache-2.0), Vitest (MIT, solo dev).
-Asset: tutti procedurali, registro completo in `ASSET_REGISTER.md` e `CREDITS.md`.
+- **Codice** (sistemi, generatori procedurali, UI, configurazione): **MIT** — `LICENSE`, Sezione 1.
+- **Contenuti narrativi e didattici** (casi, carte norma, documentazione): **CC BY 4.0** — `LICENSE`, Sezione 2.
+- **Terze parti**: il bundle distribuito include Phaser (MIT); il notice viaggia
+  con la build perché `npm run build` copia `THIRD_PARTY_LICENSES.md`, `LICENSE`
+  e `CREDITS.md` in `dist/` (`scripts/copy-notices.mjs`). Vite/Rollup da soli
+  non includono i testi di licenza nella build.
+- Registro asset completo: `ASSET_REGISTER.md`; dettagli: `LICENSE_NOTES.md`.
 
 ## Limiti noti
 

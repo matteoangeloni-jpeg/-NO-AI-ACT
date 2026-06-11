@@ -5,7 +5,9 @@ import type { CaseData, Classification, Measure, OutcomeQuality } from '../data/
  *
  *  - correct: classificazione esatta E misura tra quelle pienamente corrette;
  *  - partial: classificazione esatta con misura solo mitigante, oppure
- *    classificazione "adiacente" con misura pienamente corretta;
+ *    classificazione "adiacente" con misura pienamente corretta, oppure
+ *    eccesso di cautela (bloccare un sistema correttamente classificato
+ *    come alto rischio);
  *  - wrong: tutto il resto.
  */
 export function evaluateDecision(
@@ -19,6 +21,11 @@ export function evaluateDecision(
 
   if (classOk && measureFull) return 'correct';
   if (classOk && measurePartial) return 'partial';
+  // L'eccesso di cautela non è negazione del problema: bloccare un sistema
+  // ad alto rischio classificato correttamente vale come decisione parziale.
+  if (classOk && caseData.correctClassification === 'alto_rischio' && measure === 'blocco') {
+    return 'partial';
+  }
   if (isAdjacentClassification(caseData.correctClassification, classification) && measureFull) {
     return 'partial';
   }

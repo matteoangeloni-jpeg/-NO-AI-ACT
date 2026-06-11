@@ -59,7 +59,7 @@ export class CityMapScene extends Phaser.Scene {
       .text(0, 42, loc.name.toUpperCase(), textStyle(11, completed ? COLOR_STR.ok : COLOR_STR.paper, { align: 'center' }))
       .setOrigin(0.5);
     const statusTag = this.add
-      .text(0, 58, completed ? '[ CASO CHIUSO ]' : playable ? '[ INCIDENTE APERTO ]' : '[ ACCESSO NEGATO — v0.2 ]', textStyle(10, completed ? COLOR_STR.ok : playable ? COLOR_STR.alert : COLOR_STR.paperDim))
+      .text(0, 58, completed ? '[ CASO CHIUSO ]' : playable ? '[ INCIDENTE APERTO ]' : '[ FASCICOLO SOTTO SEQUESTRO ]', textStyle(10, completed ? COLOR_STR.ok : playable ? COLOR_STR.alert : COLOR_STR.paperDim))
       .setOrigin(0.5);
     container.add([ring, icon, nameTag, statusTag]);
 
@@ -82,7 +82,7 @@ export class CityMapScene extends Phaser.Scene {
         }
         if (!caseData.playable) {
           AudioSystem.error();
-          showToast(this, 'Fascicolo non ancora disponibile in questa versione.', 'warning');
+          showToast(this, 'Fascicolo sotto sequestro. Autorizzazione di accesso negata.', 'warning');
           return;
         }
         AudioSystem.confirm();

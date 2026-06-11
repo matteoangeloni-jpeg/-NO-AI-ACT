@@ -44,9 +44,13 @@ export const NORMS: NormCardData[] = [
     reference: 'AI Act — art. 50 (obblighi di trasparenza)',
     level: 'Trasparenza',
     explanation:
-      'I contenuti generati o manipolati artificialmente (inclusi i deepfake) ' +
-      'devono essere riconoscibili come tali: chi li diffonde deve etichettarli ' +
-      'e informare le persone che interagiscono con un sistema di IA.',
+      'Due obblighi distinti: (1) chi interagisce con un sistema di IA deve ' +
+      'essere informato di stare interagendo con una macchina; (2) i contenuti ' +
+      'generati o manipolati artificialmente (inclusi i deepfake) devono essere ' +
+      'resi riconoscibili come tali da chi li crea o li diffonde. ' +
+      'Nota didattica: gli obblighi di trasparenza possono cumularsi con altre ' +
+      'categorie di rischio; qui sono presentati come categoria autonoma solo ' +
+      'per finalità didattica.',
     democraticFunction:
       'La trasparenza protegge la capacità di distinguere comunicazione pubblica, ' +
       'manipolazione e contenuto sintetico.',
@@ -90,9 +94,12 @@ export const NORMS: NormCardData[] = [
     reference: 'AI Act — art. 5 e disposizioni specifiche sulla biometria',
     level: 'Condizioni restrittive',
     explanation:
-      "L'identificazione biometrica remota in tempo reale negli spazi pubblici è " +
-      'in linea generale vietata; eventuali eccezioni sono tassative, soggette a ' +
-      'condizioni molto restrittive, autorizzazioni e garanzie.',
+      "Il divieto dell'art. 5 riguarda l'identificazione biometrica remota " +
+      '«in tempo reale» in spazi accessibili al pubblico quando è usata per ' +
+      'finalità di contrasto (attività di polizia), salvo eccezioni tassative ' +
+      'soggette a condizioni e autorizzazioni molto restrittive. Altri usi ' +
+      'biometrici possono ricadere in regimi diversi — inclusi i sistemi ad ' +
+      "alto rischio — secondo il contesto d'uso e la finalità.",
     democraticFunction:
       'Lo spazio pubblico non può diventare una zona di identificazione ' +
       'automatica permanente.',

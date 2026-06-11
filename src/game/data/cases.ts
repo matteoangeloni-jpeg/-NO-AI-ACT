@@ -138,8 +138,9 @@ export const CASES: CaseData[] = [
       'sotto obblighi verificabili: gestione del rischio, dati di qualità, ' +
       'supervisione umana reale, log e informazione ai candidati.',
     notePartial:
-      'Nota investigativa: la misura scelta tocca solo una parte del problema. ' +
-      'Senza audit, oversight effettivo e qualità dei dati il filtro resta opaco.',
+      'Nota investigativa: misura non calibrata. Un sistema ad alto rischio non ' +
+      'va né lasciato a metà né semplicemente spento: servono audit, oversight ' +
+      'effettivo e qualità dei dati.',
     noteWrong:
       'Nota investigativa: il fascicolo resta aperto. Le persone continuano a ' +
       'essere scartate da un sistema che nessuno può interrogare.',
@@ -220,10 +221,10 @@ export const CASES: CaseData[] = [
     title: 'La classe osservata',
     fileCode: 'AX-063/2032',
     scenario:
-      'La rete scolastica municipale ha installato webcam con analisi emotiva in ' +
-      'ogni aula. Il sistema stima attenzione, stress, noia, aggressività e ' +
-      '"predisposizione al fallimento". Gli studenti vengono smistati in gruppi ' +
-      'di livello sulla base di queste inferenze. Una tredicenne è stata spostata ' +
+      'Una rete scolastica usa webcam e IA in ogni aula per inferire stati ' +
+      'emotivi e affettivi: stress, noia, aggressività e "predisposizione al ' +
+      'fallimento". Gli studenti vengono smistati in gruppi di livello sulla ' +
+      'base di queste inferenze. Una tredicenne è stata spostata ' +
       'nel "gruppo di contenimento" perché il sistema legge il suo volto come ' +
       '"ostile". È solo molto timida.',
     clues: [
@@ -314,8 +315,9 @@ export const CASES: CaseData[] = [
       'gestione del rischio, dati rappresentativi, monitoraggio post-market e ' +
       'personale capace di contraddire il punteggio.',
     notePartial:
-      'Nota investigativa: misura insufficiente. Senza audit per sottogruppi e ' +
-      'qualità dei dati, il triage continua a sbagliare in silenzio.',
+      'Nota investigativa: misura non calibrata. Né il punteggio cieco né lo ' +
+      'spegnimento puro: senza audit per sottogruppi, qualità dei dati e ' +
+      'controllo umano effettivo, il triage non diventa governabile.',
     noteWrong:
       'Nota investigativa: il fascicolo resta aperto. Le medie restano ' +
       'eccellenti. I morti restano fuori media.',

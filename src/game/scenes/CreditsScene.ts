@@ -18,13 +18,13 @@ export class CreditsScene extends Phaser.Scene {
     this.add.text(cx, 56, 'CREDITS E LICENZE', textStyle(22, COLOR_STR.paper, { fontStyle: 'bold' })).setOrigin(0.5);
     new Panel(this, cx, GAME_HEIGHT / 2 + 10, 900, 500);
 
-    let y = 140;
+    let y = 136;
     const left = cx - 420;
     for (const entry of LicenseNoticeSystem.entries()) {
       this.add.text(left, y, entry.name.toUpperCase(), textStyle(13, COLOR_STR.accent));
       this.add.text(left + 280, y, `${entry.type} — ${entry.license}`, textStyle(12, COLOR_STR.paper, { wordWrap: { width: 560 } }));
-      this.add.text(left + 280, y + 18, entry.source, textStyle(10.5, COLOR_STR.paperDim));
-      y += 52;
+      this.add.text(left + 280, y + 17, entry.source, textStyle(10.5, COLOR_STR.paperDim));
+      y += 46;
     }
 
     y += 8;

@@ -14,8 +14,9 @@ export const LICENSES: LicenseEntry[] = [
   { name: 'Vite', type: 'build tool', license: 'MIT', source: 'https://vitejs.dev' },
   { name: 'TypeScript', type: 'linguaggio/compilatore', license: 'Apache-2.0', source: 'https://www.typescriptlang.org' },
   { name: 'Vitest', type: 'test runner (solo dev)', license: 'MIT', source: 'https://vitest.dev' },
-  { name: 'Grafica di gioco', type: 'asset procedurali', license: 'Generati nel progetto (licenza del repo)', source: 'src/game/assets/procedural' },
-  { name: 'Audio di gioco', type: 'sintesi Web Audio', license: 'Generato nel progetto (licenza del repo)', source: 'src/game/systems/AudioSystem.ts' },
+  { name: 'Grafica di gioco', type: 'asset procedurali', license: 'MIT (codice del progetto)', source: 'src/game/assets/procedural' },
+  { name: 'Audio di gioco', type: 'sintesi Web Audio', license: 'MIT (codice del progetto)', source: 'src/game/systems/AudioSystem.ts' },
+  { name: 'Testi narrativi e carte norma', type: 'contenuto editoriale', license: 'CC BY 4.0', source: 'src/game/data' },
   { name: 'Font', type: 'font stack di sistema', license: 'Font locali del sistema operativo, nessun file distribuito', source: 'src/styles/global.css' }
 ];
 

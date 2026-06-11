@@ -18,17 +18,18 @@ verificabili dal campo `license` dei rispettivi pacchetti installati.
 
 | Asset/Libreria | Tipo | Fonte | Link | Licenza | Uso previsto | Attribuzione richiesta | Stato |
 |---|---|---|---|---|---|---|---|
-| Phaser 3 (^3.87) | libreria game engine | npm | https://phaser.io | MIT | engine di gioco | no (mantenere notice MIT) | approved |
+| Phaser 3 (^3.87) | libreria game engine | npm | https://phaser.io | MIT | engine di gioco (incluso nel bundle) | sì: notice MIT distribuito via `THIRD_PARTY_LICENSES.md` copiato in `dist/` dallo script di build | approved |
 | Vite 5 | build tool | npm | https://vitejs.dev | MIT | dev server + build | no | approved |
 | TypeScript 5 | compilatore | npm | https://www.typescriptlang.org | Apache-2.0 | linguaggio | no | approved |
 | Vitest 2 | test runner (solo dev) | npm | https://vitest.dev | MIT | smoke test | no | approved |
-| Mappa civica | texture canvas | generata: `createCityMap.ts` | repo | propria del progetto | sfondo mappa | n/a | procedural fallback |
-| Icone luoghi/UI (9) | texture canvas | generate: `createIcons.ts` | repo | propria del progetto | marker e carte | n/a | procedural fallback |
-| Texture rumore + particelle | texture canvas | generate: `createParticles.ts` | repo | propria del progetto | overlay e fx | n/a | procedural fallback |
-| Carta dossier | texture canvas | generata: `createDossierTextures.ts` | repo | propria del progetto | sfondo fascicoli | n/a | procedural fallback |
-| Suoni UI (click, alert, errore, conferma, unlock, terminale) | sintesi Web Audio | generati: `AudioSystem.ts` | repo | propria del progetto | feedback UI | n/a | procedural fallback |
-| Drone ambientale | sintesi Web Audio | generato: `AudioSystem.ts` | repo | propria del progetto | atmosfera | n/a | procedural fallback |
-| Scanline/CRT/glitch | CSS + tween Phaser | `global.css`, scene | repo | propria del progetto | effetti visivi | n/a | procedural fallback |
+| Mappa civica | texture canvas | generata: `createCityMap.ts` | repo | MIT (codice generatore) | sfondo mappa | n/a | procedural fallback |
+| Icone luoghi/UI (9) | texture canvas | generate: `createIcons.ts` | repo | MIT (codice generatore) | marker e carte | n/a | procedural fallback |
+| Texture rumore + particelle | texture canvas | generate: `createParticles.ts` | repo | MIT (codice generatore) | overlay e fx | n/a | procedural fallback |
+| Carta dossier | texture canvas | generata: `createDossierTextures.ts` | repo | MIT (codice generatore) | sfondo fascicoli | n/a | procedural fallback |
+| Suoni UI (click, alert, errore, conferma, unlock, terminale) | sintesi Web Audio | generati: `AudioSystem.ts` | repo | MIT (codice generatore) | feedback UI | n/a | procedural fallback |
+| Drone ambientale | sintesi Web Audio | generato: `AudioSystem.ts` | repo | MIT (codice generatore) | atmosfera | n/a | procedural fallback |
+| Scanline/CRT/glitch | CSS + tween Phaser | `global.css`, scene | repo | MIT (codice) | effetti visivi | n/a | procedural fallback |
+| Testi narrativi, casi, carte norma | contenuto editoriale | `src/game/data/` | repo | CC BY 4.0 | gameplay e didattica | sì, per chi li riusa (vedi LICENSE Sez. 2) | approved |
 | Font | font stack di sistema (IBM Plex Mono *se presente localmente*, altrimenti Consolas/DejaVu/monospace) | sistema operativo utente | n/a | nessun file font distribuito | tipografia | no | approved |
 
 ## Asset valutati e scartati (per questa versione)
@@ -46,9 +47,12 @@ verificabili dal campo `license` dei rispettivi pacchetti installati.
 ## Rischi di licenza residui
 
 - **Nessun rischio su asset multimediali**: non esistono file esterni nel repo.
-- Librerie npm: licenze permissive (MIT/Apache-2.0); obbligo pratico di
-  conservare i notice nel pacchetto distribuito (Vite include le licenze nei
-  metadati di build; nessuna azione richiesta per uso web).
+- Librerie npm: licenze permissive (MIT/Apache-2.0). Attenzione: Vite/Rollup
+  **non** includono automaticamente i testi di licenza nella build e la
+  minificazione può rimuovere i banner. Il notice di Phaser (unica dipendenza
+  distribuita nel bundle) viene quindi garantito copiando
+  `THIRD_PARTY_LICENSES.md` in `dist/` ad ogni `npm run build`
+  (`scripts/copy-notices.mjs`).
 - Nomi e contenuti narrativi: completamente originali; nessun marchio, logo
   reale o volto riconoscibile.
 
