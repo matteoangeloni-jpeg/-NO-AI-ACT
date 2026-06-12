@@ -1,16 +1,39 @@
-import type { CaseData, Classification, Measure, OutcomeQuality } from '../data/types';
+import type { CaseData, CaseTexts, Classification, Measure, OutcomeQuality } from '../data/types';
 
 /**
- * Valuta la coppia (classificazione, misura) scelta dal giocatore.
+ * Valuta la tripletta (reperti citati, classificazione, misura).
  *
- *  - correct: classificazione esatta E misura tra quelle pienamente corrette;
- *  - partial: classificazione esatta con misura solo mitigante, oppure
- *    classificazione "adiacente" con misura pienamente corretta, oppure
- *    eccesso di cautela (bloccare un sistema correttamente classificato
- *    come alto rischio);
+ *  - correct: reperti rilevanti citati E classificazione esatta E misura piena;
+ *  - partial: classificazione esatta con misura solo mitigante; oppure
+ *    classificazione "adiacente" con misura piena; oppure eccesso di cautela
+ *    (bloccare un sistema correttamente classificato come alto rischio);
+ *    oppure tutto corretto ma reperti citati che non fondano la classificazione;
  *  - wrong: tutto il resto.
+ *
+ * `citedClues` è opzionale per retrocompatibilità: se omesso, la valutazione
+ * considera solo classificazione e misura.
  */
 export function evaluateDecision(
+  caseData: CaseData,
+  classification: Classification,
+  measure: Measure,
+  citedClues?: number[]
+): OutcomeQuality {
+  const base = evaluateClassificationAndMeasure(caseData, classification, measure);
+  if (base !== 'correct' || citedClues === undefined) return base;
+  return cluesSupportClassification(caseData, citedClues) ? 'correct' : 'partial';
+}
+
+/**
+ * I reperti citati fondano la classificazione se includono TUTTI quelli
+ * designati come rilevanti. Citare anche il reperto "di contorno" non è un
+ * errore: l'errore è ometterne uno portante.
+ */
+export function cluesSupportClassification(caseData: CaseData, citedClues: number[]): boolean {
+  return caseData.relevantClues.every((i) => citedClues.includes(i));
+}
+
+function evaluateClassificationAndMeasure(
   caseData: CaseData,
   classification: Classification,
   measure: Measure
@@ -50,12 +73,12 @@ export function isAdjacentClassification(correct: Classification, chosen: Classi
   return adjacency[correct].includes(chosen);
 }
 
-export function noteFor(caseData: CaseData, quality: OutcomeQuality): string {
-  if (quality === 'correct') return caseData.noteCorrect;
-  if (quality === 'partial') return caseData.notePartial;
-  return caseData.noteWrong;
+export function noteFor(texts: CaseTexts, quality: OutcomeQuality): string {
+  if (quality === 'correct') return texts.noteCorrect;
+  if (quality === 'partial') return texts.notePartial;
+  return texts.noteWrong;
 }
 
-export function consequenceFor(caseData: CaseData, quality: OutcomeQuality): string {
-  return quality === 'wrong' ? caseData.consequenceWrong : caseData.consequenceCorrect;
+export function consequenceFor(texts: CaseTexts, quality: OutcomeQuality): string {
+  return quality === 'wrong' ? texts.consequenceWrong : texts.consequenceCorrect;
 }

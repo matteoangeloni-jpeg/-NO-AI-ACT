@@ -1,13 +1,13 @@
 import Phaser from 'phaser';
-import { INDICATOR_LABELS, OUTCOME_COMMENTS } from '../data/indicators';
 import type { IndicatorKey, IndicatorState, OutcomeQuality } from '../data/types';
+import { L } from '../i18n';
 import { StateManager } from './StateManager';
 import { IndicatorBar } from '../ui/IndicatorBar';
 
 export const INDICATOR_KEYS: IndicatorKey[] = ['efficienza', 'controllo', 'diritti', 'fiducia'];
 
 export function randomComment(quality: OutcomeQuality): string {
-  const pool = OUTCOME_COMMENTS[quality];
+  const pool = L().indicators.comments[quality];
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
@@ -21,7 +21,7 @@ export class IndicatorHud {
   constructor(scene: Phaser.Scene, x: number, y: number, width = 250) {
     const state = StateManager.indicators;
     INDICATOR_KEYS.forEach((key, i) => {
-      const bar = new IndicatorBar(scene, x, y + i * 34, width, INDICATOR_LABELS[key], state[key]);
+      const bar = new IndicatorBar(scene, x, y + i * 34, width, L().indicators.labels[key], state[key]);
       this.bars.set(key, bar);
     });
   }

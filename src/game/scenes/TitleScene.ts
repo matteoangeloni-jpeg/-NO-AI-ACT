@@ -4,6 +4,7 @@ import { SaveSystem } from '../systems/SaveSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
 import { showToast } from '../ui/AlertToast';
+import { L, fmt, nextLanguage } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 
 export class TitleScene extends Phaser.Scene {
@@ -17,13 +18,13 @@ export class TitleScene extends Phaser.Scene {
   create(): void {
     const cx = GAME_WIDTH / 2;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    AudioSystem.stopDrone(); // il drone ambientale appartiene alla città, non al menu
+    AudioSystem.stopLevelTheme(); // la musica appartiene alla città, non al menu
     this.add.image(cx, GAME_HEIGHT / 2, 'citymap').setAlpha(0.25);
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.5);
 
-    this.add.text(cx, 150, 'REPUBBLICA MUNICIPALE AUTOMATIZZATA — ANNO 2032', textStyle(13, COLOR_STR.paperDim)).setOrigin(0.5);
-    this.titleText = this.add.text(cx, 220, 'NO AI ACT', textStyle(76, COLOR_STR.paper, { fontStyle: 'bold' })).setOrigin(0.5);
-    this.add.text(cx, 285, 'Simulatore di una società non regolata', textStyle(18, COLOR_STR.accent)).setOrigin(0.5);
+    this.add.text(cx, 150, L().ui.titleHeader, textStyle(13, COLOR_STR.paperDim)).setOrigin(0.5);
+    this.titleText = this.add.text(cx, 220, L().ui.gameTitle, textStyle(76, COLOR_STR.paper, { fontStyle: 'bold' })).setOrigin(0.5);
+    this.add.text(cx, 285, L().ui.gameSubtitle, textStyle(18, COLOR_STR.accent)).setOrigin(0.5);
 
     if (!StateManager.reducedMotion) {
       this.glitchTimer = this.time.addEvent({ delay: 2600, loop: true, callback: () => this.glitch() });
@@ -32,22 +33,22 @@ export class TitleScene extends Phaser.Scene {
     const hasSave = SaveSystem.hasSave();
     let y = 390;
     if (hasSave && StateManager.completedCount() > 0) {
-      new Button(this, cx, y, 'CONTINUA INDAGINE', () => this.startGame(false));
+      new Button(this, cx, y, L().ui.menu.continue, () => this.startGame(false));
       y += 62;
     }
-    new Button(this, cx, y, 'NUOVA PARTITA', () => {
+    new Button(this, cx, y, L().ui.menu.newGame, () => {
       if (hasSave) StateManager.newGame();
       this.startGame(true);
     });
     y += 62;
-    new Button(this, cx, y, 'ARCHIVIO NORME', () => this.scene.start('Archive', { from: 'Title' }), { variant: 'ghost' });
+    new Button(this, cx, y, L().ui.menu.archive, () => this.scene.start('Archive', { from: 'Title' }), { variant: 'ghost' });
     y += 62;
-    new Button(this, cx, y, 'CREDITS E LICENZE', () => this.scene.start('Credits'), { variant: 'ghost' });
+    new Button(this, cx, y, L().ui.menu.credits, () => this.scene.start('Credits'), { variant: 'ghost' });
     y += 62;
     if (hasSave) {
-      new Button(this, cx, y, 'RESET SALVATAGGIO', () => {
+      new Button(this, cx, y, L().ui.menu.reset, () => {
         StateManager.newGame();
-        showToast(this, 'Salvataggio azzerato.', 'warning');
+        showToast(this, L().ui.menu.resetDone, 'warning');
         // lascia il tempo di leggere il toast prima che il restart lo distrugga
         this.time.delayedCall(900, () => this.scene.restart());
       }, { variant: 'danger', height: 40, fontSize: 13 });
@@ -56,32 +57,48 @@ export class TitleScene extends Phaser.Scene {
     this.buildPrefsToggles();
 
     this.add
-      .text(cx, GAME_HEIGHT - 24, 'Versione didattica semplificata dell\'AI Act (Reg. UE 2024/1689). Non costituisce consulenza legale.', textStyle(12, COLOR_STR.paperDim))
+      .text(cx, GAME_HEIGHT - 24, L().ui.footerDisclaimer, textStyle(12, COLOR_STR.paperDim))
       .setOrigin(0.5);
   }
 
   private buildPrefsToggles(): void {
     const x = GAME_WIDTH - 20;
+    const m = L().ui.menu;
     const audioBtn = new Button(
       this,
       x - 90,
       30,
-      StateManager.audioMuted ? 'AUDIO: OFF' : 'AUDIO: ON',
+      StateManager.audioMuted ? m.audioOff : m.audioOn,
       () => {
         AudioSystem.init();
         const muted = AudioSystem.toggleMute();
-        audioBtn.setLabel(muted ? 'AUDIO: OFF' : 'AUDIO: ON');
+        audioBtn.setLabel(muted ? m.audioOff : m.audioOn);
+      },
+      { width: 160, height: 34, fontSize: 12, variant: 'ghost' }
+    );
+    const musicLabel = (): string => fmt(m.music, { value: `${Math.round(StateManager.musicVolume * 100)}%` });
+    const musicBtn = new Button(
+      this,
+      x - 90,
+      72,
+      musicLabel(),
+      () => {
+        AudioSystem.init();
+        // cicla 100% → 50% → 0% → 100%
+        const next = StateManager.musicVolume > 0.75 ? 0.5 : StateManager.musicVolume > 0.25 ? 0 : 1;
+        AudioSystem.setMusicVolume(next);
+        musicBtn.setLabel(musicLabel());
       },
       { width: 160, height: 34, fontSize: 12, variant: 'ghost' }
     );
     const motionBtn = new Button(
       this,
       x - 90,
-      72,
-      StateManager.reducedMotion ? 'ANIMAZIONI: RIDOTTE' : 'ANIMAZIONI: PIENE',
+      114,
+      StateManager.reducedMotion ? m.motionReduced : m.motionFull,
       () => {
         StateManager.setReducedMotion(!StateManager.reducedMotion);
-        motionBtn.setLabel(StateManager.reducedMotion ? 'ANIMAZIONI: RIDOTTE' : 'ANIMAZIONI: PIENE');
+        motionBtn.setLabel(StateManager.reducedMotion ? m.motionReduced : m.motionFull);
         if (StateManager.reducedMotion) this.glitchTimer?.remove();
         else this.glitchTimer = this.time.addEvent({ delay: 2600, loop: true, callback: () => this.glitch() });
       },
@@ -91,11 +108,23 @@ export class TitleScene extends Phaser.Scene {
     const crtBtn = new Button(
       this,
       x - 90,
-      114,
-      StateManager.crtOverlay ? 'EFFETTO CRT: ON' : 'EFFETTO CRT: OFF',
+      156,
+      StateManager.crtOverlay ? m.crtOn : m.crtOff,
       () => {
         StateManager.setCrtOverlay(!StateManager.crtOverlay);
-        crtBtn.setLabel(StateManager.crtOverlay ? 'EFFETTO CRT: ON' : 'EFFETTO CRT: OFF');
+        crtBtn.setLabel(StateManager.crtOverlay ? m.crtOn : m.crtOff);
+      },
+      { width: 160, height: 34, fontSize: 12, variant: 'ghost' }
+    );
+    // selettore lingua: cicla le lingue registrate e ricarica la scena
+    new Button(
+      this,
+      x - 90,
+      198,
+      m.language,
+      () => {
+        StateManager.setLanguage(nextLanguage());
+        this.scene.restart();
       },
       { width: 160, height: 34, fontSize: 12, variant: 'ghost' }
     );

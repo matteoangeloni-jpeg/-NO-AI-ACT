@@ -1,11 +1,12 @@
 import Phaser from 'phaser';
-import { FINAL_MESSAGE, computeEnding } from '../data/endings';
+import { computeEnding } from '../data/endings';
 import { AudioSystem } from '../systems/AudioSystem';
 import { IndicatorHud } from '../systems/IndicatorSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
 import { TypewriterText } from '../ui/TypewriterText';
+import { L } from '../i18n';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 
 /** Rapporto finale: l'esito dipende dagli indicatori accumulati. */
@@ -21,17 +22,18 @@ export class FinaleScene extends Phaser.Scene {
     this.add.image(cx, GAME_HEIGHT / 2, 'citymap').setAlpha(0.15);
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.5);
 
-    const ending = computeEnding(StateManager.indicators);
-    StateManager.setEnding(ending.id);
-    AudioSystem.stopDrone();
-    if (ending.id === 'ending_opaca') AudioSystem.error();
-    else if (ending.id === 'ending_governata') AudioSystem.unlock();
+    const endingId = computeEnding(StateManager.indicators);
+    const ending = L().endings[endingId];
+    StateManager.setEnding(endingId);
+    AudioSystem.stopLevelTheme();
+    if (endingId === 'ending_opaca') AudioSystem.error();
+    else if (endingId === 'ending_governata') AudioSystem.unlock();
     else AudioSystem.alert();
 
     const titleColor =
-      ending.id === 'ending_governata' ? COLOR_STR.ok : ending.id === 'ending_opaca' ? COLOR_STR.alertText : COLOR_STR.warning;
+      endingId === 'ending_governata' ? COLOR_STR.ok : endingId === 'ending_opaca' ? COLOR_STR.alertText : COLOR_STR.warning;
 
-    this.add.text(cx, 70, 'RAPPORTO CONCLUSIVO DELL\'ISPETTORATO', textStyle(13, COLOR_STR.paperDim)).setOrigin(0.5);
+    this.add.text(cx, 70, L().ui.finale.header, textStyle(13, COLOR_STR.paperDim)).setOrigin(0.5);
     this.add.text(cx, 110, ending.title, textStyle(28, titleColor, { fontStyle: 'bold' })).setOrigin(0.5);
 
     new Panel(this, cx - 180, 300, 640, 260);
@@ -41,21 +43,21 @@ export class FinaleScene extends Phaser.Scene {
 
     // stato finale degli indicatori
     this.add.rectangle(cx + 340, 290, 320, 230, COLORS.carbon, 0.85).setStrokeStyle(1, COLORS.iron);
-    this.add.text(cx + 200, 190, 'STATO FINALE DELLA CITTÀ', textStyle(12, COLOR_STR.paperDim));
+    this.add.text(cx + 200, 190, L().ui.finale.cityLabel, textStyle(12, COLOR_STR.paperDim));
     new IndicatorHud(this, cx + 200, 214, 270);
 
     // messaggio finale obbligatorio
     const msg = this.add
-      .text(cx, 510, `“${FINAL_MESSAGE}”`, textStyle(16, COLOR_STR.accent, { wordWrap: { width: 880 }, align: 'center', lineSpacing: 6 }))
+      .text(cx, 510, `“${L().endings.finalMessage}”`, textStyle(16, COLOR_STR.accent, { wordWrap: { width: 880 }, align: 'center', lineSpacing: 6 }))
       .setOrigin(0.5)
       .setAlpha(0);
     this.tweens.add({ targets: msg, alpha: 1, duration: 900, delay: StateManager.reducedMotion ? 0 : 1500 });
 
-    new Button(this, cx - 220, GAME_HEIGHT - 60, 'NUOVA PARTITA', () => {
+    new Button(this, cx - 220, GAME_HEIGHT - 60, L().ui.finale.newGame, () => {
       StateManager.newGame();
       this.scene.start('Briefing');
     });
-    new Button(this, cx + 70, GAME_HEIGHT - 60, 'ARCHIVIO NORME', () => this.scene.start('Archive', { from: 'Finale' }), { variant: 'ghost' });
-    new Button(this, cx + 330, GAME_HEIGHT - 60, 'CREDITS', () => this.scene.start('Credits'), { width: 180, variant: 'ghost' });
+    new Button(this, cx + 70, GAME_HEIGHT - 60, L().ui.finale.archive, () => this.scene.start('Archive', { from: 'Finale' }), { variant: 'ghost' });
+    new Button(this, cx + 330, GAME_HEIGHT - 60, L().ui.finale.credits, () => this.scene.start('Credits'), { width: 180, variant: 'ghost' });
   }
 }

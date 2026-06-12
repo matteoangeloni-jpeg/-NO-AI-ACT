@@ -1,13 +1,20 @@
 import { StateManager } from './StateManager';
+import { buildTheme, type ThemeHandle } from './musicThemes';
+
+const MASTER_VOLUME = 0.5;
+const THEME_VOLUME = 0.9;
 
 /**
- * Audio interamente procedurale via Web Audio API.
- * Nessun file esterno: tutti i suoni sono sintetizzati (vedi ASSET_REGISTER.md).
+ * Audio interamente procedurale via Web Audio API (nessun file esterno).
+ * Catena: sorgenti SFX → master → destination
+ *         temi musicali → musicGain (volume musica) → master → destination
+ * Il mute globale agisce sul master; il volume musica solo sui temi.
  */
 class AudioSystemImpl {
   private ctx: AudioContext | null = null;
   private master: GainNode | null = null;
-  private droneNodes: AudioNode[] = [];
+  private musicGain: GainNode | null = null;
+  private currentTheme: { id: string; handle: ThemeHandle } | null = null;
 
   /** Da chiamare dopo il primo gesto utente (policy autoplay dei browser). */
   init(): void {
@@ -16,11 +23,14 @@ class AudioSystemImpl {
     if (!Ctx) return;
     this.ctx = new Ctx();
     this.master = this.ctx.createGain();
-    this.master.gain.value = StateManager.audioMuted ? 0 : 0.5;
+    this.master.gain.value = StateManager.audioMuted ? 0 : MASTER_VOLUME;
     this.master.connect(this.ctx.destination);
+    this.musicGain = this.ctx.createGain();
+    this.musicGain.gain.value = StateManager.musicVolume;
+    this.musicGain.connect(this.master);
     StateManager.on('audio-muted-changed', (muted: boolean) => {
       if (this.master && this.ctx) {
-        this.master.gain.linearRampToValueAtTime(muted ? 0 : 0.5, this.ctx.currentTime + 0.1);
+        this.master.gain.linearRampToValueAtTime(muted ? 0 : MASTER_VOLUME, this.ctx.currentTime + 0.1);
       }
     });
   }
@@ -30,6 +40,66 @@ class AudioSystemImpl {
     StateManager.setAudioMuted(next);
     return next;
   }
+
+  /** Volume musica 0..1, persistito nelle preferenze. */
+  setMusicVolume(volume: number): void {
+    const v = Math.max(0, Math.min(1, volume));
+    StateManager.setMusicVolume(v);
+    if (this.musicGain && this.ctx) {
+      this.musicGain.gain.linearRampToValueAtTime(v, this.ctx.currentTime + 0.15);
+    }
+  }
+
+  // ---------------------------------------------------------------- musica
+
+  /** Avvia il tema del caso (o 'city' per la mappa). No-op se già attivo. */
+  playLevelTheme(themeId: string): void {
+    if (!this.ctx || !this.musicGain) return;
+    if (this.currentTheme?.id === themeId) return;
+    this.disposeTheme(0.1);
+    const handle = buildTheme(this.ctx, this.musicGain, themeId);
+    handle.gain.gain.linearRampToValueAtTime(THEME_VOLUME, this.ctx.currentTime + 1.2);
+    this.currentTheme = { id: themeId, handle };
+  }
+
+  /** Crossfade morbido dal tema corrente a quello richiesto. */
+  crossfadeToTheme(themeId: string): void {
+    if (!this.ctx || !this.musicGain) return;
+    if (this.currentTheme?.id === themeId) return;
+    this.disposeTheme(1.0);
+    const handle = buildTheme(this.ctx, this.musicGain, themeId);
+    handle.gain.gain.linearRampToValueAtTime(THEME_VOLUME, this.ctx.currentTime + 1.4);
+    this.currentTheme = { id: themeId, handle };
+  }
+
+  stopLevelTheme(): void {
+    this.disposeTheme(0.8);
+  }
+
+  get currentThemeId(): string | null {
+    return this.currentTheme?.id ?? null;
+  }
+
+  /** Alias storici usati dalle scene della v0.1. */
+  startDrone(): void {
+    this.playLevelTheme('city');
+  }
+
+  stopDrone(): void {
+    this.stopLevelTheme();
+  }
+
+  private disposeTheme(fadeSeconds: number): void {
+    if (!this.currentTheme || !this.ctx) return;
+    const { handle } = this.currentTheme;
+    this.currentTheme = null;
+    handle.gain.gain.cancelScheduledValues(this.ctx.currentTime);
+    handle.gain.gain.setValueAtTime(handle.gain.gain.value, this.ctx.currentTime);
+    handle.gain.gain.linearRampToValueAtTime(0.0001, this.ctx.currentTime + fadeSeconds);
+    setTimeout(() => handle.dispose(), fadeSeconds * 1000 + 100);
+  }
+
+  // ------------------------------------------------------------------ sfx
 
   /** Click UI: impulso breve e secco. */
   click(): void {
@@ -62,56 +132,6 @@ class AudioSystemImpl {
   /** Ticchettio da terminale per il typewriter. */
   terminal(): void {
     this.blip(1200 + Math.random() * 600, 0.012, 'square', 0.03);
-  }
-
-  /** Drone ambientale: due oscillatori detunati + LFO, in loop. */
-  startDrone(): void {
-    if (!this.ctx || !this.master || this.droneNodes.length > 0) return;
-    const gain = this.ctx.createGain();
-    gain.gain.value = 0.0;
-    gain.gain.linearRampToValueAtTime(0.05, this.ctx.currentTime + 3);
-    gain.connect(this.master);
-
-    const filter = this.ctx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.value = 240;
-    filter.connect(gain);
-
-    const osc1 = this.ctx.createOscillator();
-    osc1.type = 'sawtooth';
-    osc1.frequency.value = 55;
-    const osc2 = this.ctx.createOscillator();
-    osc2.type = 'sawtooth';
-    osc2.frequency.value = 55.7;
-
-    const lfo = this.ctx.createOscillator();
-    lfo.frequency.value = 0.07;
-    const lfoGain = this.ctx.createGain();
-    lfoGain.gain.value = 60;
-    lfo.connect(lfoGain);
-    lfoGain.connect(filter.frequency);
-
-    osc1.connect(filter);
-    osc2.connect(filter);
-    osc1.start();
-    osc2.start();
-    lfo.start();
-    this.droneNodes = [osc1, osc2, lfo, gain, filter];
-  }
-
-  stopDrone(): void {
-    if (!this.ctx) return;
-    for (const node of this.droneNodes) {
-      if (node instanceof OscillatorNode) {
-        try {
-          node.stop(this.ctx.currentTime + 0.5);
-        } catch {
-          /* già fermato */
-        }
-      }
-      setTimeout(() => node.disconnect(), 700);
-    }
-    this.droneNodes = [];
   }
 
   private blip(freq: number, dur: number, type: OscillatorType, vol: number): void {

@@ -10,8 +10,10 @@ export function defaultSave(): SaveData {
     completedCases: {},
     unlockedNorms: [],
     audioMuted: false,
+    musicVolume: 1,
     reducedMotion: false,
     crtOverlay: true,
+    language: 'it',
     endingId: null,
     briefingSeen: false
   };
