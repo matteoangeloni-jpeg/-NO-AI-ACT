@@ -6,7 +6,8 @@
 [![Contenuti: CC BY 4.0](https://img.shields.io/badge/contenuti-CC%20BY%204.0-5d7fb8)](LICENSE)
 [![Stack](https://img.shields.io/badge/stack-TypeScript%20%2B%20Phaser%203%20%2B%20Vite-101a30)](#stack)
 [![Test](https://img.shields.io/badge/test-Vitest-d9a521)](tests/)
-[![Stato](https://img.shields.io/badge/stato-vertical%20slice%20v0.1-d23b3b)](#roadmap)
+[![Stato](https://img.shields.io/badge/stato-v0.2-d23b3b)](#roadmap)
+[![Lingue](https://img.shields.io/badge/lingue-IT%20%2B%20EN-d8d6cd)](#roadmap)
 
 **Serious game investigativo sull'AI Act europeo · browser, zero asset esterni, salvataggio locale**
 
@@ -92,11 +93,18 @@ Dopo 4 casi chiusi si genera il rapporto finale: *Città opaca*,
 | 2 | Agenzia del Lavoro | Il colloquio che non esiste | Allegato III — lavoro | ✅ giocabile |
 | 3 | Media Center Civico | La città sintetica | art. 50 — trasparenza | ✅ giocabile |
 | 4 | Scuola delle Emozioni | La classe osservata | art. 5 — emotion recognition | ✅ giocabile |
-| 5 | Ospedale Predittivo | Triage invisibile | obblighi alto rischio | 🔜 v0.2 (dati pronti) |
-| 6 | Centro di Sorveglianza | Volti nella folla | art. 5 — biometria | 🔜 v0.2 (dati pronti) |
+| 5 | Ospedale Predittivo | Triage invisibile | obblighi alto rischio | ✅ giocabile (v0.2) |
+| 6 | Centro di Sorveglianza | Volti nella folla | art. 5 — biometria (finalità di contrasto) | ✅ giocabile (v0.2) |
 
-I casi 5–6 sono già completi a livello di dati (`src/game/data/cases.ts`):
-per attivarli basta `playable: true`.
+### Novità v0.2
+- **Multilingua IT/EN**: sistema i18n tipato (`src/game/i18n/`), selettore nel
+  menu, lingua persistita; predisposto per FR/ES.
+- **Musica procedurale per livello**: un tema Web Audio diverso per ogni caso
+  (drone burocratico, pulse da screening, glitch radio, ambiente clinico,
+  battito da monitor, radar) con crossfade e volume musica regolabile.
+- **Citazione dei reperti**: prima di classificare bisogna citare nel rapporto
+  almeno 2 reperti; citare i reperti sbagliati degrada l'esito a parziale anche
+  con classificazione e misura corrette.
 
 ## Struttura del progetto
 
@@ -168,9 +176,9 @@ semplificata". La rilevanza del rischio dipende sempre dal contesto d'uso.
 
 ## Roadmap
 
-- **0.2** — tutti e 6 i casi giocabili, archivio completo, più audio, bilanciamento indicatori.
-- **0.3** — modalità docente, esportazione report finale, domande di debriefing, scheda didattica PDF.
-- **0.4** — localizzazione IT/EN, PWA installabile, build desktop (Tauri).
+- **0.2** ✅ — 6 casi giocabili, multilingua IT/EN, musica procedurale per livello, citazione dei reperti.
+- **0.3** — modalità docente, esportazione report finale, domande di debriefing, scheda didattica PDF, FR/ES.
+- **0.4** — PWA installabile, build desktop (Tauri), delta indicatori per caso.
 - **1.0** — playtest strutturati, revisione giuridica, asset originali, pubblicazione.
 
 ---

@@ -1,8 +1,9 @@
 import { NORMS, getNorm } from '../data/norms';
-import type { NormCardData } from '../data/types';
+import type { NormCardData, NormView } from '../data/types';
+import { normText } from '../i18n';
 import { StateManager } from './StateManager';
 
-/** Accesso alle carte norma e al loro stato di sblocco. */
+/** Accesso alle carte norma (struttura + testi localizzati) e al loro sblocco. */
 export const NormSystem = {
   all(): NormCardData[] {
     return NORMS;
@@ -12,8 +13,9 @@ export const NormSystem = {
     return NORMS.filter((n) => StateManager.isNormUnlocked(n.id));
   },
 
-  get(id: string): NormCardData {
-    return getNorm(id);
+  /** Vista completa nella lingua corrente. */
+  view(id: string): NormView {
+    return { ...getNorm(id), ...normText(id) };
   },
 
   isUnlocked(id: string): boolean {

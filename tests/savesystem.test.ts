@@ -57,11 +57,28 @@ describe('SaveSystem', () => {
     expect(SaveSystem.load()).toEqual(defaultSave());
   });
 
-  it('salvataggi v1 privi di campi nuovi ricevono i default (crtOverlay)', () => {
+  it('salvataggi v1 privi di campi nuovi ricevono i default (crtOverlay, language, musicVolume)', () => {
     const old = defaultSave() as unknown as Record<string, unknown>;
     delete old.crtOverlay;
+    delete old.language;
+    delete old.musicVolume;
     storage.setItem(KEY, JSON.stringify(old));
-    expect(SaveSystem.load().crtOverlay).toBe(true);
+    const loaded = SaveSystem.load();
+    expect(loaded.crtOverlay).toBe(true);
+    expect(loaded.language).toBe('it');
+    expect(loaded.musicVolume).toBe(1);
+  });
+
+  it('lingua e preferenze audio sopravvivono al roundtrip save/load', () => {
+    const data = defaultSave();
+    data.language = 'en';
+    data.musicVolume = 0.5;
+    data.audioMuted = true;
+    SaveSystem.save(data);
+    const loaded = SaveSystem.load();
+    expect(loaded.language).toBe('en');
+    expect(loaded.musicVolume).toBe(0.5);
+    expect(loaded.audioMuted).toBe(true);
   });
 
   it('reset cancella e restituisce i default', () => {

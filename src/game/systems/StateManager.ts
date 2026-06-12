@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { applyOutcome } from '../data/indicators';
-import type { IndicatorState, OutcomeQuality, SaveData } from '../data/types';
+import type { IndicatorState, LanguageCode, OutcomeQuality, SaveData } from '../data/types';
+import { setLanguage } from '../i18n';
 import { SaveSystem } from './SaveSystem';
 
 /**
@@ -32,6 +33,14 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
 
   get crtOverlay(): boolean {
     return this.data.crtOverlay;
+  }
+
+  get language(): LanguageCode {
+    return this.data.language;
+  }
+
+  get musicVolume(): number {
+    return this.data.musicVolume;
   }
 
   get endingId(): string | null {
@@ -97,11 +106,24 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
     document.body.classList.toggle('no-crt', !enabled);
   }
 
+  setLanguage(lang: LanguageCode): void {
+    this.data.language = lang;
+    this.persist();
+    setLanguage(lang);
+  }
+
+  setMusicVolume(volume: number): void {
+    this.data.musicVolume = volume;
+    this.persist();
+  }
+
   newGame(): void {
     const prefs = {
       audioMuted: this.data.audioMuted,
+      musicVolume: this.data.musicVolume,
       reducedMotion: this.data.reducedMotion,
-      crtOverlay: this.data.crtOverlay
+      crtOverlay: this.data.crtOverlay,
+      language: this.data.language
     };
     this.data = { ...SaveSystem.reset(), ...prefs };
     this.persist();
@@ -110,6 +132,7 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
   applyDomPreferences(): void {
     document.body.classList.toggle('reduced-motion', this.data.reducedMotion);
     document.body.classList.toggle('no-crt', !this.data.crtOverlay);
+    setLanguage(this.data.language);
   }
 
   private persist(): void {
