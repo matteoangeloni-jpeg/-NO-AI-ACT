@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { MIN_CITED_CLUES, getCase } from '../data/cases';
 import type { CaseData } from '../data/types';
+import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { Button } from '../ui/Button';
 import { DossierCard } from '../ui/DossierCard';
@@ -34,6 +35,8 @@ export class EvidenceScene extends Phaser.Scene {
     const texts = caseText(this.caseData.id);
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     this.cameras.main.fadeIn(250, 0, 0, 0);
+    AnalyticsSystem.page('evidence');
+    AnalyticsSystem.track('evidence_opened', { caseId: this.caseData.id });
     AudioSystem.crossfadeToTheme(this.caseData.id);
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
 
@@ -55,6 +58,11 @@ export class EvidenceScene extends Phaser.Scene {
       const cited = this.cards
         .map((card, i) => (card.isCited ? i : -1))
         .filter((i) => i >= 0);
+      AnalyticsSystem.track('clues_selected', {
+        caseId: this.caseData.id,
+        selectedClueCount: cited.length,
+        relevantClueCount: this.caseData.relevantClues.length
+      });
       this.scene.start('Decision', { caseId: this.caseData.id, citedClues: cited });
     }, { width: 380 });
     this.proceedBtn.setVisible(false);

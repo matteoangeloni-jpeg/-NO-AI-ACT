@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { getCase } from '../data/cases';
 import type { CaseData } from '../data/types';
+import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { Button } from '../ui/Button';
 import { TypewriterText } from '../ui/TypewriterText';
@@ -24,6 +25,8 @@ export class CaseScene extends Phaser.Scene {
     const texts = caseText(this.caseData.id);
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     this.cameras.main.fadeIn(250, 0, 0, 0);
+    AnalyticsSystem.page('case');
+    AnalyticsSystem.track('case_started', { caseId: this.caseData.id, locationId: this.caseData.locationId });
     AudioSystem.crossfadeToTheme(this.caseData.id); // tema musicale del livello
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
 

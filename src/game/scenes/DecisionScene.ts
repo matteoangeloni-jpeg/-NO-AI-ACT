@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { getCase } from '../data/cases';
 import type { CaseData, Classification, Measure } from '../data/types';
 import { cluesSupportClassification, evaluateDecision } from '../systems/CaseSystem';
+import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
@@ -71,6 +72,7 @@ export class DecisionScene extends Phaser.Scene {
     const pick = (cls: Classification): void => {
       if (this.classification !== null) return; // ignora doppi input
       this.classification = cls;
+      AnalyticsSystem.track('classification_selected', { caseId: this.caseData.id, classification: cls });
       AudioSystem.confirm();
       // distruggi i children fuori dal dispatch dell'input: distruggere
       // oggetti interattivi dentro il loro stesso handler pointerdown è
@@ -125,6 +127,18 @@ export class DecisionScene extends Phaser.Scene {
     // dipendere da side effect dentro create()
     const before = StateManager.indicators;
     const after = StateManager.resolveCase(this.caseData.id, this.caseData.normId, quality);
+    AnalyticsSystem.track('measure_selected', { caseId: this.caseData.id, measure });
+    AnalyticsSystem.track('case_completed', {
+      caseId: this.caseData.id,
+      completedCasesCount: StateManager.completedCount()
+    });
+    AnalyticsSystem.track('case_result', {
+      caseId: this.caseData.id,
+      result: quality,
+      classification: this.classification!,
+      measure,
+      selectedClueCount: this.citedClues.length
+    });
     this.scene.start('Consequence', {
       caseId: this.caseData.id,
       classification: this.classification,

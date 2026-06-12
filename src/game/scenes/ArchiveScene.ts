@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { NORMS } from '../data/norms';
+import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { NormSystem } from '../systems/NormSystem';
 import { Button } from '../ui/Button';
 import { LockedNormCard, NormCardView } from '../ui/NormCard';
@@ -28,6 +29,7 @@ export class ArchiveScene extends Phaser.Scene {
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
 
     const unlockedCount = NormSystem.unlocked().length;
+    AnalyticsSystem.track('archive_opened', { unlockedNormsCount: unlockedCount });
     this.add.text(cx, 50, ui.title, textStyle(20, COLOR_STR.paper, { fontStyle: 'bold' })).setOrigin(0.5);
     this.add
       .text(cx, 78, fmt(ui.subtitle, { done: unlockedCount, total: NORMS.length }), textStyle(12, COLOR_STR.paperDim))

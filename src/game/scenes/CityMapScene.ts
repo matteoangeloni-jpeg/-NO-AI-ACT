@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { CASES_REQUIRED_FOR_FINALE, LOCATIONS, PLAYABLE_CASES, getCase } from '../data/cases';
+import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { IndicatorHud } from '../systems/IndicatorSystem';
 import { StateManager } from '../systems/StateManager';
@@ -16,6 +17,7 @@ export class CityMapScene extends Phaser.Scene {
   create(): void {
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     this.cameras.main.fadeIn(300, 0, 0, 0);
+    AnalyticsSystem.page('map');
     AudioSystem.crossfadeToTheme('city'); // no-op se già attivo
     this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'citymap');
     this.add.tileSprite(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.6);
