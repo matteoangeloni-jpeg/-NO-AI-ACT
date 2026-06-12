@@ -1,0 +1,67 @@
+NO AI ACT — Simulatore di una società non regolata
+Copyright (c) 2026 NO AI ACT project contributors
+
+Questo progetto usa un regime di doppia licenza, con due sezioni distinte.
+
+================================================================================
+SEZIONE 1 — CODICE: MIT License
+================================================================================
+
+Si applica a: codice sorgente TypeScript/JavaScript/CSS/HTML, sistemi di gioco,
+generatori di asset procedurali (src/game/assets/procedural/), sintesi audio,
+componenti UI, configurazione tecnica, script e test.
+(In breve: tutto tranne quanto indicato nella Sezione 2.)
+
+MIT License
+
+Copyright (c) 2026 NO AI ACT project contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+================================================================================
+SEZIONE 2 — CONTENUTI NARRATIVI E DIDATTICI: CC BY 4.0
+================================================================================
+
+Si applica a: testi narrativi, casi investigativi, indizi, note, conseguenze,
+finali e testi delle carte norma (contenuti editoriali in src/game/data/),
+nonché alla documentazione didattica (README.md, docs/, CREDITS.md e affini).
+
+Questi contenuti sono rilasciati con licenza Creative Commons
+Attribuzione 4.0 Internazionale (CC BY 4.0).
+
+Sei libero di condividere e modificare questi contenuti, anche per scopi
+commerciali, alle condizioni della licenza, in particolare l'ATTRIBUZIONE:
+devi menzionare "NO AI ACT project contributors", fornire un link alla
+licenza e indicare se sono state effettuate modifiche.
+
+Testo integrale della licenza:
+https://creativecommons.org/licenses/by/4.0/legalcode.it
+(EN: https://creativecommons.org/licenses/by/4.0/legalcode)
+
+Questo file non è la licenza CC BY 4.0: è un avviso che la richiama. In caso
+di conflitto prevale il testo integrale al link sopra.
+
+================================================================================
+AVVERTENZA
+================================================================================
+
+I contenuti normativi del gioco sono sintesi divulgative del Regolamento (UE)
+2024/1689 (AI Act), marcate "versione didattica semplificata". Il gioco non
+costituisce consulenza legale. Le licenze delle dipendenze di terze parti sono
+elencate in THIRD_PARTY_LICENSES.md.

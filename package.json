@@ -1,0 +1,23 @@
+{
+  "name": "no-ai-act",
+  "private": true,
+  "version": "0.1.0",
+  "description": "NO AI ACT — Simulatore di una società non regolata. Serious game investigativo sull'AI Act europeo.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit && vite build && node scripts/copy-notices.mjs",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "license": "(MIT AND CC-BY-4.0)",
+  "dependencies": {
+    "phaser": "^3.87.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8"
+  }
+}
