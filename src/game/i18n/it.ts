@@ -113,11 +113,15 @@ export const it = {
       credits: 'CREDITS'
     },
     creditsScene: {
-      title: 'CREDITS E LICENZE',
-      footer:
-        'Contenuti normativi: sintesi divulgative del Regolamento (UE) 2024/1689 (AI Act).\n' +
-        'Versione didattica semplificata: questo gioco non costituisce consulenza legale.\n' +
-        'Dettagli completi: ASSET_REGISTER.md · CREDITS.md · LICENSE_NOTES.md nel repository.',
+      title: 'CREDITS',
+      heading: 'NO AI ACT',
+      roleLabel: 'Ideazione e direzione scientifica',
+      author: 'Matteo Angeloni',
+      affiliation: 'PhD Student — Università degli Studi della Tuscia',
+      note:
+        'Vertical slice sviluppata con supporto AI.\n' +
+        'Asset grafici e audio procedurali.\n' +
+        'Licenze e attribuzioni complete disponibili nei file del progetto.',
       back: '◂ TORNA AL TITOLO'
     },
     toastPrefixes: {
@@ -600,18 +604,5 @@ export const it = {
     finalMessage:
       "L'AI Act non elimina il rischio. Rende il rischio visibile, documentabile, " +
       'contestabile e governabile.'
-  },
-
-  credits: {
-    entries: [
-      { name: 'Phaser 3', type: 'libreria di gioco', license: 'MIT', source: 'https://phaser.io' },
-      { name: 'Vite', type: 'build tool', license: 'MIT', source: 'https://vitejs.dev' },
-      { name: 'TypeScript', type: 'linguaggio/compilatore', license: 'Apache-2.0', source: 'https://www.typescriptlang.org' },
-      { name: 'Vitest', type: 'test runner (solo dev)', license: 'MIT', source: 'https://vitest.dev' },
-      { name: 'Grafica di gioco', type: 'asset procedurali', license: 'MIT (codice del progetto)', source: 'src/game/assets/procedural' },
-      { name: 'Audio e musica', type: 'sintesi Web Audio', license: 'MIT (codice del progetto)', source: 'src/game/systems' },
-      { name: 'Testi narrativi e carte norma', type: 'contenuto editoriale', license: 'CC BY 4.0', source: 'src/game/i18n' },
-      { name: 'Font', type: 'font stack di sistema', license: 'font locali, nessun file distribuito', source: 'src/styles/global.css' }
-    ]
   }
 };

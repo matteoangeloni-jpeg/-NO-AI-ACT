@@ -114,11 +114,15 @@ export const en: Locale = {
       credits: 'CREDITS'
     },
     creditsScene: {
-      title: 'CREDITS & LICENSES',
-      footer:
-        'Legal content: educational summaries of Regulation (EU) 2024/1689 (AI Act).\n' +
-        'Simplified educational version: this game is not legal advice.\n' +
-        'Full details: ASSET_REGISTER.md · CREDITS.md · LICENSE_NOTES.md in the repository.',
+      title: 'CREDITS',
+      heading: 'NO AI ACT',
+      roleLabel: 'Concept and scientific direction',
+      author: 'Matteo Angeloni',
+      affiliation: 'PhD Student — University of Tuscia',
+      note:
+        'Vertical slice developed with AI support.\n' +
+        'Procedural graphics and audio assets.\n' +
+        'Full licenses and attributions available in the project files.',
       back: '◂ BACK TO TITLE'
     },
     toastPrefixes: {
@@ -604,18 +608,5 @@ export const en: Locale = {
     finalMessage:
       'The AI Act does not eliminate risk. It makes risk visible, documentable, ' +
       'contestable and governable.'
-  },
-
-  credits: {
-    entries: [
-      { name: 'Phaser 3', type: 'game library', license: 'MIT', source: 'https://phaser.io' },
-      { name: 'Vite', type: 'build tool', license: 'MIT', source: 'https://vitejs.dev' },
-      { name: 'TypeScript', type: 'language/compiler', license: 'Apache-2.0', source: 'https://www.typescriptlang.org' },
-      { name: 'Vitest', type: 'test runner (dev only)', license: 'MIT', source: 'https://vitest.dev' },
-      { name: 'Game graphics', type: 'procedural assets', license: 'MIT (project code)', source: 'src/game/assets/procedural' },
-      { name: 'Audio & music', type: 'Web Audio synthesis', license: 'MIT (project code)', source: 'src/game/systems' },
-      { name: 'Narrative texts & norm cards', type: 'editorial content', license: 'CC BY 4.0', source: 'src/game/i18n' },
-      { name: 'Fonts', type: 'system font stack', license: 'local fonts, no file distributed', source: 'src/styles/global.css' }
-    ]
   }
 };
