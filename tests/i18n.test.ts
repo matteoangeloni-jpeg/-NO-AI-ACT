@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it as test } from 'vitest';
+import { readFileSync } from 'node:fs';
 import { L, LANGUAGE_CODES, LOCALES, fmt, getLanguage, nextLanguage, setLanguage } from '../src/game/i18n';
 import { it } from '../src/game/i18n/it';
 import { en } from '../src/game/i18n/en';
@@ -65,6 +66,63 @@ describe('i18n — completezza dei dizionari', () => {
   test('EN biometria mantiene il perimetro law-enforcement', () => {
     expect(en.norms.norm_biometria.explanation).toContain('law-enforcement');
     expect(en.norms.norm_biometria.explanation).toContain('high-risk');
+  });
+});
+
+describe('i18n — credits', () => {
+  test('credits IT: testi esatti richiesti', () => {
+    const c = it.ui.creditsScene;
+    expect(c.heading).toBe('NO AI ACT');
+    expect(c.roleLabel).toBe('Ideazione e direzione scientifica');
+    expect(c.author).toBe('Matteo Angeloni');
+    expect(c.affiliation).toBe('PhD Student — Università degli Studi della Tuscia');
+    expect(c.note).toBe(
+      'Vertical slice sviluppata con supporto AI.\n' +
+        'Asset grafici e audio procedurali.\n' +
+        'Licenze e attribuzioni complete disponibili nei file del progetto.'
+    );
+  });
+
+  test('credits EN: testi esatti richiesti', () => {
+    const c = en.ui.creditsScene;
+    expect(c.heading).toBe('NO AI ACT');
+    expect(c.roleLabel).toBe('Concept and scientific direction');
+    expect(c.author).toBe('Matteo Angeloni');
+    expect(c.affiliation).toBe('PhD Student — University of Tuscia');
+    expect(c.note).toBe(
+      'Vertical slice developed with AI support.\n' +
+        'Procedural graphics and audio assets.\n' +
+        'Full licenses and attributions available in the project files.'
+    );
+  });
+
+  test('"PhD Student" scritto esattamente così, nessun refuso', () => {
+    for (const locale of [it, en]) {
+      expect(locale.ui.creditsScene.affiliation.startsWith('PhD Student')).toBe(true);
+      const all = JSON.stringify(locale);
+      expect(all).not.toMatch(/Phd|PHD Studen|Studet|Anjeloni|Tusica/);
+    }
+  });
+
+  test('il contenuto dei credits cambia con la lingua selezionata', () => {
+    setLanguage('it');
+    expect(L().ui.creditsScene.roleLabel).toBe('Ideazione e direzione scientifica');
+    setLanguage('en');
+    expect(L().ui.creditsScene.roleLabel).toBe('Concept and scientific direction');
+    setLanguage('it');
+  });
+
+  test('CreditsScene usa solo chiavi i18n: nessuna stringa di credito hardcoded', () => {
+    const source = readFileSync(
+      new URL('../src/game/scenes/CreditsScene.ts', import.meta.url),
+      'utf-8'
+    );
+    expect(source).not.toContain('Matteo Angeloni');
+    expect(source).not.toContain('PhD');
+    expect(source).not.toContain('Tuscia');
+    expect(source).not.toContain('Ideazione');
+    expect(source).not.toContain('Concept and');
+    expect(source).toContain('L().ui.creditsScene');
   });
 });
 
