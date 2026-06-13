@@ -142,6 +142,8 @@ export interface NormTexts {
   title: string;
   reference: string;
   explanation: string;
+  /** Riga anti-frainteso: "Non significa che…". */
+  notMeaning: string;
   democraticFunction: string;
   tags: string[];
 }

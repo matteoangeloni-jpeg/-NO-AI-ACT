@@ -9,7 +9,7 @@ import type {
   ReportOutcome,
   ResponsibleSubject
 } from '../data/types';
-import type { ReportResult } from '../systems/ReportSystem';
+import { reasonKeyFor, type ReportResult } from '../systems/ReportSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
@@ -129,6 +129,12 @@ export class ReportScene extends Phaser.Scene {
       stamp.setScale(2.2).setAlpha(0);
       this.tweens.add({ targets: stamp, scale: 1, alpha: 1, duration: 320, ease: 'Cubic.easeIn', onComplete: () => this.cameras.main.shake(90, 0.002) });
     }
+
+    // riga sintetica "Esito perché…" derivata dal rilievo dominante
+    const reason = t.ui.report.reasons[reasonKeyFor(result)];
+    this.add
+      .text(left, 600, `${t.ui.report.reasonLabel}: ${reason}`, textStyle(13, oc.text, { wordWrap: { width: 620 }, lineSpacing: 4 }))
+      .setOrigin(0, 0);
 
     new Button(this, cx, GAME_HEIGHT - 46, t.ui.report.continueButton, () => {
       this.scene.start('Consequence', {

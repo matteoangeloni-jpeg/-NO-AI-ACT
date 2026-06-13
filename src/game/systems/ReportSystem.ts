@@ -56,6 +56,14 @@ export interface ReportResult {
   overcaution: boolean;
 }
 
+/** Chiave i18n della riga "Esito perché": il rilievo dominante, o 'grounded'
+ *  quando l'atto è pienamente fondato (nessun errore). */
+export type ReasonKey = ErrorType | 'grounded';
+
+export function reasonKeyFor(result: ReportResult): ReasonKey {
+  return result.dominantError ?? 'grounded';
+}
+
 export function gradeSubject(caseData: CaseData, subject: ResponsibleSubject): SubjectGrade {
   if (subject === caseData.responsibleSubjectCorrect) return 'full';
   if (caseData.responsibleSubjectPartial && subject === caseData.responsibleSubjectPartial) return 'partial';

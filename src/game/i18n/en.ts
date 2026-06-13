@@ -105,7 +105,18 @@ export const en: Locale = {
       dominantLabel: 'MAIN FINDING',
       secondaryLabel: 'SECONDARY FINDINGS',
       continueButton: 'CONTINUE ▸',
-      noEvidence: 'no evidence cited'
+      noEvidence: 'no evidence cited',
+      reasonLabel: 'Outcome reason',
+      reasons: {
+        grounded: 'the cited evidence supports the classification and the measure is proportionate',
+        classificazione: 'the system was classified under the wrong regime',
+        prove: 'the order is open to challenge because the evidentiary basis is incomplete',
+        misura_insufficiente: 'the proposed measure does not govern the main risk',
+        eccesso_cautela: 'the classification is correct, but shutting everything down exceeds the necessary measure',
+        soggetto: 'the classification is correct, but the responsible subject is wrong',
+        trasparenza: 'the required transparency is missing: citizens cannot recognize the system or the content',
+        motivazione: 'the decision is correct, but the reasoning is weak'
+      }
     },
     outcomes: {
       conforme: 'COMPLIANT',
@@ -672,6 +683,7 @@ export const en: Locale = {
       democraticFunction:
         'Some uses of AI should not be mitigated: they should be banned, because ' +
         'they are incompatible with dignity, equality and individual freedom.',
+      notMeaning: 'This does not mean that every ranking or priority system is banned: the problem is the disproportionate or irrelevant use of social and reputational data in unrelated contexts.',
       tags: ['prohibition', 'scoring', 'public services']
     },
     norm_lavoro_alto_rischio: {
@@ -685,6 +697,7 @@ export const en: Locale = {
       democraticFunction:
         'Access to work cannot depend on opaque classifications that prevent ' +
         'understanding, mobility and appeal.',
+      notMeaning: 'This does not mean that every digital HR tool is banned: systems that select, evaluate or manage people require strong safeguards.',
       tags: ['high risk', 'work', 'oversight']
     },
     norm_trasparenza_sintetici: {
@@ -701,6 +714,7 @@ export const en: Locale = {
       democraticFunction:
         'Transparency protects the ability to distinguish public communication, ' +
         'manipulation and synthetic content.',
+      notMeaning: 'This does not mean that every AI-generated content is unlawful: in certain cases, however, it must be recognizable as synthetic or manipulated.',
       tags: ['transparency', 'deepfake', 'information']
     },
     norm_emotion_recognition: {
@@ -713,6 +727,7 @@ export const en: Locale = {
       democraticFunction:
         'Educational and working environments must not become spaces of ' +
         'permanent emotional surveillance.',
+      notMeaning: 'This does not mean that every observation of behaviour is banned: the problem is the automatic inference of emotions at school or work, save for the exceptions provided.',
       tags: ['prohibition', 'emotions', 'school', 'work']
     },
     norm_alto_rischio_obblighi: {
@@ -726,6 +741,7 @@ export const en: Locale = {
       democraticFunction:
         'An automated system that affects people\'s lives must be verifiable ' +
         'also in its effects on vulnerable groups.',
+      notMeaning: 'This does not mean that AI in healthcare is banned: systems affecting health, safety or rights must be governed, documented and supervised.',
       tags: ['high risk', 'audit', 'data', 'healthcare']
     },
     norm_biometria: {
@@ -740,6 +756,7 @@ export const en: Locale = {
         'systems — depending on the context of use and the purpose.',
       democraticFunction:
         'Public space cannot become a zone of permanent automatic identification.',
+      notMeaning: 'This does not mean that every biometric use is banned: the regime depends on purpose, context, the party deploying the system and the conditions set by the regulation.',
       tags: ['prohibition', 'biometrics', 'public space']
     }
   },

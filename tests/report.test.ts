@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { INCIDENT_DELTAS, PLAYABLE_CASES, getCase } from '../src/game/data/cases';
 import type { ReportInput } from '../src/game/systems/ReportSystem';
-import { evaluateReport, gradeMotivation, gradeSubject } from '../src/game/systems/ReportSystem';
+import { evaluateReport, gradeMotivation, gradeSubject, reasonKeyFor } from '../src/game/systems/ReportSystem';
 import { buildTeacherReport, teacherReportToText } from '../src/game/systems/TeacherReportSystem';
 import { setLanguage } from '../src/game/i18n';
 import { it as itLocale } from '../src/game/i18n/it';
@@ -153,6 +153,17 @@ describe('esiti del rapporto ispettivo', () => {
     });
     expect(r.dominantError).not.toBeNull();
     expect(r.secondaryErrors.length).toBeLessThanOrEqual(2);
+  });
+
+  it('reasonKeyFor: grounded quando conforme, altrimenti il rilievo dominante', () => {
+    expect(reasonKeyFor(evaluateReport(perfect()))).toBe('grounded');
+    expect(reasonKeyFor(evaluateReport({ ...perfect(), motivationIndex: scoring.weakMotivation }))).toBe('motivazione');
+    expect(reasonKeyFor(evaluateReport({ ...perfect(), subject: 'responsabile_umano' }))).toBe('soggetto');
+    expect(reasonKeyFor(evaluateReport({ ...perfect(), classification: 'non_rilevante', measure: 'nessuna' }))).toBe('classificazione');
+    // "contestabile" ha sempre una reason (mai null)
+    const challenge = evaluateReport({ ...perfect(), citedClues: [0, 2] });
+    expect(challenge.outcome).toBe('contestabile');
+    expect(reasonKeyFor(challenge)).toBe('prove');
   });
 
   it('grading di soggetto e motivazione', () => {

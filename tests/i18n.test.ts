@@ -67,6 +67,27 @@ describe('i18n — completezza dei dizionari', () => {
     expect(en.norms.norm_biometria.explanation).toContain('law-enforcement');
     expect(en.norms.norm_biometria.explanation).toContain('high-risk');
   });
+
+  test('ogni carta ha la riga "Non significa che" / "This does not mean that", non vuota', () => {
+    const ids = Object.keys(it.norms) as (keyof typeof it.norms)[];
+    expect(ids).toHaveLength(6);
+    for (const id of ids) {
+      expect(it.norms[id].notMeaning.trim().length).toBeGreaterThan(20);
+      expect(it.norms[id].notMeaning).toMatch(/Non significa che/i);
+      expect(en.norms[id].notMeaning.trim().length).toBeGreaterThan(20);
+      expect(en.norms[id].notMeaning).toMatch(/this does not mean that/i);
+    }
+  });
+
+  test('ogni esito ha una reason localizzata in IT e EN', () => {
+    const keys = ['grounded', 'classificazione', 'prove', 'misura_insufficiente', 'eccesso_cautela', 'soggetto', 'trasparenza', 'motivazione'] as const;
+    for (const k of keys) {
+      expect(it.ui.report.reasons[k].trim().length).toBeGreaterThan(10);
+      expect(en.ui.report.reasons[k].trim().length).toBeGreaterThan(10);
+    }
+    expect(it.ui.report.reasonLabel.length).toBeGreaterThan(0);
+    expect(en.ui.report.reasonLabel.length).toBeGreaterThan(0);
+  });
 });
 
 describe('i18n — credits', () => {

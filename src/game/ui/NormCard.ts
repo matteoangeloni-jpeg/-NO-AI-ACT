@@ -45,34 +45,27 @@ export class NormCardView extends Phaser.GameObjects.Container {
     this.add([bg, header, icon, levelTag, title, reference]);
 
     if (!compact) {
-      const explanation = scene.add.text(
-        -width / 2 + 20,
-        -height / 2 + 100,
-        norm.explanation,
-        textStyle(13, COLOR_STR.paper, { wordWrap: { width: width - 40 }, lineSpacing: 6 })
-      );
-      const fnLabel = scene.add.text(
-        -width / 2 + 20,
-        height / 2 - 130,
-        L().ui.normCard.democraticFunctionLabel,
-        textStyle(12, COLOR_STR.paperDim)
-      );
-      const fn = scene.add.text(
-        -width / 2 + 20,
-        height / 2 - 110,
-        norm.democraticFunction,
-        textStyle(12.5, COLOR_STR.ok, { wordWrap: { width: width - 40 }, lineSpacing: 5 })
-      );
-      const tags = scene.add.text(
-        -width / 2 + 20,
-        height / 2 - 44,
-        norm.tags.map((t) => `#${t}`).join('  '),
-        textStyle(12, COLOR_STR.paperDim)
-      );
+      // flusso verticale misurato: spiegazione → "Non significa che…" →
+      // funzione democratica, così la riga anti-frainteso non collide mai
+      const innerW = width - 40;
+      const leftX = -width / 2 + 20;
+      let by = -height / 2 + 96;
+
+      const explanation = scene.add.text(leftX, by, norm.explanation, textStyle(13, COLOR_STR.paper, { wordWrap: { width: innerW }, lineSpacing: 6 }));
+      by += explanation.height + 10;
+
+      const notMeaning = scene.add.text(leftX, by, norm.notMeaning, textStyle(12.5, COLOR_STR.warning, { wordWrap: { width: innerW }, lineSpacing: 5 }));
+      by += notMeaning.height + 12;
+
+      const fnLabel = scene.add.text(leftX, by, L().ui.normCard.democraticFunctionLabel, textStyle(12, COLOR_STR.paperDim));
+      by += 18;
+      const fn = scene.add.text(leftX, by, norm.democraticFunction, textStyle(12.5, COLOR_STR.ok, { wordWrap: { width: innerW }, lineSpacing: 5 }));
+
+      const tags = scene.add.text(leftX, height / 2 - 44, norm.tags.map((t) => `#${t}`).join('  '), textStyle(12, COLOR_STR.paperDim));
       const disclaimer = scene.add
         .text(width / 2 - 14, height / 2 - 12, L().ui.normCard.disclaimer, textStyle(12, COLOR_STR.paperDim))
         .setOrigin(1, 1);
-      this.add([explanation, fnLabel, fn, tags, disclaimer]);
+      this.add([explanation, notMeaning, fnLabel, fn, tags, disclaimer]);
     } else {
       const tags = scene.add.text(
         -width / 2 + 20,

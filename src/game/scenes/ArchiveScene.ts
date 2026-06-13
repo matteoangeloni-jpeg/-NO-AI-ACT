@@ -70,7 +70,7 @@ export class ArchiveScene extends Phaser.Scene {
       .setDepth(50)
       .setInteractive()
       .on('pointerdown', () => this.hideDetail());
-    const card = new NormCardView(this, cx, cy, NormSystem.view(normId), { width: 620, height: 460 });
+    const card = new NormCardView(this, cx, cy, NormSystem.view(normId), { width: 620, height: 504 });
     card.setDepth(51);
     // la carta consuma il click: si chiude solo cliccando fuori, come dice l'hint
     card.setInteractive();

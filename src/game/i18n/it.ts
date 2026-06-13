@@ -104,7 +104,18 @@ export const it = {
       dominantLabel: 'RILIEVO PRINCIPALE',
       secondaryLabel: 'RILIEVI SECONDARI',
       continueButton: 'PROSEGUI ▸',
-      noEvidence: 'nessuna prova citata'
+      noEvidence: 'nessuna prova citata',
+      reasonLabel: 'Esito perché',
+      reasons: {
+        grounded: 'le prove citate sostengono la classificazione e la misura è proporzionata',
+        classificazione: 'il sistema è stato classificato in un regime errato',
+        prove: "l'atto è contestabile perché il fondamento probatorio è incompleto",
+        misura_insufficiente: 'la misura proposta non governa il rischio principale',
+        eccesso_cautela: 'la classificazione è corretta, ma spegnere tutto eccede la misura necessaria',
+        soggetto: 'la classificazione è corretta, ma il soggetto responsabile è errato',
+        trasparenza: 'manca la trasparenza richiesta: i cittadini non possono riconoscere il sistema o il contenuto',
+        motivazione: 'la decisione è corretta, ma la motivazione è debole'
+      }
     },
     outcomes: {
       conforme: 'CONFORME',
@@ -667,6 +678,7 @@ export const it = {
       democraticFunction:
         "Alcuni usi dell'IA non vanno mitigati: vanno vietati, perché incompatibili " +
         'con dignità, uguaglianza e libertà individuale.',
+      notMeaning: 'Non significa che ogni graduatoria o sistema di priorità sia vietato: il problema è l\'uso sproporzionato o non pertinente di dati sociali e reputazionali in contesti scollegati.',
       tags: ['divieto', 'scoring', 'servizi pubblici']
     },
     norm_lavoro_alto_rischio: {
@@ -680,6 +692,7 @@ export const it = {
       democraticFunction:
         "L'accesso al lavoro non può dipendere da classificazioni opache che " +
         'impediscono comprensione, mobilità e contestazione.',
+      notMeaning: 'Non significa che ogni strumento digitale per le risorse umane sia vietato: i sistemi che selezionano, valutano o gestiscono persone richiedono garanzie forti.',
       tags: ['alto rischio', 'lavoro', 'oversight']
     },
     norm_trasparenza_sintetici: {
@@ -696,6 +709,7 @@ export const it = {
       democraticFunction:
         'La trasparenza protegge la capacità di distinguere comunicazione pubblica, ' +
         'manipolazione e contenuto sintetico.',
+      notMeaning: 'Non significa che ogni contenuto generato con IA sia illecito: in determinati casi deve però essere riconoscibile come sintetico o manipolato.',
       tags: ['trasparenza', 'deepfake', 'informazione']
     },
     norm_emotion_recognition: {
@@ -708,6 +722,7 @@ export const it = {
       democraticFunction:
         "L'ambiente educativo e lavorativo non deve diventare uno spazio di " +
         'sorveglianza emotiva permanente.',
+      notMeaning: 'Non significa che ogni osservazione del comportamento sia vietata: il problema è l\'inferenza automatica delle emozioni a scuola o sul lavoro, salvo le eccezioni previste.',
       tags: ['divieto', 'emozioni', 'scuola', 'lavoro']
     },
     norm_alto_rischio_obblighi: {
@@ -721,6 +736,7 @@ export const it = {
       democraticFunction:
         'Un sistema automatizzato che incide sulla vita delle persone deve essere ' +
         'verificabile anche nei suoi effetti sui gruppi vulnerabili.',
+      notMeaning: 'Non significa che l\'IA in sanità sia vietata: i sistemi che incidono su salute, sicurezza o diritti devono essere governati, documentati e supervisionati.',
       tags: ['alto rischio', 'audit', 'dati', 'sanità']
     },
     norm_biometria: {
@@ -736,6 +752,7 @@ export const it = {
       democraticFunction:
         'Lo spazio pubblico non può diventare una zona di identificazione ' +
         'automatica permanente.',
+      notMeaning: 'Non significa che ogni uso biometrico sia vietato: il regime dipende da finalità, contesto, soggetto che impiega il sistema e condizioni previste dal regolamento.',
       tags: ['divieto', 'biometria', 'spazio pubblico']
     }
   },

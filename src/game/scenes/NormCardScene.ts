@@ -41,7 +41,7 @@ export class NormCardScene extends Phaser.Scene {
       .text(cx, 90, this.quality === 'wrong' ? ui.subWrong : ui.subCorrect, textStyle(12, COLOR_STR.paperDim))
       .setOrigin(0.5);
 
-    const card = new NormCardView(this, cx, cy + 26, norm, { width: 600, height: 440 });
+    const card = new NormCardView(this, cx, cy + 30, norm, { width: 600, height: 488 });
 
     // flip di sblocco + particelle
     AudioSystem.unlock();
