@@ -41,11 +41,12 @@ export class DebriefScene extends Phaser.Scene {
 
     this.add.text(left, y, t.ui.debrief.casesLabel, textStyle(12, COLOR_STR.accent));
     y += 22;
+    // una riga per caso: il titolo+esito restano sempre leggibili, il rilievo
+    // è troncato per non far traboccare il pannello con 6 casi completati
     for (const row of report.cases) {
       this.add.text(left, y, fmt(t.ui.debrief.caseLine, { title: row.title, outcome: row.outcome }), textStyle(12.5, COLOR_STR.paper));
-      y += 18;
-      this.add.text(left + 16, y, fmt(t.ui.debrief.mainErrorLine, { error: row.mainFinding }), textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: 980 } }));
-      y += 24;
+      this.add.text(left + 440, y, truncate(row.mainFinding, 72), textStyle(12, COLOR_STR.paperDim));
+      y += 22;
     }
 
     y += 6;
@@ -73,6 +74,11 @@ export class DebriefScene extends Phaser.Scene {
     new Button(this, cx + 320, GAME_HEIGHT - 44, t.ui.debrief.back, () => this.scene.start('Finale'), { width: 250, height: 40, fontSize: 12, variant: 'ghost' });
     this.input.keyboard?.on('keydown-ESC', () => this.scene.start('Finale'));
   }
+}
+
+/** Tronca a maxLen caratteri con ellissi (per le righe a colonna del debrief). */
+function truncate(text: string, maxLen: number): string {
+  return text.length <= maxLen ? text : `${text.slice(0, maxLen - 1).trimEnd()}…`;
 }
 
 function download(filename: string, content: string, mime: string): void {

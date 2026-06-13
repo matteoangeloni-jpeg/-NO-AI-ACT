@@ -75,8 +75,8 @@ export class ReportScene extends Phaser.Scene {
     y += 40;
 
     const line = (label: string, value: string, color: string = COLOR_STR.paper): number => {
-      this.add.text(left, y, label, textStyle(11.5, COLOR_STR.paperDim));
-      const v = this.add.text(left + 190, y, value, textStyle(12.5, color, { wordWrap: { width: 600 }, lineSpacing: 4 }));
+      this.add.text(left, y, label, textStyle(12, COLOR_STR.paperDim));
+      const v = this.add.text(left + 200, y, value, textStyle(12.5, color, { wordWrap: { width: 620 }, lineSpacing: 4 }));
       y += Math.max(24, v.height + 8);
       return y;
     };
@@ -102,28 +102,29 @@ export class ReportScene extends Phaser.Scene {
 
     // rilievo principale + secondari (max 2)
     if (result.dominantError) {
-      this.add.text(left, y, t.ui.report.dominantLabel, textStyle(11.5, COLOR_STR.paperDim));
-      const dom = this.add.text(left + 190, y, t.ui.errors[result.dominantError], textStyle(13, oc.text, { wordWrap: { width: 600 }, lineSpacing: 4 }));
+      this.add.text(left, y, t.ui.report.dominantLabel, textStyle(12, oc.text));
+      const dom = this.add.text(left + 200, y, t.ui.errors[result.dominantError], textStyle(13, oc.text, { wordWrap: { width: 620 }, lineSpacing: 4 }));
       y += Math.max(26, dom.height + 8);
       if (result.secondaryErrors.length > 0) {
-        this.add.text(left, y, t.ui.report.secondaryLabel, textStyle(11.5, COLOR_STR.paperDim));
+        this.add.text(left, y, t.ui.report.secondaryLabel, textStyle(12, COLOR_STR.paperDim));
         const sec = result.secondaryErrors.map((e) => `· ${t.ui.errors[e]}`).join('\n');
-        const secText = this.add.text(left + 190, y, sec, textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: 600 }, lineSpacing: 4 }));
+        const secText = this.add.text(left + 200, y, sec, textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: 620 }, lineSpacing: 4 }));
         y += secText.height + 6;
       }
     } else {
-      this.add.text(left + 190, y, texts.noteCorrect, textStyle(12.5, COLOR_STR.ok, { wordWrap: { width: 600 }, lineSpacing: 4 }));
+      this.add.text(left + 200, y, texts.noteCorrect, textStyle(12.5, COLOR_STR.ok, { wordWrap: { width: 620 }, lineSpacing: 4 }));
     }
 
-    // timbro dell'esito
-    const stamp = this.add.container(cx + 290, 150);
-    const stampW = 280;
-    const box = this.add.rectangle(0, 0, stampW, 78).setStrokeStyle(3, oc.stroke, 0.9);
+    // timbro dell'esito: applicato in basso a destra del documento, come su un
+    // modulo reale — fuori dalla colonna di testo, nessuna collisione
+    const stamp = this.add.container(cx + 250, 556);
+    const stampW = 300;
+    const box = this.add.rectangle(0, 0, stampW, 70).setStrokeStyle(3, oc.stroke, 0.9);
     const label = this.add
-      .text(0, 0, t.ui.outcomes[result.outcome], textStyle(result.outcome === 'parziale' ? 16 : 20, oc.text, { fontStyle: 'bold', align: 'center', wordWrap: { width: stampW - 20 } }))
+      .text(0, 0, t.ui.outcomes[result.outcome], textStyle(result.outcome === 'parziale' ? 16 : 20, oc.text, { fontStyle: 'bold', align: 'center', wordWrap: { width: stampW - 24 } }))
       .setOrigin(0.5);
     stamp.add([box, label]);
-    stamp.setRotation(-0.12);
+    stamp.setRotation(-0.06);
     if (!StateManager.reducedMotion) {
       stamp.setScale(2.2).setAlpha(0);
       this.tweens.add({ targets: stamp, scale: 1, alpha: 1, duration: 320, ease: 'Cubic.easeIn', onComplete: () => this.cameras.main.shake(90, 0.002) });
@@ -135,6 +136,7 @@ export class ReportScene extends Phaser.Scene {
         classification: this.params.classification,
         measure: this.params.measure,
         quality: result.quality,
+        outcome: result.outcome,
         cluesOk: result.cluesOk,
         before: this.params.before,
         after: this.params.after

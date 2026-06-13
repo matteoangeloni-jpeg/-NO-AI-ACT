@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { getCase } from '../data/cases';
-import type { CaseData, Classification, IndicatorState, Measure, OutcomeQuality } from '../data/types';
+import type { CaseData, Classification, IndicatorState, Measure, OutcomeQuality, ReportOutcome } from '../data/types';
 import { consequenceFor, noteFor } from '../systems/CaseSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { IndicatorHud, randomComment } from '../systems/IndicatorSystem';
@@ -16,10 +16,20 @@ interface ConsequenceParams {
   classification: Classification;
   measure: Measure;
   quality: OutcomeQuality;
+  /** Esito a 4 livelli del rapporto: usato per allineare la dicitura allo stampo. */
+  outcome?: ReportOutcome;
   cluesOk: boolean;
   before: IndicatorState;
   after: IndicatorState;
 }
+
+/** Colore dell'intestazione per esito del rapporto. */
+const OUTCOME_HEADER: Record<ReportOutcome, string> = {
+  conforme: COLOR_STR.ok,
+  parziale: COLOR_STR.warning,
+  contestabile: COLOR_STR.warning,
+  non_conforme: COLOR_STR.alertText
+};
 
 /** Esito della decisione: conseguenza narrativa + aggiornamento indicatori. */
 export class ConsequenceScene extends Phaser.Scene {
@@ -49,12 +59,15 @@ export class ConsequenceScene extends Phaser.Scene {
       this.cameras.main.shake(220, 0.004);
     }
 
-    const qualityLabel =
-      quality === 'correct' ? { text: ui.qualityCorrect, color: COLOR_STR.ok }
-      : quality === 'partial' ? { text: ui.qualityPartial, color: COLOR_STR.warning }
-      : { text: ui.qualityWrong, color: COLOR_STR.alertText };
+    // dicitura allineata allo stampo del rapporto (stessa vocabolario a 4 esiti);
+    // fallback alla qualità a 3 livelli per retrocompatibilità
+    const outcome = this.params.outcome;
+    const headerText = outcome ? L().ui.outcomes[outcome] : ui.qualityPartial;
+    const headerColor = outcome
+      ? OUTCOME_HEADER[outcome]
+      : quality === 'correct' ? COLOR_STR.ok : quality === 'partial' ? COLOR_STR.warning : COLOR_STR.alertText;
 
-    this.add.text(cx, 60, qualityLabel.text, textStyle(24, qualityLabel.color, { fontStyle: 'bold' })).setOrigin(0.5);
+    this.add.text(cx, 60, headerText, textStyle(24, headerColor, { fontStyle: 'bold' })).setOrigin(0.5);
     this.add
       .text(
         cx,
@@ -88,7 +101,7 @@ export class ConsequenceScene extends Phaser.Scene {
 
     // micro-commento
     const comment = this.add
-      .text(cx + 190, 470, `» ${randomComment(quality)}`, textStyle(12.5, qualityLabel.color, { wordWrap: { width: 290 }, fontStyle: 'italic', lineSpacing: 4 }))
+      .text(cx + 190, 470, `» ${randomComment(quality)}`, textStyle(12.5, headerColor, { wordWrap: { width: 290 }, fontStyle: 'italic', lineSpacing: 4 }))
       .setAlpha(0);
     this.tweens.add({ targets: comment, alpha: 1, duration: 400, delay: 1400 });
 
