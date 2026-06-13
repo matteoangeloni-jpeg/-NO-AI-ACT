@@ -46,7 +46,7 @@ export function fmt(template: string, params: Record<string, string | number>): 
 }
 
 export function caseText(caseId: string): CaseTexts {
-  const texts = (L().cases as Record<string, CaseTexts>)[caseId];
+  const texts = (L().cases as unknown as Record<string, CaseTexts>)[caseId];
   if (!texts) throw new Error(`Testi mancanti per il caso: ${caseId}`);
   return texts;
 }

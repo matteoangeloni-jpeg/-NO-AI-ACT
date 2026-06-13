@@ -1,0 +1,144 @@
+import Phaser from 'phaser';
+import { getCase } from '../data/cases';
+import type {
+  CaseData,
+  Classification,
+  IncidentChoice,
+  IndicatorState,
+  Measure,
+  ReportOutcome,
+  ResponsibleSubject
+} from '../data/types';
+import type { ReportResult } from '../systems/ReportSystem';
+import { AudioSystem } from '../systems/AudioSystem';
+import { StateManager } from '../systems/StateManager';
+import { Button } from '../ui/Button';
+import { L, caseText, fmt } from '../i18n';
+import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+
+interface ReportParams {
+  caseId: string;
+  citedClues: number[];
+  classification: Classification;
+  measure: Measure;
+  subject: ResponsibleSubject;
+  motivationIndex: number;
+  incidentChoice?: IncidentChoice;
+  result: ReportResult;
+  before: IndicatorState;
+  after: IndicatorState;
+}
+
+const OUTCOME_COLORS: Record<ReportOutcome, { stroke: number; text: string }> = {
+  conforme: { stroke: COLORS.ok, text: COLOR_STR.ok },
+  parziale: { stroke: COLORS.warning, text: COLOR_STR.warning },
+  contestabile: { stroke: COLORS.warning, text: COLOR_STR.warning },
+  non_conforme: { stroke: COLORS.alert, text: COLOR_STR.alertText }
+};
+
+/**
+ * Il rapporto ispettivo: il documento che il giocatore ha costruito,
+ * timbrato con l'esito e annotato con il rilievo principale.
+ */
+export class ReportScene extends Phaser.Scene {
+  private params!: ReportParams;
+  private caseData!: CaseData;
+
+  constructor() {
+    super('Report');
+  }
+
+  init(data: ReportParams): void {
+    this.params = data;
+    this.caseData = getCase(data.caseId);
+  }
+
+  create(): void {
+    const cx = GAME_WIDTH / 2;
+    const t = L();
+    const texts = caseText(this.caseData.id);
+    const { result } = this.params;
+    const oc = OUTCOME_COLORS[result.outcome];
+
+    this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
+    this.cameras.main.fadeIn(250, 0, 0, 0);
+    AudioSystem.crossfadeToTheme(this.caseData.id);
+    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+
+    // documento
+    this.add.image(cx, GAME_HEIGHT / 2 - 10, 'dossier_paper').setDisplaySize(940, 580);
+    const left = cx - 430;
+    let y = 76;
+    this.add.text(left, y, `${t.ui.report.title} — ${fmt(t.ui.case.fileLabel, { code: this.caseData.fileCode })}`, textStyle(14, COLOR_STR.alertText));
+    y += 24;
+    this.add.text(left, y, texts.title.toUpperCase(), textStyle(19, COLOR_STR.paper, { fontStyle: 'bold' }));
+    y += 40;
+
+    const line = (label: string, value: string, color: string = COLOR_STR.paper): number => {
+      this.add.text(left, y, label, textStyle(11.5, COLOR_STR.paperDim));
+      const v = this.add.text(left + 190, y, value, textStyle(12.5, color, { wordWrap: { width: 600 }, lineSpacing: 4 }));
+      y += Math.max(24, v.height + 8);
+      return y;
+    };
+
+    const citedTitles =
+      this.params.citedClues.length > 0
+        ? this.params.citedClues.map((i) => `«${texts.clues[i].title}»`).join(' · ')
+        : t.ui.report.noEvidence;
+    line(t.ui.report.evidenceLabel, citedTitles, result.cluesOk ? COLOR_STR.paper : COLOR_STR.warning);
+    line(
+      t.ui.report.decisionLabel,
+      `${t.classifications[this.params.classification]} → ${t.measures[this.params.measure]}`
+    );
+    line(t.ui.report.subjectLabel, t.ui.subjects[this.params.subject], result.subjectGrade === 'full' ? COLOR_STR.paper : COLOR_STR.warning);
+    line(t.ui.report.motivationLabel, texts.motivations[this.params.motivationIndex], result.motivationGrade === 'correct' ? COLOR_STR.paper : COLOR_STR.warning);
+    if (this.params.incidentChoice && texts.incident) {
+      line(t.ui.report.incidentLabel, texts.incident.options[this.params.incidentChoice]);
+    }
+
+    y += 6;
+    this.add.rectangle(cx, y, 860, 1, COLORS.iron);
+    y += 16;
+
+    // rilievo principale + secondari (max 2)
+    if (result.dominantError) {
+      this.add.text(left, y, t.ui.report.dominantLabel, textStyle(11.5, COLOR_STR.paperDim));
+      const dom = this.add.text(left + 190, y, t.ui.errors[result.dominantError], textStyle(13, oc.text, { wordWrap: { width: 600 }, lineSpacing: 4 }));
+      y += Math.max(26, dom.height + 8);
+      if (result.secondaryErrors.length > 0) {
+        this.add.text(left, y, t.ui.report.secondaryLabel, textStyle(11.5, COLOR_STR.paperDim));
+        const sec = result.secondaryErrors.map((e) => `· ${t.ui.errors[e]}`).join('\n');
+        const secText = this.add.text(left + 190, y, sec, textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: 600 }, lineSpacing: 4 }));
+        y += secText.height + 6;
+      }
+    } else {
+      this.add.text(left + 190, y, texts.noteCorrect, textStyle(12.5, COLOR_STR.ok, { wordWrap: { width: 600 }, lineSpacing: 4 }));
+    }
+
+    // timbro dell'esito
+    const stamp = this.add.container(cx + 290, 150);
+    const stampW = 280;
+    const box = this.add.rectangle(0, 0, stampW, 78).setStrokeStyle(3, oc.stroke, 0.9);
+    const label = this.add
+      .text(0, 0, t.ui.outcomes[result.outcome], textStyle(result.outcome === 'parziale' ? 16 : 20, oc.text, { fontStyle: 'bold', align: 'center', wordWrap: { width: stampW - 20 } }))
+      .setOrigin(0.5);
+    stamp.add([box, label]);
+    stamp.setRotation(-0.12);
+    if (!StateManager.reducedMotion) {
+      stamp.setScale(2.2).setAlpha(0);
+      this.tweens.add({ targets: stamp, scale: 1, alpha: 1, duration: 320, ease: 'Cubic.easeIn', onComplete: () => this.cameras.main.shake(90, 0.002) });
+    }
+
+    new Button(this, cx, GAME_HEIGHT - 46, t.ui.report.continueButton, () => {
+      this.scene.start('Consequence', {
+        caseId: this.params.caseId,
+        classification: this.params.classification,
+        measure: this.params.measure,
+        quality: result.quality,
+        cluesOk: result.cluesOk,
+        before: this.params.before,
+        after: this.params.after
+      });
+    }, { width: 280 });
+  }
+}

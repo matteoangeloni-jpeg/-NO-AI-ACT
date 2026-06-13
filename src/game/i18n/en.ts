@@ -26,6 +26,8 @@ export const en: Locale = {
       crtOff: 'CRT EFFECT: OFF',
       music: 'MUSIC: {value}',
       language: 'LANGUAGE: ENGLISH',
+      teacherOn: 'TEACHER MODE: ON',
+      teacherOff: 'TEACHER MODE: OFF',
       resetDone: 'Save data cleared.'
     },
     preload: {
@@ -68,15 +70,62 @@ export const en: Locale = {
       backToEvidence: '◂ EXHIBITS'
     },
     decision: {
-      step1: 'DECISION 1 OF 2 — CLASSIFICATION',
-      step2: 'DECISION 2 OF 2 — CORRECTIVE MEASURE',
+      step1: 'DECISION 1 OF 4 — CLASSIFICATION',
+      step2: 'DECISION 2 OF 4 — CORRECTIVE MEASURE',
+      step3: 'DECISION 3 OF 4 — RESPONSIBLE SUBJECT',
+      step4: 'DECISION 4 OF 4 — REASONING',
       question1: 'How does this system qualify under the AI Act?',
       question2: 'Which measure does the inspectorate order?',
+      question3: 'To whom do you attribute the main obligations?',
+      question4: 'On which reasoning do you ground the report?',
       contextNote:
         'Under the regulation, risk does not depend on the technology alone, but on the context of use, the purpose and the effects on people.',
       recorded: 'Classification recorded: {value}',
       keys5: 'keyboard: keys 1–5 to select',
-      keys7: 'keyboard: keys 1–7 to select'
+      keys7: 'keyboard: keys 1–7 to select',
+      keys3: 'keyboard: keys 1–3 to select',
+      normsButton: 'CONSULT NORMS',
+      normsHint: 'read-only — click outside or ESC to close',
+      normsEmpty: 'No norm acquired yet.'
+    },
+    subjects: {
+      provider: 'Provider (who develops the system)',
+      deployer: 'Deployer (who uses it)',
+      autorita: 'Public authority using it',
+      responsabile_umano: 'Designated human supervisor',
+      fornitore_esterno: 'External vendor'
+    },
+    report: {
+      title: 'INSPECTION REPORT',
+      evidenceLabel: 'EVIDENCE CITED',
+      decisionLabel: 'DECISION',
+      subjectLabel: 'RESPONSIBLE SUBJECT',
+      motivationLabel: 'REASONING',
+      incidentLabel: 'EVENT ON RECORD',
+      dominantLabel: 'MAIN FINDING',
+      secondaryLabel: 'SECONDARY FINDINGS',
+      continueButton: 'CONTINUE ▸',
+      noEvidence: 'no evidence cited'
+    },
+    outcomes: {
+      conforme: 'COMPLIANT',
+      parziale: 'PARTIALLY COMPLIANT',
+      contestabile: 'OPEN TO CHALLENGE',
+      non_conforme: 'NON-COMPLIANT'
+    },
+    errors: {
+      classificazione: 'The classification does not match the regime provided by the regulation.',
+      prove: 'The cited evidence does not ground the classification: the order can be challenged.',
+      misura_insufficiente: 'The measure treats the symptom: the system keeps deciding.',
+      eccesso_cautela: 'You switched off what needed governing. The service stops, the problem moves.',
+      soggetto: 'Obligations attributed to someone who could not fulfil them: nobody answers.',
+      trasparenza: 'Measures in place, citizens in the dark: trust is not rebuilt in the dark.',
+      motivazione: 'The reasoning does not hold: the decision is right, its foundation is not.'
+    },
+    incident: {
+      header: 'URGENT TELEX — RESPONSE REQUIRED',
+      hint: 'keyboard: keys 1–3 to respond',
+      logged: 'Response filed: {value}'
     },
     consequence: {
       qualityCorrect: 'COMPLIANT DECISION',
@@ -111,7 +160,28 @@ export const en: Locale = {
       cityLabel: 'FINAL STATE OF THE CITY',
       newGame: 'NEW GAME',
       archive: 'NORM ARCHIVE',
-      credits: 'CREDITS'
+      credits: 'CREDITS',
+      debrief: 'TEACHER DEBRIEF ▸'
+    },
+    debrief: {
+      title: 'TEACHER DEBRIEF — LOCAL REPORT',
+      subtitle: 'No personal data: game decisions only. The report stays on this device.',
+      casesLabel: 'CASES AND REPORTS',
+      caseLine: '{title} — outcome: {outcome}',
+      mainErrorLine: 'finding: {error}',
+      noError: 'no finding',
+      normsLine: 'Norms acquired: {done}/{total}',
+      timeLine: 'Completion time: {minutes} min',
+      timeUnknown: 'Completion time: not available',
+      indicatorsLabel: 'FINAL INDICATORS',
+      questionsLabel: 'DISCUSSION QUESTIONS',
+      reviewLabel: 'REVIEW SUGGESTION',
+      reviewLine: 'Review the norm cards of cases with non-compliant or challengeable outcomes.',
+      downloadJson: 'DOWNLOAD .JSON',
+      downloadTxt: 'DOWNLOAD .TXT',
+      print: 'PRINT',
+      back: '◂ BACK TO THE REPORT',
+      notCompleted: 'case not completed'
     },
     creditsScene: {
       title: 'CREDITS',
@@ -258,7 +328,18 @@ export const en: Locale = {
       consequenceWrong:
         'The Civic Reliability Index is extended to public transport and school ' +
         'canteens. Administrative efficiency rises. The housing applications of ' +
-        'the flagged families silently disappear from the queues.'
+        'the flagged families silently disappear from the queues.',
+      motivations: [
+        "The system is opaque: citizens receive no understandable explanations.",
+        "The score produces detrimental treatment in contexts unrelated to where the data was collected: prohibited social scoring (art. 5).",
+        "The system collects too much data: it should be slimmed down and made more efficient."
+      ],
+      debriefQuestions: [
+        "Why is generalized social scoring banned rather than merely regulated?",
+        "What is the difference between using data within its context and outside it?",
+        "Would a similar score run by a private company be treated the same way?"
+      ],
+      epilogue: "The Civic Reliability Index is the test bench of the prohibition: either it is switched off, or it governs the city."
     },
     case_lavoro: {
       title: 'The interview that does not exist',
@@ -306,7 +387,27 @@ export const en: Locale = {
       consequenceWrong:
         'The filter is adopted by the public administration for traineeships too. ' +
         'The "incompatibility" rate among people with family-care breaks reaches ' +
-        '81%. Nobody notices: there is no log at all.'
+        '81%. Nobody notices: there is no log at all.',
+      motivations: [
+        "Automated screening of candidates is in itself a prohibited practice.",
+        "Candidates do not receive adequate explanations of the outcomes.",
+        "Personnel selection system: high risk (Annex III); distorted data and façade oversight breach the obligations."
+      ],
+      debriefQuestions: [
+        "Who must guarantee data quality: the one who builds the system or the one who uses it?",
+        "When is human control effective and when is it merely formal?",
+        "Would shutting the system down entirely have been better? Why not?"
+      ],
+      epilogue: "The filter decided careers in 40 seconds: now every outcome has someone accountable — or still has no one.",
+      incident: {
+        title: "THE VENDOR WALKS AWAY",
+        text: "The system's vendor declares in writing: \"all responsibility for use lies with the user\". HR departments demand immediate instructions.",
+        options: {
+          document: "Put it on record and notify obligations to vendor and user alike",
+          suspend: "Suspend the screening pending an audit",
+          minimize: "Take note and let it continue"
+        }
+      }
     },
     case_media: {
       title: 'The synthetic city',
@@ -353,7 +454,27 @@ export const en: Locale = {
         'immediately, but it returns verifiable.',
       consequenceWrong:
         'A second fake announcement — this time about an evacuation — is ignored ' +
-        'by half the population. It was true.'
+        'by half the population. It was true.',
+      motivations: [
+        "Generated or manipulated content disseminated without labelling: breach of transparency obligations (art. 50).",
+        "Content generation by public bodies is a prohibited practice.",
+        "The municipality's communication is unreliable and must be reorganized."
+      ],
+      debriefQuestions: [
+        "Why is labelling synthetic content different from banning it?",
+        "Can a denial rebuild trust without transparency about the origin of content?",
+        "Can transparency obligations cumulate with other risk regimes?"
+      ],
+      epilogue: "The city regained a criterion to tell the real from the generated — or lost it for good.",
+      incident: {
+        title: "FREEDOM OF INFORMATION REQUEST",
+        text: "A newspaper urgently requests access to the records on the origin of the announcements. The press expects an answer within the hour.",
+        options: {
+          document: "Communicate and hand over the requested records",
+          suspend: "Suspend publications and open an internal review",
+          minimize: "Stall with a non-committal note"
+        }
+      }
     },
     case_scuola: {
       title: 'The observed classroom',
@@ -402,7 +523,18 @@ export const en: Locale = {
       consequenceWrong:
         'The system is extended to corridors and the canteen. Students learn to ' +
         'compose the "right" face eight hours a day. School anxiety cases double. ' +
-        'The dashboard reports: "emotional climate: optimal".'
+        'The dashboard reports: "emotional climate: optimal".',
+      motivations: [
+        "Adequate logs and technical documentation are missing: they must be added.",
+        "Emotion inference in an educational institution: prohibited practice (art. 5), save exceptions that do not apply here.",
+        "The system penalizes the most fragile students and must be recalibrated."
+      ],
+      debriefQuestions: [
+        "Why does the ban hit emotion inference at school even if the technology \"worked\"?",
+        "Which exceptions does the ban allow, and why don't they apply here?",
+        "What is the difference between banning a practice and fixing its flaws?"
+      ],
+      epilogue: "Classrooms went back to having no emotion cameras, or students learned to perform the right face."
     },
     case_ospedale: {
       title: 'Invisible triage',
@@ -447,7 +579,27 @@ export const en: Locale = {
       consequenceWrong:
         'The model is extended to three hospitals. Aggregate statistics improve ' +
         'further. One class of patients stops showing up at the emergency room ' +
-        'altogether: they have learned the system does not see them.'
+        'altogether: they have learned the system does not see them.',
+      motivations: [
+        "High-risk healthcare triage: unrepresentative data and ineffective oversight breach the applicable obligations.",
+        "The staff relies too much on the score and needs better training.",
+        "AI-assisted triage is a prohibited practice in healthcare."
+      ],
+      debriefQuestions: [
+        "Why can a high average accuracy hide serious harm to subgroups?",
+        "What does the staff need in order to genuinely contradict the score?",
+        "Why would switching the system off be excess of caution rather than compliance?"
+      ],
+      epilogue: "Triage is now verifiable by subgroup — or the averages keep covering the dead.",
+      incident: {
+        title: "THE HEAD PHYSICIAN PROTESTS",
+        text: "The head physician demands the system stay on: \"without the score the ER collapses within one shift\".",
+        options: {
+          document: "Document the risk and inform the medical direction",
+          suspend: "Suspend the model for the at-risk subgroups",
+          minimize: "Reassure the ward and touch nothing"
+        }
+      }
     },
     case_biometria: {
       title: 'Faces in the crowd',
@@ -493,7 +645,18 @@ export const en: Locale = {
         'up again.',
       consequenceWrong:
         'The system is upgraded. Protests drop by 70%. The annual report ' +
-        'records it as an "improvement in public order".'
+        'records it as an "improvement in public order".',
+      motivations: [
+        "The system produces too many false positives and must be checked.",
+        "Recognition accuracy should be improved to reduce errors.",
+        "Real-time remote biometric identification in public spaces for law-enforcement purposes: prohibited (art. 5), save exhaustive exceptions."
+      ],
+      debriefQuestions: [
+        "Which elements of the case trigger the prohibition: the technology or the use?",
+        "Why are the exceptions to the ban exhaustive and subject to authorization?",
+        "Would the same system used by a shopping mall fall under the same regime?"
+      ],
+      epilogue: "The squares became anonymous again, or the crowd learned not to gather."
     }
   },
 

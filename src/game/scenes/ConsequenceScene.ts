@@ -37,7 +37,7 @@ export class ConsequenceScene extends Phaser.Scene {
 
   create(): void {
     const cx = GAME_WIDTH / 2;
-    const { quality, before, after, cluesOk } = this.params;
+    const { quality, before, after } = this.params;
     const texts = caseText(this.caseData.id);
     const ui = L().ui.consequence;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
@@ -72,12 +72,9 @@ export class ConsequenceScene extends Phaser.Scene {
     this.add.text(cx - 480, 158, ui.territoryLabel, textStyle(12, COLOR_STR.paperDim));
     const consequence = new TypewriterText(this, cx - 480, 184, 14, COLOR_STR.paper, 580);
 
-    // nota investigativa (+ eventuale rilievo sui reperti citati)
+    // nota investigativa (il feedback tipizzato è già nel rapporto)
     this.add.text(cx - 480, 380, ui.noteLabel, textStyle(12, COLOR_STR.paperDim));
-    let noteText = noteFor(texts, quality);
-    if (!cluesOk && quality !== 'wrong') {
-      noteText += `\n${ui.cluesMismatch}`;
-    }
+    const noteText = noteFor(texts, quality);
     const note = this.add
       .text(cx - 480, 404, noteText, textStyle(13, quality === 'wrong' ? COLOR_STR.alertText : COLOR_STR.accent, { wordWrap: { width: 580 }, lineSpacing: 5 }))
       .setAlpha(0);

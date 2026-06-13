@@ -119,11 +119,23 @@ export class TitleScene extends Phaser.Scene {
       },
       { width: 160, height: 34, fontSize: 12, variant: 'ghost' }
     );
+    // modalità docente: abilita il debrief locale a fine partita
+    const teacherBtn = new Button(
+      this,
+      x - 90,
+      198,
+      StateManager.teacherMode ? m.teacherOn : m.teacherOff,
+      () => {
+        StateManager.setTeacherMode(!StateManager.teacherMode);
+        teacherBtn.setLabel(StateManager.teacherMode ? m.teacherOn : m.teacherOff);
+      },
+      { width: 160, height: 34, fontSize: 11, variant: 'ghost' }
+    );
     // selettore lingua: cicla le lingue registrate e ricarica la scena
     new Button(
       this,
       x - 90,
-      198,
+      240,
       m.language,
       () => {
         StateManager.setLanguage(nextLanguage());
@@ -138,6 +150,7 @@ export class TitleScene extends Phaser.Scene {
     AudioSystem.init();
     AudioSystem.confirm();
     AnalyticsSystem.track('game_started', { language: StateManager.language });
+    StateManager.markStarted();
     this.cameras.main.fadeOut(300, 0, 0, 0);
     this.cameras.main.once('camerafadeoutcomplete', () => {
       if (isNew || !StateManager.briefingSeen) this.scene.start('Briefing');

@@ -7,7 +7,10 @@ import { CityMapScene } from './scenes/CityMapScene';
 import { CaseScene } from './scenes/CaseScene';
 import { EvidenceScene } from './scenes/EvidenceScene';
 import { DecisionScene } from './scenes/DecisionScene';
+import { IncidentScene } from './scenes/IncidentScene';
+import { ReportScene } from './scenes/ReportScene';
 import { ConsequenceScene } from './scenes/ConsequenceScene';
+import { DebriefScene } from './scenes/DebriefScene';
 import { NormCardScene } from './scenes/NormCardScene';
 import { ArchiveScene } from './scenes/ArchiveScene';
 import { FinaleScene } from './scenes/FinaleScene';
@@ -37,7 +40,10 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     CaseScene,
     EvidenceScene,
     DecisionScene,
+    IncidentScene,
+    ReportScene,
     ConsequenceScene,
+    DebriefScene,
     NormCardScene,
     ArchiveScene,
     FinaleScene,

@@ -1,0 +1,111 @@
+import { PLAYABLE_CASES } from '../data/cases';
+import { NORMS } from '../data/norms';
+import type { CaseReport, IndicatorState } from '../data/types';
+import { L, caseText } from '../i18n';
+
+/**
+ * Costruzione del report per la modalità docente.
+ * SOLO dati di gioco: nessun nome, email, classe, scuola o identificativo.
+ * Il report resta locale (download/stampa dal browser, nessuna rete).
+ */
+
+export interface TeacherReportInput {
+  caseReports: Record<string, CaseReport>;
+  indicators: IndicatorState;
+  unlockedNorms: string[];
+  endingId: string | null;
+  startedAt: number | null;
+  now?: number;
+}
+
+export interface TeacherReportCaseRow {
+  caseId: string;
+  title: string;
+  outcome: string;
+  mainFinding: string;
+  epilogue: string;
+}
+
+export interface TeacherReport {
+  generator: string;
+  cases: TeacherReportCaseRow[];
+  normsUnlocked: number;
+  normsTotal: number;
+  indicators: IndicatorState;
+  ending: string | null;
+  completionMinutes: number | null;
+  questions: string[];
+}
+
+export function buildTeacherReport(input: TeacherReportInput): TeacherReport {
+  const t = L();
+  const rows: TeacherReportCaseRow[] = [];
+  const questions: string[] = [];
+
+  PLAYABLE_CASES.forEach((c, i) => {
+    const texts = caseText(c.id);
+    const report = input.caseReports[c.id];
+    if (report) {
+      rows.push({
+        caseId: c.id,
+        title: texts.title,
+        outcome: t.ui.outcomes[report.outcome],
+        mainFinding: report.dominantError ? t.ui.errors[report.dominantError] : t.ui.debrief.noError,
+        epilogue: texts.epilogue
+      });
+      // una domanda per caso completato, a rotazione sulle tre disponibili
+      if (questions.length < 3) questions.push(texts.debriefQuestions[i % 3]);
+    }
+  });
+
+  const minutes =
+    input.startedAt !== null ? Math.max(1, Math.round(((input.now ?? Date.now()) - input.startedAt) / 60000)) : null;
+
+  return {
+    generator: 'NO AI ACT — local teacher report',
+    cases: rows,
+    normsUnlocked: input.unlockedNorms.length,
+    normsTotal: NORMS.length,
+    indicators: { ...input.indicators },
+    ending: input.endingId,
+    completionMinutes: minutes,
+    questions
+  };
+}
+
+/** Serializzazione testuale per stampa/download .txt. */
+export function teacherReportToText(report: TeacherReport): string {
+  const t = L();
+  const lines: string[] = [];
+  lines.push(t.ui.debrief.title);
+  lines.push(t.ui.debrief.subtitle);
+  lines.push('');
+  lines.push(`== ${t.ui.debrief.casesLabel} ==`);
+  for (const row of report.cases) {
+    lines.push(`- ${row.title} — ${row.outcome}`);
+    lines.push(`  ${row.mainFinding}`);
+    lines.push(`  ${row.epilogue}`);
+  }
+  lines.push('');
+  lines.push(
+    t.ui.debrief.normsLine.replace('{done}', String(report.normsUnlocked)).replace('{total}', String(report.normsTotal))
+  );
+  lines.push(
+    report.completionMinutes !== null
+      ? t.ui.debrief.timeLine.replace('{minutes}', String(report.completionMinutes))
+      : t.ui.debrief.timeUnknown
+  );
+  lines.push('');
+  lines.push(`== ${t.ui.debrief.indicatorsLabel} ==`);
+  for (const key of ['efficienza', 'controllo', 'diritti', 'fiducia'] as const) {
+    lines.push(`${t.indicators.labels[key]}: ${report.indicators[key]}`);
+  }
+  lines.push('');
+  lines.push(`== ${t.ui.debrief.questionsLabel} ==`);
+  report.questions.forEach((q, i) => lines.push(`${i + 1}. ${q}`));
+  lines.push('');
+  lines.push(`${t.ui.debrief.reviewLabel}: ${t.ui.debrief.reviewLine}`);
+  lines.push('');
+  lines.push(t.ui.footerDisclaimer);
+  return lines.join('\n');
+}

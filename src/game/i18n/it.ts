@@ -25,6 +25,8 @@ export const it = {
       crtOff: 'EFFETTO CRT: OFF',
       music: 'MUSICA: {value}',
       language: 'LINGUA: ITALIANO',
+      teacherOn: 'MODALITÀ DOCENTE: ON',
+      teacherOff: 'MODALITÀ DOCENTE: OFF',
       resetDone: 'Salvataggio azzerato.'
     },
     preload: {
@@ -67,15 +69,62 @@ export const it = {
       backToEvidence: '◂ REPERTI'
     },
     decision: {
-      step1: 'DECISIONE 1 DI 2 — CLASSIFICAZIONE',
-      step2: 'DECISIONE 2 DI 2 — MISURA CORRETTIVA',
+      step1: 'DECISIONE 1 DI 4 — CLASSIFICAZIONE',
+      step2: 'DECISIONE 2 DI 4 — MISURA CORRETTIVA',
+      step3: 'DECISIONE 3 DI 4 — SOGGETTO RESPONSABILE',
+      step4: 'DECISIONE 4 DI 4 — MOTIVAZIONE',
       question1: "Come si qualifica questo sistema rispetto all'AI Act?",
       question2: "Quale misura dispone l'ispettorato?",
+      question3: 'A chi imputi gli obblighi principali?',
+      question4: 'Su quale motivazione fondi il rapporto?',
       contextNote:
         "Nel regolamento, il rischio non dipende solo dalla tecnologia, ma dal contesto d'uso, dalla finalità e dagli effetti sulle persone.",
       recorded: 'Classificazione registrata: {value}',
       keys5: 'tastiera: tasti 1–5 per selezionare',
-      keys7: 'tastiera: tasti 1–7 per selezionare'
+      keys7: 'tastiera: tasti 1–7 per selezionare',
+      keys3: 'tastiera: tasti 1–3 per selezionare',
+      normsButton: 'CONSULTA NORME',
+      normsHint: 'solo consultazione — clic fuori o ESC per chiudere',
+      normsEmpty: 'Nessuna norma ancora acquisita.'
+    },
+    subjects: {
+      provider: 'Provider (chi sviluppa il sistema)',
+      deployer: 'Deployer (chi lo usa)',
+      autorita: 'Autorità pubblica utilizzatrice',
+      responsabile_umano: 'Responsabile umano designato',
+      fornitore_esterno: 'Fornitore esterno'
+    },
+    report: {
+      title: 'RAPPORTO ISPETTIVO',
+      evidenceLabel: 'PROVE CITATE',
+      decisionLabel: 'DECISIONE',
+      subjectLabel: 'SOGGETTO RESPONSABILE',
+      motivationLabel: 'MOTIVAZIONE',
+      incidentLabel: 'EVENTO REGISTRATO',
+      dominantLabel: 'RILIEVO PRINCIPALE',
+      secondaryLabel: 'RILIEVI SECONDARI',
+      continueButton: 'PROSEGUI ▸',
+      noEvidence: 'nessuna prova citata'
+    },
+    outcomes: {
+      conforme: 'CONFORME',
+      parziale: 'PARZIALMENTE CONFORME',
+      contestabile: 'CONTESTABILE',
+      non_conforme: 'NON CONFORME'
+    },
+    errors: {
+      classificazione: 'La classificazione non corrisponde al regime previsto dal regolamento.',
+      prove: "Le prove citate non fondano la classificazione: l'atto è impugnabile.",
+      misura_insufficiente: 'La misura tocca il sintomo: il sistema continua a decidere.',
+      eccesso_cautela: 'Hai spento ciò che andava governato. Il servizio si ferma, il problema si sposta.',
+      soggetto: 'Obblighi imputati a chi non poteva adempierli: nessuno risponde.',
+      trasparenza: 'Misure attive, cittadini all\'oscuro: la fiducia non si ricostruisce al buio.',
+      motivazione: 'La motivazione non regge: la decisione è giusta, il fondamento no.'
+    },
+    incident: {
+      header: 'TELEX URGENTE — RISPOSTA RICHIESTA',
+      hint: 'tastiera: tasti 1–3 per rispondere',
+      logged: 'Risposta protocollata: {value}'
     },
     consequence: {
       qualityCorrect: 'DECISIONE CONFORME',
@@ -110,7 +159,28 @@ export const it = {
       cityLabel: 'STATO FINALE DELLA CITTÀ',
       newGame: 'NUOVA PARTITA',
       archive: 'ARCHIVIO NORME',
-      credits: 'CREDITS'
+      credits: 'CREDITS',
+      debrief: 'DEBRIEF DOCENTE ▸'
+    },
+    debrief: {
+      title: 'DEBRIEF DOCENTE — REPORT LOCALE',
+      subtitle: 'Nessun dato personale: solo decisioni di gioco. Il report resta su questo dispositivo.',
+      casesLabel: 'CASI E RAPPORTI',
+      caseLine: '{title} — esito: {outcome}',
+      mainErrorLine: 'rilievo: {error}',
+      noError: 'nessun rilievo',
+      normsLine: 'Norme acquisite: {done}/{total}',
+      timeLine: 'Tempo di completamento: {minutes} min',
+      timeUnknown: 'Tempo di completamento: non disponibile',
+      indicatorsLabel: 'INDICATORI FINALI',
+      questionsLabel: 'DOMANDE PER LA DISCUSSIONE',
+      reviewLabel: 'SUGGERIMENTO DI RIPASSO',
+      reviewLine: 'Rivedere le carte dei casi con esito non conforme o contestabile.',
+      downloadJson: 'SCARICA .JSON',
+      downloadTxt: 'SCARICA .TXT',
+      print: 'STAMPA',
+      back: '◂ TORNA AL RAPPORTO',
+      notCompleted: 'caso non completato'
     },
     creditsScene: {
       title: 'CREDITS',
@@ -254,7 +324,18 @@ export const it = {
       consequenceWrong:
         "L'Indice di Affidabilità Civica viene esteso ai trasporti e alle mense " +
         "scolastiche. L'efficienza amministrativa sale. Le richieste di alloggio " +
-        'delle famiglie segnalate scompaiono silenziosamente dalle code.'
+        'delle famiglie segnalate scompaiono silenziosamente dalle code.',
+      motivations: [
+        "Il sistema è opaco: i cittadini non ricevono motivazioni comprensibili.",
+        "Il punteggio produce trattamenti sfavorevoli in contesti estranei a quello di raccolta dei dati: social scoring vietato (art. 5).",
+        "Il sistema raccoglie troppi dati: va alleggerito e reso più efficiente."
+      ],
+      debriefQuestions: [
+        "Perché il social scoring generalizzato è vietato invece che semplicemente regolato?",
+        "Che differenza c'è tra usare un dato nel suo contesto e fuori dal suo contesto?",
+        "Un punteggio simile gestito da un privato sarebbe trattato allo stesso modo?"
+      ],
+      epilogue: "L'Indice di Affidabilità Civica è il banco di prova del divieto: o si spegne, o governa la città."
     },
     case_lavoro: {
       title: 'Il colloquio che non esiste',
@@ -302,7 +383,27 @@ export const it = {
       consequenceWrong:
         "Il filtro viene adottato anche dall'ente pubblico per i tirocini. " +
         'Il tasso di "incompatibilità" tra chi ha avuto pause di cura familiare ' +
-        "raggiunge l'81%. Nessuno se ne accorge: non esiste alcun log."
+        "raggiunge l'81%. Nessuno se ne accorge: non esiste alcun log.",
+      motivations: [
+        "La selezione automatizzata dei candidati è di per sé una pratica vietata.",
+        "I candidati non ricevono spiegazioni adeguate sugli esiti.",
+        "Sistema di selezione del personale: alto rischio (Allegato III); dati distorti e supervisione di facciata violano gli obblighi."
+      ],
+      debriefQuestions: [
+        "Chi deve garantire la qualità dei dati: chi sviluppa il sistema o chi lo usa?",
+        "Quando il controllo umano è effettivo e quando è solo formale?",
+        "Bloccare del tutto il sistema sarebbe stata una soluzione migliore? Perché no?"
+      ],
+      epilogue: "Il filtro decideva carriere in 40 secondi: ora ogni esito ha un responsabile, o continua a non averlo.",
+      incident: {
+        title: "IL FORNITORE SI SFILA",
+        text: "Il fornitore del sistema dichiara per iscritto: \"ogni responsabilità d'uso ricade sull'utilizzatore\". Le direzioni HR chiedono istruzioni immediate.",
+        options: {
+          document: "Verbalizzare e notificare gli obblighi a fornitore e utilizzatore",
+          suspend: "Sospendere lo screening in attesa di audit",
+          minimize: "Prendere atto e lasciar proseguire"
+        }
+      }
     },
     case_media: {
       title: 'La città sintetica',
@@ -350,7 +451,27 @@ export const it = {
         'non torna subito, ma torna verificabile.',
       consequenceWrong:
         "Un secondo falso annuncio — stavolta su un'evacuazione — viene ignorato " +
-        'da metà della popolazione. Era vero.'
+        'da metà della popolazione. Era vero.',
+      motivations: [
+        "Contenuti generati o manipolati diffusi senza etichettatura: violazione degli obblighi di trasparenza (art. 50).",
+        "La generazione di contenuti da parte di enti pubblici è una pratica vietata.",
+        "La comunicazione del Comune è inaffidabile e va riorganizzata."
+      ],
+      debriefQuestions: [
+        "Perché etichettare un contenuto sintetico è diverso dal vietarlo?",
+        "Una smentita può ricostruire la fiducia senza trasparenza sull'origine dei contenuti?",
+        "Gli obblighi di trasparenza possono cumularsi con altri regimi di rischio?"
+      ],
+      epilogue: "La città ha riavuto un criterio per distinguere il reale dal generato — o lo ha perso del tutto.",
+      incident: {
+        title: "ACCESSO AGLI ATTI",
+        text: "Una testata chiede accesso urgente agli atti sull'origine dei comunicati. La stampa attende una risposta entro un'ora.",
+        options: {
+          document: "Comunicare e consegnare gli atti richiesti",
+          suspend: "Sospendere le pubblicazioni e aprire una verifica interna",
+          minimize: "Rinviare con una nota interlocutoria"
+        }
+      }
     },
     case_scuola: {
       title: 'La classe osservata',
@@ -398,7 +519,18 @@ export const it = {
       consequenceWrong:
         'Il sistema viene esteso ai corridoi e alla mensa. Gli studenti imparano ' +
         'a comporre il volto "giusto" otto ore al giorno. I casi di ansia ' +
-        'scolastica raddoppiano. Il dashboard segnala: "clima emotivo: ottimale".'
+        'scolastica raddoppiano. Il dashboard segnala: "clima emotivo: ottimale".',
+      motivations: [
+        "Mancano log e documentazione tecnica adeguati: vanno integrati.",
+        "Inferenza delle emozioni in un istituto di istruzione: pratica vietata (art. 5), salvo eccezioni che qui non ricorrono.",
+        "Il sistema penalizza gli studenti più fragili e va ricalibrato."
+      ],
+      debriefQuestions: [
+        "Perché il divieto colpisce l'inferenza emotiva a scuola anche se la tecnologia \"funzionasse\"?",
+        "Quali eccezioni ammette il divieto e perché qui non si applicano?",
+        "Che differenza c'è tra vietare una pratica e correggerne i difetti?"
+      ],
+      epilogue: "Le aule sono tornate senza telecamere emotive, o gli studenti hanno imparato a recitare il volto giusto."
     },
     case_ospedale: {
       title: 'Triage invisibile',
@@ -443,7 +575,27 @@ export const it = {
       consequenceWrong:
         'Il modello viene esteso a tre ospedali. Le statistiche aggregate ' +
         'migliorano ancora. Una classe di pazienti smette del tutto di presentarsi ' +
-        'al pronto soccorso: ha imparato che il sistema non la vede.'
+        'al pronto soccorso: ha imparato che il sistema non la vede.',
+      motivations: [
+        "Triage sanitario ad alto rischio: dati non rappresentativi e supervisione inefficace violano gli obblighi previsti.",
+        "Il personale si affida troppo al punteggio e va formato meglio.",
+        "Il triage assistito da IA è una pratica vietata in ambito sanitario."
+      ],
+      debriefQuestions: [
+        "Perché un'accuratezza media alta può nascondere danni gravi sui sottogruppi?",
+        "Che cosa serve perché il personale possa davvero contraddire il punteggio?",
+        "Perché spegnere il sistema sarebbe eccesso di cautela e non conformità?"
+      ],
+      epilogue: "Il triage ora è verificabile per sottogruppi — oppure le medie continuano a coprire i morti.",
+      incident: {
+        title: "IL PRIMARIO PROTESTA",
+        text: "Il primario chiede di non fermare il sistema: \"senza il punteggio il pronto soccorso collassa entro un turno\".",
+        options: {
+          document: "Documentare il rischio e informare la direzione sanitaria",
+          suspend: "Sospendere il modello per i sottogruppi a rischio",
+          minimize: "Rassicurare il reparto e non toccare nulla"
+        }
+      }
     },
     case_biometria: {
       title: 'Volti nella folla',
@@ -488,7 +640,18 @@ export const it = {
         'per autorizzazioni specifiche e garanzie. Le piazze tornano a riempirsi.',
       consequenceWrong:
         'Il sistema viene potenziato. Le proteste calano del 70%. Il rapporto ' +
-        'annuale lo registra come "miglioramento dell\'ordine pubblico".'
+        'annuale lo registra come "miglioramento dell\'ordine pubblico".',
+      motivations: [
+        "Il sistema produce troppi falsi positivi e va verificato.",
+        "Va migliorata l'accuratezza del riconoscimento per ridurre gli errori.",
+        "Identificazione biometrica remota in tempo reale in spazi pubblici per finalità di contrasto: divieto (art. 5), salvo eccezioni tassative."
+      ],
+      debriefQuestions: [
+        "Quali elementi del caso fanno scattare il divieto: la tecnologia o l'uso?",
+        "Perché le eccezioni al divieto sono tassative e soggette ad autorizzazione?",
+        "Lo stesso sistema usato da un centro commerciale ricadrebbe nello stesso regime?"
+      ],
+      epilogue: "Le piazze sono tornate anonime, o la folla ha imparato a non riunirsi."
     }
   },
 

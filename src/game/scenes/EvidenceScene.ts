@@ -63,7 +63,9 @@ export class EvidenceScene extends Phaser.Scene {
         selectedClueCount: cited.length,
         relevantClueCount: this.caseData.relevantClues.length
       });
-      this.scene.start('Decision', { caseId: this.caseData.id, citedClues: cited });
+      // i casi con evento imprevisto passano per il telex prima della decisione
+      const next = this.caseData.hasIncident ? 'Incident' : 'Decision';
+      this.scene.start(next, { caseId: this.caseData.id, citedClues: cited });
     }, { width: 380 });
     this.proceedBtn.setVisible(false);
 
