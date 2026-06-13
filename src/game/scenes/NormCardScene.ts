@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import type { OutcomeQuality } from '../data/types';
+import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { NormSystem } from '../systems/NormSystem';
 import { StateManager } from '../systems/StateManager';
@@ -31,12 +32,16 @@ export class NormCardScene extends Phaser.Scene {
     this.add.tileSprite(cx, cy, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
 
     const norm = NormSystem.view(this.normId);
+    AnalyticsSystem.track('norm_unlocked', {
+      normId: this.normId,
+      unlockedNormsCount: StateManager.unlockedNorms.length
+    });
     this.add.text(cx, 64, ui.unlocked, textStyle(16, COLOR_STR.ok)).setOrigin(0.5);
     this.add
       .text(cx, 90, this.quality === 'wrong' ? ui.subWrong : ui.subCorrect, textStyle(12, COLOR_STR.paperDim))
       .setOrigin(0.5);
 
-    const card = new NormCardView(this, cx, cy + 26, norm, { width: 600, height: 440 });
+    const card = new NormCardView(this, cx, cy + 30, norm, { width: 600, height: 488 });
 
     // flip di sblocco + particelle
     AudioSystem.unlock();

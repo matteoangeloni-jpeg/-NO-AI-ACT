@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { SaveSystem } from '../systems/SaveSystem';
 import { StateManager } from '../systems/StateManager';
@@ -18,6 +19,7 @@ export class TitleScene extends Phaser.Scene {
   create(): void {
     const cx = GAME_WIDTH / 2;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
+    AnalyticsSystem.page('title');
     AudioSystem.stopLevelTheme(); // la musica appartiene alla città, non al menu
     this.add.image(cx, GAME_HEIGHT / 2, 'citymap').setAlpha(0.25);
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.5);
@@ -47,6 +49,7 @@ export class TitleScene extends Phaser.Scene {
     y += 62;
     if (hasSave) {
       new Button(this, cx, y, L().ui.menu.reset, () => {
+        AnalyticsSystem.track('reset_game');
         StateManager.newGame();
         showToast(this, L().ui.menu.resetDone, 'warning');
         // lascia il tempo di leggere il toast prima che il restart lo distrugga
@@ -116,14 +119,27 @@ export class TitleScene extends Phaser.Scene {
       },
       { width: 160, height: 34, fontSize: 12, variant: 'ghost' }
     );
+    // modalità docente: abilita il debrief locale a fine partita
+    const teacherBtn = new Button(
+      this,
+      x - 90,
+      198,
+      StateManager.teacherMode ? m.teacherOn : m.teacherOff,
+      () => {
+        StateManager.setTeacherMode(!StateManager.teacherMode);
+        teacherBtn.setLabel(StateManager.teacherMode ? m.teacherOn : m.teacherOff);
+      },
+      { width: 160, height: 34, fontSize: 11, variant: 'ghost' }
+    );
     // selettore lingua: cicla le lingue registrate e ricarica la scena
     new Button(
       this,
       x - 90,
-      198,
+      240,
       m.language,
       () => {
         StateManager.setLanguage(nextLanguage());
+        AnalyticsSystem.track('language_selected', { language: StateManager.language });
         this.scene.restart();
       },
       { width: 160, height: 34, fontSize: 12, variant: 'ghost' }
@@ -133,6 +149,8 @@ export class TitleScene extends Phaser.Scene {
   private startGame(isNew: boolean): void {
     AudioSystem.init();
     AudioSystem.confirm();
+    AnalyticsSystem.track('game_started', { language: StateManager.language });
+    StateManager.markStarted();
     this.cameras.main.fadeOut(300, 0, 0, 0);
     this.cameras.main.once('camerafadeoutcomplete', () => {
       if (isNew || !StateManager.briefingSeen) this.scene.start('Briefing');

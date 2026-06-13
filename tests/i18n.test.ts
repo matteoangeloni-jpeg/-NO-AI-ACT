@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it as test } from 'vitest';
+import { readFileSync } from 'node:fs';
 import { L, LANGUAGE_CODES, LOCALES, fmt, getLanguage, nextLanguage, setLanguage } from '../src/game/i18n';
 import { it } from '../src/game/i18n/it';
 import { en } from '../src/game/i18n/en';
@@ -65,6 +66,84 @@ describe('i18n — completezza dei dizionari', () => {
   test('EN biometria mantiene il perimetro law-enforcement', () => {
     expect(en.norms.norm_biometria.explanation).toContain('law-enforcement');
     expect(en.norms.norm_biometria.explanation).toContain('high-risk');
+  });
+
+  test('ogni carta ha la riga "Non significa che" / "This does not mean that", non vuota', () => {
+    const ids = Object.keys(it.norms) as (keyof typeof it.norms)[];
+    expect(ids).toHaveLength(6);
+    for (const id of ids) {
+      expect(it.norms[id].notMeaning.trim().length).toBeGreaterThan(20);
+      expect(it.norms[id].notMeaning).toMatch(/Non significa che/i);
+      expect(en.norms[id].notMeaning.trim().length).toBeGreaterThan(20);
+      expect(en.norms[id].notMeaning).toMatch(/this does not mean that/i);
+    }
+  });
+
+  test('ogni esito ha una reason localizzata in IT e EN', () => {
+    const keys = ['grounded', 'classificazione', 'prove', 'misura_insufficiente', 'eccesso_cautela', 'soggetto', 'trasparenza', 'motivazione'] as const;
+    for (const k of keys) {
+      expect(it.ui.report.reasons[k].trim().length).toBeGreaterThan(10);
+      expect(en.ui.report.reasons[k].trim().length).toBeGreaterThan(10);
+    }
+    expect(it.ui.report.reasonLabel.length).toBeGreaterThan(0);
+    expect(en.ui.report.reasonLabel.length).toBeGreaterThan(0);
+  });
+});
+
+describe('i18n — credits', () => {
+  test('credits IT: testi esatti richiesti', () => {
+    const c = it.ui.creditsScene;
+    expect(c.heading).toBe('NO AI ACT');
+    expect(c.roleLabel).toBe('Ideazione e direzione scientifica');
+    expect(c.author).toBe('Matteo Angeloni');
+    expect(c.affiliation).toBe('PhD Student — Università degli Studi della Tuscia');
+    expect(c.note).toBe(
+      'Vertical slice sviluppata con supporto AI.\n' +
+        'Asset grafici e audio procedurali.\n' +
+        'Licenze e attribuzioni complete disponibili nei file del progetto.'
+    );
+  });
+
+  test('credits EN: testi esatti richiesti', () => {
+    const c = en.ui.creditsScene;
+    expect(c.heading).toBe('NO AI ACT');
+    expect(c.roleLabel).toBe('Concept and scientific direction');
+    expect(c.author).toBe('Matteo Angeloni');
+    expect(c.affiliation).toBe('PhD Student — University of Tuscia');
+    expect(c.note).toBe(
+      'Vertical slice developed with AI support.\n' +
+        'Procedural graphics and audio assets.\n' +
+        'Full licenses and attributions available in the project files.'
+    );
+  });
+
+  test('"PhD Student" scritto esattamente così, nessun refuso', () => {
+    for (const locale of [it, en]) {
+      expect(locale.ui.creditsScene.affiliation.startsWith('PhD Student')).toBe(true);
+      const all = JSON.stringify(locale);
+      expect(all).not.toMatch(/Phd|PHD Studen|Studet|Anjeloni|Tusica/);
+    }
+  });
+
+  test('il contenuto dei credits cambia con la lingua selezionata', () => {
+    setLanguage('it');
+    expect(L().ui.creditsScene.roleLabel).toBe('Ideazione e direzione scientifica');
+    setLanguage('en');
+    expect(L().ui.creditsScene.roleLabel).toBe('Concept and scientific direction');
+    setLanguage('it');
+  });
+
+  test('CreditsScene usa solo chiavi i18n: nessuna stringa di credito hardcoded', () => {
+    const source = readFileSync(
+      new URL('../src/game/scenes/CreditsScene.ts', import.meta.url),
+      'utf-8'
+    );
+    expect(source).not.toContain('Matteo Angeloni');
+    expect(source).not.toContain('PhD');
+    expect(source).not.toContain('Tuscia');
+    expect(source).not.toContain('Ideazione');
+    expect(source).not.toContain('Concept and');
+    expect(source).toContain('L().ui.creditsScene');
   });
 });
 

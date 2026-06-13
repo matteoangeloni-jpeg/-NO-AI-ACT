@@ -21,7 +21,8 @@ export class IndicatorHud {
   constructor(scene: Phaser.Scene, x: number, y: number, width = 250) {
     const state = StateManager.indicators;
     INDICATOR_KEYS.forEach((key, i) => {
-      const bar = new IndicatorBar(scene, x, y + i * 34, width, L().indicators.labels[key], state[key]);
+      // per il controllo sociale un valore ALTO è il segnale d'allarme
+      const bar = new IndicatorBar(scene, x, y + i * 34, width, L().indicators.labels[key], state[key], key === 'controllo');
       this.bars.set(key, bar);
     });
   }

@@ -1,4 +1,15 @@
-import type { CaseData, LocationData } from './types';
+import type { CaseData, IncidentChoice, IndicatorState, LocationData } from './types';
+
+/**
+ * Delta indicatori per le scelte degli eventi imprevisti (uguali per i 3
+ * eventi della v0.3): documentare premia la fiducia, sospendere i diritti,
+ * minimizzare l'efficienza apparente a scapito di fiducia e diritti.
+ */
+export const INCIDENT_DELTAS: Record<IncidentChoice, Partial<IndicatorState>> = {
+  document: { fiducia: 2, efficienza: -1 },
+  suspend: { diritti: 2, efficienza: -2 },
+  minimize: { efficienza: 2, fiducia: -3, diritti: -2 }
+};
 
 export const LOCATIONS: LocationData[] = [
   { id: 'municipio', x: 0.46, y: 0.36, iconKey: 'icon_townhall', caseId: 'case_scoring' },
@@ -30,6 +41,12 @@ export const CASES: CaseData[] = [
     // la motivazione assente (c3) è un problema di trasparenza, non il divieto
     relevantClues: [0, 1],
     normId: 'norm_social_scoring',
+    responsibleSubjectCorrect: 'autorita',
+    responsibleSubjectPartial: 'provider',
+    correctMotivation: 1,
+    weakMotivation: 0,
+    possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione'],
+    hasIncident: false,
     playable: true
   },
   {
@@ -43,6 +60,13 @@ export const CASES: CaseData[] = [
     // la notifica standard (c1) è il sintomo, non il fondamento
     relevantClues: [1, 2],
     normId: 'norm_lavoro_alto_rischio',
+    responsibleSubjectCorrect: 'deployer',
+    responsibleSubjectPartial: 'provider',
+    correctMotivation: 2,
+    weakMotivation: 1,
+    possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'eccesso_cautela', 'soggetto', 'motivazione'],
+    hasIncident: true,
+    incidentDeltas: INCIDENT_DELTAS,
     playable: true
   },
   {
@@ -56,6 +80,12 @@ export const CASES: CaseData[] = [
     // la fiducia persa (c3) è la conseguenza, non il fondamento
     relevantClues: [0, 1],
     normId: 'norm_trasparenza_sintetici',
+    responsibleSubjectCorrect: 'autorita',
+    correctMotivation: 0,
+    weakMotivation: 2,
+    possibleDominantErrors: ['classificazione', 'prove', 'trasparenza', 'soggetto', 'motivazione'],
+    hasIncident: true,
+    incidentDeltas: INCIDENT_DELTAS,
     playable: true
   },
   {
@@ -69,6 +99,12 @@ export const CASES: CaseData[] = [
     // l'impossibilità di contestare (c2) è un problema procedurale, non il divieto
     relevantClues: [0, 2],
     normId: 'norm_emotion_recognition',
+    responsibleSubjectCorrect: 'deployer',
+    responsibleSubjectPartial: 'provider',
+    correctMotivation: 1,
+    weakMotivation: 2,
+    possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione'],
+    hasIncident: false,
     playable: true
   },
   {
@@ -82,6 +118,13 @@ export const CASES: CaseData[] = [
     // la media eccellente (c1) è il dato che INGANNA: citarla come fondamento è l'errore
     relevantClues: [1, 2],
     normId: 'norm_alto_rischio_obblighi',
+    responsibleSubjectCorrect: 'deployer',
+    responsibleSubjectPartial: 'provider',
+    correctMotivation: 0,
+    weakMotivation: 1,
+    possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'eccesso_cautela', 'soggetto', 'motivazione'],
+    hasIncident: true,
+    incidentDeltas: INCIDENT_DELTAS,
     playable: true
   },
   {
@@ -95,6 +138,12 @@ export const CASES: CaseData[] = [
     // gli errori sproporzionati ne aggravano il danno
     relevantClues: [1, 2],
     normId: 'norm_biometria',
+    responsibleSubjectCorrect: 'autorita',
+    responsibleSubjectPartial: 'fornitore_esterno',
+    correctMotivation: 2,
+    weakMotivation: 0,
+    possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione'],
+    hasIncident: false,
     playable: true
   }
 ];

@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { computeEnding } from '../data/endings';
+import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { IndicatorHud } from '../systems/IndicatorSystem';
 import { StateManager } from '../systems/StateManager';
@@ -25,6 +26,15 @@ export class FinaleScene extends Phaser.Scene {
     const endingId = computeEnding(StateManager.indicators);
     const ending = L().endings[endingId];
     StateManager.setEnding(endingId);
+    AnalyticsSystem.track('ending_reached', { ending: endingId, completedCasesCount: StateManager.completedCount() });
+    AnalyticsSystem.track('game_completed', {
+      ending: endingId,
+      completedCasesCount: StateManager.completedCount(),
+      unlockedNormsCount: StateManager.unlockedNorms.length,
+      musicEnabled: StateManager.musicVolume > 0,
+      reducedMotion: StateManager.reducedMotion,
+      language: StateManager.language
+    });
     AudioSystem.stopLevelTheme();
     if (endingId === 'ending_opaca') AudioSystem.error();
     else if (endingId === 'ending_governata') AudioSystem.unlock();
@@ -55,9 +65,13 @@ export class FinaleScene extends Phaser.Scene {
 
     new Button(this, cx - 220, GAME_HEIGHT - 60, L().ui.finale.newGame, () => {
       StateManager.newGame();
+      StateManager.markStarted();
       this.scene.start('Briefing');
     });
     new Button(this, cx + 70, GAME_HEIGHT - 60, L().ui.finale.archive, () => this.scene.start('Archive', { from: 'Finale' }), { variant: 'ghost' });
     new Button(this, cx + 330, GAME_HEIGHT - 60, L().ui.finale.credits, () => this.scene.start('Credits'), { width: 180, variant: 'ghost' });
+    if (StateManager.teacherMode) {
+      new Button(this, cx, GAME_HEIGHT - 118, L().ui.finale.debrief, () => this.scene.start('Debrief'), { width: 300, variant: 'ok' });
+    }
   }
 }

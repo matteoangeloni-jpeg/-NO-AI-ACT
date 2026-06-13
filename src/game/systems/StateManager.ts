@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
-import { applyOutcome } from '../data/indicators';
-import type { IndicatorState, LanguageCode, OutcomeQuality, SaveData } from '../data/types';
+import { applyOutcome, clampIndicator } from '../data/indicators';
+import type { CaseReport, IndicatorState, LanguageCode, OutcomeQuality, SaveData } from '../data/types';
 import { setLanguage } from '../i18n';
 import { SaveSystem } from './SaveSystem';
 
@@ -43,6 +43,18 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
     return this.data.musicVolume;
   }
 
+  get teacherMode(): boolean {
+    return this.data.teacherMode;
+  }
+
+  get startedAt(): number | null {
+    return this.data.startedAt;
+  }
+
+  get caseReports(): Record<string, CaseReport> {
+    return { ...this.data.caseReports };
+  }
+
   get endingId(): string | null {
     return this.data.endingId;
   }
@@ -76,6 +88,38 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
 
   caseQuality(caseId: string): OutcomeQuality | undefined {
     return this.data.completedCases[caseId];
+  }
+
+  /** Archivia il rapporto ispettivo di un caso (per il debrief docente). */
+  saveCaseReport(caseId: string, report: CaseReport): void {
+    this.data.caseReports[caseId] = report;
+    this.persist();
+  }
+
+  /** Applica un delta parziale agli indicatori (eventi imprevisti). */
+  applyIndicatorDelta(delta: Partial<IndicatorState>): IndicatorState {
+    const ind = this.data.indicators;
+    this.data.indicators = {
+      efficienza: clampIndicator(ind.efficienza + (delta.efficienza ?? 0)),
+      controllo: clampIndicator(ind.controllo + (delta.controllo ?? 0)),
+      diritti: clampIndicator(ind.diritti + (delta.diritti ?? 0)),
+      fiducia: clampIndicator(ind.fiducia + (delta.fiducia ?? 0))
+    };
+    this.persist();
+    return this.indicators;
+  }
+
+  setTeacherMode(enabled: boolean): void {
+    this.data.teacherMode = enabled;
+    this.persist();
+  }
+
+  /** Marca l'avvio partita (per il tempo di completamento nel debrief). */
+  markStarted(): void {
+    if (this.data.startedAt === null) {
+      this.data.startedAt = Date.now();
+      this.persist();
+    }
   }
 
   setEnding(endingId: string): void {
@@ -123,7 +167,8 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
       musicVolume: this.data.musicVolume,
       reducedMotion: this.data.reducedMotion,
       crtOverlay: this.data.crtOverlay,
-      language: this.data.language
+      language: this.data.language,
+      teacherMode: this.data.teacherMode
     };
     this.data = { ...SaveSystem.reset(), ...prefs };
     this.persist();

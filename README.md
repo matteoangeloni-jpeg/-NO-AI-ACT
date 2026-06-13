@@ -144,6 +144,16 @@ perché **non ci sono asset esterni**: tutto è generato proceduralmente
 - Audio disattivabile e persistito; click per saltare i testi.
 - Limite noto: nessun supporto screen reader (rendering canvas).
 
+## Privacy e analytics
+
+Il gioco misura **come viene usato**, mai **chi lo usa**. Telemetria opzionale
+privacy-by-design (`AnalyticsSystem`): eventi di gameplay aggregati con
+allowlist rigida di proprietà; **niente** nomi, email, IP nel payload, free
+text, cookie, fingerprinting, session replay o identificativi persistenti.
+Default: spenta in produzione, console in sviluppo; rispetta Do Not Track.
+Adapter pronti per Plausible/Umami via variabili `VITE_*` (`.env.example`).
+Dettagli, garanzie e nota GDPR: [`docs/ANALYTICS.md`](docs/ANALYTICS.md).
+
 ## Fonti normative
 
 - Regolamento (UE) 2024/1689 — AI Act

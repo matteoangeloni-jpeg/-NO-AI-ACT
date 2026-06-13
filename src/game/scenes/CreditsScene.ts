@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
 import { L } from '../i18n';
@@ -17,6 +18,7 @@ export class CreditsScene extends Phaser.Scene {
     const cx = GAME_WIDTH / 2;
     const cy = GAME_HEIGHT / 2;
     const ui = L().ui.creditsScene;
+    AnalyticsSystem.track('credits_opened');
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     this.cameras.main.fadeIn(250, 0, 0, 0);
     this.add.tileSprite(cx, cy, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);

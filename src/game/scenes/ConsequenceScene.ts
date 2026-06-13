@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { getCase } from '../data/cases';
-import type { CaseData, Classification, IndicatorState, Measure, OutcomeQuality } from '../data/types';
+import type { CaseData, Classification, IndicatorState, Measure, OutcomeQuality, ReportOutcome } from '../data/types';
 import { consequenceFor, noteFor } from '../systems/CaseSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { IndicatorHud, randomComment } from '../systems/IndicatorSystem';
@@ -16,10 +16,20 @@ interface ConsequenceParams {
   classification: Classification;
   measure: Measure;
   quality: OutcomeQuality;
+  /** Esito a 4 livelli del rapporto: usato per allineare la dicitura allo stampo. */
+  outcome?: ReportOutcome;
   cluesOk: boolean;
   before: IndicatorState;
   after: IndicatorState;
 }
+
+/** Colore dell'intestazione per esito del rapporto. */
+const OUTCOME_HEADER: Record<ReportOutcome, string> = {
+  conforme: COLOR_STR.ok,
+  parziale: COLOR_STR.warning,
+  contestabile: COLOR_STR.warning,
+  non_conforme: COLOR_STR.alertText
+};
 
 /** Esito della decisione: conseguenza narrativa + aggiornamento indicatori. */
 export class ConsequenceScene extends Phaser.Scene {
@@ -37,7 +47,7 @@ export class ConsequenceScene extends Phaser.Scene {
 
   create(): void {
     const cx = GAME_WIDTH / 2;
-    const { quality, before, after, cluesOk } = this.params;
+    const { quality, before, after } = this.params;
     const texts = caseText(this.caseData.id);
     const ui = L().ui.consequence;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
@@ -49,12 +59,15 @@ export class ConsequenceScene extends Phaser.Scene {
       this.cameras.main.shake(220, 0.004);
     }
 
-    const qualityLabel =
-      quality === 'correct' ? { text: ui.qualityCorrect, color: COLOR_STR.ok }
-      : quality === 'partial' ? { text: ui.qualityPartial, color: COLOR_STR.warning }
-      : { text: ui.qualityWrong, color: COLOR_STR.alertText };
+    // dicitura allineata allo stampo del rapporto (stessa vocabolario a 4 esiti);
+    // fallback alla qualità a 3 livelli per retrocompatibilità
+    const outcome = this.params.outcome;
+    const headerText = outcome ? L().ui.outcomes[outcome] : ui.qualityPartial;
+    const headerColor = outcome
+      ? OUTCOME_HEADER[outcome]
+      : quality === 'correct' ? COLOR_STR.ok : quality === 'partial' ? COLOR_STR.warning : COLOR_STR.alertText;
 
-    this.add.text(cx, 60, qualityLabel.text, textStyle(24, qualityLabel.color, { fontStyle: 'bold' })).setOrigin(0.5);
+    this.add.text(cx, 60, headerText, textStyle(24, headerColor, { fontStyle: 'bold' })).setOrigin(0.5);
     this.add
       .text(
         cx,
@@ -72,12 +85,9 @@ export class ConsequenceScene extends Phaser.Scene {
     this.add.text(cx - 480, 158, ui.territoryLabel, textStyle(12, COLOR_STR.paperDim));
     const consequence = new TypewriterText(this, cx - 480, 184, 14, COLOR_STR.paper, 580);
 
-    // nota investigativa (+ eventuale rilievo sui reperti citati)
+    // nota investigativa (il feedback tipizzato è già nel rapporto)
     this.add.text(cx - 480, 380, ui.noteLabel, textStyle(12, COLOR_STR.paperDim));
-    let noteText = noteFor(texts, quality);
-    if (!cluesOk && quality !== 'wrong') {
-      noteText += `\n${ui.cluesMismatch}`;
-    }
+    const noteText = noteFor(texts, quality);
     const note = this.add
       .text(cx - 480, 404, noteText, textStyle(13, quality === 'wrong' ? COLOR_STR.alertText : COLOR_STR.accent, { wordWrap: { width: 580 }, lineSpacing: 5 }))
       .setAlpha(0);
@@ -91,7 +101,7 @@ export class ConsequenceScene extends Phaser.Scene {
 
     // micro-commento
     const comment = this.add
-      .text(cx + 190, 470, `» ${randomComment(quality)}`, textStyle(12.5, qualityLabel.color, { wordWrap: { width: 290 }, fontStyle: 'italic', lineSpacing: 4 }))
+      .text(cx + 190, 470, `» ${randomComment(quality)}`, textStyle(12.5, headerColor, { wordWrap: { width: 290 }, fontStyle: 'italic', lineSpacing: 4 }))
       .setAlpha(0);
     this.tweens.add({ targets: comment, alpha: 1, duration: 400, delay: 1400 });
 

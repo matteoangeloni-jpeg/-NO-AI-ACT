@@ -18,6 +18,30 @@ export type Measure =
 
 export type OutcomeQuality = 'correct' | 'partial' | 'wrong';
 
+/** Soggetti a cui l'ispettore può imputare gli obblighi principali. */
+export type ResponsibleSubject =
+  | 'provider'
+  | 'deployer'
+  | 'autorita'
+  | 'responsabile_umano'
+  | 'fornitore_esterno';
+
+/** Esito del rapporto ispettivo (v0.3). */
+export type ReportOutcome = 'conforme' | 'parziale' | 'contestabile' | 'non_conforme';
+
+/** Tassonomia degli errori per il feedback tipizzato. */
+export type ErrorType =
+  | 'classificazione'
+  | 'prove'
+  | 'misura_insufficiente'
+  | 'eccesso_cautela'
+  | 'soggetto'
+  | 'trasparenza'
+  | 'motivazione';
+
+/** Scelte disponibili durante un evento imprevisto. */
+export type IncidentChoice = 'document' | 'suspend' | 'minimize';
+
 /** Lingue supportate. Estensione futura: 'fr' | 'es'. */
 export type LanguageCode = 'it' | 'en';
 
@@ -54,6 +78,20 @@ export interface CaseData {
   relevantClues: number[];
   normId: string;
   playable: boolean;
+  /** Soggetto a cui imputare gli obblighi principali. */
+  responsibleSubjectCorrect: ResponsibleSubject;
+  /** Soggetto difendibile ma incompleto (opzionale). */
+  responsibleSubjectPartial?: ResponsibleSubject;
+  /** Indice (0..2) della motivazione corretta in CaseTexts.motivations. */
+  correctMotivation: number;
+  /** Indice (0..2) della motivazione plausibile ma debole. */
+  weakMotivation: number;
+  /** Errori dominanti plausibili per questo caso (documentazione/debrief). */
+  possibleDominantErrors: ErrorType[];
+  /** true solo per i 3 casi con evento imprevisto nella v0.3. */
+  hasIncident: boolean;
+  /** Delta indicatori per ciascuna scelta dell'evento (se presente). */
+  incidentDeltas?: Record<IncidentChoice, Partial<IndicatorState>>;
 }
 
 /** Testi localizzati di un caso (vedi i18n). */
@@ -66,6 +104,30 @@ export interface CaseTexts {
   noteWrong: string;
   consequenceCorrect: string;
   consequenceWrong: string;
+  /** Tre motivazioni predefinite: corretta/debole/errata (ordine per caso). */
+  motivations: [string, string, string];
+  /** Tre domande di discussione per la modalità docente. */
+  debriefQuestions: [string, string, string];
+  /** Epilogo breve del caso, usato nel debrief docente. */
+  epilogue: string;
+  /** Testi dell'evento imprevisto (solo per i casi con hasIncident). */
+  incident?: {
+    title: string;
+    text: string;
+    options: { document: string; suspend: string; minimize: string };
+  };
+}
+
+/** Rapporto archiviato per il debrief docente. */
+export interface CaseReport {
+  outcome: ReportOutcome;
+  dominantError: ErrorType | null;
+  classification: Classification;
+  measure: Measure;
+  subject: ResponsibleSubject;
+  motivationIndex: number;
+  citedClues: number[];
+  incidentChoice?: IncidentChoice;
 }
 
 /** Dati STRUTTURALI di una carta norma; testi in i18n sotto norms[id]. */
@@ -80,6 +142,8 @@ export interface NormTexts {
   title: string;
   reference: string;
   explanation: string;
+  /** Riga anti-frainteso: "Non significa che…". */
+  notMeaning: string;
   democraticFunction: string;
   tags: string[];
 }
@@ -110,4 +174,10 @@ export interface SaveData {
   language: LanguageCode;
   endingId: string | null;
   briefingSeen: boolean;
+  /** Rapporti ispettivi archiviati, per il debrief docente. */
+  caseReports: Record<string, CaseReport>;
+  /** Modalità docente attiva. */
+  teacherMode: boolean;
+  /** Avvio partita (epoch ms) per il tempo di completamento. Non è un dato personale. */
+  startedAt: number | null;
 }

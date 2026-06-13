@@ -15,7 +15,10 @@ export function defaultSave(): SaveData {
     crtOverlay: true,
     language: 'it',
     endingId: null,
-    briefingSeen: false
+    briefingSeen: false,
+    caseReports: {},
+    teacherMode: false,
+    startedAt: null
   };
 }
 

@@ -14,11 +14,14 @@ export class IndicatorBar {
   private frame: Phaser.GameObjects.Rectangle;
   private width: number;
   private value: number;
+  /** true per indicatori in cui ALTO è negativo (es. controllo sociale). */
+  private invert: boolean;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, width: number, label: string, value: number) {
+  constructor(scene: Phaser.Scene, x: number, y: number, width: number, label: string, value: number, invert = false) {
     this.scene = scene;
     this.width = width;
     this.value = value;
+    this.invert = invert;
 
     this.labelText = scene.add.text(x, y, label, textStyle(12, COLOR_STR.paperDim));
     this.valueText = scene.add.text(x + width, y, String(value), textStyle(12, COLOR_STR.paper)).setOrigin(1, 0);
@@ -71,10 +74,15 @@ export class IndicatorBar {
     [this.labelText, this.valueText, this.barBg, this.barFill, this.frame].forEach((o) => o.setDepth(depth));
   }
 
-  /** Soglie di allarme: rosso sotto 40, giallo sotto 60, altrimenti neutro. */
+  /**
+   * Soglie di allarme: rosso sotto 40, giallo sotto 60, altrimenti neutro.
+   * Per gli indicatori invertiti (controllo sociale) la scala è ribaltata:
+   * un valore alto è il segnale d'allarme.
+   */
   private colorFor(value: number): number {
-    if (value < 40) return COLORS.alert;
-    if (value < 60) return COLORS.warning;
+    const v = this.invert ? 100 - value : value;
+    if (v < 40) return COLORS.alert;
+    if (v < 60) return COLORS.warning;
     return COLORS.accent;
   }
 
