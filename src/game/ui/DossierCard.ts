@@ -23,7 +23,8 @@ export class DossierCard extends Phaser.GameObjects.Container {
     height: number,
     clue: { title: string; text: string },
     index: number,
-    private onChange: () => void
+    private onChange: () => void,
+    sourceLabel?: string
   ) {
     super(scene, x, y);
 
@@ -32,6 +33,10 @@ export class DossierCard extends Phaser.GameObjects.Container {
     const code = scene.add
       .text(-width / 2 + 12, -height / 2 + 14, fmt(L().ui.evidence.exhibit, { num: String(index + 1).padStart(2, '0') }), textStyle(12, COLOR_STR.paperDim))
       .setOrigin(0, 0.5);
+    // etichetta-fonte (attendibilità): sempre visibile, aiuta a ragionare
+    const srcText = sourceLabel
+      ? scene.add.text(width / 2 - 12, -height / 2 + 14, sourceLabel, textStyle(11, COLOR_STR.accent)).setOrigin(1, 0.5)
+      : null;
     const sealed = scene.add
       .text(0, 10, L().ui.evidence.sealed, textStyle(13, COLOR_STR.accent, { align: 'center' }))
       .setOrigin(0.5);
@@ -47,6 +52,7 @@ export class DossierCard extends Phaser.GameObjects.Container {
       .setVisible(false);
 
     this.add([this.bg, tape, code, sealed, title, body, this.citeLabel]);
+    if (srcText) this.add(srcText);
     this.setSize(width, height);
     scene.add.existing(this);
 

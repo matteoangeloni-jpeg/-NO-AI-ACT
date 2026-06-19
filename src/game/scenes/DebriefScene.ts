@@ -25,7 +25,9 @@ export class DebriefScene extends Phaser.Scene {
       indicators: StateManager.indicators,
       unlockedNorms: StateManager.unlockedNorms,
       endingId: StateManager.endingId,
-      startedAt: StateManager.startedAt
+      startedAt: StateManager.startedAt,
+      mission: StateManager.mission,
+      difficulty: StateManager.difficulty
     });
 
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
@@ -37,7 +39,11 @@ export class DebriefScene extends Phaser.Scene {
 
     new Panel(this, cx, GAME_HEIGHT / 2 + 14, 1080, 540);
     const left = cx - 510;
-    let y = 102;
+    let y = 96;
+    // missione + difficoltà del percorso giocato
+    this.add.text(left, y, fmt(t.ui.debrief.missionLine, { mission: report.mission }), textStyle(12, COLOR_STR.accent));
+    this.add.text(left + 540, y, fmt(t.ui.debrief.difficultyLine, { difficulty: report.difficulty }), textStyle(12, COLOR_STR.accent));
+    y += 22;
 
     this.add.text(left, y, t.ui.debrief.casesLabel, textStyle(12, COLOR_STR.accent));
     y += 22;
@@ -65,6 +71,8 @@ export class DebriefScene extends Phaser.Scene {
       y += qt.height + 8;
     });
     this.add.text(left, y, `${t.ui.debrief.reviewLabel}: ${t.ui.debrief.reviewLine}`, textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: 1020 } }));
+    y += 22;
+    this.add.text(left, y, t.ui.debrief.privacyNote, textStyle(12, COLOR_STR.ok, { wordWrap: { width: 1020 } }));
 
     // export locale: nessuna rete, nessun dato personale
     const txt = teacherReportToText(report);

@@ -1,6 +1,7 @@
 import type {
   CaseData,
   Classification,
+  DifficultyMode,
   ErrorType,
   Measure,
   OutcomeQuality,
@@ -64,6 +65,16 @@ export function reasonKeyFor(result: ReportResult): ReasonKey {
   return result.dominantError ?? 'grounded';
 }
 
+/** In difficoltà 'base', dopo un errore, mostra un suggerimento mirato
+ *  (la dimensione da riconsiderare) senza svelare la risposta. */
+export function shouldShowHint(difficulty: DifficultyMode, result: ReportResult): boolean {
+  return difficulty === 'base' && result.dominantError !== null;
+}
+
+export function hintKeyFor(result: ReportResult): ErrorType | null {
+  return result.dominantError;
+}
+
 export function gradeSubject(caseData: CaseData, subject: ResponsibleSubject): SubjectGrade {
   if (subject === caseData.responsibleSubjectCorrect) return 'full';
   if (caseData.responsibleSubjectPartial && subject === caseData.responsibleSubjectPartial) return 'partial';
@@ -102,7 +113,18 @@ const OUTCOME_TO_QUALITY: Record<ReportOutcome, OutcomeQuality> = {
   non_conforme: 'wrong'
 };
 
-export function evaluateReport(input: ReportInput): ReportResult {
+/**
+ * Valutazione del rapporto, con difficoltà (v0.4).
+ *  - 'base' (indulgente): un vizio di fondamento SOLO lieve (prove non
+ *    pertinenti, motivazione debole, soggetto parziale) non degrada un nucleo
+ *    corretto a contestabile, e un nucleo parziale con vizio grave resta
+ *    contestabile (non non conforme).
+ *  - 'standard' (default) ed 'expert': comportamento severo storico — qualunque
+ *    vizio di fondamento su nucleo corretto rende l'atto contestabile.
+ * Standard ed expert condividono la logica d'esito (l'esperto differisce per
+ * assenza di suggerimenti e feedback più asciutto, gestiti nella UI).
+ */
+export function evaluateReport(input: ReportInput, difficulty: DifficultyMode = 'standard'): ReportResult {
   const { caseData, citedClues, classification, measure, subject, motivationIndex } = input;
   const coreGrade = gradeCore(caseData, classification, measure);
   const subjectGrade = gradeSubject(caseData, subject);
@@ -110,8 +132,11 @@ export function evaluateReport(input: ReportInput): ReportResult {
   const cluesOk = cluesSupportClassification(caseData, citedClues);
   const overcaution = isOvercaution(caseData, classification, measure);
 
-  const foundationFlaw = !cluesOk || subjectGrade !== 'full' || motivationGrade !== 'correct';
   const foundationHardFlaw = subjectGrade === 'wrong' || motivationGrade === 'wrong';
+  const foundationSoftFlaw = !cluesOk || subjectGrade === 'partial' || motivationGrade === 'weak';
+  const lenient = difficulty === 'base';
+  // in 'base' i vizi lievi non contano ai fini dell'esito; restano i gravi
+  const foundationFlaw = lenient ? foundationHardFlaw : foundationHardFlaw || foundationSoftFlaw;
 
   let outcome: ReportOutcome;
   if (coreGrade === 'wrong') {
@@ -121,7 +146,7 @@ export function evaluateReport(input: ReportInput): ReportResult {
   } else {
     // nucleo parziale
     if (!foundationFlaw) outcome = 'parziale';
-    else if (foundationHardFlaw && !overcaution) outcome = 'non_conforme';
+    else if (foundationHardFlaw && !overcaution && !lenient) outcome = 'non_conforme';
     else outcome = 'contestabile';
   }
 
@@ -169,6 +194,8 @@ interface ErrorPickContext {
  * difetto di merito.
  */
 function pickErrors(ctx: ErrorPickContext): { dominantError: ErrorType | null; secondaryErrors: ErrorType[] } {
+  // un atto conforme non ha rilievi (in 'base' i vizi lievi sono perdonati)
+  if (ctx.outcome === 'conforme') return { dominantError: null, secondaryErrors: [] };
   const candidates: ErrorType[] = [];
   const classOk = ctx.classification === ctx.caseData.correctClassification;
   const measureFull = ctx.caseData.correctMeasures.includes(ctx.measure);

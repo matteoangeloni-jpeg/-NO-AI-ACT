@@ -9,7 +9,7 @@ import type {
   ReportOutcome,
   ResponsibleSubject
 } from '../data/types';
-import { reasonKeyFor, type ReportResult } from '../systems/ReportSystem';
+import { hintKeyFor, reasonKeyFor, shouldShowHint, type ReportResult } from '../systems/ReportSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
@@ -113,6 +113,22 @@ export class ReportScene extends Phaser.Scene {
       }
     } else {
       this.add.text(left + 200, y, texts.noteCorrect, textStyle(12.5, COLOR_STR.ok, { wordWrap: { width: 620 }, lineSpacing: 4 }));
+    }
+    y += 30;
+
+    // sintesi "prove decisive": perché i reperti citati contano (o no)
+    const decisiveText = result.cluesOk ? t.ui.report.decisiveEvidenceOk : t.ui.report.decisiveEvidenceWeak;
+    this.add.text(left, y, t.ui.report.decisiveEvidenceLabel, textStyle(12, COLOR_STR.paperDim));
+    this.add.text(left + 200, y, decisiveText, textStyle(12.5, result.cluesOk ? COLOR_STR.ok : COLOR_STR.warning, { wordWrap: { width: 620 } }));
+    y += 28;
+
+    // difficoltà BASE: suggerimento mirato dopo un errore (senza svelare la risposta)
+    if (shouldShowHint(StateManager.difficulty, result)) {
+      const hk = hintKeyFor(result);
+      if (hk) {
+        this.add.text(left, y, t.ui.difficulty.hintLabel, textStyle(12, COLOR_STR.accent));
+        this.add.text(left + 200, y, t.ui.difficulty.hints[hk], textStyle(12.5, COLOR_STR.accent, { wordWrap: { width: 620 }, lineSpacing: 4 }));
+      }
     }
 
     // timbro dell'esito: applicato in basso a destra del documento, come su un

@@ -18,7 +18,9 @@ export function defaultSave(): SaveData {
     briefingSeen: false,
     caseReports: {},
     teacherMode: false,
-    startedAt: null
+    startedAt: null,
+    difficulty: 'standard',
+    mission: 'full'
   };
 }
 

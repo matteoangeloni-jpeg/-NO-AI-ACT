@@ -1,6 +1,6 @@
 import { PLAYABLE_CASES } from '../data/cases';
 import { NORMS } from '../data/norms';
-import type { CaseReport, IndicatorState } from '../data/types';
+import type { CaseReport, DifficultyMode, IndicatorState, MissionId } from '../data/types';
 import { L, caseText } from '../i18n';
 
 /**
@@ -15,6 +15,8 @@ export interface TeacherReportInput {
   unlockedNorms: string[];
   endingId: string | null;
   startedAt: number | null;
+  mission: MissionId;
+  difficulty: DifficultyMode;
   now?: number;
 }
 
@@ -28,6 +30,8 @@ export interface TeacherReportCaseRow {
 
 export interface TeacherReport {
   generator: string;
+  mission: string;
+  difficulty: string;
   cases: TeacherReportCaseRow[];
   normsUnlocked: number;
   normsTotal: number;
@@ -63,6 +67,8 @@ export function buildTeacherReport(input: TeacherReportInput): TeacherReport {
 
   return {
     generator: 'NO AI ACT — local teacher report',
+    mission: t.ui.missions.modes[input.mission].name,
+    difficulty: t.ui.difficulty.modes[input.difficulty].name,
     cases: rows,
     normsUnlocked: input.unlockedNorms.length,
     normsTotal: NORMS.length,
@@ -79,6 +85,8 @@ export function teacherReportToText(report: TeacherReport): string {
   const lines: string[] = [];
   lines.push(t.ui.debrief.title);
   lines.push(t.ui.debrief.subtitle);
+  lines.push(t.ui.debrief.missionLine.replace('{mission}', report.mission));
+  lines.push(t.ui.debrief.difficultyLine.replace('{difficulty}', report.difficulty));
   lines.push('');
   lines.push(`== ${t.ui.debrief.casesLabel} ==`);
   for (const row of report.cases) {
@@ -106,6 +114,7 @@ export function teacherReportToText(report: TeacherReport): string {
   lines.push('');
   lines.push(`${t.ui.debrief.reviewLabel}: ${t.ui.debrief.reviewLine}`);
   lines.push('');
+  lines.push(t.ui.debrief.privacyNote);
   lines.push(t.ui.footerDisclaimer);
   return lines.join('\n');
 }

@@ -235,7 +235,7 @@ export class DecisionScene extends Phaser.Scene {
       measure: this.measure!,
       subject: this.subject!,
       motivationIndex
-    });
+    }, StateManager.difficulty);
 
     if (result.outcome === 'non_conforme') AudioSystem.error();
     else if (result.outcome === 'conforme') AudioSystem.confirm();

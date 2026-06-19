@@ -114,6 +114,23 @@ carte; non collega l'esito alle proprie scelte.
   etichettatura / provider-deployer.
 - **Durata reale** media per caso e per partita.
 
+## Domande v0.4 — caso credito civico e difficoltà
+Da porre dopo aver giocato il caso 7 ("Il credito civico") e provato almeno due
+livelli di difficoltà.
+1. Che differenza c'è tra il punteggio del "credito civico" e un normale credit
+   scoring bancario? Perché qui scatta il divieto?
+2. Quali dati, nel caso, trasformano una valutazione economica in social scoring vietato?
+3. Chi ha l'obbligo principale: il fornitore della piattaforma o l'ente che la usa?
+4. In difficoltà Base hai ricevuto un suggerimento dopo un errore: ti ha aiutato
+   a ragionare senza darti la risposta?
+5. La modalità Esperto ti è sembrata più severa in modo comprensibile (decisione
+   giusta ma "contestabile")?
+
+**Criterio di comprensione chiave (v0.4):** il tester distingue il **social
+scoring vietato** da uno **scoring/valutazione ad alto rischio**? Sa dire che
+"non ogni punteggio è vietato" e che contano finalità, dati, contesto ed effetti
+sui diritti?
+
 ## Criteri per "pronto per demo pubblica"
 1. Nessun tester descrive il gioco come "un quiz".
 2. Tutti distinguono **prova / classificazione / misura / soggetto / motivazione**.

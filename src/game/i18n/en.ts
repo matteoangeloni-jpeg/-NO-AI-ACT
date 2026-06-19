@@ -67,7 +67,17 @@ export const en: Locale = {
       cited: 'CITED IN REPORT ▣',
       allRevealedToast: 'Exhibits examined. Cite at least 2 exhibits to proceed.',
       proceedButton: 'PROCEED TO CLASSIFICATION ▸',
-      backToEvidence: '◂ EXHIBITS'
+      backToEvidence: '◂ EXHIBITS',
+      sourceLabel: 'SOURCE',
+      sources: {
+        amministrativa: 'administrative source',
+        tecnica: 'technical source',
+        vendor: 'vendor statement',
+        reclamo: 'citizen complaint',
+        pubblica: 'public communication',
+        log: 'system log',
+        interna: 'internal note'
+      }
     },
     decision: {
       step1: 'DECISION 1 OF 4 — CLASSIFICATION',
@@ -106,6 +116,9 @@ export const en: Locale = {
       secondaryLabel: 'SECONDARY FINDINGS',
       continueButton: 'CONTINUE ▸',
       noEvidence: 'no evidence cited',
+      decisiveEvidenceLabel: 'DECISIVE EVIDENCE',
+      decisiveEvidenceOk: 'the cited exhibits support the classification',
+      decisiveEvidenceWeak: 'the cited exhibits are not enough to support the classification',
       reasonLabel: 'Outcome reason',
       reasons: {
         grounded: 'the cited evidence supports the classification and the measure is proportionate',
@@ -192,7 +205,47 @@ export const en: Locale = {
       downloadTxt: 'DOWNLOAD .TXT',
       print: 'PRINT',
       back: '◂ BACK TO THE REPORT',
-      notCompleted: 'case not completed'
+      notCompleted: 'case not completed',
+      missionLine: 'Mission: {mission}',
+      difficultyLine: 'Difficulty: {difficulty}',
+      privacyNote: 'Privacy: everything stays local. No name, email, class or school. No account.',
+      recommendedHeader: 'RECOMMENDED PATHS',
+      recommendedLine: '{name} · {duration} · {goal}'
+    },
+    missions: {
+      title: 'CHOOSE A PATH',
+      subtitle: 'A path suggests recommended cases. You can still play them all.',
+      recommendedTag: 'RECOMMENDED',
+      durationLabel: 'duration',
+      start: 'START PATH ▸',
+      modes: {
+        demo: { name: 'Quick demo', duration: '10–15 min', goal: 'Grasp the logic of the inspection report.' },
+        lab: { name: 'Short lab', duration: '25–35 min', goal: 'Tell prohibited, high-risk and transparency apart.' },
+        full: { name: 'Full path', duration: '45–60 min', goal: 'Audit, accountability, measures and reasoning.' },
+        advanced: { name: 'Advanced path', duration: '60–75 min', goal: 'Ambiguous cases and regulatory boundaries (includes civic credit).' }
+      }
+    },
+    difficulty: {
+      title: 'DIFFICULTY LEVEL',
+      label: 'DIFFICULTY: {value}',
+      modes: {
+        base: { name: 'Basic', desc: 'Explicit instructions, hints after a mistake, more lenient grading.' },
+        standard: { name: 'Standard', desc: 'Full report, balanced feedback. Recommended for the demo.' },
+        expert: { name: 'Expert', desc: 'Few hints, terse feedback, strict on subject and reasoning.' }
+      },
+      hintLabel: 'RECONSIDER',
+      hints: {
+        classificazione: 'Reconsider the classification: compare purpose and context of use.',
+        prove: 'Reconsider the cited exhibits: do they really support the classification?',
+        misura_insufficiente: 'Is the measure proportionate to the main risk?',
+        eccesso_cautela: 'Maybe no shutdown is needed: the system may require governance.',
+        soggetto: 'Check the responsible subject: who holds the main obligation?',
+        trasparenza: 'Mind transparency: can citizens recognize the system?',
+        motivazione: 'Does the reasoning hold against the cited exhibits?'
+      }
+    },
+    mobileGuard: {
+      message: 'NO AI ACT is optimized for desktop or landscape tablet. Rotate your device or use a computer for the best experience.'
     },
     creditsScene: {
       title: 'CREDITS',
@@ -287,7 +340,8 @@ export const en: Locale = {
     media: 'Civic Media Center',
     scuola: 'School of Emotions',
     ospedale: 'Predictive Hospital',
-    sorveglianza: 'Urban Surveillance Center'
+    sorveglianza: 'Urban Surveillance Center',
+    welfare: "Welfare and Services Office"
   },
 
   cases: {
@@ -668,6 +722,35 @@ export const en: Locale = {
         "Would the same system used by a shopping mall fall under the same regime?"
       ],
       epilogue: "The squares became anonymous again, or the crowd learned not to gather."
+    },
+    case_credito: {
+      title: "Civic Credit",
+      scenario: "The Welfare Office adopts a \"civic reliability\" platform that fuses administrative data, payment punctuality, benefit requests, housing history, reports and acquaintances into a single score. The score decides priority and access to grants, housing and subsidised services. Families who protested or kept \"risky\" company slide to the bottom of the lists. No one can explain why.",
+      clues: [
+        { title: "Award decision", text: "The award decision states legitimate purposes: efficiency, shorter queues, fraud prevention. On paper, nothing unusual." },
+        { title: "Vendor manual", text: "The manual repeats that the system is \"mere decision support\" and that \"the decision always stays human\"." },
+        { title: "A citizen's complaint", text: "A mother lost nursery priority: \"insufficient score\", no explanation, no effective appeal." },
+        { title: "Model data table", text: "The model also weighs reports, acquaintances, social activity and \"neighbourhood reputation\": aggregated social behaviour, irrelevant to the service requested." },
+        { title: "Internal note", text: "A note admits operators \"follow the score\" to clear the backlog: human control exists on paper, not in fact." },
+        { title: "Public statement", text: "The municipality speaks of a \"fair, objective algorithm\" without explaining which data it uses or how to challenge the score." }
+      ],
+      clueSources: ["amministrativa", "vendor", "reclamo", "tecnica", "interna", "pubblica"],
+      noteCorrect: "Investigative note: this is not credit scoring. The system aggregates social behaviour into a generalized score that limits access to essential services in unrelated contexts: it falls under the social-scoring ban. It must be stopped.",
+      notePartial: "Investigative note: audits and oversight mitigate, but a generalized social score deciding access to services cannot be cured by a procedure: it had to be stopped.",
+      noteWrong: "Investigative note: the case file stays open. The score keeps deciding who enters the lists, and who does not.",
+      consequenceCorrect: "The civic score is switched off. Priorities return to relevant, reasoned, appealable criteria. The complaints office reopens: slow, human, verifiable.",
+      consequenceWrong: "Civic credit is extended to transport and canteens. Efficiency rises. Whole neighbourhoods slide to the bottom of every list, without knowing why.",
+      motivations: [
+        "It is a normal administrative-efficiency tool: it optimizes queues and priorities.",
+        "The score aggregates social behaviour and irrelevant data to limit access to essential services in unrelated contexts: it falls under the social-scoring ban.",
+        "Citizens do not receive adequate explanations about the score."
+      ],
+      debriefQuestions: [
+        "Why does this score fall under the ban rather than being mere credit scoring?",
+        "Which data turn an economic-reliability assessment into prohibited social scoring?",
+        "Who holds the main obligation: the platform vendor or the body using it?"
+      ],
+      epilogue: "Civic credit is the boundary: not every score is prohibited, but this one aggregates social life to decide who accesses services."
     }
   },
 
@@ -758,6 +841,14 @@ export const en: Locale = {
         'Public space cannot become a zone of permanent automatic identification.',
       notMeaning: 'This does not mean that every biometric use is banned: the regime depends on purpose, context, the party deploying the system and the conditions set by the regulation.',
       tags: ['prohibition', 'biometrics', 'public space']
+    },
+    norm_credito: {
+      title: "Social scores and access to services",
+      reference: "AI Act — art. 5 (prohibited practices, social scoring); cf. Annex III",
+      explanation: "A score that aggregates social behaviour and personal characteristics and produces detrimental treatment in unrelated contexts, or disproportionate and unjustified treatment, falls under the social-scoring ban (art. 5). A system assessing access to essential benefits or services, without prohibited social generalization, may instead be high-risk (Annex III): purpose, data used, context and effects on rights are decisive.",
+      notMeaning: "This does not mean that every scoring system is prohibited: the regime depends on purpose, data used, context of use, effects on rights, and effective human oversight.",
+      democraticFunction: "Access to essential services cannot depend on a computed, unappealable social reputation.",
+      tags: ["prohibition", "scoring", "welfare", "services"]
     }
   },
 

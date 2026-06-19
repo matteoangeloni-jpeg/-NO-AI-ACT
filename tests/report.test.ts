@@ -201,6 +201,8 @@ describe('debrief docente', () => {
     unlockedNorms: ['norm_social_scoring', 'norm_lavoro_alto_rischio'],
     endingId: null,
     startedAt: 1000,
+    mission: 'full' as const,
+    difficulty: 'standard' as const,
     now: 1000 + 27 * 60000
   };
 

@@ -6,6 +6,8 @@ import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
 import { showToast } from '../ui/AlertToast';
 import { L, fmt, nextLanguage } from '../i18n';
+import { MISSION_IDS } from '../data/missions';
+import type { DifficultyMode } from '../data/types';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 
 export class TitleScene extends Phaser.Scene {
@@ -143,6 +145,35 @@ export class TitleScene extends Phaser.Scene {
         this.scene.restart();
       },
       { width: 160, height: 34, fontSize: 12, variant: 'ghost' }
+    );
+    // selettore difficoltà (base → standard → expert)
+    const diffOrder: DifficultyMode[] = ['base', 'standard', 'expert'];
+    const diffLabel = (): string => fmt(L().ui.difficulty.label, { value: L().ui.difficulty.modes[StateManager.difficulty].name });
+    const diffBtn = new Button(
+      this,
+      x - 90,
+      282,
+      diffLabel(),
+      () => {
+        const next = diffOrder[(diffOrder.indexOf(StateManager.difficulty) + 1) % diffOrder.length];
+        StateManager.setDifficulty(next);
+        diffBtn.setLabel(diffLabel());
+      },
+      { width: 160, height: 34, fontSize: 11, variant: 'ghost' }
+    );
+    // selettore percorso/missione (demo → lab → full → advanced)
+    const missLabel = (): string => L().ui.missions.modes[StateManager.mission].name.toUpperCase();
+    const missBtn = new Button(
+      this,
+      x - 90,
+      324,
+      missLabel(),
+      () => {
+        const next = MISSION_IDS[(MISSION_IDS.indexOf(StateManager.mission) + 1) % MISSION_IDS.length];
+        StateManager.setMission(next);
+        missBtn.setLabel(missLabel());
+      },
+      { width: 160, height: 34, fontSize: 11, variant: 'ghost' }
     );
   }
 
