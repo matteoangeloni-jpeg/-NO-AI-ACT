@@ -12,7 +12,8 @@ export const NORMS: NormCardData[] = [
   { id: 'norm_trasparenza_sintetici', level: 'trasparenza', iconKey: 'icon_media' },
   { id: 'norm_emotion_recognition', level: 'vietata', iconKey: 'icon_school' },
   { id: 'norm_alto_rischio_obblighi', level: 'alto', iconKey: 'icon_hospital' },
-  { id: 'norm_biometria', level: 'restrittivo', iconKey: 'icon_eye' }
+  { id: 'norm_biometria', level: 'restrittivo', iconKey: 'icon_eye' },
+  { id: 'norm_credito', level: 'vietata', iconKey: 'icon_card' }
 ];
 
 export function getNorm(id: string): NormCardData {

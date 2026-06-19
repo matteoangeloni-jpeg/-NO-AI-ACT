@@ -89,3 +89,30 @@ body:not(.reduced-motion) #crt-overlay { animation: crt-flicker 7s infinite; }
 
 /* Focus visibile per eventuali elementi DOM (accessibilità) */
 :focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+
+/* ---- Mobile guard: overlay per smartphone in portrait (nessun dato) ---- */
+#mobile-guard {
+  display: none; /* mostrato via JS solo su viewport piccoli/portrait */
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: var(--c-carbon);
+}
+#mobile-guard .mg-box {
+  max-width: 440px;
+  border: 1px solid var(--c-iron);
+  border-radius: var(--radius);
+  background: var(--c-night2);
+  padding: var(--space-4);
+  text-align: center;
+}
+#mobile-guard .mg-msg {
+  color: var(--c-paper);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+}

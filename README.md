@@ -95,6 +95,23 @@ Dopo 4 casi chiusi si genera il rapporto finale: *Città opaca*,
 | 4 | Scuola delle Emozioni | La classe osservata | art. 5 — emotion recognition | ✅ giocabile |
 | 5 | Ospedale Predittivo | Triage invisibile | obblighi alto rischio | ✅ giocabile (v0.2) |
 | 6 | Centro di Sorveglianza | Volti nella folla | art. 5 — biometria (finalità di contrasto) | ✅ giocabile (v0.2) |
+| 7 | Ufficio Welfare e Servizi | Il credito civico | art. 5 / Allegato III — social scoring vs welfare/credito | ✅ giocabile (v0.4) |
+
+### Novità v0.4
+- **Caso-specchio credito/welfare** ("Il credito civico"): insegna a distinguere
+  social scoring vietato, welfare predittivo ad alto rischio e valutazione di
+  affidabilità economica. Non ogni punteggio è vietato: contano finalità, dati,
+  contesto ed effetti sui diritti.
+- **Difficoltà** selezionabili: **Base** (istruzioni esplicite, valutazione
+  indulgente, suggerimenti dopo un errore), **Standard** (consigliata per la
+  demo), **Esperto** (severo su soggetto e motivazione).
+- **Missioni/percorsi**: Demo rapida (~10–15′), Laboratorio breve (~25–35′),
+  Percorso completo (~45–60′), Percorso avanzato (~60–75′, include il caso 7).
+  La mappa evidenzia i casi consigliati; nessun caso è bloccato.
+- **Reperti con fonte** ed etichetta di attendibilità + riga "Prove decisive"
+  nel rapporto.
+- **Ottimizzato per desktop / tablet in orizzontale**: su smartphone in portrait
+  un avviso invita a ruotare il dispositivo. Nessun dato personale raccolto.
 
 ### Novità v0.2
 - **Multilingua IT/EN**: sistema i18n tipato (`src/game/i18n/`), selettore nel

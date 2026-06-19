@@ -1,5 +1,28 @@
 # CHANGELOG — NO AI ACT
 
+## v0.4.0 — Progressione, difficoltà e caso credito/welfare
+
+- **Caso 7 — Il credito civico / Civic Credit**: caso-specchio sul confine tra
+  social scoring vietato (art. 5), welfare predittivo ad alto rischio
+  (Allegato III) e valutazione di affidabilità economica. 6 reperti con
+  etichette-fonte, classificazione corretta "pratica vietata" motivata
+  sull'aggregazione di comportamenti sociali e l'accesso a servizi essenziali.
+- **Difficoltà selezionabili** (base / standard / expert): la modalità *base* è
+  più indulgente (perdona i vizi lievi di fondamento, mostra un suggerimento
+  mirato dopo un errore); *standard* (default) ed *expert* mantengono la
+  severità storica. Salvata localmente.
+- **Missioni/percorsi** (demo / laboratorio / completo / avanzato): durate e
+  obiettivi consigliati, casi evidenziati sulla mappa con "★ CONSIGLIATO".
+  Nessun blocco artificiale dei casi; default sicuro = percorso completo.
+- **Meccanica investigativa**: etichette-fonte sui reperti (amministrativa,
+  tecnica, vendor, reclamo, pubblica, log, interna) + riga "Prove decisive"
+  nel rapporto.
+- **Modalità docente**: il debrief locale ora riporta missione, difficoltà e
+  una nota privacy esplicita. Export .txt/.json invariato — nessun dato personale.
+- **Mobile guard**: overlay DOM per smartphone in portrait (IT/EN), nasce e
+  scompare con l'orientamento; non tocca il canvas né il desktop.
+- Test: 88 → 108 (difficoltà, missioni, caso 7, mobile guard, parità i18n).
+
 ## v0.3.0 — Rapporto ispettivo e modalità docente
 
 - **Rapporto ispettivo**: la decisione diventa un atto motivato in 4 passi

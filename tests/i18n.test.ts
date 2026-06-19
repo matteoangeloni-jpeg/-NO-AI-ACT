@@ -55,10 +55,10 @@ describe('i18n — completezza dei dizionari', () => {
   test('ogni caso e ogni norma esistono in entrambe le lingue con 3 indizi', () => {
     for (const lang of LANGUAGE_CODES) {
       const locale = LOCALES[lang];
-      expect(Object.keys(locale.cases)).toHaveLength(6);
-      expect(Object.keys(locale.norms)).toHaveLength(6);
+      expect(Object.keys(locale.cases)).toHaveLength(7);
+      expect(Object.keys(locale.norms)).toHaveLength(7);
       for (const c of Object.values(locale.cases)) {
-        expect(c.clues).toHaveLength(3);
+        expect(c.clues.length).toBeGreaterThanOrEqual(3);
       }
     }
   });
@@ -70,7 +70,7 @@ describe('i18n — completezza dei dizionari', () => {
 
   test('ogni carta ha la riga "Non significa che" / "This does not mean that", non vuota', () => {
     const ids = Object.keys(it.norms) as (keyof typeof it.norms)[];
-    expect(ids).toHaveLength(6);
+    expect(ids).toHaveLength(7);
     for (const id of ids) {
       expect(it.norms[id].notMeaning.trim().length).toBeGreaterThan(20);
       expect(it.norms[id].notMeaning).toMatch(/Non significa che/i);

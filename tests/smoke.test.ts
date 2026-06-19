@@ -8,10 +8,10 @@ import { it as itLocale } from '../src/game/i18n/it';
 import { THEME_IDS, buildTheme } from '../src/game/systems/musicThemes';
 
 describe('integrità dei dati di gioco', () => {
-  it('ha 6 luoghi e 6 casi, tutti giocabili nella v0.2', () => {
-    expect(LOCATIONS).toHaveLength(6);
-    expect(CASES).toHaveLength(6);
-    expect(PLAYABLE_CASES).toHaveLength(6);
+  it('ha 7 luoghi e 7 casi, tutti giocabili (v0.4)', () => {
+    expect(LOCATIONS).toHaveLength(7);
+    expect(CASES).toHaveLength(7);
+    expect(PLAYABLE_CASES).toHaveLength(7);
     expect(PLAYABLE_CASES.length).toBeGreaterThanOrEqual(CASES_REQUIRED_FOR_FINALE);
   });
 
@@ -28,18 +28,18 @@ describe('integrità dei dati di gioco', () => {
       // testi presenti nel locale
       const texts = itLocale.cases[c.id as keyof typeof itLocale.cases];
       expect(texts).toBeDefined();
-      expect(texts.clues).toHaveLength(3);
+      expect(texts.clues.length).toBeGreaterThanOrEqual(3);
       // reperti rilevanti: almeno MIN_CITED_CLUES, indici validi
       expect(c.relevantClues.length).toBeGreaterThanOrEqual(MIN_CITED_CLUES);
       for (const idx of c.relevantClues) {
         expect(idx).toBeGreaterThanOrEqual(0);
-        expect(idx).toBeLessThan(3);
+        expect(idx).toBeLessThan(texts.clues.length);
       }
     }
   });
 
   it('ha 6 carte norma con testi localizzati', () => {
-    expect(NORMS).toHaveLength(6);
+    expect(NORMS).toHaveLength(7);
     for (const n of NORMS) {
       const texts = itLocale.norms[n.id as keyof typeof itLocale.norms];
       expect(texts.title.length).toBeGreaterThan(0);

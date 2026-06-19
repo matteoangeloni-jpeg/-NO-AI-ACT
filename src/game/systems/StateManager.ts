@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { applyOutcome, clampIndicator } from '../data/indicators';
-import type { CaseReport, IndicatorState, LanguageCode, OutcomeQuality, SaveData } from '../data/types';
+import type { CaseReport, DifficultyMode, IndicatorState, LanguageCode, MissionId, OutcomeQuality, SaveData } from '../data/types';
 import { setLanguage } from '../i18n';
 import { SaveSystem } from './SaveSystem';
 
@@ -53,6 +53,24 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
 
   get caseReports(): Record<string, CaseReport> {
     return { ...this.data.caseReports };
+  }
+
+  get difficulty(): DifficultyMode {
+    return this.data.difficulty;
+  }
+
+  get mission(): MissionId {
+    return this.data.mission;
+  }
+
+  setDifficulty(value: DifficultyMode): void {
+    this.data.difficulty = value;
+    this.persist();
+  }
+
+  setMission(value: MissionId): void {
+    this.data.mission = value;
+    this.persist();
   }
 
   get endingId(): string | null {
@@ -168,7 +186,9 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
       reducedMotion: this.data.reducedMotion,
       crtOverlay: this.data.crtOverlay,
       language: this.data.language,
-      teacherMode: this.data.teacherMode
+      teacherMode: this.data.teacherMode,
+      difficulty: this.data.difficulty,
+      mission: this.data.mission
     };
     this.data = { ...SaveSystem.reset(), ...prefs };
     this.persist();

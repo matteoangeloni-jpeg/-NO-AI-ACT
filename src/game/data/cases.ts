@@ -17,7 +17,8 @@ export const LOCATIONS: LocationData[] = [
   { id: 'media', x: 0.68, y: 0.24, iconKey: 'icon_media', caseId: 'case_media' },
   { id: 'scuola', x: 0.78, y: 0.58, iconKey: 'icon_school', caseId: 'case_scuola' },
   { id: 'ospedale', x: 0.33, y: 0.78, iconKey: 'icon_hospital', caseId: 'case_ospedale' },
-  { id: 'sorveglianza', x: 0.58, y: 0.74, iconKey: 'icon_eye', caseId: 'case_biometria' }
+  { id: 'sorveglianza', x: 0.58, y: 0.74, iconKey: 'icon_eye', caseId: 'case_biometria' },
+  { id: 'welfare', x: 0.40, y: 0.18, iconKey: 'icon_card', caseId: 'case_credito' }
 ];
 
 /**
@@ -143,6 +144,32 @@ export const CASES: CaseData[] = [
     correctMotivation: 2,
     weakMotivation: 0,
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione'],
+    hasIncident: false,
+    playable: true
+  },
+  {
+    // CASO 7 — caso-specchio credito/welfare (v0.4).
+    // Classificazione corretta: VIETATA. Il sistema aggrega comportamenti
+    // sociali (segnalazioni, "affidabilità civica") in punteggio generalizzato
+    // che limita l'accesso a servizi essenziali in contesti scollegati →
+    // ricade nel divieto di social scoring. NON è un mero credit scoring.
+    id: 'case_credito',
+    locationId: 'welfare',
+    fileCode: 'AX-102/2032',
+    correctClassification: 'vietata',
+    correctMeasures: ['blocco'],
+    // audit/oversight mitigano ma non sanano un punteggio sociale generalizzato
+    partialMeasures: ['audit', 'oversight', 'dati_logging'],
+    // reperti decisivi: dati non pertinenti aggregati (3) + decisione di fatto
+    // automatica/priva di controllo umano effettivo (4). I reperti 0,1,2,5 sono
+    // contorno o depistaggio (finalità dichiarata, difesa del vendor, ecc.).
+    relevantClues: [3, 4],
+    normId: 'norm_credito',
+    responsibleSubjectCorrect: 'autorita',
+    responsibleSubjectPartial: 'fornitore_esterno',
+    correctMotivation: 1,
+    weakMotivation: 2,
+    possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'eccesso_cautela', 'soggetto', 'motivazione', 'trasparenza'],
     hasIncident: false,
     playable: true
   }

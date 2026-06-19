@@ -47,6 +47,22 @@ export type LanguageCode = 'it' | 'en';
 
 export type NormLevel = 'vietata' | 'alto' | 'trasparenza' | 'restrittivo';
 
+/** Livelli di difficoltà selezionabili (v0.4). */
+export type DifficultyMode = 'base' | 'standard' | 'expert';
+
+/** Percorsi didattici / missioni (v0.4). */
+export type MissionId = 'demo' | 'lab' | 'full' | 'advanced';
+
+/** Fonte/attendibilità di un reperto (etichetta investigativa, v0.4). */
+export type EvidenceSource =
+  | 'amministrativa'
+  | 'tecnica'
+  | 'vendor'
+  | 'reclamo'
+  | 'pubblica'
+  | 'log'
+  | 'interna';
+
 export interface IndicatorState {
   efficienza: number;
   controllo: number;
@@ -99,6 +115,8 @@ export interface CaseTexts {
   title: string;
   scenario: string;
   clues: { title: string; text: string }[];
+  /** Etichetta-fonte opzionale per ciascun reperto (parallela a clues). */
+  clueSources?: EvidenceSource[];
   noteCorrect: string;
   notePartial: string;
   noteWrong: string;
@@ -180,4 +198,8 @@ export interface SaveData {
   teacherMode: boolean;
   /** Avvio partita (epoch ms) per il tempo di completamento. Non è un dato personale. */
   startedAt: number | null;
+  /** Difficoltà selezionata (v0.4). Default sicuro: 'standard'. */
+  difficulty: DifficultyMode;
+  /** Missione/percorso selezionato (v0.4). Default sicuro: 'full'. */
+  mission: MissionId;
 }

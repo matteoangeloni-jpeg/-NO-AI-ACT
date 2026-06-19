@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { CASES_REQUIRED_FOR_FINALE, LOCATIONS, PLAYABLE_CASES, getCase } from '../data/cases';
+import { isRecommended } from '../data/missions';
 import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { IndicatorHud } from '../systems/IndicatorSystem';
@@ -90,6 +91,13 @@ export class CityMapScene extends Phaser.Scene {
       .text(0, 58, statusLabel, textStyle(12, statusColor))
       .setOrigin(0.5);
     container.add([ring, icon, nameTag, statusTag]);
+
+    // evidenzia i casi consigliati dalla missione corrente (non blocca gli altri)
+    if (caseData && playable && isRecommended(StateManager.mission, caseData.id)) {
+      const rec = this.add.text(0, 74, `★ ${L().ui.missions.recommendedTag}`, textStyle(11, COLOR_STR.accent)).setOrigin(0.5);
+      container.add(rec);
+      ring.setStrokeStyle(2, COLORS.accent);
+    }
 
     // pulsazione dei casi aperti
     if (playable && !StateManager.reducedMotion) {

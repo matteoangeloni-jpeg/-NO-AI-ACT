@@ -44,13 +44,25 @@ export class EvidenceScene extends Phaser.Scene {
     this.add.text(cx, 80, L().ui.evidence.instruction, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
     this.add.rectangle(cx, 100, 900, 1, COLORS.iron);
 
+    // layout a griglia: 1 riga per ≤3 reperti, 2 righe per 4–6 (caso credito)
+    const n = texts.clues.length;
+    const cols = Math.min(n, 3);
+    const rows = Math.ceil(n / cols);
     const cardW = 360;
-    const cardH = 320;
-    const positions = [cx - 390, cx, cx + 390];
+    const cardH = rows === 1 ? 320 : 230;
+    const colX = cols === 1 ? [cx] : cols === 2 ? [cx - 300, cx + 300] : [cx - 390, cx, cx + 390];
+    const rowY = rows === 1 ? [290] : [236, 236 + cardH + 16];
+    const sources = texts.clueSources;
     texts.clues.forEach((clue, i) => {
-      const card = new DossierCard(this, positions[i], 290, cardW, cardH, clue, i, () => this.refreshState());
+      const x = colX[i % cols];
+      const y = rowY[Math.floor(i / cols)];
+      const src = sources?.[i];
+      const sourceLabel = src
+        ? `${L().ui.evidence.sourceLabel}: ${(L().ui.evidence.sources as Record<string, string>)[src]}`
+        : undefined;
+      const card = new DossierCard(this, x, y, cardW, cardH, clue, i, () => this.refreshState(), sourceLabel);
       card.setAlpha(0);
-      this.tweens.add({ targets: card, alpha: 1, duration: 250, delay: i * 130 });
+      this.tweens.add({ targets: card, alpha: 1, duration: 250, delay: i * 100 });
       this.cards.push(card);
     });
 

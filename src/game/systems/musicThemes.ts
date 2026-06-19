@@ -233,7 +233,9 @@ export const THEME_BUILDERS: Record<string, ThemeBuilder> = {
   case_media: media,
   case_scuola: scuola,
   case_ospedale: ospedale,
-  case_biometria: biometria
+  case_biometria: biometria,
+  // credito civico: stesso drone burocratico freddo del social scoring (ufficio welfare)
+  case_credito: scoring
 };
 
 export const THEME_IDS = Object.keys(THEME_BUILDERS);

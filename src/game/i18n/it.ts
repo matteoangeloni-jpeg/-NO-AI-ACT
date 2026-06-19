@@ -66,7 +66,17 @@ export const it = {
       cited: 'CITATO NEL RAPPORTO ▣',
       allRevealedToast: 'Reperti esaminati. Citare almeno 2 reperti per procedere.',
       proceedButton: 'PROCEDI ALLA CLASSIFICAZIONE ▸',
-      backToEvidence: '◂ REPERTI'
+      backToEvidence: '◂ REPERTI',
+      sourceLabel: 'FONTE',
+      sources: {
+        amministrativa: 'fonte amministrativa',
+        tecnica: 'fonte tecnica',
+        vendor: 'dichiarazione del fornitore',
+        reclamo: 'reclamo del cittadino',
+        pubblica: 'comunicazione pubblica',
+        log: 'log di sistema',
+        interna: 'nota interna'
+      }
     },
     decision: {
       step1: 'DECISIONE 1 DI 4 — CLASSIFICAZIONE',
@@ -105,6 +115,9 @@ export const it = {
       secondaryLabel: 'RILIEVI SECONDARI',
       continueButton: 'PROSEGUI ▸',
       noEvidence: 'nessuna prova citata',
+      decisiveEvidenceLabel: 'PROVE DECISIVE',
+      decisiveEvidenceOk: 'i reperti citati reggono la classificazione',
+      decisiveEvidenceWeak: 'i reperti citati non bastano a reggere la classificazione',
       reasonLabel: 'Esito perché',
       reasons: {
         grounded: 'le prove citate sostengono la classificazione e la misura è proporzionata',
@@ -191,7 +204,47 @@ export const it = {
       downloadTxt: 'SCARICA .TXT',
       print: 'STAMPA',
       back: '◂ TORNA AL RAPPORTO',
-      notCompleted: 'caso non completato'
+      notCompleted: 'caso non completato',
+      missionLine: 'Missione: {mission}',
+      difficultyLine: 'Difficoltà: {difficulty}',
+      privacyNote: 'Privacy: tutto in locale. Nessun nome, email, classe o scuola. Nessun account.',
+      recommendedHeader: 'PERCORSI CONSIGLIATI',
+      recommendedLine: '{name} · {duration} · {goal}'
+    },
+    missions: {
+      title: 'SCEGLI IL PERCORSO',
+      subtitle: 'Un percorso suggerisce i casi consigliati. Puoi comunque giocarli tutti.',
+      recommendedTag: 'CONSIGLIATO',
+      durationLabel: 'durata',
+      start: 'AVVIA PERCORSO ▸',
+      modes: {
+        demo: { name: 'Demo rapida', duration: '10–15 min', goal: 'Capire la logica del rapporto ispettivo.' },
+        lab: { name: 'Laboratorio breve', duration: '25–35 min', goal: 'Distinguere pratica vietata, alto rischio e trasparenza.' },
+        full: { name: 'Percorso completo', duration: '45–60 min', goal: 'Audit, responsabilità, misure e motivazione.' },
+        advanced: { name: 'Percorso avanzato', duration: '60–75 min', goal: 'Casi ambigui e confini normativi (include il credito civico).' }
+      }
+    },
+    difficulty: {
+      title: 'LIVELLO DI DIFFICOLTÀ',
+      label: 'DIFFICOLTÀ: {value}',
+      modes: {
+        base: { name: 'Base', desc: 'Istruzioni esplicite, suggerimenti dopo un errore, valutazione più indulgente.' },
+        standard: { name: 'Standard', desc: 'Rapporto completo, feedback equilibrato. Consigliata per la demo.' },
+        expert: { name: 'Esperto', desc: 'Pochi suggerimenti, feedback asciutto, severità su soggetto e motivazione.' }
+      },
+      hintLabel: 'DA RICONSIDERARE',
+      hints: {
+        classificazione: 'Rivedi la classificazione: confronta finalità e contesto d\'uso.',
+        prove: 'Rivedi i reperti citati: sostengono davvero la classificazione?',
+        misura_insufficiente: 'La misura è proporzionata al rischio principale?',
+        eccesso_cautela: 'Forse non serve bloccare: il sistema può richiedere governance.',
+        soggetto: 'Verifica il soggetto responsabile: chi ha l\'obbligo principale?',
+        trasparenza: 'Attenzione alla trasparenza: i cittadini possono riconoscere il sistema?',
+        motivazione: 'La motivazione regge rispetto ai reperti citati?'
+      }
+    },
+    mobileGuard: {
+      message: 'NO AI ACT è ottimizzato per desktop o tablet in orizzontale. Ruota il dispositivo o usa un computer per una migliore esperienza.'
     },
     creditsScene: {
       title: 'CREDITS',
@@ -285,7 +338,8 @@ export const it = {
     media: 'Media Center Civico',
     scuola: 'Scuola delle Emozioni',
     ospedale: 'Ospedale Predittivo',
-    sorveglianza: 'Centro di Sorveglianza Urbana'
+    sorveglianza: 'Centro di Sorveglianza Urbana',
+    welfare: "Ufficio Welfare e Servizi"
   },
 
   cases: {
@@ -663,6 +717,35 @@ export const it = {
         "Lo stesso sistema usato da un centro commerciale ricadrebbe nello stesso regime?"
       ],
       epilogue: "Le piazze sono tornate anonime, o la folla ha imparato a non riunirsi."
+    },
+    case_credito: {
+      title: "Il credito civico",
+      scenario: "L'Ufficio Welfare adotta una piattaforma di \"affidabilità civica\" che fonde dati amministrativi, puntualità nei pagamenti, richieste di sussidi, storico abitativo, segnalazioni e frequentazioni in un unico punteggio. Il punteggio decide priorità e accesso a contributi, alloggi e servizi agevolati. Famiglie che hanno protestato o frequentato persone \"a rischio\" scivolano in fondo alle liste. Nessuno sa spiegare perché.",
+      clues: [
+        { title: "Determina di affidamento", text: "La determina dichiara finalità legittime: efficienza, riduzione delle code, prevenzione delle frodi. Sulla carta, nulla di anomalo." },
+        { title: "Manuale del fornitore", text: "Il manuale ripete che il sistema è \"un semplice supporto decisionale\" e che \"la decisione resta sempre umana\"." },
+        { title: "Reclamo di una cittadina", text: "Una madre racconta di aver perso la priorità per l'asilo nido: \"punteggio insufficiente\", nessuna spiegazione, nessun ricorso utile." },
+        { title: "Tabella dei dati del modello", text: "Il modello pesa anche segnalazioni, frequentazioni, attività social e \"reputazione di quartiere\": comportamenti sociali aggregati, non pertinenti al servizio richiesto." },
+        { title: "Nota interna del responsabile", text: "Una nota ammette che gli operatori \"seguono il punteggio\" per smaltire le pratiche: il controllo umano esiste sulla carta, non nei fatti." },
+        { title: "Comunicato pubblico", text: "Il Comune parla di \"algoritmo equo e oggettivo\" senza spiegare quali dati usa né come contestare il punteggio." }
+      ],
+      clueSources: ["amministrativa", "vendor", "reclamo", "tecnica", "interna", "pubblica"],
+      noteCorrect: "Nota investigativa: non è un credit scoring. Il sistema aggrega comportamenti sociali in un punteggio generalizzato che limita l'accesso a servizi essenziali in contesti scollegati: ricade nel divieto di social scoring. Va fermato.",
+      notePartial: "Nota investigativa: audit e supervisione mitigano, ma un punteggio sociale generalizzato che decide l'accesso ai servizi non si sana con una procedura: andava fermato.",
+      noteWrong: "Nota investigativa: il fascicolo resta aperto. Il punteggio continua a decidere chi entra nelle liste, e chi no.",
+      consequenceCorrect: "Il punteggio civico viene disattivato. Le priorità tornano a criteri pertinenti, motivati e contestabili. L'ufficio reclami riapre: lento, umano, verificabile.",
+      consequenceWrong: "Il credito civico viene esteso a trasporti e mense. L'efficienza sale. Interi quartieri scivolano in fondo a ogni lista, senza sapere perché.",
+      motivations: [
+        "È un normale strumento di efficienza amministrativa: ottimizza code e priorità.",
+        "Il punteggio aggrega comportamenti sociali e dati non pertinenti per limitare l'accesso a servizi essenziali in contesti scollegati: ricade nel divieto di social scoring.",
+        "I cittadini non ricevono spiegazioni adeguate sul punteggio."
+      ],
+      debriefQuestions: [
+        "Perché questo punteggio ricade nel divieto e non in un semplice credit scoring?",
+        "Quali dati trasformano una valutazione di affidabilità economica in social scoring vietato?",
+        "Chi ha l'obbligo principale: il fornitore della piattaforma o l'ente che la usa?"
+      ],
+      epilogue: "Il credito civico è il confine: non ogni punteggio è vietato, ma questo aggrega la vita sociale per decidere chi accede ai servizi."
     }
   },
 
@@ -754,6 +837,14 @@ export const it = {
         'automatica permanente.',
       notMeaning: 'Non significa che ogni uso biometrico sia vietato: il regime dipende da finalità, contesto, soggetto che impiega il sistema e condizioni previste dal regolamento.',
       tags: ['divieto', 'biometria', 'spazio pubblico']
+    },
+    norm_credito: {
+      title: "Punteggi sociali e accesso ai servizi",
+      reference: "AI Act — art. 5 (pratiche vietate, social scoring); cfr. Allegato III",
+      explanation: "Un punteggio che aggrega comportamenti sociali e caratteristiche personali e produce trattamenti sfavorevoli in contesti scollegati, o sproporzionati e ingiustificati, ricade nel divieto di social scoring (art. 5). Un sistema che valuta l'accesso a prestazioni o servizi essenziali, senza generalizzazione sociale vietata, può invece essere alto rischio (Allegato III): contano finalità, dati usati, contesto ed effetti sui diritti.",
+      notMeaning: "Non significa che ogni sistema di punteggio sia vietato: il regime dipende da finalità, dati usati, contesto d'uso, effetti sui diritti e possibilità effettiva di controllo umano.",
+      democraticFunction: "L'accesso ai servizi essenziali non può dipendere da una reputazione sociale calcolata e inappellabile.",
+      tags: ["divieto", "scoring", "welfare", "servizi"]
     }
   },
 
