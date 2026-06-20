@@ -24,7 +24,8 @@ export class DossierCard extends Phaser.GameObjects.Container {
     clue: { title: string; text: string },
     index: number,
     private onChange: () => void,
-    sourceLabel?: string
+    sourceLabel?: string,
+    stanceLabel?: string
   ) {
     super(scene, x, y);
 
@@ -36,6 +37,11 @@ export class DossierCard extends Phaser.GameObjects.Container {
     // etichetta-fonte (attendibilità): sempre visibile, aiuta a ragionare
     const srcText = sourceLabel
       ? scene.add.text(width / 2 - 12, -height / 2 + 14, sourceLabel, textStyle(11, COLOR_STR.accent)).setOrigin(1, 0.5)
+      : null;
+    // micro-tag investigativo (v0.5): nell'angolo in basso a destra, lontano da
+    // codice reperto, fonte, titolo e corpo — nessuna sovrapposizione
+    const stanceText = stanceLabel
+      ? scene.add.text(width / 2 - 12, height / 2 - 40, stanceLabel, textStyle(10.5, COLOR_STR.warning)).setOrigin(1, 0.5)
       : null;
     const sealed = scene.add
       .text(0, 10, L().ui.evidence.sealed, textStyle(13, COLOR_STR.accent, { align: 'center' }))
@@ -53,6 +59,7 @@ export class DossierCard extends Phaser.GameObjects.Container {
 
     this.add([this.bg, tape, code, sealed, title, body, this.citeLabel]);
     if (srcText) this.add(srcText);
+    if (stanceText) this.add(stanceText);
     this.setSize(width, height);
     scene.add.existing(this);
 
