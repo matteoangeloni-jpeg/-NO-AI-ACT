@@ -1,35 +1,57 @@
 # CHANGELOG — NO AI ACT
 
-## Unreleased — v0.5 (Investigation & Learning Layer)
+## [Unreleased]
 
-*In sviluppo. Nessun nuovo caso, nessun backend/account, nessuna dashboard,
-nessuna raccolta dati personali. Compatibile con i salvataggi v0.4.*
+_Nessuna modifica in corso._
 
-- **Tassonomia delle fragilità decisionali**: oltre all'esito (conforme /
-  parziale / contestabile / non conforme), il gioco nomina la fragilità che lo
-  ha prodotto (classificazione, misura, soggetto, motivazione, prove,
-  trasparenza, proporzionalità…). Derivata dalla logica esistente.
-- **Analisi della decisione** nel rapporto ispettivo: una riga sintetica spiega
-  perché la decisione regge, è contestabile, parziale o non conforme, con il
-  punto debole specifico.
-- **Schede didattiche per caso** (cosa insegna, errore tipico, domanda di
-  discussione, concetti AI Act, segnale di comprensione, uso in aula): tutte e
-  7, IT/EN, visibili nel debrief/export e in `docs/CASE_LEARNING_CARDS.md`.
-- **Reperti più investigativi**: micro-tag di funzione (minimizza, prova
-  decisiva, effetto concreto, contesto) accodato all'etichetta-fonte, per i casi
-  lavoro, ospedale e credito (il caso credito resta il più investigativo).
-- **Fascicolo città**: effetti sistemici qualitativi (fiducia pubblica, diritti
+## [0.5.0] - 2026-06-20
+
+Investigation & Learning Layer. Nessun nuovo caso, nessun cambiamento di
+gameplay o di logica di valutazione. Compatibile con i salvataggi v0.4.
+
+### Added
+- Investigation & Learning Layer.
+- Tassonomia tipizzata delle fragilità decisionali (`DecisionIssueType`),
+  derivata dalla logica di valutazione esistente.
+- Analisi della decisione nel rapporto ispettivo (perché regge / è contestabile
+  / parziale / non conforme, con il punto debole specifico).
+- Schede didattiche per tutti i 7 casi (cosa insegna, errore tipico, domanda di
+  discussione, concetti AI Act, segnale di comprensione, uso in aula), IT/EN.
+- Reperti più investigativi: micro-tag di funzione (minimizza, prova decisiva,
+  effetto concreto, contesto) per i casi lavoro, ospedale e credito.
+- Fascicolo città: effetti sistemici qualitativi (fiducia pubblica, diritti
   fondamentali, opacità amministrativa, rischio contenzioso, efficienza dei
-  servizi) derivati dagli esiti — tendenze, non punteggi. Nel debrief e
-  nell'export.
-- **Glossario operativo**: voci brevi consultabili dall'archivio (pratica
-  vietata, alto rischio, trasparenza, contestabile, provider, deployer,
-  controllo umano, social scoring, biometria, emotion recognition, deepfake,
-  credito/welfare, GPAI), IT/EN, con casi collegati e cautele "non significa
-  che…".
-- **Export docente migliorato**: fragilità tipizzate, concetti AI Act emersi e
-  fascicolo città nel `.txt`; il `.json` resta privo di dati personali.
-- Test: 108 → 138 (tassonomia, fascicolo città, schede, glossario, export).
+  servizi), derivati dagli esiti — tendenze, non punteggi.
+- Glossario operativo: 13 voci consultabili dall'archivio, IT/EN, con casi
+  collegati e cautele "non significa che…".
+- Export docente migliorato (locale): fragilità tipizzate, concetti AI Act
+  emersi e fascicolo città nel `.txt`.
+
+### Improved
+- Utilità del debrief docente (locale, anonimo).
+- Leggibilità dei reperti e interpretazione di fonti e contraddizioni.
+- Contenuto dell'export sicuro per la privacy (il `.json` resta privo di dati
+  personali).
+- Documentazione per l'uso in aula e per i playtest.
+
+### Fixed
+- Rimosso il 404 benigno su `/favicon.ico` con un favicon SVG bundlato
+  (`<link rel="icon">` nello shell HTML).
+
+### Privacy
+- Nessun backend.
+- Nessun account.
+- Nessuna dashboard classe.
+- Nessuna raccolta di dati personali.
+- L'export docente resta locale e anonimo.
+
+### Notes
+- La v0.5.0 resta una simulazione didattica, non una consulenza legale.
+- Review giuridica terza raccomandata prima di un uso istituzionale/pubblico
+  formale.
+
+### Tests
+- 108 → 138 test (tassonomia, fascicolo città, schede, glossario, export).
 
 ## v0.4.0 — Progressione, difficoltà e caso credito/welfare
 

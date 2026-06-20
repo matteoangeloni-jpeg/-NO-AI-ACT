@@ -6,7 +6,7 @@
 [![Contenuti: CC BY 4.0](https://img.shields.io/badge/contenuti-CC%20BY%204.0-5d7fb8)](LICENSE)
 [![Stack](https://img.shields.io/badge/stack-TypeScript%20%2B%20Phaser%203%20%2B%20Vite-101a30)](#stack)
 [![Test](https://img.shields.io/badge/test-Vitest-d9a521)](tests/)
-[![Stato](https://img.shields.io/badge/stato-v0.4.0-3fa66a)](#stato-release)
+[![Stato](https://img.shields.io/badge/stato-v0.5.0-3fa66a)](#stato-release)
 [![Lingue](https://img.shields.io/badge/lingue-IT%20%2B%20EN-d8d6cd)](#lingue)
 
 **Serious game investigativo sull'AI Act europeo · browser, zero asset esterni, salvataggio locale**
@@ -49,6 +49,28 @@ Questo gioco **non costituisce consulenza legale**.
 | **Durata** | Da ~10–15 min (demo) a ~60–75 min (percorso avanzato) |
 | **Lingue** | Italiano / English |
 | **Account / dati** | Nessun account, nessun dato personale, nessun backend |
+
+## Novità in v0.5.0 — Investigation & Learning Layer
+
+Nessun nuovo caso: la v0.5.0 aggiunge un layer di **interpretazione, debrief e
+conseguenze sistemiche**.
+
+- **Fragilità decisionali tipizzate**: il rapporto non dà solo un esito, ma nomina
+  il punto debole (soggetto, motivazione, prove, proporzionalità…).
+- **Analisi della decisione** nel rapporto ispettivo (perché regge / è
+  contestabile / parziale / non conforme).
+- **Reperti più investigativi**: micro-tag di funzione (minimizza, prova
+  decisiva, effetto concreto, contesto).
+- **Fascicolo città**: effetti sistemici qualitativi (tendenze, non punteggi).
+- **Glossario operativo** consultabile dall'archivio (IT/EN).
+- **Schede didattiche** per tutti i 7 casi ed **export docente** locale arricchito.
+- **Fix favicon** (404 benigno rimosso).
+
+Dettagli: [`docs/RELEASE_NOTES_v0.5.0.md`](docs/RELEASE_NOTES_v0.5.0.md).
+
+> **No backend · No accounts · No classroom dashboard · No personal data
+> collection.** Teacher mode is local debrief support. Educational simulation,
+> not legal advice.
 
 ## Obiettivo didattico
 
@@ -228,38 +250,34 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 ## Roadmap
 
-**✅ Fatto in v0.4.0**
-- 7 casi giocabili (incluso il caso-specchio credito/welfare "Il credito civico").
-- Difficoltà selezionabili: Base / Standard / Esperto.
-- Percorsi/missioni: Demo, Laboratorio breve, Percorso completo, Avanzato.
-- Reperti con etichetta-fonte e riga "Prove decisive" nel rapporto ispettivo.
-- Modalità docente con debrief locale (export `.txt`/`.json`, nessun dato personale).
-- Mobile guard per smartphone in portrait.
-- Localizzazione IT/EN e analytics privacy-by-design (off in produzione).
-
-**🔜 Prossima v0.4.1 (post-playtest)**
-- Bugfix, microcopy e ritocchi UX dai playtest.
-- Eventuale aggiornamento delle dipendenze di sviluppo.
-
-**🧭 v0.5 — Investigation & Learning Layer (in sviluppo)**
-- Tassonomia delle fragilità decisionali e analisi della decisione nel rapporto.
+**✅ v0.5.0 — Investigation & Learning Layer (corrente)**
+- Tassonomia tipizzata delle fragilità decisionali e analisi della decisione nel
+  rapporto ispettivo.
 - Schede didattiche per caso, reperti più investigativi, fascicolo città
-  (effetti sistemici) e glossario operativo. Export docente arricchito.
-- Nessun nuovo caso, nessun backend/account, nessun dato personale.
-  Dettagli: [`docs/V0.5_DESIGN_NOTES.md`](docs/V0.5_DESIGN_NOTES.md).
+  (effetti sistemici) e glossario operativo. Export docente arricchito (locale).
+- Fix del favicon (404 benigno rimosso). Nessun nuovo caso, nessun backend/account.
+  Dettagli: [`docs/RELEASE_NOTES_v0.5.0.md`](docs/RELEASE_NOTES_v0.5.0.md) ·
+  [`docs/V0.5_DESIGN_NOTES.md`](docs/V0.5_DESIGN_NOTES.md).
+
+**✅ Base (v0.4.0)**
+- 7 casi giocabili (incluso il caso-specchio credito/welfare "Il credito civico").
+- Difficoltà Base / Standard / Esperto e percorsi/missioni.
+- Modalità docente con debrief locale; mobile guard; IT/EN; analytics
+  privacy-by-design (off in produzione).
 
 **🏁 v1.0**
 - Revisione giuridica formale, asset finali, comunicazione, pacchetto stabile.
 
 ## <a name="stato-release"></a>Stato release
 
-- **Versione**: v0.4.0
+- **Versione**: v0.5.0
 - **Branch stabile**: `main` (GitHub Pages deploy attivo)
 - **Distribuzione**: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/>
-- **Test / build**: verdi in locale e in CI (oltre 100 test automatici).
+- **Test / build**: verdi in locale e in CI (138 test automatici).
 - **Playtest reale**: da completare prima della presentazione pubblica.
 
-Checklist di rilascio: [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md).
+Release notes: [`docs/RELEASE_NOTES_v0.5.0.md`](docs/RELEASE_NOTES_v0.5.0.md) ·
+checklist di rilascio: [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md).
 
 ## Contribuire / testare
 
