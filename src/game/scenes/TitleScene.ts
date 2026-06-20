@@ -130,6 +130,8 @@ export class TitleScene extends Phaser.Scene {
       () => {
         StateManager.setTeacherMode(!StateManager.teacherMode);
         teacherBtn.setLabel(StateManager.teacherMode ? m.teacherOn : m.teacherOff);
+        // chiarisce subito che la modalità docente è un supporto locale, non una dashboard classe
+        if (StateManager.teacherMode) showToast(this, m.teacherScope, 'info');
       },
       { width: 160, height: 34, fontSize: 11, variant: 'ghost' }
     );

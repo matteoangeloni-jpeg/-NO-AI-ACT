@@ -28,6 +28,7 @@ export const en: Locale = {
       language: 'LANGUAGE: ENGLISH',
       teacherOn: 'TEACHER MODE: ON',
       teacherOff: 'TEACHER MODE: OFF',
+      teacherScope: 'Local debrief: no classes, no accounts, no server.',
       resetDone: 'Save data cleared.'
     },
     preload: {
@@ -189,7 +190,7 @@ export const en: Locale = {
     },
     debrief: {
       title: 'TEACHER DEBRIEF — LOCAL REPORT',
-      subtitle: 'No personal data: game decisions only. The report stays on this device.',
+      subtitle: 'Local debrief support. It does not create classes, track students, or send results to a server.',
       casesLabel: 'CASES AND REPORTS',
       caseLine: '{title} — outcome: {outcome}',
       mainErrorLine: 'finding: {error}',
@@ -208,7 +209,7 @@ export const en: Locale = {
       notCompleted: 'case not completed',
       missionLine: 'Mission: {mission}',
       difficultyLine: 'Difficulty: {difficulty}',
-      privacyNote: 'Privacy: everything stays local. No name, email, class or school. No account.',
+      privacyNote: 'The data shown stays on this device. Any export is local and does not include names, emails, class, or school.',
       recommendedHeader: 'RECOMMENDED PATHS',
       recommendedLine: '{name} · {duration} · {goal}'
     },
