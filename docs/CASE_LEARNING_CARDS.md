@@ -10,7 +10,7 @@ Non cambiano la soluzione dei casi. Sintesi (IT):
 | 2 · Il colloquio che non esiste | I sistemi che valutano i lavoratori sono alto rischio | Accontentarsi di una supervisione di facciata | 10 |
 | 3 · La città sintetica | La trasparenza è necessaria ma non sempre sufficiente | Pensare che etichettare risolva ogni manipolazione | 8 |
 | 4 · La classe osservata | Inferire emozioni a scuola è vietato (salvo eccezioni) | Trattarlo come sistema da auditare anziché vietare | 8 |
-| 5 · Triage invisibile | L'IA in sanità va governata, non vietata né subìta | Fidarsi della media e ignorare i sottogruppi | 10 |
+| 5 · Triage invisibile | L'IA in sanità va governata, non vietata né subita | Fidarsi della media e ignorare i sottogruppi | 10 |
 | 6 · Volti nella folla | Confine del divieto biometrico (tempo reale, contrasto) | Credere che ogni uso biometrico sia uguale | 9 |
 | 7 · Il credito civico | Non ogni scoring è vietato: contano finalità, dati, contesto, controllo | Credere che "supporto decisionale" basti | 12 |
 
