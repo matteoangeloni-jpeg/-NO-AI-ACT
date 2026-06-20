@@ -60,6 +60,9 @@ export const CASES: CaseData[] = [
     // bias nei dati storici + oversight di facciata = obblighi alto rischio violati;
     // la notifica standard (c1) è il sintomo, non il fondamento
     relevantClues: [1, 2],
+    // c0 notifica standard = sintomo (contesto); c1 bias dei dati e c2 oversight
+    // di facciata sono le prove decisive dell'alto rischio violato
+    clueStances: ['contextual', 'decisive', 'decisive'],
     normId: 'norm_lavoro_alto_rischio',
     responsibleSubjectCorrect: 'deployer',
     responsibleSubjectPartial: 'provider',
@@ -118,6 +121,9 @@ export const CASES: CaseData[] = [
     // errori concentrati sui sottogruppi + fiducia cieca = qualità dati e oversight;
     // la media eccellente (c1) è il dato che INGANNA: citarla come fondamento è l'errore
     relevantClues: [1, 2],
+    // c0 medie eccellenti = il dato che INGANNA (minimizza); c1 errori sui
+    // sottogruppi e c2 fiducia cieca sono le prove decisive
+    clueStances: ['minimizes_risk', 'decisive', 'decisive'],
     normId: 'norm_alto_rischio_obblighi',
     responsibleSubjectCorrect: 'deployer',
     responsibleSubjectPartial: 'provider',
@@ -164,6 +170,10 @@ export const CASES: CaseData[] = [
     // automatica/priva di controllo umano effettivo (4). I reperti 0,1,2,5 sono
     // contorno o depistaggio (finalità dichiarata, difesa del vendor, ecc.).
     relevantClues: [3, 4],
+    // c0 finalità dichiarata (contesto), c1 manuale-vendor e c5 comunicato
+    // minimizzano, c2 reclamo mostra l'effetto concreto, c3 dati non pertinenti
+    // e c4 controllo umano solo formale sono le prove decisive
+    clueStances: ['contextual', 'minimizes_risk', 'concrete_effect', 'decisive', 'decisive', 'minimizes_risk'],
     normId: 'norm_credito',
     responsibleSubjectCorrect: 'autorita',
     responsibleSubjectPartial: 'fornitore_esterno',

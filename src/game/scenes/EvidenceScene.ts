@@ -60,7 +60,12 @@ export class EvidenceScene extends Phaser.Scene {
       const sourceLabel = src
         ? `${L().ui.evidence.sourceLabel}: ${(L().ui.evidence.sources as Record<string, string>)[src]}`
         : undefined;
-      const card = new DossierCard(this, x, y, cardW, cardH, clue, i, () => this.refreshState(), sourceLabel);
+      // micro-tag investigativo (v0.5): funzione del reperto rispetto al rischio
+      // (minimizza / prova decisiva / effetto concreto…), reso da DossierCard
+      // su una propria riga — niente concatenazione con la fonte
+      const stance = this.caseData.clueStances?.[i];
+      const stanceLabel = stance ? (L().ui.evidence.stances as Record<string, string>)[stance] : undefined;
+      const card = new DossierCard(this, x, y, cardW, cardH, clue, i, () => this.refreshState(), sourceLabel, stanceLabel);
       card.setAlpha(0);
       this.tweens.add({ targets: card, alpha: 1, duration: 250, delay: i * 100 });
       this.cards.push(card);

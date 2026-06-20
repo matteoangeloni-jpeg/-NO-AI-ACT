@@ -9,7 +9,8 @@ import type {
   ReportOutcome,
   ResponsibleSubject
 } from '../data/types';
-import { hintKeyFor, reasonKeyFor, shouldShowHint, type ReportResult } from '../systems/ReportSystem';
+import { hintKeyFor, shouldShowHint, type ReportResult } from '../systems/ReportSystem';
+import { decisionAnalysisKeys } from '../systems/DecisionIssues';
 import { AudioSystem } from '../systems/AudioSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
@@ -146,10 +147,14 @@ export class ReportScene extends Phaser.Scene {
       this.tweens.add({ targets: stamp, scale: 1, alpha: 1, duration: 320, ease: 'Cubic.easeIn', onComplete: () => this.cameras.main.shake(90, 0.002) });
     }
 
-    // riga sintetica "Esito perché…" derivata dal rilievo dominante
-    const reason = t.ui.report.reasons[reasonKeyFor(result)];
+    // analisi sintetica della decisione: perché regge / è contestabile /
+    // parziale / non conforme, con il punto debole specifico (v0.5)
+    const ak = decisionAnalysisKeys(result);
+    const analysis = ak.issue
+      ? `${t.ui.report.analysis[ak.outcome]} ${t.ui.report.issues[ak.issue]}`
+      : t.ui.report.analysis[ak.outcome];
     this.add
-      .text(left, 600, `${t.ui.report.reasonLabel}: ${reason}`, textStyle(13, oc.text, { wordWrap: { width: 620 }, lineSpacing: 4 }))
+      .text(left, 600, `${t.ui.report.analysisLabel}: ${analysis}`, textStyle(13, oc.text, { wordWrap: { width: 620 }, lineSpacing: 4 }))
       .setOrigin(0, 0);
 
     new Button(this, cx, GAME_HEIGHT - 46, t.ui.report.continueButton, () => {

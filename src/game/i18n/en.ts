@@ -78,6 +78,14 @@ export const en: Locale = {
         pubblica: 'public communication',
         log: 'system log',
         interna: 'internal note'
+      },
+      stances: {
+        supports_risk: 'shows the risk',
+        minimizes_risk: 'downplays',
+        ambiguous: 'ambiguous',
+        contextual: 'context',
+        concrete_effect: 'concrete effect',
+        decisive: 'decisive evidence'
       }
     },
     decision: {
@@ -130,6 +138,25 @@ export const en: Locale = {
         soggetto: 'the classification is correct, but the responsible subject is wrong',
         trasparenza: 'the required transparency is missing: citizens cannot recognize the system or the content',
         motivazione: 'the decision is correct, but the reasoning is weak'
+      },
+      analysisLabel: 'DECISION ANALYSIS',
+      analysis: {
+        conforme: 'The decision holds: classification, measure, responsible subject, and reasoning are supported by the decisive evidence.',
+        parziale: 'The decision captures the core problem but stays incomplete —',
+        contestabile: 'The decision is open to challenge —',
+        non_conforme: 'The decision does not hold —'
+      },
+      issues: {
+        wrong_classification: "the classification misses the system's context of use.",
+        insufficient_measure: 'the proposed measure reduces the risk but does not govern it.',
+        excessive_measure: 'the classification is correct, but the measure exceeds what is needed.',
+        wrong_responsible_subject: 'accountability is assigned to the wrong subject.',
+        weak_motivation: 'the reasoning is not supported by the cited evidence.',
+        weak_evidence: 'the cited evidence is not enough to support the classification.',
+        formal_human_oversight: 'human oversight stays formal, not effective.',
+        missing_transparency: 'the transparency that would make the system recognisable is missing.',
+        context_misread: "the system's context of use was misread.",
+        proportionality_problem: 'the measure is not proportionate to the actual risk.'
       }
     },
     outcomes: {
@@ -146,6 +173,26 @@ export const en: Locale = {
       soggetto: 'Obligations attributed to someone who could not fulfil them: nobody answers.',
       trasparenza: 'Measures in place, citizens in the dark: trust is not rebuilt in the dark.',
       motivazione: 'The reasoning does not hold: the decision is right, its foundation is not.'
+    },
+    cityDossier: {
+      title: 'CITY DOSSIER',
+      subtitle: 'Systemic effects of decisions. Not a score: trends.',
+      updatedLabel: 'City dossier updated',
+      emptyHint: 'No case closed yet: the dossier stays stable.',
+      openButton: 'CITY DOSSIER ▸',
+      indicators: {
+        publicTrust: 'Public trust',
+        fundamentalRights: 'Fundamental rights',
+        administrativeOpacity: 'Administrative opacity',
+        litigationRisk: 'Litigation risk',
+        serviceEfficiency: 'Service efficiency'
+      },
+      trends: {
+        improving: 'improving',
+        worsening: 'worsening',
+        stable: 'stable',
+        watch: 'under watch'
+      }
     },
     incident: {
       header: 'URGENT TELEX — RESPONSE REQUIRED',
@@ -199,6 +246,7 @@ export const en: Locale = {
       timeLine: 'Completion time: {minutes} min',
       timeUnknown: 'Completion time: not available',
       indicatorsLabel: 'FINAL INDICATORS',
+      conceptsLabel: 'AI ACT CONCEPTS COVERED',
       questionsLabel: 'DISCUSSION QUESTIONS',
       reviewLabel: 'REVIEW SUGGESTION',
       reviewLine: 'Review the norm cards of cases with non-compliant or challengeable outcomes.',
@@ -880,5 +928,167 @@ export const en: Locale = {
     finalMessage:
       'The AI Act does not eliminate risk. It makes risk visible, documentable, ' +
       'contestable and governable.'
+  },
+
+  // Per-case learning cards (v0.5). Shown in the teacher debrief; they do not
+  // change the case solutions. One card per playable case.
+  caseLearning: {
+    case_scoring: {
+      teaches: 'Some uses of AI are not mitigated but banned. Social scoring hits dignity and equality.',
+      typicalMistake: 'Treating a ban as a high-risk system to be governed with audits and oversight.',
+      discussionQuestion: 'Why are some practices banned rather than simply regulated?',
+      aiActConcepts: ['prohibited practice (art. 5)', 'social scoring', 'dignity and equality'],
+      understandingSignal: 'The player recognises the ban and orders a block, not an audit.',
+      classroomUse: "Open a discussion on the AI Act's non-negotiable thresholds.",
+      estimatedDebriefMinutes: 8
+    },
+    case_lavoro: {
+      teaches: 'Systems that select and assess workers are high-risk: they require effective safeguards.',
+      typicalMistake: 'Settling for token human oversight or for notifying the person alone.',
+      discussionQuestion: 'Which obligations make a high-risk system at work governable?',
+      aiActConcepts: ['high risk (Annex III)', 'data quality', 'human oversight', 'logging'],
+      understandingSignal: 'The player orders audit, oversight and logging instead of blocking or ignoring.',
+      classroomUse: 'Connect the case to real recruiting and workforce management.',
+      estimatedDebriefMinutes: 10
+    },
+    case_media: {
+      teaches: 'Transparency about synthetic content is necessary, but not always sufficient.',
+      typicalMistake: 'Believing that labelling content solves every manipulation problem.',
+      discussionQuestion: 'When is informing the user necessary but not enough?',
+      aiActConcepts: ['transparency (art. 50)', 'deepfake', 'synthetic content'],
+      understandingSignal: 'The player orders labelling and explains why it protects public trust.',
+      classroomUse: 'Discuss institutional communication and disinformation.',
+      estimatedDebriefMinutes: 8
+    },
+    case_scuola: {
+      teaches: 'Inferring emotions at school is banned, save for narrow exceptions: the classroom is not a space for emotional surveillance.',
+      typicalMistake: 'Treating emotion recognition as a system to audit rather than to ban.',
+      discussionQuestion: 'Why does the educational context receive special protection?',
+      aiActConcepts: ['prohibited practice (art. 5)', 'emotion recognition', 'educational context'],
+      understandingSignal: 'The player distinguishes lawful observation from automated emotion inference.',
+      classroomUse: 'Reflect on surveillance and wellbeing at school.',
+      estimatedDebriefMinutes: 8
+    },
+    case_ospedale: {
+      teaches: 'AI in healthcare is not banned: it must be governed, documented and supervised, above all for vulnerable groups.',
+      typicalMistake: 'Trusting the excellent average and ignoring errors concentrated on subgroups.',
+      discussionQuestion: 'How do you govern a predictive system without blocking it or surrendering to it?',
+      aiActConcepts: ['high risk', 'data quality', 'human oversight', 'post-market monitoring'],
+      understandingSignal: 'The player does not shut everything down: orders audit, logging and effective oversight.',
+      classroomUse: 'Discuss clinical bias and the healthcare deployer responsibility.',
+      estimatedDebriefMinutes: 10
+    },
+    case_biometria: {
+      teaches: 'Real-time remote biometric identification in public spaces for law-enforcement purposes is banned, save for strictly listed exceptions.',
+      typicalMistake: 'Assuming every biometric use is the same, ignoring purpose and context.',
+      discussionQuestion: 'Where is the line between security and mass surveillance?',
+      aiActConcepts: ['prohibited practice (art. 5)', 'remote biometrics', 'public space', 'law-enforcement purpose'],
+      understandingSignal: 'The player identifies the ban perimeter: real time, public space, law enforcement.',
+      classroomUse: 'Discuss video surveillance and freedom in public spaces.',
+      estimatedDebriefMinutes: 9
+    },
+    case_credito: {
+      teaches: 'Not every score is banned: purpose, data, context, effects and effective human control are what matter.',
+      typicalMistake: "Believing that the 'decision support' label is enough to make the system safe.",
+      discussionQuestion: 'When does an assessment system become prohibited detrimental treatment?',
+      aiActConcepts: ['social scoring (art. 5)', 'high risk (Annex III)', 'human oversight', 'deployer responsibility'],
+      understandingSignal: 'The player distinguishes prohibited social scoring from high-risk assessment.',
+      classroomUse: 'Credit/welfare boundary: mirror case to close the advanced path.',
+      estimatedDebriefMinutes: 12
+    }
+  },
+
+  // Operational glossary (v0.5). Short entries that help play and understand.
+  // Case links are structural (src/game/data/glossary.ts).
+  glossary: {
+    title: 'OPERATIONAL GLOSSARY',
+    subtitle: 'Short entries to play and understand. Not a treatise.',
+    back: '◂ ARCHIVE',
+    whyLabel: 'Why it matters',
+    relatedLabel: 'Related cases',
+    cautionLabel: 'Caution',
+    prevButton: '◂ PREVIOUS',
+    nextButton: 'NEXT ▸',
+    counter: '{index}/{total}',
+    entries: {
+      prohibited_practice: {
+        term: 'Prohibited practice',
+        definition: 'A use of AI incompatible with fundamental rights, banned by art. 5 regardless of audits or safeguards.',
+        whyItMatters: 'Some risks are not governed but stopped.',
+        caution: 'It does not mean that all AI is banned: the ban targets specific uses.'
+      },
+      high_risk: {
+        term: 'High risk',
+        definition: 'A system affecting rights, safety or access to services: allowed but subject to strong obligations (Annex III).',
+        whyItMatters: 'Risk must be governed, not denied.',
+        caution: 'It does not mean banned: it means documented, supervised and verifiable.'
+      },
+      transparency: {
+        term: 'Transparency',
+        definition: 'The duty to make interaction with AI, or synthetic content, recognisable (art. 50).',
+        whyItMatters: 'It lets people tell real from synthetic.',
+        caution: 'It does not mean that a label alone removes the risk.'
+      },
+      challengeable: {
+        term: 'Open to challenge',
+        definition: 'A decision can be substantively correct yet fragile because it is poorly reasoned, based on weak evidence, or assigned to the wrong subject.',
+        whyItMatters: 'It teaches that being right is not enough: the order must hold.',
+        caution: 'It does not mean wrong: it means appealable.'
+      },
+      provider: {
+        term: 'Provider',
+        definition: 'Who develops or places the AI system on the market.',
+        whyItMatters: 'It sets the system design obligations.',
+        caution: 'It does not mean it answers for everything: the deployer has duties too.'
+      },
+      deployer: {
+        term: 'Deployer',
+        definition: 'Who uses the system under their own authority (e.g. a public body).',
+        whyItMatters: 'Many use-time obligations land here.',
+        caution: 'It does not mean it can offload everything onto the supplier.'
+      },
+      human_oversight: {
+        term: 'Human oversight',
+        definition: 'Effective human supervision over automated decisions, not merely formal.',
+        whyItMatters: 'A human who always follows the machine is not oversight.',
+        caution: 'It does not mean a token signature: it must be able to make a difference.'
+      },
+      social_scoring: {
+        term: 'Social scoring',
+        definition: 'A score that rates people on social behaviour and produces detrimental treatment in unrelated or disproportionate contexts: banned.',
+        whyItMatters: 'It hits dignity and equality.',
+        caution: 'It does not mean every ranking is banned.'
+      },
+      biometrics: {
+        term: 'Biometrics',
+        definition: 'Remote identification via biometric data; in real time for law enforcement in public spaces it is banned save for exceptions.',
+        whyItMatters: 'Public space is not a zone of permanent identification.',
+        caution: 'It does not mean every biometric use is banned: purpose and context matter.'
+      },
+      emotion_recognition: {
+        term: 'Emotion recognition',
+        definition: 'Automated inference of emotions; at school and at work it is banned save for narrow exceptions.',
+        whyItMatters: 'It protects educational and workplace spaces from emotional surveillance.',
+        caution: 'It does not mean that every observation of behaviour is banned.'
+      },
+      deepfake: {
+        term: 'Deepfake',
+        definition: 'Synthetic content imitating real people or events; it must be made recognisable (art. 50).',
+        whyItMatters: 'It defends trust in information.',
+        caution: 'It does not mean every AI-generated content is unlawful.'
+      },
+      credit_welfare: {
+        term: 'Credit / welfare',
+        definition: 'Assessments that decide access to benefits or services: they may be high risk or, if they generalise social life, prohibited social scoring.',
+        whyItMatters: 'It is the boundary between lawful assessment and social scoring.',
+        caution: 'It does not mean every economic score is banned.'
+      },
+      gpai: {
+        term: 'GPAI — general-purpose AI',
+        definition: 'General-purpose AI models with their own transparency and systemic-risk obligations. Introductory entry: future deep-dive.',
+        whyItMatters: 'Increasingly central to the AI ecosystem.',
+        caution: 'It does not mean every general model is high risk.'
+      }
+    }
   }
 };

@@ -1,7 +1,10 @@
 import { PLAYABLE_CASES } from '../data/cases';
 import { NORMS } from '../data/norms';
-import type { CaseReport, DifficultyMode, IndicatorState, MissionId } from '../data/types';
+import type { CaseReport, DifficultyMode, IndicatorState, MissionId, ReportOutcome } from '../data/types';
 import { L, caseText } from '../i18n';
+import { issueForError } from './DecisionIssues';
+import { cityDossier } from './CityDossier';
+import { conceptsForCases } from '../data/learning';
 
 /**
  * Costruzione del report per la modalità docente.
@@ -26,6 +29,14 @@ export interface TeacherReportCaseRow {
   outcome: string;
   mainFinding: string;
   epilogue: string;
+  /** Fragilità decisionale principale, localizzata (v0.5). null se conforme. */
+  fragility: string | null;
+}
+
+/** Riga del fascicolo città, già localizzata (v0.5). */
+export interface TeacherDossierLine {
+  indicator: string;
+  trend: string;
 }
 
 export interface TeacherReport {
@@ -39,23 +50,32 @@ export interface TeacherReport {
   ending: string | null;
   completionMinutes: number | null;
   questions: string[];
+  /** Concetti AI Act emersi nei casi chiusi (v0.5). */
+  concepts: string[];
+  /** Fascicolo città finale: effetti sistemici qualitativi (v0.5). */
+  cityDossier: TeacherDossierLine[];
 }
 
 export function buildTeacherReport(input: TeacherReportInput): TeacherReport {
   const t = L();
   const rows: TeacherReportCaseRow[] = [];
   const questions: string[] = [];
+  const completedIds: string[] = [];
+  const outcomes: ReportOutcome[] = [];
 
   PLAYABLE_CASES.forEach((c, i) => {
     const texts = caseText(c.id);
     const report = input.caseReports[c.id];
     if (report) {
+      completedIds.push(c.id);
+      outcomes.push(report.outcome);
       rows.push({
         caseId: c.id,
         title: texts.title,
         outcome: t.ui.outcomes[report.outcome],
         mainFinding: report.dominantError ? t.ui.errors[report.dominantError] : t.ui.debrief.noError,
-        epilogue: texts.epilogue
+        epilogue: texts.epilogue,
+        fragility: report.dominantError ? t.ui.report.issues[issueForError(report.dominantError)] : null
       });
       // una domanda per caso completato, a rotazione sulle tre disponibili
       if (questions.length < 3) questions.push(texts.debriefQuestions[i % 3]);
@@ -64,6 +84,11 @@ export function buildTeacherReport(input: TeacherReportInput): TeacherReport {
 
   const minutes =
     input.startedAt !== null ? Math.max(1, Math.round(((input.now ?? Date.now()) - input.startedAt) / 60000)) : null;
+
+  const dossier: TeacherDossierLine[] = cityDossier(outcomes).map((l) => ({
+    indicator: t.ui.cityDossier.indicators[l.indicator],
+    trend: t.ui.cityDossier.trends[l.trend]
+  }));
 
   return {
     generator: 'NO AI ACT — local teacher report',
@@ -75,7 +100,9 @@ export function buildTeacherReport(input: TeacherReportInput): TeacherReport {
     indicators: { ...input.indicators },
     ending: input.endingId,
     completionMinutes: minutes,
-    questions
+    questions,
+    concepts: conceptsForCases(completedIds),
+    cityDossier: dossier
   };
 }
 
@@ -92,6 +119,7 @@ export function teacherReportToText(report: TeacherReport): string {
   for (const row of report.cases) {
     lines.push(`- ${row.title} — ${row.outcome}`);
     lines.push(`  ${row.mainFinding}`);
+    if (row.fragility) lines.push(`  ${t.ui.report.analysisLabel}: ${row.fragility}`);
     lines.push(`  ${row.epilogue}`);
   }
   lines.push('');
@@ -109,6 +137,18 @@ export function teacherReportToText(report: TeacherReport): string {
     lines.push(`${t.indicators.labels[key]}: ${report.indicators[key]}`);
   }
   lines.push('');
+  if (report.concepts.length > 0) {
+    lines.push(`== ${t.ui.debrief.conceptsLabel} ==`);
+    lines.push(report.concepts.join(' · '));
+    lines.push('');
+  }
+
+  lines.push(`== ${t.ui.cityDossier.title} ==`);
+  for (const line of report.cityDossier) {
+    lines.push(`${line.indicator}: ${line.trend}`);
+  }
+  lines.push('');
+
   lines.push(`== ${t.ui.debrief.questionsLabel} ==`);
   report.questions.forEach((q, i) => lines.push(`${i + 1}. ${q}`));
   lines.push('');

@@ -54,7 +54,9 @@ export class ArchiveScene extends Phaser.Scene {
       }
     });
 
-    new Button(this, cx, GAME_HEIGHT - 46, ui.back, () => this.scene.start(this.from), { width: 200, variant: 'ghost' });
+    new Button(this, cx - 170, GAME_HEIGHT - 46, ui.back, () => this.scene.start(this.from), { width: 200, variant: 'ghost' });
+    // accesso al glossario operativo (v0.5): non interrompe il flusso dei casi
+    new Button(this, cx + 170, GAME_HEIGHT - 46, L().glossary.title, () => this.scene.start('Glossary', { from: 'Archive' }), { width: 260, fontSize: 12 });
     this.input.keyboard?.on('keydown-ESC', () => {
       if (this.detail) this.hideDetail();
       else this.scene.start(this.from);
