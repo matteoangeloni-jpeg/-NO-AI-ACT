@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="NO AI ACT">
+  <rect x="1" y="1" width="30" height="30" rx="6" fill="#0a1020" stroke="#4a5260" stroke-width="1.5"/>
+  <!-- lente d'ingrandimento: il gioco è un'indagine -->
+  <circle cx="13" cy="13" r="6.4" fill="none" stroke="#d9a521" stroke-width="2.4"/>
+  <line x1="17.7" y1="17.7" x2="24.5" y2="24.5" stroke="#d9a521" stroke-width="2.8" stroke-linecap="round"/>
+  <!-- riflesso freddo sull'accento -->
+  <line x1="10.4" y1="10.4" x2="13.2" y2="10.4" stroke="#5d7fb8" stroke-width="1.6" stroke-linecap="round"/>
+</svg>
