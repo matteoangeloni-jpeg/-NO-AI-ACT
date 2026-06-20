@@ -27,6 +27,7 @@ export const it = {
       language: 'LINGUA: ITALIANO',
       teacherOn: 'MODALITÀ DOCENTE: ON',
       teacherOff: 'MODALITÀ DOCENTE: OFF',
+      teacherScope: 'Debrief locale: niente classi, niente account, niente server.',
       resetDone: 'Salvataggio azzerato.'
     },
     preload: {
@@ -188,7 +189,7 @@ export const it = {
     },
     debrief: {
       title: 'DEBRIEF DOCENTE — REPORT LOCALE',
-      subtitle: 'Nessun dato personale: solo decisioni di gioco. Il report resta su questo dispositivo.',
+      subtitle: 'Supporto locale per il debrief. Non crea classi, non registra studenti, non invia risultati a server.',
       casesLabel: 'CASI E RAPPORTI',
       caseLine: '{title} — esito: {outcome}',
       mainErrorLine: 'rilievo: {error}',
@@ -207,7 +208,7 @@ export const it = {
       notCompleted: 'caso non completato',
       missionLine: 'Missione: {mission}',
       difficultyLine: 'Difficoltà: {difficulty}',
-      privacyNote: 'Privacy: tutto in locale. Nessun nome, email, classe o scuola. Nessun account.',
+      privacyNote: 'I dati mostrati restano su questo dispositivo. L\'eventuale export è locale e non contiene nomi, email, classe o scuola.',
       recommendedHeader: 'PERCORSI CONSIGLIATI',
       recommendedLine: '{name} · {duration} · {goal}'
     },
