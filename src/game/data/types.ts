@@ -63,6 +63,19 @@ export type EvidenceSource =
   | 'log'
   | 'interna';
 
+/**
+ * Funzione investigativa di un reperto (v0.5): come si colloca rispetto al
+ * rischio. Strutturale e indipendente dalla lingua (le etichette sono in i18n
+ * sotto ui.evidence.stances). 'decisive' allinea il reperto a relevantClues.
+ */
+export type EvidenceStance =
+  | 'supports_risk'
+  | 'minimizes_risk'
+  | 'ambiguous'
+  | 'contextual'
+  | 'concrete_effect'
+  | 'decisive';
+
 export interface IndicatorState {
   efficienza: number;
   controllo: number;
@@ -104,6 +117,11 @@ export interface CaseData {
   weakMotivation: number;
   /** Errori dominanti plausibili per questo caso (documentazione/debrief). */
   possibleDominantErrors: ErrorType[];
+  /**
+   * Funzione investigativa di ciascun reperto (v0.5), parallela ai clues
+   * dell'i18n. Opzionale: presente solo nei casi resi più investigativi.
+   */
+  clueStances?: EvidenceStance[];
   /** true solo per i 3 casi con evento imprevisto nella v0.3. */
   hasIncident: boolean;
   /** Delta indicatori per ciascuna scelta dell'evento (se presente). */

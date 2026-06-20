@@ -77,6 +77,14 @@ export const it = {
         pubblica: 'comunicazione pubblica',
         log: 'log di sistema',
         interna: 'nota interna'
+      },
+      stances: {
+        supports_risk: 'mostra il rischio',
+        minimizes_risk: 'minimizza',
+        ambiguous: 'ambiguo',
+        contextual: 'contesto',
+        concrete_effect: 'effetto concreto',
+        decisive: 'prova decisiva'
       }
     },
     decision: {
@@ -129,6 +137,25 @@ export const it = {
         soggetto: 'la classificazione è corretta, ma il soggetto responsabile è errato',
         trasparenza: 'manca la trasparenza richiesta: i cittadini non possono riconoscere il sistema o il contenuto',
         motivazione: 'la decisione è corretta, ma la motivazione è debole'
+      },
+      analysisLabel: 'ANALISI DELLA DECISIONE',
+      analysis: {
+        conforme: 'La decisione regge: classificazione, misura, soggetto e motivazione sono coerenti con le prove decisive.',
+        parziale: 'La decisione coglie il nucleo del problema, ma resta incompleta —',
+        contestabile: 'La decisione è contestabile —',
+        non_conforme: 'La decisione non regge —'
+      },
+      issues: {
+        wrong_classification: "la classificazione non coglie il contesto d'uso del sistema.",
+        insufficient_measure: 'la misura proposta riduce il rischio, ma non lo governa.',
+        excessive_measure: 'la classificazione è corretta, ma la misura eccede ciò che serve.',
+        wrong_responsible_subject: 'la responsabilità è attribuita al soggetto sbagliato.',
+        weak_motivation: 'la motivazione non è sostenuta dalle prove citate.',
+        weak_evidence: 'le prove citate non bastano a reggere la classificazione.',
+        formal_human_oversight: 'il controllo umano resta formale, non effettivo.',
+        missing_transparency: 'manca la trasparenza che renderebbe il sistema riconoscibile.',
+        context_misread: "il contesto d'uso del sistema è stato letto male.",
+        proportionality_problem: 'la misura non è proporzionata al rischio effettivo.'
       }
     },
     outcomes: {
@@ -145,6 +172,26 @@ export const it = {
       soggetto: 'Obblighi imputati a chi non poteva adempierli: nessuno risponde.',
       trasparenza: 'Misure attive, cittadini all\'oscuro: la fiducia non si ricostruisce al buio.',
       motivazione: 'La motivazione non regge: la decisione è giusta, il fondamento no.'
+    },
+    cityDossier: {
+      title: 'FASCICOLO CITTÀ',
+      subtitle: 'Effetti sistemici delle decisioni. Non un punteggio: tendenze.',
+      updatedLabel: 'Fascicolo città aggiornato',
+      emptyHint: 'Nessun caso ancora chiuso: il fascicolo resta stabile.',
+      openButton: 'FASCICOLO CITTÀ ▸',
+      indicators: {
+        publicTrust: 'Fiducia pubblica',
+        fundamentalRights: 'Diritti fondamentali',
+        administrativeOpacity: 'Opacità amministrativa',
+        litigationRisk: 'Rischio contenzioso',
+        serviceEfficiency: 'Efficienza dei servizi'
+      },
+      trends: {
+        improving: 'migliora',
+        worsening: 'peggiora',
+        stable: 'stabile',
+        watch: 'sotto osservazione'
+      }
     },
     incident: {
       header: 'TELEX URGENTE — RISPOSTA RICHIESTA',
@@ -198,6 +245,7 @@ export const it = {
       timeLine: 'Tempo di completamento: {minutes} min',
       timeUnknown: 'Tempo di completamento: non disponibile',
       indicatorsLabel: 'INDICATORI FINALI',
+      conceptsLabel: 'CONCETTI AI ACT EMERSI',
       questionsLabel: 'DOMANDE PER LA DISCUSSIONE',
       reviewLabel: 'SUGGERIMENTO DI RIPASSO',
       reviewLine: 'Rivedere le carte dei casi con esito non conforme o contestabile.',
@@ -876,5 +924,167 @@ export const it = {
     finalMessage:
       "L'AI Act non elimina il rischio. Rende il rischio visibile, documentabile, " +
       'contestabile e governabile.'
+  },
+
+  // Schede didattiche per caso (v0.5). Visibili nel debrief docente; non
+  // cambiano la soluzione dei casi. Una scheda per ciascun caso giocabile.
+  caseLearning: {
+    case_scoring: {
+      teaches: "Alcuni usi dell'IA non si mitigano: si vietano. Il social scoring colpisce dignità e uguaglianza.",
+      typicalMistake: 'Trattare un divieto come un sistema ad alto rischio da governare con audit e supervisione.',
+      discussionQuestion: 'Perché alcune pratiche sono vietate e non semplicemente regolate?',
+      aiActConcepts: ['pratica vietata (art. 5)', 'social scoring', 'dignità e uguaglianza'],
+      understandingSignal: 'Il giocatore riconosce il divieto e impone il blocco, non un audit.',
+      classroomUse: "Aprire la discussione sulle soglie non negoziabili dell'AI Act.",
+      estimatedDebriefMinutes: 8
+    },
+    case_lavoro: {
+      teaches: 'I sistemi che selezionano e valutano i lavoratori sono ad alto rischio: richiedono garanzie effettive.',
+      typicalMistake: "Accontentarsi di una supervisione umana di facciata o della sola notifica all'interessato.",
+      discussionQuestion: 'Quali obblighi rendono governabile un sistema ad alto rischio nel lavoro?',
+      aiActConcepts: ['alto rischio (Allegato III)', 'qualità dei dati', 'sorveglianza umana', 'logging'],
+      understandingSignal: 'Il giocatore impone audit, supervisione e logging invece di bloccare o ignorare.',
+      classroomUse: 'Collegare il caso a recruiting e gestione del personale reali.',
+      estimatedDebriefMinutes: 10
+    },
+    case_media: {
+      teaches: 'La trasparenza sui contenuti sintetici è necessaria, ma non sempre sufficiente.',
+      typicalMistake: 'Pensare che etichettare un contenuto risolva ogni problema di manipolazione.',
+      discussionQuestion: "Quando informare l'utente è necessario ma non basta?",
+      aiActConcepts: ['trasparenza (art. 50)', 'deepfake', 'contenuti sintetici'],
+      understandingSignal: "Il giocatore impone l'etichettatura e spiega perché protegge la fiducia pubblica.",
+      classroomUse: 'Discutere comunicazione istituzionale e disinformazione.',
+      estimatedDebriefMinutes: 8
+    },
+    case_scuola: {
+      teaches: "Inferire le emozioni a scuola è vietato, salvo eccezioni limitate: l'aula non è uno spazio di sorveglianza emotiva.",
+      typicalMistake: 'Trattare il riconoscimento delle emozioni come un sistema da auditare anziché da vietare.',
+      discussionQuestion: 'Perché il contesto educativo riceve una protezione speciale?',
+      aiActConcepts: ['pratica vietata (art. 5)', 'riconoscimento delle emozioni', 'contesto educativo'],
+      understandingSignal: 'Il giocatore distingue osservazione lecita e inferenza automatica delle emozioni.',
+      classroomUse: 'Riflettere su sorveglianza e benessere a scuola.',
+      estimatedDebriefMinutes: 8
+    },
+    case_ospedale: {
+      teaches: "L'IA in sanità non è vietata: va governata, documentata e supervisionata, soprattutto sui gruppi vulnerabili.",
+      typicalMistake: 'Fidarsi della media eccellente e ignorare gli errori concentrati sui sottogruppi.',
+      discussionQuestion: 'Come si governa un sistema predittivo senza bloccarlo né subirlo?',
+      aiActConcepts: ['alto rischio', 'qualità dei dati', 'sorveglianza umana', 'monitoraggio post-market'],
+      understandingSignal: 'Il giocatore non spegne tutto: impone audit, logging e supervisione effettiva.',
+      classroomUse: 'Discutere bias clinici e responsabilità del deployer sanitario.',
+      estimatedDebriefMinutes: 10
+    },
+    case_biometria: {
+      teaches: "L'identificazione biometrica remota in tempo reale negli spazi pubblici per finalità di contrasto è vietata, salvo eccezioni tassative.",
+      typicalMistake: 'Credere che ogni uso biometrico sia uguale, ignorando finalità e contesto.',
+      discussionQuestion: 'Dove passa il confine tra sicurezza e sorveglianza di massa?',
+      aiActConcepts: ['pratica vietata (art. 5)', 'biometria remota', 'spazio pubblico', 'finalità di contrasto'],
+      understandingSignal: 'Il giocatore individua il perimetro del divieto: tempo reale, spazio pubblico, contrasto.',
+      classroomUse: 'Discutere videosorveglianza e libertà negli spazi pubblici.',
+      estimatedDebriefMinutes: 9
+    },
+    case_credito: {
+      teaches: 'Non ogni scoring è vietato: contano finalità, dati, contesto, effetti e controllo umano effettivo.',
+      typicalMistake: "Credere che la dicitura 'supporto decisionale' basti a rendere il sistema sicuro.",
+      discussionQuestion: 'Quando un sistema di valutazione diventa trattamento sfavorevole vietato?',
+      aiActConcepts: ['social scoring (art. 5)', 'alto rischio (Allegato III)', 'controllo umano', 'responsabilità del deployer'],
+      understandingSignal: 'Il giocatore distingue social scoring vietato e valutazione ad alto rischio.',
+      classroomUse: 'Confine credito/welfare: caso-specchio per chiudere il percorso avanzato.',
+      estimatedDebriefMinutes: 12
+    }
+  },
+
+  // Glossario operativo (v0.5). Voci brevi che aiutano a giocare e capire.
+  // I collegamenti ai casi sono strutturali (src/game/data/glossary.ts).
+  glossary: {
+    title: 'GLOSSARIO OPERATIVO',
+    subtitle: 'Voci brevi per giocare e capire. Non è un trattato.',
+    back: '◂ ARCHIVIO',
+    whyLabel: 'Perché conta',
+    relatedLabel: 'Casi collegati',
+    cautionLabel: 'Attenzione',
+    prevButton: '◂ INDIETRO',
+    nextButton: 'AVANTI ▸',
+    counter: '{index}/{total}',
+    entries: {
+      prohibited_practice: {
+        term: 'Pratica vietata',
+        definition: "Uso dell'IA incompatibile con i diritti fondamentali, vietato dall'art. 5 a prescindere da audit o garanzie.",
+        whyItMatters: 'Alcuni rischi non si governano: si fermano.',
+        caution: 'Non significa che ogni IA sia vietata: il divieto colpisce usi specifici.'
+      },
+      high_risk: {
+        term: 'Alto rischio',
+        definition: 'Sistema che incide su diritti, sicurezza o accesso ai servizi: ammesso ma soggetto a obblighi forti (Allegato III).',
+        whyItMatters: 'Il rischio va governato, non negato.',
+        caution: 'Non significa vietato: significa documentato, supervisionato e verificabile.'
+      },
+      transparency: {
+        term: 'Trasparenza',
+        definition: "Obbligo di rendere riconoscibile l'interazione con l'IA o un contenuto sintetico (art. 50).",
+        whyItMatters: 'Permette di distinguere reale e sintetico.',
+        caution: 'Non significa che la sola etichetta basti a eliminare il rischio.'
+      },
+      challengeable: {
+        term: 'Contestabile',
+        definition: 'Una decisione può essere corretta nel merito ma fragile perché motivata male, fondata su prove deboli o attribuita al soggetto sbagliato.',
+        whyItMatters: "Insegna che non basta avere ragione: l'atto deve reggere.",
+        caution: 'Non significa sbagliata: significa impugnabile.'
+      },
+      provider: {
+        term: 'Provider',
+        definition: "Chi sviluppa o immette sul mercato il sistema di IA.",
+        whyItMatters: 'Definisce gli obblighi di progettazione del sistema.',
+        caution: 'Non significa che risponda di tutto: anche il deployer ha obblighi.'
+      },
+      deployer: {
+        term: 'Deployer',
+        definition: 'Chi utilizza il sistema sotto la propria autorità (es. un ente pubblico).',
+        whyItMatters: "Molti obblighi d'uso ricadono qui.",
+        caution: 'Non significa che possa scaricare tutto sul fornitore.'
+      },
+      human_oversight: {
+        term: 'Controllo umano',
+        definition: 'Supervisione umana effettiva sulle decisioni automatizzate, non solo formale.',
+        whyItMatters: 'Un umano che segue sempre la macchina non è controllo.',
+        caution: 'Non significa una firma di facciata: deve poter incidere davvero.'
+      },
+      social_scoring: {
+        term: 'Social scoring',
+        definition: 'Punteggio che valuta le persone sul comportamento sociale e produce trattamenti sfavorevoli in contesti scollegati o sproporzionati: vietato.',
+        whyItMatters: 'Colpisce dignità e uguaglianza.',
+        caution: 'Non significa che ogni graduatoria sia vietata.'
+      },
+      biometrics: {
+        term: 'Biometria',
+        definition: 'Identificazione remota tramite dati biometrici; in tempo reale e per finalità di contrasto negli spazi pubblici è vietata salvo eccezioni.',
+        whyItMatters: 'Lo spazio pubblico non è una zona di identificazione permanente.',
+        caution: 'Non significa che ogni uso biometrico sia vietato: contano finalità e contesto.'
+      },
+      emotion_recognition: {
+        term: 'Riconoscimento delle emozioni',
+        definition: 'Inferenza automatica delle emozioni; a scuola e al lavoro è vietata salvo eccezioni limitate.',
+        whyItMatters: 'Protegge spazi educativi e lavorativi dalla sorveglianza emotiva.',
+        caution: 'Non significa che ogni osservazione del comportamento sia vietata.'
+      },
+      deepfake: {
+        term: 'Deepfake',
+        definition: 'Contenuto sintetico che imita persone o eventi reali; deve essere reso riconoscibile (art. 50).',
+        whyItMatters: 'Difende la fiducia nelle informazioni.',
+        caution: 'Non significa che ogni contenuto generato con IA sia illecito.'
+      },
+      credit_welfare: {
+        term: 'Credito / welfare',
+        definition: "Valutazioni che decidono l'accesso a prestazioni o servizi: possono essere alto rischio o, se generalizzano la vita sociale, social scoring vietato.",
+        whyItMatters: 'È il confine tra valutazione lecita e punteggio sociale.',
+        caution: 'Non significa che ogni scoring economico sia vietato.'
+      },
+      gpai: {
+        term: 'GPAI — IA per finalità generali',
+        definition: 'Modelli di IA general-purpose con obblighi propri di trasparenza e gestione del rischio sistemico. Voce introduttiva: approfondimento futuro.',
+        whyItMatters: "Sempre più rilevante nell'ecosistema dell'IA.",
+        caution: 'Non significa che ogni modello generale sia ad alto rischio.'
+      }
+    }
   }
 };

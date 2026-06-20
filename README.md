@@ -241,8 +241,12 @@ struttura fra i dizionari (predisposto per FR/ES).
 - Bugfix, microcopy e ritocchi UX dai playtest.
 - Eventuale aggiornamento delle dipendenze di sviluppo.
 
-**🧭 Possibile v0.5**
-- Modalità docente più ricca, materiali didattici, missioni guidate.
+**🧭 v0.5 — Investigation & Learning Layer (in sviluppo)**
+- Tassonomia delle fragilità decisionali e analisi della decisione nel rapporto.
+- Schede didattiche per caso, reperti più investigativi, fascicolo città
+  (effetti sistemici) e glossario operativo. Export docente arricchito.
+- Nessun nuovo caso, nessun backend/account, nessun dato personale.
+  Dettagli: [`docs/V0.5_DESIGN_NOTES.md`](docs/V0.5_DESIGN_NOTES.md).
 
 **🏁 v1.0**
 - Revisione giuridica formale, asset finali, comunicazione, pacchetto stabile.

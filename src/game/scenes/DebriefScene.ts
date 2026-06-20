@@ -62,6 +62,10 @@ export class DebriefScene extends Phaser.Scene {
     const indicatorsLine = INDICATOR_KEYS.map((k) => `${t.indicators.labels[k]}: ${report.indicators[k]}`).join(' · ');
     y += 22;
     this.add.text(left, y, indicatorsLine, textStyle(12, COLOR_STR.paperDim));
+    y += 22;
+    // fascicolo città (v0.5): effetti sistemici qualitativi, una riga compatta
+    const dossierLine = report.cityDossier.map((d) => `${d.indicator}: ${d.trend}`).join(' · ');
+    this.add.text(left, y, `${t.ui.cityDossier.title} — ${dossierLine}`, textStyle(11.5, COLOR_STR.accent, { wordWrap: { width: 1020 } }));
     y += 28;
 
     this.add.text(left, y, t.ui.debrief.questionsLabel, textStyle(12, COLOR_STR.accent));

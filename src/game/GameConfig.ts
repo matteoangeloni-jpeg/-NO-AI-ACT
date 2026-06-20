@@ -13,6 +13,7 @@ import { ConsequenceScene } from './scenes/ConsequenceScene';
 import { DebriefScene } from './scenes/DebriefScene';
 import { NormCardScene } from './scenes/NormCardScene';
 import { ArchiveScene } from './scenes/ArchiveScene';
+import { GlossaryScene } from './scenes/GlossaryScene';
 import { FinaleScene } from './scenes/FinaleScene';
 import { CreditsScene } from './scenes/CreditsScene';
 import { GAME_HEIGHT, GAME_WIDTH } from './ui/theme';
@@ -46,6 +47,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     DebriefScene,
     NormCardScene,
     ArchiveScene,
+    GlossaryScene,
     FinaleScene,
     CreditsScene
   ]

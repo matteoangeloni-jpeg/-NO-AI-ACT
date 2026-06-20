@@ -1,5 +1,36 @@
 # CHANGELOG — NO AI ACT
 
+## Unreleased — v0.5 (Investigation & Learning Layer)
+
+*In sviluppo. Nessun nuovo caso, nessun backend/account, nessuna dashboard,
+nessuna raccolta dati personali. Compatibile con i salvataggi v0.4.*
+
+- **Tassonomia delle fragilità decisionali**: oltre all'esito (conforme /
+  parziale / contestabile / non conforme), il gioco nomina la fragilità che lo
+  ha prodotto (classificazione, misura, soggetto, motivazione, prove,
+  trasparenza, proporzionalità…). Derivata dalla logica esistente.
+- **Analisi della decisione** nel rapporto ispettivo: una riga sintetica spiega
+  perché la decisione regge, è contestabile, parziale o non conforme, con il
+  punto debole specifico.
+- **Schede didattiche per caso** (cosa insegna, errore tipico, domanda di
+  discussione, concetti AI Act, segnale di comprensione, uso in aula): tutte e
+  7, IT/EN, visibili nel debrief/export e in `docs/CASE_LEARNING_CARDS.md`.
+- **Reperti più investigativi**: micro-tag di funzione (minimizza, prova
+  decisiva, effetto concreto, contesto) accodato all'etichetta-fonte, per i casi
+  lavoro, ospedale e credito (il caso credito resta il più investigativo).
+- **Fascicolo città**: effetti sistemici qualitativi (fiducia pubblica, diritti
+  fondamentali, opacità amministrativa, rischio contenzioso, efficienza dei
+  servizi) derivati dagli esiti — tendenze, non punteggi. Nel debrief e
+  nell'export.
+- **Glossario operativo**: voci brevi consultabili dall'archivio (pratica
+  vietata, alto rischio, trasparenza, contestabile, provider, deployer,
+  controllo umano, social scoring, biometria, emotion recognition, deepfake,
+  credito/welfare, GPAI), IT/EN, con casi collegati e cautele "non significa
+  che…".
+- **Export docente migliorato**: fragilità tipizzate, concetti AI Act emersi e
+  fascicolo città nel `.txt`; il `.json` resta privo di dati personali.
+- Test: 108 → 138 (tassonomia, fascicolo città, schede, glossario, export).
+
 ## v0.4.0 — Progressione, difficoltà e caso credito/welfare
 
 - **Caso 7 — Il credito civico / Civic Credit**: caso-specchio sul confine tra

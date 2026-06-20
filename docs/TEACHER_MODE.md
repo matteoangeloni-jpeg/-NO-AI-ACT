@@ -34,10 +34,19 @@ A fine partita (o dal rapporto finale) il debrief mostra:
 
 - esito per ciascun caso (conforme / parziale / contestabile / non conforme) e
   rilievo principale;
+- **fragilità della decisione** per caso (v0.5): perché un atto è contestabile o
+  non regge (soggetto, motivazione, prove, proporzionalità…);
 - missione e difficoltà giocate;
 - norme acquisite, indicatori finali, tempo di completamento;
+- **concetti AI Act emersi** e **fascicolo città** (v0.5): effetti sistemici
+  qualitativi (fiducia, diritti, opacità, contenzioso, efficienza) — tendenze,
+  non punteggi;
 - domande di discussione per la classe;
 - un suggerimento di ripasso.
+
+Dall'**Archivio** è inoltre consultabile il **glossario operativo** (v0.5): voci
+brevi su divieti, alto rischio, trasparenza, "contestabile", provider/deployer,
+controllo umano e altro, con casi collegati.
 
 Tutti i dati mostrati sono **decisioni di gioco**: nessun dato personale.
 La schermata lo dichiara esplicitamente.

@@ -84,6 +84,17 @@ Il gioco non raccoglie dati; anche il facilitatore deve restare privacy-by-desig
 | T4 | | | | | | | | |
 | T5 | | | | | | | | |
 
+## Da testare nella v0.5 (Investigation & Learning Layer)
+
+- **Analisi della decisione** nel rapporto: la riga finale spiega in modo chiaro
+  *perché* l'atto regge / è contestabile / parziale / non conforme?
+- **Micro-tag dei reperti** (minimizza, prova decisiva, effetto concreto,
+  contesto): aiutano a capire quali reperti contano, o confondono?
+- **Glossario operativo** (dall'Archivio): le voci sono utili e chiare? La voce
+  "contestabile" viene capita?
+- **Fascicolo città** (debrief): le tendenze sistemiche aiutano a percepire che
+  le decisioni hanno conseguenze, senza sembrare un punteggio arcade?
+
 ## Segnali di allarme
 
 - il tester chiama il gioco "un quiz";
