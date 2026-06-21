@@ -1,8 +1,25 @@
 # CHANGELOG — NO AI ACT
 
-## [Unreleased]
+## [Unreleased] — v0.6 Advanced Case Pack (in sviluppo)
 
-_Nessuna modifica in corso._
+Pacchetto di 4 casi avanzati (7 → 11 casi). Nessun backend/account/dashboard,
+nessun dato personale; compatibile con i salvataggi v0.5.
+
+### Added
+- 4 nuovi casi avanzati: chatbot comunale ("Lo sportello che risponde sempre"),
+  procurement AI ("La gara opaca"), piattaforma educativa adattiva ("La classe
+  profilata"), GPAI in azienda/PA ("Il modello tuttofare").
+- 4 nuovi luoghi sulla mappa, 4 carte norma, learning card e voci glossario
+  collegate; nuovo percorso "Casi avanzati" (~75–90 min).
+- Reperti investigativi (fonti + stance) e impatto sul fascicolo città per ogni
+  nuovo caso; i18n IT/EN completa.
+- Test: 138 → 148.
+
+### Notes
+- Il chatbot è una questione di trasparenza e supervisione, non un divieto.
+- GPAI ed EdTech non sono automaticamente vietati né sempre alto rischio: conta
+  l'uso concreto e l'effetto sui diritti.
+- Resta una simulazione didattica, non consulenza legale.
 
 ## [0.5.0] - 2026-06-20
 

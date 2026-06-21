@@ -271,7 +271,8 @@ export const en: Locale = {
         demo: { name: 'Quick demo', duration: '10–15 min', goal: 'Grasp the logic of the inspection report.' },
         lab: { name: 'Short lab', duration: '25–35 min', goal: 'Tell prohibited, high-risk and transparency apart.' },
         full: { name: 'Full path', duration: '45–60 min', goal: 'Audit, accountability, measures and reasoning.' },
-        advanced: { name: 'Advanced path', duration: '60–75 min', goal: 'Ambiguous cases and regulatory boundaries (includes civic credit).' }
+        advanced: { name: 'Advanced path', duration: '60–75 min', goal: 'Ambiguous cases and regulatory boundaries (includes civic credit).' },
+        pack: { name: 'Advanced cases', duration: '75–90 min', goal: 'More ambiguous cases: public chatbot, procurement, EdTech and GPAI.' }
       }
     },
     difficulty: {
@@ -390,7 +391,11 @@ export const en: Locale = {
     scuola: 'School of Emotions',
     ospedale: 'Predictive Hospital',
     sorveglianza: 'Urban Surveillance Center',
-    welfare: "Welfare and Services Office"
+    welfare: "Welfare and Services Office",
+    sportello: "Civic Desk",
+    appalti: "Procurement Office",
+    campus: "Adaptive Campus",
+    modelli: "Model Centre"
   },
 
   cases: {
@@ -800,6 +805,126 @@ export const en: Locale = {
         "Who holds the main obligation: the platform vendor or the body using it?"
       ],
       epilogue: "Civic credit is the boundary: not every score is prohibited, but this one aggregates social life to decide who accesses services."
+    },
+
+    case_chatbot: {
+      title: "The desk that always answers",
+      scenario: "The city opens a digital desk: an automated assistant answers questions about grants, deadlines, requirements and documents. It is convenient, fast, always available. But some answers are wrong, no one warns that a machine is replying, and there is no easy way to reach a person. Some citizens lose opportunities over wrong information.",
+      clues: [
+        { title: "Public announcement", text: "The city advertises \"immediate, always up-to-date answers\". No mention of the system's limits." },
+        { title: "Conversation log", text: "The log shows wrong answers about a grant's requirements and deadlines: the same mistakes repeated to several citizens." },
+        { title: "Vendor note", text: "The manual keeps stating that \"the system is purely informational\" and does not replace the offices. On paper, a caveat." },
+        { title: "Citizen complaint", text: "A person missed the application window: \"The desk told me there was still time.\" No channel to fix it in time." },
+        { title: "Internal procedure", text: "The procedure provides no step to a human operator: no escalation, no review of critical answers." },
+        { title: "Adoption decree", text: "The decree frames the desk as an efficiency service. A legitimate purpose, nothing odd in itself." }
+      ],
+      clueSources: ["pubblica", "log", "vendor", "reclamo", "interna", "amministrativa"],
+      noteCorrect: "Investigative note: the desk should not be banned but made transparent and governed. Citizens must know they are talking to a machine, get correct information and be able to reach a person. It needs a clear notice, a human channel, answer audits and privacy-safe logging.",
+      notePartial: "Investigative note: the direction is right, but half-done. Without transparency to the citizen and an effective human channel, the assistant remains a fragile source to rely on.",
+      noteWrong: "Investigative note: the file stays open. The desk keeps answering, sometimes wrongly, and no one takes responsibility.",
+      consequenceCorrect: "The desk states it is automated, flags its limits and offers human contact. Critical answers are reviewed and traced. Efficiency stays, but becomes reliable.",
+      consequenceWrong: "The desk is extended to more services. Answers come ever faster. And more and more people act on information no one has checked.",
+      motivations: [
+        "It is a simple information service: if it errs, the responsibility lies with the citizen who trusted it.",
+        "The automated assistant creates reliance: it needs transparency about being a machine, correct information, a human channel and traceability. Use-time responsibility stays with the body.",
+        "It is only a technical problem: the vendor just needs to update the model."
+      ],
+      debriefQuestions: [
+        "When does an automated assistant become a reliable source for the citizen?",
+        "Why is transparency not enough here, and why is a human channel also needed?",
+        "Who answers if the public chatbot gives wrong information: the vendor or the body?"
+      ],
+      epilogue: "The automated desk is not the problem: it becomes one when it hides being automated, errs, and leaves no human door to knock on."
+    },
+
+    case_procurement: {
+      title: "The opaque tender",
+      scenario: "A public body buys an AI system to process cases and priorities. The tender is closed quickly: a generic specification, no technical documentation, unclear criteria. When the office asks for access to how the system works, the vendor refuses. \"It is certified,\" they say. But no one inside the body can explain or check its decisions.",
+      clues: [
+        { title: "Tender specification", text: "The specification describes the service in general terms: no requirement for documentation, audit or human oversight of the AI system." },
+        { title: "Vendor offer", text: "The offer is full of claims: \"certified, compliant, secure solution\". No technical evidence attached." },
+        { title: "Internal minutes", text: "Minutes from the technical office admit: \"we have neither the technical documentation nor criteria to verify the system\"." },
+        { title: "Contract clause", text: "A clause limits liability and access, with ambiguous wording on ownership and know-how. Hard to say who can check what." },
+        { title: "Access denied", text: "The request to access the system's workings and logs is rejected by the vendor as \"confidential information\"." },
+        { title: "Procurement officer's note", text: "The responsible officer flags the risk: \"if the system errs, we could not show why, nor correct it\"." }
+      ],
+      clueSources: ["amministrativa", "vendor", "interna", "amministrativa", "tecnica", "amministrativa"],
+      noteCorrect: "Investigative note: \"the vendor is certified\" is not enough. A system that informs public decisions is high-risk: it needs technical documentation, ex-ante verification criteria, access and audit rights, human oversight and clear contractual responsibilities. A public body cannot buy a system it can neither explain nor control.",
+      notePartial: "Investigative note: the problem is only half-grasped. Without documentation and access/audit rights, governance stays on paper and the body does not really control the system.",
+      noteWrong: "Investigative note: the file stays open. The system decides, the body does not know how, and the vendor holds the key.",
+      consequenceCorrect: "The supply is renegotiated: technical documentation, audit and access rights, human oversight and defined responsibilities. The body can again explain and control what it bought.",
+      consequenceWrong: "The system goes live as is. It works, until it errs. And when it errs, no one inside the body can open it, explain it or stop it.",
+      motivations: [
+        "Opaque purchase of a high-risk system: documentation, verification criteria, access/audit rights and responsibilities are missing. Accountability stays with the body that deploys it.",
+        "The tender is in order: if the product is certified, the body need ask nothing more.",
+        "It is a transparency issue toward citizens: just publish the tender documents."
+      ],
+      debriefQuestions: [
+        "What must a public body ask before buying an AI system?",
+        "Why is \"the vendor is certified\" not enough to guarantee governance and accountability?",
+        "Which clauses avoid lock-in and keep the body able to control the system?"
+      ],
+      epilogue: "Procurement is where governance is won or lost: whoever does not ask for documentation and control first will not get them later."
+    },
+
+    case_edtech: {
+      title: "The profiled classroom",
+      scenario: "An adaptive learning platform profiles students: it assigns a \"risk-of-failure score\", suggests paths, flags who to watch. It starts as support. But teachers begin to follow the dashboard more than their own judgement: those marked \"at risk\" get fewer opportunities. Families do not know how it works, and cannot challenge it.",
+      clues: [
+        { title: "Risk dashboard", text: "A dashboard gives each student a risk-of-failure score and steers choices on groups, paths and support priorities." },
+        { title: "Message to families", text: "The school presents the platform as a \"neutral, objective tool\" to personalise teaching. No detail on the criteria." },
+        { title: "Algorithm description", text: "The technical sheet states the model uses grades, attendance, lateness, behaviour and platform-usage data." },
+        { title: "A teacher's note", text: "A teacher writes: \"we follow the score to decide who to support; there is no time to review case by case\". Human control exists on paper." },
+        { title: "A family's complaint", text: "A family objects: the student was excluded from a project because \"at risk\". No explanation, no way to have the decision reviewed." },
+        { title: "Data policy", text: "The policy is incomplete: it does not clarify minimisation, retention and access. Hard to say which data is really needed." }
+      ],
+      clueSources: ["tecnica", "pubblica", "tecnica", "interna", "reclamo", "amministrativa"],
+      noteCorrect: "Investigative note: not every learning platform is banned, but this one affects students' opportunities and paths: it is high-risk. It needs effective human oversight (not blindly following the score), data minimisation, explainability toward teachers and families, and a way to challenge.",
+      notePartial: "Investigative note: the classification holds, the measure does not. Without human control that can truly depart from the score, and without explainability, the platform steers decisions instead of the teachers.",
+      noteWrong: "Investigative note: the file stays open. The score keeps deciding who gets one more chance and who gets one fewer.",
+      consequenceCorrect: "The platform goes back to support, not verdict: teachers can depart from it and must give reasons, families get explanations and can challenge, data collected is reduced to what is needed.",
+      consequenceWrong: "The risk score spreads to guidance and scholarships. The school is more \"efficient\". Some students stay marked, without knowing why.",
+      motivations: [
+        "It is just a neutral teaching support: flagging a risk only helps teachers.",
+        "The problem is communication: just explain better to families how it works.",
+        "The platform affects educational opportunities: it is high-risk and needs effective human oversight, data minimisation, explainability and a way to challenge. The school that uses it answers."
+      ],
+      debriefQuestions: [
+        "When does a teaching recommendation become a decision that matters for the student?",
+        "What separates support for the teacher from automation that decides in their place?",
+        "How do you make an educational score challengeable and explainable to students and families?"
+      ],
+      epilogue: "The profiled classroom teaches the boundary: AI can support teaching, not replace human judgement about young people's opportunities."
+    },
+
+    case_gpai: {
+      title: "The do-it-all model",
+      scenario: "An organisation integrates a general-purpose generative model into internal workflows: it summarises documents, drafts decisions, classifies requests, suggests answers to staff. Handy and versatile. But some start using it to decide, not just to draft. Outputs go unchecked, prompts are ungoverned, and a hallucination ends up in an official act.",
+      clues: [
+        { title: "Company usage policy", text: "A generic policy authorises using the generative model \"to support work\". No limits on decision-making uses." },
+        { title: "Wrong output", text: "A generated draft contains an invented legal reference. The text ended up almost unchanged in an official communication." },
+        { title: "Internal email", text: "An email invites colleagues to \"let the model write the decision drafts, it's faster\": the generator enters the merits of choices." },
+        { title: "DPO note", text: "The data protection officer flags risks on data entered in prompts, output verification and traceability of decisions." },
+        { title: "Prompt log", text: "The log shows free prompts, with data and decision requests, without criteria, controls or documented human review." },
+        { title: "Vendor document", text: "The vendor sheet is generic: \"versatile model for many tasks\". No indication of uses to avoid." }
+      ],
+      clueSources: ["amministrativa", "log", "interna", "interna", "log", "vendor"],
+      noteCorrect: "Investigative note: the general model is not banned in itself, nor automatically high-risk. The risk comes from concrete use: here it enters relevant decisions without checks. It needs effective human review, traceability, a usage policy with clear boundaries, control of the data entered and disclaimers to users. The organisation that deploys it answers.",
+      notePartial: "Investigative note: the risk is half-grasped. Without effective output verification and prompt governance, the model keeps influencing decisions no one controls.",
+      noteWrong: "Investigative note: the file stays open. The model writes, someone signs, and no one checks.",
+      consequenceCorrect: "The model's use is governed: clear boundaries between drafting and deciding, effective human review, traceability of prompts and outputs, control of the data entered. It stays useful, it stops deciding on its own.",
+      consequenceWrong: "The do-it-all model spreads to more processes. Productivity rises. And every now and then a decision rests on something the model simply invented.",
+      motivations: [
+        "A general model is just a tool: internal use needs no particular rules.",
+        "The general model is neither banned nor automatically high-risk, but here it is used in relevant decisions without control: it needs use governance (effective human review, traceability, limits, allowed data). The deployer answers.",
+        "A disclaimer reminding that answers must be checked is enough."
+      ],
+      debriefQuestions: [
+        "Who answers if a general model is used in a concrete decision process?",
+        "What changes between using the model to draft and using it to decide?",
+        "What safeguards are needed when a GPAI enters a body's decision workflow?"
+      ],
+      epilogue: "The do-it-all model is not the problem: it becomes one when it moves, unchecked, from drafting to deciding."
     }
   },
 
@@ -898,6 +1023,38 @@ export const en: Locale = {
       notMeaning: "This does not mean that every scoring system is prohibited: the regime depends on purpose, data used, context of use, effects on rights, and effective human oversight.",
       democraticFunction: "Access to essential services cannot depend on a computed, unappealable social reputation.",
       tags: ["prohibition", "scoring", "welfare", "services"]
+    },
+    norm_chatbot: {
+      title: "Automated assistants and transparency to the citizen",
+      reference: "AI Act — art. 50 (transparency obligations); cf. deployer obligations",
+      explanation: "Anyone interacting with an AI system must know they are talking to a machine (art. 50). For a public assistant transparency is the minimum: correct information, effective human oversight, the ability to reach a person and traceability also matter. Use-time responsibility stays with the deployer; it is not offloaded onto the vendor.",
+      notMeaning: "This does not mean that every public chatbot is banned: they must be made transparent, supervised and paired with a human channel, especially when they affect rights or opportunities.",
+      democraticFunction: "Citizens have the right to know when public information comes from a machine and to be able to talk to a person.",
+      tags: ["transparency", "chatbot", "public services", "deployer"]
+    },
+    norm_procurement: {
+      title: "Public procurement of AI systems",
+      reference: "AI Act — obligations for high-risk systems (governance and documentation)",
+      explanation: "When a public body buys an AI system affecting relevant decisions, high-risk obligations are not bought with a certificate: they require technical documentation, ex-ante verification criteria, access and audit rights, human oversight and clear contractual responsibilities. Accountability stays with the body deploying the system.",
+      notMeaning: "This does not mean that buying AI is unlawful: it means documentation, governance and verifiable responsibilities are needed before and after the purchase.",
+      democraticFunction: "Public spending on AI must stay explainable and controllable: a body cannot use what it cannot open.",
+      tags: ["high risk", "procurement", "governance", "documentation"]
+    },
+    norm_edtech: {
+      title: "Learning platforms and relevant decisions",
+      reference: "AI Act — Annex III (education and vocational training)",
+      explanation: "AI systems used in education to assess, guide or decide access to paths and opportunities are high-risk. They require effective human oversight, data quality and minimisation, explainability toward teachers, students and families, and a way to challenge. A teaching support must not become an automated verdict.",
+      notMeaning: "This does not mean that every learning platform is banned: the regime depends on the effect on students' opportunities and on the presence of effective human control.",
+      democraticFunction: "Educational opportunities cannot depend on an opaque score that teachers follow and families cannot challenge.",
+      tags: ["high risk", "education", "human oversight", "explainability"]
+    },
+    norm_gpai: {
+      title: "General-purpose models (GPAI) and downstream use",
+      reference: "AI Act — provisions on general-purpose AI (GPAI) and deployer obligations",
+      explanation: "A general-purpose generative model is not banned in itself, nor automatically high-risk: the risk depends on concrete use. When it enters relevant decisions it needs effective human review, traceability, a usage policy with clear boundaries, control of the data entered and transparency to users. The model's obligations (on the provider side) add to the deployer's use-time responsibility.",
+      notMeaning: "This does not mean that using a general model is banned, nor that it is always high-risk: what matters is how and where it is used, and with what safeguards.",
+      democraticFunction: "A model that drafts decisions must stay verifiable: no act may rest on an unchecked output.",
+      tags: ["GPAI", "generative model", "downstream use", "deployer"]
     }
   },
 
@@ -995,6 +1152,42 @@ export const en: Locale = {
       understandingSignal: 'The player distinguishes prohibited social scoring from high-risk assessment.',
       classroomUse: 'Credit/welfare boundary: mirror case to close the advanced path.',
       estimatedDebriefMinutes: 12
+    },
+    case_chatbot: {
+      teaches: "A public assistant should not be banned but made transparent and paired with a human channel: what matters is the citizen's reliance.",
+      typicalMistake: "Thinking that the \"purely informational\" label is enough to offload responsibility onto the citizen or the vendor.",
+      discussionQuestion: "When does an automated assistant become a reliable source for the citizen?",
+      aiActConcepts: ["transparency (art. 50)", "human oversight", "deployer responsibility", "public chatbot"],
+      understandingSignal: "The player orders transparency and a human channel instead of banning or trusting blindly.",
+      classroomUse: "Discuss digital public services, reliance and the right to a human answer.",
+      estimatedDebriefMinutes: 9
+    },
+    case_procurement: {
+      teaches: "High-risk obligations are not bought with a certificate: documentation, governance and control rights are needed.",
+      typicalMistake: "Settling for \"the vendor is certified\" and giving up documentation, audit and access.",
+      discussionQuestion: "What must a public body ask before buying an AI system?",
+      aiActConcepts: ["high risk", "procurement AI", "technical documentation", "accountability", "lock-in"],
+      understandingSignal: "The player asks for documentation, audit/access rights and contractual responsibilities, not just a certificate.",
+      classroomUse: "Connect AI governance and real public procurement, without entering procurement law.",
+      estimatedDebriefMinutes: 11
+    },
+    case_edtech: {
+      teaches: "Not every learning platform is banned, but if it affects opportunities and paths it is high-risk and needs effective human control.",
+      typicalMistake: "Treating a student risk score as neutral and following it instead of the teacher's judgement.",
+      discussionQuestion: "When does a teaching recommendation become a decision that matters for the student?",
+      aiActConcepts: ["high risk (Annex III)", "education", "human oversight", "data minimisation", "explainability"],
+      understandingSignal: "The player distinguishes teaching support from a relevant decision, and demands challengeability.",
+      classroomUse: "Reflect on profiling, fairness and educational opportunities.",
+      estimatedDebriefMinutes: 11
+    },
+    case_gpai: {
+      teaches: "A general model is not automatically banned or high-risk: the risk depends on concrete use and must be governed downstream.",
+      typicalMistake: "Believing a disclaimer is enough, or using the model to decide without verification or traceability.",
+      discussionQuestion: "Who answers if a general model is used in a concrete decision process?",
+      aiActConcepts: ["GPAI", "generative model", "downstream use", "effective human oversight", "data governance"],
+      understandingSignal: "The player distinguishes drafting from deciding, and imposes use governance instead of banning or ignoring.",
+      classroomUse: "Discuss adopting generative AI in companies/public bodies and deployer responsibility.",
+      estimatedDebriefMinutes: 12
     }
   },
 
@@ -1085,9 +1278,57 @@ export const en: Locale = {
       },
       gpai: {
         term: 'GPAI — general-purpose AI',
-        definition: 'General-purpose AI models with their own transparency and systemic-risk obligations. Introductory entry: future deep-dive.',
+        definition: 'General-purpose AI models with their own transparency and systemic-risk obligations. The risk for users depends on concrete downstream use.',
         whyItMatters: 'Increasingly central to the AI ecosystem.',
         caution: 'It does not mean every general model is high risk.'
+      },
+      public_chatbot: {
+        term: 'Public chatbot',
+        definition: "A body's automated assistant that informs citizens about services, requirements or deadlines.",
+        whyItMatters: 'It creates reliance: it needs transparency and a human channel.',
+        caution: 'It does not mean it is banned: it must be made transparent and supervised.'
+      },
+      human_escalation: {
+        term: 'Human escalation',
+        definition: 'An effective way to move from an automated system to a competent person.',
+        whyItMatters: 'Without it, automation becomes a wall for the citizen.',
+        caution: 'It does not mean redoing everything by hand: it means a human door when needed.'
+      },
+      procurement_ai: {
+        term: 'Procurement AI',
+        definition: 'Public purchase of AI systems: governance is already decided in the tender and the contract.',
+        whyItMatters: 'Whoever does not ask for documentation and control first will not get them later.',
+        caution: 'It does not mean buying AI is unlawful: it must be done with safeguards.'
+      },
+      technical_documentation: {
+        term: 'Technical documentation',
+        definition: 'The information describing the system, its data, limits and controls, enabling its verification.',
+        whyItMatters: 'Without documentation a decision cannot be explained or challenged.',
+        caution: 'It does not mean a pile of paper: it makes the system verifiable.'
+      },
+      lock_in: {
+        term: 'Lock-in',
+        definition: 'Dependence on a vendor that makes it hard to switch systems, access data or control how it works.',
+        whyItMatters: "It reduces the body's ability to govern and correct.",
+        caution: 'It does not mean every supply creates lock-in: it depends on clauses and access rights.'
+      },
+      adaptive_edtech: {
+        term: 'Adaptive learning platform',
+        definition: 'A system that profiles students and adapts paths, suggestions or teaching priorities.',
+        whyItMatters: 'If it affects opportunities or assessment, it becomes high-risk.',
+        caution: 'It does not mean every EdTech is banned: what matters is whether it decides or only supports.'
+      },
+      generative_model: {
+        term: 'Generative model',
+        definition: 'A system that produces text or content on request; it can err or "hallucinate".',
+        whyItMatters: 'Used to decide without verification, it brings errors into official acts.',
+        caution: 'It does not mean it is always unreliable: it must be verified and governed in use.'
+      },
+      data_governance: {
+        term: 'Data governance',
+        definition: 'Rules on which data is used, how it is kept, who accesses it and why — including minimisation and traceability.',
+        whyItMatters: 'It keeps data proportionate to the purpose and systems verifiable.',
+        caution: 'It does not mean collecting everything "just in case": it means using only what is needed.'
       }
     }
   }

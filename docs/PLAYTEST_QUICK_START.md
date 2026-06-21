@@ -95,6 +95,19 @@ Il gioco non raccoglie dati; anche il facilitatore deve restare privacy-by-desig
 - **Fascicolo città** (debrief): le tendenze sistemiche aiutano a percepire che
   le decisioni hanno conseguenze, senza sembrare un punteggio arcade?
 
+## Da testare nei casi avanzati (v0.6)
+
+Percorso "Casi avanzati" (chatbot, procurement, EdTech, GPAI):
+
+1. Chatbot pubblico: il tester capisce che va reso **trasparente** e affiancato da
+   un **canale umano**, non vietato?
+2. Procurement: capisce che **"il fornitore è certificato" non basta** (servono
+   documentazione, audit, accountability)?
+3. EdTech: distingue **supporto didattico** da **decisione rilevante** (alto rischio)?
+4. GPAI: capisce che il modello generale **non è automaticamente vietato né alto
+   rischio**, ma che l'**uso concreto** va governato?
+5. Nessuno conclude che "ogni chatbot / ogni GPAI / ogni EdTech è vietato".
+
 ## Segnali di allarme
 
 - il tester chiama il gioco "un quiz";

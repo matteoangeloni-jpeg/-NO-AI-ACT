@@ -235,7 +235,12 @@ export const THEME_BUILDERS: Record<string, ThemeBuilder> = {
   case_ospedale: ospedale,
   case_biometria: biometria,
   // credito civico: stesso drone burocratico freddo del social scoring (ufficio welfare)
-  case_credito: scoring
+  case_credito: scoring,
+  // Advanced Case Pack (v0.6): riuso dei timbri esistenti, nessun file nuovo
+  case_chatbot: media, // sportello automatico: comunicazione/interferenza
+  case_procurement: scoring, // ufficio appalti: drone burocratico
+  case_edtech: scuola, // campus adattivo: ambiente educativo
+  case_gpai: media // modello generativo: sintetico/glitch
 };
 
 export const THEME_IDS = Object.keys(THEME_BUILDERS);

@@ -270,7 +270,8 @@ export const it = {
         demo: { name: 'Demo rapida', duration: '10–15 min', goal: 'Capire la logica del rapporto ispettivo.' },
         lab: { name: 'Laboratorio breve', duration: '25–35 min', goal: 'Distinguere pratica vietata, alto rischio e trasparenza.' },
         full: { name: 'Percorso completo', duration: '45–60 min', goal: 'Audit, responsabilità, misure e motivazione.' },
-        advanced: { name: 'Percorso avanzato', duration: '60–75 min', goal: 'Casi ambigui e confini normativi (include il credito civico).' }
+        advanced: { name: 'Percorso avanzato', duration: '60–75 min', goal: 'Casi ambigui e confini normativi (include il credito civico).' },
+        pack: { name: 'Casi avanzati', duration: '75–90 min', goal: 'Casi più ambigui: chatbot pubblico, procurement, EdTech e GPAI.' }
       }
     },
     difficulty: {
@@ -388,7 +389,11 @@ export const it = {
     scuola: 'Scuola delle Emozioni',
     ospedale: 'Ospedale Predittivo',
     sorveglianza: 'Centro di Sorveglianza Urbana',
-    welfare: "Ufficio Welfare e Servizi"
+    welfare: "Ufficio Welfare e Servizi",
+    sportello: "Sportello Civico",
+    appalti: "Ufficio Appalti",
+    campus: "Campus Adattivo",
+    modelli: "Centro Modelli"
   },
 
   cases: {
@@ -795,6 +800,126 @@ export const it = {
         "Chi ha l'obbligo principale: il fornitore della piattaforma o l'ente che la usa?"
       ],
       epilogue: "Il credito civico è il confine: non ogni punteggio è vietato, ma questo aggrega la vita sociale per decidere chi accede ai servizi."
+    },
+
+    case_chatbot: {
+      title: "Lo sportello che risponde sempre",
+      scenario: "Il Comune apre uno sportello digitale: un assistente automatico risponde su bonus, scadenze, requisiti e documenti. È comodo, veloce, sempre disponibile. Ma alcune risposte sono errate, nessuno avvisa che a rispondere è una macchina e non c'è un modo semplice per parlare con una persona. Alcuni cittadini perdono opportunità per un'informazione sbagliata.",
+      clues: [
+        { title: "Comunicato pubblico", text: "Il Comune annuncia \"risposte immediate e sempre aggiornate\". Nessun cenno ai limiti del sistema." },
+        { title: "Log delle conversazioni", text: "Il registro mostra risposte errate su requisiti e scadenze di un bonus: indicazioni sbagliate ripetute a più cittadini." },
+        { title: "Nota del fornitore", text: "Il manuale ripete che \"il sistema è solo informativo\" e non sostituisce gli uffici. Sulla carta, una cautela." },
+        { title: "Reclamo di un cittadino", text: "Una persona ha perso la finestra per la domanda: \"Lo sportello mi aveva detto che c'era tempo\". Nessun canale per correggere in tempo." },
+        { title: "Procedura interna", text: "La procedura non prevede alcun passaggio a un operatore umano: nessuna escalation, nessuna revisione delle risposte critiche." },
+        { title: "Determina di adozione", text: "La determina inquadra lo sportello come servizio di efficienza. Finalità legittima, nulla di anomalo in sé." }
+      ],
+      clueSources: ["pubblica", "log", "vendor", "reclamo", "interna", "amministrativa"],
+      noteCorrect: "Nota investigativa: lo sportello non va vietato, va reso trasparente e governato. Il cittadino deve sapere che parla con una macchina, ricevere informazioni corrette e poter raggiungere una persona. Servono avviso chiaro, canale umano, audit delle risposte e logging privacy-safe.",
+      notePartial: "Nota investigativa: la direzione è giusta, ma a metà. Senza trasparenza verso il cittadino e senza un canale umano effettivo, l'assistente resta una fonte di affidamento fragile.",
+      noteWrong: "Nota investigativa: il fascicolo resta aperto. Lo sportello continua a rispondere, a volte male, e nessuno se ne assume la responsabilità.",
+      consequenceCorrect: "Lo sportello dichiara di essere automatico, segnala i limiti e offre un contatto umano. Le risposte critiche vengono riviste e tracciate. L'efficienza resta, ma diventa affidabile.",
+      consequenceWrong: "Lo sportello viene esteso ad altri servizi. Le risposte arrivano sempre più veloci. E sempre più persone agiscono su informazioni che nessuno ha verificato.",
+      motivations: [
+        "È un semplice servizio informativo: se sbaglia, la responsabilità è del cittadino che si fida.",
+        "L'assistente automatico crea affidamento: serve trasparenza sul fatto che è una macchina, informazione corretta, un canale umano e tracciabilità. La responsabilità d'uso resta dell'ente.",
+        "Il problema è solo tecnico: basta che il fornitore aggiorni il modello."
+      ],
+      debriefQuestions: [
+        "Quando un assistente automatico diventa una fonte affidabile per il cittadino?",
+        "Perché la trasparenza qui non basta da sola, e serve anche un canale umano?",
+        "Chi risponde se il chatbot pubblico dà un'informazione sbagliata: il fornitore o l'ente?"
+      ],
+      epilogue: "Lo sportello automatico non è il problema: lo è quando nasconde di esserlo, sbaglia e non lascia una porta umana a cui bussare."
+    },
+
+    case_procurement: {
+      title: "La gara opaca",
+      scenario: "Un ente pubblico acquista un sistema di IA per istruire pratiche e priorità. La gara è chiusa in fretta: capitolato generico, nessuna documentazione tecnica, criteri poco trasparenti. Quando l'ufficio chiede accesso al funzionamento del sistema, il fornitore nega. \"È certificato\", dicono. Ma nessuno, dentro l'ente, può spiegarne né controllarne le decisioni.",
+      clues: [
+        { title: "Capitolato di gara", text: "Il capitolato descrive il servizio in termini generali: nessun requisito di documentazione, audit o sorveglianza umana sul sistema di IA." },
+        { title: "Offerta del fornitore", text: "L'offerta è piena di claim: \"soluzione certificata, conforme, sicura\". Nessuna prova tecnica allegata." },
+        { title: "Verbale interno", text: "Un verbale dell'ufficio tecnico ammette: \"non disponiamo della documentazione tecnica né di criteri di verifica del sistema\"." },
+        { title: "Clausola contrattuale", text: "Una clausola limita responsabilità e accessi, con formule ambigue su proprietà e know-how. Difficile dire chi può controllare cosa." },
+        { title: "Accesso negato", text: "La richiesta di accesso al funzionamento e ai log del sistema viene respinta dal fornitore come \"informazione riservata\"." },
+        { title: "Nota del RUP", text: "Il responsabile del procedimento segnala il rischio: \"se il sistema sbaglia, non sapremmo dimostrare perché, né correggerlo\"." }
+      ],
+      clueSources: ["amministrativa", "vendor", "interna", "amministrativa", "tecnica", "amministrativa"],
+      noteCorrect: "Nota investigativa: non basta \"il fornitore è certificato\". Un sistema che istruisce decisioni pubbliche è ad alto rischio: servono documentazione tecnica, governance, criteri di verifica ex ante, diritti di accesso e audit, responsabilità contrattuali chiare. La PA non può acquistare un sistema che non può spiegare né controllare.",
+      notePartial: "Nota investigativa: il problema è colto solo a metà. Senza documentazione e diritti di accesso/audit, la governance resta sulla carta e l'ente non controlla davvero il sistema.",
+      noteWrong: "Nota investigativa: il fascicolo resta aperto. Il sistema decide, l'ente non sa come, e il fornitore tiene la chiave.",
+      consequenceCorrect: "La fornitura viene rinegoziata: documentazione tecnica, diritti di audit e accesso, sorveglianza umana e responsabilità definite. L'ente torna a poter spiegare e controllare ciò che ha comprato.",
+      consequenceWrong: "Il sistema entra in servizio così com'è. Funziona, finché non sbaglia. E quando sbaglia, nessuno dentro l'ente può aprirlo, spiegarlo o fermarlo.",
+      motivations: [
+        "Acquisto opaco di un sistema ad alto rischio: mancano documentazione, criteri di verifica, diritti di accesso/audit e responsabilità. L'accountability resta in capo all'ente che lo impiega.",
+        "La gara è regolare: se il prodotto è certificato, la PA non deve chiedere altro.",
+        "È un problema di trasparenza verso i cittadini: basta pubblicare gli atti di gara."
+      ],
+      debriefQuestions: [
+        "Cosa deve chiedere una PA prima di acquistare un sistema di IA?",
+        "Perché \"il fornitore è certificato\" non basta a garantire governance e responsabilità?",
+        "Quali clausole evitano il lock-in e tengono l'ente capace di controllare il sistema?"
+      ],
+      epilogue: "Il procurement è il momento in cui la governance si vince o si perde: chi non chiede documentazione e controllo prima, non li otterrà dopo."
+    },
+
+    case_edtech: {
+      title: "La classe profilata",
+      scenario: "Una piattaforma educativa adattiva profila gli studenti: assegna un \"punteggio di rischio di insuccesso\", suggerisce percorsi, segnala chi tenere d'occhio. Nasce come supporto. Ma i docenti iniziano a seguire la dashboard più del proprio giudizio: chi è marcato \"a rischio\" riceve meno opportunità. Le famiglie non sanno come funziona, e non possono contestare.",
+      clues: [
+        { title: "Dashboard di rischio", text: "Un cruscotto assegna a ogni studente un punteggio di rischio di insuccesso e indirizza scelte su gruppi, percorsi e priorità di supporto." },
+        { title: "Comunicazione alle famiglie", text: "La scuola presenta la piattaforma come \"strumento neutro e oggettivo\" per personalizzare la didattica. Nessun dettaglio sui criteri." },
+        { title: "Descrizione dell'algoritmo", text: "La scheda tecnica indica che il modello usa voti, presenze, ritardi, comportamento e dati di utilizzo della piattaforma." },
+        { title: "Nota di una docente", text: "Una docente scrive: \"seguiamo il punteggio per decidere chi recuperare; rivedere caso per caso non c'è tempo\". Il controllo umano esiste sulla carta." },
+        { title: "Reclamo di una famiglia", text: "Una famiglia contesta: lo studente è stato escluso da un progetto perché \"a rischio\". Nessuna spiegazione, nessun modo per far rivedere la decisione." },
+        { title: "Policy sui dati", text: "La policy è incompleta: non chiarisce minimizzazione, conservazione e accessi. Difficile dire quali dati servano davvero." }
+      ],
+      clueSources: ["tecnica", "pubblica", "tecnica", "interna", "reclamo", "amministrativa"],
+      noteCorrect: "Nota investigativa: non ogni piattaforma educativa è vietata, ma questa incide su opportunità e percorsi degli studenti: è alto rischio. Servono controllo umano effettivo (non seguire ciecamente il punteggio), minimizzazione dei dati, spiegabilità verso docenti e famiglie e possibilità di contestare.",
+      notePartial: "Nota investigativa: la classificazione regge, la misura no. Senza un controllo umano che possa davvero discostarsi dal punteggio e senza spiegabilità, la piattaforma orienta le decisioni al posto dei docenti.",
+      noteWrong: "Nota investigativa: il fascicolo resta aperto. Il punteggio continua a decidere chi ha una possibilità in più e chi una in meno.",
+      consequenceCorrect: "La piattaforma torna a essere supporto, non verdetto: i docenti possono discostarsi e devono motivare, le famiglie ricevono spiegazioni e possono contestare, i dati raccolti sono ridotti al necessario.",
+      consequenceWrong: "Il punteggio di rischio si estende a orientamento e borse di studio. La scuola è più \"efficiente\". Alcuni studenti restano marcati, senza sapere perché.",
+      motivations: [
+        "È solo un supporto didattico neutro: se segnala un rischio, aiuta soltanto i docenti.",
+        "Il problema è la comunicazione: basta spiegare meglio alle famiglie come funziona.",
+        "La piattaforma incide su opportunità educative: è alto rischio e richiede controllo umano effettivo, minimizzazione dei dati, spiegabilità e contestabilità. Risponde la scuola che la usa."
+      ],
+      debriefQuestions: [
+        "Quando una raccomandazione didattica diventa una decisione rilevante per lo studente?",
+        "Cosa distingue un supporto al docente da un'automazione che decide al posto suo?",
+        "Come si rende contestabile e spiegabile un punteggio educativo verso studenti e famiglie?"
+      ],
+      epilogue: "La classe profilata insegna il confine: l'IA può sostenere la didattica, non sostituire il giudizio umano sulle opportunità dei ragazzi."
+    },
+
+    case_gpai: {
+      title: "Il modello tuttofare",
+      scenario: "Un ente integra un modello generativo generale nei flussi interni: sintetizza documenti, prepara bozze di decisione, classifica richieste, suggerisce risposte agli operatori. Comodo e versatile. Ma qualcuno inizia a usarlo per decidere, non solo per abbozzare. Gli output non vengono verificati, i prompt non sono governati, e un'allucinazione finisce in un atto.",
+      clues: [
+        { title: "Policy d'uso aziendale", text: "Una policy generica autorizza l'uso del modello generativo \"per supportare il lavoro\". Nessun limite sugli usi decisionali." },
+        { title: "Output errato", text: "Una bozza generata contiene un riferimento normativo inventato. Il testo è finito quasi inalterato in una comunicazione ufficiale." },
+        { title: "Email interna", text: "Un'email invita i colleghi a \"far scrivere al modello le bozze di decisione, così si fa prima\": il generatore entra nel merito delle scelte." },
+        { title: "Nota del DPO", text: "Il responsabile protezione dati segnala rischi su dati immessi nei prompt, verifica degli output e tracciabilità delle decisioni." },
+        { title: "Log dei prompt", text: "Il registro mostra prompt liberi, con dati e richieste decisionali, senza criteri, controlli o revisione umana documentata." },
+        { title: "Documento del fornitore", text: "La scheda del fornitore è generica: \"modello versatile per molti compiti\". Nessuna indicazione sugli usi da evitare." }
+      ],
+      clueSources: ["amministrativa", "log", "interna", "interna", "log", "vendor"],
+      noteCorrect: "Nota investigativa: il modello generale non è di per sé vietato né automaticamente alto rischio. Il rischio nasce dall'uso concreto: qui entra in decisioni rilevanti senza verifica. Servono revisione umana effettiva, tracciabilità, policy d'uso con confini chiari, controllo dei dati immessi e disclaimer verso gli utenti. Risponde l'organizzazione che lo impiega.",
+      notePartial: "Nota investigativa: il rischio è colto a metà. Senza verifica effettiva degli output e governance dei prompt, il modello continua a influenzare decisioni che nessuno controlla.",
+      noteWrong: "Nota investigativa: il fascicolo resta aperto. Il modello scrive, qualcuno firma, e nessuno verifica.",
+      consequenceCorrect: "L'uso del modello viene governato: confini chiari tra abbozzare e decidere, revisione umana effettiva, tracciabilità di prompt e output, controllo dei dati immessi. Resta utile, smette di decidere da solo.",
+      consequenceWrong: "Il modello tuttofare entra in più processi. La produttività sale. E ogni tanto una decisione poggia su qualcosa che il modello ha semplicemente inventato.",
+      motivations: [
+        "Un modello generale è solo uno strumento: l'uso interno non richiede regole particolari.",
+        "Il modello generale non è vietato né automaticamente alto rischio, ma qui è usato in decisioni rilevanti senza controllo: serve governance dell'uso (revisione umana effettiva, tracciabilità, limiti, dati ammessi). Risponde il deployer.",
+        "Basta un disclaimer che ricordi che le risposte vanno verificate."
+      ],
+      debriefQuestions: [
+        "Chi risponde se un modello generale viene usato in un processo decisionale concreto?",
+        "Cosa cambia tra usare il modello per abbozzare e usarlo per decidere?",
+        "Quali garanzie servono quando un GPAI entra in un flusso decisionale di un ente?"
+      ],
+      epilogue: "Il modello tuttofare non è il problema: lo diventa quando passa, senza controllo, dall'abbozzare al decidere."
     }
   },
 
@@ -894,6 +1019,38 @@ export const it = {
       notMeaning: "Non significa che ogni sistema di punteggio sia vietato: il regime dipende da finalità, dati usati, contesto d'uso, effetti sui diritti e possibilità effettiva di controllo umano.",
       democraticFunction: "L'accesso ai servizi essenziali non può dipendere da una reputazione sociale calcolata e inappellabile.",
       tags: ["divieto", "scoring", "welfare", "servizi"]
+    },
+    norm_chatbot: {
+      title: "Assistenti automatici e trasparenza al cittadino",
+      reference: "AI Act — art. 50 (obblighi di trasparenza); cfr. obblighi del deployer",
+      explanation: "Chi interagisce con un sistema di IA deve sapere che sta parlando con una macchina (art. 50). Per un assistente pubblico la trasparenza è il minimo: contano anche informazione corretta, supervisione umana effettiva, possibilità di raggiungere una persona e tracciabilità. La responsabilità d'uso resta del deployer, non si scarica sul fornitore.",
+      notMeaning: "Non significa che ogni chatbot pubblico sia vietato: vanno resi trasparenti, supervisionati e affiancati da un canale umano, soprattutto quando incidono su diritti o opportunità.",
+      democraticFunction: "Il cittadino ha diritto di sapere quando un'informazione pubblica arriva da una macchina e di poter parlare con una persona.",
+      tags: ["trasparenza", "chatbot", "servizi pubblici", "deployer"]
+    },
+    norm_procurement: {
+      title: "Acquisto pubblico di sistemi di IA",
+      reference: "AI Act — obblighi per i sistemi ad alto rischio (governance e documentazione)",
+      explanation: "Quando una PA acquista un sistema di IA che incide su decisioni rilevanti, gli obblighi dell'alto rischio non si comprano con una certificazione: servono documentazione tecnica, criteri di verifica ex ante, diritti di accesso e audit, sorveglianza umana e responsabilità contrattuali chiare. L'accountability resta in capo all'ente che impiega il sistema.",
+      notMeaning: "Non significa che acquistare IA sia illegittimo: significa che servono documentazione, governance e responsabilità verificabili prima e dopo l'acquisto.",
+      democraticFunction: "La spesa pubblica in IA deve restare spiegabile e controllabile: un ente non può usare ciò che non sa aprire.",
+      tags: ["alto rischio", "procurement", "governance", "documentazione"]
+    },
+    norm_edtech: {
+      title: "Piattaforme educative e decisioni rilevanti",
+      reference: "AI Act — Allegato III (istruzione e formazione professionale)",
+      explanation: "I sistemi di IA usati nell'istruzione per valutare, orientare o decidere l'accesso a percorsi e opportunità sono ad alto rischio. Richiedono sorveglianza umana effettiva, qualità e minimizzazione dei dati, spiegabilità verso docenti, studenti e famiglie, e possibilità di contestare. Un supporto didattico non deve diventare un verdetto automatico.",
+      notMeaning: "Non significa che ogni piattaforma educativa sia vietata: il regime dipende dall'effetto sulle opportunità degli studenti e dalla presenza di un controllo umano effettivo.",
+      democraticFunction: "Le opportunità educative non possono dipendere da un punteggio opaco che i docenti seguono e le famiglie non possono contestare.",
+      tags: ["alto rischio", "istruzione", "controllo umano", "spiegabilità"]
+    },
+    norm_gpai: {
+      title: "Modelli generali (GPAI) e uso a valle",
+      reference: "AI Act — disposizioni sui modelli per finalità generali (GPAI) e obblighi del deployer",
+      explanation: "Un modello generativo per finalità generali non è di per sé vietato né automaticamente ad alto rischio: il rischio dipende dall'uso concreto. Quando entra in decisioni rilevanti servono revisione umana effettiva, tracciabilità, policy d'uso con confini chiari, controllo dei dati immessi e trasparenza verso gli utenti. Gli obblighi del modello (lato provider) si sommano alla responsabilità d'uso del deployer.",
+      notMeaning: "Non significa che usare un modello generale sia vietato, né che sia sempre alto rischio: conta come e dove viene usato, e con quali garanzie.",
+      democraticFunction: "Un modello che redige bozze di decisione deve restare verificabile: nessun atto può poggiare su un output non controllato.",
+      tags: ["GPAI", "modello generativo", "uso a valle", "deployer"]
     }
   },
 
@@ -991,6 +1148,42 @@ export const it = {
       understandingSignal: 'Il giocatore distingue social scoring vietato e valutazione ad alto rischio.',
       classroomUse: 'Confine credito/welfare: caso-specchio per chiudere il percorso avanzato.',
       estimatedDebriefMinutes: 12
+    },
+    case_chatbot: {
+      teaches: "Un assistente pubblico non va vietato, va reso trasparente e affiancato da un canale umano: conta l'affidamento del cittadino.",
+      typicalMistake: "Pensare che basti la dicitura \"solo informativo\" per scaricare la responsabilità sul cittadino o sul fornitore.",
+      discussionQuestion: "Quando un assistente automatico diventa una fonte affidabile per il cittadino?",
+      aiActConcepts: ["trasparenza (art. 50)", "supervisione umana", "responsabilità del deployer", "chatbot pubblico"],
+      understandingSignal: "Il giocatore impone trasparenza e canale umano invece di vietare o di fidarsi ciecamente.",
+      classroomUse: "Discutere servizi pubblici digitali, affidamento e diritto a una risposta umana.",
+      estimatedDebriefMinutes: 9
+    },
+    case_procurement: {
+      teaches: "Gli obblighi dell'alto rischio non si comprano con una certificazione: servono documentazione, governance e diritti di controllo.",
+      typicalMistake: "Accontentarsi di \"il fornitore è certificato\" e rinunciare a documentazione, audit e accesso.",
+      discussionQuestion: "Cosa deve chiedere una PA prima di acquistare un sistema di IA?",
+      aiActConcepts: ["alto rischio", "procurement AI", "documentazione tecnica", "accountability", "lock-in"],
+      understandingSignal: "Il giocatore chiede documentazione, diritti di audit/accesso e responsabilità contrattuali, non solo una certificazione.",
+      classroomUse: "Collegare AI governance e acquisti pubblici reali, senza entrare nel codice appalti.",
+      estimatedDebriefMinutes: 11
+    },
+    case_edtech: {
+      teaches: "Non ogni piattaforma educativa è vietata, ma se incide su opportunità e percorsi è alto rischio e serve controllo umano effettivo.",
+      typicalMistake: "Trattare un punteggio di rischio studenti come neutro e seguirlo al posto del giudizio del docente.",
+      discussionQuestion: "Quando una raccomandazione didattica diventa una decisione rilevante per lo studente?",
+      aiActConcepts: ["alto rischio (Allegato III)", "istruzione", "controllo umano", "minimizzazione dei dati", "spiegabilità"],
+      understandingSignal: "Il giocatore distingue supporto didattico e decisione rilevante, e pretende contestabilità.",
+      classroomUse: "Riflettere su profilazione, equità e opportunità educative.",
+      estimatedDebriefMinutes: 11
+    },
+    case_gpai: {
+      teaches: "Un modello generale non è automaticamente vietato né alto rischio: il rischio dipende dall'uso concreto e va governato a valle.",
+      typicalMistake: "Credere che un disclaimer basti, o usare il modello per decidere senza verifica né tracciabilità.",
+      discussionQuestion: "Chi risponde se un modello generale viene usato in un processo decisionale concreto?",
+      aiActConcepts: ["GPAI", "modello generativo", "uso a valle", "controllo umano effettivo", "data governance"],
+      understandingSignal: "Il giocatore distingue abbozzare e decidere, e impone governance dell'uso invece di vietare o ignorare.",
+      classroomUse: "Discutere adozione di IA generativa in azienda/PA e responsabilità del deployer.",
+      estimatedDebriefMinutes: 12
     }
   },
 
@@ -1081,9 +1274,57 @@ export const it = {
       },
       gpai: {
         term: 'GPAI — IA per finalità generali',
-        definition: 'Modelli di IA general-purpose con obblighi propri di trasparenza e gestione del rischio sistemico. Voce introduttiva: approfondimento futuro.',
+        definition: 'Modelli di IA general-purpose con obblighi propri di trasparenza e gestione del rischio sistemico. Il rischio per chi li usa dipende dall\'uso concreto a valle.',
         whyItMatters: "Sempre più rilevante nell'ecosistema dell'IA.",
         caution: 'Non significa che ogni modello generale sia ad alto rischio.'
+      },
+      public_chatbot: {
+        term: 'Chatbot pubblico',
+        definition: 'Assistente automatico di un ente che informa i cittadini su servizi, requisiti o scadenze.',
+        whyItMatters: 'Crea affidamento: serve trasparenza e un canale umano.',
+        caution: 'Non significa che sia vietato: va reso trasparente e supervisionato.'
+      },
+      human_escalation: {
+        term: 'Escalation umana',
+        definition: 'Possibilità effettiva di passare da un sistema automatico a una persona competente.',
+        whyItMatters: "Senza, l'automazione diventa un muro per il cittadino.",
+        caution: 'Non significa rifare tutto a mano: significa una porta umana quando serve.'
+      },
+      procurement_ai: {
+        term: 'Procurement AI',
+        definition: 'Acquisto pubblico di sistemi di IA: la governance si decide già nel capitolato e nel contratto.',
+        whyItMatters: 'Chi non chiede documentazione e controllo prima, non li ottiene dopo.',
+        caution: 'Non significa che acquistare IA sia illegittimo: serve farlo con garanzie.'
+      },
+      technical_documentation: {
+        term: 'Documentazione tecnica',
+        definition: 'Insieme di informazioni che descrivono il sistema, i dati, i limiti e i controlli, e ne permettono la verifica.',
+        whyItMatters: 'Senza documentazione non si può spiegare né contestare una decisione.',
+        caution: 'Non significa un mucchio di carte: serve a rendere il sistema verificabile.'
+      },
+      lock_in: {
+        term: 'Lock-in',
+        definition: "Dipendenza da un fornitore che rende difficile cambiare sistema, accedere ai dati o controllarne il funzionamento.",
+        whyItMatters: "Riduce la capacità dell'ente di governare e correggere.",
+        caution: 'Non significa che ogni fornitura crei lock-in: dipende da clausole e diritti di accesso.'
+      },
+      adaptive_edtech: {
+        term: 'Piattaforma educativa adattiva',
+        definition: 'Sistema che profila gli studenti e adatta percorsi, suggerimenti o priorità didattiche.',
+        whyItMatters: 'Se incide su opportunità o valutazione, diventa alto rischio.',
+        caution: 'Non significa che ogni EdTech sia vietata: conta se decide o solo supporta.'
+      },
+      generative_model: {
+        term: 'Modello generativo',
+        definition: 'Sistema che produce testo o contenuti su richiesta; può sbagliare o “allucinare”.',
+        whyItMatters: "Usato per decidere senza verifica, porta errori dentro gli atti.",
+        caution: 'Non significa che sia inaffidabile sempre: va verificato e governato nell\'uso.'
+      },
+      data_governance: {
+        term: 'Data governance',
+        definition: 'Regole su quali dati si usano, come si conservano, chi vi accede e perché — incluse minimizzazione e tracciabilità.',
+        whyItMatters: 'Tiene i dati proporzionati allo scopo e i sistemi verificabili.',
+        caution: 'Non significa raccogliere tutto “per sicurezza”: significa usare solo ciò che serve.'
       }
     }
   }

@@ -265,6 +265,13 @@ struttura fra i dizionari (predisposto per FR/ES).
 - Modalità docente con debrief locale; mobile guard; IT/EN; analytics
   privacy-by-design (off in produzione).
 
+**🧭 v0.6 — Advanced Case Pack (in sviluppo)**
+- 4 casi avanzati (7 → 11): chatbot comunale, procurement AI, piattaforma
+  educativa adattiva, GPAI in azienda/PA — casi più ambigui (trasparenza,
+  governance, alto rischio, uso a valle dei modelli generali).
+- Nessun nuovo backend/account; salvataggi v0.5 compatibili.
+  Dettagli: [`docs/V0.6_DESIGN_NOTES.md`](docs/V0.6_DESIGN_NOTES.md).
+
 **🏁 v1.0**
 - Revisione giuridica formale, asset finali, comunicazione, pacchetto stabile.
 

@@ -13,7 +13,12 @@ export const NORMS: NormCardData[] = [
   { id: 'norm_emotion_recognition', level: 'vietata', iconKey: 'icon_school' },
   { id: 'norm_alto_rischio_obblighi', level: 'alto', iconKey: 'icon_hospital' },
   { id: 'norm_biometria', level: 'restrittivo', iconKey: 'icon_eye' },
-  { id: 'norm_credito', level: 'vietata', iconKey: 'icon_card' }
+  { id: 'norm_credito', level: 'vietata', iconKey: 'icon_card' },
+  // Advanced Case Pack (v0.6)
+  { id: 'norm_chatbot', level: 'trasparenza', iconKey: 'icon_chat' },
+  { id: 'norm_procurement', level: 'alto', iconKey: 'icon_doc' },
+  { id: 'norm_edtech', level: 'alto', iconKey: 'icon_grad' },
+  { id: 'norm_gpai', level: 'restrittivo', iconKey: 'icon_model' }
 ];
 
 export function getNorm(id: string): NormCardData {
