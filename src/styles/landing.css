@@ -156,6 +156,8 @@ a:hover { color: #8fa9d6; }
   border: 1px solid transparent;
   cursor: pointer;
   text-decoration: none;
+  transition: background-color 160ms ease, border-color 160ms ease,
+    box-shadow 160ms ease, transform 160ms ease;
 }
 .btn-primary {
   background: var(--amber);
@@ -163,12 +165,20 @@ a:hover { color: #8fa9d6; }
   border-color: var(--amber);
 }
 .btn-primary:hover { background: #eab62f; color: var(--carbon); }
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  box-shadow: 0 0 0 1px var(--amber), 0 6px 18px -8px rgba(217, 165, 33, 0.55);
+}
 .btn-ghost {
   background: transparent;
   color: var(--ink);
   border-color: var(--line);
 }
 .btn-ghost:hover { border-color: var(--accent); color: var(--ink); }
+.btn-ghost:hover,
+.btn-ghost:focus-visible {
+  box-shadow: 0 0 0 1px var(--accent);
+}
 
 /* ---- sections ---- */
 section { padding: 3rem 0; border-bottom: 1px solid var(--line); }
@@ -200,6 +210,13 @@ section h2 .num {
   border: 1px solid var(--line);
   border-radius: 6px;
   padding: 1.1rem 1.2rem;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 10px 24px -16px rgba(0, 0, 0, 0.8);
 }
 .card h3 {
   margin: 0 0 0.4rem;
@@ -231,6 +248,13 @@ section h2 .num {
   border-left: 3px solid var(--amber-dim);
   border-radius: 4px;
   padding: 0.8rem 1rem;
+  transition: transform 180ms ease, border-left-color 180ms ease, box-shadow 180ms ease;
+}
+.cases li:hover,
+.cases li:focus-visible {
+  transform: translateY(-2px);
+  border-left-color: var(--amber);
+  box-shadow: 0 8px 20px -16px rgba(0, 0, 0, 0.85);
 }
 .cases .file-id {
   font-family: var(--mono);
@@ -288,6 +312,13 @@ footer {
 }
 footer .wrap { display: grid; gap: 0.6rem; }
 footer a { color: var(--accent); }
+footer .credit {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.03em;
+  margin-top: 0.2rem;
+}
 .stamp {
   font-family: var(--mono);
   font-size: 0.75rem;
@@ -296,9 +327,9 @@ footer a { color: var(--accent); }
   color: var(--amber-dim);
   border: 1px dashed var(--amber-dim);
   border-radius: 4px;
-  padding: 0.4rem 0.7rem;
+  padding: 0.5rem 0.8rem;
   display: inline-block;
-  transform: rotate(-1.5deg);
+  margin: 0;
 }
 
 ul.plain { padding-left: 1.1rem; color: var(--ink-dim); }
@@ -307,4 +338,29 @@ ul.plain li { margin-bottom: 0.4rem; }
 @media (max-width: 600px) {
   body { font-size: 16px; }
   .hero { padding: 2.5rem 0 2rem; }
+}
+
+/* ---- micro-animations (sober, dossier mood) ---- */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes naa-rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero .kicker { animation: naa-rise 600ms ease both; }
+  .hero h1      { animation: naa-rise 600ms ease 80ms both; }
+  .hero .lead   { animation: naa-rise 600ms ease 160ms both; }
+  .hero .cta-row { animation: naa-rise 600ms ease 240ms both; }
+}
+
+/* Respect users who prefer reduced motion: no entrances, hovers stay static. */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .card:hover,
+  .card:focus-visible,
+  .cases li:hover,
+  .cases li:focus-visible { transform: none; }
 }

@@ -1,6 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { languageFromQuery } from '../src/game/i18n';
 
 const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
@@ -8,6 +9,7 @@ const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
 const itHtml = read('index.html');
 const enHtml = read('en/index.html');
 const playHtml = read('play/index.html');
+const landingCss = read('src/styles/landing.css');
 
 const SITE = 'https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/';
 
@@ -117,6 +119,8 @@ describe('public landing — Tally playtest popup', () => {
     it(`${name} passes no personal data to Tally`, () => {
       expect(html).not.toContain('data-email');
       expect(html).not.toContain('data-name=');
+      expect(html).not.toContain('data-school');
+      expect(html).not.toContain('data-class');
       expect(html).not.toMatch(/data-tally-hidden/i);
       expect(html).not.toMatch(/utm_/i);
     });
@@ -156,29 +160,42 @@ describe('public static files', () => {
     expect(robots).toContain(`Sitemap: ${SITE}sitemap.xml`);
     // /play/ must stay crawlable so its noindex meta can be read.
     expect(robots).not.toMatch(/^\s*Disallow:\s*\/play\//m);
+    // robots must hold robots directives only — no stray sitemap-xml leakage.
+    expect(robots).not.toMatch(/monthly\s+[\d.]/);
+    expect(robots).not.toContain('<urlset');
+    expect(robots).not.toContain('<loc>');
   });
 
-  it('sitemap.xml is well-formed and lists the landings and play, with no bad URLs', () => {
+  it('sitemap.xml is valid XML and lists the landings and play, with no bad URLs', () => {
     const sitemap = read('public/sitemap.xml');
-    expect(sitemap).toContain('<?xml');
+    expect(sitemap).toContain('<?xml version="1.0" encoding="UTF-8"?>');
     expect(sitemap).toContain('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"');
+    expect(sitemap).toContain('<urlset');
+    expect(sitemap).toContain('</urlset>');
+    expect(sitemap).toContain('<changefreq>');
+    expect(sitemap).toContain('<priority>');
     expect(sitemap).toContain(`<loc>${SITE}</loc>`);
     expect(sitemap).toContain(`<loc>${SITE}en/</loc>`);
     expect(sitemap).toContain(`<loc>${SITE}play/</loc>`);
     expect(sitemap).not.toMatch(/localhost|127\.0\.0\.1|example\.com/);
-    // every URL must live under the GitHub Pages subpath
+    // every URL must live under the GitHub Pages subpath, with no query string
     for (const [, loc] of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)) {
       expect(loc.startsWith(SITE)).toBe(true);
+      expect(loc).not.toContain('?');
     }
   });
 
   it('llms.txt is complete: version, scope, privacy and reachable links', () => {
     const llms = read('public/llms.txt');
+    const lower = llms.toLowerCase();
     expect(llms).toContain('# NO AI ACT');
     expect(llms).toContain('v0.6.0');
     expect(llms).toContain('11 playable cases');
-    expect(llms.toLowerCase()).toContain('not legal advice');
-    expect(llms.toLowerCase()).toContain('no personal data collection');
+    expect(lower).toContain('not legal advice');
+    expect(lower).toContain('no backend');
+    expect(lower).toContain('no account');
+    expect(lower).toContain('no personal data collection');
+    expect(llms).toContain('Tally');
     expect(llms).toContain(`${SITE}play/`);
     expect(llms).toContain(`${SITE}en/`);
     expect(llms).toContain('github.com/matteoangeloni-jpeg/-NO-AI-ACT');
@@ -189,5 +206,57 @@ describe('public static files', () => {
     expect(existsSync(resolve(root, 'docs/NO_AI_ACT_PROJECT_BRIEF.md'))).toBe(true);
     expect(existsSync(resolve(root, 'docs/TEACHER_QUICK_START.md'))).toBe(true);
     expect(existsSync(resolve(root, 'docs/LEGAL_DISCLAIMER.md'))).toBe(true);
+  });
+});
+
+describe('public landing — language handoff to the game', () => {
+  it('the IT landing links to /play/?lang=it', () => {
+    expect(itHtml).toContain('href="./play/?lang=it"');
+  });
+
+  it('the EN landing links to /play/?lang=en', () => {
+    expect(enHtml).toContain('href="../play/?lang=en"');
+  });
+
+  it('languageFromQuery honours only known codes', () => {
+    expect(languageFromQuery('?lang=en')).toBe('en');
+    expect(languageFromQuery('?lang=it')).toBe('it');
+    expect(languageFromQuery('?lang=fr')).toBeNull();
+    expect(languageFromQuery('?lang=')).toBeNull();
+    expect(languageFromQuery('?foo=bar')).toBeNull();
+    expect(languageFromQuery('')).toBeNull();
+  });
+});
+
+describe('public landing — footer author credit', () => {
+  it('the IT footer credits Matteo Angeloni', () => {
+    expect(itHtml).toContain('Matteo Angeloni');
+    expect(itHtml).toContain('Ideato e sviluppato da Matteo Angeloni');
+  });
+
+  it('the EN footer credits Matteo Angeloni', () => {
+    expect(enHtml).toContain('Matteo Angeloni');
+    expect(enHtml).toContain('Designed and developed by Matteo Angeloni');
+  });
+});
+
+describe('public landing — accessible motion', () => {
+  it('the CSS respects prefers-reduced-motion (both directions)', () => {
+    expect(landingCss).toContain('@media (prefers-reduced-motion: reduce)');
+    expect(landingCss).toContain('@media (prefers-reduced-motion: no-preference)');
+
+    // the reduce block must actually neutralise motion, not merely exist
+    const reduceIndex = landingCss.indexOf('@media (prefers-reduced-motion: reduce)');
+    expect(reduceIndex).toBeGreaterThan(-1);
+    const reduceSlice = landingCss.slice(reduceIndex, reduceIndex + 500);
+    expect(reduceSlice).toMatch(/animation:\s*none/);
+    expect(reduceSlice).toMatch(/transition:\s*none/);
+  });
+
+  it('the disclaimer stamp is not rotated/skewed', () => {
+    // inspect just the .stamp rule (up to its closing brace), robust to reformatting
+    const start = landingCss.indexOf('.stamp {');
+    const stampBlock = landingCss.slice(start, landingCss.indexOf('}', start));
+    expect(stampBlock).not.toMatch(/transform:\s*(rotate|skew)/);
   });
 });
