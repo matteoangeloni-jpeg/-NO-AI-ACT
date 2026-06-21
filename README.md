@@ -219,7 +219,9 @@ statiche dallo stesso build Vite multipagina:
 - `/` — landing italiana (default), `/en/` — landing inglese, con SEO
   (canonical, hreflang it/en/x-default) e dati strutturati schema.org
   (`WebSite`, `SoftwareApplication`, `LearningResource`, `FAQPage`).
-- `/play/` — il gioco Phaser (comportamento invariato).
+- `/play/` — il gioco Phaser (comportamento invariato). Le CTA delle landing
+  passano la lingua: `/play/?lang=it` apre in italiano, `/play/?lang=en` in
+  inglese; `/play/` senza query mantiene la lingua salvata.
 - `/robots.txt`, `/sitemap.xml`, `/llms.txt` serviti dalla root (da `public/`),
   più i documenti AI-readable in `docs/` (`NO_AI_ACT_PROJECT_BRIEF.md`,
   `TEACHER_QUICK_START.md`, `LEGAL_DISCLAIMER.md`).

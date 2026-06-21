@@ -20,6 +20,19 @@
 - Stile "dossier investigativo" per le landing (`src/styles/landing.css`), solo
   font di sistema.
 
+### Polish (post-launch)
+- Micro-animazioni CSS sobrie sulle landing (entrata hero, hover su card e casi,
+  glow su CTA), tutte solo CSS.
+- Rispetto di `prefers-reduced-motion`: in `reduce` animazioni, transizioni,
+  transform e smooth scroll sono disattivati.
+- Credit autore nel footer IT/EN ("Ideato e sviluppato da Matteo Angeloni" /
+  "Designed and developed by Matteo Angeloni").
+- Sezione disclaimer resa pulita e intenzionale (rimossa l'inclinazione del
+  riquadro "timbro").
+- Handoff lingua dalla landing al gioco: `/play/?lang=it` apre in italiano,
+  `/play/?lang=en` in inglese; `/play/` senza query resta invariato. La query è
+  validata e instradata nel sistema i18n esistente, senza dati personali.
+
 ### Notes
 - Nessun nuovo caso, nessuna modifica di gameplay o di logica di valutazione.
 - Nessun backend, nessun account, nessun dato personale: il popup di feedback è

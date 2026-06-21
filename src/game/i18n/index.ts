@@ -33,6 +33,18 @@ export function nextLanguage(): LanguageCode {
   return LANGUAGE_CODES[(i + 1) % LANGUAGE_CODES.length];
 }
 
+/**
+ * Parse a URL query string (e.g. `?lang=en`) into a known language code.
+ * Used for the public landing → game handoff (/play/?lang=it|en). Returns
+ * null for missing or unknown values, so the caller keeps the saved language.
+ */
+export function languageFromQuery(search: string): LanguageCode | null {
+  const lang = new URLSearchParams(search).get('lang');
+  return lang !== null && (LANGUAGE_CODES as string[]).includes(lang)
+    ? (lang as LanguageCode)
+    : null;
+}
+
 /** Dizionario della lingua corrente. */
 export function L(): Locale {
   return LOCALES[current];
