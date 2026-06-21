@@ -6,7 +6,7 @@
 [![Contenuti: CC BY 4.0](https://img.shields.io/badge/contenuti-CC%20BY%204.0-5d7fb8)](LICENSE)
 [![Stack](https://img.shields.io/badge/stack-TypeScript%20%2B%20Phaser%203%20%2B%20Vite-101a30)](#stack)
 [![Test](https://img.shields.io/badge/test-Vitest-d9a521)](tests/)
-[![Stato](https://img.shields.io/badge/stato-v0.5.0-3fa66a)](#stato-release)
+[![Stato](https://img.shields.io/badge/stato-v0.6.0-3fa66a)](#stato-release)
 [![Lingue](https://img.shields.io/badge/lingue-IT%20%2B%20EN-d8d6cd)](#lingue)
 
 **Serious game investigativo sull'AI Act europeo · browser, zero asset esterni, salvataggio locale**
@@ -50,23 +50,22 @@ Questo gioco **non costituisce consulenza legale**.
 | **Lingue** | Italiano / English |
 | **Account / dati** | Nessun account, nessun dato personale, nessun backend |
 
-## Novità in v0.5.0 — Investigation & Learning Layer
+## Novità in v0.6.0 — Advanced Case Pack
 
-Nessun nuovo caso: la v0.5.0 aggiunge un layer di **interpretazione, debrief e
-conseguenze sistemiche**.
+La v0.6.0 estende l'Investigation & Learning Layer della v0.5 con **4 casi
+avanzati** (da 7 a **11 casi**). Nessun nuovo backend/account/dashboard;
+salvataggi v0.5 compatibili.
 
-- **Fragilità decisionali tipizzate**: il rapporto non dà solo un esito, ma nomina
-  il punto debole (soggetto, motivazione, prove, proporzionalità…).
-- **Analisi della decisione** nel rapporto ispettivo (perché regge / è
-  contestabile / parziale / non conforme).
-- **Reperti più investigativi**: micro-tag di funzione (minimizza, prova
-  decisiva, effetto concreto, contesto).
-- **Fascicolo città**: effetti sistemici qualitativi (tendenze, non punteggi).
-- **Glossario operativo** consultabile dall'archivio (IT/EN).
-- **Schede didattiche** per tutti i 7 casi ed **export docente** locale arricchito.
-- **Fix favicon** (404 benigno rimosso).
+- **4 nuovi casi**: chatbot pubblico ("Lo sportello che risponde sempre"),
+  procurement AI ("La gara opaca"), piattaforma educativa adattiva ("La classe
+  profilata"), GPAI / modello generativo ("Il modello tuttofare").
+- **Percorso "Casi avanzati"** (~75–90 min) e **glossario** ampliato.
+- **Learning card** per i nuovi casi e **fascicolo città** esteso.
+- Sistemi non necessariamente vietati, ma **da governare per contesto d'uso**:
+  contano effetto sui diritti, supervisione effettiva, documentazione,
+  responsabilità del deployer e contestabilità.
 
-Dettagli: [`docs/RELEASE_NOTES_v0.5.0.md`](docs/RELEASE_NOTES_v0.5.0.md).
+Dettagli: [`docs/RELEASE_NOTES_v0.6.0.md`](docs/RELEASE_NOTES_v0.6.0.md).
 
 > **No backend · No accounts · No classroom dashboard · No personal data
 > collection.** Teacher mode is local debrief support. Educational simulation,
@@ -113,11 +112,16 @@ casi chiusi si genera il rapporto finale: *Città opaca*, *Governance fragile* o
 | 5 | Ospedale Predittivo | Triage invisibile | obblighi alto rischio | ✅ giocabile |
 | 6 | Centro di Sorveglianza | Volti nella folla | art. 5 — biometria (finalità di contrasto) | ✅ giocabile |
 | 7 | Ufficio Welfare e Servizi | Il credito civico | art. 5 / Allegato III — social scoring vs welfare/credito | ✅ giocabile |
+| 8 | Sportello Civico | Lo sportello che risponde sempre | art. 50 — trasparenza, chatbot pubblico | ✅ giocabile (v0.6) |
+| 9 | Ufficio Appalti | La gara opaca | alto rischio — procurement AI, governance | ✅ giocabile (v0.6) |
+| 10 | Campus Adattivo | La classe profilata | Allegato III — EdTech adattiva | ✅ giocabile (v0.6) |
+| 11 | Centro Modelli | Il modello tuttofare | GPAI / uso a valle del modello generale | ✅ giocabile (v0.6) |
 
-**7 casi giocabili.** Il caso 7 ("Il credito civico") è un *caso-specchio*:
-insegna a distinguere il social scoring vietato dall'alto rischio (welfare /
-valutazione di affidabilità economica). Non ogni punteggio è vietato: contano
-finalità, dati usati, contesto ed effetti sui diritti.
+**11 casi giocabili** (7 base + 4 avanzati della v0.6). Il caso 7 ("Il credito
+civico") è un *caso-specchio* sul confine social scoring vietato / alto rischio;
+i casi 8–11 (chatbot pubblico, procurement, EdTech, GPAI) sono **casi avanzati**:
+non necessariamente vietati, ma da governare in base al contesto d'uso e
+all'effetto sui diritti.
 
 ## Difficoltà e percorsi
 
@@ -250,40 +254,37 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 ## Roadmap
 
-**✅ v0.5.0 — Investigation & Learning Layer (corrente)**
-- Tassonomia tipizzata delle fragilità decisionali e analisi della decisione nel
-  rapporto ispettivo.
-- Schede didattiche per caso, reperti più investigativi, fascicolo città
-  (effetti sistemici) e glossario operativo. Export docente arricchito (locale).
-- Fix del favicon (404 benigno rimosso). Nessun nuovo caso, nessun backend/account.
-  Dettagli: [`docs/RELEASE_NOTES_v0.5.0.md`](docs/RELEASE_NOTES_v0.5.0.md) ·
-  [`docs/V0.5_DESIGN_NOTES.md`](docs/V0.5_DESIGN_NOTES.md).
+**✅ v0.6.0 — Advanced Case Pack (corrente)**
+- 4 casi avanzati (7 → 11): chatbot pubblico, procurement AI, piattaforma
+  educativa adattiva, GPAI — casi più ambigui da governare per contesto d'uso.
+- Nuovo percorso "Casi avanzati", glossario ampliato, learning card aggiornate,
+  fascicolo città esteso. Nessun nuovo backend/account; salvataggi v0.5 compatibili.
+  Dettagli: [`docs/RELEASE_NOTES_v0.6.0.md`](docs/RELEASE_NOTES_v0.6.0.md) ·
+  [`docs/V0.6_DESIGN_NOTES.md`](docs/V0.6_DESIGN_NOTES.md).
+
+**✅ v0.5.0 — Investigation & Learning Layer**
+- Tassonomia delle fragilità decisionali, analisi della decisione nel rapporto,
+  schede didattiche, reperti investigativi, fascicolo città, glossario operativo,
+  export docente arricchito (locale). [`docs/RELEASE_NOTES_v0.5.0.md`](docs/RELEASE_NOTES_v0.5.0.md).
 
 **✅ Base (v0.4.0)**
-- 7 casi giocabili (incluso il caso-specchio credito/welfare "Il credito civico").
-- Difficoltà Base / Standard / Esperto e percorsi/missioni.
-- Modalità docente con debrief locale; mobile guard; IT/EN; analytics
-  privacy-by-design (off in produzione).
+- 7 casi base, difficoltà Base/Standard/Esperto, percorsi/missioni, modalità
+  docente locale, mobile guard, IT/EN, analytics privacy-by-design (off).
 
-**🧭 v0.6 — Advanced Case Pack (in sviluppo)**
-- 4 casi avanzati (7 → 11): chatbot comunale, procurement AI, piattaforma
-  educativa adattiva, GPAI in azienda/PA — casi più ambigui (trasparenza,
-  governance, alto rischio, uso a valle dei modelli generali).
-- Nessun nuovo backend/account; salvataggi v0.5 compatibili.
-  Dettagli: [`docs/V0.6_DESIGN_NOTES.md`](docs/V0.6_DESIGN_NOTES.md).
-
-**🏁 v1.0**
-- Revisione giuridica formale, asset finali, comunicazione, pacchetto stabile.
+**🧭 Futuro possibile (v0.7+)**
+- Organizzazione mappa per zone/capitoli; revisione giuridica terza; pacchetto
+  pubblico/accademico; rifinitura da playtest.
 
 ## <a name="stato-release"></a>Stato release
 
-- **Versione**: v0.5.0
+- **Versione**: v0.6.0
 - **Branch stabile**: `main` (GitHub Pages deploy attivo)
 - **Distribuzione**: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/>
-- **Test / build**: verdi in locale e in CI (138 test automatici).
+- **Casi**: 11 giocabili (7 base + 4 avanzati).
+- **Test / build**: verdi in locale e in CI (148 test automatici).
 - **Playtest reale**: da completare prima della presentazione pubblica.
 
-Release notes: [`docs/RELEASE_NOTES_v0.5.0.md`](docs/RELEASE_NOTES_v0.5.0.md) ·
+Release notes: [`docs/RELEASE_NOTES_v0.6.0.md`](docs/RELEASE_NOTES_v0.6.0.md) ·
 checklist di rilascio: [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md).
 
 ## Contribuire / testare
