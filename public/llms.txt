@@ -4,21 +4,36 @@
 > AI Act (Regulation (EU) 2024/1689). The player acts as an inspector: they open
 > the file of an artificial intelligence system, examine the evidence, cite the
 > proof and file an inspection report classifying the system's risk (prohibited,
-> high-risk, to be governed, or compliant). It is an educational simulation, not
-> legal advice.
+> high-risk, to be governed, or compliant). It is an educational simulation about
+> algorithmic risk governance — not legal advice.
 
-Languages: Italian (default) and English.
-Audience: upper-secondary schools, universities, professional training, and
-professionals working with AI governance.
-Pricing: free and open source (MIT code, CC BY 4.0 educational content).
-Privacy: no backend, no account, no personal data collection, no remote
-analytics by default. Progress is stored only in the browser's localStorage.
+- Version: v0.6.0
+- Status: public release
+- Languages: Italian (default) and English
+- Audience: upper-secondary schools, universities, professional training, and professionals working with AI governance
+- Pricing: free and open source (MIT code, CC BY 4.0 educational content)
+- 11 playable cases
 
-## Pages
+## Key facts
 
-- [Italian landing page](https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/): overview, what you learn, the 11 cases, audience, FAQ (Italian).
-- [English landing page](https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/en/): overview, what you learn, the 11 cases, audience, FAQ (English).
-- [Play the game](https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/): the interactive game (runs in the browser, no account).
+- Educational serious game about the European AI Act and algorithmic risk governance.
+- It is NOT legal advice and does not replace the regulation or a professional opinion.
+- No backend, no account, no personal data collection in the game.
+- No remote analytics by default. Progress is stored only in the browser's localStorage.
+- Teacher mode is local; its debrief export is local and anonymous.
+- The Tally playtest form is an external, voluntary feedback form, separate from the
+  game; it does not receive any personal data automatically and is not required to play.
+
+## Links
+
+- Italian landing page: https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/
+- English landing page: https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/en/
+- Play the game: https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/
+- GitHub repository: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT
+- GitHub Release v0.6.0: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v0.6.0
+- Project brief: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/NO_AI_ACT_PROJECT_BRIEF.md
+- Teacher quick start: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/TEACHER_QUICK_START.md
+- Legal disclaimer: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/LEGAL_DISCLAIMER.md
 
 ## What it teaches
 
@@ -30,28 +45,29 @@ analytics by default. Progress is stored only in the browser's localStorage.
 - How the context of use changes the risk of the same system.
 - Contestability: arguing a decision with evidence.
 
-## The 11 cases
+## The 11 cases (Italian title — topic)
 
-1. The city of scores — social scoring and the boundary of prohibited practices.
-2. The interview that does not exist — automated recruitment, risks in employment.
-3. The synthetic city — generated content and transparency obligations.
-4. The observed class — monitoring in education, rights of minors.
-5. Invisible triage — high-risk clinical decision support in healthcare.
-6. Faces in the crowd — biometric recognition in public spaces.
-7. Civic credit — mirror case: prohibited social scoring vs welfare and credit scoring.
-8. The desk that always answers — public chatbot, reliance, human channel.
-9. The opaque tender — public procurement of AI without documentation or governance.
-10. The profiled classroom — adaptive learning platform profiling students.
-11. The do-it-all model — generative model (GPAI) used downstream in internal decisions.
+1. La città dei punteggi — social scoring and the boundary of prohibited practices.
+2. Il colloquio che non esiste — automated recruitment, risks in employment.
+3. La città sintetica — generated content and transparency obligations.
+4. La classe osservata — monitoring in education, rights of minors.
+5. Triage invisibile — high-risk clinical decision support in healthcare.
+6. Volti nella folla — biometric recognition in public spaces.
+7. Il credito civico — mirror case: prohibited social scoring vs welfare and credit scoring.
+8. Lo sportello che risponde sempre — public chatbot, reliance, human channel.
+9. La gara opaca — public procurement of AI without documentation or governance.
+10. La classe profilata — adaptive learning (EdTech) platform profiling students.
+11. Il modello tuttofare — generative model (GPAI) used downstream in internal decisions.
 
-## Documentation
+## Concepts covered
 
-- [Project brief](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/NO_AI_ACT_PROJECT_BRIEF.md): goals, scope and design of the game.
-- [Teacher quick start](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/TEACHER_QUICK_START.md): how to run it in class.
-- [Legal disclaimer](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/LEGAL_DISCLAIMER.md): scope and limits of the simulation.
+prohibited practices, high-risk AI, transparency, GPAI, public chatbot,
+AI procurement, adaptive EdTech, deployer responsibility, human oversight,
+documentation, contestability, accountability.
 
 ## Notes
 
 - NO AI ACT is a didactic simplification and does not replace the AI Act text or professional legal advice.
 - A third-party legal review is recommended before any formal institutional use.
 - Cases such as GPAI, public chatbots, EdTech and procurement are framed by context of use, not as blanket prohibitions.
+- The project is not certified, official or a compliance tool.

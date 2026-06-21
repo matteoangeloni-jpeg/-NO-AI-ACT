@@ -34,7 +34,9 @@ describe('public landing — page structure', () => {
     expect(playHtml).toContain('id="game-container"');
     expect(playHtml).toContain('id="mobile-guard"');
     expect(playHtml).toContain('src="/src/main.ts"');
-    expect(playHtml).toContain('name="robots" content="noindex"');
+    // noindex keeps the game canvas out of the index, but "follow" lets crawlers
+    // traverse its links — and robots.txt must stay crawlable for this to be read.
+    expect(playHtml).toContain('name="robots" content="noindex, follow"');
   });
 
   it('the play page does not load the Tally widget', () => {
@@ -147,22 +149,40 @@ describe('public landing — accessibility & content', () => {
 });
 
 describe('public static files', () => {
-  it('robots.txt allows crawling and points to the sitemap', () => {
+  it('robots.txt allows crawling, points to the sitemap and does not block /play/', () => {
     const robots = read('public/robots.txt');
     expect(robots).toContain('User-agent: *');
+    expect(robots).toContain('Allow: /');
     expect(robots).toContain(`Sitemap: ${SITE}sitemap.xml`);
+    // /play/ must stay crawlable so its noindex meta can be read.
+    expect(robots).not.toMatch(/^\s*Disallow:\s*\/play\//m);
   });
 
-  it('sitemap.xml lists both landing URLs', () => {
+  it('sitemap.xml is well-formed and lists the landings and play, with no bad URLs', () => {
     const sitemap = read('public/sitemap.xml');
+    expect(sitemap).toContain('<?xml');
+    expect(sitemap).toContain('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"');
     expect(sitemap).toContain(`<loc>${SITE}</loc>`);
     expect(sitemap).toContain(`<loc>${SITE}en/</loc>`);
+    expect(sitemap).toContain(`<loc>${SITE}play/</loc>`);
+    expect(sitemap).not.toMatch(/localhost|127\.0\.0\.1|example\.com/);
+    // every URL must live under the GitHub Pages subpath
+    for (const [, loc] of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)) {
+      expect(loc.startsWith(SITE)).toBe(true);
+    }
   });
 
-  it('llms.txt exists and references the play URL', () => {
+  it('llms.txt is complete: version, scope, privacy and reachable links', () => {
     const llms = read('public/llms.txt');
     expect(llms).toContain('# NO AI ACT');
+    expect(llms).toContain('v0.6.0');
+    expect(llms).toContain('11 playable cases');
+    expect(llms.toLowerCase()).toContain('not legal advice');
+    expect(llms.toLowerCase()).toContain('no personal data collection');
     expect(llms).toContain(`${SITE}play/`);
+    expect(llms).toContain(`${SITE}en/`);
+    expect(llms).toContain('github.com/matteoangeloni-jpeg/-NO-AI-ACT');
+    expect(llms).toContain('releases/tag/v0.6.0');
   });
 
   it('the GEO docs exist', () => {
