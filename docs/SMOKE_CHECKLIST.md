@@ -36,7 +36,7 @@ URL live: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/>
 - [ ] Nessun caso è bloccato: sono giocabili anche fuori dal percorso
 
 ## Mappa e flusso di gioco (A/B/C)
-- [ ] La mappa mostra **7 luoghi**
+- [ ] La mappa mostra **11 luoghi** (7 base + 4 avanzati v0.6)
 - [ ] Caso: fascicolo → reperti (tutti apribili, con etichetta-fonte) → citare ≥2 reperti → "Procedi"
 - [ ] Senza 2 reperti citati il pulsante "Procedi" NON appare
 - [ ] Rapporto ispettivo: classificazione → misura → soggetto → motivazione
