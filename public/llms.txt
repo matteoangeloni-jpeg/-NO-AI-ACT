@@ -1,0 +1,73 @@
+# NO AI ACT
+
+> NO AI ACT is a free, open-source investigative serious game about the European
+> AI Act (Regulation (EU) 2024/1689). The player acts as an inspector: they open
+> the file of an artificial intelligence system, examine the evidence, cite the
+> proof and file an inspection report classifying the system's risk (prohibited,
+> high-risk, to be governed, or compliant). It is an educational simulation about
+> algorithmic risk governance — not legal advice.
+
+- Version: v0.6.0
+- Status: public release
+- Languages: Italian (default) and English
+- Audience: upper-secondary schools, universities, professional training, and professionals working with AI governance
+- Pricing: free and open source (MIT code, CC BY 4.0 educational content)
+- 11 playable cases
+
+## Key facts
+
+- Educational serious game about the European AI Act and algorithmic risk governance.
+- It is NOT legal advice and does not replace the regulation or a professional opinion.
+- No backend, no account, no personal data collection in the game.
+- No remote analytics by default. Progress is stored only in the browser's localStorage.
+- Teacher mode is local; its debrief export is local and anonymous.
+- The Tally playtest form is an external, voluntary feedback form, separate from the
+  game; it does not receive any personal data automatically and is not required to play.
+
+## Links
+
+- Italian landing page: https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/
+- English landing page: https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/en/
+- Play the game: https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/
+- GitHub repository: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT
+- GitHub Release v0.6.0: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v0.6.0
+- Project brief: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/NO_AI_ACT_PROJECT_BRIEF.md
+- Teacher quick start: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/TEACHER_QUICK_START.md
+- Legal disclaimer: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/LEGAL_DISCLAIMER.md
+
+## What it teaches
+
+- Risk classification of AI systems under the European AI Act.
+- Prohibited AI practices (e.g. social scoring) and why they are banned.
+- High-risk systems (e.g. healthcare, education, public administration) and their obligations.
+- Transparency duties, effective human oversight and deployer responsibility.
+- Why a disclaimer or a merely formal human check is often not enough.
+- How the context of use changes the risk of the same system.
+- Contestability: arguing a decision with evidence.
+
+## The 11 cases (Italian title — topic)
+
+1. La città dei punteggi — social scoring and the boundary of prohibited practices.
+2. Il colloquio che non esiste — automated recruitment, risks in employment.
+3. La città sintetica — generated content and transparency obligations.
+4. La classe osservata — monitoring in education, rights of minors.
+5. Triage invisibile — high-risk clinical decision support in healthcare.
+6. Volti nella folla — biometric recognition in public spaces.
+7. Il credito civico — mirror case: prohibited social scoring vs welfare and credit scoring.
+8. Lo sportello che risponde sempre — public chatbot, reliance, human channel.
+9. La gara opaca — public procurement of AI without documentation or governance.
+10. La classe profilata — adaptive learning (EdTech) platform profiling students.
+11. Il modello tuttofare — generative model (GPAI) used downstream in internal decisions.
+
+## Concepts covered
+
+prohibited practices, high-risk AI, transparency, GPAI, public chatbot,
+AI procurement, adaptive EdTech, deployer responsibility, human oversight,
+documentation, contestability, accountability.
+
+## Notes
+
+- NO AI ACT is a didactic simplification and does not replace the AI Act text or professional legal advice.
+- A third-party legal review is recommended before any formal institutional use.
+- Cases such as GPAI, public chatbots, EdTech and procurement are framed by context of use, not as blanket prohibitions.
+- The project is not certified, official or a compliance tool.

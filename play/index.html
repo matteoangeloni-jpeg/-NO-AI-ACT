@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <meta name="description" content="NO AI ACT — Simulatore di una società non regolata. Serious game investigativo sull'AI Act europeo. Versione didattica semplificata, non costituisce consulenza legale." />
+  <meta name="robots" content="noindex, follow" />
+  <title>NO AI ACT — Gioca</title>
+  <link rel="stylesheet" href="/src/styles/global.css" />
+</head>
+<body>
+  <div id="app">
+    <div id="game-container" role="application" aria-label="NO AI ACT, gioco investigativo sull'AI Act"></div>
+    <div id="crt-overlay" aria-hidden="true"></div>
+    <div id="mobile-guard" role="dialog" aria-live="polite">
+      <div class="mg-box"><p class="mg-msg"></p></div>
+    </div>
+  </div>
+  <noscript>NO AI ACT richiede JavaScript per essere eseguito.</noscript>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

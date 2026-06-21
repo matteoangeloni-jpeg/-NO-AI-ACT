@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# /play/ stays crawlable so crawlers can read its <meta name="robots" content="noindex">.
+# The game canvas is kept out of the index by that meta tag, not by robots.txt.
+
+Sitemap: https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/sitemap.xml

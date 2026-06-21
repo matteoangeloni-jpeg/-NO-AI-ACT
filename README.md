@@ -11,9 +11,10 @@
 
 **Serious game investigativo sull'AI Act europeo · browser, zero asset esterni, salvataggio locale**
 
-### ▶ [GIOCA ORA / PLAY NOW](https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/)
+### ▶ [GIOCA ORA / PLAY NOW](https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/)
 
-`https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/`
+Landing pubblica (IT/EN): `https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/`
+· Gioco: `https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/`
 
 [Come si gioca](#come-si-gioca) ·
 [Uso didattico](#uso-didattico) ·
@@ -43,7 +44,7 @@ Questo gioco **non costituisce consulenza legale**.
 | | |
 |---|---|
 | **Cos'è** | Serious game investigativo sull'AI Act, giocabile in browser |
-| **Dove si gioca** | <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/> (GitHub Pages) |
+| **Dove si gioca** | Landing IT/EN: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/> · Gioco: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/> (GitHub Pages) |
 | **Cosa insegna** | La logica *risk-based* dell'AI Act: pratiche vietate, alto rischio, trasparenza, basso rischio — e perché la regola non "blocca" ma rende governabile |
 | **A chi serve** | Studenti (14+), docenti, formazione professionale, PA, cittadinanza digitale |
 | **Durata** | Da ~10–15 min (demo) a ~60–75 min (percorso avanzato) |
@@ -209,6 +210,21 @@ Plausible/Umami via variabili `VITE_*`. Dettagli e nota GDPR:
 
 Niente backend, niente account, niente asset esterni: tutto è generato
 proceduralmente (vedi `ASSET_REGISTER.md`).
+
+## Landing pubblica (SEO/GEO)
+
+Sopra al gioco c'è un livello pubblico di presentazione, costruito come pagine
+statiche dallo stesso build Vite multipagina:
+
+- `/` — landing italiana (default), `/en/` — landing inglese, con SEO
+  (canonical, hreflang it/en/x-default) e dati strutturati schema.org
+  (`WebSite`, `SoftwareApplication`, `LearningResource`, `FAQPage`).
+- `/play/` — il gioco Phaser (comportamento invariato).
+- `/robots.txt`, `/sitemap.xml`, `/llms.txt` serviti dalla root (da `public/`),
+  più i documenti AI-readable in `docs/` (`NO_AI_ACT_PROJECT_BRIEF.md`,
+  `TEACHER_QUICK_START.md`, `LEGAL_DISCLAIMER.md`).
+- Un popup **Tally** (form esterno, modale) raccoglie i riscontri di playtest
+  senza backend e senza dati personali obbligatori.
 
 ## Installazione e avvio
 
