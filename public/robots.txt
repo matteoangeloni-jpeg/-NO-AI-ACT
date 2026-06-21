@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# The game itself is an interactive canvas app, not indexable content.
+Disallow: /play/
+
+Sitemap: https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/sitemap.xml

@@ -4,19 +4,328 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-  <meta name="description" content="NO AI ACT — Simulatore di una società non regolata. Serious game investigativo sull'AI Act europeo. Versione didattica semplificata, non costituisce consulenza legale." />
-  <title>NO AI ACT — Simulatore di una società non regolata</title>
-  <link rel="stylesheet" href="/src/styles/global.css" />
+
+  <title>NO AI ACT — Serious game investigativo sull'AI Act europeo</title>
+  <meta name="description" content="NO AI ACT è un serious game investigativo gratuito sull'AI Act europeo: indaghi 11 casi di sistemi di intelligenza artificiale e impari a classificarne il rischio. Strumento didattico, non consulenza legale." />
+  <meta name="author" content="NO AI ACT" />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="canonical" href="https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/" />
+  <link rel="alternate" hreflang="it" href="https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/" />
+  <link rel="alternate" hreflang="en" href="https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="it_IT" />
+  <meta property="og:locale:alternate" content="en_GB" />
+  <meta property="og:title" content="NO AI ACT — Serious game investigativo sull'AI Act europeo" />
+  <meta property="og:description" content="Indaga 11 casi di sistemi di intelligenza artificiale e impara a classificarne il rischio secondo l'AI Act europeo. Gratuito, didattico, senza account." />
+  <meta property="og:url" content="https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="stylesheet" href="/src/styles/landing.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "NO AI ACT",
+    "alternateName": "NO AI ACT — Simulatore di una società non regolata",
+    "url": "https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/",
+    "inLanguage": ["it", "en"],
+    "description": "Serious game investigativo gratuito sull'AI Act europeo: 11 casi per imparare a classificare il rischio dei sistemi di intelligenza artificiale."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "NO AI ACT",
+    "applicationCategory": "EducationalApplication",
+    "applicationSubCategory": "Serious game",
+    "operatingSystem": "Web browser",
+    "url": "https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/",
+    "inLanguage": ["it", "en"],
+    "description": "Gioco investigativo educativo sull'AI Act europeo. Il giocatore analizza casi di sistemi di IA, cita i reperti e redige un rapporto ispettivo classificandone il rischio.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "isAccessibleForFree": true,
+    "license": "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/LICENSE"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    "name": "NO AI ACT — Indagine sull'AI Act",
+    "url": "https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/",
+    "inLanguage": "it",
+    "learningResourceType": "Serious game",
+    "educationalLevel": "Secondaria superiore, università, formazione professionale",
+    "interactivityType": "active",
+    "isAccessibleForFree": true,
+    "teaches": [
+      "Classificazione del rischio dei sistemi di intelligenza artificiale",
+      "Pratiche di IA vietate secondo l'AI Act europeo",
+      "Sistemi ad alto rischio e relativi obblighi",
+      "Trasparenza, supervisione umana e responsabilità del deployer",
+      "Contestabilità delle decisioni automatizzate"
+    ],
+    "about": {
+      "@type": "Thing",
+      "name": "Regolamento europeo sull'intelligenza artificiale (AI Act)"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "inLanguage": "it",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Che cos'è NO AI ACT?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "È un serious game investigativo gratuito sull'AI Act europeo. Indaghi casi di sistemi di intelligenza artificiale, esamini i reperti e redigi un rapporto che ne classifica il rischio."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "NO AI ACT è una consulenza legale?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. È una simulazione didattica semplificata. Non costituisce consulenza legale e non sostituisce il testo del regolamento né il parere di un professionista."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Serve registrarsi o creare un account?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Non c'è registrazione, non c'è account, non c'è backend. Il gioco gira interamente nel browser e i progressi sono salvati solo in locale."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quanti casi si possono giocare?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Undici casi, dai più chiari ai più ambigui: dal social scoring vietato ai sistemi ad alto rischio in sanità, scuola e pubblica amministrazione, fino ai modelli generativi usati a valle."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "È adatto alla didattica in aula?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sì. È pensato per scuole superiori, università e formazione professionale. Esiste una modalità docente con debrief locale e percorsi di durata variabile. Nessun dato degli studenti viene raccolto."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "NO AI ACT raccoglie dati personali?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Nessun dato personale viene raccolto o inviato a server. Non ci sono account, dashboard di classe o analytics remoti attivi di default."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quanto costa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "È completamente gratuito e a sorgente aperta. Il codice è rilasciato con licenza MIT e i contenuti didattici con licenza CC BY 4.0."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script async src="https://tally.so/widgets/embed.js"></script>
 </head>
 <body>
-  <div id="app">
-    <div id="game-container" role="application" aria-label="NO AI ACT, gioco investigativo sull'AI Act"></div>
-    <div id="crt-overlay" aria-hidden="true"></div>
-    <div id="mobile-guard" role="dialog" aria-live="polite">
-      <div class="mg-box"><p class="mg-msg"></p></div>
+  <a class="skip-link" href="#main">Salta al contenuto</a>
+
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="./">NO AI ACT<span class="dot">.</span></a>
+      <nav class="lang-switch" aria-label="Lingua">
+        <span aria-current="true">IT</span>
+        <a href="./en/" hreflang="en">EN</a>
+      </nav>
     </div>
-  </div>
-  <noscript>NO AI ACT richiede JavaScript per essere eseguito.</noscript>
-  <script type="module" src="/src/main.ts"></script>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap">
+        <p class="kicker">Fascicolo aperto · Serious game</p>
+        <h1 id="hero-title">Indaga l'intelligenza artificiale. Classifica il rischio. Capisci l'AI Act.</h1>
+        <p class="lead">NO AI ACT è un gioco investigativo gratuito sull'AI Act europeo. Apri i fascicoli di 11 sistemi di IA, esamina i reperti e redigi un rapporto ispettivo: vietato, alto rischio, da governare o conforme?</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="./play/">Apri l'indagine</a>
+          <button class="btn btn-ghost" data-tally-open="44ENVA" data-tally-layout="modal" data-tally-width="526" data-tally-align-left="1" data-source="landing-it">Partecipa al playtest</button>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="cos-e-title">
+      <div class="wrap">
+        <h2 id="cos-e-title"><span class="num">01</span>Cos'è</h2>
+        <p class="section-intro">NO AI ACT mette il giocatore nei panni di un ispettore in una città dove l'intelligenza artificiale decide su persone reali. Ogni caso è un fascicolo: leggi i documenti, apri i reperti, cita le prove e firmi una classificazione del rischio secondo la logica dell'AI Act europeo. Non è un quiz a risposta chiusa: la decisione giusta motivata male resta contestabile.</p>
+        <div class="grid">
+          <div class="card">
+            <span class="tag">Investigativo</span>
+            <h3>Reperti, non slogan</h3>
+            <p>Ogni caso ha documenti con etichetta-fonte. Per decidere devi citarne almeno due: la motivazione conta quanto la conclusione.</p>
+          </div>
+          <div class="card">
+            <span class="tag">Fedele all'AI Act</span>
+            <h3>Quattro esiti</h3>
+            <p>Conforme, parziale, contestabile, non conforme. Distingui pratiche vietate, alto rischio, obblighi di trasparenza e usi legittimi.</p>
+          </div>
+          <div class="card">
+            <span class="tag">Senza frizioni</span>
+            <h3>Nel browser, gratis</h3>
+            <p>Nessun account, nessun download, nessun backend. Apri il link e giochi. I progressi restano in locale sul tuo dispositivo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="impara-title">
+      <div class="wrap">
+        <h2 id="impara-title"><span class="num">02</span>Cosa si impara</h2>
+        <p class="section-intro">NO AI ACT allena a ragionare sul rischio, non a memorizzare articoli. Alla fine di una partita sai distinguere ciò che la norma vieta da ciò che chiede di governare.</p>
+        <ul class="plain">
+          <li>Riconoscere le <strong>pratiche di IA vietate</strong> (per esempio il social scoring) e perché lo sono.</li>
+          <li>Identificare i <strong>sistemi ad alto rischio</strong> e gli obblighi che ne derivano.</li>
+          <li>Valutare <strong>trasparenza</strong>, <strong>supervisione umana effettiva</strong> e <strong>responsabilità del deployer</strong>.</li>
+          <li>Capire perché un <strong>disclaimer</strong> o un controllo umano formale spesso non bastano.</li>
+          <li>Distinguere il <strong>contesto d'uso</strong>: lo stesso sistema può essere legittimo o critico a seconda di come è impiegato.</li>
+          <li>Argomentare una decisione con prove: la <strong>contestabilità</strong> come criterio di qualità.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="casi-title">
+      <div class="wrap">
+        <h2 id="casi-title"><span class="num">03</span>Gli 11 casi</h2>
+        <p class="section-intro">Dai casi più netti a quelli volutamente ambigui. Ogni fascicolo mette alla prova una parte diversa dell'AI Act.</p>
+        <ul class="cases">
+          <li><span class="file-id">FASC. 01</span><b>La città dei punteggi</b><span class="desc">Punteggio sociale dei cittadini: il confine del social scoring vietato.</span></li>
+          <li><span class="file-id">FASC. 02</span><b>Il colloquio che non esiste</b><span class="desc">Selezione del personale automatizzata e rischi nell'occupazione.</span></li>
+          <li><span class="file-id">FASC. 03</span><b>La città sintetica</b><span class="desc">Contenuti generati e obblighi di trasparenza verso il pubblico.</span></li>
+          <li><span class="file-id">FASC. 04</span><b>La classe osservata</b><span class="desc">Monitoraggio in ambito educativo e diritti dei minori.</span></li>
+          <li><span class="file-id">FASC. 05</span><b>Triage invisibile</b><span class="desc">Supporto decisionale clinico ad alto rischio in sanità.</span></li>
+          <li><span class="file-id">FASC. 06</span><b>Volti nella folla</b><span class="desc">Riconoscimento biometrico negli spazi pubblici.</span></li>
+          <li><span class="file-id">FASC. 07</span><b>Il credito civico</b><span class="desc">Caso-specchio: social scoring vietato vs welfare e credito.</span></li>
+          <li><span class="file-id">FASC. 08</span><b>Lo sportello che risponde sempre</b><span class="desc">Chatbot pubblico, affidamento e canale umano.</span></li>
+          <li><span class="file-id">FASC. 09</span><b>La gara opaca</b><span class="desc">Procurement pubblico di IA senza documentazione né governance.</span></li>
+          <li><span class="file-id">FASC. 10</span><b>La classe profilata</b><span class="desc">Piattaforma educativa adattiva che profila gli studenti.</span></li>
+          <li><span class="file-id">FASC. 11</span><b>Il modello tuttofare</b><span class="desc">Modello generativo (GPAI) usato a valle in decisioni interne.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="pubblico-title">
+      <div class="wrap">
+        <h2 id="pubblico-title"><span class="num">04</span>A chi è rivolto</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Docenti e formatori</h3>
+            <p>Per introdurre l'AI Act in aula con un'esperienza concreta. Modalità docente con debrief locale e percorsi a durata variabile.</p>
+          </div>
+          <div class="card">
+            <h3>Studenti</h3>
+            <p>Scuole superiori, università e ITS. Un modo attivo per capire la governance dell'IA senza prerequisiti giuridici.</p>
+          </div>
+          <div class="card">
+            <h3>Professionisti e curiosi</h3>
+            <p>Chi lavora con sistemi di IA — compliance, prodotto, PA — e vuole allenare l'intuizione sul rischio.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="uso-title">
+      <div class="wrap">
+        <h2 id="uso-title"><span class="num">05</span>Come si usa</h2>
+        <ul class="plain">
+          <li><strong>Da soli:</strong> apri l'indagine e affronta i casi al tuo ritmo. Scegli lingua, difficoltà e percorso.</li>
+          <li><strong>In aula:</strong> attiva la modalità docente per il debrief locale a fine partita ed esporta una sintesi anonima (.txt / .json).</li>
+          <li><strong>A gruppi:</strong> usa un caso come spunto di discussione; la sezione "Prove decisive" rende esplicito perché una classificazione regge o è contestabile.</li>
+        </ul>
+        <p style="margin-top:1.4rem"><a class="btn btn-primary" href="./play/">Inizia a giocare</a></p>
+      </div>
+    </section>
+
+    <section aria-labelledby="privacy-title">
+      <div class="wrap">
+        <h2 id="privacy-title"><span class="num">06</span>Privacy by design</h2>
+        <div class="callout">
+          <p style="margin:0 0 0.6rem"><strong>Nessun dato personale lascia il tuo dispositivo.</strong></p>
+          <p style="margin:0">Niente backend, niente account, niente dashboard di classe, niente analytics remoti attivi di default. I progressi e le impostazioni sono salvati solo nel <em>localStorage</em> del browser. L'export del debrief docente è locale e anonimo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="faq-title">
+      <div class="wrap">
+        <h2 id="faq-title"><span class="num">07</span>Domande frequenti</h2>
+        <div class="faq">
+          <details>
+            <summary>Che cos'è NO AI ACT?</summary>
+            <div class="answer"><p>È un serious game investigativo gratuito sull'AI Act europeo. Indaghi casi di sistemi di intelligenza artificiale, esamini i reperti e redigi un rapporto che ne classifica il rischio.</p></div>
+          </details>
+          <details>
+            <summary>NO AI ACT è una consulenza legale?</summary>
+            <div class="answer"><p>No. È una simulazione didattica semplificata. Non costituisce consulenza legale e non sostituisce il testo del regolamento né il parere di un professionista.</p></div>
+          </details>
+          <details>
+            <summary>Serve registrarsi o creare un account?</summary>
+            <div class="answer"><p>No. Non c'è registrazione, non c'è account, non c'è backend. Il gioco gira interamente nel browser e i progressi sono salvati solo in locale.</p></div>
+          </details>
+          <details>
+            <summary>Quanti casi si possono giocare?</summary>
+            <div class="answer"><p>Undici casi, dai più chiari ai più ambigui: dal social scoring vietato ai sistemi ad alto rischio in sanità, scuola e pubblica amministrazione, fino ai modelli generativi usati a valle.</p></div>
+          </details>
+          <details>
+            <summary>È adatto alla didattica in aula?</summary>
+            <div class="answer"><p>Sì. È pensato per scuole superiori, università e formazione professionale. Esiste una modalità docente con debrief locale e percorsi di durata variabile. Nessun dato degli studenti viene raccolto.</p></div>
+          </details>
+          <details>
+            <summary>NO AI ACT raccoglie dati personali?</summary>
+            <div class="answer"><p>No. Nessun dato personale viene raccolto o inviato a server. Non ci sono account, dashboard di classe o analytics remoti attivi di default.</p></div>
+          </details>
+          <details>
+            <summary>Quanto costa?</summary>
+            <div class="answer"><p>È completamente gratuito e a sorgente aperta. Il codice è rilasciato con licenza MIT e i contenuti didattici con licenza CC BY 4.0.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="playtest-title">
+      <div class="wrap">
+        <h2 id="playtest-title"><span class="num">08</span>Partecipa al playtest</h2>
+        <p class="section-intro">Stai usando NO AI ACT in aula o per conto tuo? Il tuo riscontro orienta i prossimi casi. Il modulo è esterno, breve e anonimo: nessun dato personale obbligatorio.</p>
+        <button class="btn btn-primary" data-tally-open="44ENVA" data-tally-layout="modal" data-tally-width="526" data-tally-align-left="1" data-source="landing-it">Partecipa al playtest</button>
+      </div>
+    </section>
+  </main>
+
+  <footer aria-labelledby="footer-title">
+    <div class="wrap">
+      <h2 id="footer-title" class="stamp">Simulazione didattica — non consulenza legale</h2>
+      <p>NO AI ACT è uno strumento educativo. Semplifica volutamente il <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" hreflang="it">Regolamento (UE) 2024/1689 (AI Act)</a> e non sostituisce il testo normativo né un parere professionale. Per un uso istituzionale formale è raccomandata una revisione giuridica terza.</p>
+      <p>Codice MIT · contenuti CC BY 4.0 · <a href="https://github.com/matteoangeloni-jpeg/-NO-AI-ACT">Repository su GitHub</a> · <a href="./en/" hreflang="en">English version</a></p>
+    </div>
+  </footer>
 </body>
 </html>

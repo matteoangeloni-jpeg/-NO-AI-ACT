@@ -2,7 +2,30 @@
 
 ## [Unreleased]
 
-_Nessuna modifica in corso._
+### Added
+- Landing pubblica bilingue (IT su `/`, EN su `/en/`) come livello di
+  presentazione SEO/GEO sopra al gioco, costruita come pagine statiche dal
+  build Vite multipagina.
+- Il gioco Phaser è ora servito da `/play/` (comportamento invariato).
+- SEO multilingua: `canonical`, `hreflang` (it/en/x-default), meta description e
+  Open Graph su entrambe le landing.
+- Dati strutturati schema.org (`WebSite`, `SoftwareApplication`,
+  `LearningResource`, `FAQPage`) su entrambe le landing.
+- File statici per crawler e motori AI: `public/robots.txt`,
+  `public/sitemap.xml`, `public/llms.txt`.
+- Documenti AI-readable: `docs/NO_AI_ACT_PROJECT_BRIEF.md`,
+  `docs/TEACHER_QUICK_START.md`, `docs/LEGAL_DISCLAIMER.md`.
+- Popup di playtest tramite form esterno Tally (modale) sulle landing, senza
+  backend e senza dati personali obbligatori.
+- Stile "dossier investigativo" per le landing (`src/styles/landing.css`), solo
+  font di sistema.
+
+### Notes
+- Nessun nuovo caso, nessuna modifica di gameplay o di logica di valutazione.
+- Nessun backend, nessun account, nessun dato personale: il popup di feedback è
+  un form esterno e non salva dati nel repository.
+- Nessun version bump: la landing è un livello di presentazione, non una release
+  di gioco.
 
 ## [0.6.0] - 2026-06-21
 
