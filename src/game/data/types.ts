@@ -50,8 +50,8 @@ export type NormLevel = 'vietata' | 'alto' | 'trasparenza' | 'restrittivo';
 /** Livelli di difficoltà selezionabili (v0.4). */
 export type DifficultyMode = 'base' | 'standard' | 'expert';
 
-/** Percorsi didattici / missioni (v0.4). */
-export type MissionId = 'demo' | 'lab' | 'full' | 'advanced';
+/** Percorsi didattici / missioni (v0.4; 'pack' = Advanced Case Pack v0.6). */
+export type MissionId = 'demo' | 'lab' | 'full' | 'advanced' | 'pack';
 
 /** Fonte/attendibilità di un reperto (etichetta investigativa, v0.4). */
 export type EvidenceSource =

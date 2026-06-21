@@ -85,6 +85,38 @@ export function createIcons(scene: Phaser.Scene): void {
       line(ctx, 18, 30, 46, 30);
       line(ctx, 18, 38, 38, 38);
       void s;
+    },
+    icon_chat: (ctx, s) => {
+      // fumetto di uno sportello/assistente automatico
+      path(ctx, [[12, 14], [52, 14], [52, 40], [30, 40], [22, 50], [22, 40], [12, 40]], true);
+      line(ctx, 20, 24, 44, 24);
+      line(ctx, 20, 32, 38, 32);
+      void s;
+    },
+    icon_doc: (ctx, s) => {
+      // documento di gara con angolo piegato
+      path(ctx, [[16, 8], [42, 8], [50, 16], [50, 56], [16, 56]], true);
+      path(ctx, [[42, 8], [42, 16], [50, 16]], false);
+      line(ctx, 22, 26, 44, 26);
+      line(ctx, 22, 34, 44, 34);
+      line(ctx, 22, 42, 38, 42);
+      void s;
+    },
+    icon_grad: (ctx, s) => {
+      // tocco accademico (piattaforma educativa)
+      path(ctx, [[32, 18], [56, 28], [32, 38], [8, 28]], true);
+      path(ctx, [[18, 33], [18, 44], [32, 50], [46, 44], [46, 33]], false);
+      line(ctx, 56, 28, 56, 42);
+      void s;
+    },
+    icon_model: (ctx, s) => {
+      // nodo generativo: hub centrale con connessioni (rete di un modello)
+      arc(ctx, 32, 32, 6, 0, Math.PI * 2);
+      for (const [x, y] of [[14, 16], [50, 16], [12, 44], [52, 44]] as [number, number][]) {
+        arc(ctx, x, y, 4, 0, Math.PI * 2);
+        line(ctx, 32, 32, x, y);
+      }
+      void s;
     }
   };
 

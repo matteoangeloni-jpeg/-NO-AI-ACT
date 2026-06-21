@@ -18,7 +18,12 @@ export const LOCATIONS: LocationData[] = [
   { id: 'scuola', x: 0.78, y: 0.58, iconKey: 'icon_school', caseId: 'case_scuola' },
   { id: 'ospedale', x: 0.33, y: 0.78, iconKey: 'icon_hospital', caseId: 'case_ospedale' },
   { id: 'sorveglianza', x: 0.58, y: 0.74, iconKey: 'icon_eye', caseId: 'case_biometria' },
-  { id: 'welfare', x: 0.40, y: 0.18, iconKey: 'icon_card', caseId: 'case_credito' }
+  { id: 'welfare', x: 0.40, y: 0.18, iconKey: 'icon_card', caseId: 'case_credito' },
+  // Advanced Case Pack (v0.6) — 4 nuovi luoghi nelle aree libere della mappa
+  { id: 'sportello', x: 0.86, y: 0.40, iconKey: 'icon_chat', caseId: 'case_chatbot' },
+  { id: 'appalti', x: 0.12, y: 0.30, iconKey: 'icon_doc', caseId: 'case_procurement' },
+  { id: 'campus', x: 0.86, y: 0.82, iconKey: 'icon_grad', caseId: 'case_edtech' },
+  { id: 'modelli', x: 0.12, y: 0.74, iconKey: 'icon_model', caseId: 'case_gpai' }
 ];
 
 /**
@@ -180,6 +185,100 @@ export const CASES: CaseData[] = [
     correctMotivation: 1,
     weakMotivation: 2,
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'eccesso_cautela', 'soggetto', 'motivazione', 'trasparenza'],
+    hasIncident: false,
+    playable: true
+  },
+
+  // ===================== ADVANCED CASE PACK (v0.6) =====================
+
+  {
+    // CASO 8 — Chatbot comunale. Assistente pubblico che informa i cittadini.
+    // NON è vietato: è una questione di trasparenza, affidamento e supervisione.
+    // Classificazione: obbligo di trasparenza (art. 50) + controllo umano.
+    id: 'case_chatbot',
+    locationId: 'sportello',
+    fileCode: 'AX-115/2032',
+    correctClassification: 'trasparenza',
+    correctMeasures: ['informare', 'etichettare'],
+    partialMeasures: ['oversight', 'audit', 'dati_logging'],
+    // decisive: log di risposte errate (1) + policy senza escalation umana (4)
+    relevantClues: [1, 4],
+    clueStances: ['minimizes_risk', 'decisive', 'minimizes_risk', 'concrete_effect', 'decisive', 'contextual'],
+    normId: 'norm_chatbot',
+    responsibleSubjectCorrect: 'deployer',
+    responsibleSubjectPartial: 'fornitore_esterno',
+    correctMotivation: 1,
+    weakMotivation: 0,
+    possibleDominantErrors: ['classificazione', 'prove', 'trasparenza', 'misura_insufficiente', 'soggetto', 'motivazione'],
+    hasIncident: false,
+    playable: true
+  },
+  {
+    // CASO 9 — Procurement AI. Acquisto pubblico senza documentazione né
+    // governance. Il sistema acquistato è ad alto rischio; il vizio è di
+    // accountability e documentazione ex ante.
+    id: 'case_procurement',
+    locationId: 'appalti',
+    fileCode: 'AX-121/2032',
+    correctClassification: 'alto_rischio',
+    correctMeasures: ['audit', 'dati_logging', 'oversight'],
+    partialMeasures: ['informare'],
+    // decisive: verbale che ammette l'assenza di documentazione (2) + accesso
+    // e controllo negati dal fornitore (4)
+    relevantClues: [2, 4],
+    clueStances: ['contextual', 'minimizes_risk', 'decisive', 'ambiguous', 'decisive', 'concrete_effect'],
+    normId: 'norm_procurement',
+    responsibleSubjectCorrect: 'autorita',
+    responsibleSubjectPartial: 'fornitore_esterno',
+    correctMotivation: 0,
+    weakMotivation: 2,
+    possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione', 'eccesso_cautela'],
+    hasIncident: false,
+    playable: true
+  },
+  {
+    // CASO 10 — Piattaforma educativa adattiva. Profila studenti e orienta
+    // decisioni didattiche rilevanti → alto rischio (istruzione, Allegato III).
+    // Non ogni EdTech è vietata: conta se incide su accesso/valutazione.
+    id: 'case_edtech',
+    locationId: 'campus',
+    fileCode: 'AX-128/2032',
+    correctClassification: 'alto_rischio',
+    correctMeasures: ['oversight', 'audit', 'dati_logging'],
+    partialMeasures: ['informare'],
+    // decisive: dashboard di rischio che indirizza le decisioni (0) + nota
+    // docente che ammette un controllo umano solo formale (3)
+    relevantClues: [0, 3],
+    clueStances: ['decisive', 'minimizes_risk', 'contextual', 'decisive', 'concrete_effect', 'ambiguous'],
+    normId: 'norm_edtech',
+    responsibleSubjectCorrect: 'deployer',
+    responsibleSubjectPartial: 'provider',
+    correctMotivation: 2,
+    weakMotivation: 1,
+    possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione', 'eccesso_cautela'],
+    hasIncident: false,
+    playable: true
+  },
+  {
+    // CASO 11 — GPAI in azienda/PA. Modello generale usato in processi
+    // decisionali concreti. Il modello generale NON è di per sé vietato né
+    // automaticamente alto rischio: è l'uso a valle che richiede governance.
+    id: 'case_gpai',
+    locationId: 'modelli',
+    fileCode: 'AX-134/2032',
+    correctClassification: 'alto_rischio',
+    correctMeasures: ['oversight', 'audit', 'dati_logging'],
+    partialMeasures: ['informare', 'etichettare'],
+    // decisive: email interna che spinge a usare il modello per bozze di
+    // decisione (2) + log dei prompt non governato (4)
+    relevantClues: [2, 4],
+    clueStances: ['contextual', 'concrete_effect', 'decisive', 'supports_risk', 'decisive', 'minimizes_risk'],
+    normId: 'norm_gpai',
+    responsibleSubjectCorrect: 'deployer',
+    responsibleSubjectPartial: 'provider',
+    correctMotivation: 1,
+    weakMotivation: 2,
+    possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'trasparenza', 'soggetto', 'motivazione', 'eccesso_cautela'],
     hasIncident: false,
     playable: true
   }

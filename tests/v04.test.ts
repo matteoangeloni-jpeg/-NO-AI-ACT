@@ -62,8 +62,8 @@ describe('difficoltà', () => {
 
 // ----------------------------------------------------------------- missioni
 describe('missioni', () => {
-  it('esistono le 4 missioni previste con default sicuro', () => {
-    expect(MISSION_IDS).toEqual(['demo', 'lab', 'full', 'advanced']);
+  it('esistono le missioni previste con default sicuro', () => {
+    expect(MISSION_IDS).toEqual(['demo', 'lab', 'full', 'advanced', 'pack']);
     expect(DEFAULT_MISSION).toBe('full');
     expect(defaultSave().mission).toBe('full');
   });

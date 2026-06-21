@@ -13,6 +13,10 @@ Non cambiano la soluzione dei casi. Sintesi (IT):
 | 5 · Triage invisibile | L'IA in sanità va governata, non vietata né subita | Fidarsi della media e ignorare i sottogruppi | 10 |
 | 6 · Volti nella folla | Confine del divieto biometrico (tempo reale, contrasto) | Credere che ogni uso biometrico sia uguale | 9 |
 | 7 · Il credito civico | Non ogni scoring è vietato: contano finalità, dati, contesto, controllo | Credere che "supporto decisionale" basti | 12 |
+| 8 · Lo sportello che risponde sempre | Un assistente pubblico va reso trasparente e affiancato da un canale umano, non vietato | Pensare che "solo informativo" scarichi la responsabilità | 9 |
+| 9 · La gara opaca | Gli obblighi dell'alto rischio non si comprano con una certificazione | Accontentarsi di "il fornitore è certificato" | 11 |
+| 10 · La classe profilata | Se incide su opportunità, l'EdTech è alto rischio e serve controllo umano effettivo | Seguire il punteggio al posto del giudizio del docente | 11 |
+| 11 · Il modello tuttofare | Un modello generale non è automaticamente vietato né alto rischio: conta l'uso concreto | Credere che basti un disclaimer, o usarlo per decidere senza verifica | 12 |
 
 Ogni scheda include inoltre: **domanda di discussione**, **concetti AI Act**,
 **segnale di comprensione** e **suggerimento d'uso in aula** (vedi i18n).

@@ -48,6 +48,18 @@ export const MISSIONS: MissionData[] = [
       'case_credito'
     ],
     suggestedDifficulty: 'expert'
+  },
+  {
+    // Advanced Case Pack (v0.6): casi più ambigui (~75–90 min).
+    id: 'pack',
+    recommendedCaseIds: [
+      'case_credito',
+      'case_chatbot',
+      'case_procurement',
+      'case_edtech',
+      'case_gpai'
+    ],
+    suggestedDifficulty: 'expert'
   }
 ];
 
