@@ -1,0 +1,69 @@
+name: Create v0.6.0 release
+
+on:
+  push:
+    branches:
+      - automation/create-v0.6.0-release
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create tag and release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: v0.6.0
+          TARGET: edd02ba77b9af944d35fbbd551e3b7e15ce6a17d
+          TITLE: NO AI ACT v0.6.0 — Advanced Case Pack
+          NOTES_FILE: docs/GITHUB_RELEASE_BODY_v0.6.0.md
+        run: |
+          set -euo pipefail
+
+          git fetch origin main --tags --force
+
+          echo "Checking target commit..."
+          git cat-file -e "${TARGET}^{commit}"
+
+          echo "Checking release notes file..."
+          test -f "${NOTES_FILE}"
+
+          echo "Checking existing tag..."
+          if git rev-parse -q --verify "refs/tags/${TAG}" >/dev/null; then
+            ACTUAL="$(git rev-list -n 1 "${TAG}")"
+            if [ "${ACTUAL}" != "${TARGET}" ]; then
+              echo "Tag ${TAG} exists but points to ${ACTUAL}, expected ${TARGET}"
+              exit 1
+            fi
+            echo "Tag ${TAG} already exists at the expected commit."
+          else
+            echo "Creating annotated tag ${TAG} at ${TARGET}..."
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag -a "${TAG}" "${TARGET}" -m "${TITLE}"
+            git push origin "refs/tags/${TAG}"
+          fi
+
+          echo "Checking existing GitHub Release..."
+          if gh release view "${TAG}" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
+            echo "Release ${TAG} already exists."
+            exit 0
+          fi
+
+          echo "Creating GitHub Release ${TAG} (public, not draft, not prerelease)..."
+          gh release create "${TAG}" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --target "${TARGET}" \
+            --title "${TITLE}" \
+            --notes-file "${NOTES_FILE}"
+
+          echo "Release ${TAG} created."
