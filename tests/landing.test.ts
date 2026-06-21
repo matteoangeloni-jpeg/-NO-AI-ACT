@@ -244,11 +244,19 @@ describe('public landing — accessible motion', () => {
   it('the CSS respects prefers-reduced-motion (both directions)', () => {
     expect(landingCss).toContain('@media (prefers-reduced-motion: reduce)');
     expect(landingCss).toContain('@media (prefers-reduced-motion: no-preference)');
+
+    // the reduce block must actually neutralise motion, not merely exist
+    const reduceIndex = landingCss.indexOf('@media (prefers-reduced-motion: reduce)');
+    expect(reduceIndex).toBeGreaterThan(-1);
+    const reduceSlice = landingCss.slice(reduceIndex, reduceIndex + 500);
+    expect(reduceSlice).toMatch(/animation:\s*none/);
+    expect(reduceSlice).toMatch(/transition:\s*none/);
   });
 
   it('the disclaimer stamp is not rotated/skewed', () => {
-    // the .stamp box must read as intentional, not a broken layout
-    const stampBlock = landingCss.slice(landingCss.indexOf('.stamp {'), landingCss.indexOf('.stamp {') + 320);
+    // inspect just the .stamp rule (up to its closing brace), robust to reformatting
+    const start = landingCss.indexOf('.stamp {');
+    const stampBlock = landingCss.slice(start, landingCss.indexOf('}', start));
     expect(stampBlock).not.toMatch(/transform:\s*(rotate|skew)/);
   });
 });

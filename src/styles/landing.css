@@ -212,7 +212,8 @@ section h2 .num {
   padding: 1.1rem 1.2rem;
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
-.card:hover {
+.card:hover,
+.card:focus-visible {
   transform: translateY(-2px);
   border-color: var(--accent);
   box-shadow: 0 10px 24px -16px rgba(0, 0, 0, 0.8);
@@ -249,7 +250,8 @@ section h2 .num {
   padding: 0.8rem 1rem;
   transition: transform 180ms ease, border-left-color 180ms ease, box-shadow 180ms ease;
 }
-.cases li:hover {
+.cases li:hover,
+.cases li:focus-visible {
   transform: translateY(-2px);
   border-left-color: var(--amber);
   box-shadow: 0 8px 20px -16px rgba(0, 0, 0, 0.85);
@@ -358,5 +360,7 @@ ul.plain li { margin-bottom: 0.4rem; }
     scroll-behavior: auto !important;
   }
   .card:hover,
-  .cases li:hover { transform: none; }
+  .card:focus-visible,
+  .cases li:hover,
+  .cases li:focus-visible { transform: none; }
 }

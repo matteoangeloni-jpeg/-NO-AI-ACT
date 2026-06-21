@@ -38,11 +38,13 @@ export function nextLanguage(): LanguageCode {
  * Used for the public landing → game handoff (/play/?lang=it|en). Returns
  * null for missing or unknown values, so the caller keeps the saved language.
  */
+function isLanguageCode(value: string | null): value is LanguageCode {
+  return value === 'it' || value === 'en';
+}
+
 export function languageFromQuery(search: string): LanguageCode | null {
   const lang = new URLSearchParams(search).get('lang');
-  return lang !== null && (LANGUAGE_CODES as string[]).includes(lang)
-    ? (lang as LanguageCode)
-    : null;
+  return isLanguageCode(lang) ? lang : null;
 }
 
 /** Dizionario della lingua corrente. */
