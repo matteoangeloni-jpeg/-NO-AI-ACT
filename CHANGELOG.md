@@ -33,6 +33,17 @@
   `/play/?lang=en` in inglese; `/play/` senza query resta invariato. La query è
   validata e instradata nel sistema i18n esistente, senza dati personali.
 
+### Analytics
+- Aggiunto Cloudflare Web Analytics (statistiche aggregate, privacy-friendly,
+  senza cookie e senza dati personali) sulle pagine pubbliche IT/EN e su `/play/`
+  come solo pageview. Lo script è inserito nell'HTML, fuori dal codice Phaser.
+- Nessun evento di gameplay, nessuna risposta/caso/decisione/report/progresso/
+  export viene tracciato o inviato. Niente Google Analytics, niente advertising
+  pixel, niente cookie banner. Tally invariato.
+- Testo privacy delle landing aggiornato per citare Cloudflare Web Analytics e
+  distinguere le statistiche aggregate sulle pagine dal fatto che il gioco non
+  invia risultati o report a server esterni.
+
 ### Notes
 - Nessun nuovo caso, nessuna modifica di gameplay o di logica di valutazione.
 - Nessun backend, nessun account, nessun dato personale: il popup di feedback è

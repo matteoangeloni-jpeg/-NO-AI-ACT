@@ -260,3 +260,50 @@ describe('public landing — accessible motion', () => {
     expect(stampBlock).not.toMatch(/transform:\s*(rotate|skew)/);
   });
 });
+
+const CF_SRC = 'https://static.cloudflareinsights.com/beacon.min.js';
+const CF_TOKEN = '7c85578fc8ad4488a54c6bc670a10dcf';
+
+describe('public pages — Cloudflare Web Analytics', () => {
+  for (const [name, html] of [['IT', itHtml], ['EN', enHtml], ['play', playHtml]] as const) {
+    it(`${name} loads the Cloudflare beacon with the configured token, before </body>`, () => {
+      expect(html).toContain(CF_SRC);
+      expect(html).toContain(CF_TOKEN);
+      expect(html.indexOf(CF_SRC)).toBeGreaterThan(-1);
+      expect(html.indexOf(CF_SRC)).toBeLessThan(html.indexOf('</body>'));
+    });
+
+    it(`${name} ships no Google Analytics, ad pixels or personal-data attributes`, () => {
+      expect(html).not.toMatch(/googletagmanager\.com|google-analytics\.com|gtag\(|dataLayer/);
+      expect(html).not.toMatch(/connect\.facebook\.net|facebook\.com\/tr|fbq\(|doubleclick\.net/);
+      expect(html).not.toMatch(/data-email|data-name=|data-school|data-class/);
+    });
+  }
+
+  it('the play page beacon is a plain page view, outside the Phaser module', () => {
+    expect(playHtml).toContain(CF_SRC);
+    // standalone tag, not imported by the game entrypoint, and no custom events
+    expect(playHtml).not.toMatch(/import[^;]*cloudflareinsights/);
+    expect(playHtml).not.toMatch(/trackEvent|"event"\s*:/);
+  });
+});
+
+describe('public landing — analytics privacy wording', () => {
+  it('the IT privacy text cites Cloudflare and separates page stats from game data', () => {
+    expect(itHtml).toContain('Cloudflare Web Analytics');
+    expect(itHtml).toMatch(/statistiche aggregate/i);
+    expect(itHtml).toMatch(/non invia risultati, risposte o report/i);
+  });
+
+  it('the EN privacy text cites Cloudflare and separates page stats from game data', () => {
+    expect(enHtml).toContain('Cloudflare Web Analytics');
+    expect(enHtml).toMatch(/aggregate, privacy-friendly statistics/i);
+    expect(enHtml).toMatch(/does not send results, answers or inspection reports/i);
+  });
+
+  it('llms.txt mentions Cloudflare Web Analytics without false "no analytics" claims', () => {
+    const llms = read('public/llms.txt');
+    expect(llms).toContain('Cloudflare Web Analytics');
+    expect(llms).not.toMatch(/no remote analytics/i);
+  });
+});

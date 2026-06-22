@@ -50,8 +50,9 @@ It is an **educational simulation**, not legal advice and not a compliance tool.
 
 - Not legal advice or a substitute for the AI Act text.
 - Not a compliance, audit or certification tool.
-- Not a data-collecting product: no backend, no account, no classroom dashboard,
-  no remote analytics by default.
+- Not a data-collecting product: no backend, no account, no classroom dashboard.
+  Public pages use aggregate, privacy-friendly Cloudflare Web Analytics (no
+  cookies, no personal data); the game itself sends no analytics or game data.
 
 ## Privacy by design
 
