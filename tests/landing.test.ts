@@ -11,7 +11,7 @@ const enHtml = read('en/index.html');
 const playHtml = read('play/index.html');
 const landingCss = read('src/styles/landing.css');
 
-const SITE = 'https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/';
+const SITE = 'https://www.no-ai-act.eu/';
 
 describe('public landing — page structure', () => {
   it('the three pages exist', () => {
@@ -178,7 +178,7 @@ describe('public static files', () => {
     expect(sitemap).toContain(`<loc>${SITE}en/</loc>`);
     expect(sitemap).toContain(`<loc>${SITE}play/</loc>`);
     expect(sitemap).not.toMatch(/localhost|127\.0\.0\.1|example\.com/);
-    // every URL must live under the GitHub Pages subpath, with no query string
+    // every URL must live under the canonical site origin, with no query string
     for (const [, loc] of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)) {
       expect(loc.startsWith(SITE)).toBe(true);
       expect(loc).not.toContain('?');

@@ -11,10 +11,10 @@ risk.
 
 It is an **educational simulation**, not legal advice and not a compliance tool.
 
-- Live site: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/>
-- Italian landing: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/>
-- English landing: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/en/>
-- Play: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/>
+- Live site: <https://www.no-ai-act.eu/>
+- Italian landing: <https://www.no-ai-act.eu/>
+- English landing: <https://www.no-ai-act.eu/en/>
+- Play: <https://www.no-ai-act.eu/play/>
 
 ## Goals
 

@@ -4,9 +4,9 @@ A short guide to running NO AI ACT in a classroom or training session. No setup,
 no accounts, no student data. The game (v0.6.0) has **11 cases**, from prohibited
 practices to high-risk and "to be governed" systems.
 
-- Play: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/>
-- Overview (IT): <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/>
-- Overview (EN): <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/en/>
+- Play: <https://www.no-ai-act.eu/play/>
+- Overview (IT): <https://www.no-ai-act.eu/>
+- Overview (EN): <https://www.no-ai-act.eu/en/>
 
 ## In one minute
 

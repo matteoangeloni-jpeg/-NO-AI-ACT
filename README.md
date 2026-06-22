@@ -11,10 +11,10 @@
 
 **Serious game investigativo sull'AI Act europeo · browser, zero asset esterni, salvataggio locale**
 
-### ▶ [GIOCA ORA / PLAY NOW](https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/)
+### ▶ [GIOCA ORA / PLAY NOW](https://www.no-ai-act.eu/play/)
 
-Landing pubblica (IT/EN): `https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/`
-· Gioco: `https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/`
+Landing pubblica (IT/EN): `https://www.no-ai-act.eu/`
+· Gioco: `https://www.no-ai-act.eu/play/`
 
 [Come si gioca](#come-si-gioca) ·
 [Uso didattico](#uso-didattico) ·
@@ -44,7 +44,7 @@ Questo gioco **non costituisce consulenza legale**.
 | | |
 |---|---|
 | **Cos'è** | Serious game investigativo sull'AI Act, giocabile in browser |
-| **Dove si gioca** | Landing IT/EN: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/> · Gioco: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/> (GitHub Pages) |
+| **Dove si gioca** | Landing IT/EN: <https://www.no-ai-act.eu/> · Gioco: <https://www.no-ai-act.eu/play/> (GitHub Pages) |
 | **Cosa insegna** | La logica *risk-based* dell'AI Act: pratiche vietate, alto rischio, trasparenza, basso rischio — e perché la regola non "blocca" ma rende governabile |
 | **A chi serve** | Studenti (14+), docenti, formazione professionale, PA, cittadinanza digitale |
 | **Durata** | Da ~10–15 min (demo) a ~60–75 min (percorso avanzato) |
@@ -297,7 +297,7 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 - **Versione**: v0.6.0
 - **Branch stabile**: `main` (GitHub Pages deploy attivo)
-- **Distribuzione**: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/>
+- **Distribuzione**: <https://www.no-ai-act.eu/>
 - **Casi**: 11 giocabili (7 base + 4 avanzati).
 - **Test / build**: verdi in locale e in CI (148 test automatici).
 - **Playtest reale**: da completare prima della presentazione pubblica.
@@ -352,7 +352,7 @@ procedurally. Teacher mode is local debrief support only. Educational
 simplification of the AI Act — not legal advice. Code: MIT · narrative and
 didactic content: CC BY 4.0.
 
-**Play now:** <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/>
+**Play now:** <https://www.no-ai-act.eu/>
 
 ```bash
 npm install && npm run dev

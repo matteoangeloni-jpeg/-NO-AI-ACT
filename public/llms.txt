@@ -26,9 +26,9 @@
 
 ## Links
 
-- Italian landing page: https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/
-- English landing page: https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/en/
-- Play the game: https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/
+- Italian landing page: https://www.no-ai-act.eu/
+- English landing page: https://www.no-ai-act.eu/en/
+- Play the game: https://www.no-ai-act.eu/play/
 - GitHub repository: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT
 - GitHub Release v0.6.0: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v0.6.0
 - Project brief: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/NO_AI_ACT_PROJECT_BRIEF.md
