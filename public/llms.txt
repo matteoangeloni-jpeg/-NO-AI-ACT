@@ -19,16 +19,16 @@
 - Educational serious game about the European AI Act and algorithmic risk governance.
 - It is NOT legal advice and does not replace the regulation or a professional opinion.
 - No backend, no account, no personal data collection in the game.
-- No remote analytics by default. Progress is stored only in the browser's localStorage.
+- Public pages use aggregate, privacy-friendly Cloudflare Web Analytics (no cookies, no personal data); the game itself sends no analytics, results, answers or reports. Progress is stored only in the browser's localStorage.
 - Teacher mode is local; its debrief export is local and anonymous.
 - The Tally playtest form is an external, voluntary feedback form, separate from the
   game; it does not receive any personal data automatically and is not required to play.
 
 ## Links
 
-- Italian landing page: https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/
-- English landing page: https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/en/
-- Play the game: https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/
+- Italian landing page: https://www.no-ai-act.eu/
+- English landing page: https://www.no-ai-act.eu/en/
+- Play the game: https://www.no-ai-act.eu/play/
 - GitHub repository: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT
 - GitHub Release v0.6.0: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v0.6.0
 - Project brief: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/NO_AI_ACT_PROJECT_BRIEF.md

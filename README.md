@@ -11,10 +11,10 @@
 
 **Serious game investigativo sull'AI Act europeo · browser, zero asset esterni, salvataggio locale**
 
-### ▶ [GIOCA ORA / PLAY NOW](https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/)
+### ▶ [GIOCA ORA / PLAY NOW](https://www.no-ai-act.eu/play/)
 
-Landing pubblica (IT/EN): `https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/`
-· Gioco: `https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/`
+Landing pubblica (IT/EN): `https://www.no-ai-act.eu/`
+· Gioco: `https://www.no-ai-act.eu/play/`
 
 [Come si gioca](#come-si-gioca) ·
 [Uso didattico](#uso-didattico) ·
@@ -44,7 +44,7 @@ Questo gioco **non costituisce consulenza legale**.
 | | |
 |---|---|
 | **Cos'è** | Serious game investigativo sull'AI Act, giocabile in browser |
-| **Dove si gioca** | Landing IT/EN: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/> · Gioco: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/> (GitHub Pages) |
+| **Dove si gioca** | Landing IT/EN: <https://www.no-ai-act.eu/> · Gioco: <https://www.no-ai-act.eu/play/> (GitHub Pages) |
 | **Cosa insegna** | La logica *risk-based* dell'AI Act: pratiche vietate, alto rischio, trasparenza, basso rischio — e perché la regola non "blocca" ma rende governabile |
 | **A chi serve** | Studenti (14+), docenti, formazione professionale, PA, cittadinanza digitale |
 | **Durata** | Da ~10–15 min (demo) a ~60–75 min (percorso avanzato) |
@@ -181,13 +181,18 @@ indicatori, tempo, domande di discussione) consultabile a schermo, con export
 > non richiede account, non chiede nome, email, scuola o classe, e non salva
 > risultati su server. La modalità docente produce solo un debrief locale.
 > Eventuali export sono generati sul dispositivo dell'utente e possono essere
-> condivisi manualmente. Gli analytics remoti sono disattivati di default.
+> condivisi manualmente. Le pagine pubbliche usano statistiche aggregate e
+> privacy-friendly (Cloudflare Web Analytics, senza cookie né dati personali);
+> il gioco non invia gameplay, risultati o report e la sua telemetria interna è
+> disattivata di default.
 >
 > 🇬🇧 NO AI ACT is a public demo available through GitHub Pages. The game does
 > not require an account, does not ask for names, emails, school, or class, and
 > does not store results on a server. Teacher mode only produces a local
 > debrief. Any exports are generated on the user's device and can be shared
-> manually. Remote analytics are off by default.
+> manually. The public pages use aggregate, privacy-friendly statistics
+> (Cloudflare Web Analytics, no cookies or personal data); the game sends no
+> gameplay, results or reports and its in-game telemetry is off by default.
 
 Telemetria opzionale privacy-by-design (`AnalyticsSystem`): eventi di gameplay
 aggregati con allowlist rigida; **niente** nomi, email, IP nel payload, free
@@ -265,8 +270,9 @@ struttura fra i dizionari (predisposto per FR/ES).
 - Il rendering è su **canvas Phaser**: non pienamente compatibile con screen reader.
 - Contenuto giuridico in **versione didattica semplificata**: non sostituisce il
   testo del regolamento né una consulenza legale.
-- **Analytics remoti disattivati di default**; nessun account, nessuna dashboard
-  classe, nessun registro studenti.
+- **Telemetria di gioco disattivata di default** (le pagine pubbliche usano solo
+  Cloudflare Web Analytics aggregato, senza cookie né dati personali); nessun
+  account, nessuna dashboard classe, nessun registro studenti.
 - Bundle Phaser ~388 KB gzip: accettabile per un gioco, non ottimizzato mobile-first.
 - **Playtest reale ancora da completare** prima della presentazione pubblica.
 
@@ -297,7 +303,7 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 - **Versione**: v0.6.0
 - **Branch stabile**: `main` (GitHub Pages deploy attivo)
-- **Distribuzione**: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/>
+- **Distribuzione**: <https://www.no-ai-act.eu/>
 - **Casi**: 11 giocabili (7 base + 4 avanzati).
 - **Test / build**: verdi in locale e in CI (148 test automatici).
 - **Playtest reale**: da completare prima della presentazione pubblica.
@@ -352,7 +358,7 @@ procedurally. Teacher mode is local debrief support only. Educational
 simplification of the AI Act — not legal advice. Code: MIT · narrative and
 didactic content: CC BY 4.0.
 
-**Play now:** <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/>
+**Play now:** <https://www.no-ai-act.eu/>
 
 ```bash
 npm install && npm run dev

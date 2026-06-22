@@ -11,10 +11,10 @@ risk.
 
 It is an **educational simulation**, not legal advice and not a compliance tool.
 
-- Live site: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/>
-- Italian landing: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/>
-- English landing: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/en/>
-- Play: <https://matteoangeloni-jpeg.github.io/-NO-AI-ACT/play/>
+- Live site: <https://www.no-ai-act.eu/>
+- Italian landing: <https://www.no-ai-act.eu/>
+- English landing: <https://www.no-ai-act.eu/en/>
+- Play: <https://www.no-ai-act.eu/play/>
 
 ## Goals
 
@@ -50,8 +50,9 @@ It is an **educational simulation**, not legal advice and not a compliance tool.
 
 - Not legal advice or a substitute for the AI Act text.
 - Not a compliance, audit or certification tool.
-- Not a data-collecting product: no backend, no account, no classroom dashboard,
-  no remote analytics by default.
+- Not a data-collecting product: no backend, no account, no classroom dashboard.
+  Public pages use aggregate, privacy-friendly Cloudflare Web Analytics (no
+  cookies, no personal data); the game itself sends no analytics or game data.
 
 ## Privacy by design
 
