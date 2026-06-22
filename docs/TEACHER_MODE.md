@@ -87,7 +87,9 @@ avanzato (include "Il credito civico").
 - Nessun account, nessun dato personale, nessun backend.
 - Salvataggio solo in `localStorage` del dispositivo.
 - Export generati e condivisi **manualmente** dall'utente.
-- Analytics remoti **off di default**; rispettano Do Not Track.
+- Telemetria di gioco **off di default** (rispetta Do Not Track); il gioco non
+  invia gameplay, risultati o report. Le pagine pubbliche del sito usano solo
+  Cloudflare Web Analytics aggregato, senza cookie né dati personali.
 - Dettagli e nota GDPR: [`ANALYTICS.md`](ANALYTICS.md).
 
 Indicazione operativa per chi conduce: non associare i debrief a nomi di

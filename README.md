@@ -181,13 +181,18 @@ indicatori, tempo, domande di discussione) consultabile a schermo, con export
 > non richiede account, non chiede nome, email, scuola o classe, e non salva
 > risultati su server. La modalità docente produce solo un debrief locale.
 > Eventuali export sono generati sul dispositivo dell'utente e possono essere
-> condivisi manualmente. Gli analytics remoti sono disattivati di default.
+> condivisi manualmente. Le pagine pubbliche usano statistiche aggregate e
+> privacy-friendly (Cloudflare Web Analytics, senza cookie né dati personali);
+> il gioco non invia gameplay, risultati o report e la sua telemetria interna è
+> disattivata di default.
 >
 > 🇬🇧 NO AI ACT is a public demo available through GitHub Pages. The game does
 > not require an account, does not ask for names, emails, school, or class, and
 > does not store results on a server. Teacher mode only produces a local
 > debrief. Any exports are generated on the user's device and can be shared
-> manually. Remote analytics are off by default.
+> manually. The public pages use aggregate, privacy-friendly statistics
+> (Cloudflare Web Analytics, no cookies or personal data); the game sends no
+> gameplay, results or reports and its in-game telemetry is off by default.
 
 Telemetria opzionale privacy-by-design (`AnalyticsSystem`): eventi di gameplay
 aggregati con allowlist rigida; **niente** nomi, email, IP nel payload, free
@@ -265,8 +270,9 @@ struttura fra i dizionari (predisposto per FR/ES).
 - Il rendering è su **canvas Phaser**: non pienamente compatibile con screen reader.
 - Contenuto giuridico in **versione didattica semplificata**: non sostituisce il
   testo del regolamento né una consulenza legale.
-- **Analytics remoti disattivati di default**; nessun account, nessuna dashboard
-  classe, nessun registro studenti.
+- **Telemetria di gioco disattivata di default** (le pagine pubbliche usano solo
+  Cloudflare Web Analytics aggregato, senza cookie né dati personali); nessun
+  account, nessuna dashboard classe, nessun registro studenti.
 - Bundle Phaser ~388 KB gzip: accettabile per un gioco, non ottimizzato mobile-first.
 - **Playtest reale ancora da completare** prima della presentazione pubblica.
 
