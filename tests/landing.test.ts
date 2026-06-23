@@ -166,7 +166,7 @@ describe('public static files', () => {
     expect(robots).not.toContain('<loc>');
   });
 
-  it('sitemap.xml is valid XML and lists the landings and play, with no bad URLs', () => {
+  it('sitemap.xml is valid XML and lists only the indexable landings, with no bad URLs', () => {
     const sitemap = read('public/sitemap.xml');
     expect(sitemap).toContain('<?xml version="1.0" encoding="UTF-8"?>');
     expect(sitemap).toContain('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"');
@@ -176,10 +176,14 @@ describe('public static files', () => {
     expect(sitemap).toContain('<priority>');
     expect(sitemap).toContain(`<loc>${SITE}</loc>`);
     expect(sitemap).toContain(`<loc>${SITE}en/</loc>`);
-    expect(sitemap).toContain(`<loc>${SITE}play/</loc>`);
+    // /play/ is intentionally noindex, so it must NOT be advertised in the sitemap.
+    expect(sitemap).not.toContain(`<loc>${SITE}play/</loc>`);
     expect(sitemap).not.toMatch(/localhost|127\.0\.0\.1|example\.com/);
+    // exactly the two indexable landings (IT + EN), nothing else.
+    const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, loc]) => loc);
+    expect(locs).toEqual([SITE, `${SITE}en/`]);
     // every URL must live under the canonical site origin, with no query string
-    for (const [, loc] of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)) {
+    for (const loc of locs) {
       expect(loc.startsWith(SITE)).toBe(true);
       expect(loc).not.toContain('?');
     }
