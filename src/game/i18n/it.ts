@@ -232,7 +232,12 @@ export const it = {
       newGame: 'NUOVA PARTITA',
       archive: 'ARCHIVIO NORME',
       credits: 'CREDITS',
-      debrief: 'DEBRIEF DOCENTE ▸'
+      debrief: 'DEBRIEF DOCENTE ▸',
+      feedback: {
+        title: 'Aiutami a migliorare NO AI ACT',
+        text: 'Hai completato almeno un caso? Lascia un feedback anonimo di 30 secondi su chiarezza, qualità didattica e usabilità.',
+        button: 'Lascia feedback'
+      }
     },
     debrief: {
       title: 'DEBRIEF DOCENTE — REPORT LOCALE',

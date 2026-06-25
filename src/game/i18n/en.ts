@@ -233,7 +233,12 @@ export const en: Locale = {
       newGame: 'NEW GAME',
       archive: 'NORM ARCHIVE',
       credits: 'CREDITS',
-      debrief: 'TEACHER DEBRIEF ▸'
+      debrief: 'TEACHER DEBRIEF ▸',
+      feedback: {
+        title: 'Help improve NO AI ACT',
+        text: 'Completed at least one case? Leave a 30-second anonymous feedback on clarity, learning quality and usability.',
+        button: 'Leave feedback'
+      }
     },
     debrief: {
       title: 'TEACHER DEBRIEF — LOCAL REPORT',
