@@ -99,23 +99,29 @@ describe('public landing — structured data (JSON-LD)', () => {
   }
 });
 
-describe('public landing — Tally playtest popup', () => {
-  for (const [name, html, source] of [
-    ['IT', itHtml, 'landing-it'],
-    ['EN', enHtml, 'landing-en']
-  ] as const) {
-    it(`${name} loads the Tally embed script`, () => {
-      expect(html).toContain('src="https://tally.so/widgets/embed.js"');
-    });
+describe('public landing — Tally playtest popup (pre-game)', () => {
+  it('both landings load the Tally embed script', () => {
+    expect(itHtml).toContain('src="https://tally.so/widgets/embed.js"');
+    expect(enHtml).toContain('src="https://tally.so/widgets/embed.js"');
+  });
 
-    it(`${name} has a modal popup button for form 44ENVA`, () => {
-      expect(html).toContain('data-tally-open="44ENVA"');
-      expect(html).toContain('data-tally-layout="modal"');
-      expect(html).toContain('data-tally-width="526"');
-      expect(html).toContain('data-tally-align-left="1"');
-      expect(html).toContain(`data-source="${source}"`);
-    });
+  it('IT landing keeps the existing IT pre-game form (44ENVA), unchanged', () => {
+    expect(itHtml).toContain('data-tally-open="44ENVA"');
+    expect(itHtml).toContain('data-tally-layout="modal"');
+    expect(itHtml).toContain('data-tally-width="526"');
+    expect(itHtml).toContain('data-source="landing-it"');
+  });
 
+  it('EN landing uses the EN pre-game form (5BryXb) with its full URL', () => {
+    expect(enHtml).toContain('https://tally.so/r/5BryXb');
+    expect(enHtml).toContain('data-tally-open="5BryXb"');
+    expect(enHtml).toContain('data-tally-layout="modal"');
+    expect(enHtml).toContain('data-source="landing-en"');
+    // the EN landing must NOT reuse the IT pre-game form id
+    expect(enHtml).not.toContain('44ENVA');
+  });
+
+  for (const [name, html] of [['IT', itHtml], ['EN', enHtml]] as const) {
     it(`${name} passes no personal data to Tally`, () => {
       expect(html).not.toContain('data-email');
       expect(html).not.toContain('data-name=');
@@ -123,6 +129,13 @@ describe('public landing — Tally playtest popup', () => {
       expect(html).not.toContain('data-class');
       expect(html).not.toMatch(/data-tally-hidden/i);
       expect(html).not.toMatch(/utm_/i);
+    });
+
+    it(`${name} Tally URLs carry no query string / gameplay data`, () => {
+      const tallyUrls = [...html.matchAll(/https:\/\/tally\.so\/[^\s"']+/g)].map(([u]) => u);
+      for (const u of tallyUrls) {
+        expect(u).not.toContain('?');
+      }
     });
   }
 });
