@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { getCase } from '../data/cases';
 import type { CaseData, Classification, IndicatorState, Measure, OutcomeQuality, ReportOutcome } from '../data/types';
 import { consequenceFor, noteFor } from '../systems/CaseSystem';
+import { NOTE_BOX } from './consequenceLayout';
 import { AudioSystem } from '../systems/AudioSystem';
 import { IndicatorHud, randomComment } from '../systems/IndicatorSystem';
 import { StateManager } from '../systems/StateManager';
@@ -80,16 +81,19 @@ export class ConsequenceScene extends Phaser.Scene {
       )
       .setOrigin(0.5);
 
-    // conseguenza narrativa
-    new Panel(this, cx - 190, 300, 620, 320);
-    this.add.text(cx - 480, 158, ui.territoryLabel, textStyle(12, COLOR_STR.paperDim));
-    const consequence = new TypewriterText(this, cx - 480, 184, 14, COLOR_STR.paper, 580);
+    // conseguenza narrativa — pannello superiore
+    new Panel(this, cx - 190, 250, 620, 190);
+    this.add.text(cx - 480, 138, ui.territoryLabel, textStyle(12, COLOR_STR.paperDim));
+    const consequence = new TypewriterText(this, cx - 480, 176, 14, COLOR_STR.paper, 580);
 
-    // nota investigativa (il feedback tipizzato è già nel rapporto)
-    this.add.text(cx - 480, 380, ui.noteLabel, textStyle(12, COLOR_STR.paperDim));
+    // nota investigativa — pannello DEDICATO, dimensionato per non far
+    // fuoriuscire il testo: la nota più lunga è ~6 righe (vedi consequenceLayout
+    // + tests/consequenceLayout.test.ts). Il feedback tipizzato è già nel rapporto.
+    this.add.text(cx - 480, NOTE_BOX.labelY, ui.noteLabel, textStyle(12, COLOR_STR.paperDim));
+    new Panel(this, cx - 190, NOTE_BOX.panelCenterY, NOTE_BOX.width, NOTE_BOX.height);
     const noteText = noteFor(texts, quality);
     const note = this.add
-      .text(cx - 480, 404, noteText, textStyle(13, quality === 'wrong' ? COLOR_STR.alertText : COLOR_STR.accent, { wordWrap: { width: 580 }, lineSpacing: 5 }))
+      .text(cx - 480, NOTE_BOX.textY, noteText, textStyle(NOTE_BOX.fontSize, quality === 'wrong' ? COLOR_STR.alertText : COLOR_STR.accent, { wordWrap: { width: NOTE_BOX.wrapWidth }, lineSpacing: NOTE_BOX.lineSpacing }))
       .setAlpha(0);
 
     // pannello indicatori animati
