@@ -4,6 +4,7 @@ import type { CaseData } from '../data/types';
 import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { Button } from '../ui/Button';
+import { CaseContextOverlay } from '../ui/CaseContextOverlay';
 import { DossierCard } from '../ui/DossierCard';
 import { showToast } from '../ui/AlertToast';
 import { L, caseText, fmt } from '../i18n';
@@ -19,6 +20,7 @@ export class EvidenceScene extends Phaser.Scene {
   private cards: DossierCard[] = [];
   private proceedBtn!: Button;
   private revealToastShown = false;
+  private contextOverlay!: CaseContextOverlay;
 
   constructor() {
     super('Evidence');
@@ -43,6 +45,15 @@ export class EvidenceScene extends Phaser.Scene {
     this.add.text(cx, 56, fmt(L().ui.evidence.header, { code: this.caseData.fileCode }), textStyle(14, COLOR_STR.alertText)).setOrigin(0.5);
     this.add.text(cx, 80, L().ui.evidence.instruction, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
     this.add.rectangle(cx, 100, 900, 1, COLORS.iron);
+
+    // read-only "Rivedi contesto" — re-read the case without leaving the scene
+    this.contextOverlay = new CaseContextOverlay(this, this.caseData.id, 'closeToEvidence');
+    new Button(this, GAME_WIDTH - 130, 36, L().ui.context.button, () => this.contextOverlay.toggle(), {
+      width: 210,
+      height: 36,
+      fontSize: 12,
+      variant: 'ghost'
+    });
 
     // layout a griglia: 1 riga per ≤3 reperti, 2 righe per 4–6 (caso credito)
     const n = texts.clues.length;
@@ -87,7 +98,11 @@ export class EvidenceScene extends Phaser.Scene {
     this.proceedBtn.setVisible(false);
 
     new Button(this, 90, GAME_HEIGHT - 36, L().ui.case.backToMap, () => this.scene.start('CityMap'), { width: 140, height: 36, fontSize: 12, variant: 'ghost' });
-    this.input.keyboard?.on('keydown-ESC', () => this.scene.start('CityMap'));
+    // ESC closes the context overlay first (if open), otherwise leaves to the map
+    this.input.keyboard?.on('keydown-ESC', () => {
+      if (this.contextOverlay.isOpen) this.contextOverlay.close();
+      else this.scene.start('CityMap');
+    });
   }
 
   private refreshState(): void {

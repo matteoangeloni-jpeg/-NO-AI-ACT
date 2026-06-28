@@ -7,6 +7,7 @@ import { AudioSystem } from '../systems/AudioSystem';
 import { NormSystem } from '../systems/NormSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
+import { CaseContextOverlay } from '../ui/CaseContextOverlay';
 import { NormCardView } from '../ui/NormCard';
 import { L, fmt } from '../i18n';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
@@ -30,6 +31,7 @@ export class DecisionScene extends Phaser.Scene {
   private incidentChoice?: IncidentChoice;
   private resolved = false;
   private overlay?: Phaser.GameObjects.Container;
+  private contextOverlay!: CaseContextOverlay;
 
   constructor() {
     super('Decision');
@@ -51,6 +53,7 @@ export class DecisionScene extends Phaser.Scene {
     this.cameras.main.fadeIn(250, 0, 0, 0);
     AudioSystem.crossfadeToTheme(this.caseData.id);
     this.add.tileSprite(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    this.contextOverlay = new CaseContextOverlay(this, this.caseData.id, 'closeToDecision');
     this.showClassificationStep();
   }
 
@@ -69,6 +72,13 @@ export class DecisionScene extends Phaser.Scene {
       fontSize: 12,
       variant: 'ghost'
     });
+    // read-only "Rivedi contesto" — consultabile in ogni passo, non tocca lo stato
+    new Button(this, 130, 36, L().ui.context.button, () => this.contextOverlay.toggle(), {
+      width: 210,
+      height: 36,
+      fontSize: 12,
+      variant: 'ghost'
+    });
   }
 
   /** Associa i tasti numerici 1..n alle opzioni correnti. */
@@ -76,10 +86,14 @@ export class DecisionScene extends Phaser.Scene {
     this.input.keyboard?.removeAllListeners();
     NUMBER_KEYS.slice(0, count).forEach((key, i) => {
       this.input.keyboard?.on(`keydown-${key}`, () => {
-        if (!this.overlay) onPick(i);
+        // ignore number keys while a read-only overlay (norms / context) is open
+        if (!this.overlay && !this.contextOverlay.isOpen) onPick(i);
       });
     });
-    this.input.keyboard?.on('keydown-ESC', () => this.closeNormsOverlay());
+    this.input.keyboard?.on('keydown-ESC', () => {
+      if (this.contextOverlay.isOpen) this.contextOverlay.close();
+      else this.closeNormsOverlay();
+    });
   }
 
   private nextStep(builder: () => void): void {

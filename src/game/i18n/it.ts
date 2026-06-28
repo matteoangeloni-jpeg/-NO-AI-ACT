@@ -58,6 +58,16 @@ export const it = {
       examineButton: 'ESAMINA I REPERTI ▸',
       backToMap: '◂ MAPPA'
     },
+    context: {
+      button: 'Rivedi contesto',
+      title: 'Contesto del caso',
+      scenarioLabel: 'Sintesi del caso',
+      objectiveLabel: 'Obiettivo',
+      objective: "Classificare il rischio del sistema secondo l'AI Act e disporre la misura adeguata.",
+      note: 'Questa scheda serve solo a rivedere il caso. Non modifica il rapporto né la classificazione.',
+      closeToDecision: 'Torna alla decisione',
+      closeToEvidence: 'Torna ai reperti'
+    },
     evidence: {
       header: 'FASCICOLO {code} — REPERTI',
       instruction: 'Esaminare tutti i reperti, poi citare quelli che fondano la classificazione (almeno 2).',
