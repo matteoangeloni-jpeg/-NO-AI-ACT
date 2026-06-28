@@ -89,11 +89,11 @@ export class ConsequenceScene extends Phaser.Scene {
     // nota investigativa — pannello DEDICATO, dimensionato per non far
     // fuoriuscire il testo: la nota più lunga è ~6 righe (vedi consequenceLayout
     // + tests/consequenceLayout.test.ts). Il feedback tipizzato è già nel rapporto.
-    this.add.text(cx - 480, 372, ui.noteLabel, textStyle(12, COLOR_STR.paperDim));
-    new Panel(this, cx - 190, 478, NOTE_BOX.width, NOTE_BOX.height);
+    this.add.text(cx - 480, NOTE_BOX.labelY, ui.noteLabel, textStyle(12, COLOR_STR.paperDim));
+    new Panel(this, cx - 190, NOTE_BOX.panelCenterY, NOTE_BOX.width, NOTE_BOX.height);
     const noteText = noteFor(texts, quality);
     const note = this.add
-      .text(cx - 480, 404, noteText, textStyle(NOTE_BOX.fontSize, quality === 'wrong' ? COLOR_STR.alertText : COLOR_STR.accent, { wordWrap: { width: NOTE_BOX.wrapWidth }, lineSpacing: NOTE_BOX.lineSpacing }))
+      .text(cx - 480, NOTE_BOX.textY, noteText, textStyle(NOTE_BOX.fontSize, quality === 'wrong' ? COLOR_STR.alertText : COLOR_STR.accent, { wordWrap: { width: NOTE_BOX.wrapWidth }, lineSpacing: NOTE_BOX.lineSpacing }))
       .setAlpha(0);
 
     // pannello indicatori animati
