@@ -72,6 +72,7 @@ export const en: Locale = {
     evidence: {
       header: 'CASE FILE {code} — EXHIBITS',
       instruction: 'Examine every exhibit, then cite the ones grounding the classification (at least 2).',
+      citeNote: 'Citing an item adds it to the report, but it does not yet determine the final risk classification.',
       exhibit: 'EXHIBIT {num}',
       sealed: '[ SEALED ]\n\nclick to examine',
       cite: 'CITE IN REPORT ▢',
@@ -109,6 +110,7 @@ export const en: Locale = {
       question4: 'On which reasoning do you ground the report?',
       contextNote:
         'Under the regulation, risk does not depend on the technology alone, but on the context of use, the purpose and the effects on people.',
+      processNote: 'Final decision: classify the risk, then choose measure, responsible subject and rationale.',
       recorded: 'Classification recorded: {value}',
       keys5: 'keyboard: keys 1–5 to select',
       keys7: 'keyboard: keys 1–7 to select',

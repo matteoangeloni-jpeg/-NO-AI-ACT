@@ -71,6 +71,7 @@ export const it = {
     evidence: {
       header: 'FASCICOLO {code} — REPERTI',
       instruction: 'Esaminare tutti i reperti, poi citare quelli che fondano la classificazione (almeno 2).',
+      citeNote: 'Citare un reperto lo aggiunge al rapporto, ma non determina ancora la classificazione finale del rischio.',
       exhibit: 'REPERTO {num}',
       sealed: '[ SIGILLATO ]\n\nclic per esaminare',
       cite: 'CITA NEL RAPPORTO ▢',
@@ -108,6 +109,7 @@ export const it = {
       question4: 'Su quale motivazione fondi il rapporto?',
       contextNote:
         "Nel regolamento, il rischio non dipende solo dalla tecnologia, ma dal contesto d'uso, dalla finalità e dagli effetti sulle persone.",
+      processNote: 'Decisione finale: classifica il rischio, poi scegli misura, soggetto responsabile e motivazione.',
       recorded: 'Classificazione registrata: {value}',
       keys5: 'tastiera: tasti 1–5 per selezionare',
       keys7: 'tastiera: tasti 1–7 per selezionare',
