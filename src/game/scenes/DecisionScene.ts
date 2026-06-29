@@ -113,6 +113,10 @@ export class DecisionScene extends Phaser.Scene {
     this.add
       .text(cx, 168, L().ui.decision.contextNote, textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: 880 }, align: 'center' }))
       .setOrigin(0.5, 0);
+    // microcopy: la decisione è distinta dal rapporto e si svolge in 4 passi
+    this.add
+      .text(cx, GAME_HEIGHT - 110, L().ui.decision.processNote, textStyle(12, COLOR_STR.accent, { wordWrap: { width: 900 }, align: 'center' }))
+      .setOrigin(0.5);
 
     const pick = (cls: Classification): void => {
       if (this.classification !== null) return;
