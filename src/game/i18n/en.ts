@@ -59,6 +59,16 @@ export const en: Locale = {
       examineButton: 'EXAMINE THE EXHIBITS ▸',
       backToMap: '◂ MAP'
     },
+    context: {
+      button: 'Review context',
+      title: 'Case context',
+      scenarioLabel: 'Case summary',
+      objectiveLabel: 'Objective',
+      objective: "Classify the system's risk under the AI Act and set the appropriate measure.",
+      note: 'This panel only lets you review the case. It does not change the report or the classification.',
+      closeToDecision: 'Back to decision',
+      closeToEvidence: 'Back to evidence'
+    },
     evidence: {
       header: 'CASE FILE {code} — EXHIBITS',
       instruction: 'Examine every exhibit, then cite the ones grounding the classification (at least 2).',
