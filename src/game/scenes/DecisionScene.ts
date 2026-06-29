@@ -8,6 +8,7 @@ import { NormSystem } from '../systems/NormSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
 import { CaseContextOverlay } from '../ui/CaseContextOverlay';
+import { CaseNormOverlay } from '../ui/CaseNormOverlay';
 import { NormCardView } from '../ui/NormCard';
 import { L, fmt } from '../i18n';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
@@ -32,6 +33,7 @@ export class DecisionScene extends Phaser.Scene {
   private resolved = false;
   private overlay?: Phaser.GameObjects.Container;
   private contextOverlay!: CaseContextOverlay;
+  private caseNormOverlay!: CaseNormOverlay;
 
   constructor() {
     super('Decision');
@@ -54,6 +56,8 @@ export class DecisionScene extends Phaser.Scene {
     AudioSystem.crossfadeToTheme(this.caseData.id);
     this.add.tileSprite(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
     this.contextOverlay = new CaseContextOverlay(this, this.caseData.id, 'closeToDecision');
+    // read-only "Norma del caso": relevant rule of the current case (no unlock)
+    this.caseNormOverlay = new CaseNormOverlay(this, this.caseData.normId);
     this.showClassificationStep();
   }
 
@@ -79,6 +83,13 @@ export class DecisionScene extends Phaser.Scene {
       fontSize: 12,
       variant: 'ghost'
     });
+    // read-only "Norma del caso" — norma rilevante in sola lettura (no sblocco)
+    new Button(this, GAME_WIDTH - 130, 76, L().ui.caseNorm.button, () => this.caseNormOverlay.toggle(), {
+      width: 210,
+      height: 36,
+      fontSize: 12,
+      variant: 'ghost'
+    });
   }
 
   /** Associa i tasti numerici 1..n alle opzioni correnti. */
@@ -86,12 +97,13 @@ export class DecisionScene extends Phaser.Scene {
     this.input.keyboard?.removeAllListeners();
     NUMBER_KEYS.slice(0, count).forEach((key, i) => {
       this.input.keyboard?.on(`keydown-${key}`, () => {
-        // ignore number keys while a read-only overlay (norms / context) is open
-        if (!this.overlay && !this.contextOverlay.isOpen) onPick(i);
+        // ignore number keys while a read-only overlay (norms / context / rule) is open
+        if (!this.overlay && !this.contextOverlay.isOpen && !this.caseNormOverlay.isOpen) onPick(i);
       });
     });
     this.input.keyboard?.on('keydown-ESC', () => {
       if (this.contextOverlay.isOpen) this.contextOverlay.close();
+      else if (this.caseNormOverlay.isOpen) this.caseNormOverlay.close();
       else this.closeNormsOverlay();
     });
   }

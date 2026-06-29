@@ -69,6 +69,17 @@ export const en: Locale = {
       closeToDecision: 'Back to decision',
       closeToEvidence: 'Back to evidence'
     },
+    caseNorm: {
+      button: 'Case rule',
+      supportNote: 'A useful rule to orient your reasoning in this case. Consulting it does not change the report or the decision.',
+      relevantLabel: 'Relevant rule',
+      referenceLabel: 'Reference',
+      inShortLabel: 'In short',
+      whyLabel: 'Why it matters in this case',
+      whyFallback: 'This rule helps you assess the case, but the final decision depends on the evidence observed in the dossier.',
+      continuityNote: 'Use the rule to orient your reasoning, then return to the decision and assess the dossier evidence.',
+      close: 'Back to decision'
+    },
     evidence: {
       header: 'CASE FILE {code} — EXHIBITS',
       instruction: 'Examine every exhibit, then cite the ones grounding the classification (at least 2).',
