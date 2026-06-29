@@ -68,6 +68,17 @@ export const it = {
       closeToDecision: 'Torna alla decisione',
       closeToEvidence: 'Torna ai reperti'
     },
+    caseNorm: {
+      button: 'Norma del caso',
+      supportNote: 'Norma utile per orientarti nel caso. Consultarla non modifica il rapporto né la decisione.',
+      relevantLabel: 'Norma rilevante',
+      referenceLabel: 'Riferimento',
+      inShortLabel: 'In breve',
+      whyLabel: 'Perché conta in questo caso',
+      whyFallback: 'Questa norma aiuta a valutare il caso, ma la decisione finale dipende dagli elementi osservati nel fascicolo.',
+      continuityNote: 'Usa la norma per orientare il ragionamento, poi torna alla decisione e valuta gli elementi del fascicolo.',
+      close: 'Torna alla decisione'
+    },
     evidence: {
       header: 'FASCICOLO {code} — REPERTI',
       instruction: 'Esaminare tutti i reperti, poi citare quelli che fondano la classificazione (almeno 2).',
