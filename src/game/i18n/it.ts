@@ -79,6 +79,23 @@ export const it = {
       continuityNote: 'Usa la norma per orientare il ragionamento, poi torna alla decisione e valuta gli elementi del fascicolo.',
       close: 'Torna alla decisione'
     },
+    decisionDebrief: {
+      button: 'Debrief della decisione',
+      title: 'Debrief della decisione',
+      intro: 'Questa scheda ti aiuta a capire il ragionamento, senza modificare il punteggio o il rapporto.',
+      yourChoiceLabel: 'La tua scelta',
+      whyLabel: 'Perché non è pienamente corretta',
+      observeLabel: 'Elemento da osservare',
+      normLabel: 'Norma collegata',
+      howToLabel: 'Come ragionare nel prossimo caso',
+      correctTitle: 'Decisione coerente',
+      keyElementLabel: 'Elemento chiave osservato',
+      whyCorrect: 'La decisione è coerente con gli elementi del fascicolo e con la norma collegata.',
+      whyPartialWrong: 'La decisione non è pienamente coerente con gli elementi del fascicolo. Rivedi la prova chiave, la norma collegata e il passaggio logico richiesto.',
+      observeFallback: 'Rileggi le prove rilevanti del fascicolo: la decisione dipende dagli indizi osservati, non solo dalla categoria astratta.',
+      howToFallback: "Parti dal sistema AI concreto, individua chi subisce l'impatto, collega le prove alla norma e solo dopo scegli classificazione, misura, soggetto e motivazione.",
+      close: 'Chiudi'
+    },
     evidence: {
       header: 'FASCICOLO {code} — REPERTI',
       instruction: 'Esaminare tutti i reperti, poi citare quelli che fondano la classificazione (almeno 2).',

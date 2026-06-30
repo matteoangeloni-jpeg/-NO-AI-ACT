@@ -14,7 +14,8 @@ import { decisionAnalysisKeys } from '../systems/DecisionIssues';
 import { AudioSystem } from '../systems/AudioSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
-import { L, caseText, fmt } from '../i18n';
+import { DecisionDebriefOverlay } from '../ui/DecisionDebriefOverlay';
+import { L, caseText, fmt, normText } from '../i18n';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 
 interface ReportParams {
@@ -156,6 +157,25 @@ export class ReportScene extends Phaser.Scene {
     this.add
       .text(left, 600, `${t.ui.report.analysisLabel}: ${analysis}`, textStyle(13, oc.text, { wordWrap: { width: 620 }, lineSpacing: 4 }))
       .setOrigin(0, 0);
+
+    // post-decision debrief (read-only): turns the already-computed outcome into
+    // learning. Reuses ReportResult + existing case/rule texts; no score change.
+    const rule = normText(this.caseData.normId);
+    const relevant = this.caseData.relevantClues.map((i) => `«${texts.clues[i].title}»`).join(' · ');
+    const debrief = new DecisionDebriefOverlay(this, {
+      positive: result.quality === 'correct',
+      yourChoice: `${t.classifications[this.params.classification]} → ${t.measures[this.params.measure]}`,
+      why:
+        result.quality === 'correct'
+          ? t.ui.decisionDebrief.whyCorrect
+          : result.dominantError
+            ? t.ui.errors[result.dominantError]
+            : t.ui.decisionDebrief.whyPartialWrong,
+      observe: relevant.length > 0 ? relevant : t.ui.decisionDebrief.observeFallback,
+      norm: `${rule.title} — ${rule.reference}`,
+      howTo: t.ui.decisionDebrief.howToFallback
+    });
+    new Button(this, 240, GAME_HEIGHT - 46, t.ui.decisionDebrief.button, () => debrief.toggle(), { width: 320, height: 40, fontSize: 13, variant: 'ghost' });
 
     new Button(this, cx, GAME_HEIGHT - 46, t.ui.report.continueButton, () => {
       this.scene.start('Consequence', {

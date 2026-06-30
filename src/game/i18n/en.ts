@@ -80,6 +80,23 @@ export const en: Locale = {
       continuityNote: 'Use the rule to orient your reasoning, then return to the decision and assess the dossier evidence.',
       close: 'Back to decision'
     },
+    decisionDebrief: {
+      button: 'Decision debrief',
+      title: 'Decision debrief',
+      intro: 'This panel helps you understand the reasoning without changing the score or the report.',
+      yourChoiceLabel: 'Your choice',
+      whyLabel: 'Why it is not fully correct',
+      observeLabel: 'What to observe',
+      normLabel: 'Related rule',
+      howToLabel: 'How to reason in the next case',
+      correctTitle: 'Consistent decision',
+      keyElementLabel: 'Key element observed',
+      whyCorrect: 'The decision is consistent with the dossier evidence and the related rule.',
+      whyPartialWrong: 'The decision is not fully aligned with the dossier evidence. Review the key evidence, the related rule and the reasoning step required.',
+      observeFallback: 'Review the relevant dossier evidence: the decision depends on the observed clues, not only on the abstract category.',
+      howToFallback: 'Start from the concrete AI system, identify who is affected, connect the evidence to the rule, and only then choose classification, measure, subject and rationale.',
+      close: 'Close'
+    },
     evidence: {
       header: 'CASE FILE {code} — EXHIBITS',
       instruction: 'Examine every exhibit, then cite the ones grounding the classification (at least 2).',
