@@ -34,6 +34,10 @@ export class DecisionScene extends Phaser.Scene {
   private overlay?: Phaser.GameObjects.Container;
   private contextOverlay!: CaseContextOverlay;
   private caseNormOverlay!: CaseNormOverlay;
+  private contextBtn?: Button;
+  private normsBtn?: Button;
+  private caseNormBtn?: Button;
+  private backBtn?: Button;
 
   constructor() {
     super('Decision');
@@ -70,26 +74,37 @@ export class DecisionScene extends Phaser.Scene {
     this.add.text(cx, 122, question, textStyle(19, COLOR_STR.paper)).setOrigin(0.5);
     this.add.rectangle(cx, 150, 900, 1, COLORS.iron);
     // archivio norme consultabile in ogni passo della decisione
-    new Button(this, GAME_WIDTH - 130, 36, L().ui.decision.normsButton, () => this.toggleNormsOverlay(), {
+    this.normsBtn = new Button(this, GAME_WIDTH - 130, 36, L().ui.decision.normsButton, () => this.toggleNormsOverlay(), {
       width: 210,
       height: 36,
       fontSize: 12,
       variant: 'ghost'
     });
     // read-only "Rivedi contesto" — consultabile in ogni passo, non tocca lo stato
-    new Button(this, 130, 36, L().ui.context.button, () => this.contextOverlay.toggle(), {
+    this.contextBtn = new Button(this, 130, 36, L().ui.context.button, () => this.contextOverlay.toggle(), {
       width: 210,
       height: 36,
       fontSize: 12,
       variant: 'ghost'
     });
     // read-only "Norma del caso" — norma rilevante in sola lettura (no sblocco)
-    new Button(this, GAME_WIDTH - 130, 76, L().ui.caseNorm.button, () => this.caseNormOverlay.toggle(), {
+    this.caseNormBtn = new Button(this, GAME_WIDTH - 130, 76, L().ui.caseNorm.button, () => this.caseNormOverlay.toggle(), {
       width: 210,
       height: 36,
       fontSize: 12,
       variant: 'ghost'
     });
+  }
+
+  update(): void {
+    // the read-only overlays' full-screen shade doesn't visually dim these
+    // root-level buttons (a Phaser depth-sort quirk); hide them outright
+    // while any overlay is open instead of leaving them looking clickable.
+    const hideNav = this.contextOverlay.isOpen || this.caseNormOverlay.isOpen || !!this.overlay;
+    this.contextBtn?.setVisible(!hideNav);
+    this.normsBtn?.setVisible(!hideNav);
+    this.caseNormBtn?.setVisible(!hideNav);
+    this.backBtn?.setVisible(!hideNav);
   }
 
   /** Associa i tasti numerici 1..n alle opzioni correnti. */
@@ -144,12 +159,13 @@ export class DecisionScene extends Phaser.Scene {
     this.bindNumberKeys(CLASSIFICATIONS.length, (i) => pick(CLASSIFICATIONS[i]));
     this.add.text(cx, GAME_HEIGHT - 80, L().ui.decision.keys5, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
 
-    new Button(this, 90, GAME_HEIGHT - 36, L().ui.evidence.backToEvidence, () => this.scene.start('Evidence', { caseId: this.caseData.id }), { width: 150, height: 36, fontSize: 12, variant: 'ghost' });
+    this.backBtn = new Button(this, 90, GAME_HEIGHT - 36, L().ui.evidence.backToEvidence, () => this.scene.start('Evidence', { caseId: this.caseData.id }), { width: 150, height: 36, fontSize: 12, variant: 'ghost' });
   }
 
   // ------------------------------------------------------------ passo 2
   private showMeasureStep(): void {
     const cx = GAME_WIDTH / 2;
+    this.backBtn = undefined; // destroyed by nextStep()'s cleanup; only step 1 has a back button
     this.header(L().ui.decision.step2, L().ui.decision.question2);
     this.add
       .text(cx, 170, fmt(L().ui.decision.recorded, { value: L().classifications[this.classification!].toUpperCase() }), textStyle(12, COLOR_STR.accent))

@@ -44,7 +44,9 @@ export class IncidentScene extends Phaser.Scene {
     AudioSystem.alert();
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.5);
 
-    new Panel(this, cx, GAME_HEIGHT / 2 - 40, 860, 380);
+    // height 480 (was 380): with all 3 response options, the last button
+    // (y=536, height 48) needs the panel to reach y=585, not 510.
+    new Panel(this, cx, 345, 860, 480);
     this.add.text(cx, 132, L().ui.incident.header, textStyle(14, COLOR_STR.alertText)).setOrigin(0.5);
     this.add.text(cx, 168, incident.title, textStyle(24, COLOR_STR.paper, { fontStyle: 'bold' })).setOrigin(0.5);
 

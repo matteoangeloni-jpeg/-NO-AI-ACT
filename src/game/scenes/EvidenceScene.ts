@@ -19,8 +19,11 @@ export class EvidenceScene extends Phaser.Scene {
   private caseData!: CaseData;
   private cards: DossierCard[] = [];
   private proceedBtn!: Button;
+  private proceedEligible = false;
   private revealToastShown = false;
   private contextOverlay!: CaseContextOverlay;
+  private contextBtn!: Button;
+  private backBtn!: Button;
 
   constructor() {
     super('Evidence');
@@ -29,6 +32,7 @@ export class EvidenceScene extends Phaser.Scene {
   init(data: { caseId: string }): void {
     this.caseData = getCase(data.caseId);
     this.cards = [];
+    this.proceedEligible = false;
     this.revealToastShown = false;
   }
 
@@ -50,7 +54,7 @@ export class EvidenceScene extends Phaser.Scene {
 
     // read-only "Rivedi contesto" — re-read the case without leaving the scene
     this.contextOverlay = new CaseContextOverlay(this, this.caseData.id, 'closeToEvidence');
-    new Button(this, GAME_WIDTH - 130, 36, L().ui.context.button, () => this.contextOverlay.toggle(), {
+    this.contextBtn = new Button(this, GAME_WIDTH - 130, 36, L().ui.context.button, () => this.contextOverlay.toggle(), {
       width: 210,
       height: 36,
       fontSize: 12,
@@ -99,7 +103,7 @@ export class EvidenceScene extends Phaser.Scene {
     }, { width: 380 });
     this.proceedBtn.setVisible(false);
 
-    new Button(this, 90, GAME_HEIGHT - 36, L().ui.case.backToMap, () => this.scene.start('CityMap'), { width: 140, height: 36, fontSize: 12, variant: 'ghost' });
+    this.backBtn = new Button(this, 90, GAME_HEIGHT - 36, L().ui.case.backToMap, () => this.scene.start('CityMap'), { width: 140, height: 36, fontSize: 12, variant: 'ghost' });
     // ESC closes the context overlay first (if open), otherwise leaves to the map
     this.input.keyboard?.on('keydown-ESC', () => {
       if (this.contextOverlay.isOpen) this.contextOverlay.close();
@@ -107,14 +111,26 @@ export class EvidenceScene extends Phaser.Scene {
     });
   }
 
+  update(): void {
+    // the context overlay's full-screen shade doesn't visually dim these two
+    // root-level buttons (a Phaser depth-sort quirk); hide them outright
+    // while it's open instead of leaving them looking clickable but inert.
+    const hideNav = this.contextOverlay.isOpen;
+    this.contextBtn.setVisible(!hideNav);
+    this.backBtn.setVisible(!hideNav);
+    this.proceedBtn.setVisible(this.proceedEligible && !hideNav);
+  }
+
   private refreshState(): void {
     const allRevealed = this.cards.every((c) => c.isRevealed);
     const citedCount = this.cards.filter((c) => c.isCited).length;
     if (allRevealed && !this.revealToastShown) {
       this.revealToastShown = true;
-      showToast(this, L().ui.evidence.allRevealedToast, 'info');
+      // topOffset 20 (vs default 36): the file-code header sits at y=56 here,
+      // the default toast position would cover it for ~2.5s.
+      showToast(this, L().ui.evidence.allRevealedToast, 'info', 20);
     }
     // senza almeno MIN_CITED_CLUES reperti citati non si procede
-    this.proceedBtn.setVisible(allRevealed && citedCount >= MIN_CITED_CLUES);
+    this.proceedEligible = allRevealed && citedCount >= MIN_CITED_CLUES;
   }
 }
