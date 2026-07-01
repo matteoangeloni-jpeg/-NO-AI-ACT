@@ -5,8 +5,12 @@ import { L } from '../i18n';
 
 export type ToastKind = 'info' | 'warning' | 'alert' | 'ok';
 
-/** Notifica impersonale in stile burocratico, slide-in dall'alto. */
-export function showToast(scene: Phaser.Scene, message: string, kind: ToastKind = 'info'): void {
+/**
+ * Notifica impersonale in stile burocratico, slide-in dall'alto.
+ * `topOffset` sposta il punto di riposo (default 36) per le scene il cui
+ * header occupa già quella fascia verticale.
+ */
+export function showToast(scene: Phaser.Scene, message: string, kind: ToastKind = 'info', topOffset = 36): void {
   const colors: Record<ToastKind, { stroke: number; text: string }> = {
     info: { stroke: COLORS.accent, text: COLOR_STR.paper },
     warning: { stroke: COLORS.warning, text: COLOR_STR.warning },
@@ -23,7 +27,7 @@ export function showToast(scene: Phaser.Scene, message: string, kind: ToastKind 
     .setOrigin(0.5);
   container.add([bg, stripe, label]);
 
-  const targetY = 36;
+  const targetY = topOffset;
   if (StateManager.reducedMotion) {
     container.setY(targetY);
     scene.time.delayedCall(2200, () => container.destroy());
