@@ -7,7 +7,7 @@
 > high-risk, to be governed, or compliant). It is an educational simulation about
 > algorithmic risk governance — not legal advice.
 
-- Version: v0.6.0
+- Version: v1.0.0
 - Status: public release
 - Languages: Italian (default) and English
 - Audience: upper-secondary schools, universities, professional training, and professionals working with AI governance
@@ -30,7 +30,7 @@
 - English landing page: https://www.no-ai-act.eu/en/
 - Play the game: https://www.no-ai-act.eu/play/
 - GitHub repository: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT
-- GitHub Release v0.6.0: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v0.6.0
+- GitHub Release v1.0.0: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v1.0.0
 - Project brief: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/NO_AI_ACT_PROJECT_BRIEF.md
 - Teacher quick start: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/TEACHER_QUICK_START.md
 - Legal disclaimer: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/LEGAL_DISCLAIMER.md
