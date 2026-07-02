@@ -232,6 +232,14 @@ section h2 .num {
   display: block;
   margin-bottom: 0.4rem;
 }
+/* card used as a link (internal navigation): keep body colors, no underline */
+a.card {
+  display: block;
+  color: var(--ink);
+  text-decoration: none;
+}
+a.card h3 { color: var(--ink); }
+a.card:hover h3 { color: var(--accent); }
 
 /* dossier case list */
 .cases {
