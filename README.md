@@ -6,7 +6,7 @@
 [![Contenuti: CC BY 4.0](https://img.shields.io/badge/contenuti-CC%20BY%204.0-5d7fb8)](LICENSE)
 [![Stack](https://img.shields.io/badge/stack-TypeScript%20%2B%20Phaser%203%20%2B%20Vite-101a30)](#stack)
 [![Test](https://img.shields.io/badge/test-Vitest-d9a521)](tests/)
-[![Stato](https://img.shields.io/badge/stato-v0.6.0-3fa66a)](#stato-release)
+[![Stato](https://img.shields.io/badge/stato-v1.0.0-3fa66a)](#stato-release)
 [![Lingue](https://img.shields.io/badge/lingue-IT%20%2B%20EN-d8d6cd)](#lingue)
 
 **Serious game investigativo sull'AI Act europeo · browser, zero asset esterni, salvataggio locale**
@@ -51,22 +51,24 @@ Questo gioco **non costituisce consulenza legale**.
 | **Lingue** | Italiano / English |
 | **Account / dati** | Nessun account, nessun dato personale, nessun backend |
 
-## Novità in v0.6.0 — Advanced Case Pack
+## Novità in v1.0.0 — Prima release pubblica stabile
 
-La v0.6.0 estende l'Investigation & Learning Layer della v0.5 con **4 casi
-avanzati** (da 7 a **11 casi**). Nessun nuovo backend/account/dashboard;
-salvataggi v0.5 compatibili.
+La v1.0.0 consolida i contenuti della v0.6 (11 casi giocabili IT/EN) in una
+release pubblica stabile pensata per l'uso didattico. Nessun nuovo contenuto
+di gioco: la 1.0 è una release di stabilizzazione e pubblicazione.
 
-- **4 nuovi casi**: chatbot pubblico ("Lo sportello che risponde sempre"),
-  procurement AI ("La gara opaca"), piattaforma educativa adattiva ("La classe
-  profilata"), GPAI / modello generativo ("Il modello tuttofare").
-- **Percorso "Casi avanzati"** (~75–90 min) e **glossario** ampliato.
-- **Learning card** per i nuovi casi e **fascicolo città** esteso.
-- Sistemi non necessariamente vietati, ma **da governare per contesto d'uso**:
-  contano effetto sui diritti, supervisione effettiva, documentazione,
-  responsabilità del deployer e contestabilità.
+- **Landing pubblica IT/EN** rinnovata: nuove sezioni ("Perché esiste NO AI
+  ACT", "Un serious game, non un quiz", "Prime reazioni"), FAQ ampliate,
+  screenshot reale di gioco.
+- **Visual bug pass** completo pre-release: archivio norme scrollabile (tutte
+  le 11 norme raggiungibili), overlay coerenti in Evidence/Decision, toast e
+  pannello imprevisti corretti.
+- **274 test automatici** verdi; scoring, casi, norme e salvataggi invariati
+  rispetto alla v0.6 (salvataggi compatibili).
+- **Nessuna nuova raccolta dati**: identica impostazione privacy-by-design.
 
-Dettagli: [`docs/RELEASE_NOTES_v0.6.0.md`](docs/RELEASE_NOTES_v0.6.0.md).
+Dettagli: [`docs/RELEASE_NOTES_v1.0.0.md`](docs/RELEASE_NOTES_v1.0.0.md) ·
+contenuti v0.6: [`docs/RELEASE_NOTES_v0.6.0.md`](docs/RELEASE_NOTES_v0.6.0.md).
 
 > **No backend · No accounts · No classroom dashboard · No personal data
 > collection.** Teacher mode is local debrief support. Educational simulation,
@@ -278,7 +280,12 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 ## Roadmap
 
-**✅ v0.6.0 — Advanced Case Pack (corrente)**
+**✅ v1.0.0 — Prima release pubblica stabile (corrente)**
+- Landing SEO/content pack IT/EN, visual bug pass pre-playtest, versioning e
+  documentazione di release. Contenuti di gioco invariati rispetto alla v0.6.
+  Dettagli: [`docs/RELEASE_NOTES_v1.0.0.md`](docs/RELEASE_NOTES_v1.0.0.md).
+
+**✅ v0.6.0 — Advanced Case Pack**
 - 4 casi avanzati (7 → 11): chatbot pubblico, procurement AI, piattaforma
   educativa adattiva, GPAI — casi più ambigui da governare per contesto d'uso.
 - Nuovo percorso "Casi avanzati", glossario ampliato, learning card aggiornate,
@@ -295,20 +302,21 @@ struttura fra i dizionari (predisposto per FR/ES).
 - 7 casi base, difficoltà Base/Standard/Esperto, percorsi/missioni, modalità
   docente locale, mobile guard, IT/EN, analytics privacy-by-design (off).
 
-**🧭 Futuro possibile (v0.7+)**
+**🧭 Futuro possibile (post-1.0)**
 - Organizzazione mappa per zone/capitoli; revisione giuridica terza; pacchetto
-  pubblico/accademico; rifinitura da playtest.
+  pubblico/accademico; rifinitura da playtest esterno.
 
 ## <a name="stato-release"></a>Stato release
 
-- **Versione**: v0.6.0
+- **Versione**: v1.0.0
 - **Branch stabile**: `main` (GitHub Pages deploy attivo)
 - **Distribuzione**: <https://www.no-ai-act.eu/>
 - **Casi**: 11 giocabili (7 base + 4 avanzati).
-- **Test / build**: verdi in locale e in CI (148 test automatici).
-- **Playtest reale**: da completare prima della presentazione pubblica.
+- **Test / build**: verdi in locale e in CI (274 test automatici).
+- **Playtest esterno strutturato**: ancora da completare; la 1.0 è una release
+  pubblica stabile, non una validazione empirica dell'efficacia didattica.
 
-Release notes: [`docs/RELEASE_NOTES_v0.6.0.md`](docs/RELEASE_NOTES_v0.6.0.md) ·
+Release notes: [`docs/RELEASE_NOTES_v1.0.0.md`](docs/RELEASE_NOTES_v1.0.0.md) ·
 checklist di rilascio: [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md).
 
 ## Contribuire / testare

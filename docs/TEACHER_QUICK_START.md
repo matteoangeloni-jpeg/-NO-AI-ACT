@@ -1,7 +1,7 @@
 # Teacher Quick Start — NO AI ACT
 
 A short guide to running NO AI ACT in a classroom or training session. No setup,
-no accounts, no student data. The game (v0.6.0) has **11 cases**, from prohibited
+no accounts, no student data. The game (v1.0.0) has **11 cases**, from prohibited
 practices to high-risk and "to be governed" systems.
 
 - Play: <https://www.no-ai-act.eu/play/>
