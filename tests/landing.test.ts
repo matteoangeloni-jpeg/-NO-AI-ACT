@@ -179,14 +179,12 @@ describe('public static files', () => {
     expect(robots).not.toContain('<loc>');
   });
 
-  it('sitemap.xml is a minimal, valid XML listing only the two indexable landings', () => {
+  it('sitemap.xml is a minimal, valid XML listing exactly the indexable public pages', () => {
     const sitemap = read('public/sitemap.xml');
     expect(sitemap).toContain('<?xml version="1.0" encoding="UTF-8"?>');
     expect(sitemap).toContain('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"');
     expect(sitemap).toContain('<urlset');
     expect(sitemap).toContain('</urlset>');
-    expect(sitemap).toContain(`<loc>${SITE}</loc>`);
-    expect(sitemap).toContain(`<loc>${SITE}en/</loc>`);
     // /play/ is intentionally noindex, so it must NOT be advertised in the sitemap.
     expect(sitemap).not.toContain(`<loc>${SITE}play/</loc>`);
     expect(sitemap).not.toContain('/play/');
@@ -195,12 +193,24 @@ describe('public static files', () => {
     expect(sitemap).not.toContain('xhtml:link');
     expect(sitemap).not.toContain('changefreq');
     expect(sitemap).not.toContain('priority');
-    // exactly the two indexable landings (IT + EN), nothing else.
+    // exactly the indexable public pages (landings + educational pages), nothing else.
     const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, loc]) => loc);
-    expect(locs).toEqual([SITE, `${SITE}en/`]);
+    expect(locs).toEqual([
+      SITE,
+      `${SITE}en/`,
+      `${SITE}come-funziona/`,
+      `${SITE}per-docenti/`,
+      `${SITE}ai-act-serious-game/`,
+      `${SITE}privacy-by-design/`,
+      `${SITE}en/how-it-works/`,
+      `${SITE}en/for-educators/`,
+      `${SITE}en/ai-act-serious-game/`,
+      `${SITE}en/privacy-by-design/`
+    ]);
     for (const loc of locs) {
       expect(loc.startsWith(SITE)).toBe(true);
       expect(loc).not.toContain('?');
+      expect(loc.endsWith('/')).toBe(true);
     }
   });
 

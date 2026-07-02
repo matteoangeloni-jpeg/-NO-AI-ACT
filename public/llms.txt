@@ -29,6 +29,14 @@
 - Italian landing page: https://www.no-ai-act.eu/
 - English landing page: https://www.no-ai-act.eu/en/
 - Play the game: https://www.no-ai-act.eu/play/
+- How it works (IT): https://www.no-ai-act.eu/come-funziona/
+- How it works (EN): https://www.no-ai-act.eu/en/how-it-works/
+- For educators (IT): https://www.no-ai-act.eu/per-docenti/
+- For educators (EN): https://www.no-ai-act.eu/en/for-educators/
+- AI Act serious game rationale (IT): https://www.no-ai-act.eu/ai-act-serious-game/
+- AI Act serious game rationale (EN): https://www.no-ai-act.eu/en/ai-act-serious-game/
+- Privacy by design (IT): https://www.no-ai-act.eu/privacy-by-design/
+- Privacy by design (EN): https://www.no-ai-act.eu/en/privacy-by-design/
 - GitHub repository: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT
 - GitHub Release v1.0.0: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v1.0.0
 - Project brief: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/NO_AI_ACT_PROJECT_BRIEF.md

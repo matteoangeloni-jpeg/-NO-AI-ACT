@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+
+  <title>Privacy by design — what data NO AI ACT collects (and does not collect)</title>
+  <meta name="description" content="NO AI ACT requires no account and never sends results, answers or reports to a server: progress stays in your browser. What is collected, what is not, and why." />
+  <meta name="author" content="NO AI ACT" />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="canonical" href="https://www.no-ai-act.eu/en/privacy-by-design/" />
+  <link rel="alternate" hreflang="it" href="https://www.no-ai-act.eu/privacy-by-design/" />
+  <link rel="alternate" hreflang="en" href="https://www.no-ai-act.eu/en/privacy-by-design/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.no-ai-act.eu/privacy-by-design/" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="en_GB" />
+  <meta property="og:title" content="Privacy by design — NO AI ACT" />
+  <meta property="og:description" content="No accounts, no gameplay telemetry, local-only saves: how NO AI ACT's privacy is designed." />
+  <meta property="og:url" content="https://www.no-ai-act.eu/en/privacy-by-design/" />
+  <meta property="og:image" content="https://www.no-ai-act.eu/no_ai_act_cover.png" />
+
+  <link rel="stylesheet" href="/src/styles/landing.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "NO AI ACT", "item": "https://www.no-ai-act.eu/en/" },
+      { "@type": "ListItem", "position": 2, "name": "Privacy by design", "item": "https://www.no-ai-act.eu/en/privacy-by-design/" }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="../">NO AI ACT<span class="dot">.</span></a>
+      <nav class="lang-switch" aria-label="Language">
+        <a href="../../privacy-by-design/" hreflang="it">IT</a>
+        <a href="./" aria-current="true">EN</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="wrap">
+        <p class="kicker">Privacy · Data · Transparency</p>
+        <h1 id="page-title">Privacy by design</h1>
+        <p class="lead">A project that teaches data governance should be exemplary about its own. This page explains in detail what NO AI ACT collects, what it does not collect, and how to verify it.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="not-title">
+      <div class="wrap">
+        <h2 id="not-title"><span class="num">01</span>What the game does NOT do</h2>
+        <ul class="plain">
+          <li><strong>No accounts</strong>: you play without registration, email or identifiers.</li>
+          <li><strong>No gameplay telemetry</strong>: your decisions, scores, inspection reports and case paths are never sent to any server.</li>
+          <li><strong>No backend</strong>: the game is a static site; there is no player database.</li>
+          <li><strong>No student data</strong>: teacher mode and its debrief export are local and anonymous.</li>
+          <li><strong>No persistent identifiers</strong> created by the game, no cookies added by the game.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="local-title">
+      <div class="wrap">
+        <h2 id="local-title"><span class="num">02</span>Where your progress lives</h2>
+        <p class="section-intro">Progress (completed cases, unlocked norms, audio/language preferences) is stored exclusively in your browser's <strong>localStorage</strong>, on your device. Clear the site data and the progress is gone: it exists nowhere else.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="aggregate-title">
+      <div class="wrap">
+        <h2 id="aggregate-title"><span class="num">03</span>What is measured on public pages</h2>
+        <p class="section-intro">The public pages of the site (not the gameplay) use <strong>Cloudflare Web Analytics</strong>: aggregate, privacy-friendly statistics with no cookies and no individual profiling. They tell us how many people visit the site, not who they are.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="tally-title">
+      <div class="wrap">
+        <h2 id="tally-title"><span class="num">04</span>The feedback forms (Tally)</h2>
+        <p class="section-intro">Playtest feedback goes through <strong>external, voluntary Tally forms, separate from the game</strong>: no gameplay data is transmitted to the forms, and they receive no personal data automatically. Filling in a form is never required to play.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="verify-title">
+      <div class="wrap">
+        <h2 id="verify-title"><span class="num">05</span>How to verify it</h2>
+        <p class="section-intro">The project is open source: the code is public on <a href="https://github.com/matteoangeloni-jpeg/-NO-AI-ACT">GitHub</a>, including the rules that keep in-game analytics off by default and the automated tests that lock these behaviours in. You can also open your browser's developer tools and observe the absence of network calls during play.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="limits-title">
+      <div class="wrap">
+        <h2 id="limits-title"><span class="num">06</span>Limitations and contact</h2>
+        <ul class="plain">
+          <li>This page describes the software's behaviour; it is not legal advice on data protection.</li>
+          <li>Questions, reports or collaborations: open an issue on the <a href="https://github.com/matteoangeloni-jpeg/-NO-AI-ACT">GitHub repository</a> or use the anonymous form on the <a href="../#playtest-title">main page</a>.</li>
+        </ul>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="../../play/?lang=en">Play (no account)</a>
+          <a class="btn btn-ghost" href="../for-educators/">Info for educators</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer aria-labelledby="footer-title">
+    <div class="wrap">
+      <h2 id="footer-title" class="stamp">Educational simulation — not legal advice</h2>
+      <p>NO AI ACT is an educational tool. It deliberately simplifies <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" hreflang="en">Regulation (EU) 2024/1689 (AI Act)</a> and does not replace the legal text or professional advice.</p>
+      <p><a href="../">Home</a> · <a href="../how-it-works/">How it works</a> · <a href="../for-educators/">For educators</a> · <a href="../ai-act-serious-game/">AI Act serious game</a> · <a href="../../privacy-by-design/" hreflang="it">Versione italiana</a></p>
+      <p class="credit">Designed and developed by Matteo Angeloni · v1.0.0</p>
+    </div>
+  </footer>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7c85578fc8ad4488a54c6bc670a10dcf"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
