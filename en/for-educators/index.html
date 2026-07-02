@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
 
-  <title>NO AI ACT for educators — teach the EU AI Act with a serious game</title>
-  <meta name="description" content="How to use NO AI ACT in class: 30, 60 and 90-minute session formats, learning objectives, debrief questions and teacher mode. No accounts, no student data." />
+  <title>NO AI ACT for educators — teach the EU AI Act with a free serious game</title>
+  <meta name="description" content="How to use NO AI ACT in class: 30, 60 and 90-minute session formats, learning objectives, before/during/after lesson activities, debrief questions and FAQ. Free, no accounts, zero student data." />
   <meta name="author" content="NO AI ACT" />
   <meta name="robots" content="index, follow" />
 
@@ -46,6 +46,45 @@
     "audience": { "@type": "EducationalAudience", "educationalRole": "teacher" },
     "isAccessibleForFree": true,
     "about": { "@type": "Thing", "name": "European Artificial Intelligence Act (AI Act)" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "inLanguage": "en",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do we need to install anything or create class accounts?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. The game runs in the browser with no registration and no accounts: just share the link. Each student's progress stays in their own browser." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are students tracked while they play?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Decisions, scores and reports are never sent to any server; the teacher-mode debrief export is local and anonymous." }
+      },
+      {
+        "@type": "Question",
+        "name": "How much time does a meaningful activity take?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A single case takes 10–15 minutes of play: with an introduction and discussion, 30 minutes is enough for a complete activity. The 60 and 90-minute formats add a second, ambiguous case and the teacher-mode debrief." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it cover the whole AI Act?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No, and that is not the goal: it covers the load-bearing concepts (prohibited practices, high-risk systems, transparency, human oversight, deployer responsibility) through 11 cases. It is a reasoned introduction, not a complete course or a compliance tool." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it an official EU tool?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. It is an independent, open-source educational project, not affiliated with the European institutions. It simplifies the regulation for teaching purposes and is not legal advice." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I adapt the materials or propose a collaboration?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes: the code is MIT-licensed and the educational content is CC BY 4.0. For teaching or research collaborations, open an issue on GitHub." }
+      }
+    ]
   }
   </script>
 </head>
@@ -122,9 +161,44 @@
       </div>
     </section>
 
+    <section aria-labelledby="lesson-title">
+      <div class="wrap">
+        <h2 id="lesson-title"><span class="num">04</span>Before, during and after the lesson</h2>
+        <div class="grid">
+          <div class="card">
+            <span class="tag">Before</span>
+            <h3>Preparation (10 minutes of your time)</h3>
+            <p>Play the case you plan to use: one run is enough to anticipate the discussions. Decide whether to enable teacher mode and whether to play in pairs (recommended: negotiating the classification is itself the exercise). Nothing to install — a browser is all you need.</p>
+          </div>
+          <div class="card">
+            <span class="tag">During</span>
+            <h3>Facilitation</h3>
+            <p>Launch the case without revealing a "right answer". Walk between groups listening to how they justify citing evidence. Stop the class once, halfway: "who changed their mind after an exhibit? which one?". Let the inspection reports arrive with diverging opinions.</p>
+          </div>
+          <div class="card">
+            <span class="tag">After</span>
+            <h3>Debrief and connection</h3>
+            <p>Compare two different reports on the same case: same evidence, different outcomes — why? Use the game's decision debrief as a scaffold, then connect to the regulation's real text to show the distance between a simplified simulation and the norm.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="usecases-title">
+      <div class="wrap">
+        <h2 id="usecases-title"><span class="num">05</span>Classroom use cases</h2>
+        <ul class="plain">
+          <li><strong>Civic/digital education (upper secondary)</strong> — a clear-cut case (social scoring) as the entry point to digital rights and automated decisions: who decides? who answers for it? who can appeal?</li>
+          <li><strong>University law or AI governance seminar</strong> — the ambiguous cases (public chatbot, EdTech, GPAI) as legal-qualification exercises: the class defends opposite classifications with the same evidence, then compares with the actual articles.</li>
+          <li><strong>Professional development / teacher training</strong> — the EdTech case ("The profiled classroom") speaks directly to people working in schools: when does an adaptive platform stop being a helper and become a system to govern?</li>
+          <li><strong>Independent work / flipped classroom</strong> — assign 1–2 cases to play at home and spend class time only on comparing reports.</li>
+        </ul>
+      </div>
+    </section>
+
     <section aria-labelledby="questions-title">
       <div class="wrap">
-        <h2 id="questions-title"><span class="num">04</span>Suggested debrief questions</h2>
+        <h2 id="questions-title"><span class="num">06</span>Suggested debrief questions</h2>
         <ul class="plain">
           <li>Which piece of evidence changed your mind, and why?</li>
           <li>Was the system the problem, or the way it was used?</li>
@@ -136,9 +210,17 @@
       </div>
     </section>
 
+    <section aria-labelledby="literacy-title">
+      <div class="wrap">
+        <h2 id="literacy-title"><span class="num">07</span>AI literacy, not only the AI Act</h2>
+        <p class="section-intro">Although the setting is the European regulation, the habits the game trains are transversal to AI literacy and digital citizenship: asking <em>which data</em> a system uses, <em>who</em> it affects, <em>who</em> answers for it and <em>how</em> an automated decision can be challenged.</p>
+        <p>In that sense NO AI ACT can support AI literacy and responsible-AI programmes even where the AI Act is not the lesson's main goal: the regulation provides the structure, but the skill being exercised is reading an automated system critically. The full rationale is on the <a href="../ai-act-serious-game/">AI Act serious game</a> page.</p>
+      </div>
+    </section>
+
     <section aria-labelledby="privacy-title">
       <div class="wrap">
-        <h2 id="privacy-title"><span class="num">05</span>Privacy: what does NOT happen in class</h2>
+        <h2 id="privacy-title"><span class="num">08</span>Privacy: what does NOT happen in class</h2>
         <p class="section-intro">The game requires no accounts and collects no student data. Progress stays in each player's browser; the teacher-mode debrief export is local and anonymous. No results are ever sent to a server.</p>
         <p>Full details: <a href="../privacy-by-design/">Privacy by design</a>.</p>
       </div>
@@ -146,7 +228,7 @@
 
     <section aria-labelledby="limits-title">
       <div class="wrap">
-        <h2 id="limits-title"><span class="num">06</span>Limitations to know</h2>
+        <h2 id="limits-title"><span class="num">09</span>Limitations to know</h2>
         <ul class="plain">
           <li>It is an <strong>educational simplification</strong> of Regulation (EU) 2024/1689: a third-party legal review is recommended before formal institutional use.</li>
           <li>It works best on <strong>desktop or landscape tablets</strong>; portrait phones show a rotate-your-device guard.</li>
@@ -156,6 +238,36 @@
           <a class="btn btn-primary" href="../../play/?lang=en">Start with one case</a>
           <a class="btn btn-ghost" href="../how-it-works/">Review the game loop</a>
         </div>
+      </div>
+    </section>
+
+    <section class="faq" aria-labelledby="faq-title">
+      <div class="wrap">
+        <h2 id="faq-title"><span class="num">10</span>Educator FAQ</h2>
+        <details>
+          <summary>Do we need to install anything or create class accounts?</summary>
+          <div class="answer"><p>No. The game runs in the browser with no registration and no accounts: just share the link. Each student's progress stays in their own browser.</p></div>
+        </details>
+        <details>
+          <summary>Are students tracked while they play?</summary>
+          <div class="answer"><p>No. Decisions, scores and reports are never sent to any server; the teacher-mode debrief export is local and anonymous. Details on the <a href="../privacy-by-design/">privacy by design</a> page.</p></div>
+        </details>
+        <details>
+          <summary>How much time does a meaningful activity take?</summary>
+          <div class="answer"><p>A single case takes 10–15 minutes of play: with an introduction and discussion, 30 minutes is enough for a complete activity. The 60 and 90-minute formats add a second, ambiguous case and the teacher-mode debrief.</p></div>
+        </details>
+        <details>
+          <summary>Does it cover the whole AI Act?</summary>
+          <div class="answer"><p>No, and that is not the goal: it covers the load-bearing concepts (prohibited practices, high-risk systems, transparency, human oversight, deployer responsibility) through 11 cases. It is a reasoned introduction, not a complete course or a compliance tool.</p></div>
+        </details>
+        <details>
+          <summary>Is it an official EU tool?</summary>
+          <div class="answer"><p>No. It is an independent, open-source educational project, not affiliated with the European institutions. It simplifies the regulation for teaching purposes and is not legal advice.</p></div>
+        </details>
+        <details>
+          <summary>Can I adapt the materials or propose a collaboration?</summary>
+          <div class="answer"><p>Yes: the code is MIT-licensed and the educational content is CC BY 4.0. For teaching or research collaborations, open an issue on <a href="https://github.com/matteoangeloni-jpeg/-NO-AI-ACT">GitHub</a>.</p></div>
+        </details>
       </div>
     </section>
   </main>
