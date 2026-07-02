@@ -34,6 +34,35 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "inLanguage": "en",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do I need to register to play?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. No registration, no account, no email: open the link and play. Progress stays in the browser's localStorage." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the game use cookies?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The game sets no cookies. The public pages use Cloudflare Web Analytics, which by design uses no cookies and no client-side state for visit counting." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are my answers sent anywhere?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Decisions, scores and reports never leave the browser: there is no game server to send them to. This can be verified in the open-source code and by watching the browser's network traffic." }
+      },
+      {
+        "@type": "Question",
+        "name": "What if I fill in the feedback form?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The Tally form is external, voluntary and separate from the game: it receives only what the user types, no gameplay data and no automatic personal data, and it is never required to play." }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -90,16 +119,34 @@
       </div>
     </section>
 
+    <section aria-labelledby="summary-title">
+      <div class="wrap">
+        <h2 id="summary-title"><span class="num">05</span>At a glance: measured vs never measured</h2>
+        <div class="grid">
+          <div class="card">
+            <span class="tag">Measured (public pages only)</span>
+            <h3>Aggregate statistics</h3>
+            <p>Visits to the site's public pages via Cloudflare Web Analytics: no cookies, no individual profiling, no identifiers. It answers "how many people visit the site", never "who you are".</p>
+          </div>
+          <div class="card">
+            <span class="tag">Never measured</span>
+            <h3>Everything you do in the game</h3>
+            <p>Decisions, classifications, scores, inspection reports, cases played, play time, outcomes: none of it leaves your browser. There are no accounts, no game cookies, no pixels, no telemetry.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section aria-labelledby="verify-title">
       <div class="wrap">
-        <h2 id="verify-title"><span class="num">05</span>How to verify it</h2>
+        <h2 id="verify-title"><span class="num">06</span>How to verify it</h2>
         <p class="section-intro">The project is open source: the code is public on <a href="https://github.com/matteoangeloni-jpeg/-NO-AI-ACT">GitHub</a>, including the rules that keep in-game analytics off by default and the automated tests that lock these behaviours in. You can also open your browser's developer tools and observe the absence of network calls during play.</p>
       </div>
     </section>
 
     <section aria-labelledby="limits-title">
       <div class="wrap">
-        <h2 id="limits-title"><span class="num">06</span>Limitations and contact</h2>
+        <h2 id="limits-title"><span class="num">07</span>Limitations and contact</h2>
         <ul class="plain">
           <li>This page describes the software's behaviour; it is not legal advice on data protection.</li>
           <li>Questions, reports or collaborations: open an issue on the <a href="https://github.com/matteoangeloni-jpeg/-NO-AI-ACT">GitHub repository</a> or use the anonymous form on the <a href="../#playtest-title">main page</a>.</li>
@@ -108,6 +155,28 @@
           <a class="btn btn-primary" href="../../play/?lang=en">Play (no account)</a>
           <a class="btn btn-ghost" href="../for-educators/">Info for educators</a>
         </div>
+      </div>
+    </section>
+
+    <section class="faq" aria-labelledby="faq-title">
+      <div class="wrap">
+        <h2 id="faq-title"><span class="num">08</span>Privacy FAQ</h2>
+        <details>
+          <summary>Do I need to register to play?</summary>
+          <div class="answer"><p>No. No registration, no account, no email: open the link and play. Progress stays in the browser's localStorage.</p></div>
+        </details>
+        <details>
+          <summary>Does the game use cookies?</summary>
+          <div class="answer"><p>The game sets no cookies. The public pages use Cloudflare Web Analytics, which by design uses no cookies and no client-side state for visit counting.</p></div>
+        </details>
+        <details>
+          <summary>Are my answers sent anywhere?</summary>
+          <div class="answer"><p>No. Decisions, scores and reports never leave your browser: there is no game server to send them to. You can verify this in the open-source code and by watching the browser's network traffic.</p></div>
+        </details>
+        <details>
+          <summary>What if I fill in the feedback form?</summary>
+          <div class="answer"><p>The Tally form is external, voluntary and separate from the game: it receives only what you type, no gameplay data and no automatic personal data, and it is never required to play.</p></div>
+        </details>
       </div>
     </section>
   </main>

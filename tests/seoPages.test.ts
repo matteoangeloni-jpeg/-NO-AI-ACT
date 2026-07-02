@@ -115,6 +115,96 @@ describe('SEO pages — internal linking (no orphans, cluster wiring)', () => {
   });
 });
 
+describe('SEO pages — v2 authority sprint: FAQ integrity', () => {
+  // FAQPage JSON-LD is allowed ONLY where the page shows the same FAQ visibly.
+  const FAQ_PAGES = [
+    'per-docenti/index.html',
+    'en/for-educators/index.html',
+    'privacy-by-design/index.html',
+    'en/privacy-by-design/index.html'
+  ] as const;
+  const NO_FAQ_PAGES = [
+    'come-funziona/index.html',
+    'en/how-it-works/index.html',
+    'ai-act-serious-game/index.html',
+    'en/ai-act-serious-game/index.html'
+  ] as const;
+
+  for (const file of FAQ_PAGES) {
+    it(`${file} has FAQPage JSON-LD matching the visible FAQ 1:1`, () => {
+      const html = read(file);
+      const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(([, b]) => JSON.parse(b));
+      const faq = blocks.find((d) => d['@type'] === 'FAQPage');
+      expect(faq, 'FAQPage block present').toBeDefined();
+      const visibleQuestions = [...html.matchAll(/<summary>([^<]+)<\/summary>/g)].map(([, q]) => q.trim());
+      expect(visibleQuestions.length).toBeGreaterThanOrEqual(4);
+      expect(faq.mainEntity.length).toBe(visibleQuestions.length);
+      for (const q of faq.mainEntity) {
+        expect(visibleQuestions, `schema question "${q.name}" must be visible on the page`).toContain(q.name);
+      }
+    });
+  }
+
+  for (const file of NO_FAQ_PAGES) {
+    it(`${file} does NOT carry FAQPage schema (no visible FAQ there)`, () => {
+      expect(read(file)).not.toContain('"FAQPage"');
+    });
+  }
+});
+
+describe('SEO pages — v2 authority sprint: content depth', () => {
+  it('educator pages include before/during/after classroom guidance and use cases', () => {
+    const it_ = read('per-docenti/index.html');
+    const en = read('en/for-educators/index.html');
+    expect(it_).toContain('Prima, durante e dopo la lezione');
+    expect(it_).toContain("Casi d'uso in aula");
+    expect(it_).toContain('AI literacy');
+    expect(en).toContain('Before, during and after the lesson');
+    expect(en).toContain('Classroom use cases');
+    expect(en).toContain('AI literacy');
+  });
+
+  it('privacy pages state the no-registration / no-gameplay-telemetry posture explicitly', () => {
+    const it_ = read('privacy-by-design/index.html');
+    const en = read('en/privacy-by-design/index.html');
+    expect(it_).toContain('Serve registrarsi per giocare?');
+    expect(it_).toContain('misurato vs non misurato');
+    expect(en).toContain('Do I need to register to play?');
+    expect(en).toContain('measured vs never measured');
+  });
+
+  it('serious-game pages cover regulatory literacy and concrete risk categories', () => {
+    const it_ = read('ai-act-serious-game/index.html');
+    const en = read('en/ai-act-serious-game/index.html');
+    expect(it_).toContain('alfabetizzazione normativa');
+    expect(it_).toContain('Pratiche vietate');
+    expect(en).toContain('regulatory literacy');
+    expect(en).toContain('Prohibited practices');
+  });
+
+  it('how-it-works pages explain what the player receives and what the game teaches', () => {
+    expect(read('come-funziona/index.html')).toContain('Che cosa ottieni');
+    expect(read('en/how-it-works/index.html')).toContain('What you receive');
+  });
+
+  it('landings carry contextual in-body links to the educator pages (not only footer/cards)', () => {
+    const it_ = read('index.html');
+    const en = read('en/index.html');
+    expect(it_).toContain('Guida completa per docenti');
+    expect(it_).toContain('guida per docenti e formatori');
+    expect(en).toContain('Full guide for educators');
+    expect(en).toContain('guide for educators');
+  });
+
+  it('section numbering is sequential on every cluster page', () => {
+    for (const p of PAGES) {
+      const nums = [...read(p.file).matchAll(/class="num">(\d+)</g)].map(([, n]) => Number(n));
+      const expected = Array.from({ length: nums.length }, (_, i) => i + 1);
+      expect(nums, `${p.file} section numbers`).toEqual(expected);
+    }
+  });
+});
+
 describe('SEO pages — game and play routing untouched', () => {
   it('/play/ keeps its noindex meta', () => {
     expect(read('play/index.html')).toContain('name="robots" content="noindex, follow"');
