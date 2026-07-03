@@ -22,6 +22,10 @@ export class BriefingScene extends Phaser.Scene {
     this.add.text(cx - 400, 112, L().briefing.sub, textStyle(12, COLOR_STR.paperDim));
 
     const body = new TypewriterText(this, cx - 400, 150, 15, COLOR_STR.paper, 800);
+    // riga di onboarding: cosa aspettarsi, rivelata quando il testo è finito
+    const how = this.add
+      .text(cx - 400, GAME_HEIGHT - 150, L().briefing.how, textStyle(12.5, COLOR_STR.accent, { wordWrap: { width: 800 }, lineSpacing: 4, fontStyle: 'italic' }))
+      .setAlpha(0);
     const btn = new Button(this, cx, GAME_HEIGHT - 90, L().briefing.cta, () => {
       StateManager.setBriefingSeen();
       this.cameras.main.fadeOut(300, 0, 0, 0);
@@ -29,7 +33,10 @@ export class BriefingScene extends Phaser.Scene {
     }, { width: 340 });
     btn.setVisible(false);
 
-    body.write(L().briefing.body, () => btn.setVisible(true));
+    body.write(L().briefing.body, () => {
+      btn.setVisible(true);
+      this.tweens.add({ targets: how, alpha: 1, duration: StateManager.reducedMotion ? 0 : 400 });
+    });
     this.input.on('pointerdown', () => body.skip());
   }
 }

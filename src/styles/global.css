@@ -50,6 +50,31 @@ html, body {
 #game-container { position: relative; }
 #game-container canvas { display: block; }
 
+/* ---- Persistent "back to site" link: the player is never trapped ---- */
+#site-return {
+  position: fixed;
+  top: 8px;
+  left: 10px;
+  z-index: 30;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--c-iron);
+  text-decoration: none;
+  padding: 4px 8px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: rgba(7, 9, 15, 0.55);
+  opacity: 0.6;
+  transition: opacity 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+#site-return:hover,
+#site-return:focus-visible {
+  opacity: 1;
+  color: var(--c-paper);
+  border-color: var(--c-iron);
+}
+
 /* ---- Scanline / CRT overlay (disattivabile: body.reduced-motion) ---- */
 #crt-overlay {
   position: fixed;

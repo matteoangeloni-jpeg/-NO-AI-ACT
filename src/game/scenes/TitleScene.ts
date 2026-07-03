@@ -5,6 +5,7 @@ import { SaveSystem } from '../systems/SaveSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
 import { TeacherGuideOverlay } from '../ui/TeacherGuideOverlay';
+import { SiteResourcesOverlay } from '../ui/SiteResourcesOverlay';
 import { showToast } from '../ui/AlertToast';
 import { L, fmt, nextLanguage } from '../i18n';
 import { MISSION_IDS } from '../data/missions';
@@ -49,6 +50,11 @@ export class TitleScene extends Phaser.Scene {
     new Button(this, cx, y, L().ui.menu.archive, () => this.scene.start('Archive', { from: 'Title' }), { variant: 'ghost' });
     y += 62;
     new Button(this, cx, y, L().ui.menu.credits, () => this.scene.start('Credits'), { variant: 'ghost' });
+    y += 62;
+    // collegamento gioco→sito educativo: risorse, glossario, docenti, privacy,
+    // torna al sito. Il giocatore non resta mai intrappolato nel gioco.
+    const siteLinks = new SiteResourcesOverlay(this);
+    new Button(this, cx, y, L().ui.siteLinks.button, () => siteLinks.toggle(), { variant: 'ghost' });
     y += 62;
     if (hasSave) {
       new Button(this, cx, y, L().ui.menu.reset, () => {

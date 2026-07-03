@@ -86,7 +86,8 @@ a:hover { color: #8fa9d6; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
   padding-top: 0.7rem;
   padding-bottom: 0.7rem;
 }
@@ -96,17 +97,48 @@ a:hover { color: #8fa9d6; }
   letter-spacing: 0.06em;
   color: var(--ink);
   text-decoration: none;
+  flex: 0 0 auto;
 }
 .brand .dot { color: var(--amber); }
-.lang-switch {
+
+/* ---- global site navigation ---- */
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.15rem 1rem;
   font-family: var(--mono);
   font-size: 0.85rem;
+  min-width: 0;
 }
-.lang-switch a { margin-left: 0.5rem; }
-.lang-switch [aria-current="true"] {
+.site-nav a {
+  color: var(--ink-dim);
+  text-decoration: none;
+  padding: 0.25rem 0;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover { color: var(--ink); }
+.site-nav a[aria-current="page"] {
+  color: var(--amber);
+  border-bottom-color: var(--amber-dim);
+}
+.site-nav .nav-lang {
   color: var(--amber);
   font-weight: 700;
-  text-decoration: none;
+  letter-spacing: 0.04em;
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--line);
+}
+.site-nav .nav-lang:hover { color: var(--ink); }
+/* legacy lang-switch (kept for safety if any page still uses it) */
+.lang-switch { font-family: var(--mono); font-size: 0.85rem; }
+.lang-switch a { margin-left: 0.5rem; }
+.lang-switch [aria-current="true"] { color: var(--amber); font-weight: 700; text-decoration: none; }
+@media (max-width: 640px) {
+  .topbar .wrap { justify-content: flex-start; }
+  .site-nav { width: 100%; gap: 0.2rem 0.85rem; }
+  .site-nav .nav-lang { margin-left: auto; padding-left: 0.85rem; }
 }
 
 /* ---- hero ---- */
@@ -240,6 +272,82 @@ a.card {
 }
 a.card h3 { color: var(--ink); }
 a.card:hover h3 { color: var(--accent); }
+
+/* ---- "Start here" band (landings + hubs) ---- */
+.starthere {
+  background: linear-gradient(180deg, rgba(217, 165, 33, 0.06), transparent);
+  border-bottom: 1px solid var(--line);
+  padding: 2rem 0;
+}
+.starthere h2 {
+  font-size: 1.3rem;
+  margin: 0 0 1rem;
+  border: 0;
+  padding: 0;
+}
+.start-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.6rem;
+}
+.start-grid li {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.7rem 0.9rem;
+  background: var(--panel);
+}
+.start-grid a {
+  display: block;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+.start-grid a:hover { color: var(--accent); }
+.start-grid span {
+  display: block;
+  color: var(--ink-dim);
+  font-size: 0.85rem;
+  margin-top: 0.15rem;
+}
+
+/* ---- "In brief" AEO summary block ---- */
+.inbrief {
+  border-left: 3px solid var(--amber-dim);
+  background: var(--carbon-2);
+  border-radius: 0 6px 6px 0;
+  padding: 1rem 1.2rem;
+  margin: 1.5rem 0 0;
+}
+.inbrief h2, .inbrief p:first-child strong { margin: 0; }
+.inbrief .inbrief-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.inbrief p { margin: 0; color: var(--ink); font-size: 0.98rem; }
+
+/* ---- hub resource map (index-of-site) ---- */
+.hub-map .card h3 {
+  font-size: 0.82rem;
+  font-family: var(--mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+.hub-map .card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.hub-map .card li { margin: 0.35rem 0; }
+.hub-map .card a { color: var(--ink); font-size: 0.95rem; }
 
 /* dossier case list */
 .cases {
