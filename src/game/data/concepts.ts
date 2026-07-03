@@ -68,3 +68,33 @@ export const TEACHER_RESOURCES: { id: string; url: string }[] = [
 export function conceptLink(id: ConceptId, lang: LanguageCode): string {
   return CONCEPT_LINKS[id][lang];
 }
+
+/**
+ * Collegamenti dal gioco al sito (v1.2 — navigazione gioco→sito). Percorsi
+ * RELATIVI a /play/ (stessa origine): il gioco non apre mai servizi esterni.
+ * `home` porta alla landing della lingua; gli altri alle pagine dell'hub.
+ */
+export interface SiteLinkSet {
+  hub: string;
+  glossary: string;
+  teacher: string;
+  privacy: string;
+  home: string;
+}
+
+export const SITE_LINKS: Record<LanguageCode, SiteLinkSet> = {
+  it: {
+    hub: '../educazione/',
+    glossary: '../glossario/',
+    teacher: '../ai-act-per-docenti/',
+    privacy: '../privacy-by-design/',
+    home: '../'
+  },
+  en: {
+    hub: '../en/education/',
+    glossary: '../en/glossary/',
+    teacher: '../en/ai-act-for-teachers/',
+    privacy: '../en/privacy-by-design/',
+    home: '../en/'
+  }
+};

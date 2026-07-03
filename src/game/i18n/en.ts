@@ -132,6 +132,18 @@ export const en: Locale = {
       },
       close: 'Close'
     },
+    // Game→site links (v1.2): internal pages, the game stays open.
+    siteLinks: {
+      button: 'SITE & RESOURCES ▸',
+      title: 'Site & educational resources',
+      intro: 'Open the site pages in a new tab: the game stays open and nothing is recorded. You are always free to leave the game.',
+      hub: 'Educational hub',
+      glossary: 'Glossary',
+      teacher: 'Teacher resources',
+      privacy: 'Privacy',
+      backToSite: 'Back to site',
+      close: 'Close'
+    },
     // Discussion pause after each case (teacher mode only, v1.1).
     discussionPause: {
       button: 'DISCUSSION PAUSE ▸',
@@ -445,6 +457,7 @@ export const en: Locale = {
       'return the norm that — elsewhere, in another Europe — would have prevented ' +
       'all of this.\n\n' +
       'The city is waiting for you. Try not to get used to its efficiency.',
+    how: 'How to play: open the exhibits, cite the evidence, classify the risk and file the report. After each decision a debrief explains the reasoning. Nothing leaves your browser: it is an educational simulation, not legal advice.',
     cta: 'ACCESS THE CIVIC MAP'
   },
 

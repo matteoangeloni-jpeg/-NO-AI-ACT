@@ -131,6 +131,18 @@ export const it = {
       },
       close: 'Chiudi'
     },
+    // Collegamenti gioco→sito (v1.2): pagine interne, il gioco resta aperto.
+    siteLinks: {
+      button: 'SITO E RISORSE ▸',
+      title: 'Sito e risorse educative',
+      intro: 'Apri le pagine del sito in una nuova scheda: il gioco resta aperto e nulla viene registrato. Sei sempre libero di uscire dal gioco.',
+      hub: 'Risorse educative',
+      glossary: 'Glossario',
+      teacher: 'Risorse per docenti',
+      privacy: 'Privacy',
+      backToSite: 'Torna al sito',
+      close: 'Chiudi'
+    },
     // Pausa di discussione dopo ogni caso (solo modalità docente, v1.1).
     discussionPause: {
       button: 'PAUSA DISCUSSIONE ▸',
@@ -443,6 +455,7 @@ export const it = {
       "sistemi, imporre le misure. Per ogni caso chiuso, l'archivio le restituirà " +
       "la norma che — altrove, in un'altra Europa — avrebbe impedito tutto questo.\n\n" +
       'La città la sta aspettando. Cerchi di non abituarsi alla sua efficienza.',
+    how: 'Come si gioca: apri i reperti, cita le prove, classifica il rischio e deposita il rapporto. Dopo ogni decisione un debrief spiega il ragionamento. Niente lascia il tuo browser: è una simulazione didattica, non consulenza legale.',
     cta: 'ACCEDI ALLA MAPPA CIVICA'
   },
 
