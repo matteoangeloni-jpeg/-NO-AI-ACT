@@ -80,6 +80,65 @@ export const en: Locale = {
       continuityNote: 'Use the rule to orient your reasoning, then return to the decision and assess the dossier evidence.',
       close: 'Back to decision'
     },
+    // AI Act concept labels (structural taxonomy in data/concepts.ts)
+    concepts: {
+      risk_based_approach: 'risk-based approach',
+      prohibited_practices: 'prohibited practices',
+      high_risk: 'high-risk systems',
+      transparency: 'transparency',
+      gpai: 'general-purpose AI (GPAI)',
+      human_oversight: 'human oversight',
+      data_governance: 'data governance',
+      privacy_by_design: 'privacy by design',
+      ai_literacy: 'AI literacy'
+    },
+    // Final learning report (v1.1): local only, never sent anywhere.
+    learningReport: {
+      header: 'WHAT YOU TAKE AWAY FROM THIS INVESTIGATION',
+      title: 'Learning report',
+      intro: 'An educational summary of your decisions, to see where you are solid and what to read next. It stays on your device: it is not sent anywhere.',
+      scoreLabel: 'Case outcomes',
+      scoreLine: '{correct} correct · {partial} partial · {wrong} to review — {completed} cases completed out of {total}',
+      conceptsLabel: 'AI Act concepts encountered',
+      strongestLabel: 'Strongest area',
+      reviewLabel: 'Area to review',
+      allSolid: 'None in particular: your decisions hold. Try a higher difficulty or a different path.',
+      noneYet: 'No case completed in this run.',
+      recommendedLabel: 'Three recommended reads from the site (free, open in a new tab)',
+      linkFor: 'Read more: {concept} ▸',
+      // labels parallel to the language's FALLBACK_LINKS (same order)
+      generalLinkLabels: ['Education hub ▸', 'EU AI Act guide ▸', 'Glossary ▸'],
+      performance: { strong: 'solid', mixed: 'to consolidate', weak: 'to review' },
+      disclaimer: 'NO AI ACT is an educational simulation and simplifies Regulation (EU) 2024/1689: this report describes your path in the game, not a certified competence, and it is not legal advice.',
+      back: 'BACK TO FINAL REPORT'
+    },
+    // In-game teacher guide (v1.1): before/during/after structure + resources.
+    teacherGuide: {
+      button: 'TEACHER GUIDE ▸',
+      title: 'Using NO AI ACT in class',
+      intro: 'A suggested three-step structure. No accounts, no student data: everything stays local.',
+      beforeTitle: 'Before the lesson',
+      beforeText: 'Play one case yourself, pick the path (demo, lab or full) and set 2–3 objectives. The ready-made activities and the introductory lesson plan below give the AI Act framing before playing.',
+      duringTitle: 'During',
+      duringText: 'Project the game or let students play in pairs. With teacher mode on, a discussion pause appears after each case with questions for the class: compare decisions before moving on.',
+      afterTitle: 'After',
+      afterText: 'Open the teacher debrief from the final report: a summary of decisions, concepts encountered and questions. Export it as text or JSON and use it for written reflection or formative assessment.',
+      resourcesLabel: 'Related resources (open in a new tab)',
+      links: {
+        activities_it: 'Attività didattiche (IT)',
+        lesson_it: 'Lezione introduttiva (IT)',
+        activities_en: 'Classroom activities (EN)',
+        lesson_en: 'Lesson plan (EN)'
+      },
+      close: 'Close'
+    },
+    // Discussion pause after each case (teacher mode only, v1.1).
+    discussionPause: {
+      button: 'DISCUSSION PAUSE ▸',
+      title: 'Discussion pause',
+      intro: 'Questions for the class about this case. Nothing is recorded: they are prompts to talk it through before the next file.',
+      close: 'Resume'
+    },
     decisionDebrief: {
       button: 'Decision debrief',
       title: 'Decision debrief',
@@ -95,6 +154,9 @@ export const en: Locale = {
       whyPartialWrong: 'The decision is not fully aligned with the dossier evidence. Review the key evidence, the related rule and the reasoning step required.',
       observeFallback: 'Review the relevant dossier evidence: the decision depends on the observed clues, not only on the abstract category.',
       howToFallback: 'Start from the concrete AI system, identify who is affected, connect the evidence to the rule, and only then choose classification, measure, subject and rationale.',
+      conceptLabel: 'AI Act concept in this case',
+      takeawayLabel: 'Learning takeaway',
+      learnMore: 'Read more on the site ▸',
       close: 'Close'
     },
     evidence: {
@@ -274,6 +336,7 @@ export const en: Locale = {
       archive: 'NORM ARCHIVE',
       credits: 'CREDITS',
       debrief: 'TEACHER DEBRIEF ▸',
+      learningReport: 'LEARNING REPORT ▸',
       feedback: {
         title: 'Help improve NO AI ACT',
         text: 'Completed at least one case? Leave a 30-second anonymous feedback on clarity, learning quality and usability.',
@@ -1136,6 +1199,7 @@ export const en: Locale = {
   // change the case solutions. One card per playable case.
   caseLearning: {
     case_scoring: {
+      takeaway: 'A generalised social score is not fixed with more controls: it is banned.',
       teaches: 'Some uses of AI are not mitigated but banned. Social scoring hits dignity and equality.',
       typicalMistake: 'Treating a ban as a high-risk system to be governed with audits and oversight.',
       discussionQuestion: 'Why are some practices banned rather than simply regulated?',
@@ -1145,6 +1209,7 @@ export const en: Locale = {
       estimatedDebriefMinutes: 8
     },
     case_lavoro: {
+      takeaway: 'AI at work is acceptable only with real safeguards: quality data, effective oversight, traceability.',
       teaches: 'Systems that select and assess workers are high-risk: they require effective safeguards.',
       typicalMistake: 'Settling for token human oversight or for notifying the person alone.',
       discussionQuestion: 'Which obligations make a high-risk system at work governable?',
@@ -1154,6 +1219,7 @@ export const en: Locale = {
       estimatedDebriefMinutes: 10
     },
     case_media: {
+      takeaway: 'People have the right to know when content is synthetic: the label is the minimum, not the end of the story.',
       teaches: 'Transparency about synthetic content is necessary, but not always sufficient.',
       typicalMistake: 'Believing that labelling content solves every manipulation problem.',
       discussionQuestion: 'When is informing the user necessary but not enough?',
@@ -1163,6 +1229,7 @@ export const en: Locale = {
       estimatedDebriefMinutes: 8
     },
     case_scuola: {
+      takeaway: 'A classroom is not a lab for emotional surveillance: inferring emotions at school is prohibited.',
       teaches: 'Inferring emotions at school is banned, save for narrow exceptions: the classroom is not a space for emotional surveillance.',
       typicalMistake: 'Treating emotion recognition as a system to audit rather than to ban.',
       discussionQuestion: 'Why does the educational context receive special protection?',
@@ -1172,6 +1239,7 @@ export const en: Locale = {
       estimatedDebriefMinutes: 8
     },
     case_ospedale: {
+      takeaway: 'An excellent average can hide serious errors on the most vulnerable: check the subgroups, not the total.',
       teaches: 'AI in healthcare is not banned: it must be governed, documented and supervised, above all for vulnerable groups.',
       typicalMistake: 'Trusting the excellent average and ignoring errors concentrated on subgroups.',
       discussionQuestion: 'How do you govern a predictive system without blocking it or surrendering to it?',
@@ -1181,6 +1249,7 @@ export const en: Locale = {
       estimatedDebriefMinutes: 10
     },
     case_biometria: {
+      takeaway: 'Real-time face recognition in public spaces is the perimeter of a prohibition, not a technical detail.',
       teaches: 'Real-time remote biometric identification in public spaces for law-enforcement purposes is banned, save for strictly listed exceptions.',
       typicalMistake: 'Assuming every biometric use is the same, ignoring purpose and context.',
       discussionQuestion: 'Where is the line between security and mass surveillance?',
@@ -1190,6 +1259,7 @@ export const en: Locale = {
       estimatedDebriefMinutes: 9
     },
     case_credito: {
+      takeaway: 'What matters is the effect on people, not the system\'s name: a “reliability score” can be social scoring.',
       teaches: 'Not every score is banned: purpose, data, context, effects and effective human control are what matter.',
       typicalMistake: "Believing that the 'decision support' label is enough to make the system safe.",
       discussionQuestion: 'When does an assessment system become prohibited detrimental treatment?',
@@ -1199,6 +1269,7 @@ export const en: Locale = {
       estimatedDebriefMinutes: 12
     },
     case_chatbot: {
+      takeaway: 'An automated channel that always answers is not enough: users need transparency and a human way out.',
       teaches: "A public assistant should not be banned but made transparent and paired with a human channel: what matters is the citizen's reliance.",
       typicalMistake: "Thinking that the \"purely informational\" label is enough to offload responsibility onto the citizen or the vendor.",
       discussionQuestion: "When does an automated assistant become a reliable source for the citizen?",
@@ -1208,6 +1279,7 @@ export const en: Locale = {
       estimatedDebriefMinutes: 9
     },
     case_procurement: {
+      takeaway: 'Buying an AI system without documentation means buying a risk you cannot govern.',
       teaches: "High-risk obligations are not bought with a certificate: documentation, governance and control rights are needed.",
       typicalMistake: "Settling for \"the vendor is certified\" and giving up documentation, audit and access.",
       discussionQuestion: "What must a public body ask before buying an AI system?",
@@ -1217,6 +1289,7 @@ export const en: Locale = {
       estimatedDebriefMinutes: 11
     },
     case_edtech: {
+      takeaway: 'A platform that profiles students and steers teaching decisions is high-risk: it must be governed, not endured.',
       teaches: "Not every learning platform is banned, but if it affects opportunities and paths it is high-risk and needs effective human control.",
       typicalMistake: "Treating a student risk score as neutral and following it instead of the teacher's judgement.",
       discussionQuestion: "When does a teaching recommendation become a decision that matters for the student?",
@@ -1226,6 +1299,7 @@ export const en: Locale = {
       estimatedDebriefMinutes: 11
     },
     case_gpai: {
+      takeaway: 'The general model is not the point: the downstream use in real decisions is what needs governance.',
       teaches: "A general model is not automatically banned or high-risk: the risk depends on concrete use and must be governed downstream.",
       typicalMistake: "Believing a disclaimer is enough, or using the model to decide without verification or traceability.",
       discussionQuestion: "Who answers if a general model is used in a concrete decision process?",

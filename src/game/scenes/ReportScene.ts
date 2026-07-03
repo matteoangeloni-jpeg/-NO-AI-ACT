@@ -10,6 +10,8 @@ import type {
   ResponsibleSubject
 } from '../data/types';
 import { hintKeyFor, shouldShowHint, type ReportResult } from '../systems/ReportSystem';
+import { conceptLink } from '../data/concepts';
+import { caseLearning } from '../data/learning';
 import { decisionAnalysisKeys } from '../systems/DecisionIssues';
 import { AudioSystem } from '../systems/AudioSystem';
 import { StateManager } from '../systems/StateManager';
@@ -173,11 +175,15 @@ export class ReportScene extends Phaser.Scene {
             : t.ui.decisionDebrief.whyPartialWrong,
       observe: relevant.length > 0 ? relevant : t.ui.decisionDebrief.observeFallback,
       norm: `${rule.title} — ${rule.reference}`,
-      howTo: t.ui.decisionDebrief.howToFallback
+      howTo: t.ui.decisionDebrief.howToFallback,
+      // v1.1: concetti del caso + takeaway + pagina interna da leggere dopo
+      concept: this.caseData.concepts.map((c) => t.ui.concepts[c]).join(' · '),
+      takeaway: caseLearning(this.caseData.id).takeaway,
+      linkUrl: conceptLink(this.caseData.concepts[0], StateManager.language)
     });
     new Button(this, 240, GAME_HEIGHT - 46, t.ui.decisionDebrief.button, () => debrief.toggle(), { width: 320, height: 40, fontSize: 13, variant: 'ghost' });
 
-    new Button(this, cx, GAME_HEIGHT - 46, t.ui.report.continueButton, () => {
+    const goNext = (): void => {
       this.scene.start('Consequence', {
         caseId: this.params.caseId,
         classification: this.params.classification,
@@ -188,6 +194,11 @@ export class ReportScene extends Phaser.Scene {
         before: this.params.before,
         after: this.params.after
       });
-    }, { width: 280 });
+    };
+    new Button(this, cx, GAME_HEIGHT - 46, t.ui.report.continueButton, goNext, { width: 280 });
+    // tastiera (v1.1): INVIO prosegue, ma non mentre il debrief è aperto
+    this.input.keyboard?.on('keydown-ENTER', () => {
+      if (!debrief.isOpen) goNext();
+    });
   }
 }

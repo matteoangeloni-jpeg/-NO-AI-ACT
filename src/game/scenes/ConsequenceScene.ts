@@ -7,6 +7,7 @@ import { AudioSystem } from '../systems/AudioSystem';
 import { IndicatorHud, randomComment } from '../systems/IndicatorSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
+import { DiscussionPauseOverlay } from '../ui/DiscussionPauseOverlay';
 import { Panel } from '../ui/Panel';
 import { TypewriterText } from '../ui/TypewriterText';
 import { L, caseText, fmt } from '../i18n';
@@ -110,15 +111,28 @@ export class ConsequenceScene extends Phaser.Scene {
     this.tweens.add({ targets: comment, alpha: 1, duration: 400, delay: 1400 });
 
     const nextLabel = quality === 'wrong' ? ui.nextWrong : ui.nextCorrect;
-    const nextBtn = new Button(this, cx, GAME_HEIGHT - 60, nextLabel, () => {
+    const goNext = (): void => {
       this.scene.start('NormCard', { normId: this.caseData.normId, quality });
-    }, { width: 380 });
+    };
+    const nextBtn = new Button(this, cx, GAME_HEIGHT - 60, nextLabel, goNext, { width: 380 });
     nextBtn.setVisible(false);
+
+    // pausa di discussione (v1.1, solo modalità docente): le tre domande del
+    // caso per la classe, prima di passare alla norma. Nulla viene registrato.
+    const pause = StateManager.teacherMode ? new DiscussionPauseOverlay(this, texts.debriefQuestions) : null;
+    if (pause) {
+      new Button(this, 240, GAME_HEIGHT - 60, L().ui.discussionPause.button, () => pause.toggle(), { width: 320, height: 40, fontSize: 13, variant: 'ghost' });
+    }
 
     consequence.write(consequenceFor(texts, quality), () => {
       this.tweens.add({ targets: note, alpha: 1, duration: 300 });
       nextBtn.setVisible(true);
     });
     this.input.on('pointerdown', () => consequence.skip());
+    // tastiera (v1.1): INVIO prosegue quando il pulsante è visibile e la
+    // pausa di discussione non è aperta
+    this.input.keyboard?.on('keydown-ENTER', () => {
+      if (nextBtn.visible && !pause?.isOpen) goNext();
+    });
   }
 }

@@ -71,8 +71,11 @@ export class FinaleScene extends Phaser.Scene {
     });
     new Button(this, cx + 70, GAME_HEIGHT - 60, L().ui.finale.archive, () => this.scene.start('Archive', { from: 'Finale' }), { variant: 'ghost' });
     new Button(this, cx + 330, GAME_HEIGHT - 60, L().ui.finale.credits, () => this.scene.start('Credits'), { width: 180, variant: 'ghost' });
+    // rapporto di apprendimento (v1.1): per tutti, non solo per i docenti
+    const lrX = StateManager.teacherMode ? cx - 170 : cx;
+    new Button(this, lrX, GAME_HEIGHT - 118, L().ui.finale.learningReport, () => this.scene.start('LearningReport'), { width: 320, variant: 'ok' });
     if (StateManager.teacherMode) {
-      new Button(this, cx, GAME_HEIGHT - 118, L().ui.finale.debrief, () => this.scene.start('Debrief'), { width: 300, variant: 'ok' });
+      new Button(this, cx + 170, GAME_HEIGHT - 118, L().ui.finale.debrief, () => this.scene.start('Debrief'), { width: 300, variant: 'ok' });
     }
 
     // Optional post-game feedback CTA — opens an external, anonymous Tally form

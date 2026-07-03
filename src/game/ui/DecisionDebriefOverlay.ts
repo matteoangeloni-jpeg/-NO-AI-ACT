@@ -22,6 +22,12 @@ export interface DecisionDebriefData {
   norm: string;
   /** how to reason next time (didactic fallback). */
   howTo: string;
+  /** AI Act concept(s) of the case, already localized (v1.1). */
+  concept: string;
+  /** one-sentence learning takeaway, already localized (v1.1). */
+  takeaway: string;
+  /** optional INTERNAL site page to read next (same-origin path, v1.1). */
+  linkUrl?: string;
 }
 
 /**
@@ -51,9 +57,13 @@ export class DecisionDebriefOverlay {
   }
 
   close(): void {
+    this.scene.input.keyboard?.off('keydown-ESC', this.escHandler);
     this.container?.destroy();
     this.container = undefined;
   }
+
+  /** ESC chiude l'overlay (accessibilità da tastiera, v1.1). */
+  private readonly escHandler = (): void => this.close();
 
   open(): void {
     if (this.isOpen) return;
@@ -71,7 +81,8 @@ export class DecisionDebriefOverlay {
     );
 
     const panelW = 940;
-    const panelH = 600;
+    // 640: la variante negativa ha 7 righe etichettate dalla v1.1
+    const panelH = 640;
     container.add(new Panel(scene, cx, cy, panelW, panelH));
     // transparent hit area over the panel so clicks INSIDE it don't close it
     container.add(scene.add.rectangle(cx, cy, panelW, panelH, 0x000000, 0.001).setInteractive());
@@ -106,10 +117,23 @@ export class DecisionDebriefOverlay {
       labelled(ui.normLabel, d.norm);
       labelled(ui.howToLabel, d.howTo);
     }
+    // v1.1: concept involved + one-sentence takeaway, in both variants
+    labelled(ui.conceptLabel, d.concept);
+    labelled(ui.takeawayLabel, d.takeaway);
 
-    // close button added LAST → above the shade/hit-area, stays clickable
-    container.add(new Button(scene, cx, cy + panelH / 2 - 34, ui.close, () => this.close(), { width: 220, height: 38, fontSize: 13 }));
+    // close button added LAST → above the shade/hit-area, stays clickable.
+    // Optional "learn more": INTERNAL page only (same origin), new tab.
+    if (d.linkUrl) {
+      const url = d.linkUrl;
+      container.add(
+        new Button(scene, cx - 150, cy + panelH / 2 - 34, ui.learnMore, () => window.open(url, '_blank', 'noopener,noreferrer'), { width: 260, height: 38, fontSize: 13, variant: 'ghost' })
+      );
+      container.add(new Button(scene, cx + 130, cy + panelH / 2 - 34, ui.close, () => this.close(), { width: 220, height: 38, fontSize: 13 }));
+    } else {
+      container.add(new Button(scene, cx, cy + panelH / 2 - 34, ui.close, () => this.close(), { width: 220, height: 38, fontSize: 13 }));
+    }
 
+    this.scene.input.keyboard?.on('keydown-ESC', this.escHandler);
     this.container = container;
   }
 }
