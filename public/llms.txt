@@ -1,42 +1,100 @@
 # NO AI ACT
 
 > NO AI ACT is a free, open-source investigative serious game about the European
-> AI Act (Regulation (EU) 2024/1689). The player acts as an inspector: they open
-> the file of an artificial intelligence system, examine the evidence, cite the
-> proof and file an inspection report classifying the system's risk (prohibited,
-> high-risk, to be governed, or compliant). It is an educational simulation about
+> AI Act (Regulation (EU) 2024/1689), surrounded by a bilingual (IT/EN)
+> educational hub: a plain-language guide to the regulation, teacher guides,
+> lesson plans, classroom activities, a glossary and privacy documentation.
+> The player acts as an inspector: they open the file of an artificial
+> intelligence system, examine the evidence, cite the proof and file an
+> inspection report classifying the system's risk (prohibited, high-risk,
+> to be governed, or compliant). It is an educational simulation about
 > algorithmic risk governance — not legal advice.
 
 - Version: v1.0.0
 - Status: public release
-- Languages: Italian (default) and English
-- Audience: upper-secondary schools, universities, professional training, and professionals working with AI governance
+- Languages: Italian (default) and English — game and educational hub
+- Audience: teachers and trainers, upper-secondary and university students, researchers, professionals working with AI governance
 - Pricing: free and open source (MIT code, CC BY 4.0 educational content)
-- 11 playable cases
+- 11 playable cases; 40+ public educational pages
 
-## Key facts
+## Key facts and limitations
 
-- Educational serious game about the European AI Act and algorithmic risk governance.
-- It is NOT legal advice and does not replace the regulation or a professional opinion.
-- No backend, no account, no personal data collection in the game.
-- Public pages use aggregate, privacy-friendly Cloudflare Web Analytics (no cookies, no personal data); the game itself sends no analytics, results, answers or reports. Progress is stored only in the browser's localStorage.
+- Educational serious game and learning hub about the European AI Act and algorithmic risk governance.
+- NOT an official EU tool: independent project, not affiliated with or endorsed by the European institutions.
+- NOT legal advice and does not replace the regulation or a professional opinion.
+- NOT a compliance tool or certification: it grants no credits or attestations.
+- No backend, no account, no registration, no personal data collection in the game.
+- No gameplay telemetry: decisions, scores and reports never leave the player's browser (localStorage only). Public pages use aggregate, cookie-free Cloudflare Web Analytics; the game itself sends nothing.
 - Teacher mode is local; its debrief export is local and anonymous.
-- The Tally playtest form is an external, voluntary feedback form, separate from the
-  game; it does not receive any personal data automatically and is not required to play.
+- The Tally playtest forms are external, voluntary and separate from the game.
+- Educational effectiveness has not been empirically validated; no impact claims are made.
 
-## Links
+## Play
 
+- Play the game (IT/EN): https://www.no-ai-act.eu/play/
 - Italian landing page: https://www.no-ai-act.eu/
 - English landing page: https://www.no-ai-act.eu/en/
-- Play the game: https://www.no-ai-act.eu/play/
-- How it works (IT): https://www.no-ai-act.eu/come-funziona/
-- How it works (EN): https://www.no-ai-act.eu/en/how-it-works/
-- For educators (IT): https://www.no-ai-act.eu/per-docenti/
-- For educators (EN): https://www.no-ai-act.eu/en/for-educators/
-- AI Act serious game rationale (IT): https://www.no-ai-act.eu/ai-act-serious-game/
-- AI Act serious game rationale (EN): https://www.no-ai-act.eu/en/ai-act-serious-game/
-- Privacy by design (IT): https://www.no-ai-act.eu/privacy-by-design/
+- How the game works (EN): https://www.no-ai-act.eu/en/how-it-works/
+- Come funziona il gioco (IT): https://www.no-ai-act.eu/come-funziona/
+
+## For teachers
+
+- Education hub (EN): https://www.no-ai-act.eu/en/education/
+- Risorse educative (IT): https://www.no-ai-act.eu/educazione/
+- The AI Act for teachers (EN): https://www.no-ai-act.eu/en/ai-act-for-teachers/
+- L'AI Act per i docenti (IT): https://www.no-ai-act.eu/ai-act-per-docenti/
+- Using the game in class (EN): https://www.no-ai-act.eu/en/for-educators/
+- Usare il gioco in aula (IT): https://www.no-ai-act.eu/per-docenti/
+
+## AI literacy and method
+
+- AI literacy (EN): https://www.no-ai-act.eu/en/ai-literacy/
+- Alfabetizzazione all'IA (IT): https://www.no-ai-act.eu/alfabetizzazione-ai/
+- Serious games for AI regulation (EN): https://www.no-ai-act.eu/en/serious-games-for-ai-regulation/
+- Serious game e regolazione dell'IA (IT): https://www.no-ai-act.eu/serious-game-regolazione-ai/
+- Digital citizenship and AI regulation (EN): https://www.no-ai-act.eu/en/digital-citizenship-ai-regulation/
+- Why the game is a serious game, not a quiz (EN): https://www.no-ai-act.eu/en/ai-act-serious-game/
+- Perché è un serious game, non un quiz (IT): https://www.no-ai-act.eu/ai-act-serious-game/
+
+## EU AI Act guide (plain language, educational)
+
+- The EU AI Act explained simply (EN): https://www.no-ai-act.eu/en/eu-ai-act-guide/
+- L'AI Act spiegato semplice (IT): https://www.no-ai-act.eu/guida-ai-act/
+- Risk categories (EN): https://www.no-ai-act.eu/en/ai-act-risk-categories/
+- Categorie di rischio (IT): https://www.no-ai-act.eu/categorie-rischio-ai-act/
+- Prohibited AI practices (EN): https://www.no-ai-act.eu/en/prohibited-ai-practices/
+- Pratiche vietate (IT): https://www.no-ai-act.eu/pratiche-vietate-ai-act/
+- High-risk AI systems (EN): https://www.no-ai-act.eu/en/high-risk-ai-systems/
+- Sistemi ad alto rischio (IT): https://www.no-ai-act.eu/sistemi-ai-ad-alto-rischio/
+- Transparency obligations (EN): https://www.no-ai-act.eu/en/transparency-obligations/
+- Obblighi di trasparenza (IT): https://www.no-ai-act.eu/obblighi-trasparenza-ai-act/
+- General-purpose AI and generative AI (EN): https://www.no-ai-act.eu/en/general-purpose-ai/
+- IA generativa e GPAI (IT): https://www.no-ai-act.eu/ai-generativa-e-gpai/
+
+## Classroom activities and lesson plans
+
+- Classroom activities (EN): https://www.no-ai-act.eu/en/classroom-activities/
+- Attività didattiche (IT): https://www.no-ai-act.eu/attivita-didattiche/
+- Lesson plan — introduction to the AI Act (EN): https://www.no-ai-act.eu/en/lesson-plan-introduction-to-the-ai-act/
+- Lezione — introduzione all'AI Act (IT): https://www.no-ai-act.eu/lezione-introduzione-ai-act/
+- Lesson plan — the risk-based approach (EN): https://www.no-ai-act.eu/en/lesson-plan-risk-based-approach/
+- Lesson plan — transparency and users (EN): https://www.no-ai-act.eu/en/lesson-plan-transparency-and-users/
+
+## Privacy
+
 - Privacy by design (EN): https://www.no-ai-act.eu/en/privacy-by-design/
+- Privacy by design (IT): https://www.no-ai-act.eu/privacy-by-design/
+- Privacy-conscious learning (EN): https://www.no-ai-act.eu/en/privacy-conscious-learning/
+- Apprendimento privacy-consapevole (IT): https://www.no-ai-act.eu/apprendimento-privacy-consapevole/
+
+## Glossary and FAQ
+
+- AI Act glossary (EN, 27 terms): https://www.no-ai-act.eu/en/glossary/
+- Glossario dell'AI Act (IT, 27 termini): https://www.no-ai-act.eu/glossario/
+- FAQ (EN): https://www.no-ai-act.eu/en/faq/
+
+## Project links
+
 - GitHub repository: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT
 - GitHub Release v1.0.0: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v1.0.0
 - Project brief: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/NO_AI_ACT_PROJECT_BRIEF.md
@@ -67,15 +125,9 @@
 10. La classe profilata — adaptive learning (EdTech) platform profiling students.
 11. Il modello tuttofare — generative model (GPAI) used downstream in internal decisions.
 
-## Concepts covered
-
-prohibited practices, high-risk AI, transparency, GPAI, public chatbot,
-AI procurement, adaptive EdTech, deployer responsibility, human oversight,
-documentation, contestability, accountability.
-
 ## Notes
 
 - NO AI ACT is a didactic simplification and does not replace the AI Act text or professional legal advice.
 - A third-party legal review is recommended before any formal institutional use.
 - Cases such as GPAI, public chatbots, EdTech and procurement are framed by context of use, not as blanket prohibitions.
-- The project is not certified, official or a compliance tool.
+- Authoritative sources referenced by the guide pages: EUR-Lex, the European Commission's AI framework pages and the European AI Office.
