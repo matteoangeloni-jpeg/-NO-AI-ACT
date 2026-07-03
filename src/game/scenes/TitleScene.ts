@@ -4,6 +4,7 @@ import { AudioSystem } from '../systems/AudioSystem';
 import { SaveSystem } from '../systems/SaveSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
+import { TeacherGuideOverlay } from '../ui/TeacherGuideOverlay';
 import { showToast } from '../ui/AlertToast';
 import { L, fmt, nextLanguage } from '../i18n';
 import { MISSION_IDS } from '../data/missions';
@@ -121,6 +122,11 @@ export class TitleScene extends Phaser.Scene {
       },
       { width: 160, height: 34, fontSize: 12, variant: 'ghost' }
     );
+    // guida docente (v1.1): prima/durante/dopo + risorse del sito; visibile
+    // solo con la modalità docente attiva, nessun login richiesto
+    const guide = new TeacherGuideOverlay(this);
+    const guideBtn = new Button(this, x - 90, 366, L().ui.teacherGuide.button, () => guide.toggle(), { width: 160, height: 34, fontSize: 11, variant: 'ok' });
+    guideBtn.setVisible(StateManager.teacherMode);
     // modalità docente: abilita il debrief locale a fine partita
     const teacherBtn = new Button(
       this,
@@ -130,6 +136,7 @@ export class TitleScene extends Phaser.Scene {
       () => {
         StateManager.setTeacherMode(!StateManager.teacherMode);
         teacherBtn.setLabel(StateManager.teacherMode ? m.teacherOn : m.teacherOff);
+        guideBtn.setVisible(StateManager.teacherMode);
         // chiarisce subito che la modalità docente è un supporto locale, non una dashboard classe
         if (StateManager.teacherMode) showToast(this, m.teacherScope, 'info');
       },

@@ -52,6 +52,7 @@ export const CASES: CaseData[] = [
     correctMotivation: 1,
     weakMotivation: 0,
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione'],
+    concepts: ['prohibited_practices', 'risk_based_approach'],
     hasIncident: false,
     playable: true
   },
@@ -74,6 +75,7 @@ export const CASES: CaseData[] = [
     correctMotivation: 2,
     weakMotivation: 1,
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'eccesso_cautela', 'soggetto', 'motivazione'],
+    concepts: ['high_risk', 'human_oversight', 'data_governance'],
     hasIncident: true,
     incidentDeltas: INCIDENT_DELTAS,
     playable: true
@@ -93,6 +95,7 @@ export const CASES: CaseData[] = [
     correctMotivation: 0,
     weakMotivation: 2,
     possibleDominantErrors: ['classificazione', 'prove', 'trasparenza', 'soggetto', 'motivazione'],
+    concepts: ['transparency', 'ai_literacy'],
     hasIncident: true,
     incidentDeltas: INCIDENT_DELTAS,
     playable: true
@@ -113,6 +116,7 @@ export const CASES: CaseData[] = [
     correctMotivation: 1,
     weakMotivation: 2,
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione'],
+    concepts: ['prohibited_practices', 'privacy_by_design'],
     hasIncident: false,
     playable: true
   },
@@ -135,6 +139,7 @@ export const CASES: CaseData[] = [
     correctMotivation: 0,
     weakMotivation: 1,
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'eccesso_cautela', 'soggetto', 'motivazione'],
+    concepts: ['high_risk', 'data_governance', 'human_oversight'],
     hasIncident: true,
     incidentDeltas: INCIDENT_DELTAS,
     playable: true
@@ -155,6 +160,7 @@ export const CASES: CaseData[] = [
     correctMotivation: 2,
     weakMotivation: 0,
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione'],
+    concepts: ['prohibited_practices', 'risk_based_approach'],
     hasIncident: false,
     playable: true
   },
@@ -185,6 +191,7 @@ export const CASES: CaseData[] = [
     correctMotivation: 1,
     weakMotivation: 2,
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'eccesso_cautela', 'soggetto', 'motivazione', 'trasparenza'],
+    concepts: ['prohibited_practices', 'data_governance'],
     hasIncident: false,
     playable: true
   },
@@ -210,6 +217,7 @@ export const CASES: CaseData[] = [
     correctMotivation: 1,
     weakMotivation: 0,
     possibleDominantErrors: ['classificazione', 'prove', 'trasparenza', 'misura_insufficiente', 'soggetto', 'motivazione'],
+    concepts: ['transparency', 'human_oversight', 'ai_literacy'],
     hasIncident: false,
     playable: true
   },
@@ -233,6 +241,7 @@ export const CASES: CaseData[] = [
     correctMotivation: 0,
     weakMotivation: 2,
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione', 'eccesso_cautela'],
+    concepts: ['high_risk', 'data_governance'],
     hasIncident: false,
     playable: true
   },
@@ -256,6 +265,7 @@ export const CASES: CaseData[] = [
     correctMotivation: 2,
     weakMotivation: 1,
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione', 'eccesso_cautela'],
+    concepts: ['high_risk', 'privacy_by_design', 'human_oversight'],
     hasIncident: false,
     playable: true
   },
@@ -279,6 +289,7 @@ export const CASES: CaseData[] = [
     correctMotivation: 1,
     weakMotivation: 2,
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'trasparenza', 'soggetto', 'motivazione', 'eccesso_cautela'],
+    concepts: ['gpai', 'high_risk', 'human_oversight'],
     hasIncident: false,
     playable: true
   }

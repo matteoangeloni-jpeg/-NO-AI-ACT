@@ -79,6 +79,65 @@ export const it = {
       continuityNote: 'Usa la norma per orientare il ragionamento, poi torna alla decisione e valuta gli elementi del fascicolo.',
       close: 'Torna alla decisione'
     },
+    // Etichette dei concetti AI Act (tassonomia strutturale in data/concepts.ts)
+    concepts: {
+      risk_based_approach: 'approccio basato sul rischio',
+      prohibited_practices: 'pratiche vietate',
+      high_risk: 'sistemi ad alto rischio',
+      transparency: 'trasparenza',
+      gpai: 'IA per finalità generali (GPAI)',
+      human_oversight: 'sorveglianza umana',
+      data_governance: 'governo dei dati',
+      privacy_by_design: 'privacy by design',
+      ai_literacy: "alfabetizzazione all'IA"
+    },
+    // Rapporto di apprendimento finale (v1.1): locale, mai inviato altrove.
+    learningReport: {
+      header: 'COSA TI PORTI VIA DA QUESTA INDAGINE',
+      title: 'Rapporto di apprendimento',
+      intro: 'Un riepilogo didattico delle tue decisioni, per capire dove sei solido e cosa rileggere. Resta sul tuo dispositivo: non viene inviato da nessuna parte.',
+      scoreLabel: 'Esiti dei casi',
+      scoreLine: '{correct} corretti · {partial} parziali · {wrong} da rivedere — {completed} casi completati su {total}',
+      conceptsLabel: 'Concetti AI Act incontrati',
+      strongestLabel: 'Area più solida',
+      reviewLabel: 'Area da ripassare',
+      allSolid: 'Nessuna in particolare: le decisioni reggono. Puoi alzare la difficoltà o cambiare percorso.',
+      noneYet: 'Nessun caso completato in questa partita.',
+      recommendedLabel: 'Tre letture consigliate dal sito (gratuite, in una nuova scheda)',
+      linkFor: 'Approfondisci: {concept} ▸',
+      // etichette parallele a FALLBACK_LINKS della lingua (stesso ordine)
+      generalLinkLabels: ['Risorse educative ▸', "Guida all'AI Act ▸", 'Glossario ▸'],
+      performance: { strong: 'solido', mixed: 'da consolidare', weak: 'da rivedere' },
+      disclaimer: 'NO AI ACT è una simulazione didattica e semplifica il Regolamento (UE) 2024/1689: questo rapporto descrive il tuo percorso nel gioco, non una competenza certificata né una consulenza legale.',
+      back: 'TORNA AL RAPPORTO FINALE'
+    },
+    // Guida docente in gioco (v1.1): struttura prima/durante/dopo + risorse.
+    teacherGuide: {
+      button: 'GUIDA DOCENTE ▸',
+      title: 'Usare NO AI ACT in aula',
+      intro: 'Struttura consigliata in tre tempi. Nessun account, nessun dato degli studenti: tutto resta locale.',
+      beforeTitle: 'Prima della lezione',
+      beforeText: "Prova un caso da solo, scegli il percorso (demo, laboratorio o completo) e fissa 2–3 obiettivi. Le attività pronte e la lezione introduttiva qui sotto danno la cornice sull'AI Act prima di giocare.",
+      duringTitle: 'Durante',
+      duringText: 'Proietta il gioco o fai giocare a coppie. Con la modalità docente attiva, dopo ogni caso compare una pausa di discussione con le domande per la classe: confrontate le decisioni prima di proseguire.',
+      afterTitle: 'Dopo',
+      afterText: 'Apri il debrief docente dal rapporto finale: riepilogo delle decisioni, concetti emersi e domande. Esportalo in testo o JSON e usalo per la riflessione scritta o la valutazione formativa.',
+      resourcesLabel: 'Risorse collegate (si aprono in una nuova scheda)',
+      links: {
+        activities_it: 'Attività didattiche (IT)',
+        lesson_it: 'Lezione introduttiva (IT)',
+        activities_en: 'Classroom activities (EN)',
+        lesson_en: 'Lesson plan (EN)'
+      },
+      close: 'Chiudi'
+    },
+    // Pausa di discussione dopo ogni caso (solo modalità docente, v1.1).
+    discussionPause: {
+      button: 'PAUSA DISCUSSIONE ▸',
+      title: 'Pausa di discussione',
+      intro: 'Domande per la classe su questo caso. Niente viene registrato: sono spunti per parlarne prima del prossimo fascicolo.',
+      close: 'Riprendi'
+    },
     decisionDebrief: {
       button: 'Debrief della decisione',
       title: 'Debrief della decisione',
@@ -94,6 +153,9 @@ export const it = {
       whyPartialWrong: 'La decisione non è pienamente coerente con gli elementi del fascicolo. Rivedi la prova chiave, la norma collegata e il passaggio logico richiesto.',
       observeFallback: 'Rileggi le prove rilevanti del fascicolo: la decisione dipende dagli indizi osservati, non solo dalla categoria astratta.',
       howToFallback: "Parti dal sistema AI concreto, individua chi subisce l'impatto, collega le prove alla norma e solo dopo scegli classificazione, misura, soggetto e motivazione.",
+      conceptLabel: 'Concetto AI Act del caso',
+      takeawayLabel: 'Da portare a casa',
+      learnMore: 'Approfondisci sul sito ▸',
       close: 'Chiudi'
     },
     evidence: {
@@ -273,6 +335,7 @@ export const it = {
       archive: 'ARCHIVIO NORME',
       credits: 'CREDITS',
       debrief: 'DEBRIEF DOCENTE ▸',
+      learningReport: 'RAPPORTO DI APPRENDIMENTO ▸',
       feedback: {
         title: 'Aiutami a migliorare NO AI ACT',
         text: 'Hai completato almeno un caso? Lascia un feedback anonimo di 30 secondi su chiarezza, qualità didattica e usabilità.',
@@ -1132,6 +1195,7 @@ export const it = {
   // cambiano la soluzione dei casi. Una scheda per ciascun caso giocabile.
   caseLearning: {
     case_scoring: {
+      takeaway: 'Un punteggio sociale generalizzato non si corregge con più controlli: si vieta.',
       teaches: "Alcuni usi dell'IA non si mitigano: si vietano. Il social scoring colpisce dignità e uguaglianza.",
       typicalMistake: 'Trattare un divieto come un sistema ad alto rischio da governare con audit e supervisione.',
       discussionQuestion: 'Perché alcune pratiche sono vietate e non semplicemente regolate?',
@@ -1141,6 +1205,7 @@ export const it = {
       estimatedDebriefMinutes: 8
     },
     case_lavoro: {
+      takeaway: 'Nel lavoro l\'IA è ammessa solo con garanzie effettive: dati di qualità, supervisione reale, tracciabilità.',
       teaches: 'I sistemi che selezionano e valutano i lavoratori sono ad alto rischio: richiedono garanzie effettive.',
       typicalMistake: "Accontentarsi di una supervisione umana di facciata o della sola notifica all'interessato.",
       discussionQuestion: 'Quali obblighi rendono governabile un sistema ad alto rischio nel lavoro?',
@@ -1150,6 +1215,7 @@ export const it = {
       estimatedDebriefMinutes: 10
     },
     case_media: {
+      takeaway: 'Chi guarda un contenuto sintetico ha il diritto di saperlo: l\'etichetta è il minimo, non il punto d\'arrivo.',
       teaches: 'La trasparenza sui contenuti sintetici è necessaria, ma non sempre sufficiente.',
       typicalMistake: 'Pensare che etichettare un contenuto risolva ogni problema di manipolazione.',
       discussionQuestion: "Quando informare l'utente è necessario ma non basta?",
@@ -1159,6 +1225,7 @@ export const it = {
       estimatedDebriefMinutes: 8
     },
     case_scuola: {
+      takeaway: 'L\'aula non è un laboratorio di sorveglianza emotiva: inferire le emozioni a scuola è vietato.',
       teaches: "Inferire le emozioni a scuola è vietato, salvo eccezioni limitate: l'aula non è uno spazio di sorveglianza emotiva.",
       typicalMistake: 'Trattare il riconoscimento delle emozioni come un sistema da auditare anziché da vietare.',
       discussionQuestion: 'Perché il contesto educativo riceve una protezione speciale?',
@@ -1168,6 +1235,7 @@ export const it = {
       estimatedDebriefMinutes: 8
     },
     case_ospedale: {
+      takeaway: 'Una media eccellente può nascondere errori gravi sui più vulnerabili: guarda i sottogruppi, non il totale.',
       teaches: "L'IA in sanità non è vietata: va governata, documentata e supervisionata, soprattutto sui gruppi vulnerabili.",
       typicalMistake: 'Fidarsi della media eccellente e ignorare gli errori concentrati sui sottogruppi.',
       discussionQuestion: 'Come si governa un sistema predittivo senza bloccarlo né subirlo?',
@@ -1177,6 +1245,7 @@ export const it = {
       estimatedDebriefMinutes: 10
     },
     case_biometria: {
+      takeaway: 'Riconoscere volti in tempo reale nello spazio pubblico è il perimetro di un divieto, non un dettaglio tecnico.',
       teaches: "L'identificazione biometrica remota in tempo reale negli spazi pubblici per finalità di contrasto è vietata, salvo eccezioni tassative.",
       typicalMistake: 'Credere che ogni uso biometrico sia uguale, ignorando finalità e contesto.',
       discussionQuestion: 'Dove passa il confine tra sicurezza e sorveglianza di massa?',
@@ -1186,6 +1255,7 @@ export const it = {
       estimatedDebriefMinutes: 9
     },
     case_credito: {
+      takeaway: 'Conta l\'effetto sulle persone, non il nome del sistema: un “punteggio di affidabilità” può essere social scoring.',
       teaches: 'Non ogni scoring è vietato: contano finalità, dati, contesto, effetti e controllo umano effettivo.',
       typicalMistake: "Credere che la dicitura 'supporto decisionale' basti a rendere il sistema sicuro.",
       discussionQuestion: 'Quando un sistema di valutazione diventa trattamento sfavorevole vietato?',
@@ -1195,6 +1265,7 @@ export const it = {
       estimatedDebriefMinutes: 12
     },
     case_chatbot: {
+      takeaway: 'Un canale automatico che risponde sempre non basta: servono trasparenza e una via d\'uscita umana.',
       teaches: "Un assistente pubblico non va vietato, va reso trasparente e affiancato da un canale umano: conta l'affidamento del cittadino.",
       typicalMistake: "Pensare che basti la dicitura \"solo informativo\" per scaricare la responsabilità sul cittadino o sul fornitore.",
       discussionQuestion: "Quando un assistente automatico diventa una fonte affidabile per il cittadino?",
@@ -1204,6 +1275,7 @@ export const it = {
       estimatedDebriefMinutes: 9
     },
     case_procurement: {
+      takeaway: 'Comprare un sistema di IA senza documentazione significa comprare un rischio che non puoi governare.',
       teaches: "Gli obblighi dell'alto rischio non si comprano con una certificazione: servono documentazione, governance e diritti di controllo.",
       typicalMistake: "Accontentarsi di \"il fornitore è certificato\" e rinunciare a documentazione, audit e accesso.",
       discussionQuestion: "Cosa deve chiedere una PA prima di acquistare un sistema di IA?",
@@ -1213,6 +1285,7 @@ export const it = {
       estimatedDebriefMinutes: 11
     },
     case_edtech: {
+      takeaway: 'Una piattaforma che profila gli studenti e orienta le decisioni didattiche è alto rischio: va governata, non subita.',
       teaches: "Non ogni piattaforma educativa è vietata, ma se incide su opportunità e percorsi è alto rischio e serve controllo umano effettivo.",
       typicalMistake: "Trattare un punteggio di rischio studenti come neutro e seguirlo al posto del giudizio del docente.",
       discussionQuestion: "Quando una raccomandazione didattica diventa una decisione rilevante per lo studente?",
@@ -1222,6 +1295,7 @@ export const it = {
       estimatedDebriefMinutes: 11
     },
     case_gpai: {
+      takeaway: 'Il modello generale non è il punto: è l\'uso a valle nelle decisioni concrete che richiede governance.',
       teaches: "Un modello generale non è automaticamente vietato né alto rischio: il rischio dipende dall'uso concreto e va governato a valle.",
       typicalMistake: "Credere che un disclaimer basti, o usare il modello per decidere senza verifica né tracciabilità.",
       discussionQuestion: "Chi risponde se un modello generale viene usato in un processo decisionale concreto?",

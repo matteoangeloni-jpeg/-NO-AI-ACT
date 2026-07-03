@@ -60,9 +60,12 @@ export class NormCardScene extends Phaser.Scene {
       emitter.explode(36);
     }
 
-    new Button(this, cx, GAME_HEIGHT - 50, ui.backToMap, () => {
+    const backToMap = (): void => {
       this.cameras.main.fadeOut(250, 0, 0, 0);
       this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('CityMap'));
-    });
+    };
+    new Button(this, cx, GAME_HEIGHT - 50, ui.backToMap, backToMap);
+    // tastiera (v1.1): INVIO chiude la carta norma e torna alla mappa
+    this.input.keyboard?.once('keydown-ENTER', backToMap);
   }
 }

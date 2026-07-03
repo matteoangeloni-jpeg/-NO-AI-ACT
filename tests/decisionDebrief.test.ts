@@ -82,14 +82,21 @@ describe('PR 1E — overlay is strictly presentational / read-only', () => {
     }
   });
 
-  test('adds no analytics / telemetry and opens no URL', () => {
+  test('adds no analytics / telemetry and opens no EXTERNAL URL', () => {
     expect(overlay).not.toContain('AnalyticsSystem');
     expect(overlay).not.toMatch(/\.track\(/);
     expect(overlay).not.toMatch(/\.page\(/);
     expect(overlay).not.toContain('scene.start');
-    expect(overlay).not.toContain('window.open');
+    // v1.1: the overlay may open ONE optional INTERNAL page (same-origin
+    // path passed in via data.linkUrl), always with noopener,noreferrer.
+    // No hardcoded URL and no external host may ever appear here.
     expect(overlay).not.toContain('http');
     expect(overlay).not.toContain('tally');
+    const opens = overlay.match(/window\.open\([^)]*\)/g) ?? [];
+    for (const call of opens) {
+      expect(call).toContain('noopener');
+      expect(call).not.toMatch(/window\.open\(\s*['"`]/); // only the injected path, never a literal
+    }
   });
 
   test('is decoupled: imports no data/systems modules (pure presentation)', () => {

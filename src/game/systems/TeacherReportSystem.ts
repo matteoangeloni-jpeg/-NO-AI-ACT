@@ -1,4 +1,5 @@
 import { PLAYABLE_CASES } from '../data/cases';
+import { TEACHER_RESOURCES } from '../data/concepts';
 import { NORMS } from '../data/norms';
 import type { CaseReport, DifficultyMode, IndicatorState, MissionId, ReportOutcome } from '../data/types';
 import { L, caseText } from '../i18n';
@@ -54,6 +55,8 @@ export interface TeacherReport {
   concepts: string[];
   /** Fascicolo città finale: effetti sistemici qualitativi (v0.5). */
   cityDossier: TeacherDossierLine[];
+  /** Risorse didattiche del sito (v1.1): etichetta — URL assoluto. */
+  resources: string[];
 }
 
 export function buildTeacherReport(input: TeacherReportInput): TeacherReport {
@@ -102,7 +105,10 @@ export function buildTeacherReport(input: TeacherReportInput): TeacherReport {
     completionMinutes: minutes,
     questions,
     concepts: conceptsForCases(completedIds),
-    cityDossier: dossier
+    cityDossier: dossier,
+    resources: TEACHER_RESOURCES.map(
+      (r) => `${t.ui.teacherGuide.links[r.id as keyof typeof t.ui.teacherGuide.links]} — https://www.no-ai-act.eu${r.url}`
+    )
   };
 }
 
@@ -153,6 +159,9 @@ export function teacherReportToText(report: TeacherReport): string {
   report.questions.forEach((q, i) => lines.push(`${i + 1}. ${q}`));
   lines.push('');
   lines.push(`${t.ui.debrief.reviewLabel}: ${t.ui.debrief.reviewLine}`);
+  lines.push('');
+  lines.push(`== ${t.ui.teacherGuide.resourcesLabel} ==`);
+  for (const resource of report.resources) lines.push(`- ${resource}`);
   lines.push('');
   lines.push(t.ui.debrief.privacyNote);
   lines.push(t.ui.footerDisclaimer);

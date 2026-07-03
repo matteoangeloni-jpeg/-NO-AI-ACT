@@ -7,6 +7,8 @@ import { PLAYABLE_CASES } from './cases';
  * tipato. Non cambiano la soluzione dei casi: servono al debrief docente.
  */
 export interface CaseLearningCard {
+  /** Sintesi breve da portare a casa (mostrata nel debrief della decisione, v1.1). */
+  takeaway: string;
   /** Cosa insegna il caso. */
   teaches: string;
   /** Errore tipico del giocatore. */

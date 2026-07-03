@@ -1,5 +1,7 @@
 /** Tipi condivisi del dominio di gioco. */
 
+import type { ConceptId } from './concepts';
+
 export type Classification =
   | 'vietata'
   | 'alto_rischio'
@@ -122,6 +124,12 @@ export interface CaseData {
    * dell'i18n. Opzionale: presente solo nei casi resi più investigativi.
    */
   clueStances?: EvidenceStance[];
+  /**
+   * Concetti AI Act toccati dal caso (v1.1 — tassonomia strutturale in
+   * concepts.ts). Almeno uno per caso; alimentano il debrief della decisione
+   * e il rapporto di apprendimento finale. Non cambiano la soluzione.
+   */
+  concepts: ConceptId[];
   /** true solo per i 3 casi con evento imprevisto nella v0.3. */
   hasIncident: boolean;
   /** Delta indicatori per ciascuna scelta dell'evento (se presente). */
