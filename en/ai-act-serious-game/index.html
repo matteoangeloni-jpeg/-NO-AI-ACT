@@ -52,6 +52,7 @@
     "about": { "@type": "Thing", "name": "European Artificial Intelligence Act (AI Act)" }
   }
   </script>
+  <script>document.documentElement.classList.add('has-js');</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -59,13 +60,45 @@
     <div class="wrap">
       <a class="brand" href="../../en/" aria-label="NO AI ACT — home">NO AI ACT<span class="dot">.</span></a>
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="../../play/?lang=en">Play</a>
-        <a href="../../en/education/">Education</a>
-        <a href="../../en/ai-act-for-teachers/">For teachers</a>
-        <a href="../../en/eu-ai-act-guide/">AI Act guide</a>
-        <a href="../../en/glossary/">Glossary</a>
-        <a href="../../en/privacy-by-design/">Privacy</a>
-        <a class="nav-lang" href="../../ai-act-serious-game/" hreflang="it">IT</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Navigation menu">Menu</button>
+        <ul class="nav-menu" id="site-menu">
+          <li><a href="../../play/?lang=en">Play</a></li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-education">Education</button>
+            <ul class="nav-sub" id="sub-education">
+              <li><a href="../../en/education/">Education hub</a></li>
+              <li><a href="../../en/ai-literacy/">AI literacy</a></li>
+              <li><a href="../../en/digital-citizenship-ai-regulation/">Digital citizenship and AI regulation</a></li>
+              <li><a href="../../en/serious-games-for-ai-regulation/">Serious games for AI regulation</a></li>
+              <li><a href="../../en/faq/">FAQ</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-teachers">Teachers</button>
+            <ul class="nav-sub" id="sub-teachers">
+              <li><a href="../../en/ai-act-for-teachers/">AI Act for teachers</a></li>
+              <li><a href="../../en/classroom-activities/">Classroom activities</a></li>
+              <li><a href="../../en/lesson-plan-introduction-to-the-ai-act/">Introduction lesson plan</a></li>
+              <li><a href="../../en/lesson-plan-risk-based-approach/">Risk-based approach lesson plan</a></li>
+              <li><a href="../../en/lesson-plan-transparency-and-users/">Transparency lesson plan</a></li>
+              <li><a href="../../en/for-educators/">Teacher Mode / Play</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-aiact">AI Act</button>
+            <ul class="nav-sub" id="sub-aiact">
+              <li><a href="../../en/eu-ai-act-guide/">EU AI Act guide</a></li>
+              <li><a href="../../en/ai-act-risk-categories/">Risk categories</a></li>
+              <li><a href="../../en/prohibited-ai-practices/">Prohibited AI practices</a></li>
+              <li><a href="../../en/high-risk-ai-systems/">High-risk AI systems</a></li>
+              <li><a href="../../en/transparency-obligations/">Transparency obligations</a></li>
+              <li><a href="../../en/general-purpose-ai/">General-purpose AI</a></li>
+            </ul>
+          </li>
+          <li><a href="../../en/glossary/">Glossary</a></li>
+          <li><a href="../../en/privacy-by-design/">Privacy</a></li>
+          <li><a class="nav-lang" href="../../ai-act-serious-game/" hreflang="it">IT</a></li>
+        </ul>
       </nav>
     </div>
   </header>
@@ -190,5 +223,6 @@
     </div>
   </footer>
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7c85578fc8ad4488a54c6bc670a10dcf"}'></script><!-- End Cloudflare Web Analytics -->
+  <script type="module" src="/src/scripts/nav.ts"></script>
 </body>
 </html>

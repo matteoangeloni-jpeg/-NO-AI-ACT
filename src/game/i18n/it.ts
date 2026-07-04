@@ -135,10 +135,12 @@ export const it = {
     siteLinks: {
       button: 'SITO E RISORSE ▸',
       title: 'Sito e risorse educative',
-      intro: 'Apri le pagine del sito in una nuova scheda: il gioco resta aperto e nulla viene registrato. Sei sempre libero di uscire dal gioco.',
+      intro: 'Le sezioni del sito, per intento. Si aprono in una nuova scheda: il gioco resta aperto e nulla viene registrato. Sei sempre libero di uscire dal gioco.',
+      play: 'Come funziona il gioco',
       hub: 'Risorse educative',
-      glossary: 'Glossario',
       teacher: 'Risorse per docenti',
+      guide: 'Guida AI Act',
+      glossary: 'Glossario',
       privacy: 'Privacy',
       backToSite: 'Torna al sito',
       close: 'Chiudi'

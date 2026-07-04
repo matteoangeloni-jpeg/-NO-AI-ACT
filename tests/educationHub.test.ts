@@ -277,9 +277,14 @@ describe('education hub — safeguards', () => {
       expect(html).not.toContain('data-tally-open');
       expect(html).not.toContain('tally.so');
       expect(html).not.toMatch(/googletagmanager|google-analytics|gtag\(|dataLayer|facebook\.com\/tr|hotjar|plausible\.io|umami/);
-      // exactly the one pre-existing beacon, nothing else
-      expect([...html.matchAll(/<script[^>]*src=/g)].length).toBe(1);
-      expect(html).toContain('static.cloudflareinsights.com/beacon.min.js');
+      // the only CROSS-ORIGIN script is the pre-existing beacon; first-party
+      // module scripts (e.g. the nav enhancement) are bundled by vite and allowed
+      const srcs = [...html.matchAll(/<script[^>]*src=['"]([^'"]+)['"]/g)].map(([, s]) => s);
+      const external = srcs.filter((s) => /^https?:\/\//.test(s));
+      expect(external).toEqual(['https://static.cloudflareinsights.com/beacon.min.js']);
+      for (const s of srcs) {
+        if (!/^https?:\/\//.test(s)) expect(s.startsWith('/src/') || s.startsWith('/assets/'), s).toBe(true);
+      }
     });
   }
 
