@@ -136,10 +136,12 @@ export const en: Locale = {
     siteLinks: {
       button: 'SITE & RESOURCES ▸',
       title: 'Site & educational resources',
-      intro: 'Open the site pages in a new tab: the game stays open and nothing is recorded. You are always free to leave the game.',
+      intro: 'The site sections, by intent. They open in a new tab: the game stays open and nothing is recorded. You are always free to leave the game.',
+      play: 'How the game works',
       hub: 'Educational hub',
-      glossary: 'Glossary',
       teacher: 'Teacher resources',
+      guide: 'AI Act guide',
+      glossary: 'Glossary',
       privacy: 'Privacy',
       backToSite: 'Back to site',
       close: 'Close'

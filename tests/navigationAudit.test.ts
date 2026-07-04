@@ -70,23 +70,19 @@ describe('global navigation — presence and content', () => {
     }
   });
 
-  it('nav includes Play/Gioca and Education/Risorse with descriptive text', () => {
+  it('nav includes the required top-level groups (structured menu)', () => {
     for (const d of ALL_PUBLIC) {
       const html = read(file(d));
       const nav = html.slice(html.indexOf('class="site-nav"'), html.indexOf('</nav>'));
-      if (isEn(d)) {
-        expect(nav, `${d}: Play`).toContain('>Play<');
-        expect(nav, `${d}: Education`).toContain('>Education<');
-        expect(nav, `${d}: For teachers`).toContain('>For teachers<');
-        expect(nav, `${d}: AI Act guide`).toContain('>AI Act guide<');
-        expect(nav, `${d}: Glossary`).toContain('>Glossary<');
-      } else {
-        expect(nav, `${d}: Gioca`).toContain('>Gioca<');
-        expect(nav, `${d}: Risorse`).toContain('>Risorse<');
-        expect(nav, `${d}: Docenti`).toContain('>Docenti<');
-        expect(nav, `${d}: Guida AI Act`).toContain('>Guida AI Act<');
-        expect(nav, `${d}: Glossario`).toContain('>Glossario<');
-      }
+      const top = isEn(d)
+        ? ['>Play<', '>Education<', '>Teachers<', '>AI Act<', '>Glossary<', '>Privacy<']
+        : ['>Gioca<', '>Risorse<', '>Docenti<', '>AI Act<', '>Glossario<', '>Privacy<'];
+      for (const t of top) expect(nav, `${d}: ${t}`).toContain(t);
+      // descriptive submenu items are present too
+      const subs = isEn(d)
+        ? ['>Education hub<', '>AI Act for teachers<', '>EU AI Act guide<']
+        : ['>Hub educativo<', '>AI Act per docenti<', '>Guida AI Act<'];
+      for (const s of subs) expect(nav, `${d}: ${s}`).toContain(s);
     }
   });
 
@@ -257,10 +253,12 @@ describe('SEO and privacy safeguards preserved', () => {
 describe('navigation CSS — responsive, accessible', () => {
   const css = read('src/styles/landing.css');
 
-  it('site-nav and topbar wrap to avoid horizontal overflow on mobile', () => {
-    expect(css).toMatch(/\.site-nav\s*\{[^}]*flex-wrap:\s*wrap/s);
-    expect(css).toMatch(/\.topbar \.wrap\s*\{[^}]*flex-wrap:\s*wrap/s);
+  it('nav wraps and provides a mobile drawer to avoid horizontal overflow', () => {
+    expect(css).toMatch(/\.nav-menu\s*\{[^}]*flex-wrap:\s*wrap/s);
     expect(css).toContain('@media (max-width: 640px)');
+    // mobile drawer + toggle shown only under has-js
+    expect(css).toContain('.has-js .nav-toggle');
+    expect(css).toContain('.has-js .site-nav.open .nav-menu');
   });
 
   it('focus-visible styling and skip link exist', () => {

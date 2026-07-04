@@ -38,6 +38,12 @@
       {
         "@type": "ListItem",
         "position": 2,
+        "name": "Education hub",
+        "item": "https://www.no-ai-act.eu/en/education/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
         "name": "EU AI Act guide",
         "item": "https://www.no-ai-act.eu/en/eu-ai-act-guide/"
       }
@@ -60,6 +66,7 @@
     }
   }
   </script>
+  <script>document.documentElement.classList.add('has-js');</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -67,18 +74,60 @@
     <div class="wrap">
       <a class="brand" href="../../en/" aria-label="NO AI ACT — home">NO AI ACT<span class="dot">.</span></a>
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="../../play/?lang=en">Play</a>
-        <a href="../../en/education/">Education</a>
-        <a href="../../en/ai-act-for-teachers/">For teachers</a>
-        <a href="../../en/eu-ai-act-guide/" aria-current="page">AI Act guide</a>
-        <a href="../../en/glossary/">Glossary</a>
-        <a href="../../en/privacy-by-design/">Privacy</a>
-        <a class="nav-lang" href="../../guida-ai-act/" hreflang="it">IT</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Navigation menu">Menu</button>
+        <ul class="nav-menu" id="site-menu">
+          <li><a href="../../play/?lang=en">Play</a></li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-education">Education</button>
+            <ul class="nav-sub" id="sub-education">
+              <li><a href="../../en/education/">Education hub</a></li>
+              <li><a href="../../en/ai-literacy/">AI literacy</a></li>
+              <li><a href="../../en/digital-citizenship-ai-regulation/">Digital citizenship and AI regulation</a></li>
+              <li><a href="../../en/serious-games-for-ai-regulation/">Serious games for AI regulation</a></li>
+              <li><a href="../../en/faq/">FAQ</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-teachers">Teachers</button>
+            <ul class="nav-sub" id="sub-teachers">
+              <li><a href="../../en/ai-act-for-teachers/">AI Act for teachers</a></li>
+              <li><a href="../../en/classroom-activities/">Classroom activities</a></li>
+              <li><a href="../../en/lesson-plan-introduction-to-the-ai-act/">Introduction lesson plan</a></li>
+              <li><a href="../../en/lesson-plan-risk-based-approach/">Risk-based approach lesson plan</a></li>
+              <li><a href="../../en/lesson-plan-transparency-and-users/">Transparency lesson plan</a></li>
+              <li><a href="../../en/for-educators/">Teacher Mode / Play</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <button class="nav-sub-btn is-current" type="button" aria-expanded="false" aria-controls="sub-aiact">AI Act</button>
+            <ul class="nav-sub" id="sub-aiact">
+              <li><a href="../../en/eu-ai-act-guide/" aria-current="page">EU AI Act guide</a></li>
+              <li><a href="../../en/ai-act-risk-categories/">Risk categories</a></li>
+              <li><a href="../../en/prohibited-ai-practices/">Prohibited AI practices</a></li>
+              <li><a href="../../en/high-risk-ai-systems/">High-risk AI systems</a></li>
+              <li><a href="../../en/transparency-obligations/">Transparency obligations</a></li>
+              <li><a href="../../en/general-purpose-ai/">General-purpose AI</a></li>
+            </ul>
+          </li>
+          <li><a href="../../en/glossary/">Glossary</a></li>
+          <li><a href="../../en/privacy-by-design/">Privacy</a></li>
+          <li><a class="nav-lang" href="../../guida-ai-act/" hreflang="it">IT</a></li>
+        </ul>
       </nav>
     </div>
   </header>
 
   <main id="main">
+
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <div class="wrap">
+        <ol>
+          <li><a href="../../en/">NO AI ACT</a></li>
+          <li><a href="../../en/education/">Education hub</a></li>
+          <li aria-current="page">EU AI Act guide</li>
+        </ol>
+      </div>
+    </nav>
     <section class="hero" aria-labelledby="page-title">
       <div class="wrap">
         <p class="kicker">Plain language · Educational guide</p>
@@ -96,6 +145,24 @@
         <span class="inbrief-label">In brief</span>
         <p>This page explains the EU AI Act (Regulation (EU) 2024/1689) in plain language for learners: its risk-based approach, prohibited practices, high-risk systems, transparency duties, general-purpose AI, human oversight and data governance. It is a simplified educational overview, not legal advice — for the binding text, see EUR-Lex. Use it alongside the serious game to make the rules concrete.</p>
       </div>
+    </div>
+
+    <div class="wrap">
+      <nav class="page-toc" aria-label="In this page">
+        <p class="toc-label">In this page</p>
+        <ul>
+          <li><a href="#what-title">What the AI Act is</a></li>
+          <li><a href="#risk-title">The risk-based approach</a></li>
+          <li><a href="#prohibited-title">Prohibited practices</a></li>
+          <li><a href="#high-title">High-risk systems</a></li>
+          <li><a href="#transparency-title">Transparency obligations</a></li>
+          <li><a href="#gpai-title">General-purpose AI</a></li>
+          <li><a href="#oversight-title">Human oversight</a></li>
+          <li><a href="#data-title">Data governance and documentation</a></li>
+          <li><a href="#rights-title">The fundamental-rights frame</a></li>
+          <li><a href="#sources-title">Read the real thing</a></li>
+        </ul>
+      </nav>
     </div>
 
     <section aria-labelledby="what-title">
@@ -180,5 +247,6 @@
     </div>
   </footer>
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7c85578fc8ad4488a54c6bc670a10dcf"}'></script><!-- End Cloudflare Web Analytics -->
+  <script type="module" src="/src/scripts/nav.ts"></script>
 </body>
 </html>

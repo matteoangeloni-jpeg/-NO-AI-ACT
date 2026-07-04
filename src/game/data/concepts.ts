@@ -75,25 +75,33 @@ export function conceptLink(id: ConceptId, lang: LanguageCode): string {
  * `home` porta alla landing della lingua; gli altri alle pagine dell'hub.
  */
 export interface SiteLinkSet {
+  /** "come funziona il gioco" — rappresenta il gruppo Play nell'overlay. */
+  play: string;
   hub: string;
-  glossary: string;
   teacher: string;
+  /** guida all'AI Act — gruppo AI Act. */
+  guide: string;
+  glossary: string;
   privacy: string;
   home: string;
 }
 
 export const SITE_LINKS: Record<LanguageCode, SiteLinkSet> = {
   it: {
+    play: '../come-funziona/',
     hub: '../educazione/',
-    glossary: '../glossario/',
     teacher: '../ai-act-per-docenti/',
+    guide: '../guida-ai-act/',
+    glossary: '../glossario/',
     privacy: '../privacy-by-design/',
     home: '../'
   },
   en: {
+    play: '../en/how-it-works/',
     hub: '../en/education/',
-    glossary: '../en/glossary/',
     teacher: '../en/ai-act-for-teachers/',
+    guide: '../en/eu-ai-act-guide/',
+    glossary: '../en/glossary/',
     privacy: '../en/privacy-by-design/',
     home: '../en/'
   }

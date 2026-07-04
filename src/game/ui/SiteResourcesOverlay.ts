@@ -51,8 +51,8 @@ export class SiteResourcesOverlay {
       scene.add.rectangle(cx, cy, GAME_WIDTH, GAME_HEIGHT, 0x000000, 0.82).setInteractive().on('pointerdown', () => this.close())
     );
 
-    const panelW = 720;
-    const panelH = 360;
+    const panelW = 760;
+    const panelH = 440;
     container.add(new Panel(scene, cx, cy, panelW, panelH));
     container.add(scene.add.rectangle(cx, cy, panelW, panelH, 0x000000, 0.001).setInteractive());
 
@@ -64,19 +64,22 @@ export class SiteResourcesOverlay {
     y += 28;
     const intro = scene.add.text(left, y, ui.intro, textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: wrap }, lineSpacing: 4 }));
     container.add(intro);
-    y += intro.height + 22;
+    y += intro.height + 34;
 
-    // quattro risorse dell'hub: pagine interne, nuova scheda (il gioco resta aperto)
+    // sezioni del sito raggruppate per intento: Play / Education / Teachers /
+    // AI Act / Glossary / Privacy. Pagine interne, nuova scheda: il gioco resta aperto.
     const resources: { label: string; url: string }[] = [
+      { label: ui.play, url: links.play },
       { label: ui.hub, url: links.hub },
-      { label: ui.glossary, url: links.glossary },
       { label: ui.teacher, url: links.teacher },
+      { label: ui.guide, url: links.guide },
+      { label: ui.glossary, url: links.glossary },
       { label: ui.privacy, url: links.privacy }
     ];
     const colW = wrap / 2;
     resources.forEach((res, i) => {
       const bx = left + colW / 2 + (i % 2) * colW;
-      const by = y + Math.floor(i / 2) * 56;
+      const by = y + Math.floor(i / 2) * 52;
       container.add(
         new Button(scene, bx, by, res.label, () => window.open(res.url, '_blank', 'noopener,noreferrer'), {
           width: colW - 20,
@@ -86,7 +89,7 @@ export class SiteResourcesOverlay {
         })
       );
     });
-    y += 2 * 56 + 12;
+    y += 3 * 52 + 12;
 
     // "torna al sito": naviga nella stessa scheda alla landing della lingua
     container.add(

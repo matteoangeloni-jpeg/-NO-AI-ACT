@@ -44,6 +44,7 @@
     ]
   }
   </script>
+  <script>document.documentElement.classList.add('has-js');</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Vai al contenuto</a>
@@ -51,13 +52,43 @@
     <div class="wrap">
       <a class="brand" href="../" aria-label="NO AI ACT — home">NO AI ACT<span class="dot">.</span></a>
       <nav class="site-nav" aria-label="Navigazione principale">
-        <a href="../play/?lang=it">Gioca</a>
-        <a href="../educazione/">Risorse</a>
-        <a href="../ai-act-per-docenti/">Docenti</a>
-        <a href="../guida-ai-act/">Guida AI Act</a>
-        <a href="../glossario/">Glossario</a>
-        <a href="../privacy-by-design/">Privacy</a>
-        <a class="nav-lang" href="../en/privacy-conscious-learning/" hreflang="en">EN</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu di navigazione">Menu</button>
+        <ul class="nav-menu" id="site-menu">
+          <li><a href="../play/?lang=it">Gioca</a></li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-risorse">Risorse</button>
+            <ul class="nav-sub" id="sub-risorse">
+              <li><a href="../educazione/">Hub educativo</a></li>
+              <li><a href="../alfabetizzazione-ai/">Alfabetizzazione AI</a></li>
+              <li><a href="../serious-game-regolazione-ai/">Serious game e regolazione AI</a></li>
+              <li><a href="../#faq-title">FAQ</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-docenti">Docenti</button>
+            <ul class="nav-sub" id="sub-docenti">
+              <li><a href="../ai-act-per-docenti/">AI Act per docenti</a></li>
+              <li><a href="../attivita-didattiche/">Attività didattiche</a></li>
+              <li><a href="../lezione-introduzione-ai-act/">Lezione introduttiva</a></li>
+              <li><a href="../per-docenti/">Modalità docente / gioco</a></li>
+              <li><a href="../#playtest-title">Playtest</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-aiact">AI Act</button>
+            <ul class="nav-sub" id="sub-aiact">
+              <li><a href="../guida-ai-act/">Guida AI Act</a></li>
+              <li><a href="../categorie-rischio-ai-act/">Categorie di rischio</a></li>
+              <li><a href="../pratiche-vietate-ai-act/">Pratiche vietate</a></li>
+              <li><a href="../sistemi-ai-ad-alto-rischio/">Sistemi AI ad alto rischio</a></li>
+              <li><a href="../obblighi-trasparenza-ai-act/">Obblighi di trasparenza</a></li>
+              <li><a href="../ai-generativa-e-gpai/">AI generativa e GPAI</a></li>
+            </ul>
+          </li>
+          <li><a href="../glossario/">Glossario</a></li>
+          <li><a href="../privacy-by-design/">Privacy</a></li>
+          <li><a class="nav-lang" href="../en/privacy-conscious-learning/" hreflang="en">EN</a></li>
+        </ul>
       </nav>
     </div>
   </header>
@@ -134,5 +165,6 @@
     </div>
   </footer>
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7c85578fc8ad4488a54c6bc670a10dcf"}'></script><!-- End Cloudflare Web Analytics -->
+  <script type="module" src="/src/scripts/nav.ts"></script>
 </body>
 </html>
