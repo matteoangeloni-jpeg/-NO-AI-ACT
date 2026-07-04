@@ -1,0 +1,93 @@
+{
+  "_comment": "Central social-metadata source of truth. Consumed by scripts/social/inject-meta.py (stamps OG/Twitter into every page) and tests/socialMeta.test.ts (verifies the output). EN locale is en_GB throughout, to match the pre-existing landing metadata.",
+  "siteName": "NO AI ACT",
+  "baseUrl": "https://www.no-ai-act.eu/",
+  "imageDir": "/assets/social/",
+  "imageWidth": 1200,
+  "imageHeight": 630,
+  "localeIt": "it_IT",
+  "localeEn": "en_GB",
+  "categories": {
+    "default": {
+      "file": "no-ai-act-og.png",
+      "altIt": "Copertina di NO AI ACT: serious game educativo gratuito sull'AI Act europeo.",
+      "altEn": "NO AI ACT cover: free educational serious game on the EU AI Act."
+    },
+    "en-default": {
+      "file": "no-ai-act-en-og.png",
+      "altIt": "Copertina di NO AI ACT: serious game educativo gratuito sull'AI Act europeo.",
+      "altEn": "NO AI ACT cover: free educational serious game on the EU AI Act."
+    },
+    "play": {
+      "file": "no-ai-act-play-og.png",
+      "altIt": "NO AI ACT: gioca al serious game investigativo sull'AI Act europeo.",
+      "altEn": "NO AI ACT: play the investigative serious game about the EU AI Act."
+    },
+    "education": {
+      "file": "no-ai-act-education-og.png",
+      "altIt": "NO AI ACT: risorse educative sull'AI Act per docenti e studenti.",
+      "altEn": "NO AI ACT: education hub on the EU AI Act for teachers and students."
+    },
+    "guide": {
+      "file": "no-ai-act-guide-og.png",
+      "altIt": "NO AI ACT: guida in linguaggio semplice all'AI Act europeo.",
+      "altEn": "NO AI ACT: plain-language guide to the EU AI Act."
+    },
+    "glossary": {
+      "file": "no-ai-act-glossary-og.png",
+      "altIt": "NO AI ACT: glossario dei termini chiave dell'AI Act europeo.",
+      "altEn": "NO AI ACT: glossary of key EU AI Act terms."
+    }
+  },
+  "overrides": {
+    "play": {
+      "ogTitle": "Gioca a NO AI ACT — il serious game sull'AI Act europeo",
+      "ogDescription": "Apri i fascicoli di 11 sistemi di IA, esamina le prove e classifica il rischio secondo l'AI Act europeo. Gratis, senza account, nel browser."
+    }
+  },
+  "pageCategory": {
+    "": "default",
+    "come-funziona": "default",
+    "ai-act-serious-game": "default",
+    "privacy-by-design": "default",
+    "alfabetizzazione-ai": "default",
+    "apprendimento-privacy-consapevole": "default",
+    "serious-game-regolazione-ai": "default",
+    "educazione": "education",
+    "ai-act-per-docenti": "education",
+    "per-docenti": "education",
+    "attivita-didattiche": "education",
+    "lezione-introduzione-ai-act": "education",
+    "guida-ai-act": "guide",
+    "categorie-rischio-ai-act": "guide",
+    "pratiche-vietate-ai-act": "guide",
+    "sistemi-ai-ad-alto-rischio": "guide",
+    "obblighi-trasparenza-ai-act": "guide",
+    "ai-generativa-e-gpai": "guide",
+    "glossario": "glossary",
+    "en": "en-default",
+    "en/how-it-works": "en-default",
+    "en/ai-act-serious-game": "en-default",
+    "en/privacy-by-design": "en-default",
+    "en/ai-literacy": "en-default",
+    "en/privacy-conscious-learning": "en-default",
+    "en/serious-games-for-ai-regulation": "en-default",
+    "en/digital-citizenship-ai-regulation": "en-default",
+    "en/faq": "en-default",
+    "en/education": "education",
+    "en/ai-act-for-teachers": "education",
+    "en/for-educators": "education",
+    "en/classroom-activities": "education",
+    "en/lesson-plan-introduction-to-the-ai-act": "education",
+    "en/lesson-plan-risk-based-approach": "education",
+    "en/lesson-plan-transparency-and-users": "education",
+    "en/eu-ai-act-guide": "guide",
+    "en/ai-act-risk-categories": "guide",
+    "en/prohibited-ai-practices": "guide",
+    "en/high-risk-ai-systems": "guide",
+    "en/transparency-obligations": "guide",
+    "en/general-purpose-ai": "guide",
+    "en/glossary": "glossary",
+    "play": "play"
+  }
+}
