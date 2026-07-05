@@ -43,22 +43,35 @@ enforce all of it; run `npm test` before opening any feature PR.
 
 ## Search Console / Sitemap readiness
 - Sitemap: **`https://www.no-ai-act.eu/sitemap.xml`** · Robots: **`https://www.no-ai-act.eu/robots.txt`**
-- `tests/sitemapGscReadiness.test.ts` enforces (build-independent, from source): valid, well-formed XML with the `sitemaps.org/schemas/sitemap/0.9` namespace; exactly 42 absolute-HTTPS canonical public URLs (no `http://`, localhost, `github.io`, `.pages.dev`, query strings, hashes, duplicates, empty locs, assets, or `/play/`); every URL maps to a real page whose **self-canonical equals the sitemap URL**; `robots.txt` advertises the sitemap and blocks nothing.
+- The sitemap starts **exactly** with `<?xml version="1.0" encoding="UTF-8"?>` followed by `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`.
+- `tests/sitemapGscReadiness.test.ts` enforces (build-independent, from source): valid, well-formed XML with the `sitemaps.org/schemas/sitemap/0.9` namespace; exactly 42 absolute-HTTPS canonical public URLs — all on the **`https://www.no-ai-act.eu/` www host**, never `http://`, never the apex `https://no-ai-act.eu/`, no localhost / `github.io` / `.pages.dev`, no query strings, hashes, duplicates, empty locs, assets, or `/play/` — every URL maps to a real page whose **self-canonical equals the sitemap URL**; `robots.txt` advertises **exactly one** sitemap (`Sitemap: https://www.no-ai-act.eu/sitemap.xml`), never the stale `http://` or apex variant, and blocks nothing.
 - **Live check after deploy** (opt-in — needs external egress, so it is not in CI):
   - `node scripts/seo/check-sitemap-live.mjs`
   - `node scripts/seo/check-sitemap-live.mjs https://www.no-ai-act.eu`
-  It verifies the deployed `/sitemap.xml` is 200, real XML (not a Cloudflare challenge / GitHub 404 / generic HTML), XML content-type, not redirected; `/robots.txt` is 200 with the sitemap directive; and a sample of sitemap URLs are 200, not `noindex`, self-canonical.
+  It prints a diagnostic block for `/sitemap.xml` — HTTP status, final (redirected) URL, content-type, whether the body starts with the XML declaration, whether `<urlset>` is present, the `<loc>` count, any `http://` or non-www URLs, whether a **Googlebot-like user-agent gets the same XML** (bot-challenge detector), and whether the body looks like HTML / a Cloudflare challenge / a GitHub Pages 404 — then checks `/robots.txt` (200 + the exact HTTPS www directive, no stale `http://` variant) and samples sitemap URLs (200, not `noindex`, self-canonical).
 
 ### Post-deploy owner checklist
 1. GitHub Pages deploy is green.
 2. Cloudflare → **Purge Everything**.
 3. Open `https://www.no-ai-act.eu/sitemap.xml` in a browser (should render XML, no login).
 4. Run `node scripts/seo/check-sitemap-live.mjs` → **PASS**.
-5. Submit `sitemap.xml` in Google Search Console.
-6. If GSC says **"Couldn't fetch"**, wait and retry *after* the live script passes.
+5. Submit the sitemap in Google Search Console (see the Domain-property note below).
+6. If GSC says **"Couldn't fetch" / "Impossibile recuperare"**, wait and retry *after* the live script passes.
 
-### If Search Console reports "Couldn't fetch"
-- The submitted path is exactly `sitemap.xml`; it opens publicly without login; HTTP 200; response is **XML, not HTML**; Cloudflare is not serving a challenge or a cached error; `robots.txt` points to the sitemap; the sitemap has only canonical public URLs, no `/play/`, no query strings, no redirects; **Cloudflare cache has been purged** after the deploy.
+### Google Search Console — Domain property (`no-ai-act.eu`)
+The active property is the **Domain property** `sc-domain:no-ai-act.eu`, which covers every scheme/subdomain. Submit **only one** sitemap URL:
+
+> `https://www.no-ai-act.eu/sitemap.xml`
+
+**Delete any stale/duplicate submissions**, e.g. `http://www.no-ai-act.eu/sitemap.xml`. Do **not** keep submitting HTTP + HTTPS (or www + apex) variants of the same file — duplicate submissions do not help fetching and just create noise.
+
+### If Search Console still says "Impossibile recuperare" while the sitemap opens as XML
+The file itself is fine (200, real XML, correct namespace, 42 canonical URLs) — the fetch is being blocked or cached upstream. Work the deploy path, not the file:
+- **Purge Cloudflare** (Purge Everything) so a stale/error response isn't cached.
+- Check **Cloudflare → Security → Events** for `/sitemap.xml` — confirm Googlebot is **not** being challenged or blocked (Bot Fight Mode / a WAF rule / a managed challenge can trigger "Couldn't fetch").
+- Confirm a Googlebot-like fetch returns the XML (the live script's *"Googlebot gets same XML"* line).
+- **Wait and retry** — GSC re-fetches on its own schedule; a "Couldn't fetch" can clear hours later with no further action.
+- **Do not** keep re-submitting duplicate HTTP/HTTPS or www/apex variants.
 
 ## Before a v1.2 feature PR — checklist
 1. `npm run typecheck` — clean.

@@ -40,11 +40,23 @@ describe('sitemap — only canonical public HTTPS URLs', () => {
     expect(LOCS.length).toBe(42);
   });
 
-  it('every URL is absolute https on the production domain, no leaks', () => {
+  it('every URL is absolute https on the www production domain, no leaks', () => {
     for (const l of LOCS) {
       expect(l.startsWith(SITE), l).toBe(true);
       expect(l).not.toMatch(/^http:\/\//);
+      // must be the canonical www host, never the apex (non-www) variant
+      expect(l, `${l}: non-www apex host`).not.toMatch(/^https:\/\/no-ai-act\.eu\//);
       expect(l).not.toMatch(/localhost|127\.0\.0\.1|github\.io|\.pages\.dev|:\d{2,5}\//);
+    }
+  });
+
+  it('no <loc> uses http:// or the apex host (only the 0.9 namespace is http)', () => {
+    // The single legitimate http:// in the file is the sitemaps.org namespace URI.
+    expect((SITEMAP.match(/http:\/\//g) ?? []).length).toBe(1);
+    expect(SITEMAP).toContain('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"');
+    for (const l of LOCS) {
+      expect(l).not.toContain('http://');
+      expect(l).not.toContain('https://no-ai-act.eu');
     }
   });
 
@@ -114,8 +126,15 @@ describe('sitemap — URL ↔ file ↔ canonical consistency', () => {
 
 describe('robots.txt advertises the sitemap and does not block public pages', () => {
   const robots = read('public/robots.txt');
-  it('exists with the exact Sitemap directive', () => {
+  it('exists with the exact HTTPS www Sitemap directive', () => {
     expect(robots).toMatch(/^Sitemap:\s*https:\/\/www\.no-ai-act\.eu\/sitemap\.xml\s*$/m);
+  });
+  it('advertises exactly one sitemap, never the http:// or apex variant', () => {
+    const directives = [...robots.matchAll(/^Sitemap:\s*(\S+)\s*$/gim)].map(([, v]) => v);
+    expect(directives).toEqual(['https://www.no-ai-act.eu/sitemap.xml']);
+    // GSC "duplicate submission" hygiene: the stale variants must never appear.
+    expect(robots).not.toContain('Sitemap: http://www.no-ai-act.eu/sitemap.xml');
+    expect(robots).not.toContain('Sitemap: https://no-ai-act.eu/sitemap.xml');
   });
   it('does not disallow "/" or any public page', () => {
     const disallows = [...robots.matchAll(/^Disallow:\s*(.*)$/gim)].map(([, v]) => v.trim()).filter(Boolean);
