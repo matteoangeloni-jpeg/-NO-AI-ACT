@@ -41,6 +41,25 @@ enforce all of it; run `npm test` before opening any feature PR.
   two landings. The post-game form opens on an explicit user click and carries
   no gameplay data. Do not change the IDs or widen the boundary.
 
+## Search Console / Sitemap readiness
+- Sitemap: **`https://www.no-ai-act.eu/sitemap.xml`** · Robots: **`https://www.no-ai-act.eu/robots.txt`**
+- `tests/sitemapGscReadiness.test.ts` enforces (build-independent, from source): valid, well-formed XML with the `sitemaps.org/schemas/sitemap/0.9` namespace; exactly 42 absolute-HTTPS canonical public URLs (no `http://`, localhost, `github.io`, `.pages.dev`, query strings, hashes, duplicates, empty locs, assets, or `/play/`); every URL maps to a real page whose **self-canonical equals the sitemap URL**; `robots.txt` advertises the sitemap and blocks nothing.
+- **Live check after deploy** (opt-in — needs external egress, so it is not in CI):
+  - `node scripts/seo/check-sitemap-live.mjs`
+  - `node scripts/seo/check-sitemap-live.mjs https://www.no-ai-act.eu`
+  It verifies the deployed `/sitemap.xml` is 200, real XML (not a Cloudflare challenge / GitHub 404 / generic HTML), XML content-type, not redirected; `/robots.txt` is 200 with the sitemap directive; and a sample of sitemap URLs are 200, not `noindex`, self-canonical.
+
+### Post-deploy owner checklist
+1. GitHub Pages deploy is green.
+2. Cloudflare → **Purge Everything**.
+3. Open `https://www.no-ai-act.eu/sitemap.xml` in a browser (should render XML, no login).
+4. Run `node scripts/seo/check-sitemap-live.mjs` → **PASS**.
+5. Submit `sitemap.xml` in Google Search Console.
+6. If GSC says **"Couldn't fetch"**, wait and retry *after* the live script passes.
+
+### If Search Console reports "Couldn't fetch"
+- The submitted path is exactly `sitemap.xml`; it opens publicly without login; HTTP 200; response is **XML, not HTML**; Cloudflare is not serving a challenge or a cached error; `robots.txt` points to the sitemap; the sitemap has only canonical public URLs, no `/play/`, no query strings, no redirects; **Cloudflare cache has been purged** after the deploy.
+
 ## Before a v1.2 feature PR — checklist
 1. `npm run typecheck` — clean.
 2. `npm test` — full suite green (includes all guardrails above).
