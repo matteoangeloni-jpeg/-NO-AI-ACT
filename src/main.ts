@@ -13,5 +13,9 @@ import { StateManager } from './game/systems/StateManager';
 const requestedLang = languageFromQuery(window.location.search);
 if (requestedLang) StateManager.setLanguage(requestedLang);
 
-new Phaser.Game(gameConfig);
+const game = new Phaser.Game(gameConfig);
+// Debug/test handle only — no data leaves the browser. Used by the opt-in
+// layout smoke to read real canvas-object bounds (buttons are drawn on the
+// canvas, not the DOM, so bounding-box checks need the live Phaser instance).
+(window as unknown as { game?: Phaser.Game }).game = game;
 initMobileGuard();

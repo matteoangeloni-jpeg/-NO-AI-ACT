@@ -22,16 +22,24 @@ export class BriefingScene extends Phaser.Scene {
     this.add.text(cx - 400, 112, L().briefing.sub, textStyle(12, COLOR_STR.paperDim));
 
     const body = new TypewriterText(this, cx - 400, 150, 15, COLOR_STR.paper, 800);
-    // riga di onboarding: cosa aspettarsi, rivelata quando il testo è finito
-    const how = this.add
-      .text(cx - 400, GAME_HEIGHT - 150, L().briefing.how, textStyle(12.5, COLOR_STR.accent, { wordWrap: { width: 800 }, lineSpacing: 4, fontStyle: 'italic' }))
-      .setAlpha(0);
-    const btn = new Button(this, cx, GAME_HEIGHT - 90, L().briefing.cta, () => {
+    // La CTA vive dentro il pannello (fondo a 640), con margine dal bordo: mai
+    // a cavallo del bordo del canvas né sotto il testo di onboarding.
+    const btnY = 600;
+    const btn = new Button(this, cx, btnY, L().briefing.cta, () => {
       StateManager.setBriefingSeen();
       this.cameras.main.fadeOut(300, 0, 0, 0);
       this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('CityMap'));
     }, { width: 340 });
     btn.setVisible(false);
+
+    // riga di onboarding: cosa aspettarsi, rivelata quando il testo è finito.
+    // Ancorata SOPRA la CTA usando la sua altezza misurata, così le copie lunghe
+    // IT/EN non si sovrappongono mai al bottone (prima erano a y fisse in
+    // collisione).
+    const how = this.add
+      .text(cx - 400, 0, L().briefing.how, textStyle(12.5, COLOR_STR.accent, { wordWrap: { width: 800 }, lineSpacing: 4, fontStyle: 'italic' }))
+      .setAlpha(0);
+    how.setY(btnY - btn.height / 2 - 16 - how.height);
 
     body.write(L().briefing.body, () => {
       btn.setVisible(true);

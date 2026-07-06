@@ -53,7 +53,7 @@ await page.goto(`${BASE}/play/?lang=en`, { waitUntil: 'load' });
 await page.waitForTimeout(9000); // Phaser boot
 
 await click(640, 390, 1200);            // NEW GAME
-await click(640, 300, 500); await click(640, 630, 1200); // briefing -> city map
+await click(640, 300, 500); await click(640, 600, 1200); // briefing -> city map (CTA now inside the panel at y≈600)
 await click(Math.round(1280 * 0.40), Math.round(720 * 0.18), 800); // welfare marker (case_credito)
 await click(640, 400, 400); await click(640, 650, 1000); // -> evidence
 const clues = [[250, 236], [640, 236], [1030, 236], [250, 482], [640, 482], [1030, 482]];

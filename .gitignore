@@ -2,3 +2,6 @@ node_modules/
 dist/
 *.local
 .DS_Store
+
+# Opt-in layout-smoke screenshots (local artifacts, not committed)
+scripts/smoke/out/
