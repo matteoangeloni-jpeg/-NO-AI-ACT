@@ -62,12 +62,14 @@ describe('education hub — architecture', () => {
     for (const d of HUB) expect(cfg, d).toContain(`'${d}/index.html'`);
   });
 
-  it('sitemap contains exactly the public pages, /play/ and query strings excluded', () => {
-    const sitemap = read('public/sitemap.xml');
-    const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, l]) => l);
+  it('child sitemaps contain exactly the public pages, /play/ and query strings excluded', () => {
+    // /sitemap.xml is a sitemap index → the public URLs live in the language children.
+    const it = read('public/sitemap-it.xml');
+    const en = read('public/sitemap-en.xml');
+    const locs = [it, en].flatMap((sm) => [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, l]) => l));
     expect(locs.length).toBe(ALL_PUBLIC.length);
     for (const d of ALL_PUBLIC) expect(locs, d).toContain(url(d));
-    expect(sitemap).not.toContain('/play/');
+    for (const sm of [read('public/sitemap.xml'), it, en]) expect(sm).not.toContain('/play/');
     for (const l of locs) {
       expect(l).not.toContain('?');
       expect(l.startsWith(SITE)).toBe(true);

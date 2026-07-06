@@ -183,9 +183,11 @@ describe('SEO / policy invariants preserved', () => {
     const play = read('play/index.html');
     expect(play).toContain('content="noindex, follow"');
     expect(play).toContain('rel="canonical" href="https://www.no-ai-act.eu/play/"');
-    const sitemap = read('public/sitemap.xml');
-    expect(sitemap).not.toContain('/play/');
-    expect((sitemap.match(/<loc>/g) ?? []).length).toBe(42);
+    // /sitemap.xml is a sitemap index; the 42 URLs live in the language children.
+    const it = read('public/sitemap-it.xml');
+    const en = read('public/sitemap-en.xml');
+    for (const sm of [read('public/sitemap.xml'), it, en]) expect(sm).not.toContain('/play/');
+    expect([it, en].reduce((n, sm) => n + (sm.match(/<loc>/g) ?? []).length, 0)).toBe(42);
   });
 
   it('Tally IDs unchanged', () => {
