@@ -11,6 +11,7 @@ import { L, fmt, nextLanguage } from '../i18n';
 import { MISSION_IDS } from '../data/missions';
 import type { DifficultyMode } from '../data/types';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { footerBaselineY, layoutVStack } from '../ui/layout';
 
 export class TitleScene extends Phaser.Scene {
   private titleText!: Phaser.GameObjects.Text;
@@ -37,39 +38,52 @@ export class TitleScene extends Phaser.Scene {
     }
 
     const hasSave = SaveSystem.hasSave();
-    let y = 390;
-    if (hasSave && StateManager.completedCount() > 0) {
-      new Button(this, cx, y, L().ui.menu.continue, () => this.startGame(false));
-      y += 62;
+    const showContinue = hasSave && StateManager.completedCount() > 0;
+    // Il giocatore non resta mai intrappolato nel gioco: risorse, glossario,
+    // docenti, privacy e ritorno al sito vivono nell'overlay collegato qui.
+    const siteLinks = new SiteResourcesOverlay(this);
+
+    // Costruiamo prima le specifiche (altezza + costruttore) e poi calcoliamo le
+    // y con un layout verticale che si adatta al numero di voci: così RESET e il
+    // disclaimer non finiscono mai sotto il bordo o sovrapposti, né con save né
+    // senza. Niente più y hardcoded che si accavallano quando appare CONTINUA.
+    const MENU_H = 48;
+    const RESET_H = 40;
+    const specs: Array<{ height: number; build: (y: number) => void }> = [];
+    if (showContinue) {
+      specs.push({ height: MENU_H, build: (y) => new Button(this, cx, y, L().ui.menu.continue, () => this.startGame(false)) });
     }
-    new Button(this, cx, y, L().ui.menu.newGame, () => {
+    specs.push({ height: MENU_H, build: (y) => new Button(this, cx, y, L().ui.menu.newGame, () => {
       if (hasSave) StateManager.newGame();
       this.startGame(true);
-    });
-    y += 62;
-    new Button(this, cx, y, L().ui.menu.archive, () => this.scene.start('Archive', { from: 'Title' }), { variant: 'ghost' });
-    y += 62;
-    new Button(this, cx, y, L().ui.menu.credits, () => this.scene.start('Credits'), { variant: 'ghost' });
-    y += 62;
-    // collegamento gioco→sito educativo: risorse, glossario, docenti, privacy,
-    // torna al sito. Il giocatore non resta mai intrappolato nel gioco.
-    const siteLinks = new SiteResourcesOverlay(this);
-    new Button(this, cx, y, L().ui.siteLinks.button, () => siteLinks.toggle(), { variant: 'ghost' });
-    y += 62;
+    }) });
+    specs.push({ height: MENU_H, build: (y) => new Button(this, cx, y, L().ui.menu.archive, () => this.scene.start('Archive', { from: 'Title' }), { variant: 'ghost' }) });
+    specs.push({ height: MENU_H, build: (y) => new Button(this, cx, y, L().ui.menu.credits, () => this.scene.start('Credits'), { variant: 'ghost' }) });
+    specs.push({ height: MENU_H, build: (y) => new Button(this, cx, y, L().ui.siteLinks.button, () => siteLinks.toggle(), { variant: 'ghost' }) });
     if (hasSave) {
-      new Button(this, cx, y, L().ui.menu.reset, () => {
+      specs.push({ height: RESET_H, build: (y) => new Button(this, cx, y, L().ui.menu.reset, () => {
         AnalyticsSystem.track('reset_game');
         StateManager.newGame();
         showToast(this, L().ui.menu.resetDone, 'warning');
         // lascia il tempo di leggere il toast prima che il restart lo distrugga
         this.time.delayedCall(900, () => this.scene.restart());
-      }, { variant: 'danger', height: 40, fontSize: 13 });
+      }, { variant: 'danger', height: RESET_H, fontSize: 13 }) });
     }
+
+    const footerY = footerBaselineY();
+    const ys = layoutVStack({
+      heights: specs.map((s) => s.height),
+      top: 352,
+      bottom: footerY - 22, // lascia sempre spazio libero sopra il disclaimer
+      preferredGap: 14,
+      minGap: 6
+    });
+    specs.forEach((s, i) => s.build(ys[i]));
 
     this.buildPrefsToggles();
 
     this.add
-      .text(cx, GAME_HEIGHT - 24, L().ui.footerDisclaimer, textStyle(12, COLOR_STR.paperDim))
+      .text(cx, footerY, L().ui.footerDisclaimer, textStyle(12, COLOR_STR.paperDim))
       .setOrigin(0.5);
   }
 

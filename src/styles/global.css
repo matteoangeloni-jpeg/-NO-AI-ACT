@@ -40,6 +40,9 @@ html, body {
   position: relative;
   width: 100vw;
   height: 100vh;
+  /* dvh segue la viewport reale quando la UI del browser mobile compare/sparisce,
+     evitando che il canvas FIT venga tagliato in basso. Fallback: 100vh sopra. */
+  height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
