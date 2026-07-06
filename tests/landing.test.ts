@@ -179,66 +179,56 @@ describe('public static files', () => {
     expect(robots).not.toContain('<loc>');
   });
 
-  it('sitemap.xml is a minimal, valid XML listing exactly the indexable public pages', () => {
+  it('sitemap.xml is a valid sitemap index pointing at the two language child sitemaps', () => {
     const sitemap = read('public/sitemap.xml');
     expect(sitemap).toContain('<?xml version="1.0" encoding="UTF-8"?>');
     expect(sitemap).toContain('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"');
-    expect(sitemap).toContain('<urlset');
-    expect(sitemap).toContain('</urlset>');
-    // /play/ is intentionally noindex, so it must NOT be advertised in the sitemap.
-    expect(sitemap).not.toContain(`<loc>${SITE}play/</loc>`);
+    // it is now a sitemap index, not a direct urlset (GSC compatibility).
+    expect(sitemap).toContain('<sitemapindex');
+    expect(sitemap).toContain('</sitemapindex>');
+    expect(sitemap).not.toContain('<urlset');
     expect(sitemap).not.toContain('/play/');
-    expect(sitemap).not.toMatch(/localhost|127\.0\.0\.1|example\.com/);
-    // kept deliberately minimal — no hreflang alternates, changefreq or priority.
-    expect(sitemap).not.toContain('xhtml:link');
-    expect(sitemap).not.toContain('changefreq');
-    expect(sitemap).not.toContain('priority');
-    // exactly the indexable public pages (landings + educational pages), nothing else.
-    const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, loc]) => loc);
-    expect(locs).toEqual([
-      SITE,
-      `${SITE}en/`,
-      `${SITE}come-funziona/`,
-      `${SITE}per-docenti/`,
-      `${SITE}ai-act-serious-game/`,
-      `${SITE}privacy-by-design/`,
-      `${SITE}en/how-it-works/`,
-      `${SITE}en/for-educators/`,
-      `${SITE}en/ai-act-serious-game/`,
-      `${SITE}en/privacy-by-design/`,
-      `${SITE}educazione/`,
-      `${SITE}ai-act-per-docenti/`,
-      `${SITE}alfabetizzazione-ai/`,
-      `${SITE}guida-ai-act/`,
-      `${SITE}categorie-rischio-ai-act/`,
-      `${SITE}pratiche-vietate-ai-act/`,
-      `${SITE}sistemi-ai-ad-alto-rischio/`,
-      `${SITE}obblighi-trasparenza-ai-act/`,
-      `${SITE}ai-generativa-e-gpai/`,
-      `${SITE}apprendimento-privacy-consapevole/`,
-      `${SITE}serious-game-regolazione-ai/`,
-      `${SITE}attivita-didattiche/`,
-      `${SITE}lezione-introduzione-ai-act/`,
-      `${SITE}glossario/`,
-      `${SITE}en/education/`,
-      `${SITE}en/ai-act-for-teachers/`,
-      `${SITE}en/ai-literacy/`,
-      `${SITE}en/eu-ai-act-guide/`,
-      `${SITE}en/ai-act-risk-categories/`,
-      `${SITE}en/prohibited-ai-practices/`,
-      `${SITE}en/high-risk-ai-systems/`,
-      `${SITE}en/transparency-obligations/`,
-      `${SITE}en/general-purpose-ai/`,
-      `${SITE}en/privacy-conscious-learning/`,
-      `${SITE}en/serious-games-for-ai-regulation/`,
-      `${SITE}en/digital-citizenship-ai-regulation/`,
-      `${SITE}en/classroom-activities/`,
-      `${SITE}en/lesson-plan-introduction-to-the-ai-act/`,
-      `${SITE}en/lesson-plan-risk-based-approach/`,
-      `${SITE}en/lesson-plan-transparency-and-users/`,
-      `${SITE}en/glossary/`,
-      `${SITE}en/faq/`
-    ]);
+    const children = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, l]) => l);
+    expect(children).toEqual([`${SITE}sitemap-it.xml`, `${SITE}sitemap-en.xml`]);
+  });
+
+  it('the child sitemaps list exactly the 42 indexable public pages, nothing else', () => {
+    const it = read('public/sitemap-it.xml');
+    const en = read('public/sitemap-en.xml');
+    for (const child of [it, en]) {
+      expect(child).toContain('<?xml version="1.0" encoding="UTF-8"?>');
+      expect(child).toContain('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"');
+      expect(child).toContain('<urlset');
+      expect(child).toContain('</urlset>');
+      expect(child).not.toContain('/play/');
+      expect(child).not.toMatch(/localhost|127\.0\.0\.1|example\.com/);
+      // kept deliberately minimal — no hreflang alternates, changefreq or priority.
+      expect(child).not.toContain('xhtml:link');
+      expect(child).not.toContain('changefreq');
+      expect(child).not.toContain('priority');
+    }
+    const locs = [it, en].flatMap((child) => [...child.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, l]) => l));
+    // same set as the original 42-URL sitemap, split by language (order may differ).
+    expect(new Set(locs)).toEqual(new Set([
+      SITE, `${SITE}en/`, `${SITE}come-funziona/`, `${SITE}per-docenti/`,
+      `${SITE}ai-act-serious-game/`, `${SITE}privacy-by-design/`, `${SITE}en/how-it-works/`,
+      `${SITE}en/for-educators/`, `${SITE}en/ai-act-serious-game/`, `${SITE}en/privacy-by-design/`,
+      `${SITE}educazione/`, `${SITE}ai-act-per-docenti/`, `${SITE}alfabetizzazione-ai/`,
+      `${SITE}guida-ai-act/`, `${SITE}categorie-rischio-ai-act/`, `${SITE}pratiche-vietate-ai-act/`,
+      `${SITE}sistemi-ai-ad-alto-rischio/`, `${SITE}obblighi-trasparenza-ai-act/`,
+      `${SITE}ai-generativa-e-gpai/`, `${SITE}apprendimento-privacy-consapevole/`,
+      `${SITE}serious-game-regolazione-ai/`, `${SITE}attivita-didattiche/`,
+      `${SITE}lezione-introduzione-ai-act/`, `${SITE}glossario/`, `${SITE}en/education/`,
+      `${SITE}en/ai-act-for-teachers/`, `${SITE}en/ai-literacy/`, `${SITE}en/eu-ai-act-guide/`,
+      `${SITE}en/ai-act-risk-categories/`, `${SITE}en/prohibited-ai-practices/`,
+      `${SITE}en/high-risk-ai-systems/`, `${SITE}en/transparency-obligations/`,
+      `${SITE}en/general-purpose-ai/`, `${SITE}en/privacy-conscious-learning/`,
+      `${SITE}en/serious-games-for-ai-regulation/`, `${SITE}en/digital-citizenship-ai-regulation/`,
+      `${SITE}en/classroom-activities/`, `${SITE}en/lesson-plan-introduction-to-the-ai-act/`,
+      `${SITE}en/lesson-plan-risk-based-approach/`, `${SITE}en/lesson-plan-transparency-and-users/`,
+      `${SITE}en/glossary/`, `${SITE}en/faq/`
+    ]));
+    expect(locs).toHaveLength(42);
     for (const loc of locs) {
       expect(loc.startsWith(SITE)).toBe(true);
       expect(loc).not.toContain('?');

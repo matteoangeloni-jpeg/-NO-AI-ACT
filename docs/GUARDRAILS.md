@@ -42,35 +42,39 @@ enforce all of it; run `npm test` before opening any feature PR.
   no gameplay data. Do not change the IDs or widen the boundary.
 
 ## Search Console / Sitemap readiness
-- Sitemap: **`https://www.no-ai-act.eu/sitemap.xml`** · Robots: **`https://www.no-ai-act.eu/robots.txt`**
-- The sitemap starts **exactly** with `<?xml version="1.0" encoding="UTF-8"?>` followed by `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`.
-- `tests/sitemapGscReadiness.test.ts` enforces (build-independent, from source): valid, well-formed XML with the `sitemaps.org/schemas/sitemap/0.9` namespace; exactly 42 absolute-HTTPS canonical public URLs — all on the **`https://www.no-ai-act.eu/` www host**, never `http://`, never the apex `https://no-ai-act.eu/`, no localhost / `github.io` / `.pages.dev`, no query strings, hashes, duplicates, empty locs, assets, or `/play/` — every URL maps to a real page whose **self-canonical equals the sitemap URL**; `robots.txt` advertises **exactly one** sitemap (`Sitemap: https://www.no-ai-act.eu/sitemap.xml`), never the stale `http://` or apex variant, and blocks nothing.
+- Index: **`https://www.no-ai-act.eu/sitemap.xml`** · Children: **`/sitemap-it.xml`**, **`/sitemap-en.xml`** · Robots: **`https://www.no-ai-act.eu/robots.txt`**
+- **`/sitemap.xml` is a sitemap *index*** (a Search Console compatibility structure — some setups read an index more reliably than a large flat `urlset`). It starts **exactly** with `<?xml version="1.0" encoding="UTF-8"?>`, has a `<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">` root, and lists the two language children (each with a `<lastmod>`):
+  - `https://www.no-ai-act.eu/sitemap-it.xml` — the root `/` + all Italian pages
+  - `https://www.no-ai-act.eu/sitemap-en.xml` — the `/en/` pages
+- The child sitemaps are the `<urlset>`s. `tests/sitemapGscReadiness.test.ts` enforces (build-independent, from source): valid, well-formed XML with the `0.9` namespace; the **combined children are exactly the 42** absolute-HTTPS canonical public URLs — all on the **`https://www.no-ai-act.eu/` www host**, never `http://`, never the apex `https://no-ai-act.eu/`, no localhost / `github.io` / `.pages.dev`, no query strings, hashes, duplicates (within or across children), assets, or `/play/` — split by language with no overlap, every URL mapping to a real page whose **self-canonical equals the sitemap URL**; `robots.txt` advertises **exactly one** sitemap — the index — never the stale `http://`/apex variant nor a direct child.
 - **Live check after deploy** (opt-in — needs external egress, so it is not in CI):
   - `node scripts/seo/check-sitemap-live.mjs`
   - `node scripts/seo/check-sitemap-live.mjs https://www.no-ai-act.eu`
-  It prints a diagnostic block for `/sitemap.xml` — HTTP status, final (redirected) URL, content-type, whether the body starts with the XML declaration, whether `<urlset>` is present, the `<loc>` count, any `http://` or non-www URLs, whether a **Googlebot-like user-agent gets the same XML** (bot-challenge detector), and whether the body looks like HTML / a Cloudflare challenge / a GitHub Pages 404 — then checks `/robots.txt` (200 + the exact HTTPS www directive, no stale `http://` variant) and samples sitemap URLs (200, not `noindex`, self-canonical).
+  It detects whether `/sitemap.xml` is a `sitemapindex` or a `urlset`, **fetches the child sitemaps** when it is an index, and prints a diagnostic block — HTTP status, final URL, content-type, **root type**, XML-declaration presence, **child-sitemap count**, **total URL count across children**, any `http://` / non-www / query / `/play/` URLs, whether a **Googlebot-like user-agent gets the same XML** (bot-challenge detector), and HTML / Cloudflare-challenge / GitHub-404 detection — then checks `/robots.txt` (200 + the exact HTTPS www index directive, no stale `http://` variant, exactly one directive) and samples page URLs (200, not `noindex`, self-canonical).
 
 ### Post-deploy owner checklist
 1. GitHub Pages deploy is green.
 2. Cloudflare → **Purge Everything**.
-3. Open `https://www.no-ai-act.eu/sitemap.xml` in a browser (should render XML, no login).
+3. Open `https://www.no-ai-act.eu/sitemap.xml`, `/sitemap-it.xml` and `/sitemap-en.xml` in a browser (each should render XML, no login).
 4. Run `node scripts/seo/check-sitemap-live.mjs` → **PASS**.
 5. Submit the sitemap in Google Search Console (see the Domain-property note below).
 6. If GSC says **"Couldn't fetch" / "Impossibile recuperare"**, wait and retry *after* the live script passes.
 
 ### Google Search Console — Domain property (`no-ai-act.eu`)
-The active property is the **Domain property** `sc-domain:no-ai-act.eu`, which covers every scheme/subdomain. Submit **only one** sitemap URL:
+The active property is the **Domain property** `sc-domain:no-ai-act.eu`, which covers every scheme/subdomain. Submit **only the index**:
 
 > `https://www.no-ai-act.eu/sitemap.xml`
 
-**Delete any stale/duplicate submissions**, e.g. `http://www.no-ai-act.eu/sitemap.xml`. Do **not** keep submitting HTTP + HTTPS (or www + apex) variants of the same file — duplicate submissions do not help fetching and just create noise.
+Google discovers `/sitemap-it.xml` and `/sitemap-en.xml` from the index — **do not submit the child sitemaps manually** unless you are debugging a specific child. **Delete any stale/duplicate submissions**, e.g. `http://www.no-ai-act.eu/sitemap.xml` or `https://no-ai-act.eu/...`. Do **not** keep submitting HTTP + HTTPS (or www + apex) variants — duplicate submissions do not help fetching and just create noise.
 
 ### If Search Console still says "Impossibile recuperare" while the sitemap opens as XML
-The file itself is fine (200, real XML, correct namespace, 42 canonical URLs) — the fetch is being blocked or cached upstream. Work the deploy path, not the file:
+The files themselves are fine (200, real XML, correct namespace, 42 canonical URLs across the two children) — the fetch is being blocked or cached upstream. Work the deploy path, not the files:
+- Open `/sitemap.xml`, `/sitemap-it.xml`, `/sitemap-en.xml` in the browser — all three should render as XML.
+- Run `node scripts/seo/check-sitemap-live.mjs https://www.no-ai-act.eu` → **PASS**.
 - **Purge Cloudflare** (Purge Everything) so a stale/error response isn't cached.
-- Check **Cloudflare → Security → Events** for `/sitemap.xml` — confirm Googlebot is **not** being challenged or blocked (Bot Fight Mode / a WAF rule / a managed challenge can trigger "Couldn't fetch").
-- Confirm a Googlebot-like fetch returns the XML (the live script's *"Googlebot gets same XML"* line).
-- **Wait and retry** — GSC re-fetches on its own schedule; a "Couldn't fetch" can clear hours later with no further action.
+- Check **Cloudflare → Security → Events** for `/sitemap.xml` (and the children) — confirm Googlebot is **not** being challenged or blocked (Bot Fight Mode / a WAF rule / a managed challenge can trigger "Couldn't fetch").
+- Confirm a Googlebot-like fetch returns the XML (the live script's *"Googlebot same XML"* line).
+- **Wait 24–72 hours and retry** — GSC re-fetches on its own schedule; "Couldn't fetch" often clears on its own.
 - **Do not** keep re-submitting duplicate HTTP/HTTPS or www/apex variants.
 
 ## Before a v1.2 feature PR — checklist

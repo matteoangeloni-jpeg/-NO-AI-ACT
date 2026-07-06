@@ -184,9 +184,11 @@ describe('entry-point UX — Start here and In brief', () => {
 describe('SEO and privacy safeguards preserved', () => {
   it('/play/ stays noindex, follow and out of the sitemap', () => {
     expect(read('play/index.html')).toContain('content="noindex, follow"');
-    const sitemap = read('public/sitemap.xml');
-    expect(sitemap).not.toContain('/play/');
-    const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, l]) => l);
+    // /sitemap.xml is a sitemap index → the public URLs live in the language children.
+    const it = read('public/sitemap-it.xml');
+    const en = read('public/sitemap-en.xml');
+    for (const sm of [read('public/sitemap.xml'), it, en]) expect(sm).not.toContain('/play/');
+    const locs = [it, en].flatMap((sm) => [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, l]) => l));
     expect(locs.length).toBe(ALL_PUBLIC.length);
     for (const l of locs) expect(l).not.toContain('?');
   });
