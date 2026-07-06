@@ -1,9 +1,12 @@
 /**
- * Live Search-Console readiness check for the deployed sitemap.
+ * Live Search-Console readiness check for the deployed sitemaps.
  *
- * `/sitemap.xml` is a **sitemap index** pointing to language child sitemaps
- * (`/sitemap-it.xml`, `/sitemap-en.xml`); this script understands both a
- * `sitemapindex` root (fetches the children) and a plain `urlset`.
+ * `robots.txt` now advertises the two language sitemaps directly
+ * (`/sitemap-it.xml`, `/sitemap-en.xml`) — Google Search Console reads those
+ * reliably. The `/sitemap.xml` index file is kept for compatibility but is no
+ * longer the advertised entry point; this script drives off whatever robots.txt
+ * advertises, understands both `urlset` and `sitemapindex` children, and still
+ * inspects `/sitemap.xml` when present.
  *
  * Opt-in (NOT in CI — the CI sandbox may have no external egress). Run it
  * AFTER a deploy + Cloudflare purge, from a machine that can reach the site.
@@ -12,16 +15,14 @@
  *   node scripts/seo/check-sitemap-live.mjs
  *   node scripts/seo/check-sitemap-live.mjs https://www.no-ai-act.eu
  *
- * It prints a diagnostic block for /sitemap.xml (status, final URL, content-type,
- * root type, XML-declaration presence, child-sitemap count, total URL count,
- * http/non-www/query/fragment/play violations, Googlebot-UA parity, HTML /
- * Cloudflare-challenge / GitHub-404 detection), checks /robots.txt (200 + the
- * exact HTTPS www index directive, no stale http:// variant), and samples a few
- * page URLs (200, not noindex, self-canonical). Prints PASS or the failing checks.
+ * Prints per-file counts (19 IT + 23 EN = 42), a robots.txt diagnostic block,
+ * a compatibility check of /sitemap.xml, Googlebot-UA parity, http/non-www/
+ * query/`/play/` violations, and sampled page canonical/noindex checks.
  */
 const BASE = (process.argv[2] || 'https://www.no-ai-act.eu').replace(/\/$/, '');
 const SAMPLE = 6;
 const EXPECTED_TOTAL = 42;
+const EXPECTED_SITEMAPS = [`${BASE}/sitemap-it.xml`, `${BASE}/sitemap-en.xml`];
 const GOOGLEBOT_UA =
   'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
 const fails = [];
@@ -43,100 +44,116 @@ const isIndex = (b) => /<sitemapindex[\s>]/i.test(b);
 
 console.log(`Checking ${BASE} …\n`);
 
-// ---- /sitemap.xml (index or urlset) ----
-let pageUrls = [];
-try {
-  const { status, body, finalUrl, ctype } = await get(`${BASE}/sitemap.xml`);
-  const hasDecl = startsWithXmlDecl(body);
-  const index = isIndex(body);
-  const rootType = index ? 'sitemapindex' : (/<urlset[\s>]/i.test(body) ? 'urlset' : 'unknown');
-  const childSitemaps = index ? locsOf(body) : [];
-
-  // collect the page URLs — from the children (index) or inline (urlset)
-  if (index) {
-    for (const child of childSitemaps) {
-      try {
-        const c = await get(child);
-        ok(c.status === 200, `child sitemap ${child} → ${c.status}`);
-        ok(/xml/.test(c.ctype), `child sitemap ${child} content-type "${c.ctype}" not XML`);
-        ok(startsWithXmlDecl(c.body), `child sitemap ${child} missing XML declaration`);
-        ok(/<urlset[\s>]/i.test(c.body), `child sitemap ${child} has no <urlset>`);
-        pageUrls.push(...locsOf(c.body));
-      } catch (e) {
-        fails.push(`child sitemap ${child} fetch failed: ${e.message}`);
-      }
-    }
-  } else {
-    pageUrls = locsOf(body);
-  }
-
-  const httpUrls = pageUrls.filter((l) => l.startsWith('http://'));
-  const nonWwwUrls = pageUrls.filter((l) => /^https?:\/\/no-ai-act\.eu\//i.test(l));
-  const queryOrHash = pageUrls.filter((l) => /[?#]/.test(l));
-  const playUrls = pageUrls.filter((l) => /\/(en\/)?play\//.test(l));
-
-  // Googlebot-parity: does a crawler-like UA get the same index XML?
-  let botSameXml = false;
-  try {
-    const bot = await get(`${BASE}/sitemap.xml`, GOOGLEBOT_UA);
-    botSameXml = bot.status === 200 && startsWithXmlDecl(bot.body) &&
-      !looksLikeChallenge(bot.body) && isIndex(bot.body) === index;
-  } catch { /* reported below */ }
-
-  console.log('  --- /sitemap.xml diagnostics ---');
-  console.log(`  HTTP status ............. ${status}`);
-  console.log(`  final URL ............... ${finalUrl}`);
-  console.log(`  content-type ............ ${ctype || '(none)'}`);
-  console.log(`  root type ............... ${rootType}`);
-  console.log(`  starts with XML decl .... ${yn(hasDecl)}`);
-  console.log(`  child sitemaps .......... ${childSitemaps.length}${childSitemaps.length ? ' (' + childSitemaps.join(', ') + ')' : ''}`);
-  console.log(`  total page URLs ......... ${pageUrls.length} (want ${EXPECTED_TOTAL})`);
-  console.log(`  http:// URLs ............ ${httpUrls.length}`);
-  console.log(`  non-www URLs ............ ${nonWwwUrls.length}`);
-  console.log(`  query/# URLs ............ ${queryOrHash.length}`);
-  console.log(`  /play/ URLs ............. ${playUrls.length}`);
-  console.log(`  Googlebot same XML ...... ${yn(botSameXml)}`);
-  console.log(`  looks like HTML doc ..... ${yn(looksLikeHtmlDoc(body))}`);
-  console.log(`  looks like CF challenge . ${yn(looksLikeChallenge(body))}`);
-  console.log(`  looks like GH 404 ....... ${yn(looksLikeGh404(body))}`);
-
-  ok(status === 200, `sitemap status ${status} (want 200)`);
-  ok(finalUrl.replace(/\/$/, '').endsWith('/sitemap.xml'), `sitemap redirected to ${finalUrl}`);
-  ok(!looksLikeChallenge(body), 'sitemap looks like a Cloudflare challenge page');
-  ok(!looksLikeGh404(body), 'sitemap looks like a GitHub Pages 404 page');
-  ok(!looksLikeHtmlDoc(body), 'sitemap is an HTML document, not XML');
-  ok(hasDecl, 'sitemap body does not start with the XML declaration');
-  ok(rootType !== 'unknown', 'sitemap root is neither <sitemapindex> nor <urlset>');
-  ok(/xml/.test(ctype), `sitemap content-type "${ctype}" is not XML-compatible`);
-  if (index) ok(childSitemaps.length === 2, `sitemap index has ${childSitemaps.length} children (want 2)`);
-  ok(pageUrls.length === EXPECTED_TOTAL, `total page URLs ${pageUrls.length} (want ${EXPECTED_TOTAL})`);
-  ok(new Set(pageUrls).size === pageUrls.length, 'duplicate page URLs across sitemaps');
-  ok(httpUrls.length === 0, `${httpUrls.length} http:// URL(s)`);
-  ok(nonWwwUrls.length === 0, `${nonWwwUrls.length} non-www URL(s)`);
-  ok(queryOrHash.length === 0, `${queryOrHash.length} URL(s) with query/hash`);
-  ok(playUrls.length === 0, `${playUrls.length} /play/ URL(s)`);
-  ok(botSameXml, 'Googlebot-like user-agent did NOT get the same XML (possible bot challenge)');
-} catch (e) {
-  fails.push(`sitemap fetch failed: ${e.message}`);
-}
-
-// ---- robots.txt ----
+// ---- robots.txt — the advertised entry point(s) ----
+let advertised = [];
 try {
   const { status, body } = await get(`${BASE}/robots.txt`);
-  const httpsDirective = /^Sitemap:\s*https:\/\/www\.no-ai-act\.eu\/sitemap\.xml\s*$/im.test(body);
-  const hasHttpVariant = /^Sitemap:\s*http:\/\/www\.no-ai-act\.eu\/sitemap\.xml/im.test(body);
-  const directiveCount = (body.match(/^Sitemap:/gim) ?? []).length;
-  console.log('\n  --- /robots.txt diagnostics ---');
+  advertised = [...body.matchAll(/^Sitemap:\s*(\S+)\s*$/gim)].map((m) => m[1]);
+  const hasIndexDirective = advertised.some((s) => /\/sitemap\.xml$/.test(s));
+  const hasHttp = advertised.some((s) => s.startsWith('http://'));
+  const hasApex = advertised.some((s) => /^https?:\/\/no-ai-act\.eu\//i.test(s));
+
+  console.log('  --- /robots.txt diagnostics ---');
   console.log(`  HTTP status ............. ${status}`);
-  console.log(`  Sitemap: directives ..... ${directiveCount}`);
-  console.log(`  HTTPS www index ......... ${yn(httpsDirective)}`);
-  console.log(`  stale http:// variant ... ${yn(hasHttpVariant)}`);
+  console.log(`  Sitemap: directives ..... ${advertised.length}`);
+  for (const s of advertised) console.log(`    • ${s}`);
+  console.log(`  advertises /sitemap.xml . ${yn(hasIndexDirective)} (expected: no)`);
+  console.log(`  http:// directive ....... ${yn(hasHttp)}`);
+  console.log(`  apex (non-www) directive  ${yn(hasApex)}`);
+
   ok(status === 200, `robots status ${status} (want 200)`);
-  ok(httpsDirective, 'robots.txt missing exact "Sitemap: https://www.no-ai-act.eu/sitemap.xml"');
-  ok(!hasHttpVariant, 'robots.txt still advertises the stale http:// sitemap variant');
-  ok(directiveCount === 1, `robots.txt has ${directiveCount} Sitemap directives (want 1: the index)`);
+  ok(advertised.length === 2, `robots advertises ${advertised.length} sitemaps (want 2 child sitemaps)`);
+  ok(EXPECTED_SITEMAPS.every((s) => advertised.includes(s)), `robots must advertise ${EXPECTED_SITEMAPS.join(' and ')}`);
+  ok(!hasIndexDirective, 'robots still advertises the /sitemap.xml index (should point at the child sitemaps)');
+  ok(!hasHttp, 'robots advertises an http:// sitemap');
+  ok(!hasApex, 'robots advertises an apex (non-www) sitemap');
 } catch (e) {
   fails.push(`robots fetch failed: ${e.message}`);
+}
+
+// ---- fetch each advertised sitemap (urlset or index), collect page URLs ----
+async function collectUrls(sitemapUrl) {
+  const { status, body, ctype } = await get(sitemapUrl);
+  ok(status === 200, `${sitemapUrl} → ${status}`);
+  ok(/xml/.test(ctype), `${sitemapUrl} content-type "${ctype}" is not XML`);
+  ok(startsWithXmlDecl(body), `${sitemapUrl} missing XML declaration`);
+  if (isIndex(body)) {
+    // an advertised sitemap that is itself an index → follow its children
+    const urls = [];
+    for (const child of locsOf(body)) urls.push(...(await collectUrls(child)));
+    return urls;
+  }
+  ok(/<urlset[\s>]/i.test(body), `${sitemapUrl} is neither urlset nor sitemapindex`);
+  return locsOf(body);
+}
+
+let pageUrls = [];
+const perFile = {};
+console.log('\n  --- advertised sitemaps ---');
+for (const s of advertised.length ? advertised : EXPECTED_SITEMAPS) {
+  try {
+    const urls = await collectUrls(s);
+    perFile[s] = urls.length;
+    pageUrls.push(...urls);
+    console.log(`  ${s} → ${urls.length} URLs`);
+  } catch (e) {
+    fails.push(`${s} fetch failed: ${e.message}`);
+  }
+}
+const itCount = perFile[`${BASE}/sitemap-it.xml`];
+const enCount = perFile[`${BASE}/sitemap-en.xml`];
+if (itCount != null && enCount != null) {
+  console.log(`  totals .................. ${itCount} IT + ${enCount} EN = ${itCount + enCount}`);
+}
+
+// ---- compatibility: inspect /sitemap.xml if it still exists ----
+try {
+  const { status, body } = await get(`${BASE}/sitemap.xml`);
+  if (status === 200) {
+    const rootType = isIndex(body) ? 'sitemapindex' : (/<urlset[\s>]/i.test(body) ? 'urlset' : 'unknown');
+    console.log(`\n  --- /sitemap.xml (compatibility, not advertised) ---`);
+    console.log(`  present ................. yes (root: ${rootType}, ${locsOf(body).length} <loc>)`);
+  } else {
+    console.log(`\n  --- /sitemap.xml (compatibility) ---`);
+    console.log(`  present ................. no (${status})`);
+  }
+} catch {
+  console.log('\n  --- /sitemap.xml (compatibility) --- present ................. fetch failed');
+}
+
+// ---- aggregate validation of page URLs ----
+const httpUrls = pageUrls.filter((l) => l.startsWith('http://'));
+const nonWwwUrls = pageUrls.filter((l) => /^https?:\/\/no-ai-act\.eu\//i.test(l));
+const queryOrHash = pageUrls.filter((l) => /[?#]/.test(l));
+const playUrls = pageUrls.filter((l) => /\/(en\/)?play\//.test(l));
+
+console.log('\n  --- combined page URLs ---');
+console.log(`  total ................... ${pageUrls.length} (want ${EXPECTED_TOTAL})`);
+console.log(`  unique .................. ${new Set(pageUrls).size}`);
+console.log(`  http:// ................. ${httpUrls.length}`);
+console.log(`  non-www ................. ${nonWwwUrls.length}`);
+console.log(`  query/# ................. ${queryOrHash.length}`);
+console.log(`  /play/ .................. ${playUrls.length}`);
+
+ok(pageUrls.length === EXPECTED_TOTAL, `total page URLs ${pageUrls.length} (want ${EXPECTED_TOTAL})`);
+ok(new Set(pageUrls).size === pageUrls.length, 'duplicate page URLs across sitemaps');
+ok(httpUrls.length === 0, `${httpUrls.length} http:// URL(s)`);
+ok(nonWwwUrls.length === 0, `${nonWwwUrls.length} non-www URL(s)`);
+ok(queryOrHash.length === 0, `${queryOrHash.length} URL(s) with query/hash`);
+ok(playUrls.length === 0, `${playUrls.length} /play/ URL(s)`);
+
+// ---- Googlebot-UA parity on the first advertised sitemap ----
+if (advertised.length) {
+  try {
+    const normal = await get(advertised[0]);
+    const bot = await get(advertised[0], GOOGLEBOT_UA);
+    const same = bot.status === 200 && startsWithXmlDecl(bot.body) &&
+      !looksLikeChallenge(bot.body) && locsOf(bot.body).length === locsOf(normal.body).length;
+    console.log(`\n  Googlebot same XML (${advertised[0]}) … ${yn(same)}`);
+    ok(same, `Googlebot-like UA did NOT get the same XML for ${advertised[0]} (possible bot challenge)`);
+  } catch (e) {
+    fails.push(`Googlebot parity check failed: ${e.message}`);
+  }
 }
 
 // ---- sample of page URLs ----
@@ -152,10 +169,10 @@ for (const url of sample) {
     fails.push(`${url} fetch failed: ${e.message}`);
   }
 }
-console.log(`\n  sampled ${sample.length} page URLs\n`);
+console.log(`  sampled ${sample.length} page URLs\n`);
 
 if (fails.length === 0) {
-  console.log('PASS — sitemap index + children are live, XML, canonical-consistent and GSC-ready.');
+  console.log('PASS — language sitemaps are live, XML, canonical-consistent and GSC-ready.');
   process.exit(0);
 } else {
   console.log(`FAIL — ${fails.length} problem(s):`);

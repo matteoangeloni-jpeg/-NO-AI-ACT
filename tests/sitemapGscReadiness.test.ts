@@ -146,16 +146,24 @@ describe('child sitemaps — URL ↔ file ↔ canonical consistency', () => {
   });
 });
 
-describe('robots.txt advertises the sitemap index and nothing stale', () => {
+describe('robots.txt advertises the two language sitemaps directly', () => {
   const robots = read('public/robots.txt');
-  it('advertises exactly one sitemap: the index', () => {
+  it('advertises exactly the two child sitemaps (GSC reads these reliably)', () => {
     const directives = [...robots.matchAll(/^Sitemap:\s*(\S+)\s*$/gim)].map(([, v]) => v);
-    expect(directives).toEqual(['https://www.no-ai-act.eu/sitemap.xml']);
+    expect(directives).toEqual([
+      'https://www.no-ai-act.eu/sitemap-it.xml',
+      'https://www.no-ai-act.eu/sitemap-en.xml'
+    ]);
   });
-  it('never the stale http:// or apex variant, nor a direct child sitemap', () => {
-    expect(robots).not.toContain('Sitemap: http://www.no-ai-act.eu/sitemap.xml');
-    expect(robots).not.toContain('Sitemap: https://no-ai-act.eu/sitemap.xml');
-    expect(robots).not.toMatch(/^Sitemap:\s*\S*sitemap-(it|en)\.xml/im);
+  it('no longer advertises the /sitemap.xml index, nor any http:// or apex variant', () => {
+    // the index file may still exist, but robots must not point at it.
+    expect(robots).not.toMatch(/^Sitemap:\s*https:\/\/www\.no-ai-act\.eu\/sitemap\.xml\s*$/im);
+    expect(robots).not.toContain('Sitemap: http://');
+    expect(robots).not.toMatch(/^Sitemap:\s*https:\/\/no-ai-act\.eu\//im);
+  });
+  it('every advertised sitemap is an absolute https www URL', () => {
+    const directives = [...robots.matchAll(/^Sitemap:\s*(\S+)\s*$/gim)].map(([, v]) => v);
+    for (const d of directives) expect(d.startsWith('https://www.no-ai-act.eu/'), d).toBe(true);
   });
   it('does not disallow "/" or any public page', () => {
     const disallows = [...robots.matchAll(/^Disallow:\s*(.*)$/gim)].map(([, v]) => v.trim()).filter(Boolean);
