@@ -4,4 +4,7 @@ Allow: /
 # /play/ stays crawlable so crawlers can read its <meta name="robots" content="noindex">.
 # The game canvas is kept out of the index by that meta tag, not by robots.txt.
 
-Sitemap: https://www.no-ai-act.eu/sitemap.xml
+# Google Search Console reads the two language sitemaps directly and reliably;
+# the /sitemap.xml index is kept for compatibility but no longer advertised here.
+Sitemap: https://www.no-ai-act.eu/sitemap-it.xml
+Sitemap: https://www.no-ai-act.eu/sitemap-en.xml

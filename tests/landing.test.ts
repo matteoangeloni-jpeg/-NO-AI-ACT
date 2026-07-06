@@ -170,7 +170,9 @@ describe('public static files', () => {
     const robots = read('public/robots.txt');
     expect(robots).toContain('User-agent: *');
     expect(robots).toContain('Allow: /');
-    expect(robots).toContain(`Sitemap: ${SITE}sitemap.xml`);
+    // robots advertises the two language sitemaps directly (GSC reads them reliably).
+    expect(robots).toContain(`Sitemap: ${SITE}sitemap-it.xml`);
+    expect(robots).toContain(`Sitemap: ${SITE}sitemap-en.xml`);
     // /play/ must stay crawlable so its noindex meta can be read.
     expect(robots).not.toMatch(/^\s*Disallow:\s*\/play\//m);
     // robots must hold robots directives only — no stray sitemap-xml leakage.
