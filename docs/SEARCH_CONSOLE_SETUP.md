@@ -44,12 +44,15 @@ If unsure, create the **Domain property**.
 > Prefer Option A: it keeps the verification token out of the repo and survives
 > path changes.
 
-## 4. Submit the sitemap
+## 4. Submit the sitemaps
 
 1. Open the verified property → **Sitemaps**.
-2. Enter `sitemap.xml` and **Submit**.
-   Full URL: `https://www.no-ai-act.eu/sitemap.xml`.
-3. Confirm GSC reads 3 URLs: `/`, `/en/`, `/play/`.
+2. Submit the two language-specific sitemaps:
+   - `https://www.no-ai-act.eu/sitemap-it.xml`
+   - `https://www.no-ai-act.eu/sitemap-en.xml`
+3. Confirm GSC reads **42 total URLs** (19 Italian + 23 English pages).
+   - **Do not** submit `https://www.no-ai-act.eu/sitemap.xml` (the index file exists
+     for backward compatibility, but GSC reads the two language children directly).
 
 The sitemap, `robots.txt` (`Sitemap:` line) and the page `canonical`/`hreflang`
 already point at `https://www.no-ai-act.eu/`, so no further markup is needed.
@@ -62,8 +65,8 @@ Use **URL Inspection** on `https://www.no-ai-act.eu/` and
 
 ## 6. Checks after a few days
 
-- **Pages**: `/` and `/en/` indexed; `/play/` excluded by `noindex` (expected).
-- **Sitemaps**: status *Success*, 3 discovered URLs.
+- **Pages**: `/` and `/en/` indexed; all 40 education/hub pages indexed; `/play/` excluded by `noindex` (expected).
+- **Sitemaps**: both child sitemaps show status *Success*, 42 total discovered URLs (19 IT + 23 EN).
 - **International targeting / hreflang**: no errors for the `it` / `en` /
   `x-default` alternates.
 - **Manual action / Security**: none.

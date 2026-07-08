@@ -24,7 +24,7 @@ function walk(dir: string): string[] {
   for (const e of readdirSync(resolve(root, dir))) {
     const p = join(dir, e);
     if (statSync(resolve(root, p)).isDirectory()) out.push(...walk(p));
-    else if (p.endsWith('.ts')) out.push(p);
+    else if (p.endsWith('.ts')) out.push(p.replace(/\\/g, '/')); // normalize backslashes to forward slashes for cross-platform tests
   }
   return out;
 }
