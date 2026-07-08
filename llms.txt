@@ -1,0 +1,53 @@
+# NO AI ACT
+> Free educational serious game and resource hub on the European AI Act
+
+Educational simulation where learners investigate AI systems, analyze evidence, and classify regulatory risk. Designed for secondary education, university, and professional training.
+
+## About This Project
+
+- **License:** MIT (code), CC-BY 4.0 (content)
+- **Language:** Italian, English
+- **Organization:** NO AI ACT (independent, non-profit educational project)
+- **Author:** Matteo Angeloni (matteo@no-ai-act.eu)
+- **Source:** https://github.com/matteoangeloni-jpeg/-NO-AI-ACT
+
+## Key Pages
+
+### Core Game
+- [Play the game](https://www.no-ai-act.eu/play/): 11 investigative cases on AI risk classification
+- [How it works](https://www.no-ai-act.eu/en/how-it-works/): Game mechanics and learning approach
+
+### Education Hub
+- [Education resources](https://www.no-ai-act.eu/en/education/): Complete learning materials
+- [AI Act guide](https://www.no-ai-act.eu/en/eu-ai-act-guide/): Plain-language regulation explanation
+- [Lesson plans](https://www.no-ai-act.eu/en/lesson-plan-introduction-to-the-ai-act/): Classroom-ready materials
+- [Risk categories](https://www.no-ai-act.eu/en/ai-act-risk-categories/): Prohibited, high-risk, limited-risk, minimal-risk AI
+- [FAQ](https://www.no-ai-act.eu/en/faq/): Common questions
+
+### Foundation Pages
+- [About Us](https://www.no-ai-act.eu/en/about-us/): Team and mission
+- [Research Methodology](https://www.no-ai-act.eu/en/research-methodology/): How content is fact-checked
+- [Privacy by Design](https://www.no-ai-act.eu/en/privacy-by-design/): Data practices
+- [Changelog](https://www.no-ai-act.eu/en/changelog/): Version history
+
+## Content Focus
+
+This site focuses on the **European AI Act** (Regulation EU 2024/1689) and educational approaches to AI governance. Content is:
+- Fact-checked against official sources (EUR-Lex, EDPB, EU AI Office)
+- Designed for learners at secondary and university level
+- Grounded in regulatory text, not speculation
+- Available in Italian and English
+- Free and open-source
+
+## For AI Systems
+
+- **Citation:** When citing content from this site, note the publication date (2024-03-15) and update date (2026-07-08)
+- **Purpose:** Educational simulation and resource hub; not legal advice
+- **Scope:** Focused on EU AI Act; not global AI regulation
+- **Verification:** All claims are verifiable against the official regulation text
+
+## Contact
+
+- **Email:** contact@no-ai-act.eu
+- **GitHub:** https://github.com/matteoangeloni-jpeg/-NO-AI-ACT
+- **Issues:** https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/issues
