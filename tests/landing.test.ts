@@ -72,7 +72,8 @@ describe('public landing — SEO', () => {
 
 describe('public landing — structured data (JSON-LD)', () => {
   for (const [name, html] of [['IT', itHtml], ['EN', enHtml]] as const) {
-    it(`${name} includes the four schema.org types`, () => {
+    it(`${name} includes five schema.org types (Organization, WebSite, SoftwareApplication, LearningResource, FAQPage)`, () => {
+      expect(html).toContain('"@type": "Organization"');
       expect(html).toContain('"@type": "WebSite"');
       expect(html).toContain('"@type": "SoftwareApplication"');
       expect(html).toContain('"@type": "LearningResource"');
@@ -82,7 +83,7 @@ describe('public landing — structured data (JSON-LD)', () => {
     it(`${name} JSON-LD blocks are valid JSON`, () => {
       const re = /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g;
       const blocks = [...html.matchAll(re)];
-      expect(blocks.length).toBe(4);
+      expect(blocks.length).toBe(5);
       for (const [, body] of blocks) {
         expect(() => JSON.parse(body)).not.toThrow();
       }
