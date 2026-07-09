@@ -1,7 +1,12 @@
 name: Deploy su GitHub Pages
 
+# Build + test on every push to main and on manual dispatch; deploy the built
+# artifact to GitHub Pages. Build/test also runs on PRs (without deploying) so
+# regressions are caught before merge.
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
@@ -10,9 +15,14 @@ permissions:
   pages: write
   id-token: write
 
+# Production deploys (push to main / manual) share one non-cancellable "pages"
+# group: only one at a time, and an in-progress deploy is NEVER cancelled
+# (cancelling mid-deploy is a source of spurious "failed / cancelled" runs).
+# PR builds use a per-branch cancellable group so they neither block a
+# production deploy nor pile up on repeated pushes.
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: pages-${{ github.event_name == 'pull_request' && github.head_ref || 'production' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
@@ -21,16 +31,22 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      - run: npm run typecheck
       - run: npm test
       - run: npm run build
+      - name: Verify deploy-critical files in dist
+        run: npm run verify:dist
+      - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
   deploy:
+    # Only deploy from main; PR runs stop after build/test.
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:

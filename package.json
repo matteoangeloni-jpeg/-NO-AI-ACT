@@ -9,7 +9,8 @@
     "typecheck": "tsc --noEmit",
     "build": "tsc --noEmit && vite build && node scripts/copy-notices.mjs",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "verify:dist": "node scripts/ci/verify-dist.mjs"
   },
   "license": "(MIT AND CC-BY-4.0)",
   "dependencies": {
