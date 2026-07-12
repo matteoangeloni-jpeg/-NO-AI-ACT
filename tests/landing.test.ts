@@ -100,45 +100,31 @@ describe('public landing — structured data (JSON-LD)', () => {
   }
 });
 
-describe('public landing — Tally playtest popup (pre-game)', () => {
-  it('both landings load the Tally embed script', () => {
-    expect(itHtml).toContain('src="https://tally.so/widgets/embed.js"');
-    expect(enHtml).toContain('src="https://tally.so/widgets/embed.js"');
-  });
-
-  it('IT landing keeps the existing IT pre-game form (44ENVA), unchanged', () => {
-    expect(itHtml).toContain('data-tally-open="44ENVA"');
-    expect(itHtml).toContain('data-tally-layout="modal"');
-    expect(itHtml).toContain('data-tally-width="526"');
-    expect(itHtml).toContain('data-source="landing-it"');
-  });
-
-  it('EN landing uses the EN pre-game form (5BryXb) with its full URL', () => {
-    expect(enHtml).toContain('https://tally.so/r/5BryXb');
-    expect(enHtml).toContain('data-tally-open="5BryXb"');
-    expect(enHtml).toContain('data-tally-layout="modal"');
-    expect(enHtml).toContain('data-source="landing-en"');
-    // the EN landing must NOT reuse the IT pre-game form id
-    expect(enHtml).not.toContain('44ENVA');
-  });
-
+describe('public landing — no external forms (Tally removed)', () => {
   for (const [name, html] of [['IT', itHtml], ['EN', enHtml]] as const) {
-    it(`${name} passes no personal data to Tally`, () => {
+    it(`${name} landing has no Tally script, embed, popup or link`, () => {
+      expect(html).not.toContain('tally.so');
+      expect(html).not.toMatch(/data-tally/i);
+      for (const id of ['44ENVA', '5BryXb', 'dWgB5y', 'ZjWp9A']) expect(html).not.toContain(id);
+    });
+
+    it(`${name} landing has no dead playtest anchor, section or nav/TOC entry`, () => {
+      expect(html).not.toContain('playtest-title');
+    });
+
+    it(`${name} landing embeds no third-party form iframe and collects nothing`, () => {
+      expect(html).not.toMatch(/<iframe[^>]+(tally|typeform|googleforms|forms\.gle|jotform)/i);
       expect(html).not.toContain('data-email');
-      expect(html).not.toContain('data-name=');
-      expect(html).not.toContain('data-school');
-      expect(html).not.toContain('data-class');
-      expect(html).not.toMatch(/data-tally-hidden/i);
       expect(html).not.toMatch(/utm_/i);
     });
-
-    it(`${name} Tally URLs carry no query string / gameplay data`, () => {
-      const tallyUrls = [...html.matchAll(/https:\/\/tally\.so\/[^\s"']+/g)].map(([u]) => u);
-      for (const u of tallyUrls) {
-        expect(u).not.toContain('?');
-      }
-    });
   }
+
+  it('landing section numbering stays contiguous after the playtest section removal', () => {
+    for (const html of [itHtml, enHtml]) {
+      const nums = [...html.matchAll(/<span class="num">(\d+)<\/span>/g)].map(([, n]) => Number(n));
+      expect(nums).toEqual(nums.map((_, i) => i + 1)); // 1..N with no gaps
+    }
+  });
 });
 
 describe('public landing — accessibility & content', () => {
@@ -249,7 +235,7 @@ describe('public static files', () => {
     expect(lower).toContain('no backend');
     expect(lower).toContain('no account');
     expect(lower).toContain('no personal data collection');
-    expect(llms).toContain('Tally');
+    expect(lower).toContain('no external forms'); // Tally removed from the product
     expect(llms).toContain(`${SITE}play/`);
     expect(llms).toContain(`${SITE}en/`);
     expect(llms).toContain('github.com/matteoangeloni-jpeg/-NO-AI-ACT');

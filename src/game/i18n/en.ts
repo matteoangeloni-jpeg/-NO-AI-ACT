@@ -9,6 +9,7 @@ export const en: Locale = {
   ui: {
     gameTitle: 'NO AI ACT',
     gameSubtitle: 'Simulator of an unregulated society',
+    titleTagline: 'Evaluate AI use cases. Each decision affects public trust, innovation and rights. Goal: find a sustainable balance.',
     titleHeader: 'AUTOMATED MUNICIPAL REPUBLIC — YEAR 2032',
     footerDisclaimer:
       'Simplified educational version of the AI Act (Reg. EU 2024/1689). This is not legal advice.',
@@ -29,7 +30,20 @@ export const en: Locale = {
       teacherOn: 'TEACHER MODE: ON',
       teacherOff: 'TEACHER MODE: OFF',
       teacherScope: 'Local debrief: no classes, no accounts, no server.',
-      resetDone: 'Save data cleared.'
+      resetDone: 'Save data cleared.',
+      teachers: 'TEACHERS & CLASSROOM',
+      resources: 'RESOURCES',
+      settings: 'SETTINGS',
+      resetConfirm: 'CONFIRM RESET?'
+    },
+    titleGroups: {
+      settingsTitle: 'Settings',
+      settingsPrivacy: 'Save data and preferences stay in your browser only: no account, nothing is sent anywhere.',
+      teachersTitle: 'Teachers & classroom',
+      teachersNote: 'Teacher mode: discussion pauses after each case and a local debrief at the end. Classroom use: 20–40 minutes, no accounts, no data collected.',
+      resourcesTitle: 'Resources',
+      resourcesNote: 'In-game archive and glossary, plus the site guides (new tab).',
+      close: 'CLOSE'
     },
     preload: {
       systemName: 'INTEGRATED CIVIC SYSTEM',
@@ -351,10 +365,9 @@ export const en: Locale = {
       credits: 'CREDITS',
       debrief: 'TEACHER DEBRIEF ▸',
       learningReport: 'LEARNING REPORT ▸',
-      feedback: {
-        title: 'Help improve NO AI ACT',
-        text: 'Completed at least one case? Leave a 30-second anonymous feedback on clarity, learning quality and usability.',
-        button: 'Leave feedback'
+      privacyNote: {
+        title: 'Privacy: everything stays in your browser',
+        text: 'This version embeds no external forms and collects no feedback or data: answers, reports and progress never leave your device.'
       }
     },
     debrief: {

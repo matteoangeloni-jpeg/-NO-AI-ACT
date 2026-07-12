@@ -67,6 +67,10 @@ Pages infrastructure** issue, not a code problem.
   no-op commit to `main` to trigger a fresh run. Check the
   [GitHub status page](https://www.githubstatus.com/) for a Pages incident.
 
+## Traffic spikes
+For launch-day checks, what to monitor and what NOT to change during a
+traffic spike, see `docs/TRAFFIC_READINESS.md`.
+
 ## Deploy-critical files (verified by `verify:dist`)
 `dist/index.html`, `dist/en/index.html`, `dist/play/index.html`,
 `dist/robots.txt`, `dist/sitemap.xml`, `dist/sitemap-it.xml`,

@@ -84,6 +84,13 @@ const corrupt = htmlFiles.filter((f) => MOJIBAKE.test(readFileSync(f, 'utf8')));
 console.log(`  mojibake-free HTML: ${htmlFiles.length - corrupt.length}/${htmlFiles.length}`);
 if (corrupt.length) fail.push(`mojibake in dist HTML: ${corrupt.map((f) => relative(dist, f)).slice(0, 5).join(', ')}${corrupt.length > 5 ? ' …' : ''}`);
 
+// --- no external forms: Tally (and any form provider) must never ship ---
+const FORMS = /tally\.so|data-tally|44ENVA|5BryXb|dWgB5y|ZjWp9A|typeform\.com|jotform\.com|forms\.gle/i;
+const textFiles = files.filter((f) => /\.(html|js|css|txt|xml|json)$/.test(f));
+const withForms = textFiles.filter((f) => FORMS.test(readFileSync(f, 'utf8')));
+console.log(`  external-form-free files: ${textFiles.length - withForms.length}/${textFiles.length}`);
+if (withForms.length) fail.push(`external form reference in dist: ${withForms.map((f) => relative(dist, f)).slice(0, 5).join(', ')}`);
+
 if (fail.length) {
   console.error('\nFAIL — deploy-critical checks:');
   for (const f of fail) console.error('  ✗', f);

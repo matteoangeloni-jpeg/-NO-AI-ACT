@@ -28,7 +28,7 @@
 - No backend, no account, no registration, no personal data collection in the game.
 - No gameplay telemetry: decisions, scores and reports never leave the player's browser (localStorage only). Public pages use aggregate, cookie-free Cloudflare Web Analytics; the game itself sends nothing.
 - Teacher mode is local; its debrief export is local and anonymous.
-- The Tally playtest forms are external, voluntary and separate from the game.
+- No external forms are embedded: the public build collects no feedback or personal data.
 - Educational effectiveness has not been empirically validated; no impact claims are made.
 
 ## Play

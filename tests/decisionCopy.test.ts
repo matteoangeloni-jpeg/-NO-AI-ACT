@@ -3,12 +3,6 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { it } from '../src/game/i18n/it';
 import { en } from '../src/game/i18n/en';
-import {
-  TALLY_PRE_GAME_IT_FORM_ID,
-  TALLY_PRE_GAME_EN_URL,
-  TALLY_POST_GAME_IT_URL,
-  TALLY_POST_GAME_EN_URL
-} from '../src/game/config/tally';
 
 const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
@@ -63,17 +57,12 @@ describe('PR 1C — NO AI ACT name clarification on the landings', () => {
   });
 });
 
-describe('PR 1C — Tally forms unchanged', () => {
-  test('pre-game forms on the landings are unchanged', () => {
-    expect(itHtml).toContain('data-tally-open="44ENVA"'); // IT pre-game
-    expect(enHtml).toContain('https://tally.so/r/5BryXb'); // EN pre-game
-    expect(TALLY_PRE_GAME_IT_FORM_ID).toBe('44ENVA');
-    expect(TALLY_PRE_GAME_EN_URL).toBe('https://tally.so/r/5BryXb');
-  });
-
-  test('post-game forms in config are unchanged', () => {
-    expect(TALLY_POST_GAME_IT_URL).toBe('https://tally.so/r/dWgB5y');
-    expect(TALLY_POST_GAME_EN_URL).toBe('https://tally.so/r/ZjWp9A');
+describe('PR 1C — no external forms on the landings (Tally removed)', () => {
+  test('landings ship no Tally embed or link', () => {
+    for (const html of [itHtml, enHtml]) {
+      expect(html).not.toContain('tally.so');
+      expect(html).not.toMatch(/data-tally/i);
+    }
   });
 });
 

@@ -210,9 +210,9 @@ describe('SEO pages — game and play routing untouched', () => {
     expect(read('play/index.html')).toContain('name="robots" content="noindex, follow"');
   });
 
-  it('landing Tally setup unchanged', () => {
-    expect(read('index.html')).toContain('data-tally-open="44ENVA"');
-    expect(read('en/index.html')).toContain('data-tally-open="5BryXb"');
+  it('landings carry no external form embed (Tally removed)', () => {
+    expect(read('index.html')).not.toMatch(/data-tally|tally\.so/i);
+    expect(read('en/index.html')).not.toMatch(/data-tally|tally\.so/i);
   });
 
   it('llms.txt lists the new educational pages', () => {
