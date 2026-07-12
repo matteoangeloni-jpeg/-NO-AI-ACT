@@ -232,14 +232,12 @@ describe('SEO and privacy safeguards preserved', () => {
     }
   });
 
-  it('Tally IDs are unchanged', () => {
-    expect(read('index.html')).toContain('data-tally-open="44ENVA"');
-    expect(read('en/index.html')).toContain('https://tally.so/r/5BryXb');
-    const tally = read('src/game/config/tally.ts');
-    expect(tally).toContain('44ENVA');
-    expect(tally).toContain('5BryXb');
-    expect(tally).toContain('dWgB5y');
-    expect(tally).toContain('ZjWp9A');
+  it('no Tally / external form reference anywhere on the landings', () => {
+    for (const p of ['index.html', 'en/index.html']) {
+      const html = read(p);
+      expect(html).not.toContain('tally.so');
+      expect(html).not.toMatch(/data-tally/i);
+    }
   });
 
   it('no new telemetry: the game shell has only main.ts and the Cloudflare beacon', () => {

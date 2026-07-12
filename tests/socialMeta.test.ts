@@ -155,9 +155,9 @@ describe('no URL leaks, no stale references, no fake/forbidden content', () => {
       for (const bad of ['"Review"', '"AggregateRating"', '"Product"', '"Course"']) {
         expect(html.includes(bad), `${d}: ${bad}`).toBe(false);
       }
-      // only the pre-existing hosts may appear: the CF beacon (all pages) and
-      // the Tally playtest embed (landings only). No NEW external host.
-      const allowed = ['static.cloudflareinsights.com', 'tally.so'];
+      // only the pre-existing CF beacon may appear. No NEW external host,
+      // and no form provider (Tally was removed from the product).
+      const allowed = ['static.cloudflareinsights.com'];
       const external = [...html.matchAll(/<script[^>]*src=['"]([^'"]+)['"]/g)].map(([, s]) => s).filter((s) => /^https?:\/\//.test(s));
       for (const s of external) {
         expect(allowed.some((h) => s.includes(h)), `${d}: unexpected external script ${s}`).toBe(true);
@@ -190,11 +190,12 @@ describe('SEO / policy invariants preserved', () => {
     expect([it, en].reduce((n, sm) => n + (sm.match(/<loc>/g) ?? []).length, 0)).toBe(42);
   });
 
-  it('Tally IDs unchanged', () => {
-    expect(read('index.html')).toContain('data-tally-open="44ENVA"');
-    expect(read('en/index.html')).toContain('https://tally.so/r/5BryXb');
-    const t = read('src/game/config/tally.ts');
-    for (const id of ['44ENVA', '5BryXb', 'dWgB5y', 'ZjWp9A']) expect(t).toContain(id);
+  it('no Tally IDs or form hosts remain', () => {
+    for (const p of ['index.html', 'en/index.html', 'play/index.html']) {
+      const html = read(p);
+      expect(html).not.toContain('tally.so');
+      for (const id of ['44ENVA', '5BryXb', 'dWgB5y', 'ZjWp9A']) expect(html).not.toContain(id);
+    }
   });
 
   it('config covers exactly the 42 public pages + the play shell', () => {

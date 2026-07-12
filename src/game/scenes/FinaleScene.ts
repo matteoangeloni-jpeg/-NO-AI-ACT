@@ -1,6 +1,5 @@
 import Phaser from 'phaser';
 import { computeEnding } from '../data/endings';
-import { postGameFeedbackUrl } from '../config/tally';
 import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { IndicatorHud } from '../systems/IndicatorSystem';
@@ -78,21 +77,13 @@ export class FinaleScene extends Phaser.Scene {
       new Button(this, cx + 170, GAME_HEIGHT - 118, L().ui.finale.debrief, () => this.scene.start('Debrief'), { width: 300, variant: 'ok' });
     }
 
-    // Optional post-game feedback CTA — opens an external, anonymous Tally form
-    // in a new tab. No gameplay data (answers, scores, decisions, report,
-    // progress) is ever passed: the bare per-language URL is opened as-is, with
-    // no custom tracking. The game stays fully usable whether or not it's clicked.
-    const feedback = L().ui.finale.feedback;
+    // Nota privacy statica, non interattiva: questa versione non incorpora
+    // moduli esterni e non raccoglie feedback o dati — niente pulsanti, niente
+    // link, nessuna trasmissione. Sostituisce il vecchio CTA verso il modulo
+    // esterno, rimosso dal prodotto pubblico.
+    const privacy = L().ui.finale.privacyNote;
     const fbLeft = cx - 570;
-    this.add.text(fbLeft, 540, feedback.title, textStyle(13, COLOR_STR.accent, { fontStyle: 'bold' }));
-    this.add.text(fbLeft, 562, feedback.text, textStyle(11, COLOR_STR.paperDim, { wordWrap: { width: 410 }, lineSpacing: 3 }));
-    new Button(
-      this,
-      fbLeft + 100,
-      GAME_HEIGHT - 58,
-      feedback.button,
-      () => window.open(postGameFeedbackUrl(StateManager.language), '_blank', 'noopener,noreferrer'),
-      { width: 190, height: 38, fontSize: 13, variant: 'ghost' }
-    );
+    this.add.text(fbLeft, 540, privacy.title, textStyle(13, COLOR_STR.accent, { fontStyle: 'bold' }));
+    this.add.text(fbLeft, 562, privacy.text, textStyle(11, COLOR_STR.paperDim, { wordWrap: { width: 410 }, lineSpacing: 3 }));
   }
 }

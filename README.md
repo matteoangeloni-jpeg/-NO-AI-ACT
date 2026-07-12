@@ -232,8 +232,9 @@ statiche dallo stesso build Vite multipagina:
 - `/robots.txt`, `/sitemap.xml`, `/llms.txt` serviti dalla root (da `public/`),
   più i documenti AI-readable in `docs/` (`NO_AI_ACT_PROJECT_BRIEF.md`,
   `TEACHER_QUICK_START.md`, `LEGAL_DISCLAIMER.md`).
-- Un popup **Tally** (form esterno, modale) raccoglie i riscontri di playtest
-  senza backend e senza dati personali obbligatori.
+- **Nessun modulo esterno incorporato**: la versione pubblica non include form
+  di feedback di terze parti e non raccoglie dati (i moduli Tally del periodo
+  di playtest sono stati rimossi).
 
 ## Installazione e avvio
 

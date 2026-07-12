@@ -3,7 +3,6 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { it } from '../src/game/i18n/it';
 import { en } from '../src/game/i18n/en';
-import { TALLY_PRE_GAME_IT_FORM_ID, TALLY_PRE_GAME_EN_URL, TALLY_POST_GAME_IT_URL, TALLY_POST_GAME_EN_URL } from '../src/game/config/tally';
 
 const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
@@ -105,13 +104,10 @@ describe('PR 1E — overlay is strictly presentational / read-only', () => {
   });
 });
 
-describe('PR 1E — Tally forms unchanged', () => {
-  test('pre/post-game forms are unchanged', () => {
-    expect(read('index.html')).toContain('data-tally-open="44ENVA"');
-    expect(read('en/index.html')).toContain('https://tally.so/r/5BryXb');
-    expect(TALLY_PRE_GAME_IT_FORM_ID).toBe('44ENVA');
-    expect(TALLY_PRE_GAME_EN_URL).toBe('https://tally.so/r/5BryXb');
-    expect(TALLY_POST_GAME_IT_URL).toBe('https://tally.so/r/dWgB5y');
-    expect(TALLY_POST_GAME_EN_URL).toBe('https://tally.so/r/ZjWp9A');
+describe('PR 1E — no external forms (Tally removed)', () => {
+  test('landings and game ship no Tally reference', () => {
+    expect(read('index.html')).not.toContain('tally.so');
+    expect(read('en/index.html')).not.toContain('tally.so');
+    expect(read('src/game/scenes/FinaleScene.ts')).not.toMatch(/tally/i);
   });
 });

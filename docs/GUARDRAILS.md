@@ -35,11 +35,14 @@ enforce all of it; run `npm test` before opening any feature PR.
   URLs). Enforced by `tests/privacyGuards.test.ts`, `tests/socialMeta.test.ts`,
   `tests/navigationAudit.test.ts`.
 
-## Tally boundary
-- The four Tally IDs (`44ENVA`, `5BryXb`, `dWgB5y`, `ZjWp9A`) are fixed and live
-  only in `src/game/config/tally.ts`; the pre-game form is embedded only on the
-  two landings. The post-game form opens on an explicit user click and carries
-  no gameplay data. Do not change the IDs or widen the boundary.
+## No external forms
+- **Tally was removed from the public product.** The game and the website ship
+  **zero** third-party form scripts, embeds, links or IDs — no feedback,
+  survey or questionnaire mechanism of any kind, and no replacement provider.
+  Feedback/data collection is intentionally NOT part of the public build.
+- Enforced by `tests/noExternalForms.test.ts` (source + pages) and by the
+  external-host allowlist in `tests/privacyGuards.test.ts`.
+
 
 ## Search Console / Sitemap readiness
 - Advertised sitemaps (robots.txt): **`/sitemap-it.xml`**, **`/sitemap-en.xml`** · Kept for compatibility (not advertised): **`/sitemap.xml`** (a sitemap index) · Robots: **`https://www.no-ai-act.eu/robots.txt`**
@@ -86,4 +89,4 @@ The files themselves are fine (200, real XML, correct namespace, 19 + 23 = 42 ca
    `BASE=http://localhost:4200 node scripts/smoke/gameplay-smoke.mjs`
    (needs Playwright + a Chromium; set `CHROMIUM_PATH` if not bundled).
 5. Confirm: no new external host, no console errors, `/play/` noindex, sitemap
-   still 42, Tally IDs unchanged, no gameplay/scoring/case/ending/save changes.
+   still 42, no external forms, no gameplay/scoring/case/ending/save changes.

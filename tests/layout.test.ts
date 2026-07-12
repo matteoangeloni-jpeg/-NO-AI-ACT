@@ -76,10 +76,11 @@ describe('TitleScene menu configurations never collide with the footer', () => {
   const bottom = footerY - 22;
   const footerTop = footerY - 7; // ~14px disclaimer line
 
+  // Simplified title (post-Tally UX pass): 1–2 primary actions (48px) +
+  // 3 secondary group buttons (44px). RESET lives inside Settings now.
   const configs: Record<string, number[]> = {
-    'no save (4 items)': [48, 48, 48, 48],
-    'save, no progress (+RESET, 5 items)': [48, 48, 48, 48, 40],
-    'save with progress (+CONTINUA +RESET, 6 items)': [48, 48, 48, 48, 48, 40]
+    'no save / save without progress (4 items)': [48, 44, 44, 44],
+    'save with progress (+CONTINUA, 5 items)': [48, 48, 44, 44, 44]
   };
 
   for (const [name, heights] of Object.entries(configs)) {

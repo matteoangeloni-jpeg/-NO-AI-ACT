@@ -1,3 +1,7 @@
+> **STATO (v1.2):** proposta storica, NON attiva. I moduli Tally citati qui
+> sono stati rimossi dal prodotto pubblico: la versione corrente non incorpora
+> moduli esterni e non raccoglie alcun dato.
+
 # NO AI ACT — Research data plan (FASE 2, proposta)
 
 > **Status: PROPOSTA da revisionare.** Questo documento NON modifica i form Tally,

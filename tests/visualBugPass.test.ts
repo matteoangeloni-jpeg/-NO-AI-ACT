@@ -2,7 +2,6 @@ import { describe, expect, it as test } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { NORMS } from '../src/game/data/norms';
-import { TALLY_PRE_GAME_IT_FORM_ID, TALLY_PRE_GAME_EN_URL, TALLY_POST_GAME_IT_URL, TALLY_POST_GAME_EN_URL } from '../src/game/config/tally';
 
 const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
@@ -134,16 +133,12 @@ describe('visual bug pass — no gameplay, scoring, save or content changes', ()
   });
 });
 
-describe('visual bug pass — Tally and landing untouched', () => {
-  test('Tally config constants are unchanged', () => {
-    expect(TALLY_PRE_GAME_IT_FORM_ID).toBe('44ENVA');
-    expect(TALLY_PRE_GAME_EN_URL).toBe('https://tally.so/r/5BryXb');
-    expect(TALLY_POST_GAME_IT_URL).toBe('https://tally.so/r/dWgB5y');
-    expect(TALLY_POST_GAME_EN_URL).toBe('https://tally.so/r/ZjWp9A');
-  });
-
-  test('index.html and en/index.html were not touched by this bugfix pass', () => {
-    expect(read('index.html')).toContain('data-tally-open="44ENVA"');
-    expect(read('en/index.html')).toContain('https://tally.so/r/5BryXb');
+describe('visual bug pass — no external forms on the landings (Tally removed)', () => {
+  test('landings ship no Tally embed, popup or link', () => {
+    for (const p of ['index.html', 'en/index.html']) {
+      const html = read(p);
+      expect(html).not.toContain('tally.so');
+      expect(html).not.toMatch(/data-tally/i);
+    }
   });
 });

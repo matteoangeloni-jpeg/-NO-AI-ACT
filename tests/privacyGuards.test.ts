@@ -2,10 +2,6 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { resolveProvider } from '../src/game/systems/AnalyticsSystem';
-import {
-  TALLY_PRE_GAME_IT_FORM_ID, TALLY_PRE_GAME_EN_URL,
-  TALLY_POST_GAME_IT_URL, TALLY_POST_GAME_EN_URL
-} from '../src/game/config/tally';
 
 /**
  * PRIVACY / TELEMETRY GUARDRAILS (v1.x) — must hold through v1.2.
@@ -63,7 +59,8 @@ describe('no network primitives in game code outside the analytics abstraction',
   });
 
   it('no game code references a non-allowlisted external host', () => {
-    const allowed = /schema\.org|eur-lex\.europa\.eu|digital-strategy\.ec\.europa\.eu|no-ai-act\.eu|github\.com|tally\.so|plausible\.io|umami|cloudflareinsights/;
+    // tally.so removed from the allowlist: the game must not reference any form host.
+    const allowed = /schema\.org|eur-lex\.europa\.eu|digital-strategy\.ec\.europa\.eu|no-ai-act\.eu|github\.com|plausible\.io|umami|cloudflareinsights/;
     const offenders: string[] = [];
     for (const f of GAME_FILES) {
       for (const m of read(f).matchAll(/https?:\/\/([a-zA-Z0-9.-]+)/g)) {
@@ -74,21 +71,28 @@ describe('no network primitives in game code outside the analytics abstraction',
   });
 });
 
-describe('Tally boundary is unchanged and confined to config + landings', () => {
-  it('the four Tally IDs are exactly the approved ones', () => {
-    expect(TALLY_PRE_GAME_IT_FORM_ID).toBe('44ENVA');
-    expect(TALLY_PRE_GAME_EN_URL).toBe('https://tally.so/r/5BryXb');
-    expect(TALLY_POST_GAME_IT_URL).toBe('https://tally.so/r/dWgB5y');
-    expect(TALLY_POST_GAME_EN_URL).toBe('https://tally.so/r/ZjWp9A');
+describe('no external forms — Tally fully removed', () => {
+  it('no game file references Tally or any external form host', () => {
+    const offenders = GAME_FILES.filter((f) => /tally|44ENVA|5BryXb|dWgB5y|ZjWp9A|typeform|jotform|forms\.gle/i.test(read(f)));
+    expect(offenders).toEqual([]);
   });
 
-  it('Tally only appears in the game config and on the two landings', () => {
-    // in game code, Tally URLs live solely in config/tally.ts
-    const tallyGameFiles = GAME_FILES.filter((f) => /tally\.so|44ENVA|5BryXb|dWgB5y|ZjWp9A/.test(read(f)));
-    expect(tallyGameFiles).toEqual(['src/game/config/tally.ts']);
-    // public pages: only the two landings embed the pre-game form
-    expect(read('index.html')).toContain('data-tally-open="44ENVA"');
-    expect(read('en/index.html')).toContain('https://tally.so/r/5BryXb');
+  it('the old Tally config module no longer exists', () => {
+    expect(() => read('src/game/config/tally.ts')).toThrow();
+  });
+
+  it('the landings embed no Tally script, popup or link', () => {
+    for (const p of ['index.html', 'en/index.html']) {
+      const html = read(p);
+      expect(html).not.toContain('tally.so');
+      expect(html).not.toMatch(/data-tally/i);
+    }
+  });
+
+  it('the finale shows a static privacy note instead of a feedback CTA', () => {
+    const finale = read('src/game/scenes/FinaleScene.ts');
+    expect(finale).toContain('privacyNote');
+    expect(finale).not.toContain('window.open');
   });
 });
 

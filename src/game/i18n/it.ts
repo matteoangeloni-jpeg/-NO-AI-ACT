@@ -8,6 +8,7 @@ export const it = {
   ui: {
     gameTitle: 'NO AI ACT',
     gameSubtitle: 'Simulatore di una società non regolata',
+    titleTagline: "Valuta casi d'uso dell'IA. Ogni scelta incide su fiducia pubblica, innovazione e diritti. Obiettivo: trovare un equilibrio sostenibile.",
     titleHeader: 'REPUBBLICA MUNICIPALE AUTOMATIZZATA — ANNO 2032',
     footerDisclaimer:
       "Versione didattica semplificata dell'AI Act (Reg. UE 2024/1689). Non costituisce consulenza legale.",
@@ -28,7 +29,20 @@ export const it = {
       teacherOn: 'MODALITÀ DOCENTE: ON',
       teacherOff: 'MODALITÀ DOCENTE: OFF',
       teacherScope: 'Debrief locale: niente classi, niente account, niente server.',
-      resetDone: 'Salvataggio azzerato.'
+      resetDone: 'Salvataggio azzerato.',
+      teachers: 'DOCENTI E CLASSE',
+      resources: 'RISORSE',
+      settings: 'IMPOSTAZIONI',
+      resetConfirm: 'CONFERMA RESET?'
+    },
+    titleGroups: {
+      settingsTitle: 'Impostazioni',
+      settingsPrivacy: 'Salvataggio e preferenze restano solo nel tuo browser: nessun account, nessun dato inviato.',
+      teachersTitle: 'Docenti e classe',
+      teachersNote: 'Modalità docente: pause di discussione dopo ogni caso e debrief locale a fine partita. Uso in classe: 20–40 minuti, nessun account, nessun dato raccolto.',
+      resourcesTitle: 'Risorse',
+      resourcesNote: 'Archivio e glossario del gioco, più le guide del sito (nuova scheda).',
+      close: 'CHIUDI'
     },
     preload: {
       systemName: 'SISTEMA CIVICO INTEGRATO',
@@ -350,10 +364,9 @@ export const it = {
       credits: 'CREDITS',
       debrief: 'DEBRIEF DOCENTE ▸',
       learningReport: 'RAPPORTO DI APPRENDIMENTO ▸',
-      feedback: {
-        title: 'Aiutami a migliorare NO AI ACT',
-        text: 'Hai completato almeno un caso? Lascia un feedback anonimo di 30 secondi su chiarezza, qualità didattica e usabilità.',
-        button: 'Lascia feedback'
+      privacyNote: {
+        title: 'Privacy: tutto resta nel tuo browser',
+        text: 'Questa versione non incorpora moduli esterni e non raccoglie feedback o dati: risposte, rapporti e progressi non lasciano mai il tuo dispositivo.'
       }
     },
     debrief: {

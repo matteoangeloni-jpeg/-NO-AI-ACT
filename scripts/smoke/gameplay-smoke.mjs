@@ -41,6 +41,24 @@ const click = async (x, y, w = 400) => {
   await page.mouse.down(); await page.mouse.up(); await page.waitForTimeout(w);
 };
 
+// Click a canvas Button by its label (logical coords == screen coords at 1280×720).
+// Robust to title-menu layout changes: reads the live scene via window.game.
+const clickButton = async (labelRe, w = 400) => {
+  const pos = await page.evaluate((reSrc) => {
+    const re = new RegExp(reSrc, 'i');
+    const scenes = window.game.scene.getScenes(true);
+    const s = scenes[scenes.length - 1];
+    for (const o of s.children.list) {
+      if (o.type !== 'Container' || !o.input || !o.input.enabled || !o.visible) continue;
+      const t = (o.list || []).find((ch) => typeof ch.text === 'string');
+      if (t && re.test(t.text)) { const b = o.getBounds(); return { x: b.centerX, y: b.centerY }; }
+    }
+    return null;
+  }, labelRe.source);
+  if (!pos) { fail.push(`button not found: ${labelRe}`); return; }
+  await click(Math.round(pos.x), Math.round(pos.y), w);
+};
+
 // EN, teacher mode off, no prior progress
 await page.addInitScript(() => localStorage.setItem('no-ai-act-save-v1', JSON.stringify({
   version: 1, indicators: { efficienza: 50, controllo: 50, diritti: 50, fiducia: 50 },
@@ -52,7 +70,7 @@ await page.addInitScript(() => localStorage.setItem('no-ai-act-save-v1', JSON.st
 await page.goto(`${BASE}/play/?lang=en`, { waitUntil: 'load' });
 await page.waitForTimeout(9000); // Phaser boot
 
-await click(640, 390, 1200);            // NEW GAME
+await clickButton(/NEW GAME/, 1200);    // primary action on the simplified title
 await click(640, 300, 500); await click(640, 600, 1200); // briefing -> city map (CTA now inside the panel at y≈600)
 await click(Math.round(1280 * 0.40), Math.round(720 * 0.18), 800); // welfare marker (case_credito)
 await click(640, 400, 400); await click(640, 650, 1000); // -> evidence
