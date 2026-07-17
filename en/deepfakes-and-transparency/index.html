@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+
+  <title>Deepfakes and the AI Act — what EU transparency rules actually require</title>
+  <meta name="description" content="The AI Act does not ban deepfakes: it makes them disclosable. What Article 50 requires from those who generate and those who use synthetic content, why labels matter, and where the AI Act ends." />
+  <meta name="author" content="NO AI ACT" />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="canonical" href="https://www.no-ai-act.eu/en/deepfakes-and-transparency/" />
+  <link rel="alternate" hreflang="it" href="https://www.no-ai-act.eu/deepfake-e-trasparenza/" />
+  <link rel="alternate" hreflang="en" href="https://www.no-ai-act.eu/en/deepfakes-and-transparency/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.no-ai-act.eu/deepfake-e-trasparenza/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="NO AI ACT" />
+  <meta property="og:locale" content="en_GB" />
+  <meta property="og:locale:alternate" content="it_IT" />
+  <meta property="og:title" content="Deepfakes and transparency under the AI Act" />
+  <meta property="og:description" content="Mandatory disclosure, machine-readable marking, provider and deployer responsibility: Article 50 explained simply." />
+  <meta property="og:url" content="https://www.no-ai-act.eu/en/deepfakes-and-transparency/" />
+  <meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
+  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="NO AI ACT: plain-language guide to the EU AI Act." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Deepfakes and transparency under the AI Act" />
+  <meta name="twitter:description" content="Mandatory disclosure, machine-readable marking, provider and deployer responsibility: Article 50 explained simply." />
+  <meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
+  <meta name="twitter:image:alt" content="NO AI ACT: plain-language guide to the EU AI Act." />
+  <link rel="stylesheet" href="/src/styles/landing.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "NO AI ACT", "item": "https://www.no-ai-act.eu/en/" },
+      { "@type": "ListItem", "position": 2, "name": "EU AI Act guide", "item": "https://www.no-ai-act.eu/en/eu-ai-act-guide/" },
+      { "@type": "ListItem", "position": 3, "name": "Deepfakes and transparency", "item": "https://www.no-ai-act.eu/en/deepfakes-and-transparency/" }
+    ]
+  }
+  </script>
+  <script>document.documentElement.classList.add('has-js');</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "NO AI ACT",
+    "url": "https://www.no-ai-act.eu/",
+    "description": "Free educational serious game and resource hub on the EU AI Act",
+    "logo": "https://www.no-ai-act.eu/favicon.svg",
+    "sameAs": [
+      "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="../" aria-label="NO AI ACT — home">NO AI ACT<span class="dot">.</span></a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Navigation menu">Menu</button>
+        <ul class="nav-menu" id="site-menu">
+          <li><a href="../../play/?lang=en">Play</a></li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-education">Education</button>
+            <ul class="nav-sub" id="sub-education">
+              <li><a href="../education/">Education hub</a></li>
+              <li><a href="../ai-literacy/">AI literacy</a></li>
+              <li><a href="../serious-games-for-ai-regulation/">Serious games &amp; AI regulation</a></li>
+              <li><a href="../faq/">FAQ</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-teachers">Teachers</button>
+            <ul class="nav-sub" id="sub-teachers">
+              <li><a href="../ai-act-for-teachers/">AI Act for teachers</a></li>
+              <li><a href="../classroom-activities/">Classroom activities</a></li>
+              <li><a href="../lesson-plan-introduction-to-the-ai-act/">Introductory lesson plan</a></li>
+              <li><a href="../for-educators/">Teacher mode / game</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-aiact">AI Act</button>
+            <ul class="nav-sub" id="sub-aiact">
+              <li><a href="../eu-ai-act-guide/">EU AI Act guide</a></li>
+              <li><a href="../ai-act-risk-categories/">Risk categories</a></li>
+              <li><a href="../prohibited-ai-practices/">Prohibited practices</a></li>
+              <li><a href="../high-risk-ai-systems/">High-risk AI systems</a></li>
+              <li><a href="../transparency-obligations/">Transparency obligations</a></li>
+              <li><a href="../general-purpose-ai/">Generative AI &amp; GPAI</a></li>
+            </ul>
+          </li>
+          <li><a href="../glossary/">Glossary</a></li>
+          <li><a href="../privacy-by-design/">Privacy</a></li>
+          <li><a class="nav-lang" href="../../deepfake-e-trasparenza/" hreflang="it">IT</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="wrap">
+      <ol>
+        <li><a href="../">NO AI ACT</a></li>
+        <li><a href="../eu-ai-act-guide/">EU AI Act guide</a></li>
+        <li aria-current="page">Deepfakes and transparency</li>
+      </ol>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="wrap">
+        <p class="kicker">AI Act · Deepfakes · Art. 50</p>
+        <h1 id="page-title">Deepfakes and transparency</h1>
+        <p class="lead">A convincing fake video is cheap to make and travels fast. The AI Act answers with a rule that is simple to state and demanding to apply: AI-generated content must be recognisable as such. This page explains who must do what — and why the real stake is trust, not just individual videos.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="brief-title">
+      <div class="wrap">
+        <h2 id="brief-title"><span class="num">01</span>In brief</h2>
+        <p class="section-intro">The AI Act <strong>does not ban deepfakes</strong>: it requires <strong>transparency</strong>. Systems that generate synthetic content must make it machine-detectable as artificial, and whoever uses a deepfake must disclose that the content was artificially generated or manipulated (Art. 50). The problem the law targets is not the technology — it is deception.</p>
+      </div>
+    </section>
+    <section aria-labelledby="art50-title">
+      <div class="wrap">
+        <h2 id="art50-title"><span class="num">02</span>What Article 50 requires</h2>
+        <ul class="plain">
+          <li><strong>Providers</strong>: systems generating synthetic audio, images, video or text must mark outputs in a machine-readable format so they are detectable as artificially generated.</li>
+          <li><strong>Deployers</strong>: whoever uses a system to create or manipulate a deepfake must disclose that the content is artificial. For clearly artistic, satirical or creative content the rule allows lighter disclosure — an area of <em>interpretation</em>, not a free pass.</li>
+          <li><strong>Chatbots</strong>: people must know when they are talking to a machine — same logic, different channel (<a href="../transparency-obligations/">transparency obligations</a>).</li>
+        </ul>
+      </div>
+    </section>
+    <section aria-labelledby="why-title">
+      <div class="wrap">
+        <h2 id="why-title"><span class="num">03</span>Why the label matters</h2>
+        <p class="section-intro">An unlabelled deepfake does not harm only the person imitated: it erodes trust in <em>everything</em> we see. If any video might be fake, authentic videos become deniable too — the so-called "liar's dividend". Mandatory transparency protects the information ecosystem before it protects individual victims, which is why violating it in the game damages the whole city's trust indicators.</p>
+      </div>
+    </section>
+    <section aria-labelledby="game-title">
+      <div class="wrap">
+        <h2 id="game-title"><span class="num">04</span>In the game: "The synthetic city"</h2>
+        <p class="section-intro">In the case <em>The synthetic city</em> you inspect a platform generating content with no marking at all: you must decide whether the problem is the generating model, the way it is used, or both — and who is responsible. It is the fastest way to grasp the provider/deployer distinction under Article 50. <a href="../../play/?lang=en">Play the case</a>, then compare your decision with the real rule.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="../../play/?lang=en">Play</a>
+          <a class="btn btn-ghost" href="../transparency-obligations/">Transparency obligations</a>
+        </div>
+      </div>
+    </section>
+    <section aria-labelledby="limits-title">
+      <div class="wrap">
+        <h2 id="limits-title"><span class="num">05</span>What this page does NOT cover</h2>
+        <p class="section-intro">Defamation, copyright, image rights and offences under national law sit outside the AI Act and outside this page: a labelled deepfake can still be unlawful for other reasons. For a concrete case you need a professional, not an educational page.</p>
+      </div>
+    </section>
+    <section aria-labelledby="sources-title">
+      <div class="wrap">
+        <h2 id="sources-title"><span class="num">06</span>Official sources and transparency</h2>
+        <ul class="plain">
+          <li><strong>Content responsibility</strong>: the NO AI ACT project (Matteo Angeloni); internal editorial review, no third-party legal review.</li>
+          <li><strong>First published</strong>: July 2026 · <strong>Last reviewed</strong>: July 2026 (site v1.1.0).</li>
+          <li><strong>Official sources</strong>: <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj">Regulation (EU) 2024/1689 on EUR-Lex</a> (Art. 50); <a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai">EU regulatory framework for AI (European Commission)</a>; <a href="https://digital-strategy.ec.europa.eu/en/policies/ai-office">European AI Office</a>.</li>
+          <li><strong>Related game cases</strong>: "The synthetic city" (generated content), "The desk that always answers" (chatbot).</li>
+          <li><strong>Related teacher resources</strong>: <a href="../classroom-activities/">classroom activities</a> (transparency hunt), <a href="../ai-act-classroom-lab/">classroom lab guide</a>.</li>
+          <li><strong>Disclaimer</strong>: this page is an educational simplification, not legal advice.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer aria-labelledby="footer-title">
+    <div class="wrap">
+      <h2 id="footer-title" class="stamp">Educational simulation — not legal advice</h2>
+      <p>NO AI ACT is an educational tool. It deliberately simplifies <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" hreflang="en">Regulation (EU) 2024/1689 (AI Act)</a> and does not replace the legal text or professional advice.</p>
+      <p><a href="../">Home</a> · <a href="../transparency-obligations/">Transparency obligations</a> · <a href="../general-purpose-ai/">Generative AI &amp; GPAI</a> · <a href="../education/">Education hub</a> · <a href="../../deepfake-e-trasparenza/" hreflang="it">Versione italiana</a></p>
+      <p class="credit">Designed and developed by Matteo Angeloni · v1.1.0</p>
+    </div>
+  </footer>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7c85578fc8ad4488a54c6bc670a10dcf"}'></script><!-- End Cloudflare Web Analytics -->
+  <script type="module" src="/src/scripts/nav.ts"></script>
+</body>
+</html>
