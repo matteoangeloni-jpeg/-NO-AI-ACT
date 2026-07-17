@@ -6,7 +6,7 @@
 [![Contenuti: CC BY 4.0](https://img.shields.io/badge/contenuti-CC%20BY%204.0-5d7fb8)](LICENSE)
 [![Stack](https://img.shields.io/badge/stack-TypeScript%20%2B%20Phaser%203%20%2B%20Vite-101a30)](#stack)
 [![Test](https://img.shields.io/badge/test-Vitest-d9a521)](tests/)
-[![Stato](https://img.shields.io/badge/stato-v1.0.0-3fa66a)](#stato-release)
+[![Stato](https://img.shields.io/badge/stato-v1.1.0-3fa66a)](#stato-release)
 [![Lingue](https://img.shields.io/badge/lingue-IT%20%2B%20EN-d8d6cd)](#lingue)
 
 **Serious game investigativo sull'AI Act europeo · browser, zero asset esterni, salvataggio locale**
@@ -51,7 +51,17 @@ Questo gioco **non costituisce consulenza legale**.
 | **Lingue** | Italiano / English |
 | **Account / dati** | Nessun account, nessun dato personale, nessun backend |
 
-## Novità in v1.0.0 — Prima release pubblica stabile
+## Stato attuale del codice (v1.1.0, su `main`)
+
+Il codice su `main` è avanti rispetto all'ultima release taggata (v1.0.0):
+la v1.1 ha aggiunto l'esperienza di apprendimento strutturata (debrief delle
+decisioni, rapporto di apprendimento, guida docente) e i cicli successivi hanno
+rimosso i moduli esterni Tally, semplificato la schermata del titolo,
+consolidato la pipeline di deploy e le guardie di test. I dettagli operativi
+correnti vivono in `release.config.json` (metadati machine-readable) e nei
+documenti in `docs/`.
+
+## Novità in v1.0.0 — Prima release pubblica stabile (storico)
 
 La v1.0.0 consolida i contenuti della v0.6 (11 casi giocabili IT/EN) in una
 release pubblica stabile pensata per l'uso didattico. Nessun nuovo contenuto
@@ -63,7 +73,7 @@ di gioco: la 1.0 è una release di stabilizzazione e pubblicazione.
 - **Visual bug pass** completo pre-release: archivio norme scrollabile (tutte
   le 11 norme raggiungibili), overlay coerenti in Evidence/Decision, toast e
   pannello imprevisti corretti.
-- **274 test automatici** verdi; scoring, casi, norme e salvataggi invariati
+- **Suite di test completa verde** (274 alla data della release); scoring, casi, norme e salvataggi invariati
   rispetto alla v0.6 (salvataggi compatibili).
 - **Nessuna nuova raccolta dati**: identica impostazione privacy-by-design.
 
@@ -281,7 +291,7 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 ## Roadmap
 
-**✅ v1.0.0 — Prima release pubblica stabile (corrente)**
+**✅ v1.0.0 — Prima release pubblica stabile (ultima release taggata)**
 - Landing SEO/content pack IT/EN, visual bug pass pre-playtest, versioning e
   documentazione di release. Contenuti di gioco invariati rispetto alla v0.6.
   Dettagli: [`docs/RELEASE_NOTES_v1.0.0.md`](docs/RELEASE_NOTES_v1.0.0.md).
@@ -303,17 +313,20 @@ struttura fra i dizionari (predisposto per FR/ES).
 - 7 casi base, difficoltà Base/Standard/Esperto, percorsi/missioni, modalità
   docente locale, mobile guard, IT/EN, analytics privacy-by-design (off).
 
-**🧭 Futuro possibile (post-1.0)**
-- Organizzazione mappa per zone/capitoli; revisione giuridica terza; pacchetto
-  pubblico/accademico; rifinitura da playtest esterno.
+**🚧 In corso — verso la 2.0**
+- Architettura di apprendimento (obiettivi, capitoli, auto-verifica locale,
+  riflessione), accessibilità e layout compatto, pacchetto di citazione e
+  metadati per ricerca/OER, consolidamento SEO IT/EN. Nessun backend, nessun
+  account, nessuna raccolta dati: la 2.0 resta statica e privacy-preserving.
 
 ## <a name="stato-release"></a>Stato release
 
-- **Versione**: v1.0.0
+- **Versione**: v1.1.0 (ultima release taggata: v1.0.0)
 - **Branch stabile**: `main` (GitHub Pages deploy attivo)
 - **Distribuzione**: <https://www.no-ai-act.eu/>
 - **Casi**: 11 giocabili (7 base + 4 avanzati).
-- **Test / build**: verdi in locale e in CI (274 test automatici).
+- **Test / build**: suite Vitest completa + build + verifiche dist verdi in CI
+  (il numero esatto di test evolve con il progetto: fonte di verità `npm test`).
 - **Playtest esterno strutturato**: ancora da completare; la 1.0 è una release
   pubblica stabile, non una validazione empirica dell'efficacia didattica.
 

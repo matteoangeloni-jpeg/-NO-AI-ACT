@@ -1,0 +1,23 @@
+{
+  "$comment": "Machine-readable release metadata — single source of truth for documentation and tests. The VERSION source of truth is package.json `version`; everything here must stay consistent with the executable source (enforced by tests/releaseMetadata.test.ts). Do not edit numbers here to make docs look current: fix the source or the docs.",
+  "name": "NO AI ACT",
+  "tagline_it": "Simulatore di una società non regolata",
+  "tagline_en": "Simulator of an unregulated society",
+  "domain": "https://www.no-ai-act.eu",
+  "repository": "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT",
+  "lastTaggedRelease": "v1.0.0",
+  "languages": ["it", "en"],
+  "playableCases": 11,
+  "publicUrls": { "it": 19, "en": 23, "total": 42 },
+  "saveSchema": { "storageKey": "no-ai-act-save-v1", "version": 1 },
+  "runtimeHostAllowlist": ["static.cloudflareinsights.com"],
+  "licenses": { "code": "MIT", "content": "CC-BY-4.0" },
+  "privacy": {
+    "backend": false,
+    "accounts": false,
+    "personalDataCollection": false,
+    "externalForms": false,
+    "gameplayNetworkCalls": false,
+    "analytics": "Cloudflare Web Analytics (aggregate, cookie-free, public pages only, never inside gameplay)"
+  }
+}

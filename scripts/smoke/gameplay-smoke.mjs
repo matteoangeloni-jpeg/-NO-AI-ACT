@@ -48,15 +48,36 @@ const clickButton = async (labelRe, w = 400) => {
     const re = new RegExp(reSrc, 'i');
     const scenes = window.game.scene.getScenes(true);
     const s = scenes[scenes.length - 1];
-    for (const o of s.children.list) {
-      if (o.type !== 'Container' || !o.input || !o.input.enabled || !o.visible) continue;
-      const t = (o.list || []).find((ch) => typeof ch.text === 'string');
-      if (t && re.test(t.text)) { const b = o.getBounds(); return { x: b.centerX, y: b.centerY }; }
-    }
-    return null;
+    let found = null;
+    const visit = (o) => { // recursive: overlay buttons live inside containers
+      if (found || !o || o.visible === false) return;
+      if (o.type === 'Container' && o.input && o.input.enabled) {
+        const t = (o.list || []).find((ch) => typeof ch.text === 'string');
+        if (t && re.test(t.text)) { const b = o.getBounds(); found = { x: b.centerX, y: b.centerY }; return; }
+      }
+      for (const ch of (o.list || [])) visit(ch);
+    };
+    for (const o of s.children.list) visit(o);
+    return found;
   }, labelRe.source);
   if (!pos) { fail.push(`button not found: ${labelRe}`); return; }
   await click(Math.round(pos.x), Math.round(pos.y), w);
+};
+
+// Scene transitions use 300ms camera fades that complete on their own clock;
+// fixed sleeps are timing-fragile on slow/CI machines (a click can land one
+// scene behind). Wait for the actual scene key instead of guessing durations.
+const waitScene = async (key, timeout = 15000) => {
+  const ok = await page.waitForFunction((k) => {
+    const g = window.game; if (!g) return false;
+    const a = g.scene.getScenes(true);
+    return a.length > 0 && a[a.length - 1].scene.key === k;
+  }, key, { timeout }).then(() => true).catch(() => false);
+  if (!ok) {
+    const now = await page.evaluate(() => window.game?.scene.getScenes(true).map((s) => s.scene.key).join(',') ?? 'no game');
+    fail.push(`scene "${key}" never became active (stuck on: ${now})`);
+  }
+  return ok;
 };
 
 // EN, teacher mode off, no prior progress
@@ -68,29 +89,40 @@ await page.addInitScript(() => localStorage.setItem('no-ai-act-save-v1', JSON.st
   difficulty: 'standard', mission: 'full'
 })));
 await page.goto(`${BASE}/play/?lang=en`, { waitUntil: 'load' });
-await page.waitForTimeout(9000); // Phaser boot
+await waitScene('Title', 30000); // Phaser boot
 
-await clickButton(/NEW GAME/, 1200);    // primary action on the simplified title
-await click(640, 300, 500); await click(640, 600, 1200); // briefing -> city map (CTA now inside the panel at y≈600)
-await click(Math.round(1280 * 0.40), Math.round(720 * 0.18), 800); // welfare marker (case_credito)
-await click(640, 400, 400); await click(640, 650, 1000); // -> evidence
+await clickButton(/NEW GAME/, 300);      // primary action on the simplified title
+await waitScene('Briefing');
+await click(640, 300, 400);              // pointerdown skips the typewriter
+await clickButton(/ACCESS THE CIVIC MAP/, 300);
+await waitScene('CityMap');
+await click(Math.round(1280 * 0.40), Math.round(720 * 0.18), 300); // welfare marker (case_credito)
+await waitScene('Case');
+await click(640, 400, 300);              // reveal case context
+await clickButton(/EXAMINE THE EXHIBITS/, 300);
+await waitScene('Evidence');
 const clues = [[250, 236], [640, 236], [1030, 236], [250, 482], [640, 482], [1030, 482]];
 for (const [x, y] of clues) await click(x, y, 100);      // reveal all
 await click(clues[3][0], clues[3][1], 100);               // cite relevant clue
 await click(clues[4][0], clues[4][1], 100);               // cite relevant clue
-await click(640, 630, 1000);                              // -> decision
+await clickButton(/PROCEED TO CLASSIFICATION/, 300);
+await waitScene('Decision');
 await page.keyboard.press('1'); await page.waitForTimeout(600); // classification
 await page.keyboard.press('1'); await page.waitForTimeout(600); // measure
 await page.keyboard.press('2'); await page.waitForTimeout(600); // subject
-await page.keyboard.press('2'); await page.waitForTimeout(1200); // motivation -> report
+await page.keyboard.press('2');                                 // motivation -> report
+await waitScene('Report');
+await page.waitForTimeout(800); // let the report body render
 
 const reportOk = await page.evaluate(() => document.querySelector('canvas') !== null);
 if (!reportOk) fail.push('no game canvas at report stage');
 
-await click(240, 674, 700); // open decision debrief
+await clickButton(/Decision debrief/, 700); // open decision debrief overlay
+// The link opens with rel=noopener, so newer Playwright does not emit it as a
+// 'popup' of the opener page — listen for any new page in the context instead.
 const [popup] = await Promise.all([
-  page.waitForEvent('popup', { timeout: 5000 }).catch(() => null),
-  click(490, 646, 500) // "read more" internal link
+  ctx.waitForEvent('page', { timeout: 8000 }).catch(() => null),
+  clickButton(/Read more on the site/, 500) // "read more" internal link
 ]);
 if (!popup) fail.push('decision debrief "read more" internal link did not open');
 else {
