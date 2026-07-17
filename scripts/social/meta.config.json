@@ -65,6 +65,9 @@
     "obblighi-trasparenza-ai-act": "guide",
     "ai-generativa-e-gpai": "guide",
     "glossario": "glossary",
+    "come-citare": "default",
+    "ricerca-e-metodologia": "default",
+    "press-kit": "default",
     "en": "en-default",
     "en/how-it-works": "en-default",
     "en/ai-act-serious-game": "en-default",
@@ -88,6 +91,9 @@
     "en/transparency-obligations": "guide",
     "en/general-purpose-ai": "guide",
     "en/glossary": "glossary",
+    "en/how-to-cite": "en-default",
+    "en/research-and-methodology": "en-default",
+    "en/press-kit": "en-default",
     "play": "play"
   }
 }

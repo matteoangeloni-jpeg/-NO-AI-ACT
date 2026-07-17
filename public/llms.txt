@@ -15,7 +15,7 @@
 - Languages: Italian (default) and English — game and educational hub
 - Audience: teachers and trainers, upper-secondary and university students, researchers, professionals working with AI governance
 - Pricing: free and open source (MIT code, CC BY 4.0 educational content)
-- 11 playable cases; 42 public educational pages
+- 11 playable cases; 48 public educational pages
 - Every public page shares a global navigation (Play · Education/Resources · Teachers · AI Act guide · Glossary · Privacy · language switch); the game and the education hub are reachable from every page, and the game links back to the site.
 - Best entry points: the two landing pages and the two education hubs, each of which opens with a "Start here" chooser (play now / teachers / students / AI Act guide / glossary / privacy).
 
@@ -94,6 +94,15 @@
 - AI Act glossary (EN, 27 terms): https://www.no-ai-act.eu/en/glossary/
 - Glossario dell'AI Act (IT, 27 termini): https://www.no-ai-act.eu/glossario/
 - FAQ (EN): https://www.no-ai-act.eu/en/faq/
+
+## Research, citation and press
+
+- Research and methodology (EN): https://www.no-ai-act.eu/en/research-and-methodology/
+- Ricerca e metodologia (IT): https://www.no-ai-act.eu/ricerca-e-metodologia/
+- How to cite (EN): https://www.no-ai-act.eu/en/how-to-cite/
+- Come citare (IT): https://www.no-ai-act.eu/come-citare/
+- Press kit (EN): https://www.no-ai-act.eu/en/press-kit/
+- Press kit (IT): https://www.no-ai-act.eu/press-kit/
 
 ## Project links
 

@@ -7,7 +7,7 @@ const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
 const CFG = JSON.parse(read('scripts/social/meta.config.json'));
 const SITE = 'https://www.no-ai-act.eu/';
 
-/** All 42 public dirs ('' = IT landing) + the /play/ shell key 'play'. */
+/** All 48 public dirs ('' = IT landing) + the /play/ shell key 'play'. */
 const PUBLIC = Object.keys(CFG.pageCategory).filter((d: string) => d !== 'play');
 const ALL = Object.keys(CFG.pageCategory); // includes 'play'
 const fileOf = (d: string) => (d === 'play' ? 'play/index.html' : d === '' ? 'index.html' : `${d}/index.html`);
@@ -183,11 +183,11 @@ describe('SEO / policy invariants preserved', () => {
     const play = read('play/index.html');
     expect(play).toContain('content="noindex, follow"');
     expect(play).toContain('rel="canonical" href="https://www.no-ai-act.eu/play/"');
-    // /sitemap.xml is a sitemap index; the 42 URLs live in the language children.
+    // /sitemap.xml is a sitemap index; the 48 URLs live in the language children.
     const it = read('public/sitemap-it.xml');
     const en = read('public/sitemap-en.xml');
     for (const sm of [read('public/sitemap.xml'), it, en]) expect(sm).not.toContain('/play/');
-    expect([it, en].reduce((n, sm) => n + (sm.match(/<loc>/g) ?? []).length, 0)).toBe(42);
+    expect([it, en].reduce((n, sm) => n + (sm.match(/<loc>/g) ?? []).length, 0)).toBe(48);
   });
 
   it('no Tally IDs or form hosts remain', () => {
@@ -198,8 +198,8 @@ describe('SEO / policy invariants preserved', () => {
     }
   });
 
-  it('config covers exactly the 42 public pages + the play shell', () => {
-    expect(PUBLIC.length).toBe(42);
-    expect(ALL.length).toBe(43);
+  it('config covers exactly the 48 public pages + the play shell', () => {
+    expect(PUBLIC.length).toBe(48);
+    expect(ALL.length).toBe(49);
   });
 });

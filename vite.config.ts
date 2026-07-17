@@ -50,7 +50,13 @@ export default defineConfig({
         hubEn_lessonPlanRiskBasedApproach: resolve(__dirname, 'en/lesson-plan-risk-based-approach/index.html'),
         hubEn_lessonPlanTransparencyAndUsers: resolve(__dirname, 'en/lesson-plan-transparency-and-users/index.html'),
         hubEn_glossary: resolve(__dirname, 'en/glossary/index.html'),
-        hubEn_faq: resolve(__dirname, 'en/faq/index.html')
+        hubEn_faq: resolve(__dirname, 'en/faq/index.html'),
+        auth_comeCitare: resolve(__dirname, 'come-citare/index.html'),
+        auth_ricercaEMetodologia: resolve(__dirname, 'ricerca-e-metodologia/index.html'),
+        auth_pressKit: resolve(__dirname, 'press-kit/index.html'),
+        authEn_howToCite: resolve(__dirname, 'en/how-to-cite/index.html'),
+        authEn_researchAndMethodology: resolve(__dirname, 'en/research-and-methodology/index.html'),
+        authEn_pressKit: resolve(__dirname, 'en/press-kit/index.html')
       }
     }
   },

@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: >-
+  If you use NO AI ACT in research, teaching or derivative work, please cite
+  the software as below and state the exact version you used (the version is
+  visible in the site footer and in package.json). A DOI will be added here
+  after the first Zenodo archive of the 2.0 release.
+type: software
+title: "NO AI ACT — Simulatore di una società non regolata"
+abstract: >-
+  NO AI ACT is a free, open-source, browser-based investigative serious game
+  about the European AI Act (Regulation (EU) 2024/1689). Players act as an
+  inspector in a fictional 2032 city where the AI Act never entered into
+  force: they open case files on AI systems, examine evidence, classify risk
+  and file inspection reports, while city indicators respond to their
+  decisions. The game is bilingual (Italian/English), requires no account,
+  runs entirely in the browser, performs no gameplay network requests and
+  collects no personal data. Game code is MIT-licensed; educational and
+  narrative content is CC BY 4.0. Educational effectiveness has not yet been
+  empirically validated; the game is an educational simplification, not
+  legal advice.
+authors:
+  - family-names: Angeloni
+    given-names: Matteo
+version: 1.1.0
+date-released: "2026-07-03"
+repository-code: "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"
+url: "https://www.no-ai-act.eu/"
+license: MIT
+keywords:
+  - AI Act
+  - Regulation (EU) 2024/1689
+  - serious game
+  - game-based learning
+  - AI literacy
+  - digital citizenship
+  - educational game
+  - risk classification
+  - privacy by design
+  - open educational resource

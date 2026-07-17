@@ -46,6 +46,8 @@ const PAIRS: Record<string, string> = {
 const ALL_PUBLIC = ['', 'en',
   'come-funziona', 'per-docenti', 'ai-act-serious-game', 'privacy-by-design',
   'en/how-it-works', 'en/for-educators', 'en/ai-act-serious-game', 'en/privacy-by-design',
+  'come-citare', 'ricerca-e-metodologia', 'press-kit',
+  'en/how-to-cite', 'en/research-and-methodology', 'en/press-kit',
   ...HUB];
 
 const file = (dir: string) => (dir === '' ? 'index.html' : `${dir}/index.html`);

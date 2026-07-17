@@ -634,3 +634,68 @@ body::before {
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+
+/* ---- citation / quotable blocks (cite, press-kit, research pages) ---- */
+.cite-block {
+  margin: 1.2rem 0 0;
+  padding: 1rem 1.2rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--amber);
+  border-radius: 6px;
+  overflow-x: auto;
+}
+.cite-block code {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ---- data tables (factsheet, legal-source matrix, worksheets) ---- */
+.table-wrap { margin: 1.2rem 0 0; overflow-x: auto; }
+.table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+.table-wrap caption {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--ink-dim);
+  padding-bottom: 0.5rem;
+}
+.table-wrap th,
+.table-wrap td {
+  border: 1px solid var(--line);
+  padding: 0.55rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+.table-wrap thead th,
+.table-wrap tbody th[scope="row"] {
+  background: var(--panel);
+  font-weight: 600;
+}
+
+/* ---- print styles: worksheets, lesson plans, press/citation pages ----
+   Keep ink-friendly: white background, dark text, no chrome, no textures. */
+@media print {
+  body::before { display: none; }
+  body { background: #fff; color: #111; }
+  .topbar, .skip-link, .breadcrumbs, .page-toc, .cta-row, .starthere,
+  .nav-toggle, .site-nav { display: none !important; }
+  main a { color: #111; text-decoration: underline; }
+  main, section, .card, .answer, footer { background: #fff !important; color: #111 !important; }
+  h1, h2, h3, h4, .lead, .kicker, .section-intro, p, li, dt, dd,
+  .card h3, .card p, .tag, .num, .stamp, .credit { color: #111 !important; }
+  .card, .cite-block, .table-wrap th, .table-wrap td { border-color: #999; }
+  .cite-block { background: #fff; border-left-color: #111; }
+  .cite-block code, .table-wrap caption { color: #111; }
+  .table-wrap thead th, .table-wrap tbody th[scope="row"] { background: #eee; }
+  section, .card, .table-wrap, .cite-block { break-inside: avoid; }
+  footer { border-top: 1px solid #999; }
+}
