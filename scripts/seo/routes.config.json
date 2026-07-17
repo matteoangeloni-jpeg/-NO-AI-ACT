@@ -1,0 +1,34 @@
+{
+  "$comment": "Single source of truth for public route pairs (IT dir ⇄ EN dir; '' = IT landing, 'en' = EN landing). Consumed by scripts/seo/audit-routes.mjs and tests/seoAudit.test.ts. enOnly routes have no IT counterpart yet: they self-reference in hreflang and use themselves as x-default. Every route listed here must exist, be indexable, carry a self canonical and belong to exactly one language sitemap. /play/ is intentionally NOT here (noindex, out of sitemaps).",
+  "site": "https://www.no-ai-act.eu/",
+  "pairs": [
+    { "it": "", "en": "en" },
+    { "it": "come-funziona", "en": "en/how-it-works" },
+    { "it": "per-docenti", "en": "en/for-educators" },
+    { "it": "ai-act-serious-game", "en": "en/ai-act-serious-game" },
+    { "it": "privacy-by-design", "en": "en/privacy-by-design" },
+    { "it": "educazione", "en": "en/education" },
+    { "it": "ai-act-per-docenti", "en": "en/ai-act-for-teachers" },
+    { "it": "alfabetizzazione-ai", "en": "en/ai-literacy" },
+    { "it": "guida-ai-act", "en": "en/eu-ai-act-guide" },
+    { "it": "categorie-rischio-ai-act", "en": "en/ai-act-risk-categories" },
+    { "it": "pratiche-vietate-ai-act", "en": "en/prohibited-ai-practices" },
+    { "it": "sistemi-ai-ad-alto-rischio", "en": "en/high-risk-ai-systems" },
+    { "it": "obblighi-trasparenza-ai-act", "en": "en/transparency-obligations" },
+    { "it": "ai-generativa-e-gpai", "en": "en/general-purpose-ai" },
+    { "it": "apprendimento-privacy-consapevole", "en": "en/privacy-conscious-learning" },
+    { "it": "serious-game-regolazione-ai", "en": "en/serious-games-for-ai-regulation" },
+    { "it": "attivita-didattiche", "en": "en/classroom-activities" },
+    { "it": "lezione-introduzione-ai-act", "en": "en/lesson-plan-introduction-to-the-ai-act" },
+    { "it": "glossario", "en": "en/glossary" },
+    { "it": "come-citare", "en": "en/how-to-cite" },
+    { "it": "ricerca-e-metodologia", "en": "en/research-and-methodology" },
+    { "it": "press-kit", "en": "en/press-kit" }
+  ],
+  "enOnly": [
+    "en/digital-citizenship-ai-regulation",
+    "en/lesson-plan-risk-based-approach",
+    "en/lesson-plan-transparency-and-users",
+    "en/faq"
+  ]
+}

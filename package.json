@@ -10,6 +10,7 @@
     "build": "tsc --noEmit && vite build && node scripts/copy-notices.mjs",
     "preview": "vite preview",
     "test": "vitest run",
+    "audit:seo": "node scripts/seo/audit-routes.mjs",
     "verify:dist": "node scripts/ci/verify-dist.mjs",
     "report:dist": "node scripts/ci/dist-report.mjs"
   },
