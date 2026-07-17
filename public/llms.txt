@@ -15,7 +15,7 @@
 - Languages: Italian (default) and English — game and educational hub
 - Audience: teachers and trainers, upper-secondary and university students, researchers, professionals working with AI governance
 - Pricing: free and open source (MIT code, CC BY 4.0 educational content)
-- 11 playable cases; 48 public educational pages
+- 11 playable cases; 56 public educational pages
 - Every public page shares a global navigation (Play · Education/Resources · Teachers · AI Act guide · Glossary · Privacy · language switch); the game and the education hub are reachable from every page, and the game links back to the site.
 - Best entry points: the two landing pages and the two education hubs, each of which opens with a "Start here" chooser (play now / teachers / students / AI Act guide / glossary / privacy).
 
@@ -94,6 +94,17 @@
 - AI Act glossary (EN, 27 terms): https://www.no-ai-act.eu/en/glossary/
 - Glossario dell'AI Act (IT, 27 termini): https://www.no-ai-act.eu/glossario/
 - FAQ (EN): https://www.no-ai-act.eu/en/faq/
+
+## AI Act in practice (topical guides)
+
+- AI Act application timeline (EN): https://www.no-ai-act.eu/en/ai-act-application-timeline/
+- Tempi di applicazione dell'AI Act (IT): https://www.no-ai-act.eu/tempi-applicazione-ai-act/
+- Deepfakes and transparency (EN): https://www.no-ai-act.eu/en/deepfakes-and-transparency/
+- Deepfake e trasparenza (IT): https://www.no-ai-act.eu/deepfake-e-trasparenza/
+- AI in recruitment and employment (EN): https://www.no-ai-act.eu/en/ai-in-recruitment-and-employment/
+- IA nel lavoro e nella selezione (IT): https://www.no-ai-act.eu/ai-nel-lavoro-e-selezione/
+- AI Act classroom lab (EN): https://www.no-ai-act.eu/en/ai-act-classroom-lab/
+- Laboratorio AI Act in classe (IT): https://www.no-ai-act.eu/laboratorio-ai-act-in-classe/
 
 ## Research, citation and press
 

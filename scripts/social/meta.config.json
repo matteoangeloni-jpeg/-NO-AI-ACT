@@ -68,6 +68,10 @@
     "come-citare": "default",
     "ricerca-e-metodologia": "default",
     "press-kit": "default",
+    "tempi-applicazione-ai-act": "guide",
+    "deepfake-e-trasparenza": "guide",
+    "ai-nel-lavoro-e-selezione": "guide",
+    "laboratorio-ai-act-in-classe": "education",
     "en": "en-default",
     "en/how-it-works": "en-default",
     "en/ai-act-serious-game": "en-default",
@@ -94,6 +98,10 @@
     "en/how-to-cite": "en-default",
     "en/research-and-methodology": "en-default",
     "en/press-kit": "en-default",
+    "en/ai-act-application-timeline": "guide",
+    "en/deepfakes-and-transparency": "guide",
+    "en/ai-in-recruitment-and-employment": "guide",
+    "en/ai-act-classroom-lab": "education",
     "play": "play"
   }
 }

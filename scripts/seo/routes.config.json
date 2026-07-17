@@ -23,7 +23,11 @@
     { "it": "glossario", "en": "en/glossary" },
     { "it": "come-citare", "en": "en/how-to-cite" },
     { "it": "ricerca-e-metodologia", "en": "en/research-and-methodology" },
-    { "it": "press-kit", "en": "en/press-kit" }
+    { "it": "press-kit", "en": "en/press-kit" },
+    { "it": "tempi-applicazione-ai-act", "en": "en/ai-act-application-timeline" },
+    { "it": "deepfake-e-trasparenza", "en": "en/deepfakes-and-transparency" },
+    { "it": "ai-nel-lavoro-e-selezione", "en": "en/ai-in-recruitment-and-employment" },
+    { "it": "laboratorio-ai-act-in-classe", "en": "en/ai-act-classroom-lab" }
   ],
   "enOnly": [
     "en/digital-citizenship-ai-regulation",

@@ -56,7 +56,15 @@ export default defineConfig({
         auth_pressKit: resolve(__dirname, 'press-kit/index.html'),
         authEn_howToCite: resolve(__dirname, 'en/how-to-cite/index.html'),
         authEn_researchAndMethodology: resolve(__dirname, 'en/research-and-methodology/index.html'),
-        authEn_pressKit: resolve(__dirname, 'en/press-kit/index.html')
+        authEn_pressKit: resolve(__dirname, 'en/press-kit/index.html'),
+        cl_tempiApplicazione: resolve(__dirname, 'tempi-applicazione-ai-act/index.html'),
+        cl_deepfakeETrasparenza: resolve(__dirname, 'deepfake-e-trasparenza/index.html'),
+        cl_aiNelLavoro: resolve(__dirname, 'ai-nel-lavoro-e-selezione/index.html'),
+        cl_laboratorioInClasse: resolve(__dirname, 'laboratorio-ai-act-in-classe/index.html'),
+        clEn_applicationTimeline: resolve(__dirname, 'en/ai-act-application-timeline/index.html'),
+        clEn_deepfakesTransparency: resolve(__dirname, 'en/deepfakes-and-transparency/index.html'),
+        clEn_recruitmentEmployment: resolve(__dirname, 'en/ai-in-recruitment-and-employment/index.html'),
+        clEn_classroomLab: resolve(__dirname, 'en/ai-act-classroom-lab/index.html')
       }
     }
   },

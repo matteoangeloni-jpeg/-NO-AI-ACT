@@ -21,7 +21,7 @@ cancellable group so they don't block a deploy or pile up.
 
 ## Verify a successful deploy
 - The workflow run is green (both **build** and **deploy** jobs).
-- `verify:dist` printed **PASS** (all deploy-critical files, 48 sitemap URLs, mojibake-free HTML).
+- `verify:dist` printed **PASS** (all deploy-critical files, 56 sitemap URLs, mojibake-free HTML).
 - After a Cloudflare **Purge Everything**, spot-check the live site:
   - `https://www.no-ai-act.eu/` and `/en/` render, no `Ã`/`—`-mojibake in the text.
   - `https://www.no-ai-act.eu/robots.txt`, `/sitemap-it.xml`, `/sitemap-en.xml` load.
@@ -75,7 +75,7 @@ traffic spike, see `docs/TRAFFIC_READINESS.md`.
 `dist/index.html`, `dist/en/index.html`, `dist/play/index.html`,
 `dist/robots.txt`, `dist/sitemap.xml`, `dist/sitemap-it.xml`,
 `dist/sitemap-en.xml`. The verifier also asserts the two child sitemaps total
-**48** URLs, robots advertises both child sitemaps, `/play/` keeps its
+**56** URLs, robots advertises both child sitemaps, `/play/` keeps its
 `noindex`, and **no shipped HTML contains mojibake**.
 
 ## When NOT to change code

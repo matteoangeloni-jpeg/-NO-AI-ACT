@@ -48,6 +48,9 @@ const ALL_PUBLIC = ['', 'en',
   'en/how-it-works', 'en/for-educators', 'en/ai-act-serious-game', 'en/privacy-by-design',
   'come-citare', 'ricerca-e-metodologia', 'press-kit',
   'en/how-to-cite', 'en/research-and-methodology', 'en/press-kit',
+  'tempi-applicazione-ai-act', 'deepfake-e-trasparenza', 'ai-nel-lavoro-e-selezione',
+  'laboratorio-ai-act-in-classe', 'en/ai-act-application-timeline', 'en/deepfakes-and-transparency',
+  'en/ai-in-recruitment-and-employment', 'en/ai-act-classroom-lab',
   ...HUB];
 
 const file = (dir: string) => (dir === '' ? 'index.html' : `${dir}/index.html`);
