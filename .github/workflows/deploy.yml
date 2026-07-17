@@ -36,6 +36,8 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm test
+      - name: SEO indexability audit
+        run: npm run audit:seo
       - run: npm run build
       - name: Verify deploy-critical files in dist
         run: npm run verify:dist
