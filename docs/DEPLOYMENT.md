@@ -83,3 +83,23 @@ traffic spike, see `docs/TRAFFIC_READINESS.md`.
   re-run the deploy job, don't touch code.
 - The site already serves the intended content (a previous deploy is live and
   the new commit changed nothing that ships) → a failed run is cosmetic.
+
+## Production sync checklist (owner — run after any content-visible merge)
+The build sandbox cannot reach production, so live verification is always an
+owner action. In order:
+1. **Confirm the deployed commit**: Actions → latest "Deploy su GitHub Pages"
+   run on `main` → both jobs green → the run's `head_sha` equals the merge SHA.
+2. **Cloudflare → Purge Everything** (HTML is un-hashed; without a purge the
+   CDN keeps serving the previous copy).
+3. **Live recheck** (browser or `curl`) on `/`, `/en/`, `/play/?lang=it`,
+   `/play/?lang=en`, `/robots.txt`, `/sitemap-it.xml`, `/sitemap-en.xml`:
+   - no `tally.so`, no `data-tally`, no form IDs (`44ENVA`, `5BryXb`,
+     `dWgB5y`, `ZjWp9A`);
+   - no "Partecipa al playtest" / "Join the playtest" strings or anchors;
+   - privacy claims consistent (no external forms, nothing leaves the browser);
+   - robots lists only `sitemap-it.xml` + `sitemap-en.xml`; `/play/` stays
+     `noindex, follow`.
+4. Optional: `node scripts/seo/check-sitemap-live.mjs https://www.no-ai-act.eu`
+   → PASS.
+If the live site still shows removed content while `dist/` is clean, that is a
+**stale CDN cache**, not a source problem — purge again; do not change code.
