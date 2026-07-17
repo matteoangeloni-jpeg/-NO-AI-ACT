@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+
+  <title>Research and methodology — how NO AI ACT is designed and studied</title>
+  <meta name="description" content="Educational objectives, mechanics, simplified legal model, privacy architecture and validation status of NO AI ACT: the reference page for researchers, lecturers and institutions." />
+  <meta name="author" content="NO AI ACT" />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="canonical" href="https://www.no-ai-act.eu/en/research-and-methodology/" />
+  <link rel="alternate" hreflang="it" href="https://www.no-ai-act.eu/ricerca-e-metodologia/" />
+  <link rel="alternate" hreflang="en" href="https://www.no-ai-act.eu/en/research-and-methodology/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.no-ai-act.eu/ricerca-e-metodologia/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="NO AI ACT" />
+  <meta property="og:locale" content="en_GB" />
+  <meta property="og:locale:alternate" content="it_IT" />
+  <meta property="og:title" content="Research and methodology — NO AI ACT" />
+  <meta property="og:description" content="How NO AI ACT is designed and how to study it: educational objectives, simplified legal model, privacy by design and an honest account of its empirical validation status." />
+  <meta property="og:url" content="https://www.no-ai-act.eu/en/research-and-methodology/" />
+  <meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png" />
+  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="NO AI ACT cover: free educational serious game on the EU AI Act." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Research and methodology — NO AI ACT" />
+  <meta name="twitter:description" content="Educational objectives, simplified legal model, privacy by design and an honest account of the empirical validation status of the NO AI ACT serious game." />
+  <meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png" />
+  <meta name="twitter:image:alt" content="NO AI ACT cover: free educational serious game on the EU AI Act." />
+  <link rel="stylesheet" href="/src/styles/landing.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "NO AI ACT", "item": "https://www.no-ai-act.eu/en/" },
+      { "@type": "ListItem", "position": 2, "name": "Research and methodology", "item": "https://www.no-ai-act.eu/en/research-and-methodology/" }
+    ]
+  }
+  </script>
+  <script>document.documentElement.classList.add('has-js');</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "NO AI ACT",
+    "url": "https://www.no-ai-act.eu/",
+    "description": "Free educational serious game and resource hub on the EU AI Act",
+    "sameAs": [
+      "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="../" aria-label="NO AI ACT — home">NO AI ACT<span class="dot">.</span></a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Navigation menu">Menu</button>
+        <ul class="nav-menu" id="site-menu">
+          <li><a href="../../play/?lang=en">Play</a></li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-education">Education</button>
+            <ul class="nav-sub" id="sub-education">
+              <li><a href="../education/">Education hub</a></li>
+              <li><a href="../ai-literacy/">AI literacy</a></li>
+              <li><a href="../serious-games-for-ai-regulation/">Serious games &amp; AI regulation</a></li>
+              <li><a href="../faq/">FAQ</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-teachers">Teachers</button>
+            <ul class="nav-sub" id="sub-teachers">
+              <li><a href="../ai-act-for-teachers/">AI Act for teachers</a></li>
+              <li><a href="../classroom-activities/">Classroom activities</a></li>
+              <li><a href="../lesson-plan-introduction-to-the-ai-act/">Introductory lesson plan</a></li>
+              <li><a href="../for-educators/">Teacher mode / game</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-aiact">AI Act</button>
+            <ul class="nav-sub" id="sub-aiact">
+              <li><a href="../eu-ai-act-guide/">EU AI Act guide</a></li>
+              <li><a href="../ai-act-risk-categories/">Risk categories</a></li>
+              <li><a href="../prohibited-ai-practices/">Prohibited practices</a></li>
+              <li><a href="../high-risk-ai-systems/">High-risk AI systems</a></li>
+              <li><a href="../transparency-obligations/">Transparency obligations</a></li>
+              <li><a href="../general-purpose-ai/">Generative AI &amp; GPAI</a></li>
+            </ul>
+          </li>
+          <li><a href="../glossary/">Glossary</a></li>
+          <li><a href="../privacy-by-design/">Privacy</a></li>
+          <li><a class="nav-lang" href="../../ricerca-e-metodologia/" hreflang="it">IT</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="wrap">
+      <ol>
+        <li><a href="../">NO AI ACT</a></li>
+        <li aria-current="page">Research and methodology</li>
+      </ol>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="wrap">
+        <p class="kicker">Method · Transparency · Research</p>
+        <h1 id="page-title">Research and methodology</h1>
+        <p class="lead">This page documents how NO AI ACT is designed, which educational objectives it pursues, which simplifications it makes and — just as clearly — what has <strong>not</strong> yet been demonstrated. It is the starting point for researchers, lecturers and institutions who want to study or reuse the game.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="objective-title">
+      <div class="wrap">
+        <h2 id="objective-title"><span class="num">01</span>Educational objective</h2>
+        <p class="section-intro">NO AI ACT trains three competences: (1) <strong>conceptual knowledge</strong> of the risk-based approach of Regulation (EU) 2024/1689 — risk categories, prohibited practices, transparency duties, provider and deployer roles; (2) the <strong>ability to apply</strong> it to concrete scenarios — classifying a system, selecting decisive evidence, assigning responsibility, choosing proportionate measures; (3) <strong>civic awareness</strong> of why AI regulation exists, made tangible through a fictional city where the AI Act never entered into force.</p>
+        <p>The design hypothesis — to be tested empirically, not proven — is that making decisions with visible consequences and receiving a reasoned debrief trains regulatory reasoning better than passive reading alone.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="mechanics-title">
+      <div class="wrap">
+        <h2 id="mechanics-title"><span class="num">02</span>Game mechanics</h2>
+        <ul class="plain">
+          <li><strong>Inspection case files</strong>: 11 cases on AI systems (social scoring, workplace monitoring, deepfakes, healthcare, biometrics, credit, public chatbots, procurement, EdTech, GPAI).</li>
+          <li><strong>Decision cycle</strong>: examine evidence → classify risk → assign responsibility → corrective measures → report → debrief.</li>
+          <li><strong>Visible consequences</strong>: city indicators respond to decisions, showing the cost of an unregulated society.</li>
+          <li><strong>Explanatory debrief</strong>: every decision receives an explanation of why it holds or fails, with a pointer to the simplified rule involved.</li>
+          <li><strong>Local teacher mode</strong>: discussion pauses and an anonymous classroom debrief, with no data collection.</li>
+        </ul>
+        <p>The full flow is described in <a href="../how-it-works/">how it works</a>; the pedagogical background in <a href="../serious-games-for-ai-regulation/">serious games and AI regulation</a>.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="audience-title">
+      <div class="wrap">
+        <h2 id="audience-title"><span class="num">03</span>Target groups</h2>
+        <ul class="plain">
+          <li>Upper secondary school (civic and digital education).</li>
+          <li>University: law and technology, computer science, political science, media studies.</li>
+          <li>Professional and adult training.</li>
+          <li>Self-directed learners, citizens and curious professionals.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="model-title">
+      <div class="wrap">
+        <h2 id="model-title"><span class="num">04</span>Simplified legal model and source matrix</h2>
+        <p class="section-intro">The game is a <strong>didactic simplification</strong>: it compresses procedures, timelines and interpretive nuance to make regulatory reasoning playable. It is not legal advice and does not replace the regulation. The themes it covers map to the following areas of Regulation (EU) 2024/1689 — the authoritative source is always <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj">EUR-Lex</a>:</p>
+        <div class="table-wrap">
+          <table>
+            <caption>Theme → legal source matrix (simplified)</caption>
+            <thead>
+              <tr><th scope="col">Theme in the game</th><th scope="col">Area of the regulation</th><th scope="col">Read more on this site</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Prohibited practices (e.g. social scoring)</td><td>Chapter II, Art. 5</td><td><a href="../prohibited-ai-practices/">Prohibited practices</a></td></tr>
+              <tr><td>High-risk systems (healthcare, education, employment, essential services)</td><td>Chapter III and Annex III</td><td><a href="../high-risk-ai-systems/">High-risk AI systems</a></td></tr>
+              <tr><td>Transparency duties (chatbots, deepfakes, synthetic content)</td><td>Art. 50</td><td><a href="../transparency-obligations/">Transparency obligations</a></td></tr>
+              <tr><td>General-purpose AI models (GPAI)</td><td>Chapter V</td><td><a href="../general-purpose-ai/">Generative AI &amp; GPAI</a></td></tr>
+              <tr><td>Roles and responsibility (provider, deployer)</td><td>Art. 3 and Chapter III</td><td><a href="../eu-ai-act-guide/">EU AI Act guide</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The classifications proposed in the cases are traceable case by case in the open-source game data; ambiguous scenarios are treated as <em>contestable</em>, not as a single right answer. A third-party legal review is recommended before formal institutional use.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="privacy-title">
+      <div class="wrap">
+        <h2 id="privacy-title"><span class="num">05</span>Privacy architecture</h2>
+        <p class="section-intro">The public product is designed to be studiable <strong>without collecting personal data</strong>: no account, no backend, no gameplay telemetry; saves stay in the browser's localStorage. Public pages use only aggregate, cookie-free Cloudflare Web Analytics. Details and how to verify this in <a href="../privacy-by-design/">privacy by design</a>.</p>
+        <p>The methodological consequence: any research instrument (questionnaires, pre/post tests) lives <strong>outside the game</strong>, under the research team's own ethics responsibility. The game does not embed surveys and will not.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="validation-title">
+      <div class="wrap">
+        <h2 id="validation-title"><span class="num">06</span>Validation status — what is and is not demonstrated</h2>
+        <div class="grid">
+          <div class="card">
+            <span class="tag">Demonstrated</span>
+            <h3>Verifiable software properties</h3>
+            <p>Behaviours guaranteed by automated tests and open code: no network calls during gameplay, local-only saves, per-version pinned content and scoring, IT/EN bilingualism.</p>
+          </div>
+          <div class="card">
+            <span class="tag">Not demonstrated</span>
+            <h3>Educational effectiveness</h3>
+            <p>Educational effectiveness <strong>has not yet been empirically validated</strong>: there are no controlled studies of learning or transfer. Informal classroom use has so far informed design iterations only.</p>
+          </div>
+        </div>
+        <p>Always distinguish three levels: <strong>usability</strong> (can people operate it), <strong>engagement</strong> (do they keep using it willingly) and <strong>learning</strong> (do the target competences improve). Positive results on the first two must never be presented as proof of the third.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="study-title">
+      <div class="wrap">
+        <h2 id="study-title"><span class="num">07</span>How to study or reuse the game</h2>
+        <ul class="plain">
+          <li><strong>Validation framework</strong>: theory of change, constructs, proposed pre/post measures, sampling and an anonymous participant-code protocol are in the <a href="https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/RESEARCH_VALIDATION_FRAMEWORK.md">research validation framework</a> (repository).</li>
+          <li><strong>Versioned stimuli</strong>: cases, texts and scoring rules are reproducible by citing the exact version (GitHub tag + <code>release.config.json</code>).</li>
+          <li><strong>Reuse</strong>: MIT code, CC BY 4.0 content — adaptations and translations are permitted with attribution.</li>
+          <li><strong>External instruments</strong>: tests and questionnaires stay on paper or on platforms chosen by the research team, never inside the game.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="cite-title">
+      <div class="wrap">
+        <h2 id="cite-title"><span class="num">08</span>How to cite</h2>
+        <p class="section-intro">Ready-made formats (APA, BibTeX, software citation with version) are on <a href="../how-to-cite/">how to cite</a>. The repository ships a <code>CITATION.cff</code> file readable by GitHub and reference managers. A Zenodo DOI is planned with the 2.0 release.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="collaborate-title">
+      <div class="wrap">
+        <h2 id="collaborate-title"><span class="num">09</span>Contact and collaboration</h2>
+        <p class="section-intro">For study proposals, classroom pilots, error reports or institutional collaboration: open an issue on the <a href="https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/issues">GitHub repository</a>. We use no external forms and collect no email addresses on this site.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="../../play/?lang=en">Try the game</a>
+          <a class="btn btn-ghost" href="../how-to-cite/">How to cite</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer aria-labelledby="footer-title">
+    <div class="wrap">
+      <h2 id="footer-title" class="stamp">Educational simulation — not legal advice</h2>
+      <p>NO AI ACT is an educational tool. It deliberately simplifies <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" hreflang="en">Regulation (EU) 2024/1689 (AI Act)</a> and does not replace the legal text or professional advice.</p>
+      <p><a href="../">Home</a> · <a href="../education/">Education hub</a> · <a href="../how-to-cite/">How to cite</a> · <a href="../press-kit/">Press kit</a> · <a href="../../ricerca-e-metodologia/" hreflang="it">Versione italiana</a></p>
+      <p class="credit">Designed and developed by Matteo Angeloni · v1.1.0</p>
+    </div>
+  </footer>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7c85578fc8ad4488a54c6bc670a10dcf"}'></script><!-- End Cloudflare Web Analytics -->
+  <script type="module" src="/src/scripts/nav.ts"></script>
+</body>
+</html>

@@ -181,7 +181,7 @@ describe('public static files', () => {
     expect(children).toEqual([`${SITE}sitemap-it.xml`, `${SITE}sitemap-en.xml`]);
   });
 
-  it('the child sitemaps list exactly the 42 indexable public pages, nothing else', () => {
+  it('the child sitemaps list exactly the 48 indexable public pages, nothing else', () => {
     const it = read('public/sitemap-it.xml');
     const en = read('public/sitemap-en.xml');
     for (const child of [it, en]) {
@@ -197,11 +197,13 @@ describe('public static files', () => {
       expect(child).not.toContain('priority');
     }
     const locs = [it, en].flatMap((child) => [...child.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, l]) => l));
-    // same set as the original 42-URL sitemap, split by language (order may differ).
+    // the full 48-URL public inventory, split by language (order may differ).
     expect(new Set(locs)).toEqual(new Set([
       SITE, `${SITE}en/`, `${SITE}come-funziona/`, `${SITE}per-docenti/`,
       `${SITE}ai-act-serious-game/`, `${SITE}privacy-by-design/`, `${SITE}en/how-it-works/`,
       `${SITE}en/for-educators/`, `${SITE}en/ai-act-serious-game/`, `${SITE}en/privacy-by-design/`,
+      `${SITE}come-citare/`, `${SITE}ricerca-e-metodologia/`, `${SITE}press-kit/`,
+      `${SITE}en/how-to-cite/`, `${SITE}en/research-and-methodology/`, `${SITE}en/press-kit/`,
       `${SITE}educazione/`, `${SITE}ai-act-per-docenti/`, `${SITE}alfabetizzazione-ai/`,
       `${SITE}guida-ai-act/`, `${SITE}categorie-rischio-ai-act/`, `${SITE}pratiche-vietate-ai-act/`,
       `${SITE}sistemi-ai-ad-alto-rischio/`, `${SITE}obblighi-trasparenza-ai-act/`,
@@ -217,7 +219,7 @@ describe('public static files', () => {
       `${SITE}en/lesson-plan-risk-based-approach/`, `${SITE}en/lesson-plan-transparency-and-users/`,
       `${SITE}en/glossary/`, `${SITE}en/faq/`
     ]));
-    expect(locs).toHaveLength(42);
+    expect(locs).toHaveLength(48);
     for (const loc of locs) {
       expect(loc.startsWith(SITE)).toBe(true);
       expect(loc).not.toContain('?');

@@ -8,7 +8,7 @@
   "lastTaggedRelease": "v1.0.0",
   "languages": ["it", "en"],
   "playableCases": 11,
-  "publicUrls": { "it": 19, "en": 23, "total": 42 },
+  "publicUrls": { "it": 22, "en": 26, "total": 48 },
   "saveSchema": { "storageKey": "no-ai-act-save-v1", "version": 1 },
   "runtimeHostAllowlist": ["static.cloudflareinsights.com"],
   "licenses": { "code": "MIT", "content": "CC-BY-4.0" },

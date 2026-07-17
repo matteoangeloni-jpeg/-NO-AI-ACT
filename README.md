@@ -350,6 +350,16 @@ checklist di rilascio: [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md).
   e `CREDITS.md` in `dist/` (`scripts/copy-notices.mjs`).
 - Registro asset completo: `ASSET_REGISTER.md`; dettagli: `LICENSE_NOTES.md`.
 
+## Come citare
+
+Il repository include un file `CITATION.cff` (GitHub mostra "Cite this
+repository"); formati pronti — APA, BibTeX, citazione del software con versione
+esatta — sono su [no-ai-act.eu/come-citare](https://www.no-ai-act.eu/come-citare/)
+(EN: [how-to-cite](https://www.no-ai-act.eu/en/how-to-cite/)). Un DOI Zenodo è
+previsto con la release 2.0. Il quadro metodologico per studiare il gioco è in
+`docs/RESEARCH_VALIDATION_FRAMEWORK.md` e su
+[ricerca-e-metodologia](https://www.no-ai-act.eu/ricerca-e-metodologia/).
+
 ## Fonti normative
 
 - Regolamento (UE) 2024/1689 — AI Act

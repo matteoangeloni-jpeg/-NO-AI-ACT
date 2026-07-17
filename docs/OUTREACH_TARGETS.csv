@@ -1,0 +1,9 @@
+target,category,country,language,relevance,proposed asset,contact route,status,date contacted,response,backlink/live URL,notes
+OER Commons,OER repository,US/global,en,High — indexes free educational games with licence metadata,canonical URL + press kit,platform submission form (account required),not contacted,,,,owner manual submission; see DISTRIBUTION_SUBMISSION_PACK.md
+MERLOT,OER repository,US/global,en,High — peer-curated higher-ed materials directory,canonical URL + research page,platform submission form (account required),not contacted,,,,owner manual submission
+Scientix,EU STEM education network,EU,en,Medium-high — EU teachers network; AI literacy fits digital-competence strand,teacher quick-start + press kit,scientix.eu resource/partner form,not contacted,,,,owner manual submission
+itch.io,serious-game platform,global,en/it,High — discoverability among educational-game players,external-link project page,platform publishing flow (account required),not contacted,,,,owner manual submission
+Zenodo,open-science repository,EU/global,en,High — DOI + academic citability,GitHub release archive via webhook,GitHub–Zenodo integration (owner login),not contacted,,,,archive at v2.0.0; no .zenodo.json by design
+Wikiversità/Wikiversity (AI literacy pages),open education wiki,global,it/en,Medium — resource listing where genuinely relevant to an existing page,glossary + lesson plan,public wiki editing (follow local sourcing rules),not contacted,,,,only where a page legitimately lists external OER; no spam edits
+EU Code Week resource map,EU education initiative,EU,en/it,Medium — teacher-facing activity listing,classroom lab guide,codeweek.eu activity submission,not contacted,,,,activity must be run by a real teacher/organizer
+Games for Change directory,serious-game community,US/global,en,Medium — curated social-impact games,press kit,gamesforchange.org submission form,not contacted,,,,curation is selective; honest framing required

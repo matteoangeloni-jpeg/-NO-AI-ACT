@@ -9,7 +9,8 @@ const IT = ['', 'come-funziona', 'per-docenti', 'ai-act-serious-game', 'privacy-
   'educazione', 'ai-act-per-docenti', 'alfabetizzazione-ai', 'guida-ai-act',
   'categorie-rischio-ai-act', 'pratiche-vietate-ai-act', 'sistemi-ai-ad-alto-rischio',
   'obblighi-trasparenza-ai-act', 'ai-generativa-e-gpai', 'apprendimento-privacy-consapevole',
-  'serious-game-regolazione-ai', 'attivita-didattiche', 'lezione-introduzione-ai-act', 'glossario'];
+  'serious-game-regolazione-ai', 'attivita-didattiche', 'lezione-introduzione-ai-act', 'glossario',
+  'come-citare', 'ricerca-e-metodologia', 'press-kit'];
 const EN = ['en', 'en/how-it-works', 'en/for-educators', 'en/ai-act-serious-game', 'en/privacy-by-design',
   'en/education', 'en/ai-act-for-teachers', 'en/ai-literacy', 'en/eu-ai-act-guide',
   'en/ai-act-risk-categories', 'en/prohibited-ai-practices', 'en/high-risk-ai-systems',
@@ -17,7 +18,7 @@ const EN = ['en', 'en/how-it-works', 'en/for-educators', 'en/ai-act-serious-game
   'en/serious-games-for-ai-regulation', 'en/digital-citizenship-ai-regulation',
   'en/classroom-activities', 'en/lesson-plan-introduction-to-the-ai-act',
   'en/lesson-plan-risk-based-approach', 'en/lesson-plan-transparency-and-users',
-  'en/glossary', 'en/faq'];
+  'en/glossary', 'en/faq', 'en/how-to-cite', 'en/research-and-methodology', 'en/press-kit'];
 const ALL_PUBLIC = [...IT, ...EN];
 const file = (d: string) => (d === '' ? 'index.html' : `${d}/index.html`);
 
