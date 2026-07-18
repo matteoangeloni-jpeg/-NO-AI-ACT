@@ -10,7 +10,7 @@
 > to be governed, or compliant). It is an educational simulation about
 > algorithmic risk governance — not legal advice.
 
-- Version: v1.1.0
+- Version: v2.0.0
 - Status: public release
 - Languages: Italian (default) and English — game and educational hub
 - Audience: teachers and trainers, upper-secondary and university students, researchers, professionals working with AI governance
@@ -118,7 +118,7 @@
 ## Project links
 
 - GitHub repository: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT
-- GitHub Release v1.0.0: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v1.0.0
+- GitHub Release v2.0.0: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v2.0.0
 - Project brief: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/NO_AI_ACT_PROJECT_BRIEF.md
 - Teacher quick start: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/TEACHER_QUICK_START.md
 - Legal disclaimer: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/LEGAL_DISCLAIMER.md

@@ -235,7 +235,7 @@ describe('public static files', () => {
     const llms = read('public/llms.txt');
     const lower = llms.toLowerCase();
     expect(llms).toContain('# NO AI ACT');
-    expect(llms).toContain('v1.0.0');
+    expect(llms).toContain('v2.0.0');
     expect(llms).toContain('13 playable cases');
     expect(lower).toContain('not legal advice');
     expect(lower).toContain('no backend');
@@ -245,7 +245,7 @@ describe('public static files', () => {
     expect(llms).toContain(`${SITE}play/`);
     expect(llms).toContain(`${SITE}en/`);
     expect(llms).toContain('github.com/matteoangeloni-jpeg/-NO-AI-ACT');
-    expect(llms).toContain('releases/tag/v1.0.0');
+    expect(llms).toContain('releases/tag/v2.0.0');
   });
 
   it('the GEO docs exist', () => {

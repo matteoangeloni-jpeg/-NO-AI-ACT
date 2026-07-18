@@ -1,7 +1,7 @@
 {
   "name": "no-ai-act",
   "private": true,
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "NO AI ACT — Simulatore di una società non regolata. Serious game investigativo sull'AI Act europeo.",
   "type": "module",
   "scripts": {

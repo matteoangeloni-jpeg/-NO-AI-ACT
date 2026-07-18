@@ -65,7 +65,7 @@ identifier, and transmits nothing.
   licence.
 
 ## Current validation status (honest)
-As of v1.1.0: **no empirical validation of educational effectiveness has
+As of v2.0.0: **no empirical validation of educational effectiveness has
 been conducted or is claimed.** Informal classroom use has informed design
 iterations only. Public claims are limited accordingly (enforced by tests
 that check the research pages carry this statement).
