@@ -104,10 +104,10 @@ describe('chapters — coherent grouping without locks', () => {
   });
 
   it('chapterProgress counts completion correctly', () => {
-    const done = { case_scoring: 'correct', case_scuola: 'partial', case_biometria: 'correct', case_credito: 'correct' } as const;
+    const done = { case_scoring: 'correct', case_scuola: 'partial', case_biometria: 'correct', case_credito: 'correct', case_predpol: 'correct' } as const;
     const progress = chapterProgress(done as never);
     const prohibited = progress.find((p) => p.chapter.id === 'prohibited')!;
-    expect(prohibited.done).toBe(4);
+    expect(prohibited.done).toBe(5);
     expect(prohibited.complete).toBe(true);
     expect(progress.find((p) => p.chapter.id === 'transparency')!.done).toBe(0);
   });

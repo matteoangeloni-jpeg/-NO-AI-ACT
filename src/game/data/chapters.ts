@@ -27,16 +27,16 @@ export const CHAPTERS: ChapterData[] = [
   {
     id: 'prohibited',
     order: 1,
-    caseIds: ['case_scoring', 'case_scuola', 'case_biometria', 'case_credito'],
+    caseIds: ['case_scoring', 'case_scuola', 'case_biometria', 'case_credito', 'case_predpol'],
     objectives: ['obj_prohibited_boundary', 'obj_context_dependence', 'obj_decisive_evidence'],
-    estimatedMinutes: 60
+    estimatedMinutes: 75
   },
   {
     id: 'high_risk',
     order: 2,
-    caseIds: ['case_lavoro', 'case_ospedale', 'case_edtech'],
+    caseIds: ['case_lavoro', 'case_ospedale', 'case_edtech', 'case_frodi'],
     objectives: ['obj_risk_classification', 'obj_human_oversight', 'obj_proportionate_measures'],
-    estimatedMinutes: 50
+    estimatedMinutes: 65
   },
   {
     id: 'transparency',

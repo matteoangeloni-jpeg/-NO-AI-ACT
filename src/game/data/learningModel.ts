@@ -93,14 +93,14 @@ export const LEGAL_MATRIX: LegalMatrixRow[] = [
   {
     provision: 'art5',
     articleRef: 'Reg. (UE) 2024/1689, art. 5',
-    normIds: ['norm_social_scoring', 'norm_emotion_recognition', 'norm_biometria', 'norm_credito'],
-    caseIds: ['case_scoring', 'case_scuola', 'case_biometria', 'case_credito']
+    normIds: ['norm_social_scoring', 'norm_emotion_recognition', 'norm_biometria', 'norm_credito', 'norm_predpol'],
+    caseIds: ['case_scoring', 'case_scuola', 'case_biometria', 'case_credito', 'case_predpol']
   },
   {
     provision: 'annex3',
     articleRef: 'Reg. (UE) 2024/1689, capo III e allegato III',
-    normIds: ['norm_lavoro_alto_rischio', 'norm_alto_rischio_obblighi', 'norm_procurement', 'norm_edtech'],
-    caseIds: ['case_lavoro', 'case_ospedale', 'case_procurement', 'case_edtech']
+    normIds: ['norm_lavoro_alto_rischio', 'norm_alto_rischio_obblighi', 'norm_procurement', 'norm_edtech', 'norm_frodi_welfare'],
+    caseIds: ['case_lavoro', 'case_ospedale', 'case_procurement', 'case_edtech', 'case_frodi']
   },
   {
     provision: 'art50',
@@ -117,8 +117,8 @@ export const LEGAL_MATRIX: LegalMatrixRow[] = [
   {
     provision: 'art14',
     articleRef: 'Reg. (UE) 2024/1689, art. 14',
-    normIds: ['norm_lavoro_alto_rischio', 'norm_alto_rischio_obblighi'],
-    caseIds: ['case_lavoro', 'case_ospedale']
+    normIds: ['norm_lavoro_alto_rischio', 'norm_alto_rischio_obblighi', 'norm_frodi_welfare'],
+    caseIds: ['case_lavoro', 'case_ospedale', 'case_frodi']
   },
   {
     provision: 'art26',
@@ -217,6 +217,20 @@ export const CASE_OBJECTIVES: CaseObjectiveMap[] = [
     secondaryObjectives: ['obj_actor_responsibility', 'obj_human_oversight'],
     provisions: ['chapter5', 'art26'],
     misconceptions: ['mis_gpai_unregulated', 'mis_provider_only']
+  },
+  {
+    caseId: 'case_predpol',
+    primaryObjective: 'obj_prohibited_boundary',
+    secondaryObjectives: ['obj_decisive_evidence', 'obj_context_dependence'],
+    provisions: ['art5'],
+    misconceptions: ['mis_accuracy_equals_lawful', 'mis_context_irrelevant']
+  },
+  {
+    caseId: 'case_frodi',
+    primaryObjective: 'obj_decisive_evidence',
+    secondaryObjectives: ['obj_human_oversight', 'obj_risk_classification'],
+    provisions: ['annex3', 'art14'],
+    misconceptions: ['mis_formal_oversight_enough', 'mis_high_risk_means_banned']
   }
 ];
 

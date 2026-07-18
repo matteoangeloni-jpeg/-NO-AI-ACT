@@ -240,7 +240,10 @@ export const THEME_BUILDERS: Record<string, ThemeBuilder> = {
   case_chatbot: media, // sportello automatico: comunicazione/interferenza
   case_procurement: scoring, // ufficio appalti: drone burocratico
   case_edtech: scuola, // campus adattivo: ambiente educativo
-  case_gpai: media // modello generativo: sintetico/glitch
+  case_gpai: media, // modello generativo: sintetico/glitch
+  // 2.0 case pack: riuso dei timbri esistenti, nessun asset nuovo
+  case_predpol: biometria, // sorveglianza di quartiere: stesso registro teso
+  case_frodi: scoring // ufficio sussidi: drone burocratico freddo
 };
 
 export const THEME_IDS = Object.keys(THEME_BUILDERS);

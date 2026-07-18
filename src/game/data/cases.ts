@@ -23,7 +23,10 @@ export const LOCATIONS: LocationData[] = [
   { id: 'sportello', x: 0.86, y: 0.40, iconKey: 'icon_chat', caseId: 'case_chatbot' },
   { id: 'appalti', x: 0.12, y: 0.30, iconKey: 'icon_doc', caseId: 'case_procurement' },
   { id: 'campus', x: 0.86, y: 0.82, iconKey: 'icon_grad', caseId: 'case_edtech' },
-  { id: 'modelli', x: 0.12, y: 0.74, iconKey: 'icon_model', caseId: 'case_gpai' }
+  { id: 'modelli', x: 0.12, y: 0.74, iconKey: 'icon_model', caseId: 'case_gpai' },
+  // 2.0 case pack — due nuovi luoghi (sussidi riusa il glifo icon_doc)
+  { id: 'commissariato', x: 0.50, y: 0.56, iconKey: 'icon_lock', caseId: 'case_predpol' },
+  { id: 'sussidi', x: 0.28, y: 0.42, iconKey: 'icon_doc', caseId: 'case_frodi' }
 ];
 
 /**
@@ -290,6 +293,50 @@ export const CASES: CaseData[] = [
     weakMotivation: 2,
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'trasparenza', 'soggetto', 'motivazione', 'eccesso_cautela'],
     concepts: ['gpai', 'high_risk', 'human_oversight'],
+    hasIncident: false,
+    playable: true
+  },
+{
+    id: 'case_predpol',
+    locationId: 'commissariato',
+    fileCode: 'AX-141/2032',
+    correctClassification: 'vietata',
+    correctMeasures: ['blocco'],
+    partialMeasures: ['audit', 'oversight'],
+    // decisive: punteggi costruiti SOLO su profilazione (0) + fermi ordinati
+    // dalla lista senza valutazione individuale (1); l'accuratezza (2) non
+    // sana una pratica vietata dall'art. 5(1)(d)
+    relevantClues: [0, 1],
+    clueStances: ['decisive', 'decisive', 'minimizes_risk'],
+    normId: 'norm_predpol',
+    responsibleSubjectCorrect: 'autorita',
+    responsibleSubjectPartial: 'provider',
+    correctMotivation: 1,
+    weakMotivation: 0,
+    possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione'],
+    concepts: ['prohibited_practices', 'risk_based_approach'],
+    hasIncident: false,
+    playable: true
+  },
+  {
+    id: 'case_frodi',
+    locationId: 'sussidi',
+    fileCode: 'AX-152/2032',
+    correctClassification: 'alto_rischio',
+    correctMeasures: ['oversight', 'audit', 'dati_logging'],
+    partialMeasures: ['informare'],
+    // decisive: sospensione automatica con controllo umano solo su ricorso (1)
+    // + analisi errori con impatto sproporzionato (0); il comunicato del
+    // fornitore (2) minimizza
+    relevantClues: [0, 1],
+    clueStances: ['decisive', 'decisive', 'minimizes_risk'],
+    normId: 'norm_frodi_welfare',
+    responsibleSubjectCorrect: 'deployer',
+    responsibleSubjectPartial: 'fornitore_esterno',
+    correctMotivation: 1,
+    weakMotivation: 0,
+    possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione', 'eccesso_cautela'],
+    concepts: ['high_risk', 'human_oversight', 'data_governance'],
     hasIncident: false,
     playable: true
   }
