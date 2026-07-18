@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
+import { SelfCheckOverlay } from '../ui/SelfCheckOverlay';
 import { TypewriterText } from '../ui/TypewriterText';
 import { L } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
@@ -41,8 +42,17 @@ export class BriefingScene extends Phaser.Scene {
       .setAlpha(0);
     how.setY(btnY - btn.height / 2 - 16 - how.height);
 
+    // autocontrollo iniziale 2.0: facoltativo, locale, saltabile; mostrato solo
+    // finché non è stato fatto (una volta basta per il confronto pre/post)
+    const selfCheck = new SelfCheckOverlay(this, 'pre');
+    const scBtn = StateManager.selfCheck.pre === null
+      ? new Button(this, cx, btnY + 46, L().learningLayer.selfCheck.buttonPre, () => selfCheck.open(), { width: 340, height: 34, fontSize: 11.5, variant: 'ghost' })
+      : null;
+    scBtn?.setVisible(false);
+
     body.write(L().briefing.body, () => {
       btn.setVisible(true);
+      scBtn?.setVisible(true);
       this.tweens.add({ targets: how, alpha: 1, duration: StateManager.reducedMotion ? 0 : 400 });
     });
     this.input.on('pointerdown', () => body.skip());

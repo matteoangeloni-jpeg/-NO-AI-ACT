@@ -28,6 +28,12 @@ export interface DecisionDebriefData {
   takeaway: string;
   /** optional INTERNAL site page to read next (same-origin path, v1.1). */
   linkUrl?: string;
+  /**
+   * optional reflection hook (2.0): when set, the overlay shows the single
+   * reflection question with three discrete choices and reports the pick.
+   * Local-only by contract — the callback must not trigger any network call.
+   */
+  onReflect?: (choice: 'holds' | 'unsure' | 'revise') => void;
 }
 
 /**
@@ -120,6 +126,29 @@ export class DecisionDebriefOverlay {
     // v1.1: concept involved + one-sentence takeaway, in both variants
     labelled(ui.conceptLabel, d.concept);
     labelled(ui.takeawayLabel, d.takeaway);
+
+    // 2.0: one concise reflection question (optional, local, no score effect)
+    if (d.onReflect) {
+      const r = L().learningLayer.reflection;
+      container.add(scene.add.text(left, y, `${r.label} — ${r.prompt}`, textStyle(11.5, COLOR_STR.accent, { fontStyle: 'bold' })));
+      y += 24;
+      const ack = scene.add.text(left, y + 34, '', textStyle(11.5, COLOR_STR.ok));
+      container.add(ack);
+      const choices: Array<['holds' | 'unsure' | 'revise', string]> = [
+        ['holds', r.options.holds],
+        ['unsure', r.options.unsure],
+        ['revise', r.options.revise]
+      ];
+      choices.forEach(([choice, label], i) => {
+        container.add(
+          new Button(scene, left + 110 + i * 230, y + 6, label, () => {
+            d.onReflect?.(choice);
+            ack.setText(r.thanks);
+          }, { width: 214, height: 32, fontSize: 11, variant: 'ghost' })
+        );
+      });
+      y += 52;
+    }
 
     // close button added LAST → above the shade/hit-area, stays clickable.
     // Optional "learn more": INTERNAL page only (same origin), new tab.

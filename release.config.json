@@ -9,7 +9,7 @@
   "languages": ["it", "en"],
   "playableCases": 11,
   "publicUrls": { "it": 26, "en": 30, "total": 56 },
-  "saveSchema": { "storageKey": "no-ai-act-save-v1", "version": 1 },
+  "saveSchema": { "storageKey": "no-ai-act-save-v2", "version": 2, "migratesFrom": ["no-ai-act-save-v1"] },
   "runtimeHostAllowlist": ["static.cloudflareinsights.com"],
   "licenses": { "code": "MIT", "content": "CC-BY-4.0" },
   "privacy": {

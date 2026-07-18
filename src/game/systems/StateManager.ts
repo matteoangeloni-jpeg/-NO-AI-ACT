@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { applyOutcome, clampIndicator } from '../data/indicators';
-import type { CaseReport, DifficultyMode, IndicatorState, LanguageCode, MissionId, OutcomeQuality, SaveData } from '../data/types';
+import type { CaseMeta, CaseReport, DifficultyMode, IndicatorState, LanguageCode, MissionId, OutcomeQuality, SaveData, SelfCheckPhase, SelfCheckResult } from '../data/types';
 import { setLanguage } from '../i18n';
 import { SaveSystem } from './SaveSystem';
 
@@ -111,6 +111,33 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
   /** Archivia il rapporto ispettivo di un caso (per il debrief docente). */
   saveCaseReport(caseId: string, report: CaseReport): void {
     this.data.caseReports[caseId] = report;
+    this.persist();
+  }
+
+  get caseMeta(): Record<string, CaseMeta> {
+    return { ...this.data.caseMeta };
+  }
+
+  caseMetaFor(caseId: string): CaseMeta {
+    return { ...(this.data.caseMeta[caseId] ?? {}) };
+  }
+
+  /**
+   * Annotazioni metacognitive locali (2.0): fiducia dichiarata e riflessione.
+   * Facoltative, solo localStorage, MAI usate nel calcolo del punteggio.
+   */
+  saveCaseMeta(caseId: string, meta: Partial<CaseMeta>): void {
+    this.data.caseMeta[caseId] = { ...this.data.caseMeta[caseId], ...meta };
+    this.persist();
+  }
+
+  get selfCheck(): { pre: SelfCheckResult | null; post: SelfCheckResult | null } {
+    return { pre: this.data.selfCheck.pre, post: this.data.selfCheck.post };
+  }
+
+  /** Registra un autocontrollo locale facoltativo (formativo, cancellabile col reset). */
+  recordSelfCheck(phase: SelfCheckPhase, result: SelfCheckResult): void {
+    this.data.selfCheck = { ...this.data.selfCheck, [phase]: result };
     this.persist();
   }
 

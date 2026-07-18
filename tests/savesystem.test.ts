@@ -22,7 +22,7 @@ class MemoryStorage {
 const storage = new MemoryStorage();
 (globalThis as Record<string, unknown>).localStorage = storage;
 
-const KEY = 'no-ai-act-save-v1';
+const KEY = 'no-ai-act-save-v2';
 
 describe('SaveSystem', () => {
   beforeEach(() => storage.clear());
@@ -52,7 +52,7 @@ describe('SaveSystem', () => {
     expect(SaveSystem.hasSave()).toBe(false);
   });
 
-  it('versione sconosciuta → default (nessuna migrazione implicita)', () => {
+  it('versione futura → default con warning (nessuna migrazione implicita)', () => {
     storage.setItem(KEY, JSON.stringify({ ...defaultSave(), version: 99, briefingSeen: true }));
     expect(SaveSystem.load()).toEqual(defaultSave());
   });

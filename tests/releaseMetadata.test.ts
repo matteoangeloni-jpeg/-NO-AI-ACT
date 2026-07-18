@@ -32,9 +32,13 @@ describe('release.config.json agrees with the executable source', () => {
     expect(cfg.publicUrls.total).toBe(cfg.publicUrls.it + cfg.publicUrls.en);
   });
 
-  it('save schema matches SaveSystem', () => {
+  it('save schema matches SaveSystem (key, version, migration source)', () => {
     const save = read('src/game/systems/SaveSystem.ts');
     expect(save).toContain(`const KEY = '${cfg.saveSchema.storageKey}'`);
+    expect(save).toContain(`CURRENT_SAVE_VERSION = ${cfg.saveSchema.version}`);
+    for (const legacy of cfg.saveSchema.migratesFrom) {
+      expect(save).toContain(`'${legacy}'`);
+    }
   });
 
   it('runtime host allowlist matches what the shipped shell references', () => {

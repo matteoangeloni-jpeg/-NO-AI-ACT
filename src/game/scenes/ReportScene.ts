@@ -160,6 +160,20 @@ export class ReportScene extends Phaser.Scene {
       .text(left, 600, `${t.ui.report.analysisLabel}: ${analysis}`, textStyle(13, oc.text, { wordWrap: { width: 620 }, lineSpacing: 4 }))
       .setOrigin(0, 0);
 
+    // 2.0 — calibrazione metacognitiva: solo se il giocatore ha dichiarato la
+    // fiducia (facoltativa). Confronto descrittivo, nessun effetto sul punteggio.
+    const confidence = StateManager.caseMetaFor(this.caseData.id).confidence;
+    if (confidence) {
+      const m = t.learningLayer.metacognition;
+      const levelLabel = [t.learningLayer.confidence.levels.low, t.learningLayer.confidence.levels.mid, t.learningLayer.confidence.levels.high][confidence - 1];
+      const judgment =
+        result.quality === 'correct'
+          ? confidence === 1 ? m.underconfident : m.calibrated
+          : confidence === 3 ? m.overconfident : m.calibrated;
+      const lineText = `${m.label}: ${fmt(m.line, { confidence: levelLabel, outcome: t.ui.outcomes[result.outcome] })} ${judgment}`;
+      this.add.text(left, 632, lineText, textStyle(11.5, COLOR_STR.accent, { wordWrap: { width: 940 } })).setOrigin(0, 0);
+    }
+
     // post-decision debrief (read-only): turns the already-computed outcome into
     // learning. Reuses ReportResult + existing case/rule texts; no score change.
     const rule = normText(this.caseData.normId);
@@ -179,7 +193,9 @@ export class ReportScene extends Phaser.Scene {
       // v1.1: concetti del caso + takeaway + pagina interna da leggere dopo
       concept: this.caseData.concepts.map((c) => t.ui.concepts[c]).join(' · '),
       takeaway: caseLearning(this.caseData.id).takeaway,
-      linkUrl: conceptLink(this.caseData.concepts[0], StateManager.language)
+      linkUrl: conceptLink(this.caseData.concepts[0], StateManager.language),
+      // 2.0: riflessione facoltativa, annotata solo in locale (mai nel punteggio)
+      onReflect: (choice) => StateManager.saveCaseMeta(this.caseData.id, { reflection: choice })
     });
     new Button(this, 240, GAME_HEIGHT - 46, t.ui.decisionDebrief.button, () => debrief.toggle(), { width: 320, height: 40, fontSize: 13, variant: 'ghost' });
 

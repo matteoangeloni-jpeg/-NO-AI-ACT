@@ -205,6 +205,30 @@ export interface LocationData {
 
 export type EndingId = 'ending_opaca' | 'ending_fragile' | 'ending_governata';
 
+/** Livello di fiducia dichiarato prima del rapporto (facoltativo, 2.0). */
+export type ConfidenceLevel = 1 | 2 | 3;
+
+/** Risposta alla domanda di riflessione post-debrief (facoltativa, 2.0). */
+export type ReflectionChoice = 'holds' | 'unsure' | 'revise';
+
+/**
+ * Annotazioni metacognitive locali per caso (2.0). Facoltative, mai inviate,
+ * mai usate come moltiplicatore di punteggio.
+ */
+export interface CaseMeta {
+  confidence?: ConfidenceLevel;
+  reflection?: ReflectionChoice;
+}
+
+/** Esito di un autocontrollo locale (2.0): solo conteggi, nessun testo libero. */
+export interface SelfCheckResult {
+  correct: number;
+  total: number;
+  answeredAt: number;
+}
+
+export type SelfCheckPhase = 'pre' | 'post';
+
 export interface SaveData {
   version: number;
   indicators: IndicatorState;
@@ -228,4 +252,8 @@ export interface SaveData {
   difficulty: DifficultyMode;
   /** Missione/percorso selezionato (v0.4). Default sicuro: 'full'. */
   mission: MissionId;
+  /** Annotazioni metacognitive per caso (2.0, schema v2). */
+  caseMeta: Record<string, CaseMeta>;
+  /** Autocontrolli locali facoltativi pre/post missione (2.0, schema v2). */
+  selfCheck: { pre: SelfCheckResult | null; post: SelfCheckResult | null };
 }

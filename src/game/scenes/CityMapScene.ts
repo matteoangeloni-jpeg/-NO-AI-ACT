@@ -6,6 +6,7 @@ import { AudioSystem } from '../systems/AudioSystem';
 import { IndicatorHud } from '../systems/IndicatorSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
+import { ChaptersOverlay } from '../ui/ChaptersOverlay';
 import { showToast } from '../ui/AlertToast';
 import { L, fmt, locationName } from '../i18n';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
@@ -42,6 +43,9 @@ export class CityMapScene extends Phaser.Scene {
     // pulsanti di servizio
     new Button(this, 110, GAME_HEIGHT - 36, L().ui.menu.archive, () => this.scene.start('Archive', { from: 'CityMap' }), { width: 190, height: 38, fontSize: 12, variant: 'ghost' });
     new Button(this, 310, GAME_HEIGHT - 36, L().ui.map.menuButton, () => this.scene.start('Title'), { width: 120, height: 38, fontSize: 12, variant: 'ghost' });
+    // capitoli 2.0: panoramica read-only, la selezione libera resta invariata
+    const chapters = new ChaptersOverlay(this);
+    new Button(this, 470, GAME_HEIGHT - 36, L().learningLayer.chapters.button, () => chapters.toggle(), { width: 160, height: 38, fontSize: 12, variant: 'ghost' });
 
     if (StateManager.completedCount() >= CASES_REQUIRED_FOR_FINALE) {
       new Button(this, GAME_WIDTH - 170, GAME_HEIGHT - 40, L().ui.map.finaleButton, () => {
