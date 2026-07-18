@@ -269,6 +269,15 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 ## Accessibilità
 
+- **Strato di lettura semantico**: le scene principali del gioco sono
+  sincronizzate con un livello HTML parallelo (testo reale, non pixel su
+  canvas) esposto alle tecnologie assistive; un toggle di **modalità lettura**
+  lo rende visibile anche a schermo.
+- **Annunci `aria-live`**: gli esiti (rapporto ispettivo, sblocco norme) sono
+  annunciati da una regione live dedicata.
+- **Percorso da tastiera**: dalla mappa della città fino alla chiusura completa
+  di un caso (verificato da uno smoke test automatico in CI). Limite attuale:
+  il menu del titolo richiede ancora una interazione con il puntatore.
 - Contrasto AA: il testo rosso usa una variante chiara (~5.5:1 su fondo scuro).
 - Font monospace ≥ 12px, valori numerici sempre accanto alle barre.
 - L'informazione non è mai affidata al solo colore (etichette testuali ovunque).
@@ -277,25 +286,50 @@ struttura fra i dizionari (predisposto per FR/ES).
   per proiettori e aule.
 - Tastiera: tasti numerici per le decisioni, ESC per tornare indietro.
 - Audio disattivabile e persistito; click per saltare i testi.
-- Limite noto: nessun supporto screen reader (rendering canvas).
+- **Limite strutturale**: il rendering resta su canvas Phaser; lo strato
+  semantico attenua ma non elimina il limite. **Non viene dichiarata una
+  conformità WCAG completa.**
 
 ## Limiti noti
 
-- **Ottimizzato per desktop e tablet in orizzontale.** Su smartphone in portrait
-  un avviso ("mobile guard") invita a ruotare il dispositivo: non è
-  un'esperienza mobile-first.
-- Il rendering è su **canvas Phaser**: non pienamente compatibile con screen reader.
+- **Ottimizzato per desktop e tablet in orizzontale.** Su smartphone in
+  portrait un avviso compatto e **chiudibile** ("mobile guard") invita a
+  ruotare il dispositivo e offre un fallback compatto: non è un'esperienza
+  mobile-first.
+- Il rendering è su **canvas Phaser**: lo strato di lettura semantico fornisce
+  testo reale alle tecnologie assistive, ma il canvas resta un limite
+  strutturale e non viene dichiarata una conformità WCAG completa.
 - Contenuto giuridico in **versione didattica semplificata**: non sostituisce il
   testo del regolamento né una consulenza legale.
 - **Telemetria di gioco disattivata di default** (le pagine pubbliche usano solo
   Cloudflare Web Analytics aggregato, senza cookie né dati personali); nessun
   account, nessuna dashboard classe, nessun registro studenti.
-- Bundle Phaser ~388 KB gzip: accettabile per un gioco, non ottimizzato mobile-first.
-- **Playtest reale ancora da completare** prima della presentazione pubblica.
+- Dimensioni build: fonte autorevole `npm run report:dist` (ultimo report di
+  release verificato: dist ~6,52 MB; bundle di gioco ~423 KB gzip; landing
+  ~9 KB gzip).
+- **Efficacia didattica non ancora validata empiricamente**: il quadro
+  metodologico per studiarla è in `docs/RESEARCH_VALIDATION_FRAMEWORK.md`.
 
 ## Roadmap
 
-**✅ v1.0.0 — Prima release pubblica stabile (ultima release taggata)**
+**✅ v2.0.0 — Codice completo su `main` (chiusura release in corso)**
+- Modello di apprendimento tipizzato e matrice legale, capitoli tematici,
+  autocontrollo locale facoltativo, fiducia/riflessione, schema di salvataggio
+  v2 con migrazione testata, strato di lettura semantico + percorso da
+  tastiera, 2 nuovi casi (13 totali), infrastruttura di citazione e ricerca,
+  56 URL pubblici IT/EN. Dettagli:
+  [`docs/RELEASE_NOTES_v2.0.0.md`](docs/RELEASE_NOTES_v2.0.0.md).
+- **Chiusura pendente**: verifica indipendente dell'edge pubblico (Cloudflare)
+  e creazione del tag `v2.0.0` da parte dell'owner
+  ([`docs/OWNER_ACTIONS_2_0.md`](docs/OWNER_ACTIONS_2_0.md)).
+
+**🔭 Lavori futuri (dopo la chiusura della 2.0)**
+- Validazione empirica dell'efficacia didattica
+  (`docs/RESEARCH_VALIDATION_FRAMEWORK.md`), DOI Zenodo, eventuali lingue
+  aggiuntive (struttura i18n predisposta per FR/ES).
+
+**✅ v1.0.0 — Prima release pubblica stabile (storico; nessun tag `v1.0.0`
+pubblicato — ultima release taggata: `v0.6.0`)**
 - Landing SEO/content pack IT/EN, visual bug pass pre-playtest, versioning e
   documentazione di release. Contenuti di gioco invariati rispetto alla v0.6.
   Dettagli: [`docs/RELEASE_NOTES_v1.0.0.md`](docs/RELEASE_NOTES_v1.0.0.md).
@@ -317,24 +351,31 @@ struttura fra i dizionari (predisposto per FR/ES).
 - 7 casi base, difficoltà Base/Standard/Esperto, percorsi/missioni, modalità
   docente locale, mobile guard, IT/EN, analytics privacy-by-design (off).
 
-**🚧 In corso — verso la 2.0**
-- Architettura di apprendimento (obiettivi, capitoli, auto-verifica locale,
-  riflessione), accessibilità e layout compatto, pacchetto di citazione e
-  metadati per ricerca/OER, consolidamento SEO IT/EN. Nessun backend, nessun
-  account, nessuna raccolta dati: la 2.0 resta statica e privacy-preserving.
-
 ## <a name="stato-release"></a>Stato release
 
-- **Versione**: v2.0.0 (tag v2.0.0 previsto, non ancora pubblicato; ultima release taggata: v0.6.0)
-- **Branch stabile**: `main` (GitHub Pages deploy attivo)
-- **Distribuzione**: <https://www.no-ai-act.eu/>
-- **Casi**: 11 giocabili (7 base + 4 avanzati).
-- **Test / build**: suite Vitest completa + build + verifiche dist verdi in CI
-  (il numero esatto di test evolve con il progetto: fonte di verità `npm test`).
-- **Playtest esterno strutturato**: ancora da completare; la 1.0 è una release
-  pubblica stabile, non una validazione empirica dell'efficacia didattica.
+Fonte machine-readable: [`release.config.json`](release.config.json)
+(coerenza garantita da test automatici).
 
-Release notes: [`docs/RELEASE_NOTES_v1.0.0.md`](docs/RELEASE_NOTES_v1.0.0.md) ·
+- **Versione**: v2.0.0 (codice su `main`; fonte: `package.json`)
+- **Tag pianificato**: `v2.0.0` — **non ancora pubblicato**
+- **Ultima release effettivamente taggata**: `v0.6.0`
+- **Casi giocabili**: 13
+- **Lingue**: italiano e inglese
+- **URL pubblici**: 56 (26 IT + 30 EN)
+- **Salvataggi**: schema v2, con migrazione testata dei salvataggi v1
+- **Backend**: nessuno · **Account**: nessuno · **Raccolta dati personali**:
+  nessuna · **Chiamate di rete durante il gameplay**: nessuna
+- **DOI**: non ancora disponibile (previsto via Zenodo dopo il tag)
+- **Efficacia didattica**: non ancora validata empiricamente
+- **Test / build**: suite Vitest completa + build + verifiche dist verdi in CI
+  (il numero esatto di test evolve con il progetto: fonte di verità `npm test`)
+
+Riferimenti correnti:
+[`docs/RELEASE_NOTES_v2.0.0.md`](docs/RELEASE_NOTES_v2.0.0.md) ·
+[`docs/OWNER_ACTIONS_2_0.md`](docs/OWNER_ACTIONS_2_0.md) ·
+[`release.config.json`](release.config.json) ·
+[`CITATION.cff`](CITATION.cff) ·
+[`docs/RESEARCH_VALIDATION_FRAMEWORK.md`](docs/RESEARCH_VALIDATION_FRAMEWORK.md) ·
 checklist di rilascio: [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md).
 
 ## Contribuire / testare
@@ -382,17 +423,26 @@ semplificata". La rilevanza del rischio dipende sempre dal contesto d'uso.
 **NO AI ACT — Simulator of an unregulated society** is a browser-based
 investigative serious game about the EU AI Act (Regulation (EU) 2024/1689).
 It is 2032 in an alternate European city where the AI Act never entered into
-force: you are the Inspector for Algorithmic Incidents. Each of the **seven
-playable cases** is a plausible algorithmic disaster — social scoring, opaque AI
-recruiting, unlabeled synthetic government media, emotion recognition in schools,
-predictive triage, public biometrics, civic credit/welfare scoring — to
-investigate, classify under the AI Act risk pyramid and remedy with a reasoned
-**inspection report**. Three difficulty modes, four mission paths, IT/EN.
+force: you are the Inspector for Algorithmic Incidents. Each of the
+**13 playable cases** — organized in **four thematic chapters** — is a
+plausible algorithmic disaster (social scoring, opaque AI recruiting,
+unlabeled synthetic government media, emotion recognition in schools,
+predictive triage, public biometrics, civic credit/welfare scoring, public
+chatbots, AI procurement, adaptive EdTech, general-purpose AI, individual
+predictive policing, welfare fraud scoring) to investigate, classify under the
+AI Act risk pyramid and remedy with a reasoned **inspection report**. An
+optional **local self-check**, a **confidence and reflection layer**, and a
+**semantic reading layer** (real HTML synchronized with the canvas scenes,
+with aria-live announcements and a keyboard path through a full case) support
+learning and accessibility. Three difficulty modes, mission paths, IT/EN.
 
-No account, no backend, no personal data: every graphic and sound is generated
-procedurally. Teacher mode is local debrief support only. Educational
-simplification of the AI Act — not legal advice. Code: MIT · narrative and
-didactic content: CC BY 4.0.
+No account, no backend, no personal-data collection, no network calls during
+gameplay: every graphic and sound is generated procedurally, saves stay in
+`localStorage`. **Teacher mode** is local debrief support only, with on-device
+`.txt`/`.json` exports. Version **2.0.0** code is on `main`; the `v2.0.0` tag
+is **not yet published**. Educational simplification of the AI Act — not legal
+advice. Its educational effectiveness has **not yet been empirically
+validated**. Code: MIT · narrative and didactic content: CC BY 4.0.
 
 **Play now:** <https://www.no-ai-act.eu/>
 

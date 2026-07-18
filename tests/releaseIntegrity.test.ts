@@ -202,6 +202,69 @@ describe('structured-data integrity — sameAs allowlist and evidenced dates', (
   });
 });
 
+describe('README current-state truthfulness (release closure)', () => {
+  const readme = read('README.md');
+  const lines = readme.split('\n');
+  const HISTORICAL = /v0\.\d|v1\.0|storico|historical/i;
+
+  it('no stale case-count claim outside explicitly historical context', () => {
+    const STALE = [/\b(7|seven)\s+playable\s+cases\b/i, /\b11\s+playable\s+cases\b/i, /\b11\s+casi\s+giocabili\b/i];
+    const offenders: string[] = [];
+    for (const line of lines) {
+      for (const re of STALE) {
+        if (re.test(line) && !HISTORICAL.test(line)) offenders.push(line.trim());
+      }
+    }
+    expect(offenders, offenders.join('\n')).toEqual([]);
+  });
+
+  it('no "verso la 2.0" roadmap language: 2.0 code is complete on main', () => {
+    expect(readme).not.toMatch(/verso la 2\.0/i);
+  });
+
+  it('every "latest tagged release" statement names the real one', () => {
+    for (const line of lines) {
+      if (/ultima release (?:effettivamente )?taggata|last(?:\s+actually)?\s+tagged release/i.test(line)) {
+        expect(line, line.trim()).toContain(cfg.lastTaggedRelease);
+      }
+    }
+    // and the statement must exist in the current-state section
+    expect(readme).toContain(`**Ultima release effettivamente taggata**: \`${cfg.lastTaggedRelease}\``);
+  });
+
+  it('v1.0.0 is never presented as the latest tagged release', () => {
+    expect(readme).not.toMatch(/v1\.0\.0[^\n]*ultima release taggata/i);
+    expect(readme).not.toMatch(/ultima release taggata[^\n]*v1\.0\.0/i);
+  });
+
+  it('the Stato release section references the current release notes, not v1.0.0', () => {
+    const m = readme.match(/## <a name="stato-release"><\/a>Stato release([\s\S]*?)(?=\n## |$)/);
+    expect(m, 'Stato release section present').toBeTruthy();
+    expect(m![1]).toContain(`RELEASE_NOTES_${cfg.plannedReleaseTag}.md`);
+    expect(m![1]).not.toContain('RELEASE_NOTES_v1.0.0.md');
+    expect(m![1]).toContain('OWNER_ACTIONS_2_0.md');
+  });
+
+  it('v2.0.0 is never stated as already tagged, released, published or live', () => {
+    const offenders: string[] = [];
+    for (const line of lines) {
+      if (/v2\.0\.0/.test(line) && /\b(taggat\w+|rilasciat\w+|pubblicat\w+|tagged|released|published|live)\b/i.test(line)) {
+        if (!/non ancora|not yet|previsto|planned|pending|nessun tag/i.test(line)) offenders.push(line.trim());
+      }
+    }
+    expect(offenders, offenders.join('\n')).toEqual([]);
+  });
+
+  it('the current-state list derives from release.config.json', () => {
+    expect(readme).toContain(`**Tag pianificato**: \`${cfg.plannedReleaseTag}\` — **non ancora pubblicato**`);
+    expect(readme).toContain(`**Casi giocabili**: ${N}`);
+    expect(readme).toContain(`**URL pubblici**: ${cfg.publicUrls.total} (${cfg.publicUrls.it} IT + ${cfg.publicUrls.en} EN)`);
+    expect(readme).toContain('**DOI**: non ancora disponibile');
+    expect(readme).toContain('**Efficacia didattica**: non ancora validata empiricamente');
+    expect(readme).toContain(`${N} playable cases`); // English summary
+  });
+});
+
 describe('release/tag truthfulness — planned vs actually tagged', () => {
   it('config separates package version, planned tag and last actually tagged release', () => {
     const pkg = JSON.parse(read('package.json'));
