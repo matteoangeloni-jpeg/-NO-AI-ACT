@@ -8,6 +8,7 @@ import { CaseContextOverlay } from '../ui/CaseContextOverlay';
 import { DossierCard } from '../ui/DossierCard';
 import { showToast } from '../ui/AlertToast';
 import { L, caseText, fmt } from '../i18n';
+import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 
 /**
@@ -88,19 +89,7 @@ export class EvidenceScene extends Phaser.Scene {
       this.cards.push(card);
     });
 
-    this.proceedBtn = new Button(this, cx, GAME_HEIGHT - 90, L().ui.evidence.proceedButton, () => {
-      const cited = this.cards
-        .map((card, i) => (card.isCited ? i : -1))
-        .filter((i) => i >= 0);
-      AnalyticsSystem.track('clues_selected', {
-        caseId: this.caseData.id,
-        selectedClueCount: cited.length,
-        relevantClueCount: this.caseData.relevantClues.length
-      });
-      // i casi con evento imprevisto passano per il telex prima della decisione
-      const next = this.caseData.hasIncident ? 'Incident' : 'Decision';
-      this.scene.start(next, { caseId: this.caseData.id, citedClues: cited });
-    }, { width: 380 });
+    this.proceedBtn = new Button(this, cx, GAME_HEIGHT - 90, L().ui.evidence.proceedButton, () => this.proceed(), { width: 380 });
     this.proceedBtn.setVisible(false);
 
     this.backBtn = new Button(this, 90, GAME_HEIGHT - 36, L().ui.case.backToMap, () => this.scene.start('CityMap'), { width: 140, height: 36, fontSize: 12, variant: 'ghost' });
@@ -109,6 +98,48 @@ export class EvidenceScene extends Phaser.Scene {
       if (this.contextOverlay.isOpen) this.contextOverlay.close();
       else this.scene.start('CityMap');
     });
+
+    // tastiera (§11.2): 1..n apre/cita il reperto i-esimo, INVIO prosegue
+    const KEYS = ['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX'] as const;
+    KEYS.slice(0, n).forEach((key, i) => {
+      this.input.keyboard?.on(`keydown-${key}`, () => {
+        if (!this.contextOverlay.isOpen) this.cards[i]?.activate();
+      });
+    });
+    this.input.keyboard?.on('keydown-ENTER', () => {
+      if (this.proceedEligible && !this.contextOverlay.isOpen) this.proceed();
+    });
+    this.syncReadingLayer();
+  }
+
+  /** Avanza alla decisione (o all'evento imprevisto) con i reperti citati. */
+  private proceed(): void {
+    const cited = this.cards
+      .map((card, i) => (card.isCited ? i : -1))
+      .filter((i) => i >= 0);
+    AnalyticsSystem.track('clues_selected', {
+      caseId: this.caseData.id,
+      selectedClueCount: cited.length,
+      relevantClueCount: this.caseData.relevantClues.length
+    });
+    const next = this.caseData.hasIncident ? 'Incident' : 'Decision';
+    this.scene.start(next, { caseId: this.caseData.id, citedClues: cited });
+  }
+
+  /** Strato di lettura (§11.1): titoli sempre, testi dei reperti aperti. */
+  private syncReadingLayer(): void {
+    const texts = caseText(this.caseData.id);
+    ReadingLayer.setScene(fmt(L().ui.evidence.header, { code: this.caseData.fileCode }), [
+      { text: L().ui.evidence.instruction },
+      { text: fmt(L().a11y.evidenceHint, { n: Math.min(texts.clues.length, 6) }) },
+      {
+        items: texts.clues.map((clue, i) => {
+          const card = this.cards[i];
+          const state = card?.isCited ? L().ui.evidence.cited : card?.isRevealed ? clue.text : L().ui.evidence.sealed;
+          return `${clue.title} — ${state}`;
+        })
+      }
+    ]);
   }
 
   update(): void {
@@ -132,5 +163,6 @@ export class EvidenceScene extends Phaser.Scene {
     }
     // senza almeno MIN_CITED_CLUES reperti citati non si procede
     this.proceedEligible = allRevealed && citedCount >= MIN_CITED_CLUES;
+    this.syncReadingLayer();
   }
 }

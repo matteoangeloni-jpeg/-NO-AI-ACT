@@ -18,6 +18,7 @@ import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
 import { DecisionDebriefOverlay } from '../ui/DecisionDebriefOverlay';
 import { L, caseText, fmt, normText } from '../i18n';
+import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 
 interface ReportParams {
@@ -198,6 +199,14 @@ export class ReportScene extends Phaser.Scene {
       onReflect: (choice) => StateManager.saveCaseMeta(this.caseData.id, { reflection: choice })
     });
     new Button(this, 240, GAME_HEIGHT - 46, t.ui.decisionDebrief.button, () => debrief.toggle(), { width: 320, height: 40, fontSize: 13, variant: 'ghost' });
+
+    // strato di lettura (§11.1) + annuncio dell'esito (aria-live)
+    ReadingLayer.setScene(t.a11y.reportTitle, [
+      { text: texts.title },
+      { heading: t.ui.outcomes[result.outcome], text: analysis },
+      { text: `${t.ui.report.decisionLabel} ${t.classifications[this.params.classification]} → ${t.measures[this.params.measure]}` }
+    ]);
+    ReadingLayer.announce(fmt(t.a11y.outcomeAnnounced, { outcome: t.ui.outcomes[result.outcome] }));
 
     const goNext = (): void => {
       this.scene.start('Consequence', {

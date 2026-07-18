@@ -5,6 +5,7 @@ import { Panel } from '../ui/Panel';
 import { SelfCheckOverlay } from '../ui/SelfCheckOverlay';
 import { TypewriterText } from '../ui/TypewriterText';
 import { L } from '../i18n';
+import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 
 export class BriefingScene extends Phaser.Scene {
@@ -56,5 +57,17 @@ export class BriefingScene extends Phaser.Scene {
       this.tweens.add({ targets: how, alpha: 1, duration: StateManager.reducedMotion ? 0 : 400 });
     });
     this.input.on('pointerdown', () => body.skip());
+    // tastiera (§11.2): INVIO prosegue quando la CTA è visibile
+    this.input.keyboard?.on('keydown-ENTER', () => {
+      if (btn.visible) {
+        StateManager.setBriefingSeen();
+        this.scene.start('CityMap');
+      }
+    });
+    // strato di lettura (§11.1)
+    ReadingLayer.setScene(L().a11y.briefingTitle, [
+      { text: L().briefing.body },
+      { text: L().briefing.how }
+    ]);
   }
 }

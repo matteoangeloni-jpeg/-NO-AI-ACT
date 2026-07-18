@@ -31,10 +31,17 @@
 <body>
   <div id="app">
     <a id="site-return" href="../" aria-label="Torna al sito NO AI ACT / Back to the NO AI ACT website">↩ no-ai-act.eu</a>
+    <button id="reading-toggle" type="button" aria-pressed="false" aria-controls="reading-layer"></button>
     <div id="game-container" role="application" aria-label="NO AI ACT, gioco investigativo sull'AI Act"></div>
+    <!-- Strato di lettura semantico (2.0, §11.1): testo dei contenuti chiave
+         sincronizzato con lo stato Phaser. Solo lettura — nessuna interazione
+         duplicata: le azioni restano su canvas e tastiera. Nascosto ma
+         disponibile agli screen reader; visibile attivando reading-toggle. -->
+    <section id="reading-layer" class="sr-only" aria-label="Testo della schermata corrente / Text of the current screen" tabindex="-1"></section>
+    <div id="sr-announcer" class="sr-only" role="status" aria-live="polite"></div>
     <div id="crt-overlay" aria-hidden="true"></div>
     <div id="mobile-guard" role="dialog" aria-live="polite">
-      <div class="mg-box"><p class="mg-msg"></p></div>
+      <div class="mg-box"><p class="mg-msg"></p><button class="mg-continue" type="button"></button></div>
     </div>
   </div>
   <noscript>NO AI ACT richiede JavaScript per essere eseguito.</noscript>

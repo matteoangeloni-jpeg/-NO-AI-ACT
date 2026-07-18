@@ -9,9 +9,14 @@ import { Button } from '../ui/Button';
 import { ChaptersOverlay } from '../ui/ChaptersOverlay';
 import { showToast } from '../ui/AlertToast';
 import { L, fmt, locationName } from '../i18n';
+import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 
 export class CityMapScene extends Phaser.Scene {
+  /** Selezione da tastiera (§11.2): indice nel vettore dei casi aperti. */
+  private keyIndex = -1;
+  private keyRing?: Phaser.GameObjects.Arc;
+
   constructor() {
     super('CityMap');
   }
@@ -47,6 +52,9 @@ export class CityMapScene extends Phaser.Scene {
     const chapters = new ChaptersOverlay(this);
     new Button(this, 470, GAME_HEIGHT - 36, L().learningLayer.chapters.button, () => chapters.toggle(), { width: 160, height: 38, fontSize: 12, variant: 'ghost' });
 
+    this.setupKeyboardSelection();
+    this.syncReadingLayer();
+
     if (StateManager.completedCount() >= CASES_REQUIRED_FOR_FINALE) {
       new Button(this, GAME_WIDTH - 170, GAME_HEIGHT - 40, L().ui.map.finaleButton, () => {
         AudioSystem.alert();
@@ -58,6 +66,60 @@ export class CityMapScene extends Phaser.Scene {
         showToast(this, L().ui.map.finaleReadyToast, 'warning');
       }
     }
+  }
+
+  /** Casi aperti (giocabili e non completati), nell'ordine della mappa. */
+  private openCases(): { caseId: string; locationId: string; x: number; y: number }[] {
+    return LOCATIONS.filter((l) => {
+      const c = l.caseId ? getCase(l.caseId) : null;
+      return !!c?.playable && StateManager.caseQuality(c.id) === undefined;
+    }).map((l) => ({ caseId: l.caseId!, locationId: l.id, x: l.x * GAME_WIDTH, y: l.y * GAME_HEIGHT }));
+  }
+
+  /**
+   * Navigazione da tastiera (§11.2): le frecce scorrono i fascicoli aperti,
+   * INVIO apre quello selezionato. Stesso percorso del puntatore, nessuna
+   * interazione duplicata: cambia solo il modo di selezionare.
+   */
+  private setupKeyboardSelection(): void {
+    const move = (delta: number): void => {
+      const open = this.openCases();
+      if (open.length === 0) return;
+      this.keyIndex = (this.keyIndex + delta + open.length) % open.length;
+      const sel = open[this.keyIndex];
+      this.keyRing?.destroy();
+      this.keyRing = this.add.circle(sel.x, sel.y, 34).setStrokeStyle(3, COLORS.accent, 1);
+      ReadingLayer.announce(fmt(L().a11y.selectedCase, { name: locationName(sel.locationId) }));
+    };
+    for (const key of ['RIGHT', 'DOWN']) this.input.keyboard?.on(`keydown-${key}`, () => move(1));
+    for (const key of ['LEFT', 'UP']) this.input.keyboard?.on(`keydown-${key}`, () => move(-1));
+    this.input.keyboard?.on('keydown-ENTER', () => {
+      const open = this.openCases();
+      const sel = this.keyIndex >= 0 ? open[this.keyIndex] : undefined;
+      if (!sel) return;
+      AudioSystem.confirm();
+      this.cameras.main.fadeOut(250, 0, 0, 0);
+      this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('Case', { caseId: sel.caseId }));
+    });
+  }
+
+  /** Strato di lettura (§11.1): stato della città e dei fascicoli. */
+  private syncReadingLayer(): void {
+    const t = L();
+    ReadingLayer.setScene(t.a11y.mapTitle, [
+      { text: fmt(t.ui.map.progress, { done: StateManager.completedCount(), total: PLAYABLE_CASES.length }) },
+      { text: t.a11y.mapHint },
+      {
+        items: LOCATIONS.filter((l) => l.caseId).map((l) => {
+          const quality = StateManager.caseQuality(l.caseId!);
+          const c = getCase(l.caseId!);
+          const status = quality === 'wrong' ? t.ui.map.statusNonCompliant
+            : quality !== undefined ? t.ui.map.statusClosed
+            : c.playable ? t.ui.map.statusOpen : t.ui.map.statusSealed;
+          return `${locationName(l.id)} — ${status}`;
+        })
+      }
+    ]);
   }
 
   private buildMarker(locationId: string): void {

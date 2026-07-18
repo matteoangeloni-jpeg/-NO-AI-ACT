@@ -9,6 +9,7 @@ import { Panel } from '../ui/Panel';
 import { SelfCheckOverlay } from '../ui/SelfCheckOverlay';
 import { TypewriterText } from '../ui/TypewriterText';
 import { L } from '../i18n';
+import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 
 /** Rapporto finale: l'esito dipende dagli indicatori accumulati. */
@@ -50,6 +51,11 @@ export class FinaleScene extends Phaser.Scene {
     new Panel(this, cx - 180, 300, 640, 260);
     const body = new TypewriterText(this, cx - 480, 200, 15, COLOR_STR.paper, 600);
     body.write(ending.text);
+    // strato di lettura (§11.1): titolo dell'epilogo e testo completo
+    ReadingLayer.setScene(L().a11y.finaleTitle, [
+      { heading: ending.title, text: ending.text },
+      { text: L().endings.finalMessage }
+    ]);
     this.input.on('pointerdown', () => body.skip());
 
     // stato finale degli indicatori

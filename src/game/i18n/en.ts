@@ -1585,4 +1585,20 @@ export const en: Locale = {
       }
     }
   }
+  ,
+  a11y: {
+    readingShow: 'Screen text',
+    readingHide: 'Hide text',
+    readingNote: 'Read-only panel: actions are performed in the game, by pointer or keyboard.',
+    mobileContinue: 'Continue anyway',
+    outcomeAnnounced: 'Report outcome: {outcome}.',
+    mapTitle: 'Civic map',
+    mapHint: 'Arrow keys cycle the open case files, ENTER opens the selected one.',
+    selectedCase: 'Selected: {name}',
+    evidenceHint: 'Keys 1–{n}: open an exhibit, then press again to cite it. ENTER proceeds when possible.',
+    decisionTitle: 'Decision — {step}',
+    reportTitle: 'Inspection report',
+    briefingTitle: 'Initial briefing',
+    finaleTitle: 'Final report'
+  }
 };
