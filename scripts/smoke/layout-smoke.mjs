@@ -32,7 +32,7 @@ const fail = [];
 // Landscape / wide-enough viewports where the mobile guard is hidden and the
 // canvas UI is the active surface.
 const CANVAS_VIEWPORTS = [
-  { w: 1792, h: 930 }, { w: 1440, h: 900 }, { w: 1366, h: 768 },
+  { w: 1920, h: 1080 }, { w: 1792, h: 930 }, { w: 1440, h: 900 }, { w: 1366, h: 768 },
   { w: 1280, h: 720 }, { w: 1024, h: 768 }, { w: 768, h: 1024 }
 ];
 
@@ -155,21 +155,32 @@ for (const vp of CANVAS_VIEWPORTS) {
   }
 }
 
-// ---- 390×844 portrait: mobile guard + no horizontal overflow ----
-{
-  const mctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+// ---- portrait phones: mobile guard + dismissable fallback + no overflow ----
+for (const vp of [{ w: 390, h: 844 }, { w: 360, h: 800 }]) {
+  const tag = `${vp.w}x${vp.h}`;
+  const mctx = await browser.newContext({ viewport: { width: vp.w, height: vp.h } });
   const mp = await mctx.newPage();
-  mp.on('console', (m) => { if (m.type() === 'error') errors.push(`[390x844] ${m.text()}`); });
+  mp.on('console', (m) => { if (m.type() === 'error') errors.push(`[${tag}] ${m.text()}`); });
   await mp.goto(`${BASE}/play/?lang=it`, { waitUntil: 'domcontentloaded' });
   await mp.waitForTimeout(2500);
   const guardShown = await mp.evaluate(() => {
     const el = document.getElementById('mobile-guard');
     return !!el && getComputedStyle(el).display !== 'none';
   });
-  if (!guardShown) fail.push('390x844: mobile guard not shown in portrait');
+  if (!guardShown) fail.push(`${tag}: mobile guard not shown in portrait`);
   const overflow = await mp.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
-  if (overflow) fail.push('390x844: horizontal overflow on /play/');
-  await mp.screenshot({ path: `${OUT}/mobile-390x844.png` });
+  if (overflow) fail.push(`${tag}: horizontal overflow on /play/`);
+  // clear, tested fallback (§11.4): "continue anyway" hides the guard and the
+  // scaled canvas remains usable underneath
+  const dismissed = await mp.evaluate(() => {
+    const btn = document.querySelector('#mobile-guard .mg-continue');
+    if (!btn) return false;
+    btn.click();
+    const el = document.getElementById('mobile-guard');
+    return getComputedStyle(el).display === 'none' && !!document.querySelector('#game-container canvas');
+  });
+  if (!dismissed) fail.push(`${tag}: mobile-guard continue-anyway fallback broken`);
+  await mp.screenshot({ path: `${OUT}/mobile-${tag}.png` });
   await mctx.close();
 }
 

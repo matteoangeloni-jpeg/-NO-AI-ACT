@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { gameConfig } from './game/GameConfig';
 import { initMobileGuard } from './mobileGuard';
+import { initReadingLayer } from './game/systems/ReadingLayer';
 import { languageFromQuery } from './game/i18n';
 import { StateManager } from './game/systems/StateManager';
 
@@ -19,3 +20,4 @@ const game = new Phaser.Game(gameConfig);
 // canvas, not the DOM, so bounding-box checks need the live Phaser instance).
 (window as unknown as { game?: Phaser.Game }).game = game;
 initMobileGuard();
+initReadingLayer();

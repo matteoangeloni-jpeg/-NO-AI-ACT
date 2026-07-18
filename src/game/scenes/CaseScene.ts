@@ -6,6 +6,7 @@ import { AudioSystem } from '../systems/AudioSystem';
 import { Button } from '../ui/Button';
 import { TypewriterText } from '../ui/TypewriterText';
 import { L, caseText, fmt, locationName } from '../i18n';
+import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 
 /** Apertura del fascicolo: scenario narrativo del caso. */
@@ -51,6 +52,15 @@ export class CaseScene extends Phaser.Scene {
 
     body.write(texts.scenario, () => proceed.setVisible(true));
     this.input.on('pointerdown', () => body.skip());
+    // tastiera (§11.2): INVIO esamina i reperti quando la CTA è visibile
+    this.input.keyboard?.on('keydown-ENTER', () => {
+      if (proceed.visible) this.scene.start('Evidence', { caseId: this.caseData.id });
+    });
+    // strato di lettura (§11.1): scenario completo, sincronizzato all'ingresso
+    ReadingLayer.setScene(texts.title, [
+      { text: fmt(L().ui.case.fileLabel, { code: this.caseData.fileCode }) },
+      { text: texts.scenario }
+    ]);
 
     new Button(this, 90, GAME_HEIGHT - 36, L().ui.case.backToMap, () => this.scene.start('CityMap'), { width: 140, height: 36, fontSize: 12, variant: 'ghost' });
     this.input.keyboard?.on('keydown-ESC', () => this.scene.start('CityMap'));

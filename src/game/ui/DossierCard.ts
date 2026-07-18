@@ -69,27 +69,42 @@ export class DossierCard extends Phaser.GameObjects.Container {
         else if (!this.cited) this.bg.setStrokeStyle(2, COLORS.accent);
       })
       .on('pointerout', () => this.refreshBorder())
-      .on('pointerdown', () => {
-        AudioSystem.init();
-        if (!this.revealed) {
-          // primo clic: apertura del reperto
-          this.revealed = true;
-          AudioSystem.confirm();
-          sealed.setVisible(false);
-          title.setVisible(true);
-          body.setVisible(true);
-          this.citeLabel.setVisible(true);
-          scene.tweens.add({ targets: [title, body, this.citeLabel], alpha: { from: 0, to: 1 }, duration: 250 });
-        } else {
-          // clic successivi: toggle citazione nel rapporto
-          this.cited = !this.cited;
-          AudioSystem.click();
-          this.citeLabel.setText(this.cited ? L().ui.evidence.cited : L().ui.evidence.cite);
-          this.citeLabel.setColor(this.cited ? COLOR_STR.ok : COLOR_STR.accent);
-        }
-        this.refreshBorder();
-        this.onChange();
-      });
+      .on('pointerdown', () => this.activate());
+    this.revealElements = { sealed, title, body };
+  }
+
+  private revealElements!: {
+    sealed: Phaser.GameObjects.Text;
+    title: Phaser.GameObjects.Text;
+    body: Phaser.GameObjects.Text;
+  };
+
+  /**
+   * Azione principale della scheda: primo uso = apertura, usi successivi =
+   * toggle della citazione. Unica per puntatore E tastiera (§11.2), così i
+   * due input restano sempre coerenti.
+   */
+  activate(): void {
+    AudioSystem.init();
+    const { sealed, title, body } = this.revealElements;
+    if (!this.revealed) {
+      // prima attivazione: apertura del reperto
+      this.revealed = true;
+      AudioSystem.confirm();
+      sealed.setVisible(false);
+      title.setVisible(true);
+      body.setVisible(true);
+      this.citeLabel.setVisible(true);
+      this.scene.tweens.add({ targets: [title, body, this.citeLabel], alpha: { from: 0, to: 1 }, duration: 250 });
+    } else {
+      // attivazioni successive: toggle citazione nel rapporto
+      this.cited = !this.cited;
+      AudioSystem.click();
+      this.citeLabel.setText(this.cited ? L().ui.evidence.cited : L().ui.evidence.cite);
+      this.citeLabel.setColor(this.cited ? COLOR_STR.ok : COLOR_STR.accent);
+    }
+    this.refreshBorder();
+    this.onChange();
   }
 
   private refreshBorder(): void {

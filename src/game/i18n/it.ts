@@ -1581,4 +1581,20 @@ export const it = {
       }
     }
   }
+  ,
+  a11y: {
+    readingShow: 'Testo schermata',
+    readingHide: 'Nascondi testo',
+    readingNote: 'Pannello di sola lettura: le azioni si eseguono nel gioco, con puntatore o tastiera.',
+    mobileContinue: 'Continua comunque',
+    outcomeAnnounced: 'Esito del rapporto: {outcome}.',
+    mapTitle: 'Mappa civica',
+    mapHint: 'Frecce per scorrere i fascicoli aperti, INVIO per aprire quello selezionato.',
+    selectedCase: 'Selezionato: {name}',
+    evidenceHint: 'Tasti 1–{n}: apri un reperto, poi premili di nuovo per citarlo. INVIO prosegue quando possibile.',
+    decisionTitle: 'Decisione — {step}',
+    reportTitle: 'Rapporto ispettivo',
+    briefingTitle: 'Briefing iniziale',
+    finaleTitle: 'Rapporto finale'
+  }
 };

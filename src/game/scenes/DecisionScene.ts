@@ -11,6 +11,7 @@ import { CaseContextOverlay } from '../ui/CaseContextOverlay';
 import { CaseNormOverlay } from '../ui/CaseNormOverlay';
 import { NormCardView } from '../ui/NormCard';
 import { L, fmt } from '../i18n';
+import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 
 const CLASSIFICATIONS: Classification[] = ['vietata', 'alto_rischio', 'trasparenza', 'basso_rischio', 'non_rilevante'];
@@ -68,6 +69,8 @@ export class DecisionScene extends Phaser.Scene {
   }
 
   private header(step: string, question: string): void {
+    // strato di lettura (§11.1): passo corrente e domanda, a ogni transizione
+    ReadingLayer.setScene(fmt(L().a11y.decisionTitle, { step }), [{ text: question }]);
     const cx = GAME_WIDTH / 2;
     this.add
       .text(cx, 56, fmt(L().ui.case.fileLabel, { code: this.caseData.fileCode }), textStyle(13, COLOR_STR.alertText))
