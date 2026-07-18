@@ -325,7 +325,7 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 ## <a name="stato-release"></a>Stato release
 
-- **Versione**: v2.0.0 (release taggata: v2.0.0)
+- **Versione**: v2.0.0 (tag v2.0.0 previsto, non ancora pubblicato; ultima release taggata: v0.6.0)
 - **Branch stabile**: `main` (GitHub Pages deploy attivo)
 - **Distribuzione**: <https://www.no-ai-act.eu/>
 - **Casi**: 11 giocabili (7 base + 4 avanzati).

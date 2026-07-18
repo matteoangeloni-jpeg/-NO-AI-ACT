@@ -245,7 +245,7 @@ describe('public static files', () => {
     expect(llms).toContain(`${SITE}play/`);
     expect(llms).toContain(`${SITE}en/`);
     expect(llms).toContain('github.com/matteoangeloni-jpeg/-NO-AI-ACT');
-    expect(llms).toContain('releases/tag/v2.0.0');
+    expect(llms).toContain('releases/tag/v0.6.0'); // last ACTUALLY tagged; v2.0.0 only after the owner publishes it
   });
 
   it('the GEO docs exist', () => {

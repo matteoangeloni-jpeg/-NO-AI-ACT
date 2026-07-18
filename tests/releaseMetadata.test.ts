@@ -78,4 +78,13 @@ describe('documentation derives from the source of truth (no drift)', () => {
   it('last tagged release stays linked as history (not as current when ahead)', () => {
     expect(llms).toContain(`releases/tag/${cfg.lastTaggedRelease}`);
   });
+
+  it('the planned release tag is never presented as already published', () => {
+    // truthfulness split: package version (source of truth) vs plannedReleaseTag
+    // vs lastTaggedRelease (verified against the real remote by the owner).
+    expect(cfg.plannedReleaseTag).toBe(`v${pkg.version}`);
+    if (cfg.plannedReleaseTag !== cfg.lastTaggedRelease) {
+      expect(llms).not.toContain(`releases/tag/${cfg.plannedReleaseTag}`);
+    }
+  });
 });
