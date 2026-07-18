@@ -66,6 +66,31 @@ try {
   fail.push(`sitemap child read failed: ${e.message}`);
 }
 
+// --- no obsolete current-state claims may ship (release-integrity guard) ---
+// 11-case claims (any spelling), Tally remnants and playtest CTAs must never
+// reach production again; historical docs are not part of dist.
+{
+  const FORBIDDEN = [
+    /\b(11|undici|eleven)\b[^<.\n]{0,40}\b(cases|casi|case files|systems|sistemi|fascicoli)\b/i,
+    /Partecipa al playtest/i,
+    /Join the playtest/i,
+    /linkedin\.com\/company/i,
+    /"datePublished"/
+  ];
+  const walkHtml = (dir) => readdirSync(dir).flatMap((e) => {
+    const p = join(dir, e);
+    return statSync(p).isDirectory() ? walkHtml(p) : e.endsWith('.html') ? [p] : [];
+  });
+  for (const f of walkHtml(dist)) {
+    const html = readFileSync(f, 'utf8');
+    for (const re of FORBIDDEN) {
+      const m = html.match(re);
+      if (m) fail.push(`obsolete claim in ${relative(dist, f)}: "${m[0]}"`);
+    }
+  }
+  console.log('  obsolete-claim scan: clean');
+}
+
 // --- robots must advertise the two child sitemaps, /play/ must stay noindex ---
 try {
   const robots = readFileSync(join(dist, 'robots.txt'), 'utf8');

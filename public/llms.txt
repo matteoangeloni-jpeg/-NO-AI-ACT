@@ -118,7 +118,7 @@
 ## Project links
 
 - GitHub repository: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT
-- GitHub Release v2.0.0: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v2.0.0
+- Last tagged release: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v0.6.0 (tag v2.0.0 planned, not yet published)
 - Project brief: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/NO_AI_ACT_PROJECT_BRIEF.md
 - Teacher quick start: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/TEACHER_QUICK_START.md
 - Legal disclaimer: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/LEGAL_DISCLAIMER.md
