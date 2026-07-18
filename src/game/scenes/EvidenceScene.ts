@@ -131,7 +131,7 @@ export class EvidenceScene extends Phaser.Scene {
     const texts = caseText(this.caseData.id);
     ReadingLayer.setScene(fmt(L().ui.evidence.header, { code: this.caseData.fileCode }), [
       { text: L().ui.evidence.instruction },
-      { text: fmt(L().a11y.evidenceHint, { n: texts.clues.length }) },
+      { text: fmt(L().a11y.evidenceHint, { n: Math.min(texts.clues.length, 6) }) },
       {
         items: texts.clues.map((clue, i) => {
           const card = this.cards[i];

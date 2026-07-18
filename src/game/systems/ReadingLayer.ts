@@ -28,8 +28,12 @@ function el(id: string): HTMLElement | null {
   return typeof document === 'undefined' ? null : document.getElementById(id);
 }
 
-function esc(value: string): string {
-  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+/** Nodo testuale sicuro: sempre textContent, mai markup interpretato. */
+function node(tag: string, text: string, className?: string): HTMLElement {
+  const e = document.createElement(tag);
+  e.textContent = text;
+  if (className) e.className = className;
+  return e;
 }
 
 export const ReadingLayer = {
@@ -38,16 +42,19 @@ export const ReadingLayer = {
     const layer = el('reading-layer');
     if (!layer) return;
     layer.setAttribute('lang', StateManager.language);
-    const parts: string[] = [`<h2>${esc(title)}</h2>`];
+    // costruzione DOM con textContent, senza markup interpretato: il testo dei casi
+    // non può mai essere interpretato come markup
+    layer.replaceChildren(node('h2', title));
     for (const s of sections) {
-      if (s.heading) parts.push(`<h3>${esc(s.heading)}</h3>`);
-      if (s.text) parts.push(`<p>${esc(s.text)}</p>`);
+      if (s.heading) layer.appendChild(node('h3', s.heading));
+      if (s.text) layer.appendChild(node('p', s.text));
       if (s.items && s.items.length > 0) {
-        parts.push(`<ul>${s.items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>`);
+        const ul = document.createElement('ul');
+        for (const item of s.items) ul.appendChild(node('li', item));
+        layer.appendChild(ul);
       }
     }
-    parts.push(`<p class="rl-note">${esc(L().a11y.readingNote)}</p>`);
-    layer.innerHTML = parts.join('');
+    layer.appendChild(node('p', L().a11y.readingNote, 'rl-note'));
   },
 
   /** Annuncio puntuale (esiti, transizioni) per gli screen reader. */

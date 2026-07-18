@@ -57,8 +57,9 @@ describe('ReadingLayer — read-only, local, no duplicated interaction', () => {
     }
   });
 
-  it('escapes injected text and adds no event listeners inside the layer content', () => {
-    expect(src).toContain("replace(/&/g, '&amp;')");
+  it('builds DOM via textContent — no innerHTML, no listeners, no links', () => {
+    expect(src).toContain('e.textContent = text');
+    expect(src).not.toContain('innerHTML');
     expect(src).not.toMatch(/layer\.addEventListener|<a |<button/);
   });
 
@@ -119,17 +120,22 @@ describe('mobile guard — v2-aware language and declared fallback (§11.4)', ()
   });
 
   it('savedLanguage reads the v2 key first, then the v1 snapshot', () => {
+    const original = (globalThis as Record<string, unknown>).localStorage;
     const store = new Map<string, string>();
-    (globalThis as Record<string, unknown>).localStorage = {
-      getItem: (k: string) => store.get(k) ?? null,
-      setItem: (k: string, v: string) => store.set(k, v),
-      removeItem: (k: string) => store.delete(k)
-    };
-    store.set('no-ai-act-save-v1', JSON.stringify({ language: 'it' }));
-    store.set('no-ai-act-save-v2', JSON.stringify({ language: 'en' }));
-    expect(savedLanguage()).toBe('en');
-    store.delete('no-ai-act-save-v2');
-    expect(savedLanguage()).toBe('it');
+    try {
+      (globalThis as Record<string, unknown>).localStorage = {
+        getItem: (k: string) => store.get(k) ?? null,
+        setItem: (k: string, v: string) => store.set(k, v),
+        removeItem: (k: string) => store.delete(k)
+      };
+      store.set('no-ai-act-save-v1', JSON.stringify({ language: 'it' }));
+      store.set('no-ai-act-save-v2', JSON.stringify({ language: 'en' }));
+      expect(savedLanguage()).toBe('en');
+      store.delete('no-ai-act-save-v2');
+      expect(savedLanguage()).toBe('it');
+    } finally {
+      (globalThis as Record<string, unknown>).localStorage = original;
+    }
   });
 
   it('the guard is dismissable (continue-anyway), never a hard block', () => {
