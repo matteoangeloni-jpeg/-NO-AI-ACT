@@ -20,11 +20,15 @@ Work top-to-bottom; each block is independent.
    - `/sitemap-it.xml` = 26 URLs, `/sitemap-en.xml` = 30 URLs.
 4. Optional: `node scripts/seo/check-sitemap-live.mjs https://www.no-ai-act.eu`.
 
-## 2. GitHub release (5 min)
-The `v2.0.0` tag is pushed. On GitHub → Releases → "Draft a new release" →
-choose tag `v2.0.0` → title "NO AI ACT v2.0.0" → paste
-`docs/RELEASE_NOTES_v2.0.0.md` → publish.
-(`release.config.json` and llms.txt already point at this tag.)
+## 2. GitHub release + tag (5 min)
+The automation session cannot push tags (branch-only credentials), so the tag
+is an owner action. Easiest path — GitHub → Releases → "Draft a new release" →
+in "Choose a tag" type `v2.0.0` and pick **"Create new tag: v2.0.0 on
+publish"**, target = commit `9905338` (the v2.0.0 merge on `main`) → title
+"NO AI ACT v2.0.0" → paste `docs/RELEASE_NOTES_v2.0.0.md` → publish.
+Alternatively from a local clone:
+`git tag -a v2.0.0 9905338 -m "NO AI ACT v2.0.0" && git push origin v2.0.0`.
+(`release.config.json` and llms.txt already point at this tag name.)
 
 ## 3. Zenodo archive + DOI (15 min, after step 2)
 1. zenodo.org → log in with GitHub → GitHub integration page → flip the
