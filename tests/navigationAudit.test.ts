@@ -324,15 +324,16 @@ describe('game-to-site navigation', () => {
 // ============================ version consistency ============================
 
 describe('version display consistency', () => {
-  it('every public footer shows v1.1.0 and none shows v1.0.0', () => {
+  it('every public footer shows v2.0.0 and none shows a stale version', () => {
     for (const d of ALL_PUBLIC) {
       const html = read(file(d));
       expect(html, `${d} still shows v1.0.0`).not.toContain('v1.0.0');
-      expect(html, `${d} missing v1.1.0`).toContain('v1.1.0');
+      expect(html, `${d} still shows v1.1.0`).not.toContain('v1.1.0');
+      expect(html, `${d} missing v2.0.0`).toContain('v2.0.0');
     }
   });
 
   it('package.json version matches', () => {
-    expect(JSON.parse(read('package.json')).version).toBe('1.1.0');
+    expect(JSON.parse(read('package.json')).version).toBe('2.0.0');
   });
 });

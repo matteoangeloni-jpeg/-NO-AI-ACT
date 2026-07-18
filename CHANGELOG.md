@@ -1,5 +1,19 @@
 # CHANGELOG — NO AI ACT
 
+## [2.0.0] — 2026-07-18
+
+Release "research-grade": vedi `docs/RELEASE_NOTES_v2.0.0.md` per il dettaglio.
+
+### Added
+- Modello di apprendimento tipizzato + matrice legale machine-readable; capitoli tematici; autocontrollo locale facoltativo; fiducia e riflessione metacognitiva.
+- 2 nuovi casi (polizia predittiva vietata; punteggio antifrode welfare ad alto rischio) → 13 casi totali, con dossier di progettazione.
+- Strato di lettura semantico sincronizzato con Phaser + percorso completo da tastiera + keyboard smoke; fallback dichiarato del mobile guard.
+- Infrastruttura di citazione (CITATION.cff, come citare, ricerca e metodologia, press kit); 4 nuove coppie di pagine tematiche IT/EN (56 URL pubblici); audit SEO come gate CI; runbook Search Console.
+
+### Changed
+- Schema salvataggi v2 (`no-ai-act-save-v2`) con migrazione esplicita e testata dai salvataggi 1.x (chiave v1 conservata come snapshot).
+- Punteggio e soluzioni 1.x invariati (fixture golden estese a 13 casi).
+
 ## [Unreleased]
 
 ### Added

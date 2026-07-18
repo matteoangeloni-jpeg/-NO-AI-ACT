@@ -21,8 +21,8 @@ abstract: >-
 authors:
   - family-names: Angeloni
     given-names: Matteo
-version: 1.1.0
-date-released: "2026-07-03"
+version: 2.0.0
+date-released: "2026-07-18"
 repository-code: "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"
 url: "https://www.no-ai-act.eu/"
 license: MIT

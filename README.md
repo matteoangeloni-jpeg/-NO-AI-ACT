@@ -6,7 +6,7 @@
 [![Contenuti: CC BY 4.0](https://img.shields.io/badge/contenuti-CC%20BY%204.0-5d7fb8)](LICENSE)
 [![Stack](https://img.shields.io/badge/stack-TypeScript%20%2B%20Phaser%203%20%2B%20Vite-101a30)](#stack)
 [![Test](https://img.shields.io/badge/test-Vitest-d9a521)](tests/)
-[![Stato](https://img.shields.io/badge/stato-v1.1.0-3fa66a)](#stato-release)
+[![Stato](https://img.shields.io/badge/stato-v2.0.0-3fa66a)](#stato-release)
 [![Lingue](https://img.shields.io/badge/lingue-IT%20%2B%20EN-d8d6cd)](#lingue)
 
 **Serious game investigativo sull'AI Act europeo · browser, zero asset esterni, salvataggio locale**
@@ -51,15 +51,17 @@ Questo gioco **non costituisce consulenza legale**.
 | **Lingue** | Italiano / English |
 | **Account / dati** | Nessun account, nessun dato personale, nessun backend |
 
-## Stato attuale del codice (v1.1.0, su `main`)
+## Stato attuale del codice (v2.0.0, su `main`)
 
-Il codice su `main` è avanti rispetto all'ultima release taggata (v1.0.0):
-la v1.1 ha aggiunto l'esperienza di apprendimento strutturata (debrief delle
-decisioni, rapporto di apprendimento, guida docente) e i cicli successivi hanno
-rimosso i moduli esterni Tally, semplificato la schermata del titolo,
-consolidato la pipeline di deploy e le guardie di test. I dettagli operativi
-correnti vivono in `release.config.json` (metadati machine-readable) e nei
-documenti in `docs/`.
+La 2.0 trasforma il progetto in un prodotto educativo e di ricerca più
+solido: modello di apprendimento tipizzato e matrice legale machine-readable,
+capitoli tematici, autocontrollo locale facoltativo, fiducia/riflessione
+metacognitive, schema di salvataggio v2 con migrazione testata, strato di
+lettura semantico + percorso completo da tastiera, 2 nuovi casi (polizia
+predittiva, punteggio antifrode welfare → 13 totali), infrastruttura di
+citazione (CITATION.cff, pagine come citare/ricerca/press kit), sistema SEO
+con audit in CI e 4 nuove coppie di pagine IT/EN (56 URL pubblici). Dettagli:
+`docs/RELEASE_NOTES_v2.0.0.md`; metadati correnti: `release.config.json`.
 
 ## Novità in v1.0.0 — Prima release pubblica stabile (storico)
 
@@ -323,7 +325,7 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 ## <a name="stato-release"></a>Stato release
 
-- **Versione**: v1.1.0 (ultima release taggata: v1.0.0)
+- **Versione**: v2.0.0 (release taggata: v2.0.0)
 - **Branch stabile**: `main` (GitHub Pages deploy attivo)
 - **Distribuzione**: <https://www.no-ai-act.eu/>
 - **Casi**: 11 giocabili (7 base + 4 avanzati).
