@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { getCase } from '../data/cases';
-import type { CaseData, Classification, IncidentChoice, Measure, ResponsibleSubject } from '../data/types';
+import type { CaseData, Classification, ConfidenceLevel, IncidentChoice, Measure, ResponsibleSubject } from '../data/types';
 import { evaluateReport } from '../systems/ReportSystem';
 import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
@@ -29,6 +29,7 @@ export class DecisionScene extends Phaser.Scene {
   private measure: Measure | null = null;
   private subject: ResponsibleSubject | null = null;
   private citedClues: number[] = [];
+  private confidence: ConfidenceLevel | null = null;
   private incidentChoice?: IncidentChoice;
   private resolved = false;
   private overlay?: Phaser.GameObjects.Container;
@@ -49,6 +50,7 @@ export class DecisionScene extends Phaser.Scene {
     this.measure = null;
     this.subject = null;
     this.citedClues = data.citedClues ?? [];
+    this.confidence = null;
     this.incidentChoice = data.incidentChoice;
     this.resolved = false; // le istanze di scena vengono riusate tra start()
     this.overlay = undefined;
@@ -223,6 +225,39 @@ export class DecisionScene extends Phaser.Scene {
     });
     this.bindNumberKeys(3, (i) => this.resolve(i));
     this.add.text(cx, GAME_HEIGHT - 80, L().ui.decision.keys3, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
+    this.buildConfidenceRow(cx);
+  }
+
+  /**
+   * Fiducia dichiarata (2.0 — mission §10.4): scala discreta FACOLTATIVA,
+   * selezionabile con puntatore o tasti 7–9, mostrata sopra la firma. Non
+   * blocca il rapporto e non entra mai nel calcolo del punteggio: alimenta
+   * solo la riga di calibrazione nel rapporto e il debrief.
+   */
+  private buildConfidenceRow(cx: number): void {
+    const t = L().learningLayer.confidence;
+    const y = 566;
+    this.add.text(cx - 430, y, `${t.label} ${t.optionalTag}`, textStyle(11.5, COLOR_STR.paperDim)).setOrigin(0, 0.5);
+    const status = this.add.text(cx + 430, y + 26, '', textStyle(11.5, COLOR_STR.accent)).setOrigin(1, 0.5);
+    const levels: Array<{ level: ConfidenceLevel; label: string }> = [
+      { level: 1, label: t.levels.low },
+      { level: 2, label: t.levels.mid },
+      { level: 3, label: t.levels.high }
+    ];
+    const pick = (level: ConfidenceLevel, label: string): void => {
+      this.confidence = level;
+      status.setText(fmt(t.recorded, { level: label }));
+    };
+    levels.forEach(({ level, label }, i) => {
+      new Button(this, cx + 150 + i * 130, y, `${7 + i}. ${label}`, () => pick(level, label), { width: 118, height: 32, fontSize: 11, variant: 'ghost' });
+    });
+    (['SEVEN', 'EIGHT', 'NINE'] as const).forEach((key, i) => {
+      this.input.keyboard?.on(`keydown-${key}`, () => {
+        if (!this.overlay && !this.contextOverlay.isOpen && !this.caseNormOverlay.isOpen && !this.resolved) {
+          pick(levels[i].level, levels[i].label);
+        }
+      });
+    });
   }
 
   // ----------------------------------------------------- overlay norme
@@ -290,6 +325,10 @@ export class DecisionScene extends Phaser.Scene {
     // commit dell'esito: indicatori, caso completato, rapporto archiviato
     const before = StateManager.indicators;
     const after = StateManager.resolveCase(this.caseData.id, this.caseData.normId, result.quality);
+    // fiducia dichiarata (facoltativa): annotazione locale, mai nel punteggio
+    if (this.confidence !== null) {
+      StateManager.saveCaseMeta(this.caseData.id, { confidence: this.confidence });
+    }
     StateManager.saveCaseReport(this.caseData.id, {
       outcome: result.outcome,
       dominantError: result.dominantError,

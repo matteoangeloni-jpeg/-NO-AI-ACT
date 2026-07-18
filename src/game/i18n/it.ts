@@ -1475,4 +1475,110 @@ export const it = {
       }
     }
   }
+  ,
+  learningLayer: {
+    chapters: {
+      button: 'Capitoli',
+      title: 'Capitoli del percorso',
+      intro: "Quattro capitoli tematici raggruppano gli 11 casi. Sono un ordine consigliato, non un vincolo: ogni fascicolo resta apribile liberamente dalla mappa.",
+      orderLabel: 'Capitolo {order} di {total}',
+      durationLabel: '~{minutes} min',
+      completionLabel: '{done}/{total} casi chiusi',
+      completeTag: 'COMPLETATO',
+      debriefLabel: 'Debrief del capitolo',
+      objectivesLabel: 'Obiettivi',
+      close: 'Chiudi',
+      defs: {
+        prohibited: {
+          title: 'Pratiche vietate',
+          intro: 'Dove passa la linea di ciò che nessuna misura può sanare: punteggi sociali, emozioni dedotte, volti nella folla, credito civico.',
+          debrief: "Il filo dei quattro casi: quando un sistema condiziona diritti fondamentali per come funziona — non per come è configurato — la risposta non è correggerlo, è fermarlo."
+        },
+        high_risk: {
+          title: 'Sistemi ad alto rischio',
+          intro: 'Permessi ma sotto obblighi severi: selezione del personale, triage sanitario, piattaforme educative. Qui si impara a distinguere vietato da mal governato.',
+          debrief: "Il filo dei tre casi: l'alto rischio non vieta la tecnologia — pretende dati di qualità, documentazione e una supervisione umana capace di dire no."
+        },
+        transparency: {
+          title: 'Trasparenza',
+          intro: "Contenuti sintetici e sportelli automatici: l'inganno, non la tecnologia, è il problema. Le persone hanno diritto di sapere con che cosa interagiscono.",
+          debrief: "Il filo dei due casi: un'etichetta mancante sembra un dettaglio, ma erode la fiducia di tutti in tutto — è questo il danno sistemico."
+        },
+        governance: {
+          title: 'Governance e GPAI',
+          intro: "Appalti opachi e modelli tuttofare usati a valle: i casi più ambigui, dove la responsabilità si distribuisce lungo la filiera.",
+          debrief: "Il filo dei due casi: comprare o riusare un sistema non trasferisce la responsabilità — la moltiplica lungo la catena."
+        }
+      }
+    },
+    objectives: {
+      obj_prohibited_boundary: 'Riconoscere il confine delle pratiche vietate',
+      obj_risk_classification: 'Classificare il rischio di un sistema',
+      obj_decisive_evidence: 'Selezionare le prove decisive',
+      obj_actor_responsibility: 'Attribuire la responsabilità corretta',
+      obj_proportionate_measures: 'Scegliere misure proporzionate',
+      obj_transparency_duties: 'Applicare gli obblighi di trasparenza',
+      obj_human_oversight: 'Valutare la supervisione umana effettiva',
+      obj_context_dependence: 'Pesare il contesto d\'uso',
+      obj_gpai_downstream: 'Governare i modelli GPAI a valle'
+    },
+    confidence: {
+      label: 'Prima di firmare: quanto sei sicuro del tuo rapporto?',
+      optionalTag: '(facoltativo — non cambia il punteggio)',
+      levels: { low: 'Poco', mid: 'Abbastanza', high: 'Molto' },
+      keysHint: 'Tasti 7–9',
+      recorded: 'Fiducia annotata: {level}'
+    },
+    metacognition: {
+      label: 'Calibrazione',
+      line: 'Fiducia dichiarata: {confidence} · Esito: {outcome}.',
+      calibrated: 'Fiducia ed esito coerenti: buona calibrazione.',
+      overconfident: 'La fiducia superava l\'esito: rileggi la prova decisiva nel debrief.',
+      underconfident: 'Esito migliore della fiducia dichiarata: il tuo ragionamento regge più di quanto pensi.'
+    },
+    reflection: {
+      label: 'Riflessione (facoltativa)',
+      prompt: 'Il tuo rapporto reggerebbe a un ricorso?',
+      options: { holds: 'Sì, regge', unsure: 'Non sono sicuro', revise: 'Lo rivedrei' },
+      thanks: 'Annotato — solo sul tuo dispositivo.'
+    },
+    selfCheck: {
+      titlePre: 'Autocontrollo iniziale',
+      titlePost: 'Autocontrollo finale',
+      buttonPre: 'Autocontrollo iniziale (facoltativo)',
+      buttonPost: 'Autocontrollo finale (facoltativo)',
+      formative: 'Strumento formativo LOCALE: non è una valutazione certificata, non viene inviato a nessuno e si cancella con il reset della partita.',
+      questionLabel: 'Domanda {i} di {total}',
+      skip: 'Salta',
+      resultLine: 'Risposte corrette: {correct} su {total}.',
+      compareLine: 'Autocontrollo iniziale: {correct} su {total}.',
+      close: 'Chiudi',
+      questions: {
+        sc_prohibited: {
+          q: 'Quale di queste situazioni è una pratica VIETATA dall\'AI Act?',
+          options: ['Un chatbot comunale che risponde a domande sui servizi', 'Un punteggio sociale pubblico che condiziona l\'accesso ai servizi', 'Un filtro anti-spam nella posta elettronica']
+        },
+        sc_high_risk: {
+          q: 'Che cosa significa che un sistema è "ad alto rischio"?',
+          options: ['È vietato usarlo', 'È sperimentale e non ancora testato', 'È permesso, ma con obblighi severi su dati, documentazione e supervisione']
+        },
+        sc_transparency: {
+          q: 'Un ente usa un chatbot con i cittadini. Che cosa richiede l\'AI Act?',
+          options: ['Che le persone sappiano di interagire con una macchina', 'Che il chatbot sia spento fuori orario', 'Nulla: i chatbot non sono coperti dal regolamento']
+        },
+        sc_oversight: {
+          q: 'Quando la supervisione umana è davvero "effettiva"?',
+          options: ['Quando una persona firma le decisioni del sistema', 'Quando il sistema è molto accurato', 'Quando chi supervisiona capisce il sistema e può ribaltarne l\'esito']
+        },
+        sc_actor: {
+          q: 'Chi risponde dell\'USO corretto di un sistema di IA comprato da un fornitore?',
+          options: ['Solo il fornitore che lo ha sviluppato', 'Anche chi lo usa (il deployer), per l\'uso concreto', 'Nessuno, se il sistema è certificato']
+        },
+        sc_context: {
+          q: 'La stessa tecnologia può cambiare categoria di rischio?',
+          options: ['Sì: dipende dal contesto d\'uso e da chi subisce gli effetti', 'No: la categoria dipende solo dall\'algoritmo', 'Solo se cambia il fornitore']
+        }
+      }
+    }
+  }
 };

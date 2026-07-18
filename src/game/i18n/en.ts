@@ -1479,4 +1479,110 @@ export const en: Locale = {
       }
     }
   }
+  ,
+  learningLayer: {
+    chapters: {
+      button: 'Chapters',
+      title: 'Chapters of the journey',
+      intro: 'Four thematic chapters group the 11 cases. They are a recommended order, not a lock: every dossier stays freely accessible from the map.',
+      orderLabel: 'Chapter {order} of {total}',
+      durationLabel: '~{minutes} min',
+      completionLabel: '{done}/{total} cases closed',
+      completeTag: 'COMPLETE',
+      debriefLabel: 'Chapter debrief',
+      objectivesLabel: 'Objectives',
+      close: 'Close',
+      defs: {
+        prohibited: {
+          title: 'Prohibited practices',
+          intro: 'Where the line runs that no safeguard can fix: social scores, inferred emotions, faces in the crowd, civic credit.',
+          debrief: 'The thread across the four cases: when a system conditions fundamental rights by how it works — not by how it is configured — the answer is not to tune it, but to stop it.'
+        },
+        high_risk: {
+          title: 'High-risk systems',
+          intro: 'Permitted but under strict duties: hiring, medical triage, adaptive education platforms. Here you learn to separate banned from badly governed.',
+          debrief: 'The thread across the three cases: high risk does not ban the technology — it demands quality data, documentation and human oversight able to say no.'
+        },
+        transparency: {
+          title: 'Transparency',
+          intro: 'Synthetic content and automated counters: deception, not technology, is the problem. People have the right to know what they are dealing with.',
+          debrief: 'The thread across the two cases: a missing label looks like a detail, but it erodes everyone\'s trust in everything — that is the systemic harm.'
+        },
+        governance: {
+          title: 'Governance and GPAI',
+          intro: 'Opaque procurement and do-everything models reused downstream: the most ambiguous cases, where responsibility spreads along the chain.',
+          debrief: 'The thread across the two cases: buying or reusing a system does not transfer responsibility — it multiplies it along the chain.'
+        }
+      }
+    },
+    objectives: {
+      obj_prohibited_boundary: 'Recognise the boundary of prohibited practices',
+      obj_risk_classification: 'Classify the risk of a system',
+      obj_decisive_evidence: 'Select the decisive evidence',
+      obj_actor_responsibility: 'Assign the right responsibility',
+      obj_proportionate_measures: 'Choose proportionate measures',
+      obj_transparency_duties: 'Apply the transparency duties',
+      obj_human_oversight: 'Assess effective human oversight',
+      obj_context_dependence: 'Weigh the context of use',
+      obj_gpai_downstream: 'Govern GPAI models downstream'
+    },
+    confidence: {
+      label: 'Before signing: how confident are you in your report?',
+      optionalTag: '(optional — does not change the score)',
+      levels: { low: 'Not very', mid: 'Fairly', high: 'Very' },
+      keysHint: 'Keys 7–9',
+      recorded: 'Confidence noted: {level}'
+    },
+    metacognition: {
+      label: 'Calibration',
+      line: 'Declared confidence: {confidence} · Outcome: {outcome}.',
+      calibrated: 'Confidence and outcome agree: well calibrated.',
+      overconfident: 'Confidence ran ahead of the outcome: re-read the decisive evidence in the debrief.',
+      underconfident: 'Outcome better than your declared confidence: your reasoning holds more than you think.'
+    },
+    reflection: {
+      label: 'Reflection (optional)',
+      prompt: 'Would your report survive an appeal?',
+      options: { holds: 'Yes, it holds', unsure: 'I am not sure', revise: 'I would revise it' },
+      thanks: 'Noted — on your device only.'
+    },
+    selfCheck: {
+      titlePre: 'Initial self-check',
+      titlePost: 'Final self-check',
+      buttonPre: 'Initial self-check (optional)',
+      buttonPost: 'Final self-check (optional)',
+      formative: 'A LOCAL formative tool: not a certified assessment, never sent anywhere, and deleted when you reset the game.',
+      questionLabel: 'Question {i} of {total}',
+      skip: 'Skip',
+      resultLine: 'Correct answers: {correct} of {total}.',
+      compareLine: 'Initial self-check: {correct} of {total}.',
+      close: 'Close',
+      questions: {
+        sc_prohibited: {
+          q: 'Which of these situations is a practice PROHIBITED by the AI Act?',
+          options: ['A municipal chatbot answering questions about services', 'A public social score conditioning access to services', 'An anti-spam filter in an email client']
+        },
+        sc_high_risk: {
+          q: 'What does it mean that a system is "high-risk"?',
+          options: ['Using it is forbidden', 'It is experimental and untested', 'It is permitted, but under strict duties on data, documentation and oversight']
+        },
+        sc_transparency: {
+          q: 'A public body uses a chatbot with citizens. What does the AI Act require?',
+          options: ['That people know they are interacting with a machine', 'That the chatbot is switched off outside office hours', 'Nothing: chatbots are not covered by the regulation']
+        },
+        sc_oversight: {
+          q: 'When is human oversight genuinely "effective"?',
+          options: ['When a person signs off the system\'s decisions', 'When the system is very accurate', 'When the overseer understands the system and can overturn its output']
+        },
+        sc_actor: {
+          q: 'Who answers for the correct USE of an AI system bought from a vendor?',
+          options: ['Only the vendor who built it', 'Also whoever uses it (the deployer), for the concrete use', 'Nobody, if the system is certified']
+        },
+        sc_context: {
+          q: 'Can the same technology change risk category?',
+          options: ['Yes: it depends on the context of use and on who bears the effects', 'No: the category depends only on the algorithm', 'Only if the vendor changes']
+        }
+      }
+    }
+  }
 };

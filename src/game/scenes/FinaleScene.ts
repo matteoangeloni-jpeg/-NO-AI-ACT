@@ -6,6 +6,7 @@ import { IndicatorHud } from '../systems/IndicatorSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
+import { SelfCheckOverlay } from '../ui/SelfCheckOverlay';
 import { TypewriterText } from '../ui/TypewriterText';
 import { L } from '../i18n';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
@@ -76,6 +77,9 @@ export class FinaleScene extends Phaser.Scene {
     if (StateManager.teacherMode) {
       new Button(this, cx + 170, GAME_HEIGHT - 118, L().ui.finale.debrief, () => this.scene.start('Debrief'), { width: 300, variant: 'ok' });
     }
+    // autocontrollo finale 2.0: facoltativo, locale; confronto col pre se esiste
+    const postCheck = new SelfCheckOverlay(this, 'post');
+    new Button(this, cx + 430, GAME_HEIGHT - 118, L().learningLayer.selfCheck.buttonPost, () => postCheck.open(), { width: 220, height: 36, fontSize: 11, variant: 'ghost' });
 
     // Nota privacy statica, non interattiva: questa versione non incorpora
     // moduli esterni e non raccoglie feedback o dati — niente pulsanti, niente
