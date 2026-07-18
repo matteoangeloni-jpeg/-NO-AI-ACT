@@ -236,7 +236,7 @@ describe('public static files', () => {
     const lower = llms.toLowerCase();
     expect(llms).toContain('# NO AI ACT');
     expect(llms).toContain('v1.0.0');
-    expect(llms).toContain('11 playable cases');
+    expect(llms).toContain('13 playable cases');
     expect(lower).toContain('not legal advice');
     expect(lower).toContain('no backend');
     expect(lower).toContain('no account');

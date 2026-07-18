@@ -521,6 +521,8 @@ export const en: Locale = {
   },
 
   locations: {
+    commissariato: 'District police station',
+    sussidi: 'Benefits office',
     municipio: 'Central Town Hall',
     lavoro: 'Employment Agency',
     media: 'Civic Media Center',
@@ -535,6 +537,58 @@ export const en: Locale = {
   },
 
   cases: {
+    case_predpol: {
+      title: "The marked district",
+      scenario: "The municipal police adopt a system that assigns every resident a \"criminal propensity score\": address, acquaintances, family history, contacts with social services. Every morning, patrols receive the list of the top-ranked names. In the west district, stops have tripled; nobody knows they are on the list, or why.",
+      clues: [
+        { title: "Generation log", text: "The technical log shows the scores are built exclusively from profiling categories: neighbourhood, social network, family history. No concrete fact linked to any offence." },
+        { title: "Service order", text: "An internal circular: \"priority checks follow the system-generated list; individual assessment of the names is not required\". Stops are tasked from the ranking." },
+        { title: "Vendor study", text: "The vendor presents a study: \"92% of subjects flagged as high risk had at least one contact with law enforcement within 5 years\". It calls the system \"scientific support for human decisions\"." }
+      ],
+      clueSources: ['log', 'interna', 'vendor'],
+      noteCorrect: "Predicting a person's criminal propensity on profiling alone is a prohibited practice: blocking it is the only coherent measure.",
+      notePartial: "You saw the problem, but treating a banned practice as a governance issue leaves the district under a surveillance no audit can cure.",
+      noteWrong: "The report does not hold: the practice falls under the Article 5 ban, and no organisational measure makes it lawful.",
+      consequenceCorrect: "The system is stopped. Checks start again from facts, not rankings: in the west district, trust in institutions slowly begins to mend.",
+      consequenceWrong: "The list keeps deciding who gets stopped. Those born inside it never leave it: the district learns that an address weighs more than behaviour.",
+      motivations: [
+        "The system is inaccurate and should be suspended until the vendor demonstrates adequate real-world accuracy.",
+        "Predicting a person's risk of offending on profiling alone is a prohibited practice: accuracy does not legalise what the regulation rules out.",
+        "The police may use any support tool: the final decision still rests with a human officer."
+      ],
+      debriefQuestions: [
+        "Why does the regulation ban individual crime prediction based on profiling instead of regulating it as high risk?",
+        "Is the vendor's 92% study evidence for or against the system? What does it not say?",
+        "What would distinguish a lawful investigative-support system from the one in this case?"
+      ],
+      epilogue: "The command dismantles the ranking and publishes the criteria for checks. Some officers protest: \"it worked\". The point, the inspectorate explains, is not whether it worked — it is what made it work."
+    },
+    case_frodi: {
+      title: "The suspicion algorithm",
+      scenario: "The benefits office introduces a \"fraud risk\" score on income-support files. Flagged benefits are suspended automatically pending verification; the human check, however, only happens if the citizen files an appeal. Families discover the suspension at the counter, with the benefit already frozen.",
+      clues: [
+        { title: "Error analysis", text: "71% of flagged files are closed with no fraud found. Flags concentrate on single-parent households and families of foreign origin: the model uses proxies that keep hitting the same profiles." },
+        { title: "Internal workflow", text: "The procedure: on a flag, the benefit is suspended automatically; an official re-examines the file only if a formal appeal arrives. Human review exists — but after the harm." },
+        { title: "Vendor factsheet", text: "The vendor claims \"12 million recovered and verification times halved\". No data on false positives, none on what the suspensions do to families." }
+      ],
+      clueSources: ['tecnica', 'interna', 'vendor'],
+      noteCorrect: "A system deciding access to essential benefits is high risk: it may operate only with effective human oversight BEFORE the effects, plus audit and traceability.",
+      notePartial: "You found the right area, but without fixing the decisive point — automatic suspension before any human check — the system keeps doing harm.",
+      noteWrong: "The report does not hold: the documented problem is not the tool itself but its use without effective oversight and with disproportionate impact.",
+      consequenceCorrect: "Automatic suspensions stop: no benefit is cut before a person has looked at the file. False positives collapse.",
+      consequenceWrong: "Suspensions keep landing before any verification. People who depend on the benefit learn to fear a letter more than an inspection.",
+      motivations: [
+        "The system makes too many errors: it should be suspended until accuracy improves.",
+        "Deciding access to essential benefits is high risk: it needs effective human oversight before the effects, with audit and traceability — not a review only on appeal.",
+        "The office must be able to fight fraud: those with nothing to hide have nothing to fear from one more check."
+      ],
+      debriefQuestions: [
+        "Why is human review \"only on appeal\" not effective oversight? Who pays the cost of the error in the meantime?",
+        "The error analysis shows impacts concentrated on specific profiles: when would that raise a prohibited-practice question, beyond high risk?",
+        "This case resembles \"civic credit\" but has a different solution: what changes between the two?"
+      ],
+      epilogue: "The office restores prior verification and publishes error rates by profile. Fraud recovery dips slightly; appeals collapse. The director admits: \"we measured the savings, not the mistakes\"."
+    },
     case_scoring: {
       title: 'The city of scores',
       scenario:
@@ -1065,6 +1119,22 @@ export const en: Locale = {
   },
 
   norms: {
+    norm_predpol: {
+      title: "Ban on individual predictive policing",
+      reference: "AI Act — Reg. (EU) 2024/1689, Art. 5(1)(d)",
+      explanation: "Using AI systems to predict a person's risk of committing an offence based solely on profiling or personality traits is prohibited.",
+      notMeaning: "This does not mean that AI is banned from investigations: support for human assessment grounded in objective facts linked to criminal activity stays outside the ban.",
+      democraticFunction: "It prevents people from being treated as suspects for what they are — where they live, whom they know — instead of what they do.",
+      tags: ["prohibited practices", "profiling", "policing"]
+    },
+    norm_frodi_welfare: {
+      title: "High risk: access to essential benefits",
+      reference: "AI Act — Reg. (EU) 2024/1689, Annex III(5); Arts. 14 and 26",
+      explanation: "Systems that assess access to essential public benefits are high-risk: they require quality data, traceability and effective human oversight before effects reach people.",
+      notMeaning: "This does not mean that agencies cannot fight fraud: it means a score cannot suspend a right before a person verifies the file.",
+      democraticFunction: "It protects those who depend on welfare from automated error: the burden of verification sits with the administration, not with the citizen who appeals.",
+      tags: ["high risk", "welfare", "human oversight"]
+    },
     norm_social_scoring: {
       title: 'Prohibition of social scoring',
       reference: 'AI Act — art. 5 (prohibited practices)',
@@ -1226,6 +1296,26 @@ export const en: Locale = {
   // Per-case learning cards (v0.5). Shown in the teacher debrief; they do not
   // change the case solutions. One card per playable case.
   caseLearning: {
+    case_predpol: {
+      takeaway: "Accuracy does not legalise a prohibited practice: individual crime prediction based on profiling is ruled out at the root.",
+      teaches: "The Article 5 boundary in policing: profiling vs objective facts, and why \"support for human decisions\" can be just a label.",
+      typicalMistake: "Classifying it high-risk and prescribing audit/oversight, treating as governable a practice the regulation excludes.",
+      discussionQuestion: "If the system \"works\" at 92%, why ban it instead of improving it?",
+      aiActConcepts: ["Prohibited practices", "Profiling", "Risk-based approach"],
+      understandingSignal: "The student distinguishes a quality problem (fixable) from a purpose ban (not fixable).",
+      classroomUse: "Great for a boundary debate: half the class defends the vendor with the 92% study, half the inspectorate with Art. 5.",
+      estimatedDebriefMinutes: 12
+    },
+    case_frodi: {
+      takeaway: "In welfare, high risk turns on WHEN the human check happens: a review only on appeal arrives after the harm.",
+      teaches: "Effective vs formal oversight in essential services, and evidence reading: the error analysis outweighs the vendor's press sheet.",
+      typicalMistake: "Blocking everything (over-caution) or stopping at \"inform the families\" without touching the automatic suspension.",
+      discussionQuestion: "Who should bear the cost of the system's error: the administration verifying first, or the citizen appealing afterwards?",
+      aiActConcepts: ["High risk", "Human oversight", "Data governance"],
+      understandingSignal: "The student points to the workflow (automatic suspension) as the decisive evidence, not the error rate alone.",
+      classroomUse: "Pair it with \"civic credit\": same area (welfare), opposite solutions — why?",
+      estimatedDebriefMinutes: 12
+    },
     case_scoring: {
       takeaway: 'A generalised social score is not fixed with more controls: it is banned.',
       teaches: 'Some uses of AI are not mitigated but banned. Social scoring hits dignity and equality.',

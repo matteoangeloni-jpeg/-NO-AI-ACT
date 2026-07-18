@@ -39,7 +39,7 @@ It is an **educational simulation**, not legal advice and not a compliance tool.
 
 ## Scope
 
-- **11 playable cases**, from clear-cut to deliberately ambiguous.
+- **13 playable cases**, from clear-cut to deliberately ambiguous.
 - Three difficulty levels (base / standard / expert).
 - Missions of varying length (demo / short lab / full / advanced).
 - Teacher mode with a **local, anonymous** end-of-session debrief and `.txt` /

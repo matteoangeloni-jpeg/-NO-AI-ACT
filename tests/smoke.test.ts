@@ -8,10 +8,10 @@ import { it as itLocale } from '../src/game/i18n/it';
 import { THEME_IDS, buildTheme } from '../src/game/systems/musicThemes';
 
 describe('integrità dei dati di gioco', () => {
-  it('ha 7 luoghi e 7 casi, tutti giocabili (v0.4)', () => {
-    expect(LOCATIONS).toHaveLength(11);
-    expect(CASES).toHaveLength(11);
-    expect(PLAYABLE_CASES).toHaveLength(11);
+  it('ha 13 luoghi e 13 casi, tutti giocabili (2.0)', () => {
+    expect(LOCATIONS).toHaveLength(13);
+    expect(CASES).toHaveLength(13);
+    expect(PLAYABLE_CASES).toHaveLength(13);
     expect(PLAYABLE_CASES.length).toBeGreaterThanOrEqual(CASES_REQUIRED_FOR_FINALE);
   });
 
@@ -38,8 +38,8 @@ describe('integrità dei dati di gioco', () => {
     }
   });
 
-  it('ha 6 carte norma con testi localizzati', () => {
-    expect(NORMS).toHaveLength(11);
+  it('ha 13 carte norma con testi localizzati', () => {
+    expect(NORMS).toHaveLength(13);
     for (const n of NORMS) {
       const texts = itLocale.norms[n.id as keyof typeof itLocale.norms];
       expect(texts.title.length).toBeGreaterThan(0);

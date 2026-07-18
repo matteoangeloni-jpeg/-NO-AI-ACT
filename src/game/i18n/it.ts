@@ -519,6 +519,8 @@ export const it = {
   },
 
   locations: {
+    commissariato: 'Commissariato di zona',
+    sussidi: 'Ufficio sussidi',
     municipio: 'Municipio Centrale',
     lavoro: 'Agenzia del Lavoro',
     media: 'Media Center Civico',
@@ -533,6 +535,58 @@ export const it = {
   },
 
   cases: {
+    case_predpol: {
+      title: "Il quartiere segnato",
+      scenario: "La polizia municipale adotta un sistema che assegna a ogni residente un \"punteggio di propensione al reato\": indirizzo, conoscenze, precedenti familiari, contatti con i servizi sociali. Ogni mattina le pattuglie ricevono la lista dei nomi in cima alla classifica. Nel quartiere ovest i controlli sono triplicati; nessuno sa di essere in lista, né perché.",
+      clues: [
+        { title: "Log di generazione", text: "Il registro tecnico mostra che i punteggi derivano esclusivamente da categorie di profilazione: zona di residenza, rete di conoscenze, storia familiare. Nessun fatto concreto legato a un reato." },
+        { title: "Ordine di servizio", text: "Una circolare interna: \"i controlli prioritari seguono la lista generata dal sistema; la valutazione individuale dei nominativi non è richiesta\". I fermi partono dalla classifica." },
+        { title: "Studio del fornitore", text: "Il fornitore presenta uno studio: \"il 92% dei soggetti segnalati ad alto rischio ha avuto almeno un contatto con le forze dell'ordine nei 5 anni successivi\". Definisce il sistema \"supporto scientifico alla decisione umana\"." }
+      ],
+      clueSources: ['log', 'interna', 'vendor'],
+      noteCorrect: "Prevedere la propensione al reato di una persona sulla sola base della profilazione è una pratica vietata: il blocco è l'unica misura coerente.",
+      notePartial: "Hai colto il problema, ma trattare come questione di governance una pratica vietata lascia il quartiere sotto una sorveglianza che nessun audit può sanare.",
+      noteWrong: "Il rapporto non regge: la pratica rientra nel divieto dell'articolo 5 e nessuna misura organizzativa la rende lecita.",
+      consequenceCorrect: "Il sistema viene fermato. I controlli tornano a partire da fatti, non da classifiche: nel quartiere ovest la fiducia nelle istituzioni comincia a ricucirsi.",
+      consequenceWrong: "La lista continua a decidere chi viene fermato. Chi ci nasce dentro non ne esce: il quartiere impara che l'indirizzo pesa più dei comportamenti.",
+      motivations: [
+        "Il sistema è impreciso e va sospeso finché il fornitore non dimostra un'accuratezza adeguata sul campo.",
+        "Prevedere il rischio di reato di una persona sulla sola base della profilazione è una pratica vietata: l'accuratezza non rende lecito ciò che il regolamento esclude.",
+        "La polizia può usare qualunque strumento di supporto: la decisione finale resta comunque a un agente umano."
+      ],
+      debriefQuestions: [
+        "Perché il regolamento vieta la previsione individuale di reato basata sulla profilazione invece di regolarla come alto rischio?",
+        "Lo studio del fornitore sul 92% è una prova a favore o contro il sistema? Che cosa non dice?",
+        "Che cosa distinguerebbe un sistema lecito di supporto alle indagini da quello del caso?"
+      ],
+      epilogue: "Il comando smantella la classifica e pubblica i criteri dei controlli. Alcuni agenti protestano: \"funzionava\". Il punto, spiega l'ispettorato, non è se funzionava: è che cosa faceva funzionare."
+    },
+    case_frodi: {
+      title: "L'algoritmo del sospetto",
+      scenario: "L'ufficio sussidi introduce un punteggio di \"rischio frode\" sulle pratiche di sostegno al reddito. Le pratiche segnalate vengono sospese automaticamente in attesa di verifica; la verifica umana, però, arriva solo se il cittadino presenta ricorso. Le famiglie scoprono la sospensione allo sportello, a sussidio già fermo.",
+      clues: [
+        { title: "Analisi degli errori", text: "Il 71% delle pratiche segnalate viene chiuso senza alcuna frode. Le segnalazioni si concentrano su nuclei monogenitoriali e su famiglie di origine straniera: il modello usa proxy che colpiscono sempre gli stessi profili." },
+        { title: "Flusso operativo interno", text: "La procedura: alla segnalazione il sussidio si sospende in automatico; un funzionario riesamina la pratica solo se arriva un ricorso formale. Il controllo umano esiste, ma dopo il danno." },
+        { title: "Scheda del fornitore", text: "Il fornitore rivendica \"12 milioni recuperati e tempi di verifica dimezzati\". Nessun dato sui falsi positivi né sull'impatto delle sospensioni sulle famiglie." }
+      ],
+      clueSources: ['tecnica', 'interna', 'vendor'],
+      noteCorrect: "Un sistema che decide sull'accesso a prestazioni essenziali è alto rischio: può operare solo con supervisione umana effettiva PRIMA degli effetti, audit e tracciabilità.",
+      notePartial: "Hai individuato l'area giusta, ma senza correggere il punto decisivo — la sospensione automatica prima di ogni verifica umana — il sistema continua a fare danni.",
+      noteWrong: "Il rapporto non regge: il problema documentato non è lo strumento in sé, ma un uso senza supervisione effettiva e con impatti sproporzionati.",
+      consequenceCorrect: "Le sospensioni automatiche si fermano: nessun sussidio viene più tagliato senza che una persona abbia guardato la pratica. I falsi positivi crollano.",
+      consequenceWrong: "Le sospensioni continuano ad arrivare prima delle verifiche. Chi dipende dal sussidio impara a temere una lettera più di un'ispezione.",
+      motivations: [
+        "Il sistema commette troppi errori: va sospeso finché l'accuratezza non migliora.",
+        "Decidere sull'accesso a prestazioni essenziali è alto rischio: serve supervisione umana effettiva prima degli effetti, con audit e tracciabilità — non un riesame solo su ricorso.",
+        "L'ufficio deve poter combattere le frodi: chi non ha nulla da nascondere non ha nulla da temere da un controllo in più."
+      ],
+      debriefQuestions: [
+        "Perché la verifica umana \"solo su ricorso\" non è supervisione effettiva? Chi paga il costo dell'errore nel frattempo?",
+        "L'analisi degli errori mostra impatti concentrati su profili specifici: quando questo farebbe scattare un problema di pratica vietata, oltre che di alto rischio?",
+        "Il caso somiglia al \"credito civico\" ma ha una soluzione diversa: che cosa cambia tra i due?"
+      ],
+      epilogue: "L'ufficio ripristina la verifica preventiva e pubblica i tassi di errore per profilo. Il recupero frodi cala di poco; i ricorsi crollano. Il direttore ammette: \"misuravamo i risparmi, non gli sbagli\"."
+    },
     case_scoring: {
       title: 'La città dei punteggi',
       scenario:
@@ -1060,6 +1114,22 @@ export const it = {
   },
 
   norms: {
+    norm_predpol: {
+      title: "Divieto di polizia predittiva individuale",
+      reference: "AI Act — Reg. (UE) 2024/1689, art. 5, par. 1, lett. d",
+      explanation: "È vietato usare sistemi di IA per prevedere il rischio che una persona commetta un reato sulla sola base della profilazione o dei tratti della personalità.",
+      notMeaning: "Non significa che l'IA sia bandita dalle indagini: il supporto alla valutazione umana fondata su fatti oggettivi legati a un'attività criminosa resta fuori dal divieto.",
+      democraticFunction: "Impedisce che le persone vengano trattate da sospette per ciò che sono — dove vivono, chi conoscono — invece che per ciò che fanno.",
+      tags: ["pratiche vietate", "profilazione", "polizia"]
+    },
+    norm_frodi_welfare: {
+      title: "Alto rischio: accesso alle prestazioni essenziali",
+      reference: "AI Act — Reg. (UE) 2024/1689, allegato III, punto 5; artt. 14 e 26",
+      explanation: "I sistemi che valutano l'accesso a prestazioni pubbliche essenziali sono ad alto rischio: richiedono dati di qualità, tracciabilità e supervisione umana effettiva prima che gli effetti ricadano sulle persone.",
+      notMeaning: "Non significa che gli enti non possano contrastare le frodi: significa che un punteggio non può sospendere un diritto senza che una persona verifichi.",
+      democraticFunction: "Protegge chi dipende dal welfare dagli errori automatizzati: l'onere della verifica sta sull'amministrazione, non sul cittadino che fa ricorso.",
+      tags: ["alto rischio", "welfare", "supervisione umana"]
+    },
     norm_social_scoring: {
       title: 'Divieto di social scoring',
       reference: 'AI Act — art. 5 (pratiche vietate)',
@@ -1222,6 +1292,26 @@ export const it = {
   // Schede didattiche per caso (v0.5). Visibili nel debrief docente; non
   // cambiano la soluzione dei casi. Una scheda per ciascun caso giocabile.
   caseLearning: {
+    case_predpol: {
+      takeaway: "L'accuratezza non rende lecita una pratica vietata: la previsione individuale di reato basata sulla profilazione è esclusa in radice.",
+      teaches: "Il confine dell'articolo 5 in ambito polizia: profilazione vs fatti oggettivi, e perché il \"supporto alla decisione umana\" può essere solo un'etichetta.",
+      typicalMistake: "Classificare alto rischio e prescrivere audit/supervisione, trattando come governabile una pratica che il regolamento esclude.",
+      discussionQuestion: "Se il sistema \"funziona\" al 92%, perché vietarlo invece di migliorarlo?",
+      aiActConcepts: ["Pratiche vietate", "Profilazione", "Approccio basato sul rischio"],
+      understandingSignal: "Lo studente distingue tra un problema di qualità (correggibile) e un divieto di scopo (non correggibile).",
+      classroomUse: "Ottimo per il dibattito sul confine: metà classe difende il fornitore con lo studio del 92%, metà l'ispettorato con l'art. 5.",
+      estimatedDebriefMinutes: 12
+    },
+    case_frodi: {
+      takeaway: "Nel welfare l'alto rischio si gioca sul QUANDO della verifica umana: un riesame solo su ricorso arriva dopo il danno.",
+      teaches: "Supervisione effettiva vs formale nelle prestazioni essenziali, e la lettura delle prove: l'analisi degli errori pesa più del comunicato del fornitore.",
+      typicalMistake: "Bloccare tutto (eccesso di cautela) o fermarsi a \"informare le famiglie\" senza toccare la sospensione automatica.",
+      discussionQuestion: "Chi deve sopportare il costo dell'errore del sistema: l'amministrazione che verifica prima, o il cittadino che fa ricorso dopo?",
+      aiActConcepts: ["Alto rischio", "Supervisione umana", "Governance dei dati"],
+      understandingSignal: "Lo studente indica il flusso operativo (sospensione automatica) come prova decisiva, non il tasso di errore da solo.",
+      classroomUse: "Da abbinare al caso \"credito civico\": stessa area (welfare), soluzioni opposte — perché?",
+      estimatedDebriefMinutes: 12
+    },
     case_scoring: {
       takeaway: 'Un punteggio sociale generalizzato non si corregge con più controlli: si vieta.',
       teaches: "Alcuni usi dell'IA non si mitigano: si vietano. Il social scoring colpisce dignità e uguaglianza.",

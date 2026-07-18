@@ -26,9 +26,9 @@ function correctInput(caseId: string): ReportInput {
 }
 
 describe('v0.6 — Advanced Case Pack: struttura', () => {
-  it('ci sono 11 casi giocabili: 7 base + 4 nuovi, id stabili', () => {
-    expect(CASES).toHaveLength(11);
-    expect(PLAYABLE_CASES).toHaveLength(11);
+  it('ci sono 13 casi giocabili: 7 base + 4 del pack v0.6 + 2 del pack 2.0, id stabili', () => {
+    expect(CASES).toHaveLength(13);
+    expect(PLAYABLE_CASES).toHaveLength(13);
     for (const id of BASE_CASES) expect(CASES.some((c) => c.id === id)).toBe(true);
     for (const id of NEW_CASES) expect(getCase(id).playable).toBe(true);
   });

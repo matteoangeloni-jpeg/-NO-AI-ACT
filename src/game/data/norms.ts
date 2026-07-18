@@ -18,7 +18,9 @@ export const NORMS: NormCardData[] = [
   { id: 'norm_chatbot', level: 'trasparenza', iconKey: 'icon_chat' },
   { id: 'norm_procurement', level: 'alto', iconKey: 'icon_doc' },
   { id: 'norm_edtech', level: 'alto', iconKey: 'icon_grad' },
-  { id: 'norm_gpai', level: 'restrittivo', iconKey: 'icon_model' }
+  { id: 'norm_gpai', level: 'restrittivo', iconKey: 'icon_model' },
+  { id: 'norm_predpol', level: 'vietata', iconKey: 'icon_lock' },
+  { id: 'norm_frodi_welfare', level: 'alto', iconKey: 'icon_doc' }
 ];
 
 export function getNorm(id: string): NormCardData {

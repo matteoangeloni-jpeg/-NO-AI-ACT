@@ -129,8 +129,10 @@ casi chiusi si genera il rapporto finale: *Città opaca*, *Governance fragile* o
 | 9 | Ufficio Appalti | La gara opaca | alto rischio — procurement AI, governance | ✅ giocabile (v0.6) |
 | 10 | Campus Adattivo | La classe profilata | Allegato III — EdTech adattiva | ✅ giocabile (v0.6) |
 | 11 | Centro Modelli | Il modello tuttofare | GPAI / uso a valle del modello generale | ✅ giocabile (v0.6) |
+| 12 | Commissariato di zona | Il quartiere segnato | art. 5 — polizia predittiva individuale | ✅ giocabile (2.0) |
+| 13 | Ufficio Sussidi | L'algoritmo del sospetto | Allegato III — prestazioni essenziali, supervisione | ✅ giocabile (2.0) |
 
-**11 casi giocabili** (7 base + 4 avanzati della v0.6). Il caso 7 ("Il credito
+**13 casi giocabili** (7 base + 4 avanzati della v0.6 + 2 del pack 2.0). Il caso 7 ("Il credito
 civico") è un *caso-specchio* sul confine social scoring vietato / alto rischio;
 i casi 8–11 (chatbot pubblico, procurement, EdTech, GPAI) sono **casi avanzati**:
 non necessariamente vietati, ma da governare in base al contesto d'uso e

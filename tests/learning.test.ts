@@ -6,7 +6,7 @@ import { allCaseLearning, caseLearning, conceptsForCases } from '../src/game/dat
 describe('v0.5 — schede didattiche per caso', () => {
   it('ogni caso giocabile ha una scheda', () => {
     expect(allCaseLearning()).toHaveLength(PLAYABLE_CASES.length);
-    expect(PLAYABLE_CASES.length).toBe(11);
+    expect(PLAYABLE_CASES.length).toBe(13);
   });
 
   it('ogni scheda ha cosa insegna, errore tipico e domanda di discussione', () => {
