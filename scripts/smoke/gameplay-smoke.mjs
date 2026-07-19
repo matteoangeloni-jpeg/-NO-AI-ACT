@@ -31,6 +31,10 @@ const hosts = new Set();
 
 // ---- desktop: boot + play one case to the debrief ----
 const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+// Hermetic run: abort the pre-existing shell beacon so the smoke never depends
+// on third-party network availability (on a networked runner the loaded beacon
+// would phone home to a second host and skew the host observation).
+await ctx.route(/cloudflareinsights\.com/, (r) => r.abort());
 const page = await ctx.newPage();
 page.on('pageerror', (e) => errors.push(String(e)));
 page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
@@ -136,6 +140,7 @@ await ctx.close();
 
 // ---- 390px: no horizontal overflow ----
 const mctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+await mctx.route(/cloudflareinsights\.com/, (r) => r.abort());
 const mp = await mctx.newPage();
 await mp.goto(`${BASE}/play/`, { waitUntil: 'domcontentloaded' });
 await mp.waitForTimeout(3000);
