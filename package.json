@@ -12,7 +12,11 @@
     "test": "vitest run",
     "audit:seo": "node scripts/seo/audit-routes.mjs",
     "verify:dist": "node scripts/ci/verify-dist.mjs",
-    "report:dist": "node scripts/ci/dist-report.mjs"
+    "report:dist": "node scripts/ci/dist-report.mjs",
+    "smoke:gameplay": "node scripts/smoke/gameplay-smoke.mjs",
+    "smoke:keyboard": "node scripts/smoke/keyboard-smoke.mjs",
+    "smoke:layout": "node scripts/smoke/layout-smoke.mjs",
+    "smoke:all": "node scripts/smoke/run-all.mjs"
   },
   "license": "(MIT AND CC-BY-4.0)",
   "dependencies": {
@@ -20,6 +24,7 @@
   },
   "devDependencies": {
     "@types/node": "^25.9.3",
+    "playwright": "^1.61.1",
     "typescript": "^5.6.3",
     "vite": "^5.4.11",
     "vitest": "^2.1.8"
