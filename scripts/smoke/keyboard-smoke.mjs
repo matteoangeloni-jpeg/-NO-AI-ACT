@@ -35,6 +35,8 @@ const SEED = JSON.stringify({
 
 const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
 const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+// Hermetic run: abort the pre-existing shell beacon (see gameplay-smoke.mjs).
+await ctx.route(/cloudflareinsights\.com/, (r) => r.abort());
 const page = await ctx.newPage();
 page.on('pageerror', (e) => errors.push(String(e)));
 page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });

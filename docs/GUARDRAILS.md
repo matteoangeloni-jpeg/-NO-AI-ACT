@@ -80,13 +80,45 @@ The files themselves are fine (200, real XML, correct namespace, 19 + 23 = 42 ca
 - **Wait 24–72 hours and retry** — GSC re-fetches on its own schedule; "Couldn't fetch" often clears on its own.
 - **Do not** keep re-submitting duplicate HTTP/HTTPS or www/apex variants.
 
-## Before a v1.2 feature PR — checklist
+## Browser smoke tests (reproducible from a clean clone)
+
+Playwright is a committed `devDependency` and the three browser smokes
+(gameplay, keyboard, layout) are wired as npm scripts, so the full browser
+gate reproduces from a fresh clone with only committed dependencies:
+
+```bash
+npm ci
+npx playwright install chromium
+npm run build
+npm run smoke:all
+```
+
+`npm run smoke:all` (`scripts/smoke/run-all.mjs`) requires a built `dist/`,
+starts `vite preview` on port 4200, waits until `http://127.0.0.1:4200`
+responds, runs `smoke:gameplay`, `smoke:keyboard` and `smoke:layout`
+sequentially, exits with the first non-zero smoke status, and always tears the
+preview server down (success, failure or Ctrl-C — no orphaned processes).
+
+To run one smoke against a server you manage yourself:
+
+```bash
+npx vite preview --port 4200   # in another terminal, after npm run build
+npm run smoke:gameplay         # or smoke:keyboard / smoke:layout
+```
+
+Each smoke honours `BASE` (default `http://localhost:4200`) and
+`CHROMIUM_PATH` (to use a system Chromium instead of Playwright's download).
+
+These smokes are **enforced in CI**: `.github/workflows/deploy.yml` installs
+Chromium (`npx playwright install --with-deps chromium`) and runs
+`npm run smoke:all` after `verify:dist` and **before** the Pages artifact is
+uploaded — a smoke failure fails the workflow and blocks deployment.
+`tests/ciReproducibility.test.ts` guards this wiring.
+
+## Before a feature PR — checklist
 1. `npm run typecheck` — clean.
 2. `npm test` — full suite green (includes all guardrails above).
 3. `npm run build` — clean.
-4. Serve `dist` and run the opt-in gameplay smoke:
-   `npm run build && npx vite preview --port 4200` then
-   `BASE=http://localhost:4200 node scripts/smoke/gameplay-smoke.mjs`
-   (needs Playwright + a Chromium; set `CHROMIUM_PATH` if not bundled).
-5. Confirm: no new external host, no console errors, `/play/` noindex, sitemap
-   still 42, no external forms, no gameplay/scoring/case/ending/save changes.
+4. `npm run smoke:all` — all three browser smokes green (see above).
+5. Confirm: no new external host, no console errors, `/play/` noindex, no
+   external forms, no gameplay/scoring/case/ending/save changes.

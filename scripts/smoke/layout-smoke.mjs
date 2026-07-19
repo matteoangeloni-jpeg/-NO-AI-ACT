@@ -138,6 +138,8 @@ for (const vp of CANVAS_VIEWPORTS) {
   for (const lang of vp.w === 1792 ? ['it', 'en'] : ['it']) {
     const ctx = `${vp.w}x${vp.h} ${lang}`;
     const context = await browser.newContext({ viewport: { width: vp.w, height: vp.h } });
+    // Hermetic run: abort the pre-existing shell beacon (see gameplay-smoke.mjs).
+    await context.route(/cloudflareinsights\.com/, (r) => r.abort());
     const page = await context.newPage();
     page.on('pageerror', (e) => errors.push(`[${ctx}] ${String(e)}`));
     page.on('console', (m) => { if (m.type() === 'error') errors.push(`[${ctx}] ${m.text()}`); });
@@ -159,6 +161,7 @@ for (const vp of CANVAS_VIEWPORTS) {
 for (const vp of [{ w: 390, h: 844 }, { w: 360, h: 800 }]) {
   const tag = `${vp.w}x${vp.h}`;
   const mctx = await browser.newContext({ viewport: { width: vp.w, height: vp.h } });
+  await mctx.route(/cloudflareinsights\.com/, (r) => r.abort());
   const mp = await mctx.newPage();
   mp.on('console', (m) => { if (m.type() === 'error') errors.push(`[${tag}] ${m.text()}`); });
   await mp.goto(`${BASE}/play/?lang=it`, { waitUntil: 'domcontentloaded' });
