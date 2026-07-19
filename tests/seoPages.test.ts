@@ -40,7 +40,7 @@ describe('SEO pages — head/meta requirements', () => {
 
     it(`${p.file} is indexable with correct lang, canonical and hreflang pair`, () => {
       expect(html).toContain(`<html lang="${p.lang}">`);
-      expect(html).toContain('name="robots" content="index, follow"');
+      expect(html).toContain('name="robots" content="index, follow, max-image-preview:large"');
       expect(html).toContain(`<link rel="canonical" href="${p.canonical}"`);
       // hreflang pair: itself + counterpart + x-default
       expect(html).toContain(`hreflang="${p.lang}" href="${p.canonical}"`);

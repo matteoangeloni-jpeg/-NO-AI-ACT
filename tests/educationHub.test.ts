@@ -141,7 +141,7 @@ describe('education hub — metadata', () => {
       expect(html).toMatch(/<meta name="description" content="[^"]{60,}"/);
       expect([...html.matchAll(/<h1[^>]*>/g)].length).toBe(1);
       expect(html).toContain(`<link rel="canonical" href="${url(d)}"`);
-      expect(html).toContain('name="robots" content="index, follow"');
+      expect(html).toContain('name="robots" content="index, follow, max-image-preview:large"');
     });
   }
 

@@ -84,6 +84,15 @@ function gitDate(file) {
 // --- per-route analysis -----------------------------------------------------
 const critical = [];
 const warnings = [];
+
+// every sitemap URL must carry a plausible lastmod (Google uses it for crawl
+// scheduling only when consistently accurate — see update-sitemap-lastmod.mjs)
+for (const [name, xml, locs] of [['sitemap-it', smIt, locsIt], ['sitemap-en', smEn, locsEn]]) {
+  const stamped = (xml.match(/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/g) ?? []).length;
+  if (stamped !== locs.size) {
+    critical.push(`${name}.xml: ${stamped}/${locs.size} URLs have a valid <lastmod> (run scripts/seo/update-sitemap-lastmod.mjs)`);
+  }
+}
 const rows = [];
 const inbound = new Map(); // dir -> Set(sources)
 const titles = new Map();
@@ -114,8 +123,8 @@ for (const r of routes) {
   // language + robots + canonical
   const langAttr = html.match(/<html lang="([a-z]{2})">/)?.[1] ?? '';
   if (langAttr !== r.lang) critical.push(`${label}: <html lang> is "${langAttr}", expected "${r.lang}"`);
-  const indexable = html.includes('name="robots" content="index, follow"');
-  if (!indexable) critical.push(`${label}: missing "index, follow" robots meta`);
+  const indexable = html.includes('name="robots" content="index, follow, max-image-preview:large"');
+  if (!indexable) critical.push(`${label}: missing "index, follow, max-image-preview:large" robots meta`);
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1] ?? '';
   if (canonical !== url) critical.push(`${label}: canonical "${canonical}" != "${url}"`);
 
@@ -143,7 +152,9 @@ for (const r of routes) {
   const title = html.match(/<title>([^<]+)<\/title>/)?.[1] ?? '';
   const desc = html.match(/name="description" content="([^"]+)"/)?.[1] ?? '';
   if (title.length < 15) critical.push(`${label}: missing/short <title>`);
+  if (title.length > 65) critical.push(`${label}: <title> ${title.length}ch (Google truncates ~60; keep <=65)`);
   if (desc.length < 50) critical.push(`${label}: missing/short meta description`);
+  if (desc.length > 165) critical.push(`${label}: meta description ${desc.length}ch (SERP truncates ~155; keep <=165)`);
   if (titles.has(title)) critical.push(`${label}: duplicate title with ${titles.get(title)}`);
   if (descs.has(desc)) critical.push(`${label}: duplicate description with ${descs.get(desc)}`);
   titles.set(title, label); descs.set(desc, label);

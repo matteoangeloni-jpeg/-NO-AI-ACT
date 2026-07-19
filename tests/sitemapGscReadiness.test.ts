@@ -74,6 +74,14 @@ describe('child sitemaps — valid, well-formed urlsets', () => {
       expect((xml.match(/http:\/\//g) ?? []).length).toBe(1); // namespace only
     }
   });
+
+  it('every URL carries a valid ISO-date lastmod (Google crawl scheduling)', () => {
+    for (const xml of [IT, EN]) {
+      const urls = (xml.match(/<url>/g) ?? []).length;
+      const stamped = (xml.match(/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/g) ?? []).length;
+      expect(stamped, 'each <url> needs a <lastmod> — run scripts/seo/update-sitemap-lastmod.mjs').toBe(urls);
+    }
+  });
 });
 
 describe('child sitemaps — the 56 canonical public URLs, split by language', () => {
@@ -141,7 +149,7 @@ describe('child sitemaps — URL ↔ file ↔ canonical consistency', () => {
       expect(canon, `${l}: canonical == sitemap loc`).toBe(l);
       expect(canon).not.toContain('?');
       expect(canon).not.toContain('#');
-      expect(html).toMatch(/<meta name="robots" content="index, follow"/);
+      expect(html).toMatch(/<meta name="robots" content="index, follow, max-image-preview:large"/);
     }
   });
 });
