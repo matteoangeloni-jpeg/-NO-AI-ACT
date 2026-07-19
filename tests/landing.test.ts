@@ -65,7 +65,7 @@ describe('public landing — SEO', () => {
     });
 
     it(`${name} is marked indexable`, () => {
-      expect(html).toContain('name="robots" content="index, follow"');
+      expect(html).toContain('name="robots" content="index, follow, max-image-preview:large"');
     });
   }
 });
