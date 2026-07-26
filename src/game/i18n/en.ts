@@ -364,6 +364,9 @@ export const en: Locale = {
       subtitle: 'Provisions acquired: {done}/{total} · simplified educational version',
       locked: 'NORM NOT YET\nACQUIRED',
       hint: 'click outside the card to close (or ESC)',
+      searchIdle: 'Search the archive: just type a keyword (ESC to leave)',
+      searchResults: '“{query}” — norms found: {n} · glossary: {g} · cases: {c}',
+      searchNone: 'No results for “{query}” (BACKSPACE to edit)',
       back: '◂ BACK'
     },
     finale: {
