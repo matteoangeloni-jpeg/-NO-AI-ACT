@@ -15,13 +15,19 @@
  *   node scripts/seo/check-sitemap-live.mjs
  *   node scripts/seo/check-sitemap-live.mjs https://www.no-ai-act.eu
  *
- * Prints per-file counts (19 IT + 23 EN = 42), a robots.txt diagnostic block,
+ * Prints per-file counts (expected totals come from release.config.json's
+ * publicUrls — currently 26 IT + 30 EN = 56), a robots.txt diagnostic block,
  * a compatibility check of /sitemap.xml, Googlebot-UA parity, http/non-www/
  * query/`/play/` violations, and sampled page canonical/noindex checks.
  */
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
+
 const BASE = (process.argv[2] || 'https://www.no-ai-act.eu').replace(/\/$/, '');
 const SAMPLE = 6;
-const EXPECTED_TOTAL = 42;
+const CFG = JSON.parse(readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), '..', '..', 'release.config.json'), 'utf8'));
+const EXPECTED_TOTAL = CFG.publicUrls.total;
 const EXPECTED_SITEMAPS = [`${BASE}/sitemap-it.xml`, `${BASE}/sitemap-en.xml`];
 const GOOGLEBOT_UA =
   'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';

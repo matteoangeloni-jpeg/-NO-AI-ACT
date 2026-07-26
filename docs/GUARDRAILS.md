@@ -1,4 +1,4 @@
-# Guardrails — checks before every v1.2 feature PR
+# Guardrails — checks before every feature PR
 
 Operational contract that protects the shipped v1.1 product. Automated tests
 enforce all of it; run `npm test` before opening any feature PR.
@@ -12,13 +12,14 @@ enforce all of it; run `npm test` before opening any feature PR.
 - Enforced by `tests/privacyGuards.test.ts`.
 
 ## Save compatibility
-- localStorage key is **`no-ai-act-save-v1`** and does not change.
-- `SaveData` keeps a stable key set (`version` stays `1`).
+- localStorage key is **`no-ai-act-save-v2`** (`version: 2`), with an explicit,
+  tested migration from the legacy **`no-ai-act-save-v1`** key (which is kept
+  as a downgrade snapshot — see `release.config.json.saveSchema`).
 - Loading is additive-safe: missing fields are filled from `defaultSave()`,
-  unknown future fields are preserved, and an unknown `version` returns the
-  defaults **without wiping storage** (no destructive migration).
-- If the format ever must change: introduce a **new key** (`…-save-v2`) + an
-  explicit, tested migration. Never a silent lossy rewrite.
+  unknown future fields are preserved, and an unknown future `version` returns
+  the defaults **without wiping storage** (no destructive migration).
+- If the format ever must change again: introduce a **new key** (`…-save-v3`)
+  + an explicit, tested migration. Never a silent lossy rewrite.
 - Enforced by `tests/saveCompat.test.ts` (and `tests/savesystem.test.ts`).
 
 ## Gameplay invariants
@@ -31,8 +32,8 @@ enforce all of it; run `npm test` before opening any feature PR.
 
 ## `/play/` SEO + privacy policy
 - `/play/` stays `noindex, follow`, keeps its self canonical, has social
-  metadata, and is **excluded from the sitemap** (which stays at **42** public
-  URLs). Enforced by `tests/privacyGuards.test.ts`, `tests/socialMeta.test.ts`,
+  metadata, and is **excluded from the sitemap** (which stays at **56** public
+  URLs — 26 IT + 30 EN, pinned in `release.config.json`). Enforced by `tests/privacyGuards.test.ts`, `tests/socialMeta.test.ts`,
   `tests/navigationAudit.test.ts`.
 
 ## No external forms
@@ -46,12 +47,12 @@ enforce all of it; run `npm test` before opening any feature PR.
 
 ## Search Console / Sitemap readiness
 - Advertised sitemaps (robots.txt): **`/sitemap-it.xml`**, **`/sitemap-en.xml`** · Kept for compatibility (not advertised): **`/sitemap.xml`** (a sitemap index) · Robots: **`https://www.no-ai-act.eu/robots.txt`**
-- **Google Search Console reads the two language sitemaps directly and reliably** (IT → 19 pages, EN → 23 pages, 42 total), so `robots.txt` advertises **those two** and **no longer** the `/sitemap.xml` index. The index file still exists (valid `<sitemapindex>` listing the two children) purely for compatibility — GSC just kept its `/sitemap.xml` row in a stale "Couldn't fetch" state, so we stopped routing crawlers through it.
-- Each child is a `<urlset>`: `sitemap-it.xml` = root `/` + Italian pages (19); `sitemap-en.xml` = `/en/` pages (23). `tests/sitemapGscReadiness.test.ts` enforces (build-independent, from source): valid, well-formed XML with the `0.9` namespace; the **combined children are exactly the 42** absolute-HTTPS canonical public URLs — all on the **`https://www.no-ai-act.eu/` www host**, never `http://`, never the apex `https://no-ai-act.eu/`, no localhost / `github.io` / `.pages.dev`, no query strings, hashes, duplicates (within or across children), assets, or `/play/` — split by language with no overlap, every URL mapping to a real page whose **self-canonical equals the sitemap URL**; `robots.txt` advertises **exactly the two child sitemaps** (absolute https www), never the `/sitemap.xml` index, the stale `http://`, or the apex variant.
+- **Google Search Console reads the two language sitemaps directly and reliably** (IT → 26 pages, EN → 30 pages, 56 total), so `robots.txt` advertises **those two** and **no longer** the `/sitemap.xml` index. The index file still exists (valid `<sitemapindex>` listing the two children) purely for compatibility — GSC just kept its `/sitemap.xml` row in a stale "Couldn't fetch" state, so we stopped routing crawlers through it.
+- Each child is a `<urlset>`: `sitemap-it.xml` = root `/` + Italian pages (26); `sitemap-en.xml` = `/en/` pages (30). `tests/sitemapGscReadiness.test.ts` enforces (build-independent, from source): valid, well-formed XML with the `0.9` namespace; the **combined children are exactly the 56** absolute-HTTPS canonical public URLs — all on the **`https://www.no-ai-act.eu/` www host**, never `http://`, never the apex `https://no-ai-act.eu/`, no localhost / `github.io` / `.pages.dev`, no query strings, hashes, duplicates (within or across children), assets, or `/play/` — split by language with no overlap, every URL mapping to a real page whose **self-canonical equals the sitemap URL**; `robots.txt` advertises **exactly the two child sitemaps** (absolute https www), never the `/sitemap.xml` index, the stale `http://`, or the apex variant.
 - **Live check after deploy** (opt-in — needs external egress, so it is not in CI):
   - `node scripts/seo/check-sitemap-live.mjs`
   - `node scripts/seo/check-sitemap-live.mjs https://www.no-ai-act.eu`
-  It drives off whatever `robots.txt` advertises (accepting the two child sitemaps directly), follows an advertised `sitemapindex` if it ever finds one, and prints per-file counts (**19 IT + 23 EN = 42**), a robots.txt diagnostic block (directive count + values, no `/sitemap.xml`/`http://`/apex), a compatibility check of `/sitemap.xml` (present + root type), **Googlebot-like user-agent parity**, any `http://` / non-www / query / `/play/` URLs, and sampled page canonical/`noindex` checks.
+  It drives off whatever `robots.txt` advertises (accepting the two child sitemaps directly), follows an advertised `sitemapindex` if it ever finds one, and prints per-file counts (**26 IT + 30 EN = 56**), a robots.txt diagnostic block (directive count + values, no `/sitemap.xml`/`http://`/apex), a compatibility check of `/sitemap.xml` (present + root type), **Googlebot-like user-agent parity**, any `http://` / non-www / query / `/play/` URLs, and sampled page canonical/`noindex` checks.
 
 ### Post-deploy owner checklist
 1. GitHub Pages deploy is green.
@@ -66,12 +67,12 @@ The active property is the **Domain property** `sc-domain:no-ai-act.eu`. GSC alr
 > `https://www.no-ai-act.eu/sitemap-it.xml`
 > `https://www.no-ai-act.eu/sitemap-en.xml`
 
-- **Do not resubmit `https://www.no-ai-act.eu/sitemap.xml`** while its GSC row is stuck in a stale/"Couldn't fetch" state — the child sitemaps already cover all 42 URLs.
+- **Do not resubmit `https://www.no-ai-act.eu/sitemap.xml`** while its GSC row is stuck in a stale/"Couldn't fetch" state — the child sitemaps already cover all 56 URLs.
 - If the red `/sitemap.xml` row **cannot be deleted** from GSC, **ignore it** — it does not affect indexing now that the children are accepted.
 - **Do not** submit HTTP (`http://…`), apex (`https://no-ai-act.eu/…`), or duplicate variants.
 
 ### If Search Console still says "Impossibile recuperare" for a child sitemap while it opens as XML
-The files themselves are fine (200, real XML, correct namespace, 19 + 23 = 42 canonical URLs) — the fetch is being blocked or cached upstream. Work the deploy path, not the files:
+The files themselves are fine (200, real XML, correct namespace, 26 + 30 = 56 canonical URLs) — the fetch is being blocked or cached upstream. Work the deploy path, not the files:
 - Open `/sitemap-it.xml` and `/sitemap-en.xml` in the browser — both should render as XML.
 - Run `node scripts/seo/check-sitemap-live.mjs https://www.no-ai-act.eu` → **PASS**.
 - **Purge Cloudflare** (Purge Everything) so a stale/error response isn't cached.
