@@ -197,6 +197,93 @@
         <p class="section-intro">Strong prompts: <em>Which of the duties above would have caught the failure in our scenario? Who should verify them — buyer, vendor, authority? What should happen when documentation is missing?</em> The <a href="../classroom-activities/">activities page</a> has a ready-made sorting exercise, and the <a href="../lesson-plan-risk-based-approach/">risk lesson plan</a> builds a full session around it. Terms you'll need: <a href="../glossary/">provider, deployer, conformity assessment</a>.</p>
       </div>
     </section>
+
+    <section aria-labelledby="obligations-practice-title">
+      <div class="wrap">
+        <h2 id="obligations-practice-title"><span class="num">06</span>The obligations in practice: what to look for</h2>
+
+        <p class="section-intro">High-risk obligations read better as questions to put to a real system than as a list to memorise. Each row below is a question a student can ask of a concrete case, plus the sign that something is missing.</p>
+
+        <div class="table-wrap">
+          <table>
+            <caption>Obligation, operational question, and the symptom of its absence</caption>
+            <thead>
+              <tr><th scope="col">Obligation (simplified)</th><th scope="col">The question to ask</th><th scope="col">How you can tell it is missing</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Risk management</th>
+                <td>Has anyone written down what can go wrong, and for whom?</td>
+                <td>Nobody can say who would be harmed first by an error.</td>
+              </tr>
+              <tr>
+                <th scope="row">Data governance</th>
+                <td>What data was it trained on, and who was under-represented in it?</td>
+                <td>Errors keep concentrating on the same groups of people.</td>
+              </tr>
+              <tr>
+                <th scope="row">Technical documentation</th>
+                <td>Is there a document explaining how it works, kept up to date?</td>
+                <td>The answer is "the vendor knows" — and the vendor points at the sales brochure.</td>
+              </tr>
+              <tr>
+                <th scope="row">Record-keeping (logging)</th>
+                <td>If I contested a decision today, would a trace remain?</td>
+                <td>You cannot reconstruct which version of the system decided, or when.</td>
+              </tr>
+              <tr>
+                <th scope="row">Human oversight</th>
+                <td>Can the person supervising actually overturn the outcome?</td>
+                <td>They can only confirm, or they get thirty seconds per file.</td>
+              </tr>
+              <tr>
+                <th scope="row">Accuracy and robustness</th>
+                <td>Is the error rate measured and published, or merely claimed?</td>
+                <td>A single aggregate percentage is quoted, with no breakdown by group.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>The right-hand column is the didactically useful one: it moves attention from declared compliance to observable compliance. It is also how the <a href="../../play/?lang=en">game</a> builds its case files — the exhibits show symptoms, not certificates.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="compare-hr-title">
+      <div class="wrap">
+        <h2 id="compare-hr-title"><span class="num">07</span>Three systems compared</h2>
+
+        <p class="section-intro">Why the "high risk" label depends on context rather than technology becomes clearer when you compare similar uses with different outcomes.</p>
+
+        <div class="table-wrap">
+          <table>
+            <caption>Same technical family, different placements</caption>
+            <thead>
+              <tr><th scope="col">System</th><th scope="col">Where it is used</th><th scope="col">Educational reading</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Automated ranking of applications</th>
+                <td>Recruitment</td>
+                <td>Typically <strong>high risk</strong>: it affects access to work, so it needs real oversight, traceability and information to the people involved.</td>
+              </tr>
+              <tr>
+                <th scope="row">Automated ranking of content</th>
+                <td>A music playlist</td>
+                <td><strong>Minimal risk</strong>: the same ranking technique touches neither fundamental rights nor access to essential services.</td>
+              </tr>
+              <tr>
+                <th scope="row">Predictive scoring of citizens</th>
+                <td>Access to social benefits</td>
+                <td>Boundary territory: it can be <strong>high risk</strong> when it governs access to an essential service, or fall among <a href="../prohibited-ai-practices/">prohibited practices</a> if it becomes generalised social scoring.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>The third row produces the best discussions, and it is why the game devotes a mirror case to civic credit: the difference is not in the algorithm, but in what the score decides and how much of a life it reaches into.</p>
+      </div>
+    </section>
   </main>
 
   <footer aria-labelledby="footer-title">
