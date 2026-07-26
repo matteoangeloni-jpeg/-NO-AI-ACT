@@ -194,6 +194,93 @@
         <p class="section-intro">Spunti robusti: <em>quale degli obblighi qui sopra avrebbe intercettato il difetto del nostro scenario? Chi dovrebbe verificarli — acquirente, fornitore, autorità? Cosa deve accadere quando la documentazione manca?</em> Nelle <a href="../attivita-didattiche/">attività</a> trovi l'esercizio di smontaggio della supervisione; i termini necessari sono nel <a href="../glossario/">glossario</a> (fornitore, deployer, valutazione di conformità).</p>
       </div>
     </section>
+
+    <section aria-labelledby="obblighi-pratica-title">
+      <div class="wrap">
+        <h2 id="obblighi-pratica-title"><span class="num">06</span>Gli obblighi in pratica: che cosa cercare</h2>
+
+        <p class="section-intro">Gli obblighi per l'alto rischio si leggono meglio come domande da porre a un sistema reale, invece che come elenco da memorizzare. Ogni riga sotto è una domanda che uno studente può rivolgere a un caso concreto, e il segnale che qualcosa manca.</p>
+
+        <div class="table-wrap">
+          <table>
+            <caption>Obblighi, domanda operativa e sintomo della loro assenza</caption>
+            <thead>
+              <tr><th scope="col">Obbligo (versione semplificata)</th><th scope="col">La domanda da porre</th><th scope="col">Come si vede che manca</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Gestione del rischio</th>
+                <td>Qualcuno ha scritto che cosa può andare storto, e per chi?</td>
+                <td>Nessuno sa dire chi verrebbe danneggiato per primo da un errore.</td>
+              </tr>
+              <tr>
+                <th scope="row">Governance dei dati</th>
+                <td>Su quali dati è stato addestrato, e chi vi era sotto-rappresentato?</td>
+                <td>Gli errori si concentrano sempre sugli stessi gruppi di persone.</td>
+              </tr>
+              <tr>
+                <th scope="row">Documentazione tecnica</th>
+                <td>Esiste un documento che spiega come funziona, aggiornato?</td>
+                <td>La risposta è "lo sa il fornitore" — e il fornitore rimanda al manuale commerciale.</td>
+              </tr>
+              <tr>
+                <th scope="row">Registrazione degli eventi (logging)</th>
+                <td>Se oggi contestassi una decisione, resterebbe una traccia?</td>
+                <td>Non è ricostruibile quale versione del sistema abbia deciso, né quando.</td>
+              </tr>
+              <tr>
+                <th scope="row">Supervisione umana</th>
+                <td>La persona che supervisiona può davvero ribaltare l'esito?</td>
+                <td>Può solo confermare, oppure ha trenta secondi per pratica.</td>
+              </tr>
+              <tr>
+                <th scope="row">Accuratezza e robustezza</th>
+                <td>Il tasso di errore è misurato e pubblicato, o solo dichiarato?</td>
+                <td>Si cita una percentuale complessiva e nessuna scomposizione per gruppo.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>La colonna di destra è la più utile didatticamente: sposta l'attenzione dalla conformità dichiarata a quella osservabile. È anche il modo in cui il <a href="../play/?lang=it">gioco</a> costruisce i suoi fascicoli — i reperti mostrano sintomi, non certificati.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="confronto-ar-title">
+      <div class="wrap">
+        <h2 id="confronto-ar-title"><span class="num">07</span>Tre sistemi a confronto</h2>
+
+        <p class="section-intro">Perchè l'etichetta "alto rischio" dipenda dal contesto e non dalla tecnologia si capisce meglio confrontando usi simili con esiti diversi.</p>
+
+        <div class="table-wrap">
+          <table>
+            <caption>Stessa famiglia tecnologica, collocazioni diverse</caption>
+            <thead>
+              <tr><th scope="col">Sistema</th><th scope="col">Dove viene usato</th><th scope="col">Lettura didattica</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Ordinamento automatico di candidature</th>
+                <td>Selezione del personale</td>
+                <td>Tipicamente <strong>alto rischio</strong>: incide sull'accesso al lavoro, quindi servono supervisione reale, tracciabilità e informazione alle persone.</td>
+              </tr>
+              <tr>
+                <th scope="row">Ordinamento automatico di contenuti</th>
+                <td>Playlist musicale</td>
+                <td><strong>Rischio minimo</strong>: la stessa tecnica di ordinamento non tocca diritti fondamentali né accesso a servizi essenziali.</td>
+              </tr>
+              <tr>
+                <th scope="row">Punteggio predittivo su cittadini</th>
+                <td>Accesso a prestazioni sociali</td>
+                <td>Zona di confine: può essere <strong>alto rischio</strong> se governa l'accesso a un servizio essenziale, oppure ricadere tra le <a href="../pratiche-vietate-ai-act/">pratiche vietate</a> se diventa punteggio sociale generalizzato.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>La terza riga è quella che genera le discussioni migliori, ed è il motivo per cui il gioco dedica un caso-specchio proprio al credito civico: la differenza non sta nell'algoritmo, ma in che cosa il punteggio decide e su quale porzione di vita si estende.</p>
+      </div>
+    </section>
   </main>
 
   <footer aria-labelledby="footer-title">
