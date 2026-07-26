@@ -22,7 +22,7 @@ const report = (over: Partial<CaseReport> = {}): CaseReport => ({
   outcome: 'conforme',
   dominantError: null,
   classification: 'vietata',
-  measure: 'divieto',
+  measure: 'blocco',
   subject: 'autorita',
   motivationIndex: 0,
   citedClues: [],
@@ -94,7 +94,7 @@ describe('open questions', () => {
 
   it('flags miscalibration: high confidence with a dominant error', () => {
     const nb = buildNotebook(
-      { case_scoring: report({ dominantError: 'classification' }) },
+      { case_scoring: report({ dominantError: 'classificazione' }) },
       { case_scoring: { confidence: 3 } },
       []
     );
@@ -122,7 +122,7 @@ describe('deferred verification by chapter (§10)', () => {
     const clean = Object.fromEntries(chapter.caseIds.map((id) => [id, report()]));
     expect(buildNotebook(clean, {}, []).patterns.find((x) => x.chapterId === chapter.id)!.confirmed).toBe(true);
 
-    const flawed = { ...clean, [chapter.caseIds[0]]: report({ dominantError: 'subject' }) };
+    const flawed = { ...clean, [chapter.caseIds[0]]: report({ dominantError: 'soggetto' }) };
     expect(buildNotebook(flawed, {}, []).patterns.find((x) => x.chapterId === chapter.id)!.confirmed).toBe(false);
   });
 });
