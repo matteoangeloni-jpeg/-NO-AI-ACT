@@ -1587,6 +1587,29 @@ export const en: Locale = {
   }
   ,
   learningLayer: {
+    notebook: {
+      button: 'Notebook',
+      title: 'INVESTIGATION NOTEBOOK',
+      intro: 'What you have already established, gathered in one place: closed files, who turned out to be responsible, the patterns you confirmed and the questions you left open.',
+      factsLabel: 'Closed files ({n})',
+      factsEmpty: 'No files closed yet.',
+      evidenceLine: 'decisive evidence cited: {cited}/{total}',
+      trapSpotted: 'you also cited the account that minimised it',
+      actorsLabel: 'Who turned out to be responsible',
+      actorsEmpty: 'No responsible party identified yet.',
+      patternsLabel: 'Patterns by chapter',
+      patternConfirmed: 'pattern confirmed',
+      patternProgress: '{done}/{total} cases closed',
+      openLabel: 'Open questions',
+      openEmpty: 'Nothing left hanging.',
+      openReasons: {
+        unsure: 'you said you were unsure',
+        revise: 'you wanted to revisit it',
+        miscalibrated: 'high confidence, outcome with a finding: worth a re-read'
+      },
+      announce: 'Investigation notebook: {n} closed files, {open} open questions.',
+      close: 'Close'
+    },
     chapters: {
       button: 'Chapters',
       title: 'Chapters of the journey',

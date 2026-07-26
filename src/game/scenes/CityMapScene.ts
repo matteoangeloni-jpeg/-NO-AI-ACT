@@ -7,6 +7,7 @@ import { IndicatorHud } from '../systems/IndicatorSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
 import { ChaptersOverlay } from '../ui/ChaptersOverlay';
+import { NotebookOverlay } from '../ui/NotebookOverlay';
 import { showToast } from '../ui/AlertToast';
 import { L, fmt, locationName } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
@@ -51,6 +52,12 @@ export class CityMapScene extends Phaser.Scene {
     // capitoli 2.0: panoramica read-only, la selezione libera resta invariata
     const chapters = new ChaptersOverlay(this);
     new Button(this, 470, GAME_HEIGHT - 36, L().learningLayer.chapters.button, () => chapters.toggle(), { width: 160, height: 38, fontSize: 12, variant: 'ghost' });
+    // taccuino 2.1 (§7): cognizione esterna, sola lettura, aperto anche con N
+    const notebook = new NotebookOverlay(this);
+    new Button(this, 640, GAME_HEIGHT - 36, L().learningLayer.notebook.button, () => notebook.toggle(), { width: 160, height: 38, fontSize: 12, variant: 'ghost' });
+    this.input.keyboard?.on('keydown-N', () => {
+      if (!chapters.isOpen) notebook.toggle();
+    });
 
     this.setupKeyboardSelection();
     this.syncReadingLayer();

@@ -1583,6 +1583,29 @@ export const it = {
   }
   ,
   learningLayer: {
+    notebook: {
+      button: 'Taccuino',
+      title: 'TACCUINO INVESTIGATIVO',
+      intro: "Quello che hai già stabilito, raccolto in un posto solo: fascicoli chiusi, chi ne è risultato responsabile, gli schemi confermati e le domande che hai lasciato aperte.",
+      factsLabel: 'Fascicoli chiusi ({n})',
+      factsEmpty: 'Nessun fascicolo chiuso finora.',
+      evidenceLine: 'prove decisive citate: {cited}/{total}',
+      trapSpotted: 'hai citato anche il resoconto che minimizzava',
+      actorsLabel: 'Chi ne è risultato responsabile',
+      actorsEmpty: 'Ancora nessun soggetto individuato.',
+      patternsLabel: 'Schemi per capitolo',
+      patternConfirmed: 'schema confermato',
+      patternProgress: '{done}/{total} casi chiusi',
+      openLabel: 'Questioni aperte',
+      openEmpty: 'Nessuna questione lasciata in sospeso.',
+      openReasons: {
+        unsure: 'ti eri dichiarato incerto',
+        revise: 'volevi rivederlo',
+        miscalibrated: 'molta sicurezza, esito con un rilievo: vale una rilettura'
+      },
+      announce: 'Taccuino investigativo: {n} fascicoli chiusi, {open} questioni aperte.',
+      close: 'Chiudi'
+    },
     chapters: {
       button: 'Capitoli',
       title: 'Capitoli del percorso',
