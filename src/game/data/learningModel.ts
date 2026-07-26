@@ -261,6 +261,52 @@ export function allCaseObjectives(): CaseObjectiveView[] {
   return PLAYABLE_CASES.map((c) => caseObjectives(c.id));
 }
 
+// ------------------------------------------------------------ case anatomy (2.1)
+
+/**
+ * Anatomia del caso (roadmap 2.1, Phase 1 §5): la struttura cognitiva di un
+ * caso — segnali decisivi, resoconti che minimizzano, fattori contestuali e
+ * misconcezioni messe alla prova — DERIVATA dai dati esistenti (stances dei
+ * reperti + CASE_OBJECTIVES), mai autorato separatamente: non può divergere
+ * dalla soluzione pinnata. Presentazione/didattica, nessun effetto sul punteggio.
+ */
+export interface CaseAnatomy {
+  caseId: string;
+  /** Reperti decisivi (per invariante v0.5 coincidono con relevantClues). */
+  signalClues: number[];
+  /** Reperti che minimizzano il rischio: la "trappola" del caso (può mancare). */
+  trapClues: number[];
+  /** Reperti contestuali: il fattore che cambia l'interpretazione. */
+  contextClues: number[];
+  /** Misconcezioni che il caso mette alla prova. */
+  misconceptions: MisconceptionId[];
+}
+
+export function caseAnatomy(caseId: string): CaseAnatomy {
+  const c = getCase(caseId);
+  const stances = c.clueStances ?? [];
+  const byStance = (s: string): number[] => stances.flatMap((st, i) => (st === s ? [i] : []));
+  const signals = stances.length > 0 ? byStance('decisive') : [...c.relevantClues];
+  return {
+    caseId,
+    signalClues: signals,
+    trapClues: byStance('minimizes_risk'),
+    contextClues: byStance('contextual'),
+    misconceptions: [...caseObjectives(caseId).misconceptions]
+  };
+}
+
+/**
+ * Coppie di contraddizione (roadmap Phase 1 §2, layer dati): ogni coppia
+ * (reperto decisivo, resoconto minimizzante) è una contraddizione documentale
+ * che il giocatore può imparare a individuare. Base per la futura marcatura
+ * in EvidenceScene (non punteggiata); vuota quando il caso non ha trappole.
+ */
+export function contradictionPairs(caseId: string): Array<[number, number]> {
+  const a = caseAnatomy(caseId);
+  return a.signalClues.flatMap((s) => a.trapClues.map((m): [number, number] => [s, m]));
+}
+
 // ------------------------------------------------------------ self-check
 
 /**

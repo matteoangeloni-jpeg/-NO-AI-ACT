@@ -359,8 +359,8 @@ external forms; scoring/case-solution changes require explicit AI Act review
 | §3 Mandatory reasoning | Cite ≥2 exhibits + subject + motivation, graded (`ReportSystem`, "contestabile" outcome) | **shipped** (2.0; free-text rationale: planned, local-only) |
 | §4 Multi-axis feedback | `MultiAxisFeedback` + decision-debrief axes strip + reading layer (derived from pinned `OUTCOME_DELTAS`) | **shipped** (2.1, this PR — presentation only) |
 | §1 Inspector workspace | Scene flow Case→Evidence→Decision + `CaseContextOverlay`/`CaseNormOverlay` | **partial** — unified desk layout planned (Phase 1) |
-| §2 Contradiction marking | `EvidenceStance` data already marks `decisive` vs `minimizes_risk` accounts per case | **partial** — player-facing pair-marking planned (Phase 1, non-scored first) |
-| §5 Case anatomy | Clue stances + `CASE_OBJECTIVES` misconceptions cover signal/trap; missing-piece & twist fields | **partial** — typed `CASE_ANATOMY` + debrief surfacing planned (Phase 1) |
+| §2 Contradiction marking | `contradictionPairs()` (signal × trap, derived from stances; 8/13 cases covered) | **partial** — data layer shipped (2.1); player-facing pair-marking in EvidenceScene planned (non-scored first) |
+| §5 Case anatomy | `caseAnatomy()` derived view (signals/traps/context/misconceptions) + anatomy line in the teacher debrief export | **shipped** (2.1, derived — never authored apart) · stance coverage 8/13, to extend |
 | §6 Searchable archive | `ArchiveScene` (norms) + `GlossaryScene` + `CityDossier` | **partial** — keyword search across norms/glossary/cases planned (Phase 2) |
 | §7 Investigative notebook | `CityDossier` (systemic effects) + `LearningReportSystem` | **partial** — tabs (facts/actors/legal hooks/doubts) planned (Phase 2) |
 | §8 Progressive complexity | Chapters (4 doctrinal layers), missions, difficulty modes | **shipped** (2.0) — derogation/exception layers planned (Phase 2) |
