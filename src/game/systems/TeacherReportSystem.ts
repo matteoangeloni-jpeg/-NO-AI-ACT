@@ -4,6 +4,7 @@ import { NORMS } from '../data/norms';
 import type { CaseReport, DifficultyMode, IndicatorState, MissionId, ReportOutcome } from '../data/types';
 import { L, caseText } from '../i18n';
 import { issueForError } from './DecisionIssues';
+import { caseAnatomy } from '../data/learningModel';
 import { cityDossier } from './CityDossier';
 import { conceptsForCases } from '../data/learning';
 
@@ -24,6 +25,7 @@ export interface TeacherReportInput {
   now?: number;
 }
 
+/** Riga per caso completato; `anatomy` è la lettura strutturale 2.1 (segnale/trappola). */
 export interface TeacherReportCaseRow {
   caseId: string;
   title: string;
@@ -32,6 +34,22 @@ export interface TeacherReportCaseRow {
   epilogue: string;
   /** Fragilità decisionale principale, localizzata (v0.5). null se conforme. */
   fragility: string | null;
+  /** Anatomia del caso: segnali decisivi + eventuale trappola, localizzata (2.1). */
+  anatomy: string;
+}
+
+/** Compone la riga-anatomia localizzata dai titoli dei reperti del caso. */
+function anatomyLine(caseId: string, clueTitles: string[]): string {
+  const t = L();
+  const a = caseAnatomy(caseId);
+  const name = (i: number): string => `«${clueTitles[i]}»`;
+  const parts = [`${t.ui.debrief.anatomySignal}: ${a.signalClues.map(name).join(', ')}`];
+  parts.push(
+    a.trapClues.length > 0
+      ? `${t.ui.debrief.anatomyTrap}: ${a.trapClues.map(name).join(', ')}`
+      : t.ui.debrief.anatomyTrapNone
+  );
+  return parts.join(' · ');
 }
 
 /** Riga del fascicolo città, già localizzata (v0.5). */
@@ -78,7 +96,10 @@ export function buildTeacherReport(input: TeacherReportInput): TeacherReport {
         outcome: t.ui.outcomes[report.outcome],
         mainFinding: report.dominantError ? t.ui.errors[report.dominantError] : t.ui.debrief.noError,
         epilogue: texts.epilogue,
-        fragility: report.dominantError ? t.ui.report.issues[issueForError(report.dominantError)] : null
+        fragility: report.dominantError ? t.ui.report.issues[issueForError(report.dominantError)] : null,
+        // 2.1 — anatomia del caso per il debrief in aula: segnali decisivi e
+        // trappola minimizzante, derivati dalle stance (mai autorati a parte)
+        anatomy: anatomyLine(c.id, texts.clues.map((cl) => cl.title))
       });
       // una domanda per caso completato, a rotazione sulle tre disponibili
       if (questions.length < 3) questions.push(texts.debriefQuestions[i % 3]);
@@ -126,6 +147,7 @@ export function teacherReportToText(report: TeacherReport): string {
     lines.push(`- ${row.title} — ${row.outcome}`);
     lines.push(`  ${row.mainFinding}`);
     if (row.fragility) lines.push(`  ${t.ui.report.analysisLabel}: ${row.fragility}`);
+    lines.push(`  ${t.ui.debrief.anatomyLabel}: ${row.anatomy}`);
     lines.push(`  ${row.epilogue}`);
   }
   lines.push('');
