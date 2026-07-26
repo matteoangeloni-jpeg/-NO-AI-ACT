@@ -26,6 +26,8 @@ export interface DecisionDebriefData {
   concept: string;
   /** one-sentence learning takeaway, already localized (v1.1). */
   takeaway: string;
+  /** compact three-axis reading of the decision (legal / rights / trust), already localized (2.1). */
+  axes?: string;
   /** optional INTERNAL site page to read next (same-origin path, v1.1). */
   linkUrl?: string;
   /**
@@ -126,6 +128,13 @@ export class DecisionDebriefOverlay {
     // v1.1: concept involved + one-sentence takeaway, in both variants
     labelled(ui.conceptLabel, d.concept);
     labelled(ui.takeawayLabel, d.takeaway);
+
+    // 2.1: multi-axis reading — the same decision seen on three axes at once
+    // (legal validity, fundamental rights, public trust); presentation only
+    if (d.axes) {
+      container.add(scene.add.text(left, y, `${ui.axes.label}: ${d.axes}`, textStyle(11.5, COLOR_STR.accent, { wordWrap: { width: wrap } })));
+      y += 26;
+    }
 
     // 2.0: one concise reflection question (optional, local, no score effect)
     if (d.onReflect) {

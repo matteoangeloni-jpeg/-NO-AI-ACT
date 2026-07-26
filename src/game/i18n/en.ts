@@ -184,6 +184,12 @@ export const en: Locale = {
       howToFallback: 'Start from the concrete AI system, identify who is affected, connect the evidence to the rule, and only then choose classification, measure, subject and rationale.',
       conceptLabel: 'AI Act concept in this case',
       takeawayLabel: 'Learning takeaway',
+      axes: {
+        label: 'Effects of your decision',
+        legal: { correct: 'fully legally valid', partial: 'partially legally valid', wrong: 'decision not valid' },
+        rights: { strengthened: 'rights strengthened', mixed: 'rights balanced', weakened: 'rights weakened' },
+        institution: { strengthened: 'public trust growing', mixed: 'public trust stable', weakened: 'public trust falling' }
+      },
       learnMore: 'Read more on the site ▸',
       close: 'Close'
     },

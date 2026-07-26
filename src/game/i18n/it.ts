@@ -183,6 +183,12 @@ export const it = {
       howToFallback: "Parti dal sistema AI concreto, individua chi subisce l'impatto, collega le prove alla norma e solo dopo scegli classificazione, misura, soggetto e motivazione.",
       conceptLabel: 'Concetto AI Act del caso',
       takeawayLabel: 'Da portare a casa',
+      axes: {
+        label: 'Effetti della decisione',
+        legal: { correct: 'validità legale piena', partial: 'validità legale parziale', wrong: 'decisione non valida' },
+        rights: { strengthened: 'diritti rafforzati', mixed: 'diritti in equilibrio', weakened: 'diritti indeboliti' },
+        institution: { strengthened: 'fiducia pubblica in crescita', mixed: 'fiducia pubblica stabile', weakened: 'fiducia pubblica in calo' }
+      },
       learnMore: 'Approfondisci sul sito ▸',
       close: 'Chiudi'
     },
