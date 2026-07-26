@@ -362,10 +362,10 @@ external forms; scoring/case-solution changes require explicit AI Act review
 | §2 Contradiction marking | `contradictionPairs()` + EvidenceScene marking button (C key, toast + aria-live, non-scored; visible in the 8/13 cases with pairs) | **shipped** (2.1) — stance coverage 13/13; pairs grow only if minimizing exhibits are authored |
 | §5 Case anatomy | `caseAnatomy()` derived view (signals/traps/context/misconceptions) + anatomy line in the teacher debrief export | **shipped** (2.1, derived — never authored apart) · stance coverage 13/13 |
 | §6 Searchable archive | `searchArchive()` engine + typed keyword filter in `ArchiveScene` (dimming, no locked-title spoilers, aria-live summary, ESC/BACKSPACE) | **shipped** (2.1) |
-| §7 Investigative notebook | `CityDossier` (systemic effects) + `LearningReportSystem` | **partial** — tabs (facts/actors/legal hooks/doubts) planned (Phase 2) |
+| §7 Investigative notebook | `buildNotebook()` + `NotebookOverlay` from the map (closed files, recurring actors, chapter patterns, open questions) | **shipped** (2.1, derived from saved data — no new save key) |
 | §8 Progressive complexity | Chapters (4 doctrinal layers), missions, difficulty modes | **shipped** (2.0) — derogation/exception layers planned (Phase 2) |
 | §9 Cross-case recurrence | `LEGAL_MATRIX` links provisions across cases; case_credito mirrors case_scoring | **partial** — recurring actors planned (Phase 2) |
-| §10 Deferred verification | Self-check (6 questions) is immediate | **planned** (Phase 2 — cluster verification per chapter) |
+| §10 Deferred verification | Chapter patterns in the notebook confirm only when every case of a chapter closed without a dominant error | **shipped** (2.1) |
 | §11 Role-based play | Teacher mode (single alternate viewpoint) | **planned** (Phase 3) |
 | §12 Institutional simulation | 4 indicators + endings + `CityDossier` trends | **partial** — backlog/audit-capacity variables planned (Phase 3) |
 | §13 Workshop mode | `DiscussionPauseOverlay` + teacher debrief | **partial** — multi-role comparison planned (Phase 3, still local-only) |
