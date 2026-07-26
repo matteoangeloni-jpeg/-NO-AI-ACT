@@ -361,7 +361,7 @@ external forms; scoring/case-solution changes require explicit AI Act review
 | §1 Inspector workspace | Scene flow Case→Evidence→Decision + `CaseContextOverlay`/`CaseNormOverlay` | **partial** — unified desk layout planned (Phase 1) |
 | §2 Contradiction marking | `contradictionPairs()` + EvidenceScene marking button (C key, toast + aria-live, non-scored; visible in the 8/13 cases with pairs) | **shipped** (2.1) — stance coverage 13/13; pairs grow only if minimizing exhibits are authored |
 | §5 Case anatomy | `caseAnatomy()` derived view (signals/traps/context/misconceptions) + anatomy line in the teacher debrief export | **shipped** (2.1, derived — never authored apart) · stance coverage 13/13 |
-| §6 Searchable archive | `ArchiveScene` (norms) + `GlossaryScene` + `CityDossier` | **partial** — keyword search across norms/glossary/cases planned (Phase 2) |
+| §6 Searchable archive | `searchArchive()` engine (norms+glossary+cases, language-aware, accent-insensitive, ranked) | **partial** — engine shipped (2.1); ArchiveScene search UI next |
 | §7 Investigative notebook | `CityDossier` (systemic effects) + `LearningReportSystem` | **partial** — tabs (facts/actors/legal hooks/doubts) planned (Phase 2) |
 | §8 Progressive complexity | Chapters (4 doctrinal layers), missions, difficulty modes | **shipped** (2.0) — derogation/exception layers planned (Phase 2) |
 | §9 Cross-case recurrence | `LEGAL_MATRIX` links provisions across cases; case_credito mirrors case_scoring | **partial** — recurring actors planned (Phase 2) |
