@@ -13,6 +13,7 @@ import { hintKeyFor, shouldShowHint, type ReportResult } from '../systems/Report
 import { conceptLink } from '../data/concepts';
 import { caseLearning } from '../data/learning';
 import { decisionAnalysisKeys } from '../systems/DecisionIssues';
+import { multiAxisFeedback } from '../systems/MultiAxisFeedback';
 import { AudioSystem } from '../systems/AudioSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
@@ -177,6 +178,13 @@ export class ReportScene extends Phaser.Scene {
 
     // post-decision debrief (read-only): turns the already-computed outcome into
     // learning. Reuses ReportResult + existing case/rule texts; no score change.
+    // 2.1 — multi-axis reading of the SAME outcome (legal / rights / trust)
+    const ax = multiAxisFeedback(result.quality);
+    const axesLine = [
+      t.ui.decisionDebrief.axes.legal[ax.legal],
+      t.ui.decisionDebrief.axes.rights[ax.rights],
+      t.ui.decisionDebrief.axes.institution[ax.institution]
+    ].join(' · ');
     const rule = normText(this.caseData.normId);
     const relevant = this.caseData.relevantClues.map((i) => `«${texts.clues[i].title}»`).join(' · ');
     const debrief = new DecisionDebriefOverlay(this, {
@@ -194,6 +202,7 @@ export class ReportScene extends Phaser.Scene {
       // v1.1: concetti del caso + takeaway + pagina interna da leggere dopo
       concept: this.caseData.concepts.map((c) => t.ui.concepts[c]).join(' · '),
       takeaway: caseLearning(this.caseData.id).takeaway,
+      axes: axesLine,
       linkUrl: conceptLink(this.caseData.concepts[0], StateManager.language),
       // 2.0: riflessione facoltativa, annotata solo in locale (mai nel punteggio)
       onReflect: (choice) => StateManager.saveCaseMeta(this.caseData.id, { reflection: choice })
@@ -204,7 +213,8 @@ export class ReportScene extends Phaser.Scene {
     ReadingLayer.setScene(t.a11y.reportTitle, [
       { text: texts.title },
       { heading: t.ui.outcomes[result.outcome], text: analysis },
-      { text: `${t.ui.report.decisionLabel} ${t.classifications[this.params.classification]} → ${t.measures[this.params.measure]}` }
+      { text: `${t.ui.report.decisionLabel} ${t.classifications[this.params.classification]} → ${t.measures[this.params.measure]}` },
+      { text: `${t.ui.decisionDebrief.axes.label}: ${axesLine}` }
     ]);
     ReadingLayer.announce(fmt(t.a11y.outcomeAnnounced, { outcome: t.ui.outcomes[result.outcome] }));
 
