@@ -34,9 +34,12 @@ describe('PR 1E — decision debrief i18n (IT/EN)', () => {
   });
 
   test('the new strings carry no external URLs', () => {
+    // recursive: also covers nested groups (e.g. the 2.1 multi-axis strings)
+    const flat = (v: unknown): string[] =>
+      typeof v === 'string' ? [v] : v && typeof v === 'object' ? Object.values(v).flatMap(flat) : [];
     for (const L of [it, en]) {
-      for (const v of Object.values(L.ui.decisionDebrief)) {
-        expect(v).not.toMatch(/https?:\/\//);
+      for (const s of flat(L.ui.decisionDebrief)) {
+        expect(s).not.toMatch(/https?:\/\//);
       }
     }
   });
