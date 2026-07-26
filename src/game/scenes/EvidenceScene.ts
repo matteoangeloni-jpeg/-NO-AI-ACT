@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { MIN_CITED_CLUES, getCase } from '../data/cases';
+import { contradictionPairs } from '../data/learningModel';
 import type { CaseData } from '../data/types';
 import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
@@ -25,6 +26,7 @@ export class EvidenceScene extends Phaser.Scene {
   private contextOverlay!: CaseContextOverlay;
   private contextBtn!: Button;
   private backBtn!: Button;
+  private contradictionBtn: Button | null = null;
 
   constructor() {
     super('Evidence');
@@ -109,7 +111,37 @@ export class EvidenceScene extends Phaser.Scene {
     this.input.keyboard?.on('keydown-ENTER', () => {
       if (this.proceedEligible && !this.contextOverlay.isOpen) this.proceed();
     });
+
+    // 2.1 (roadmap §2) — marcatura contraddizioni, NON punteggiata: il
+    // giocatore dichiara che i reperti citati si contraddicono; il gioco
+    // conferma solo se la coppia (segnale decisivo × resoconto minimizzante)
+    // esiste davvero nei dati derivati. Pulsante presente solo nei casi che
+    // hanno almeno una contraddizione documentale; tasto C come scorciatoia.
+    this.pairs = contradictionPairs(this.caseData.id);
+    if (this.pairs.length > 0) {
+      this.contradictionBtn = new Button(this, cx - 400, GAME_HEIGHT - 90, L().ui.evidence.contradictionButton, () => this.markContradiction(), { width: 300, height: 40, fontSize: 12, variant: 'ghost' });
+      this.input.keyboard?.on('keydown-C', () => {
+        if (!this.contextOverlay.isOpen) this.markContradiction();
+      });
+    }
     this.syncReadingLayer();
+  }
+
+  private pairs: Array<[number, number]> = [];
+
+  /** Verifica la contraddizione dichiarata sui reperti CITATI (mai sul punteggio). */
+  private markContradiction(): void {
+    const texts = caseText(this.caseData.id);
+    const cited = new Set(this.cards.flatMap((card, i) => (card.isCited ? [i] : [])));
+    const hit = this.pairs.find(([s, m]) => cited.has(s) && cited.has(m));
+    if (hit) {
+      const msg = fmt(L().ui.evidence.contradictionFound, { a: texts.clues[hit[0]].title, b: texts.clues[hit[1]].title });
+      showToast(this, msg, 'info', 20);
+      ReadingLayer.announce(msg);
+    } else {
+      showToast(this, L().ui.evidence.contradictionNone, 'info', 20);
+      ReadingLayer.announce(L().ui.evidence.contradictionNone);
+    }
   }
 
   /** Avanza alla decisione (o all'evento imprevisto) con i reperti citati. */
@@ -150,6 +182,7 @@ export class EvidenceScene extends Phaser.Scene {
     this.contextBtn.setVisible(!hideNav);
     this.backBtn.setVisible(!hideNav);
     this.proceedBtn.setVisible(this.proceedEligible && !hideNav);
+    this.contradictionBtn?.setVisible(!hideNav);
   }
 
   private refreshState(): void {

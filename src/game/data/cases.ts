@@ -49,6 +49,7 @@ export const CASES: CaseData[] = [
     // dati non pertinenti + penalità trans-contestuale = social scoring vietato;
     // la motivazione assente (c3) è un problema di trasparenza, non il divieto
     relevantClues: [0, 1],
+    clueStances: ['decisive', 'decisive', 'concrete_effect'],
     normId: 'norm_social_scoring',
     responsibleSubjectCorrect: 'autorita',
     responsibleSubjectPartial: 'provider',
@@ -93,6 +94,7 @@ export const CASES: CaseData[] = [
     // assenza di etichette + apparenza autentica = obbligo art. 50;
     // la fiducia persa (c3) è la conseguenza, non il fondamento
     relevantClues: [0, 1],
+    clueStances: ['decisive', 'decisive', 'concrete_effect'],
     normId: 'norm_trasparenza_sintetici',
     responsibleSubjectCorrect: 'autorita',
     correctMotivation: 0,
@@ -113,6 +115,7 @@ export const CASES: CaseData[] = [
     // inferenza emotiva in ambito educativo + fragilità dell'inferenza = divieto;
     // l'impossibilità di contestare (c2) è un problema procedurale, non il divieto
     relevantClues: [0, 2],
+    clueStances: ['decisive', 'concrete_effect', 'decisive'],
     normId: 'norm_emotion_recognition',
     responsibleSubjectCorrect: 'deployer',
     responsibleSubjectPartial: 'provider',
@@ -157,6 +160,7 @@ export const CASES: CaseData[] = [
     // tempo reale + spazio pubblico + finalità di contrasto = perimetro del divieto;
     // gli errori sproporzionati ne aggravano il danno
     relevantClues: [1, 2],
+    clueStances: ['concrete_effect', 'decisive', 'decisive'],
     normId: 'norm_biometria',
     responsibleSubjectCorrect: 'autorita',
     responsibleSubjectPartial: 'fornitore_esterno',
