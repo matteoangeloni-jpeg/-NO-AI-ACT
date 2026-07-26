@@ -363,6 +363,9 @@ export const it = {
       subtitle: 'Disposizioni acquisite: {done}/{total} · versione didattica semplificata',
       locked: 'NORMA NON ANCORA\nACQUISITA',
       hint: 'clic fuori dalla carta per chiudere (o ESC)',
+      searchIdle: 'Cerca nell\'archivio: scrivi una parola chiave (ESC per uscire)',
+      searchResults: '«{query}» — norme trovate: {n} · glossario: {g} · casi: {c}',
+      searchNone: 'Nessun risultato per «{query}» (BACKSPACE per correggere)',
       back: '◂ INDIETRO'
     },
     finale: {

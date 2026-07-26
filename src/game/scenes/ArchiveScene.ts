@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 import { NORMS } from '../data/norms';
+import { searchArchive } from '../systems/SearchIndex';
+import { ReadingLayer } from '../systems/ReadingLayer';
 import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { NormSystem } from '../systems/NormSystem';
 import { Button } from '../ui/Button';
@@ -19,6 +21,11 @@ export class ArchiveScene extends Phaser.Scene {
   private gridContainer!: Phaser.GameObjects.Container;
   private scrollY = 0;
   private maxScroll = 0;
+  // 2.1 (roadmap §6) — ricerca digitata: stato query + riferimenti alle carte
+  private query = '';
+  private searchText!: Phaser.GameObjects.Text;
+  private unlockedCards: Array<{ id: string; card: Phaser.GameObjects.Container }> = [];
+  private lockedCards: Phaser.GameObjects.Container[] = [];
 
   constructor() {
     super('Archive');
@@ -61,8 +68,11 @@ export class ArchiveScene extends Phaser.Scene {
           .on('pointerout', () => card.setScale(1))
           .on('pointerdown', () => this.showDetail(norm.id));
         this.gridContainer.add(card);
+        this.unlockedCards.push({ id: norm.id, card });
       } else {
-        this.gridContainer.add(new LockedNormCard(this, x, y, cardW, cardH));
+        const locked = new LockedNormCard(this, x, y, cardW, cardH);
+        this.gridContainer.add(locked);
+        this.lockedCards.push(locked);
       }
     });
 
@@ -85,10 +95,45 @@ export class ArchiveScene extends Phaser.Scene {
     new Button(this, cx - 170, GAME_HEIGHT - 46, ui.back, () => this.scene.start(this.from), { width: 200, variant: 'ghost' });
     // accesso al glossario operativo (v0.5): non interrompe il flusso dei casi
     new Button(this, cx + 170, GAME_HEIGHT - 46, L().glossary.title, () => this.scene.start('Glossary', { from: 'Archive' }), { width: 260, fontSize: 12 });
+    // 2.1 (roadmap §6, Her Story) — ricerca digitata: si scrive e basta.
+    // Filtra le carte sbloccate (le bloccate restano opache: nessuno spoiler
+    // dei titoli non ancora guadagnati) e riassume i risultati extra.
+    this.searchText = this.add.text(cx, 96, '', textStyle(12, COLOR_STR.accent)).setOrigin(0.5);
+    this.applySearch();
+    this.input.keyboard?.on('keydown', (e: KeyboardEvent) => {
+      if (this.detail) return;
+      if (e.key === 'Backspace') this.query = this.query.substring(0, this.query.length - 1);
+      else if (e.key.length === 1 && /[\p{L}\p{N} ]/u.test(e.key)) this.query += e.key.toLowerCase();
+      else return;
+      this.applySearch();
+    });
     this.input.keyboard?.on('keydown-ESC', () => {
       if (this.detail) this.hideDetail();
+      else if (this.query.length > 0) { this.query = ''; this.applySearch(); }
       else this.scene.start(this.from);
     });
+  }
+
+  /** Applica la query corrente: evidenzia le norme trovate, riassume il resto. */
+  private applySearch(): void {
+    const ui = L().ui.archive;
+    const active = this.query.trim().length >= 2;
+    const hits = active ? searchArchive(this.query) : [];
+    const normHits = new Set(hits.filter((h) => h.kind === 'norm').map((h) => h.id));
+    for (const { id, card } of this.unlockedCards) card.setAlpha(!active || normHits.has(id) ? 1 : 0.2);
+    for (const locked of this.lockedCards) locked.setAlpha(active ? 0.2 : 1);
+    if (!active) {
+      this.searchText.setText(fmt(ui.searchIdle, { query: this.query }));
+      return;
+    }
+    const g = hits.filter((h) => h.kind === 'glossary').length;
+    const c = hits.filter((h) => h.kind === 'case').length;
+    const found = [...normHits].filter((id) => this.unlockedCards.some((u) => u.id === id)).length;
+    const line = hits.length === 0
+      ? fmt(ui.searchNone, { query: this.query })
+      : fmt(ui.searchResults, { query: this.query, n: found, g, c });
+    this.searchText.setText(line);
+    ReadingLayer.announce(line);
   }
 
   private scrollBy(delta: number): void {
