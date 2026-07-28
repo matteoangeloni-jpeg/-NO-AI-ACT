@@ -11,6 +11,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "audit:seo": "node scripts/seo/audit-routes.mjs",
+    "insight": "node scripts/seo/site-insight.mjs",
     "verify:dist": "node scripts/ci/verify-dist.mjs",
     "report:dist": "node scripts/ci/dist-report.mjs",
     "smoke:gameplay": "node scripts/smoke/gameplay-smoke.mjs",
