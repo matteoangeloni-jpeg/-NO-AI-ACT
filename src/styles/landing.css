@@ -596,7 +596,9 @@ ul.plain li { margin-bottom: 0.4rem; }
   .card:hover,
   .card:focus-visible,
   .cases li:hover,
-  .cases li:focus-visible { transform: none; }
+  .cases li:focus-visible,
+  .case-card:hover,
+  .case-card:focus-within { transform: none; }
 }
 
 /* ---- scroll-reveal (progressive enhancement, see landing-reveal.ts) ----
@@ -710,4 +712,165 @@ body::before {
   .table-wrap thead th, .table-wrap tbody th[scope="row"] { background: #eee; }
   section, .card, .table-wrap, .cite-block { break-inside: avoid; }
   footer { border-top: 1px solid #999; }
+}
+
+/* ============================================================
+   REDESIGN 2026-08 — "European Algorithmic Incidents Bureau"
+   Componenti della homepage investigativa. Nessuna libreria:
+   grid/flex nativi, animazioni solo su transform/opacity, tutte
+   disattivate da prefers-reduced-motion (blocco in fondo al file).
+   ============================================================ */
+
+/* --- riga di stato tipo timbro d'archivio --- */
+.filestamp {
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--amber);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--amber);
+  padding: .35rem .7rem;
+  display: inline-block;
+}
+
+/* --- hero investigativo --- */
+.hero-investigation .wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 2.2rem;
+  align-items: start;
+}
+.hero-investigation h1 {
+  /* tarato per non superare tre righe a 1440px: la CTA deve restare alta */
+  font-size: clamp(1.9rem, 3.4vw, 2.7rem);
+  line-height: 1.1;
+  letter-spacing: -.015em;
+  margin: .6rem 0 .9rem;
+  max-width: 20ch;
+}
+.hero-investigation .lead { max-width: 44ch; font-size: 1rem; }
+.hero-investigation .callout { margin-top: 1.1rem; font-size: .88rem; }
+.hero-investigation .hero-shot { position: sticky; top: 5.5rem; }
+.hero-meta {
+  font-size: .74rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin: 1.2rem 0;
+}
+.hero-meta span::after { content: " · "; color: var(--line); }
+.hero-meta span:last-child::after { content: ""; }
+.hero-shot { position: relative; margin: 0; }
+.hero-shot img {
+  width: 100%; height: auto; display: block;
+  border: 1px solid var(--line);
+}
+.hero-shot figcaption {
+  position: absolute; left: 0; bottom: 0;
+  background: var(--carbon);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--amber);
+  font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+  padding: .3rem .6rem; color: var(--ink-dim);
+}
+
+/* --- il ciclo investigativo in sei passi --- */
+.loop-steps {
+  list-style: none; padding: 0; margin: 1.5rem 0 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1px; background: var(--line); border: 1px solid var(--line);
+}
+.loop-steps li {
+  background: var(--carbon-2);
+  padding: 1rem;
+  transition: background .18s ease;
+}
+.loop-steps li:hover, .loop-steps li:focus-within { background: var(--panel); }
+.loop-steps .step-n {
+  display: block; font-size: .7rem; letter-spacing: .16em;
+  color: var(--amber); margin-bottom: .4rem;
+}
+.loop-steps b { display: block; font-size: .92rem; letter-spacing: .04em; }
+.loop-steps span.step-d { display: block; margin-top: .3rem; font-size: .84rem; color: var(--ink-dim); }
+
+/* --- i quattro esiti del rapporto --- */
+.outcomes {
+  list-style: none; padding: 0;
+  display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.2rem 0 0;
+}
+.outcomes li {
+  font-size: .74rem; letter-spacing: .12em; text-transform: uppercase;
+  padding: .4rem .8rem; border: 1px solid var(--line);
+}
+.outcomes .o-ok { color: var(--ok); border-color: var(--ok); }
+.outcomes .o-part { color: var(--amber); border-color: var(--amber); }
+.outcomes .o-weak { color: var(--accent); border-color: var(--accent); }
+.outcomes .o-bad { color: var(--alert-text); border-color: var(--alert-text); }
+
+/* --- indicatori della città --- */
+.metrics { list-style: none; padding: 0; margin: 1.4rem 0 0; display: grid; gap: .9rem; }
+.metrics li { display: grid; grid-template-columns: minmax(140px, 200px) 1fr; gap: 1rem; align-items: center; }
+.metrics .m-name { font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-dim); }
+.metrics .m-bar { height: 8px; background: var(--carbon-2); border: 1px solid var(--line); position: relative; }
+.metrics .m-bar i {
+  display: block; height: 100%; background: var(--accent);
+  transform-origin: left; animation: m-grow .9s ease-out both;
+}
+.metrics .m-bar.is-alert i { background: var(--amber); }
+@keyframes m-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+.endings { list-style: none; padding: 0; margin: 1.4rem 0 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+.endings li {
+  font-size: .76rem; letter-spacing: .12em; text-transform: uppercase;
+  border: 1px dashed var(--line); padding: .45rem .85rem; color: var(--ink-dim);
+}
+
+/* --- griglia dei fascicoli --- */
+.case-grid {
+  list-style: none; padding: 0; margin: 1.6rem 0 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;
+}
+.case-card {
+  border: 1px solid var(--line); background: var(--carbon-2);
+  padding: 1.1rem; display: flex; flex-direction: column; gap: .5rem;
+  transition: border-color .18s ease, transform .18s ease;
+}
+.case-card:hover, .case-card:focus-within { border-color: var(--accent); transform: translateY(-2px); }
+.case-card .c-head { display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; }
+.case-card .file-id { font-size: .72rem; letter-spacing: .14em; color: var(--amber); }
+.case-card .c-status { font-size: .66rem; letter-spacing: .12em; color: var(--ok); }
+.case-card b { font-size: 1.02rem; line-height: 1.25; }
+.case-card .c-sector { font-size: .78rem; color: var(--ink-dim); }
+.case-card .c-tag {
+  align-self: flex-start; font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
+  border: 1px solid var(--line); padding: .2rem .5rem; color: var(--accent);
+}
+.case-card .c-tag.is-prohibited { color: var(--alert-text); border-color: var(--alert-text); }
+.case-card .desc { font-size: .86rem; color: var(--ink-dim); }
+
+/* --- citazione stampa --- */
+.press-quote {
+  border: 1px solid var(--line); border-left: 3px solid var(--amber);
+  background: var(--carbon-2); padding: 1.4rem; margin: 1.4rem 0 0;
+}
+.press-quote blockquote { margin: 0; font-size: 1.12rem; line-height: 1.5; }
+.press-quote figcaption { margin-top: .8rem; font-size: .82rem; color: var(--ink-dim); }
+.press-quote .p-outlet { color: var(--ink); letter-spacing: .06em; text-transform: uppercase; font-size: .76rem; }
+
+/* --- fasce a due colonne (open source / local first) --- */
+.split-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.4rem; margin-top: 1.4rem; }
+.split-two h3 { font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); margin: 0 0 .6rem; }
+
+/* --- modalità d'aula --- */
+.teach-modes { list-style: none; padding: 0; margin: 1.4rem 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.teach-modes li { border: 1px solid var(--line); padding: 1rem; }
+.teach-modes .t-time { display: block; font-size: 1.5rem; letter-spacing: -.02em; color: var(--amber); }
+
+/* --- CTA finale --- */
+.final-cta { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--carbon-2); }
+.final-cta h2 { font-size: clamp(1.6rem, 4vw, 2.6rem); margin: .4rem 0 .6rem; }
+
+@media (max-width: 860px) {
+  .hero-investigation .wrap { grid-template-columns: 1fr; }
+  .metrics li { grid-template-columns: 1fr; gap: .3rem; }
 }

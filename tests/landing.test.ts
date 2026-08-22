@@ -142,7 +142,9 @@ describe('public landing — accessibility & content', () => {
     it(`${name} lists all ${PLAYABLE_CASES} cases`, () => {
       // Derived, never hardcoded: this assertion used to pin 11 and so actively
       // held the landings at 11 cards while the prose (and the game) said 13.
-      const items = [...html.matchAll(/<li><span class="file-id">/g)];
+      // conta le card, non la forma del tag: dopo il redesign il <li> porta una
+      // classe, e l'asserzione riguarda quante schede ci sono, non il markup
+      const items = [...html.matchAll(/<li[^>]*><span class="file-id">/g)];
       expect(items.length).toBe(PLAYABLE_CASES);
     });
 
