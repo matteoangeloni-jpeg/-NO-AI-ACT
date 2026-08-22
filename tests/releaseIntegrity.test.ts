@@ -308,3 +308,45 @@ describe('release/tag truthfulness — planned vs actually tagged', () => {
     expect(doc).toContain('fix/v2-release-integrity');
   });
 });
+
+/**
+ * Repository hygiene: two defects that CI could not see, because both lived
+ * in files nothing imported.
+ *
+ * A second `llms.txt` sat in the repository root, superseded by
+ * `public/llms.txt` (the only one Vite copies into `dist/`) and frozen at an
+ * early revision: it still claimed 11 cases and linked three English pages
+ * that no longer exist. Every llms.txt assertion in this suite reads the
+ * public copy, so the fossil drifted for free while looking authoritative to
+ * anyone — human or model — reading the repository.
+ *
+ * A screenshot helper was committed by accident with an absolute path from
+ * the machine that produced it, so it could only ever run there.
+ */
+describe('no unreferenced file can drift out of sync', () => {
+  const walk = (dir: string): string[] =>
+    readdirSync(resolve(root, dir), { withFileTypes: true }).flatMap((e) =>
+      e.isDirectory() ? walk(join(dir, e.name)) : [join(dir, e.name)],
+    );
+
+  it('exactly one llms.txt exists, and it is the one that ships', () => {
+    const copies = ['llms.txt', 'public/llms.txt', 'src/llms.txt'].filter((p) =>
+      existsSync(resolve(root, p)),
+    );
+    expect(copies, 'a duplicate llms.txt silently stops being maintained').toEqual([
+      'public/llms.txt',
+    ]);
+  });
+
+  it('committed scripts contain no absolute path from an authoring machine', () => {
+    const offenders = walk('scripts')
+      .filter((p) => /\.(mjs|js|ts)$/.test(p))
+      .flatMap((p) => {
+        const hits = read(p).match(/['"`]\/(?:tmp|home|Users)\/[^'"`]+/g) ?? [];
+        return hits.map((h) => `${p}: ${h}`);
+      });
+    expect(offenders, 'hardcode a path here and the script runs on one machine only').toEqual(
+      [],
+    );
+  });
+});
