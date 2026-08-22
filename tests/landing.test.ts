@@ -1,6 +1,9 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { CASES as PLAYABLE_CASE_LIST } from '../src/game/data/cases';
+
+const PLAYABLE_CASES = PLAYABLE_CASE_LIST.length;
 import { languageFromQuery } from '../src/game/i18n';
 
 const root = resolve(__dirname, '..');
@@ -136,9 +139,11 @@ describe('public landing — accessibility & content', () => {
       expect(html).toContain('<footer');
     });
 
-    it(`${name} lists all 11 cases`, () => {
+    it(`${name} lists all ${PLAYABLE_CASES} cases`, () => {
+      // Derived, never hardcoded: this assertion used to pin 11 and so actively
+      // held the landings at 11 cards while the prose (and the game) said 13.
       const items = [...html.matchAll(/<li><span class="file-id">/g)];
-      expect(items.length).toBe(11);
+      expect(items.length).toBe(PLAYABLE_CASES);
     });
 
     it(`${name} renders 6+ FAQ details in the page body`, () => {
