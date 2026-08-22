@@ -25,8 +25,14 @@ const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
 const cfg = JSON.parse(read('release.config.json'));
 const N: number = cfg.playableCases;
 
-/** Legacy dirs that are tracked but never built or shipped (no vite input). */
-const UNSHIPPED = ['about-us', 'en/about-us', 'en/changelog', 'en/research-methodology', 'it'];
+/**
+ * Dirs tracked but never built (no vite input). Emptied in the 2026-08 hygiene
+ * pass: the eight unshipped drafts were deleted rather than kept excluded,
+ * because unbuilt pages that still carry self-canonicals and index,follow are
+ * one vite.config edit away from shipping — and those particular ones carried
+ * wrong penalty articles and no legal disclaimer.
+ */
+const UNSHIPPED: string[] = [];
 
 function shippedHtml(base: string): string[] {
   const out: string[] = [];
