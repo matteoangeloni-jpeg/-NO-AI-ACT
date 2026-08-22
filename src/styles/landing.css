@@ -5,6 +5,7 @@
  */
 
 :root {
+  color-scheme: dark;
   --carbon: #0a1020;
   --carbon-2: #111a2e;
   --panel: #141d33;
@@ -12,8 +13,8 @@
   --ink-dim: #aab6cc;
   --amber: #d9a521;
   --amber-dim: #b4861a;
-  --accent: #5d7fb8;
-  --line: #2a3650;
+  --accent: #7d9ad0;
+  --line: #4f6084;
   --danger: #c75b54;
   --ok: #6fae6a;
   --maxw: 980px;
@@ -25,6 +26,8 @@
 
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
+  /* la topbar è sticky: senza questo ogni ancora del TOC atterra sotto la barra */
+  html { scroll-padding-top: 5rem; }
 }
 
 body {
@@ -125,6 +128,13 @@ a:hover { color: #8fa9d6; }
 }
 .nav-menu > li { position: relative; }
 .nav-menu a,
+/* .is-current è sul markup di 30 pulsanti dalla v1.1 ma non aveva regola:
+   su una pagina di terzo livello non c'era alcun segnale visibile di dove sei */
+.nav-sub-btn.is-current {
+  color: var(--amber);
+  border-bottom: 2px solid var(--amber);
+}
+
 .nav-sub-btn {
   display: inline-block;
   color: var(--ink-dim);
@@ -304,7 +314,7 @@ section h2 .num {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1rem;
 }
 .card {
@@ -315,6 +325,7 @@ section h2 .num {
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 .card:hover,
+.card:focus-within,
 .card:focus-visible {
   transform: translateY(-2px);
   border-color: var(--accent);
@@ -360,7 +371,7 @@ a.card:hover h3 { color: var(--accent); }
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 0.6rem;
 }
 .start-grid li {
@@ -461,7 +472,7 @@ a.card:hover h3 { color: var(--accent); }
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 0.6rem;
 }
 .cases li {
@@ -473,6 +484,7 @@ a.card:hover h3 { color: var(--accent); }
   transition: transform 180ms ease, border-left-color 180ms ease, box-shadow 180ms ease;
 }
 .cases li:hover,
+.cases li:focus-within,
 .cases li:focus-visible {
   transform: translateY(-2px);
   border-left-color: var(--amber);
