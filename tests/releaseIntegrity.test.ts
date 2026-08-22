@@ -104,6 +104,20 @@ describe('case-count consistency — built dist (when present)', () => {
   });
 });
 
+describe('the landings ENUMERATE as many cases as they claim', () => {
+  // The 2.0 repair fixed every textual "11 cases" claim but nobody counted the
+  // actual case cards: the landings kept listing 11 while the FAQ right below
+  // said thirteen. A prose guard cannot catch that — this one counts the list.
+  for (const [page, marker] of [['index.html', 'FASC\\.'], ['en/index.html', 'FILE']] as const) {
+    it(`${page}: the case list has exactly ${N} entries`, () => {
+      const ids = [...read(page).matchAll(new RegExp(`class="file-id">${marker} (\\d+)<`, 'g'))].map(([, n]) => Number(n));
+      expect(ids.length, `enumerated cards on ${page}`).toBe(N);
+      // and they are numbered 1..N with no gaps, so a card cannot go missing silently
+      expect(ids).toEqual(Array.from({ length: N }, (_, i) => i + 1));
+    });
+  }
+});
+
 describe('FAQ integrity — JSON-LD answers equal the visible answers', () => {
   const FAQ_PAGES = ['index.html', 'en/index.html', 'per-docenti/index.html',
     'en/for-educators/index.html', 'privacy-by-design/index.html', 'en/privacy-by-design/index.html', 'en/faq/index.html'];
