@@ -6,7 +6,7 @@
 [![Contenuti: CC BY-SA 4.0](https://img.shields.io/badge/contenuti-CC%20BY--SA%204.0-5d7fb8)](LICENSE)
 [![Stack](https://img.shields.io/badge/stack-TypeScript%20%2B%20Phaser%203%20%2B%20Vite-101a30)](#stack)
 [![Test](https://img.shields.io/badge/test-Vitest-d9a521)](tests/)
-[![Stato](https://img.shields.io/badge/stato-v2.0.0-3fa66a)](#stato-release)
+[![Stato](https://img.shields.io/badge/stato-v2.1.0-3fa66a)](#stato-release)
 [![Lingue](https://img.shields.io/badge/lingue-IT%20%2B%20EN-d8d6cd)](#lingue)
 
 **Serious game investigativo sull'AI Act europeo · browser, zero asset esterni, salvataggio locale**
@@ -51,7 +51,7 @@ Questo gioco **non costituisce consulenza legale**.
 | **Lingue** | Italiano / English |
 | **Account / dati** | Nessun account, nessun dato personale, nessun backend |
 
-## Stato attuale del codice (v2.0.0, su `main`)
+## Stato attuale del codice (v2.1.0, su `main`)
 
 La 2.0 trasforma il progetto in un prodotto educativo e di ricerca più
 solido: modello di apprendimento tipizzato e matrice legale machine-readable,
@@ -61,7 +61,7 @@ lettura semantico + percorso completo da tastiera, 2 nuovi casi (polizia
 predittiva, punteggio antifrode welfare → 13 totali), infrastruttura di
 citazione (CITATION.cff, pagine come citare/ricerca/press kit), sistema SEO
 con audit in CI e 4 nuove coppie di pagine IT/EN (56 URL pubblici). Dettagli:
-`docs/RELEASE_NOTES_v2.0.0.md`; metadati correnti: `release.config.json`.
+`docs/RELEASE_NOTES_v2.1.0.md`; metadati correnti: `release.config.json`.
 
 ## Novità in v1.0.0 — Prima release pubblica stabile (storico)
 
@@ -355,12 +355,13 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 Fonte machine-readable: [`release.config.json`](release.config.json)
 (coerenza garantita da test automatici).
+Note di rilascio: [`docs/RELEASE_NOTES_v2.1.0.md`](docs/RELEASE_NOTES_v2.1.0.md).
 
-- **Versione**: v2.0.0 (codice su `main`; fonte: `package.json`)
-- **Tag della versione**: `v2.0.0` — **pubblicato** il 2026-07-26
-- **Ultima release effettivamente taggata**: `v2.0.0`
+- **Versione**: v2.1.0 (codice su `main`; fonte: `package.json`)
+- **Tag della versione**: `v2.1.0` — **non ancora pubblicato**
+- **Ultima release effettivamente taggata**: `v2.0.0` (pubblicata il 2026-07-26)
 - **Nota**: il tag `v2.0.0` punta a un commit precedente; `main` contiene
-  modifiche successive non ancora incluse in una release
+  le modifiche della v2.1.0, non ancora incluse in una release pubblicata
 - **Casi giocabili**: 13
 - **Lingue**: italiano e inglese
 - **URL pubblici**: 56 (26 IT + 30 EN)
