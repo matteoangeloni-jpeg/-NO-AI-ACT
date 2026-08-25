@@ -329,7 +329,7 @@ struttura fra i dizionari (predisposto per FR/ES).
   aggiuntive (struttura i18n predisposta per FR/ES).
 
 **✅ v1.0.0 — Prima release pubblica stabile (storico; nessun tag `v1.0.0`
-pubblicato — ultima release taggata: `v0.6.0`)**
+è mai stato pubblicato)**
 - Landing SEO/content pack IT/EN, visual bug pass pre-playtest, versioning e
   documentazione di release. Contenuti di gioco invariati rispetto alla v0.6.
   Dettagli: [`docs/RELEASE_NOTES_v1.0.0.md`](docs/RELEASE_NOTES_v1.0.0.md).
@@ -357,8 +357,10 @@ Fonte machine-readable: [`release.config.json`](release.config.json)
 (coerenza garantita da test automatici).
 
 - **Versione**: v2.0.0 (codice su `main`; fonte: `package.json`)
-- **Tag pianificato**: `v2.0.0` — **non ancora pubblicato**
-- **Ultima release effettivamente taggata**: `v0.6.0`
+- **Tag della versione**: `v2.0.0` — **pubblicato** il 2026-07-26
+- **Ultima release effettivamente taggata**: `v2.0.0`
+- **Nota**: il tag `v2.0.0` punta a un commit precedente; `main` contiene
+  modifiche successive non ancora incluse in una release
 - **Casi giocabili**: 13
 - **Lingue**: italiano e inglese
 - **URL pubblici**: 56 (26 IT + 30 EN)
@@ -439,8 +441,8 @@ learning and accessibility. Three difficulty modes, mission paths, IT/EN.
 No account, no backend, no personal-data collection, no network calls during
 gameplay: every graphic and sound is generated procedurally, saves stay in
 `localStorage`. **Teacher mode** is local debrief support only, with on-device
-`.txt`/`.json` exports. Version **2.0.0** code is on `main`; the `v2.0.0` tag
-is **not yet published**. Educational simplification of the AI Act — not legal
+`.txt`/`.json` exports. Version **2.0.0** is tagged and published; `main` carries later
+changes not yet in a release. Educational simplification of the AI Act — not legal
 advice. Its educational effectiveness has **not yet been empirically
 validated**. Code: MIT · narrative and didactic content: CC BY 4.0.
 

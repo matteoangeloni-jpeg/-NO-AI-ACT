@@ -260,23 +260,29 @@ describe('README current-state truthfulness (release closure)', () => {
   it('the Stato release section references the current release notes, not v1.0.0', () => {
     const m = readme.match(/## <a name="stato-release"><\/a>Stato release([\s\S]*?)(?=\n## |$)/);
     expect(m, 'Stato release section present').toBeTruthy();
-    expect(m![1]).toContain(`RELEASE_NOTES_${cfg.plannedReleaseTag}.md`);
+    expect(m![1]).toContain(`RELEASE_NOTES_${cfg.versionTag}.md`);
     expect(m![1]).not.toContain('RELEASE_NOTES_v1.0.0.md');
     expect(m![1]).toContain('OWNER_ACTIONS_2_0.md');
   });
 
-  it('v2.0.0 is never stated as already tagged, released, published or live', () => {
+  it('the README never contradicts the real release state', () => {
+    // Questo test nasce al contrario: impediva di dire che v2.0.0 era
+    // pubblicato quando non lo era. Il tag e la release esistono dal
+    // 2026-07-26, quindi ora impedisce l'affermazione opposta.
+    const published = cfg.versionTag === cfg.lastTaggedRelease;
     const offenders: string[] = [];
     for (const line of lines) {
-      if (/v2\.0\.0/.test(line) && /\b(taggat\w+|rilasciat\w+|pubblicat\w+|tagged|released|published|live)\b/i.test(line)) {
-        if (!/non ancora|not yet|previsto|planned|pending|nessun tag/i.test(line)) offenders.push(line.trim());
-      }
+      if (!new RegExp(cfg.versionTag.replace(/\./g, '\\.')).test(line)) continue;
+      const claimsPublished = /\b(taggat\w+|rilasciat\w+|pubblicat\w+|tagged|released|published|live)\b/i.test(line);
+      const claimsPending = /non ancora|not yet|previsto|planned|pending|nessun tag/i.test(line);
+      if (published && claimsPending) offenders.push(`dice non pubblicato: ${line.trim()}`);
+      if (!published && claimsPublished && !claimsPending) offenders.push(`dice pubblicato: ${line.trim()}`);
     }
     expect(offenders, offenders.join('\n')).toEqual([]);
   });
 
   it('the current-state list derives from release.config.json', () => {
-    expect(readme).toContain(`**Tag pianificato**: \`${cfg.plannedReleaseTag}\` — **non ancora pubblicato**`);
+    expect(readme).toContain(`**Tag della versione**: \`${cfg.versionTag}\` — **pubblicato**`);
     expect(readme).toContain(`**Casi giocabili**: ${N}`);
     expect(readme).toContain(`**URL pubblici**: ${cfg.publicUrls.total} (${cfg.publicUrls.it} IT + ${cfg.publicUrls.en} EN)`);
     expect(readme).toContain('**DOI**: non ancora disponibile');
@@ -285,20 +291,24 @@ describe('README current-state truthfulness (release closure)', () => {
   });
 });
 
-describe('release/tag truthfulness — planned vs actually tagged', () => {
-  it('config separates package version, planned tag and last actually tagged release', () => {
+describe('release/tag truthfulness — il tag della versione e ciò che è davvero taggato', () => {
+  it('la config nomina il tag di questa versione e l\'ultimo che esiste davvero', () => {
     const pkg = JSON.parse(read('package.json'));
-    expect(cfg.plannedReleaseTag).toBe(`v${pkg.version}`);
+    expect(cfg.versionTag).toBe(`v${pkg.version}`);
     expect(cfg.lastTaggedRelease).toBeTruthy();
-    expect(cfg.lastTaggedRelease).not.toBe(cfg.plannedReleaseTag);
   });
 
-  it('while the planned tag is unpublished, no doc links it as an existing release', () => {
-    for (const p of ['public/llms.txt', 'README.md']) {
-      expect(read(p), `${p} must not claim releases/tag/${cfg.plannedReleaseTag}`)
-        .not.toContain(`releases/tag/${cfg.plannedReleaseTag}`);
-    }
+  it('i documenti linkano il tag che esiste, mai uno che non esiste', () => {
+    // Finché versionTag non è pubblicato i due differiscono e nessun documento
+    // deve spacciarlo per una release esistente. Quando coincidono, è pubblicato
+    // e linkarlo è corretto — è lo stato in cui siamo dal 2026-07-26.
     expect(read('public/llms.txt')).toContain(`releases/tag/${cfg.lastTaggedRelease}`);
+    if (cfg.versionTag !== cfg.lastTaggedRelease) {
+      for (const p of ['public/llms.txt', 'README.md']) {
+        expect(read(p), `${p} non deve rivendicare releases/tag/${cfg.versionTag}`)
+          .not.toContain(`releases/tag/${cfg.versionTag}`);
+      }
+    }
   });
 
   it('owner actions no longer hardcode the superseded tag target 9905338', () => {
