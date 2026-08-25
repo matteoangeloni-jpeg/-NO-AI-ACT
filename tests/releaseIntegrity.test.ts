@@ -282,7 +282,10 @@ describe('README current-state truthfulness (release closure)', () => {
   });
 
   it('the current-state list derives from release.config.json', () => {
-    expect(readme).toContain(`**Tag della versione**: \`${cfg.versionTag}\` — **pubblicato**`);
+    const published = cfg.versionTag === cfg.lastTaggedRelease;
+    expect(readme).toContain(
+      `**Tag della versione**: \`${cfg.versionTag}\` — **${published ? 'pubblicato' : 'non ancora pubblicato'}**`
+    );
     expect(readme).toContain(`**Casi giocabili**: ${N}`);
     expect(readme).toContain(`**URL pubblici**: ${cfg.publicUrls.total} (${cfg.publicUrls.it} IT + ${cfg.publicUrls.en} EN)`);
     expect(readme).toContain('**DOI**: non ancora disponibile');

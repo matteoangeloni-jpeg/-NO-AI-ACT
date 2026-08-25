@@ -324,16 +324,22 @@ describe('game-to-site navigation', () => {
 // ============================ version consistency ============================
 
 describe('version display consistency', () => {
-  it('every public footer shows v2.0.0 and none shows a stale version', () => {
+  it('every public footer shows the current version and none shows a stale one', () => {
+    // La versione si legge da package.json: scritta a mano qui, il test
+    // sarebbe rimasto fermo alla versione precedente a ogni rilascio.
+    const version = `v${JSON.parse(read('package.json')).version}`;
     for (const d of ALL_PUBLIC) {
       const html = read(file(d));
       expect(html, `${d} still shows v1.0.0`).not.toContain('v1.0.0');
       expect(html, `${d} still shows v1.1.0`).not.toContain('v1.1.0');
-      expect(html, `${d} missing v2.0.0`).toContain('v2.0.0');
+      expect(html, `${d} missing ${version}`).toContain(version);
     }
   });
 
-  it('package.json version matches', () => {
-    expect(JSON.parse(read('package.json')).version).toBe('2.0.0');
+  it('package.json version matches the tag declared for this version', () => {
+    // Derivata da release.config.json: scritta a mano restava indietro a ogni
+    // rilascio, ed è lo stesso difetto che aveva fossilizzato v0.6.0 altrove.
+    const cfg = JSON.parse(read('release.config.json'));
+    expect(`v${JSON.parse(read('package.json')).version}`).toBe(cfg.versionTag);
   });
 });
