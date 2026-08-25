@@ -751,6 +751,13 @@ body::before {
 .hero-investigation .lead { max-width: 44ch; font-size: 1rem; }
 .hero-investigation .callout { margin-top: 1.1rem; font-size: .88rem; }
 .hero-investigation .hero-shot { position: sticky; top: 5.5rem; }
+/* Una sola schermata lasciava mezzo schermo vuoto alla destra dell'hero. La
+   seconda mostra la meccanica vera (i reperti citati) invece di riempire con
+   decorazione. Su mobile la colonna si impila: una basta. */
+.hero-shot-2 { display: none; }
+@media (min-width: 900px) {
+  .hero-shot-2 { display: block; margin-top: 1px; }
+}
 .hero-meta {
   font-size: .74rem;
   letter-spacing: .14em;
@@ -775,23 +782,34 @@ body::before {
 }
 
 /* --- il ciclo investigativo in sei passi --- */
-.loop-steps {
+/* --- il ciclo mostrato con fotogrammi reali di gioco ---
+   Sostituisce sei passi descritti a parole: la homepage raccontava il gioco
+   invece di mostrarlo. Le immagini sono catturate dal gioco vero da
+   scripts/media/capture-gameplay.mjs, non ricostruite. */
+.loop-frames {
   list-style: none; padding: 0; margin: 1.5rem 0 0;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  display: grid; grid-template-columns: 1fr;
   gap: 1px; background: var(--line); border: 1px solid var(--line);
 }
-.loop-steps li {
-  background: var(--carbon-2);
-  padding: 1rem;
-  transition: background .18s ease;
+/* Quattro fotogrammi: 2x2 invece di auto-fit, che a tre colonne lasciava una
+   cella vuota grande quanto un fotogramma. */
+@media (min-width: 720px) { .loop-frames { grid-template-columns: repeat(2, 1fr); } }
+.loop-frames li { background: var(--carbon-2); }
+.loop-frames figure { margin: 0; }
+.loop-frames picture { display: block; }
+.loop-frames img {
+  display: block; width: 100%; height: auto;
+  border-bottom: 1px solid var(--line);
+  /* i fotogrammi sono 16:9: riservare il posto evita lo slittamento del layout */
+  aspect-ratio: 16 / 9; object-fit: cover; object-position: top center;
 }
-.loop-steps li:hover, .loop-steps li:focus-within { background: var(--panel); }
-.loop-steps .step-n {
+.loop-frames figcaption { padding: 1rem; }
+.loop-frames .step-n {
   display: block; font-size: .7rem; letter-spacing: .16em;
   color: var(--amber); margin-bottom: .4rem;
 }
-.loop-steps b { display: block; font-size: .92rem; letter-spacing: .04em; }
-.loop-steps span.step-d { display: block; margin-top: .3rem; font-size: .84rem; color: var(--ink-dim); }
+.loop-frames b { display: block; font-size: .92rem; letter-spacing: .04em; }
+.loop-frames span.step-d { display: block; margin-top: .3rem; font-size: .84rem; color: var(--ink-dim); }
 
 /* --- i quattro esiti del rapporto --- */
 .outcomes {
