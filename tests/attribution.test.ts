@@ -42,10 +42,14 @@ describe('la titolarità è dichiarata una volta sola e ovunque uguale', () => {
     }
   });
 
-  it('package.json dichiara lo stesso autore', () => {
+  it('package.json dichiara lo stesso autore, per intero', () => {
     const pkg = JSON.parse(read('package.json'));
     expect(pkg.author, 'package.json senza campo author').toBeTruthy();
-    expect(holder, `LICENSE dice "${holder}", package.json dice "${pkg.author}"`).toContain(pkg.author);
+    // npm ammette "Nome <email> (url)": si confronta il nome, ma per intero.
+    // Con un confronto per sottostringa "Matteo" passerebbe come parte di
+    // "Matteo Angeloni", e il test direbbe di verificare un accordo che non verifica.
+    const name = String(pkg.author).replace(/<[^>]*>|\([^)]*\)/g, '').trim();
+    expect(name, `LICENSE dice "${holder}", package.json dice "${pkg.author}"`).toBe(holder);
   });
 
   it("l'entità collettiva non rientra da nessuna porta", () => {
