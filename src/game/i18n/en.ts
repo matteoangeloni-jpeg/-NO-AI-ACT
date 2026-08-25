@@ -489,6 +489,7 @@ export const en: Locale = {
       'all of this.\n\n' +
       'The city is waiting for you. Try not to get used to its efficiency.',
     how: 'How to play: open the exhibits, cite the evidence, classify the risk and file the report. After each decision a debrief explains the reasoning. Nothing leaves your browser: it is an educational simulation, not legal advice.',
+    ctaFirstCase: 'OPEN THE FIRST FILE',
     cta: 'ACCESS THE CIVIC MAP'
   },
 

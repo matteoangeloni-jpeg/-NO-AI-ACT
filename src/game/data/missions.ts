@@ -78,3 +78,14 @@ export function getMission(id: MissionId): MissionData {
 export function isRecommended(missionId: MissionId, caseId: string): boolean {
   return getMission(missionId).recommendedCaseIds.includes(caseId);
 }
+
+/**
+ * Caso guida del primo minuto: il singolo caso della missione 'demo'.
+ * Derivato, non riscritto a mano: se la demo cambia caso, cambia anche
+ * l'ingresso dopo il briefing, senza toccare le scene.
+ */
+export function firstCaseId(): string {
+  const id = MISSIONS.find((m) => m.id === 'demo')?.recommendedCaseIds[0];
+  if (!id) throw new Error("missions: la missione 'demo' deve indicare il caso guida");
+  return id;
+}

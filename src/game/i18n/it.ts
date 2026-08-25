@@ -487,6 +487,7 @@ export const it = {
       "la norma che — altrove, in un'altra Europa — avrebbe impedito tutto questo.\n\n" +
       'La città la sta aspettando. Cerchi di non abituarsi alla sua efficienza.',
     how: 'Come si gioca: apri i reperti, cita le prove, classifica il rischio e deposita il rapporto. Dopo ogni decisione un debrief spiega il ragionamento. Niente lascia il tuo browser: è una simulazione didattica, non consulenza legale.',
+    ctaFirstCase: 'APRI IL PRIMO FASCICOLO',
     cta: 'ACCEDI ALLA MAPPA CIVICA'
   },
 
