@@ -3,6 +3,7 @@
   "private": true,
   "version": "2.0.0",
   "description": "NO AI ACT — Simulatore di una società non regolata. Serious game investigativo sull'AI Act europeo.",
+  "author": "Matteo Angeloni",
   "type": "module",
   "scripts": {
     "dev": "vite",

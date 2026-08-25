@@ -30,7 +30,7 @@ Nessun file font è distribuito. Il gioco usa un font stack di sistema:
 
 Testi narrativi e casi investigativi: originali, scritti per questo progetto,
 rilasciati con licenza **CC BY 4.0** (vedi LICENSE, Sez. 2 — attribuzione:
-"NO AI ACT project contributors").
+"Matteo Angeloni — NO AI ACT").
 Contenuti normativi: sintesi divulgative del Regolamento (UE) 2024/1689
 (AI Act), marcate in gioco come "versione didattica semplificata".
 Nessun marchio, logo reale, volto riconoscibile o materiale di terze parti.
