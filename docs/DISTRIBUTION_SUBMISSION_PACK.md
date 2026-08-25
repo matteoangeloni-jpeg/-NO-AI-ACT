@@ -20,7 +20,7 @@ and no submission has been made unless the Status field says so.
 - **Technical requirements:** modern browser with JavaScript; no installation, no account, no plugin; works offline after load except initial fetch.
 - **Canonical URL:** https://www.no-ai-act.eu/
 - **Repository URL:** https://github.com/matteoangeloni-jpeg/-NO-AI-ACT
-- **Screenshots:** use `/press-kit/` assets (1200×630 covers + gameplay screenshots, CC BY-SA 4.0, alt text provided).
+- **Screenshots:** use `/press-kit/` assets (1200×630 covers + gameplay screenshots, CC BY 4.0 under the press exception, alt text provided).
 - **Citation:** see https://www.no-ai-act.eu/en/how-to-cite/ (CITATION.cff in repo; DOI pending Zenodo archive of 2.0).
 
 ## Per-platform notes and manual steps

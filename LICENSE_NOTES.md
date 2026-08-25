@@ -38,6 +38,10 @@ riformulazioni didattiche, non il testo ufficiale, e sono marcate
 
 ## 4. Che cosa richiede attribuzione
 
+- **Chi riusa i materiali stampa** (`/press-kit/`, `/en/press-kit/`) opera sotto
+  CC BY 4.0, senza clausola "condividi allo stesso modo": è un'eccezione voluta
+  (vedi `LICENSE`, Sezione 3) perché una redazione possa riprenderli senza
+  dover licenziare il proprio articolo. Non si estende ai casi né al codice.
 - **Chi riusa i contenuti narrativi/didattici** (CC BY-SA 4.0) deve attribuire
   "Matteo Angeloni — NO AI ACT", linkare la licenza e indicare le modifiche.
 - **Chi distribuisce la build** deve includere i notice di terze parti: il
