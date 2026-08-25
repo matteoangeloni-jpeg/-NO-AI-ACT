@@ -252,7 +252,10 @@ describe('public static files', () => {
     expect(llms).toContain(`${SITE}play/`);
     expect(llms).toContain(`${SITE}en/`);
     expect(llms).toContain('github.com/matteoangeloni-jpeg/-NO-AI-ACT');
-    expect(llms).toContain('releases/tag/v0.6.0'); // last ACTUALLY tagged; v2.0.0 only after the owner publishes it
+    // L'ultimo tag esistente si legge da release.config.json, non si scrive qui:
+    // scritto a mano è rimasto fermo a v0.6.0 mentre v2.0.0 era pubblicato da un mese.
+    const rel = JSON.parse(read('release.config.json'));
+    expect(llms).toContain(`releases/tag/${rel.lastTaggedRelease}`);
   });
 
   it('the GEO docs exist', () => {

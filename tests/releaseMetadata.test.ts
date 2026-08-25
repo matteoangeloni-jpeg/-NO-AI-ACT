@@ -80,11 +80,11 @@ describe('documentation derives from the source of truth (no drift)', () => {
   });
 
   it('the planned release tag is never presented as already published', () => {
-    // truthfulness split: package version (source of truth) vs plannedReleaseTag
+    // truthfulness split: package version (source of truth) vs versionTag
     // vs lastTaggedRelease (verified against the real remote by the owner).
-    expect(cfg.plannedReleaseTag).toBe(`v${pkg.version}`);
-    if (cfg.plannedReleaseTag !== cfg.lastTaggedRelease) {
-      expect(llms).not.toContain(`releases/tag/${cfg.plannedReleaseTag}`);
+    expect(cfg.versionTag).toBe(`v${pkg.version}`);
+    if (cfg.versionTag !== cfg.lastTaggedRelease) {
+      expect(llms).not.toContain(`releases/tag/${cfg.versionTag}`);
     }
   });
 });

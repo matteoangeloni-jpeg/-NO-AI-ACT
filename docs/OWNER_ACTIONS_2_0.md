@@ -34,6 +34,18 @@ Afterwards, update `release.config.json` `lastTaggedRelease` to "v2.0.0" (and
 the llms.txt release line) in a small PR — the repo intentionally does not
 claim the tag before it exists.
 
+> **✅ DONE — 2026-07-26.** Tag `v2.0.0` and the GitHub Release
+> "NO AI ACT v2.0.0" exist and are published (not a draft, not a
+> prerelease). The tag points at `04fe2a8` ("game: typed search filter in
+> the norm archive", #61) — a later commit than the one recommended above,
+> which is fine: it includes strictly more of the release work. The
+> `9905338` warning was respected.
+>
+> `release.config.json` and the `llms.txt` release line were aligned
+> afterwards, as this section asks. Note that `main` has since moved ahead
+> of the tag: the commits merged after `04fe2a8` are **not** part of the
+> v2.0.0 release and would need a new tag of their own.
+
 ## 2b. Live-production recovery (Cloudflare/origin) — REQUIRED
 The GitHub Pages deploys are green, `dist/` is mechanically clean (no Tally,
 no playtest strings, v2.0.0 footers), yet the public domain has been observed
