@@ -39,7 +39,7 @@ riformulazioni didattiche, non il testo ufficiale, e sono marcate
 ## 4. Che cosa richiede attribuzione
 
 - **Chi riusa i contenuti narrativi/didattici** (CC BY 4.0) deve attribuire
-  "NO AI ACT project contributors", linkare la licenza e indicare le modifiche.
+  "Matteo Angeloni — NO AI ACT", linkare la licenza e indicare le modifiche.
 - **Chi distribuisce la build** deve includere i notice di terze parti: il
   bundle contiene Phaser (MIT), il cui testo di licenza deve accompagnare le
   copie distribuite. Vite/Rollup **non** generano automaticamente un file di
