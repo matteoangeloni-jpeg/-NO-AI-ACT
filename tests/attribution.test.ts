@@ -27,8 +27,10 @@ describe('la titolarità è dichiarata una volta sola e ovunque uguale', () => {
   it('LICENSE nomina un titolare, e lo stesso in entrambe le sezioni', () => {
     expect(holder, 'intestazione di LICENSE non leggibile').not.toBe('');
     const holders = [...license.matchAll(/^Copyright \(c\) \d{4} (.+)$/gm)].map(([, h]) => h.trim());
-    expect(holders.length, 'LICENSE deve intestare il copyright in entrambe le sezioni').toBe(2);
-    expect(new Set(holders).size, `due titolari diversi: ${holders.join(' / ')}`).toBe(1);
+    expect(holders.length, 'LICENSE deve intestare il copyright almeno una volta').toBeGreaterThanOrEqual(1);
+    // L'invariante è un solo titolare ovunque compaia, non un numero fisso di
+    // righe: la MIT ne ripeteva una propria, la GPL no.
+    expect(new Set(holders).size, `titolari diversi: ${holders.join(' / ')}`).toBe(1);
   });
 
   it("la stringa di attribuzione CC BY nomina il titolare", () => {

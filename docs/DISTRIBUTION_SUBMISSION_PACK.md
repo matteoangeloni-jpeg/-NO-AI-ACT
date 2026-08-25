@@ -9,9 +9,9 @@ and no submission has been made unless the Status field says so.
 
 - **Title:** NO AI ACT — Simulatore di una società non regolata / Simulator of an unregulated society
 - **Short description (≤160 chars, EN):** Free, open-source browser serious game about the EU AI Act: investigate AI incident case files, classify risk, file inspection reports. IT/EN, no account.
-- **Long description (EN):** NO AI ACT is a free, open-source, browser-based investigative serious game about the European AI Act (Regulation (EU) 2024/1689). Players act as an inspector in a fictional 2032 city where the AI Act never entered into force: they open case files on AI systems (social scoring, workplace monitoring, deepfakes, predictive healthcare, biometrics, credit scoring, chatbots, procurement, adaptive education platforms, GPAI), examine evidence, classify risk, assign responsibility and corrective measures, and watch city indicators respond. A local teacher mode adds discussion pauses and an anonymous classroom debrief. Bilingual IT/EN, no account, no backend, no personal-data collection; gameplay makes no network requests. Code MIT, educational content CC BY 4.0. Educational effectiveness has not yet been empirically validated.
+- **Long description (EN):** NO AI ACT is a free, open-source, browser-based investigative serious game about the European AI Act (Regulation (EU) 2024/1689). Players act as an inspector in a fictional 2032 city where the AI Act never entered into force: they open case files on AI systems (social scoring, workplace monitoring, deepfakes, predictive healthcare, biometrics, credit scoring, chatbots, procurement, adaptive education platforms, GPAI), examine evidence, classify risk, assign responsibility and corrective measures, and watch city indicators respond. A local teacher mode adds discussion pauses and an anonymous classroom debrief. Bilingual IT/EN, no account, no backend, no personal-data collection; gameplay makes no network requests. Code GPL-3.0-or-later, educational content CC BY-SA 4.0. Educational effectiveness has not yet been empirically validated.
 - **Languages:** Italian, English
-- **Licence:** Code MIT; educational/narrative content CC BY 4.0
+- **Licence:** Code GPL-3.0-or-later; educational/narrative content CC BY-SA 4.0
 - **Audience:** secondary school (upper), university, adult/professional training, self-learners
 - **Learning-resource type:** serious game / interactive simulation / lesson component
 - **Subject:** EU AI Act; AI regulation; AI literacy; digital citizenship; law & technology education
@@ -20,14 +20,14 @@ and no submission has been made unless the Status field says so.
 - **Technical requirements:** modern browser with JavaScript; no installation, no account, no plugin; works offline after load except initial fetch.
 - **Canonical URL:** https://www.no-ai-act.eu/
 - **Repository URL:** https://github.com/matteoangeloni-jpeg/-NO-AI-ACT
-- **Screenshots:** use `/press-kit/` assets (1200×630 covers + gameplay screenshots, CC BY 4.0, alt text provided).
+- **Screenshots:** use `/press-kit/` assets (1200×630 covers + gameplay screenshots, CC BY-SA 4.0, alt text provided).
 - **Citation:** see https://www.no-ai-act.eu/en/how-to-cite/ (CITATION.cff in repo; DOI pending Zenodo archive of 2.0).
 
 ## Per-platform notes and manual steps
 
 ### OER Commons (oercommons.org)
 - Resource type: Game / Interactive; Grade: High School–Postsecondary; Subject: Social Sciences → Law, Computer Science.
-- Steps (owner): create account → Contribute → "Add a link" → paste canonical URL + shared metadata → set licence CC BY 4.0 (content) with note that code is MIT → attach 2 screenshots.
+- Steps (owner): create account → Contribute → "Add a link" → paste canonical URL + shared metadata → set licence CC BY-SA 4.0 (content) with note that code is GPL-3.0-or-later → attach 2 screenshots.
 - **Status:** NOT submitted.
 
 ### MERLOT (merlot.org)

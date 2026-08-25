@@ -14,8 +14,8 @@ abstract: >-
   and file inspection reports, while city indicators respond to their
   decisions. The game is bilingual (Italian/English), requires no account,
   runs entirely in the browser, performs no gameplay network requests and
-  collects no personal data. Game code is MIT-licensed; educational and
-  narrative content is CC BY 4.0. Educational effectiveness has not yet been
+  collects no personal data. Game code is GPL-3.0-licensed; educational and
+  narrative content is CC BY-SA 4.0. Educational effectiveness has not yet been
   empirically validated; the game is an educational simplification, not
   legal advice.
 authors:
@@ -25,7 +25,7 @@ version: 2.0.0
 date-released: "2026-07-18"
 repository-code: "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"
 url: "https://www.no-ai-act.eu/"
-license: MIT
+license: GPL-3.0-or-later
 keywords:
   - AI Act
   - Regulation (EU) 2024/1689

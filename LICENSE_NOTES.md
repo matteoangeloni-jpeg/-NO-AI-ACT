@@ -10,7 +10,7 @@ script. Comprende anche i **generatori procedurali** in
 `src/game/assets/procedural/` e la sintesi audio in `AudioSystem.ts`:
 sono codice, e gli output che producono a runtime sono opere del progetto.
 
-**Licenza adottata: MIT** (vedi `LICENSE`, Sezione 1). Vale per codice,
+**Licenza adottata: GPL-3.0-or-later** (vedi `LICENSE`, Sezione 1). Vale per codice,
 sistemi, generatori procedurali, componenti UI, configurazione tecnica,
 script e test.
 
@@ -29,7 +29,7 @@ font). Tutta la grafica e tutto l'audio sono generati a runtime dal codice
 
 I testi dei casi, gli indizi, le note investigative, i finali e i testi delle
 carte norma (`src/game/data/`) sono opere narrative/didattiche originali del
-progetto, rilasciate con **licenza CC BY 4.0** (vedi `LICENSE`, Sezione 2),
+progetto, rilasciate con **licenza CC BY-SA 4.0** (vedi `LICENSE`, Sezione 2),
 così come la documentazione didattica. Le **carte norma** contengono sintesi divulgative del Regolamento
 (UE) 2024/1689: i testi normativi ufficiali dell'Unione europea sono
 riutilizzabili (decisione 2011/833/UE), ma le sintesi qui presenti sono
@@ -38,7 +38,7 @@ riformulazioni didattiche, non il testo ufficiale, e sono marcate
 
 ## 4. Che cosa richiede attribuzione
 
-- **Chi riusa i contenuti narrativi/didattici** (CC BY 4.0) deve attribuire
+- **Chi riusa i contenuti narrativi/didattici** (CC BY-SA 4.0) deve attribuire
   "Matteo Angeloni — NO AI ACT", linkare la licenza e indicare le modifiche.
 - **Chi distribuisce la build** deve includere i notice di terze parti: il
   bundle contiene Phaser (MIT), il cui testo di licenza deve accompagnare le

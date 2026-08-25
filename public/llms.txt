@@ -14,7 +14,7 @@
 - Status: public release
 - Languages: Italian (default) and English — game and educational hub
 - Audience: teachers and trainers, upper-secondary and university students, researchers, professionals working with AI governance
-- Pricing: free and open source (MIT code, CC BY 4.0 educational content)
+- Pricing: free and open source, copyleft (GPL-3.0-or-later code, CC BY-SA 4.0 educational content; up to v2.0.0 it was MIT + CC BY 4.0)
 - 13 playable cases; 56 public educational pages
 - Every public page shares a global navigation (Play · Education/Resources · Teachers · AI Act guide · Glossary · Privacy · language switch); the game and the education hub are reachable from every page, and the game links back to the site.
 - Best entry points: the two landing pages and the two education hubs, each of which opens with a "Start here" chooser (play now / teachers / students / AI Act guide / glossary / privacy).

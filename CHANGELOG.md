@@ -1,5 +1,22 @@
 # CHANGELOG — NO AI ACT
 
+## [Non rilasciato]
+
+### Changed
+- **Licenze, dalla versione successiva a v2.0.0**: il codice passa da MIT a
+  **GPL-3.0-or-later**, i contenuti narrativi e didattici da CC BY 4.0 a
+  **CC BY-SA 4.0**. Entrambe sono copyleft: chi modifica e ridistribuisce deve
+  mantenere aperto il risultato, e nessuno può includere questo lavoro in un
+  prodotto proprietario chiuso. Uso, gioco e adozione in aula restano liberi e
+  senza obblighi.
+- Il testo integrale della GPL è in `LICENSES/GPL-3.0.txt` e viene copiato nella
+  build distribuita, come richiesto dalla licenza stessa.
+- **Le versioni fino a v2.0.0 compresa restano MIT + CC BY 4.0.** I diritti già
+  concessi su quelle versioni non sono revocati e non possono esserlo: chi ne ha
+  ottenuto una copia continua a poterla usare a quelle condizioni.
+- Copyright intestato a Matteo Angeloni, autore unico secondo la cronologia del
+  repository, al posto dell'entità collettiva "NO AI ACT project contributors".
+
 ## [2.0.0] — 2026-07-18
 
 Release "research-grade": vedi `docs/RELEASE_NOTES_v2.0.0.md` per il dettaglio.
