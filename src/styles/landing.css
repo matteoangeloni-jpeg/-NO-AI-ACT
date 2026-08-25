@@ -753,9 +753,14 @@ body::before {
 .hero-investigation .hero-shot { position: sticky; top: 5.5rem; }
 /* Una sola schermata lasciava mezzo schermo vuoto alla destra dell'hero. La
    seconda mostra la meccanica vera (i reperti citati) invece di riempire con
-   decorazione. Su mobile la colonna si impila: una basta. */
+   decorazione.
+   Compare esattamente quando l'hero è a due colonne (>860px, vedi il media
+   query in fondo): il vuoto che colma esiste solo lì. Nel layout impilato la
+   figura sta già sotto la CTA e subito dopo arrivano i quattro fotogrammi del
+   ciclo, quindi una seconda immagine qui ripeterebbe ciò che il lettore sta
+   per vedere. */
 .hero-shot-2 { display: none; }
-@media (min-width: 900px) {
+@media (min-width: 861px) {
   .hero-shot-2 { display: block; margin-top: 1px; }
 }
 .hero-meta {

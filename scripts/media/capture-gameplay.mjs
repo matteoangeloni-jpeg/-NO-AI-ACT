@@ -70,14 +70,23 @@ for (const lang of ['it', 'en']) {
     return true;
   };
 
+  /**
+   * Interrompe la cattura di questa lingua se la scena attesa non arriva.
+   * Proseguire significherebbe cliccare a coordinate fisse su una scena
+   * diversa e salvare fotogrammi che non corrispondono al gioco — l'esatto
+   * contrario di ciò per cui esiste questo script.
+   */
+  class SceneTimeout extends Error {}
   const waitScene = async (key, timeout = 20000) => {
     const ok = await page.waitForFunction((k) => {
       const g = window.game; if (!g) return false;
       const a = g.scene.getScenes(true);
       return a.length > 0 && a[a.length - 1].scene.key === k;
     }, key, { timeout }).then(() => true).catch(() => false);
-    if (!ok) fail.push(`${lang}: scene "${key}" mai attiva`);
-    return ok;
+    if (!ok) {
+      const now = await page.evaluate(() => window.game?.scene.getScenes(true).map((s) => s.scene.key).join(',') ?? 'nessun gioco');
+      throw new SceneTimeout(`${lang}: scena "${key}" mai attiva (ferma su: ${now})`);
+    }
   };
 
   /** Salva il fotogramma in JPEG e in WebP. Chromium è l'encoder: niente nuove dipendenze. */
@@ -108,9 +117,10 @@ for (const lang of ['it', 'en']) {
     }
   };
 
+  try {
   await page.addInitScript(() => localStorage.clear());
   await page.goto(`${BASE}/play/?lang=${lang}`, { waitUntil: 'load' });
-  if (!(await waitScene('Title', 30000))) { await ctx.close(); continue; }
+  await waitScene('Title', 30000);
 
   await clickButton(T.newGame, 300);
   await waitScene('Briefing');
@@ -144,7 +154,10 @@ for (const lang of ['it', 'en']) {
   await waitScene('Report');
   await page.waitForTimeout(1200);
   await shot('loop-5-report');
-
+  } catch (e) {
+    if (!(e instanceof SceneTimeout)) throw e;
+    fail.push(e.message);
+  }
   await ctx.close();
 }
 await browser.close();
