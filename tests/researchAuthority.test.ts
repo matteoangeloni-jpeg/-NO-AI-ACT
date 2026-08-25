@@ -31,8 +31,12 @@ describe('CITATION.cff — valid, honest, in sync', () => {
   const cff = read('CITATION.cff');
 
   it('carries the required CFF keys', () => {
+    // La licenza si legge da release.config.json: scritta a mano qui è rimasta
+    // ferma a MIT mentre il progetto passava al copyleft.
+    const licenses = JSON.parse(read('release.config.json')).licenses;
     for (const key of ['cff-version:', 'message:', 'type: software', 'title:', 'abstract:',
-      'authors:', 'version:', 'date-released:', 'repository-code:', 'url:', 'license: MIT', 'keywords:']) {
+      'authors:', 'version:', 'date-released:', 'repository-code:', 'url:',
+      `license: ${licenses.code}`, 'keywords:']) {
       expect(cff, key).toContain(key);
     }
     expect(cff).toContain('family-names: Angeloni');

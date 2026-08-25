@@ -22,12 +22,12 @@ verificabili dal campo `license` dei rispettivi pacchetti installati.
 | Vite 5 | build tool | npm | https://vitejs.dev | MIT | dev server + build | no | approved |
 | TypeScript 5 | compilatore | npm | https://www.typescriptlang.org | Apache-2.0 | linguaggio | no | approved |
 | Vitest 2 | test runner (solo dev) | npm | https://vitest.dev | MIT | smoke test | no | approved |
-| Mappa civica | texture canvas | generata: `createCityMap.ts` | repo | MIT (codice generatore) | sfondo mappa | n/a | procedural fallback |
-| Icone luoghi/UI (9) | texture canvas | generate: `createIcons.ts` | repo | MIT (codice generatore) | marker e carte | n/a | procedural fallback |
-| Texture rumore + particelle | texture canvas | generate: `createParticles.ts` | repo | MIT (codice generatore) | overlay e fx | n/a | procedural fallback |
-| Carta dossier | texture canvas | generata: `createDossierTextures.ts` | repo | MIT (codice generatore) | sfondo fascicoli | n/a | procedural fallback |
-| Suoni UI (click, alert, errore, conferma, unlock, terminale) | sintesi Web Audio | generati: `AudioSystem.ts` | repo | MIT (codice generatore) | feedback UI | n/a | procedural fallback |
-| Drone ambientale | sintesi Web Audio | generato: `AudioSystem.ts` | repo | MIT (codice generatore) | atmosfera | n/a | procedural fallback |
+| Mappa civica | texture canvas | generata: `createCityMap.ts` | repo | GPL-3.0-or-later (codice generatore) | sfondo mappa | n/a | procedural fallback |
+| Icone luoghi/UI (9) | texture canvas | generate: `createIcons.ts` | repo | GPL-3.0-or-later (codice generatore) | marker e carte | n/a | procedural fallback |
+| Texture rumore + particelle | texture canvas | generate: `createParticles.ts` | repo | GPL-3.0-or-later (codice generatore) | overlay e fx | n/a | procedural fallback |
+| Carta dossier | texture canvas | generata: `createDossierTextures.ts` | repo | GPL-3.0-or-later (codice generatore) | sfondo fascicoli | n/a | procedural fallback |
+| Suoni UI (click, alert, errore, conferma, unlock, terminale) | sintesi Web Audio | generati: `AudioSystem.ts` | repo | GPL-3.0-or-later (codice generatore) | feedback UI | n/a | procedural fallback |
+| Drone ambientale | sintesi Web Audio | generato: `AudioSystem.ts` | repo | GPL-3.0-or-later (codice generatore) | atmosfera | n/a | procedural fallback |
 | Scanline/CRT/glitch | CSS + tween Phaser | `global.css`, scene | repo | MIT (codice) | effetti visivi | n/a | procedural fallback |
 | Testi narrativi, casi, carte norma | contenuto editoriale | `src/game/data/` | repo | CC BY 4.0 | gameplay e didattica | sì, per chi li riusa (vedi LICENSE Sez. 2) | approved |
 | Font | font stack di sistema (IBM Plex Mono *se presente localmente*, altrimenti Consolas/DejaVu/monospace) | sistema operativo utente | n/a | nessun file font distribuito | tipografia | no | approved |

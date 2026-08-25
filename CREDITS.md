@@ -16,9 +16,9 @@ all'interno di questo repository:
 
 | Asset | Autore | Fonte | Licenza | Modifiche |
 |---|---|---|---|---|
-| Mappa civica, icone, texture rumore, carta dossier | progetto NO AI ACT | `src/game/assets/procedural/` | MIT (vedi LICENSE, Sez. 1) | n/a |
-| Suoni UI e drone ambientale | progetto NO AI ACT | `src/game/systems/AudioSystem.ts` | MIT (vedi LICENSE, Sez. 1) | n/a |
-| Effetti CRT/scanline/glitch | progetto NO AI ACT | `src/styles/global.css` + scene | MIT (vedi LICENSE, Sez. 1) | n/a |
+| Mappa civica, icone, texture rumore, carta dossier | progetto NO AI ACT | `src/game/assets/procedural/` | GPL-3.0-or-later (vedi LICENSE, Sez. 1) | n/a |
+| Suoni UI e drone ambientale | progetto NO AI ACT | `src/game/systems/AudioSystem.ts` | GPL-3.0-or-later (vedi LICENSE, Sez. 1) | n/a |
+| Effetti CRT/scanline/glitch | progetto NO AI ACT | `src/styles/global.css` + scene | GPL-3.0-or-later (vedi LICENSE, Sez. 1) | n/a |
 
 ## Tipografia
 
@@ -29,7 +29,7 @@ Nessun file font è distribuito. Il gioco usa un font stack di sistema:
 ## Contenuti
 
 Testi narrativi e casi investigativi: originali, scritti per questo progetto,
-rilasciati con licenza **CC BY 4.0** (vedi LICENSE, Sez. 2 — attribuzione:
+rilasciati con licenza **CC BY-SA 4.0** (vedi LICENSE, Sez. 2 — attribuzione:
 "Matteo Angeloni — NO AI ACT").
 Contenuti normativi: sintesi divulgative del Regolamento (UE) 2024/1689
 (AI Act), marcate in gioco come "versione didattica semplificata".

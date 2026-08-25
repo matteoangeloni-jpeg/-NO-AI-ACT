@@ -2,9 +2,12 @@ NO AI ACT — Simulatore di una società non regolata
 Copyright (c) 2026 Matteo Angeloni
 
 Questo progetto usa un regime di doppia licenza, con due sezioni distinte.
+Entrambe sono licenze COPYLEFT: chi riusa e ridistribuisce deve mantenere
+aperto il risultato. Nessuno può chiudere questo lavoro dentro un prodotto
+proprietario.
 
 ================================================================================
-SEZIONE 1 — CODICE: MIT License
+SEZIONE 1 — CODICE: GNU General Public License v3.0 o successiva
 ================================================================================
 
 Si applica a: codice sorgente TypeScript/JavaScript/CSS/HTML, sistemi di gioco,
@@ -12,30 +15,24 @@ generatori di asset procedurali (src/game/assets/procedural/), sintesi audio,
 componenti UI, configurazione tecnica, script e test.
 (In breve: tutto tranne quanto indicato nella Sezione 2.)
 
-MIT License
+Questo programma è software libero: puoi ridistribuirlo e/o modificarlo secondo
+i termini della GNU General Public License, pubblicata dalla Free Software
+Foundation, nella versione 3 o (a tua scelta) in una versione successiva.
 
-Copyright (c) 2026 Matteo Angeloni
+Questo programma è distribuito nella speranza che sia utile, ma SENZA ALCUNA
+GARANZIA, senza neppure la garanzia implicita di COMMERCIABILITÀ o IDONEITÀ
+PER UN PARTICOLARE SCOPO. Vedi la GNU General Public License per i dettagli.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Testo integrale: LICENSES/GPL-3.0.txt (distribuito con questo repository e
+con la build) e https://www.gnu.org/licenses/gpl-3.0.html
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Cosa comporta in pratica: chi modifica questo codice e lo distribuisce — anche
+soltanto pubblicandolo online, perché il gioco viene consegnato al browser di
+chi lo apre — deve rendere disponibile il proprio codice sorgente alle stesse
+condizioni. Usare il gioco, giocarci, mostrarlo in aula: nessun obbligo.
 
 ================================================================================
-SEZIONE 2 — CONTENUTI NARRATIVI E DIDATTICI: CC BY 4.0
+SEZIONE 2 — CONTENUTI NARRATIVI E DIDATTICI: CC BY-SA 4.0
 ================================================================================
 
 Si applica a: testi narrativi, casi investigativi, indizi, note, conseguenze,
@@ -43,19 +40,52 @@ finali e testi delle carte norma (contenuti editoriali in src/game/data/),
 nonché alla documentazione didattica (README.md, docs/, CREDITS.md e affini).
 
 Questi contenuti sono rilasciati con licenza Creative Commons
-Attribuzione 4.0 Internazionale (CC BY 4.0).
+Attribuzione - Condividi allo stesso modo 4.0 Internazionale (CC BY-SA 4.0).
 
 Sei libero di condividere e modificare questi contenuti, anche per scopi
-commerciali, alle condizioni della licenza, in particolare l'ATTRIBUZIONE:
-devi menzionare "Matteo Angeloni — NO AI ACT", fornire un link alla
-licenza e indicare se sono state effettuate modifiche.
+commerciali, a due condizioni:
+
+- ATTRIBUZIONE: devi menzionare "Matteo Angeloni — NO AI ACT", fornire un link
+  alla licenza e indicare se sono state effettuate modifiche;
+- STESSA LICENZA: se trasformi o costruisci sopra questi contenuti, devi
+  distribuire il risultato con la STESSA licenza CC BY-SA 4.0. Non puoi
+  incorporarli in un'opera chiusa o soggetta a restrizioni ulteriori.
 
 Testo integrale della licenza:
-https://creativecommons.org/licenses/by/4.0/legalcode.it
-(EN: https://creativecommons.org/licenses/by/4.0/legalcode)
+https://creativecommons.org/licenses/by-sa/4.0/legalcode.it
+(EN: https://creativecommons.org/licenses/by-sa/4.0/legalcode)
 
-Questo file non è la licenza CC BY 4.0: è un avviso che la richiama. In caso
+Questo file non è la licenza CC BY-SA 4.0: è un avviso che la richiama. In caso
 di conflitto prevale il testo integrale al link sopra.
+
+================================================================================
+SEZIONE 3 — ECCEZIONE PER I MATERIALI STAMPA: CC BY 4.0
+================================================================================
+
+Si applica a: i materiali della pagina /press-kit/ e /en/press-kit/ — testi
+descrittivi, immagini ufficiali e screenshot di gioco pubblicati a fini di
+copertura editoriale.
+
+Questi materiali sono rilasciati con licenza Creative Commons Attribuzione 4.0
+Internazionale (CC BY 4.0), SENZA la clausola "condividi allo stesso modo".
+
+Motivo dell'eccezione: la clausola SA obbligherebbe una redazione che riusa
+questi testi a pubblicare il proprio articolo sotto CC BY-SA, cosa che
+nessuna testata può fare. L'eccezione esiste perché il press kit sia
+utilizzabile per lo scopo per cui esiste.
+
+L'eccezione NON si estende ai casi investigativi, ai contenuti didattici, alle
+carte norma né al codice: quelli restano coperti dalle Sezioni 1 e 2.
+
+================================================================================
+VERSIONI PRECEDENTI
+================================================================================
+
+Questo regime si applica a partire dalla versione successiva a v2.0.0. Le
+versioni fino a v2.0.0 compresa sono state distribuite con licenza MIT (codice)
+e CC BY 4.0 (contenuti): i diritti concessi su quelle versioni restano validi e
+NON sono revocati da questo cambio. Chi ha ottenuto una copia sotto i termini
+precedenti continua a poterla usare a quelle condizioni.
 
 ================================================================================
 AVVERTENZA
@@ -64,4 +94,5 @@ AVVERTENZA
 I contenuti normativi del gioco sono sintesi divulgative del Regolamento (UE)
 2024/1689 (AI Act), marcate "versione didattica semplificata". Il gioco non
 costituisce consulenza legale. Le licenze delle dipendenze di terze parti sono
-elencate in THIRD_PARTY_LICENSES.md.
+elencate in THIRD_PARTY_LICENSES.md; Phaser è distribuito con licenza MIT, che
+è compatibile con la GPL v3 e può quindi essere incluso nella build.

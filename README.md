@@ -2,8 +2,8 @@
 
 ![NO AI ACT — Simulatore di una società non regolata](docs/banner.svg)
 
-[![Licenza codice: MIT](https://img.shields.io/badge/codice-MIT-3fa66a)](LICENSE)
-[![Contenuti: CC BY 4.0](https://img.shields.io/badge/contenuti-CC%20BY%204.0-5d7fb8)](LICENSE)
+[![Licenza codice: GPL-3.0](https://img.shields.io/badge/codice-GPL--3.0-3fa66a)](LICENSE)
+[![Contenuti: CC BY-SA 4.0](https://img.shields.io/badge/contenuti-CC%20BY--SA%204.0-5d7fb8)](LICENSE)
 [![Stack](https://img.shields.io/badge/stack-TypeScript%20%2B%20Phaser%203%20%2B%20Vite-101a30)](#stack)
 [![Test](https://img.shields.io/badge/test-Vitest-d9a521)](tests/)
 [![Stato](https://img.shields.io/badge/stato-v2.0.0-3fa66a)](#stato-release)
@@ -390,8 +390,10 @@ checklist di rilascio: [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md).
 
 ## Licenze
 
-- **Codice** (sistemi, generatori procedurali, UI, configurazione): **MIT** — `LICENSE`, Sezione 1.
-- **Contenuti narrativi e didattici** (casi, carte norma, documentazione): **CC BY 4.0** — `LICENSE`, Sezione 2.
+- **Codice** (sistemi, generatori procedurali, UI, configurazione): **GPL-3.0-or-later** — `LICENSE`, Sezione 1.
+- **Contenuti narrativi e didattici** (casi, carte norma, documentazione): **CC BY-SA 4.0** — `LICENSE`, Sezione 2.
+- **Fino a v2.0.0 compresa** il progetto era MIT + CC BY 4.0: i diritti concessi
+  su quelle versioni restano validi e non sono revocati.
 - **Terze parti**: il bundle distribuito include Phaser (MIT); il notice viaggia
   con la build perché `npm run build` copia `THIRD_PARTY_LICENSES.md`, `LICENSE`
   e `CREDITS.md` in `dist/` (`scripts/copy-notices.mjs`).
@@ -444,7 +446,7 @@ gameplay: every graphic and sound is generated procedurally, saves stay in
 `.txt`/`.json` exports. Version **2.0.0** is tagged and published; `main` carries later
 changes not yet in a release. Educational simplification of the AI Act — not legal
 advice. Its educational effectiveness has **not yet been empirically
-validated**. Code: MIT · narrative and didactic content: CC BY 4.0.
+validated**. Code: GPL-3.0-or-later · narrative and didactic content: CC BY-SA 4.0.
 
 **Play now:** <https://www.no-ai-act.eu/>
 

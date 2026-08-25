@@ -68,8 +68,8 @@ browser's `localStorage`. The teacher debrief export is local and anonymous.
 
 ## Licensing
 
-Code under the **MIT** licence; narrative and educational content under
-**CC BY 4.0**. See `LICENSE`, `THIRD_PARTY_LICENSES.md` and `CREDITS.md`.
+Code under **GPL-3.0-or-later**; narrative and educational content under
+**CC BY-SA 4.0** (up to v2.0.0: MIT and CC BY 4.0). See `LICENSE`, `THIRD_PARTY_LICENSES.md` and `CREDITS.md`.
 
 ## Status and caveats
 

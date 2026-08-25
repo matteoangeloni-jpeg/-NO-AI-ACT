@@ -29,8 +29,13 @@
     "static.cloudflareinsights.com"
   ],
   "licenses": {
-    "code": "MIT",
-    "content": "CC-BY-4.0"
+    "code": "GPL-3.0-or-later",
+    "content": "CC-BY-SA-4.0",
+    "previousUpTo": {
+      "tag": "v2.0.0",
+      "code": "MIT",
+      "content": "CC-BY-4.0"
+    }
   },
   "privacy": {
     "backend": false,
