@@ -312,18 +312,25 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 ## Roadmap
 
-**✅ v2.0.0 — Codice completo su `main` (chiusura release in corso)**
+**✅ v2.1.0 — Consolidamento e passaggio al copyleft** — [release](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v2.1.0)
+- Codice GPL-3.0-or-later e contenuti CC BY-SA 4.0 (eccezione CC BY per i
+  materiali stampa); copyright intestato all'autore. Il briefing apre un
+  fascicolo invece di un menu; la homepage mostra quattro fotogrammi reali di
+  gioco; navigazione uniforme sulle 30 pagine inglesi; le pagine GPAI ancorano
+  il Capo V. Dettagli:
+  [`docs/RELEASE_NOTES_v2.1.0.md`](docs/RELEASE_NOTES_v2.1.0.md).
+
+**✅ v2.0.0 — Research-grade, internazionalmente rintracciabile** — [release](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v2.0.0)
 - Modello di apprendimento tipizzato e matrice legale, capitoli tematici,
   autocontrollo locale facoltativo, fiducia/riflessione, schema di salvataggio
   v2 con migrazione testata, strato di lettura semantico + percorso da
   tastiera, 2 nuovi casi (13 totali), infrastruttura di citazione e ricerca,
   56 URL pubblici IT/EN. Dettagli:
   [`docs/RELEASE_NOTES_v2.0.0.md`](docs/RELEASE_NOTES_v2.0.0.md).
-- **Chiusura pendente**: verifica indipendente dell'edge pubblico (Cloudflare)
-  e creazione del tag `v2.0.0` da parte dell'owner
+- Tag e release pubblicati il 2026-07-26
   ([`docs/OWNER_ACTIONS_2_0.md`](docs/OWNER_ACTIONS_2_0.md)).
 
-**🔭 Lavori futuri (dopo la chiusura della 2.0)**
+**🔭 Lavori futuri**
 - Validazione empirica dell'efficacia didattica
   (`docs/RESEARCH_VALIDATION_FRAMEWORK.md`), DOI Zenodo, eventuali lingue
   aggiuntive (struttura i18n predisposta per FR/ES).
@@ -358,10 +365,11 @@ Fonte machine-readable: [`release.config.json`](release.config.json)
 Note di rilascio: [`docs/RELEASE_NOTES_v2.1.0.md`](docs/RELEASE_NOTES_v2.1.0.md).
 
 - **Versione**: v2.1.0 (codice su `main`; fonte: `package.json`)
-- **Tag della versione**: `v2.1.0` — **non ancora pubblicato**
-- **Ultima release effettivamente taggata**: `v2.0.0` (pubblicata il 2026-07-26)
-- **Nota**: il tag `v2.0.0` punta a un commit precedente; `main` contiene
-  le modifiche della v2.1.0, non ancora incluse in una release pubblicata
+- **Tag della versione**: `v2.1.0` — **pubblicato** il 2026-08-26
+- **Ultima release effettivamente taggata**: `v2.1.0`
+- **Nota**: il tag `v2.1.0` punta a `1b45295`, la testa di `main` al momento
+  del rilascio: per la prima volta da mesi release e codice pubblicato
+  coincidono
 - **Casi giocabili**: 13
 - **Lingue**: italiano e inglese
 - **URL pubblici**: 56 (26 IT + 30 EN)
