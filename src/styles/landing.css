@@ -697,6 +697,104 @@ body::before {
 
 /* ---- print styles: worksheets, lesson plans, press/citation pages ----
    Keep ink-friendly: white background, dark text, no chrome, no textures. */
+/* ============================================================
+   REGISTRO VISIVO "GIOCO" — passaggio ispirato al mockup fornito.
+   Prende layout, gerarchia tipografica e trattamenti; NON i colori
+   (restano i nostri) né i contenuti. Il display condensato del mockup
+   è un webfont: qui non è caricabile, perché l'unico host esterno
+   consentito è static.cloudflareinsights.com (test-enforced), quindi
+   si approssima con i condensati di sistema e un fallback pulito.
+   ============================================================ */
+:root {
+  --display: "Archivo Narrow", "Roboto Condensed", "Liberation Sans Narrow",
+    "Arial Narrow", "Helvetica Neue", var(--sans);
+}
+
+/* --- titoli: pesanti, condensati, maiuscoli --- */
+.hero h1,
+section h2 {
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+}
+
+/* seconda riga in accento e inclinata: l'effetto "corsivo display" del
+   mockup senza un font italic dedicato */
+.hero h1 .hl {
+  display: block;
+  color: var(--amber);
+  transform: skewX(-8deg);
+  transform-origin: left center;
+}
+
+/* --- etichette mono fra parentesi: il motivo ricorrente del mockup --- */
+.kicker {
+  border-radius: 0;
+  border-color: var(--line);
+  color: var(--amber);
+  /* le parentesi allungano la stringa: senza questo il chip va a capo e
+     lascia la parentesi chiusa orfana sulla seconda riga */
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+}
+.kicker::before { content: "[ "; }
+.kicker::after { content: " ]"; }
+
+/* --- titolo di sezione: numero in barra d'accento + filo orizzontale --- */
+section h2 {
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 1rem;
+}
+section h2 .num {
+  margin-right: 0;
+  border-left: 3px solid var(--amber);
+  padding-left: 0.5rem;
+  vertical-align: baseline;
+  flex: 0 0 auto;
+}
+
+/* --- CTA primaria: ombra dura offset, spigoli vivi --- */
+.btn { border-radius: 0; }
+.btn-primary { box-shadow: 5px 5px 0 var(--carbon-2); }
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  box-shadow: 2px 2px 0 var(--carbon-2), 0 0 0 1px var(--amber);
+  transform: translate(3px, 3px);
+}
+
+/* --- "Gioca" nella barra diventa il pulsante di gioco, senza toccare
+       il markup di 57 pagine --- */
+.nav-menu > li:first-child > a {
+  background: var(--amber);
+  color: var(--carbon);
+  font-weight: 700;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--amber);
+}
+.nav-menu > li:first-child > a:hover,
+.nav-menu > li:first-child > a:focus-visible { background: #eab62f; color: var(--carbon); }
+
+/* --- card e riquadri: spigoli vivi, bordo netto --- */
+.card, .loop-frames, .hero-shot picture, .start-grid li { border-radius: 0; }
+
+/* --- respiro verticale più ampio, come nel mockup --- */
+section { padding: 4rem 0; }
+
+/* --- footer: mono, maiuscolo, link a destra --- */
+footer .credit { font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.72rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary:hover, .btn-primary:focus-visible { transform: none; }
+  .hero h1 .hl { transform: none; }
+}
+
 @media print {
   body::before { display: none; }
   body { background: #fff; color: #111; }
@@ -741,12 +839,14 @@ body::before {
   align-items: start;
 }
 .hero-investigation h1 {
-  /* tarato per non superare tre righe a 1440px: la CTA deve restare alta */
-  font-size: clamp(1.9rem, 3.4vw, 2.7rem);
-  line-height: 1.1;
+  /* tarato per non superare tre righe a 1440px: la CTA deve restare alta.
+     Il maiuscolo occupa molto più spazio in orizzontale del minuscolo su cui
+     era stato tarato il 20ch: corpo e larghezza sono ricalibrati insieme. */
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  line-height: 1.05;
   letter-spacing: -.015em;
   margin: .6rem 0 .9rem;
-  max-width: 20ch;
+  max-width: 34ch;
 }
 .hero-investigation .lead { max-width: 44ch; font-size: 1rem; }
 .hero-investigation .callout { margin-top: 1.1rem; font-size: .88rem; }
