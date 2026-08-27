@@ -789,6 +789,17 @@ section { padding: 4rem 0; }
 
 /* --- footer: mono, maiuscolo, link a destra --- */
 footer .credit { font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.72rem; }
+/* L'affiliazione sta sotto il credito e in secondo piano: è un'informazione
+   di contesto su chi firma il progetto, non una voce di navigazione. */
+footer .credit-affil {
+  display: inline-block;
+  margin-top: 0.35rem;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: 0.7rem;
+  color: var(--ink-dim);
+  line-height: 1.5;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .btn-primary:hover, .btn-primary:focus-visible { transform: none; }
