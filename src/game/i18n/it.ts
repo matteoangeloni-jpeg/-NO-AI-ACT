@@ -457,6 +457,10 @@ export const it = {
         'Vertical slice sviluppata con supporto AI.\n' +
         'Asset grafici e audio procedurali.\n' +
         'Licenze e attribuzioni complete disponibili nei file del progetto.',
+      phdProgramme: 'Società in mutamento: politiche, diritti e sicurezza',
+      phdLink: 'Pagina del dottorato ▸',
+      universityLink: 'Università degli Studi della Tuscia ▸',
+      independence: "Progetto indipendente: non è espressione ufficiale dell'ateneo.",
       back: '◂ TORNA AL TITOLO'
     },
     toastPrefixes: {

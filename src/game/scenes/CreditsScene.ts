@@ -2,7 +2,8 @@ import Phaser from 'phaser';
 import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
-import { L } from '../i18n';
+import { AFFILIATION_LINKS } from '../data/affiliation';
+import { L, getLanguage } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 
 /**
@@ -25,14 +26,30 @@ export class CreditsScene extends Phaser.Scene {
 
     this.add.text(cx, 90, ui.title, textStyle(14, COLOR_STR.paperDim)).setOrigin(0.5);
 
-    new Panel(this, cx, cy, 640, 360);
+    new Panel(this, cx, cy, 680, 460);
     this.add.text(cx, cy - 110, ui.heading, textStyle(34, COLOR_STR.paper, { fontStyle: 'bold' })).setOrigin(0.5);
     this.add.text(cx, cy - 56, ui.roleLabel, textStyle(13, COLOR_STR.paperDim)).setOrigin(0.5);
     this.add.text(cx, cy - 22, ui.author, textStyle(20, COLOR_STR.accent)).setOrigin(0.5);
     this.add.text(cx, cy + 8, ui.affiliation, textStyle(13, COLOR_STR.paper)).setOrigin(0.5);
+    this.add.text(cx, cy + 30, ui.phdProgramme, textStyle(12.5, COLOR_STR.accent)).setOrigin(0.5);
+
+    // Link istituzionali: gli unici indirizzi esterni che il gioco apre, elencati
+    // in data/affiliation.ts e nell'allowlist di release.config.json. Si aprono
+    // in una nuova scheda con noreferrer: il gioco non lascia tracce dietro di sé.
+    const phdUrl = AFFILIATION_LINKS.phd[getLanguage()];
+    new Button(this, cx - 150, cy + 66, ui.phdLink,
+      () => window.open(phdUrl, '_blank', 'noopener,noreferrer'),
+      { width: 280, height: 36, fontSize: 12, variant: 'ghost' });
+    new Button(this, cx + 150, cy + 66, ui.universityLink,
+      () => window.open(AFFILIATION_LINKS.university, '_blank', 'noopener,noreferrer'),
+      { width: 280, height: 36, fontSize: 12, variant: 'ghost' });
 
     this.add
-      .text(cx, cy + 92, ui.note, textStyle(12, COLOR_STR.paperDim, { align: 'center', lineSpacing: 7 }))
+      .text(cx, cy + 104, ui.independence, textStyle(11.5, COLOR_STR.paperDim))
+      .setOrigin(0.5);
+
+    this.add
+      .text(cx, cy + 172, ui.note, textStyle(12, COLOR_STR.paperDim, { align: 'center', lineSpacing: 7 }))
       .setOrigin(0.5);
 
     this.add.text(cx, GAME_HEIGHT - 86, L().ui.footerDisclaimer, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);

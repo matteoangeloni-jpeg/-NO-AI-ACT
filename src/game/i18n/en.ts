@@ -458,6 +458,10 @@ export const en: Locale = {
         'Vertical slice developed with AI support.\n' +
         'Procedural graphics and audio assets.\n' +
         'Full licenses and attributions available in the project files.',
+      phdProgramme: 'Society in change: policies, rights and security',
+      phdLink: 'PhD programme page ▸',
+      universityLink: 'University of Tuscia ▸',
+      independence: 'Independent project: not an official output of the university.',
       back: '◂ BACK TO TITLE'
     },
     toastPrefixes: {

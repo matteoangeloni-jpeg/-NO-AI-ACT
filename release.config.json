@@ -44,5 +44,14 @@
     "externalForms": false,
     "gameplayNetworkCalls": false,
     "analytics": "Cloudflare Web Analytics (aggregate, cookie-free, public pages only, never inside gameplay)"
+  },
+  "externalLinkAllowlist": [
+    "https://www.unitus.it/post-laurea/dottorati-di-ricerca/corsi-di-dottorato-attivi/societa-in-mutamento-politiche-diritti-e-sicurezza/",
+    "https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/",
+    "https://www.unitus.it/"
+  ],
+  "optionalAnalyticsEndpoints": {
+    "note": "Endpoint di provider opzionali presenti nel codice ma DISATTIVATI: il provider di default in produzione e' off e il workflow di deploy non imposta alcuna variabile VITE_. Attivarli richiederebbe di riscrivere le pagine privacy e runtimeHostAllowlist.",
+    "plausible": "https://plausible.io/api/event"
   }
 }

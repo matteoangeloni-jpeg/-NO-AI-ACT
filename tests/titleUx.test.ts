@@ -53,9 +53,12 @@ describe('title screen — simplified player-first hierarchy', () => {
     const resources = title.slice(title.indexOf('private openResources'), title.indexOf('private startGame'));
     expect(resources).toContain('m.archive');
     expect(resources).toContain('glossary.title');
-    expect(resources).toContain('m.credits');
     expect(resources).toContain('ui.siteLinks.button');
+    // I crediti stanno in Impostazioni: riguardano chi firma il progetto, non
+    // il materiale didattico a cui il giocatore attinge dalle Risorse.
+    expect(resources, 'i crediti non stanno piu\' fra le risorse').not.toContain('m.credits');
     const settings = title.slice(title.indexOf('private openSettings'), title.indexOf('private openTeachers'));
+    expect(settings, 'i crediti devono essere raggiungibili da Impostazioni').toContain('m.credits');
     for (const k of ['m.language', 'setDifficulty', 'setMission', 'settingsPrivacy']) {
       expect(settings, `settings must contain ${k}`).toContain(k);
     }
