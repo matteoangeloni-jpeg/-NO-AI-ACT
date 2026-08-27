@@ -80,10 +80,51 @@ describe('zero Tally / external-form references in shipped sources', () => {
 });
 
 describe('no replacement data-collection mechanism was added', () => {
-  it('game code opens no external URLs via window.open', () => {
-    const gameFiles = walk('src').filter((f) => f.endsWith('.ts'));
-    const offenders = gameFiles.filter((f) => /window\.open\(\s*['"`]?https?:/.test(read(f)));
-    expect(offenders).toEqual([]);
+  it('the only external URLs in game code are the declared institutional ones', () => {
+    // Prima questo test vietava qualunque URL esterno scritto dentro
+    // window.open(). Il divieto era cieco in due modi: passava un URL messo in
+    // una variabile, e non diceva quali destinazioni fossero accettabili.
+    // Ora ogni indirizzo assoluto presente nel codice di gioco deve comparire
+    // nell'allowlist di release.config.json — variabili comprese.
+    const allow: string[] = JSON.parse(read('release.config.json')).externalLinkAllowlist ?? [];
+    const own = /^https?:\/\/(www\.)?no-ai-act\.eu/;
+    const found = new Set<string>();
+    for (const f of walk('src').filter((x) => x.endsWith('.ts'))) {
+      for (const [url] of read(f).matchAll(/https?:\/\/[^\s'"`)]+/g)) {
+        const clean = url.replace(/[.,;]+$/, '');
+        // I template letterali non sono indirizzi: contengono un'espressione.
+        if (clean.includes('${')) continue;
+        if (!own.test(clean)) found.add(clean);
+      }
+    }
+    // Gli endpoint dei provider opzionali sono dichiarati a parte: non sono link
+    // che il gioco apre, sono capacita' disattivate. Vanno elencati, non nascosti.
+    const analytics: string[] = Object.values(
+      JSON.parse(read('release.config.json')).optionalAnalyticsEndpoints ?? {}
+    ).filter((v): v is string => typeof v === 'string' && v.startsWith('http'));
+    const declared = [...allow, ...analytics];
+    const unlisted = [...found].filter((u) => !declared.includes(u));
+    expect(unlisted, 'indirizzo esterno non dichiarato in externalLinkAllowlist').toEqual([]);
+  });
+
+  it('every allowlisted external URL is actually reachable from the game', () => {
+    // L'allowlist non deve diventare un elenco di permessi dimenticati:
+    // ciò che non è più usato va tolto.
+    const allow: string[] = JSON.parse(read('release.config.json')).externalLinkAllowlist ?? [];
+    const src = walk('src').filter((f) => f.endsWith('.ts')).map(read).join('\n');
+    const unused = allow.filter((u) => !src.includes(u));
+    expect(unused, "voce dell'allowlist non più usata dal gioco").toEqual([]);
+  });
+
+  it('with no configuration the production build sends nothing anywhere', () => {
+    // La protezione vera non e' vietare la stringa: e' che il provider di
+    // default in produzione sia off. Gli endpoint dichiarati in
+    // optionalAnalyticsEndpoints restano codice morto finche' nessuno li
+    // configura, e il workflow di deploy non imposta alcuna VITE_.
+    const src = read('src/game/systems/AnalyticsSystem.ts');
+    expect(src).toContain("return config.dev ? 'console' : 'off';");
+    const wf = walk('.github/workflows').map(read).join('\n');
+    expect(wf, 'il deploy non deve configurare provider di analytics').not.toMatch(/VITE_ANALYTICS_PROVIDER|VITE_PLAUSIBLE|VITE_UMAMI/);
   });
 
   it('the finale privacy note is static copy, present in both languages', () => {

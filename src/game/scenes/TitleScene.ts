@@ -198,9 +198,14 @@ export class TitleScene extends Phaser.Scene {
       this.time.delayedCall(900, () => this.scene.restart());
     }, { width: BW, height: 44, fontSize: 13, variant: 'danger' });
 
+    // Crediti: stanno qui e non fra le risorse, perché riguardano chi firma il
+    // progetto, non il materiale didattico a cui il giocatore attinge.
+    const creditsBtn = new Button(this, colL, rowY(4), m.credits, () => this.scene.start('Credits'),
+      { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
+
     // nota privacy locale, concisa
-    const note = this.add.text(cx - 380, rowY(3) + 44, g.settingsPrivacy, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
-    c.add([audioBtn, musicBtn, motionBtn, crtBtn, langBtn, diffBtn, missBtn, resetBtn, note]);
+    const note = this.add.text(cx - 380, rowY(4) + 44, g.settingsPrivacy, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
+    c.add([audioBtn, musicBtn, motionBtn, crtBtn, langBtn, diffBtn, missBtn, resetBtn, creditsBtn, note]);
   }
 
   /** DOCENTI E CLASSE: modalità docente + guida, tutto locale. */
@@ -236,7 +241,6 @@ export class TitleScene extends Phaser.Scene {
     const items: Array<{ label: string; go: () => void }> = [
       { label: m.archive, go: () => this.scene.start('Archive', { from: 'Title' }) },
       { label: L().glossary.title, go: () => this.scene.start('Glossary', { from: 'Title' }) },
-      { label: m.credits, go: () => this.scene.start('Credits') },
       // sito e risorse educative: overlay esistente, sopra il pannello (depth 90)
       { label: L().ui.siteLinks.button, go: () => siteLinks.toggle() }
     ];

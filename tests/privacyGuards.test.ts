@@ -60,7 +60,22 @@ describe('no network primitives in game code outside the analytics abstraction',
 
   it('no game code references a non-allowlisted external host', () => {
     // tally.so removed from the allowlist: the game must not reference any form host.
-    const allowed = /schema\.org|eur-lex\.europa\.eu|digital-strategy\.ec\.europa\.eu|no-ai-act\.eu|github\.com|plausible\.io|umami|cloudflareinsights/;
+    // Gli host istituzionali arrivano da release.config.json: l'elenco dei
+    // permessi ha una fonte sola, e aggiungere un link senza dichiararlo li'
+    // fa fallire questo test invece di passare inosservato.
+    const cfg = JSON.parse(readFileSync(resolve(root, 'release.config.json'), 'utf8'));
+    const declared: string[] = [
+      ...(cfg.externalLinkAllowlist ?? []),
+      ...Object.values(cfg.optionalAnalyticsEndpoints ?? {}).filter((v): v is string => typeof v === 'string')
+    ];
+    const declaredHosts = [...new Set(declared.map((u) => { try { return new URL(u).host; } catch { return ''; } }).filter(Boolean))];
+    const allowed = new RegExp(
+      [
+        'schema\\.org', 'eur-lex\\.europa\\.eu', 'digital-strategy\\.ec\\.europa\\.eu',
+        'no-ai-act\\.eu', 'github\\.com', 'umami', 'cloudflareinsights',
+        ...declaredHosts.map((h) => h.replace(/\./g, '\\.'))
+      ].join('|')
+    );
     const offenders: string[] = [];
     for (const f of GAME_FILES) {
       for (const m of read(f).matchAll(/https?:\/\/([a-zA-Z0-9.-]+)/g)) {
