@@ -60,3 +60,72 @@ describe('the Pages workflow actually enforces the browser smokes', () => {
     expect(workflow.search(/playwright install[^\n]*chromium/)).toBeLessThan(upload);
   });
 });
+
+/**
+ * NODE-VERSION GUARD.
+ *
+ * The deploy workflow picks its Node from `.nvmrc` (node-version-file), so
+ * `.nvmrc` is the single place that decides which interpreter builds and
+ * tests the site. Nothing tied it to what the toolchain actually requires:
+ * when vitest moved to a major that needs Node >= 22.12, an `.nvmrc` still
+ * saying 20 would have failed only in CI, at install time, with an error
+ * about a package nobody had touched.
+ *
+ * This reads the `engines.node` ranges the installed tools declare and
+ * checks `.nvmrc` against them, so the requirement is derived from the
+ * dependencies instead of transcribed next to them.
+ */
+describe('the Node version in .nvmrc satisfies the toolchain', () => {
+  const nvmrc = read('.nvmrc').trim();
+  const [nvmMajor, nvmMinor] = nvmrc.split('.').map(Number);
+
+  /**
+   * True when the `.nvmrc` line satisfies `range`.
+   *
+   * Accetta le versioni parziali che npm ammette (`^24`, `>=26`, `22.12`):
+   * la prima stesura pretendeva major.minor.patch e scartava in silenzio
+   * ogni alternativa scritta diversamente, il che avrebbe potuto far
+   * fallire il guard su un .nvmrc in realtà valido. Un'alternativa che non
+   * si riesce a leggere non viene ignorata: fa fallire il test, con il
+   * testo che non è stato capito.
+   */
+  const satisfies = (range: string): boolean =>
+    range.split('||').some((alt) => {
+      const m = alt.trim().match(/^([\^>=~]*)\s*(\d+)(?:\.(\d+))?(?:\.(\d+))?$/);
+      expect(m, `alternativa engines.node non riconosciuta: "${alt.trim()}"`).not.toBeNull();
+      const op = m![1];
+      const floorMajor = Number(m![2]);
+      const floorMinor = Number(m![3] ?? 0);
+      // ">=X.Y.Z" è aperto verso l'alto; "^X.Y.Z" e "~X.Y.Z" restano sul major X.
+      if (op.includes('>')) {
+        if (nvmMajor > floorMajor) return true;
+        return nvmMajor === floorMajor && (nvmMinor === undefined || nvmMinor >= floorMinor);
+      }
+      if (nvmMajor !== floorMajor) return false;
+      return nvmMinor === undefined || nvmMinor >= floorMinor;
+    });
+
+  const engines = (name: string): string =>
+    JSON.parse(read(`node_modules/${name}/package.json`)).engines?.node ?? '';
+
+  it('.nvmrc holds a plain version the workflow can resolve', () => {
+    expect(nvmrc, '.nvmrc must be a version like "22" or "22.12", not a range or an alias').toMatch(
+      /^\d+(\.\d+){0,2}$/
+    );
+  });
+
+  for (const tool of ['vite', 'vitest']) {
+    it(`Node ${nvmrc} satisfies the engines range of ${tool}`, () => {
+      const range = engines(tool);
+      expect(range, `${tool} declares no engines.node`).not.toBe('');
+      expect(satisfies(range), `.nvmrc says ${nvmrc}, ${tool} wants ${range}`).toBe(true);
+    });
+  }
+
+  it('the deploy workflow reads its Node from .nvmrc, not from a literal', () => {
+    expect(workflow).toContain('node-version-file: .nvmrc');
+    expect(workflow, 'a hardcoded node-version would silently outrank .nvmrc').not.toMatch(
+      /node-version:\s*['"]?\d/
+    );
+  });
+});
