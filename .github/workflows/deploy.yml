@@ -42,7 +42,18 @@ jobs:
       - name: Verify deploy-critical files in dist
         run: npm run verify:dist
       - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+        # `--with-deps` fa girare apt-get update, che fallisce se una qualunque
+        # sorgente apt dell'immagine runner è a metà di una ripubblicazione. Il
+        # 9 settembre 2026 tre run di fila sono morte qui su "Hash Sum mismatch"
+        # dal repo chrome-stable di Google — una sorgente che a Playwright non
+        # serve: scarica il proprio build di Chromium, e --with-deps installa
+        # solo librerie di sistema condivise. Toglierla lascia apt in grado di
+        # aggiornarsi senza indebolire nulla: gli smoke girano con tutte le
+        # dipendenze, come prima.
+        run: |
+          sudo rm -f /etc/apt/sources.list.d/google-chrome.list \
+                     /etc/apt/sources.list.d/google-chrome.sources
+          npx playwright install --with-deps chromium
       - name: Browser smoke tests (gameplay, keyboard, layout)
         run: npm run smoke:all
       - uses: actions/configure-pages@v5
