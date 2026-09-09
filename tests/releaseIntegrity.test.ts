@@ -91,22 +91,19 @@ describe('case-count consistency — source tree', () => {
   });
 });
 
-describe('case-count consistency — built dist (when present)', () => {
-  const hasDist = existsSync(resolve(root, 'dist/index.html'));
-  it.skipIf(!hasDist)('no built page presents 11 as the current case count', () => {
-    const offenders: string[] = [];
-    const walk = (dir: string): void => {
-      for (const e of readdirSync(resolve(root, dir))) {
-        const rel = join(dir, e);
-        if (statSync(resolve(root, rel)).isDirectory()) walk(rel);
-        else if (e.endsWith('.html')) {
-          const m = read(rel).match(FORBIDDEN);
-          if (m) offenders.push(`${rel}: "${m[0]}"`);
-        }
-      }
-    };
-    walk('dist');
-    expect(offenders, offenders.join('\n')).toEqual([]);
+describe('the dist scan cannot drift away from the source scan', () => {
+  // C'era qui un test che ripeteva la scansione qui sopra su dist/. Non ha mai
+  // girato in CI: `npm test` sta al passo 3 del workflow e `npm run build` al
+  // passo 5, quindi dist/ non esisteva ancora e it.skipIf lo saltava sempre.
+  // Un guard che non può fallire è decorazione. La copertura su dist esiste
+  // davvero — in scripts/ci/verify-dist.mjs, che gira dopo la build — quindi
+  // qui resta l'unica cosa che quel test non garantiva: che le due scansioni
+  // continuino a cercare lo stesso schema invece di divergere in silenzio.
+  it('verify-dist.mjs vieta esattamente lo stesso schema "11 casi" dei test', () => {
+    const script = read('scripts/ci/verify-dist.mjs');
+    const declared = script.match(/\/\\b\(11\|undici\|eleven\)[^\n]*?\/i(?=,|\n)/);
+    expect(declared, 'verify-dist.mjs non dichiara più un pattern "11 casi"').not.toBeNull();
+    expect(String(declared?.[0])).toBe(String(FORBIDDEN));
   });
 });
 
