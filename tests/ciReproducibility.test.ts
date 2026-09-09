@@ -79,15 +79,24 @@ describe('the Node version in .nvmrc satisfies the toolchain', () => {
   const nvmrc = read('.nvmrc').trim();
   const [nvmMajor, nvmMinor] = nvmrc.split('.').map(Number);
 
-  /** True when a bare `.nvmrc` major (latest of that line) satisfies `range`. */
+  /**
+   * True when the `.nvmrc` line satisfies `range`.
+   *
+   * Accetta le versioni parziali che npm ammette (`^24`, `>=26`, `22.12`):
+   * la prima stesura pretendeva major.minor.patch e scartava in silenzio
+   * ogni alternativa scritta diversamente, il che avrebbe potuto far
+   * fallire il guard su un .nvmrc in realtà valido. Un'alternativa che non
+   * si riesce a leggere non viene ignorata: fa fallire il test, con il
+   * testo che non è stato capito.
+   */
   const satisfies = (range: string): boolean =>
     range.split('||').some((alt) => {
-      const m = alt.trim().match(/^([\^>=~]*)\s*(\d+)\.(\d+)\.(\d+)$/);
-      if (!m) return false;
-      const [, op, maj, min] = m;
-      const floorMajor = Number(maj);
-      const floorMinor = Number(min);
-      // ">=X.Y.Z" is open above; "^X.Y.Z" and "~X.Y.Z" stay on major X.
+      const m = alt.trim().match(/^([\^>=~]*)\s*(\d+)(?:\.(\d+))?(?:\.(\d+))?$/);
+      expect(m, `alternativa engines.node non riconosciuta: "${alt.trim()}"`).not.toBeNull();
+      const op = m![1];
+      const floorMajor = Number(m![2]);
+      const floorMinor = Number(m![3] ?? 0);
+      // ">=X.Y.Z" è aperto verso l'alto; "^X.Y.Z" e "~X.Y.Z" restano sul major X.
       if (op.includes('>')) {
         if (nvmMajor > floorMajor) return true;
         return nvmMajor === floorMajor && (nvmMinor === undefined || nvmMinor >= floorMinor);

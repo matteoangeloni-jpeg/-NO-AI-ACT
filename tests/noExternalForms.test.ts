@@ -87,14 +87,24 @@ describe('no replacement data-collection mechanism was added', () => {
     // Ora ogni indirizzo assoluto presente nel codice di gioco deve comparire
     // nell'allowlist di release.config.json — variabili comprese.
     const allow: string[] = JSON.parse(read('release.config.json')).externalLinkAllowlist ?? [];
-    const own = /^https?:\/\/(www\.)?no-ai-act\.eu/;
+    // Confronto l'host esatto, non un prefisso: /^https?:\/\/(www\.)?no-ai-act\.eu/
+    // considerava "nostro" anche https://no-ai-act.eu.attacker.example, che
+    // sarebbe quindi sfuggito del tutto al controllo sull'allowlist.
+    const own = (u: string): boolean => {
+      try {
+        const h = new URL(u).hostname.toLowerCase();
+        return h === 'no-ai-act.eu' || h === 'www.no-ai-act.eu';
+      } catch {
+        return false; // un indirizzo che non si sa leggere non è mai "nostro"
+      }
+    };
     const found = new Set<string>();
     for (const f of walk('src').filter((x) => x.endsWith('.ts'))) {
       for (const [url] of read(f).matchAll(/https?:\/\/[^\s'"`)]+/g)) {
         const clean = url.replace(/[.,;]+$/, '');
         // I template letterali non sono indirizzi: contengono un'espressione.
         if (clean.includes('${')) continue;
-        if (!own.test(clean)) found.add(clean);
+        if (!own(clean)) found.add(clean);
       }
     }
     // Gli endpoint dei provider opzionali sono dichiarati a parte: non sono link
