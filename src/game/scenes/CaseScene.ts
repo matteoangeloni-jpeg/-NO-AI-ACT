@@ -33,7 +33,7 @@ export class CaseScene extends Phaser.Scene {
 
     // dossier che "compare" dal basso
     const dossier = this.add.container(cx, GAME_HEIGHT / 2 + 30);
-    const paper = this.add.image(0, 0, 'dossier_paper');
+    const paper = this.add.image(0, 0, 'dossier_paper').setDisplaySize(900, 560);
     dossier.add(paper);
     dossier.setAlpha(0);
     this.tweens.add({ targets: dossier, alpha: 1, y: GAME_HEIGHT / 2, duration: 350, ease: 'Cubic.easeOut' });

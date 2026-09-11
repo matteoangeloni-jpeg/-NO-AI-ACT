@@ -27,7 +27,7 @@ export class CityMapScene extends Phaser.Scene {
     this.cameras.main.fadeIn(300, 0, 0, 0);
     AnalyticsSystem.page('map');
     AudioSystem.crossfadeToTheme('city'); // no-op se già attivo
-    this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'citymap');
+    this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'citymap').setDisplaySize(GAME_WIDTH, GAME_HEIGHT);
     this.add.tileSprite(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.6);
 
     // header istituzionale

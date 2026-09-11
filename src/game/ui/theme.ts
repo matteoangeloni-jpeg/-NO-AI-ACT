@@ -34,6 +34,19 @@ export const FONT_MONO =
 export const GAME_WIDTH = 1280;
 export const GAME_HEIGHT = 720;
 
+/**
+ * Fattore di risoluzione del rendering.
+ *
+ * Il mondo di gioco resta 1280×720 in unità logiche — nessuna coordinata
+ * cambia — ma il canvas viene disegnato a RENDER_SCALE volte quei pixel e
+ * poi rimpicciolito dallo scale manager. Su uno schermo 1080p o 1440p il
+ * risultato smette di essere un 720p ingrandito.
+ *
+ * 2 è il compromesso: 4× i pixel da riempire è già percepibile su macchine
+ * modeste, e oltre il raddoppio il guadagno visivo non si vede più.
+ */
+export const RENDER_SCALE = 2;
+
 export function textStyle(
   size: number,
   color: string = COLOR_STR.paper,
@@ -43,6 +56,11 @@ export function textStyle(
     fontFamily: FONT_MONO,
     fontSize: `${size}px`,
     color,
+    // Il testo di Phaser è una texture disegnata al corpo richiesto: senza
+    // questo verrebbe rasterizzato a 1× e poi ingrandito dalla camera, cioè
+    // sfocato esattamente come prima. `resolution` lo disegna a RENDER_SCALE
+    // e lo mostra alla dimensione logica.
+    resolution: RENDER_SCALE,
     ...extra
   };
 }

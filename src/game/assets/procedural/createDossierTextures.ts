@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { RENDER_SCALE } from '../../ui/theme';
 
 /**
  * Texture "carta da fascicolo": fondo scuro con righe orizzontali deboli
@@ -8,9 +9,10 @@ export function createDossierTextures(scene: Phaser.Scene): void {
   if (scene.textures.exists('dossier_paper')) return;
   const w = 900;
   const h = 560;
-  const canvas = scene.textures.createCanvas('dossier_paper', w, h);
+  const canvas = scene.textures.createCanvas('dossier_paper', w * RENDER_SCALE, h * RENDER_SCALE);
   if (!canvas) return;
   const ctx = canvas.getContext();
+  ctx.scale(RENDER_SCALE, RENDER_SCALE);
 
   ctx.fillStyle = '#101a30';
   ctx.fillRect(0, 0, w, h);

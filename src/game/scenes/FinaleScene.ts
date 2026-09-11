@@ -22,7 +22,7 @@ export class FinaleScene extends Phaser.Scene {
     const cx = GAME_WIDTH / 2;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     this.cameras.main.fadeIn(500, 0, 0, 0);
-    this.add.image(cx, GAME_HEIGHT / 2, 'citymap').setAlpha(0.15);
+    this.add.image(cx, GAME_HEIGHT / 2, 'citymap').setDisplaySize(GAME_WIDTH, GAME_HEIGHT).setAlpha(0.15);
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.5);
 
     const endingId = computeEnding(StateManager.indicators);

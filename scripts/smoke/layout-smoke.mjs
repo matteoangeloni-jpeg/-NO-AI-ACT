@@ -73,7 +73,11 @@ const sceneReportFn = () => {
       x: b.x, y: b.y, w: b.width, h: b.height
     });
   }
-  return { key: scene.scene.key, W: scene.scale.width, H: scene.scale.height, items };
+  // Il canvas è più grande del mondo (vedi RENDER_SCALE): i bounds degli
+  // oggetti sono in unità di mondo, quindi il riquadro da rispettare è il
+  // viewport della camera diviso il suo zoom, non la dimensione del canvas.
+  const cam = scene.cameras.main;
+  return { key: scene.scene.key, W: cam.width / cam.zoom, H: cam.height / cam.zoom, items };
 };
 
 const intersects = (a, b) =>
@@ -102,7 +106,10 @@ const panelReportFn = () => {
     const o = top[i];
     if (Array.isArray(o?.list) && o.list.length > 2 && !(o.input && o.input.enabled)) { panel = o; break; }
   }
-  if (!panel) return { W: scene.scale.width, H: scene.scale.height, items: [] };
+  const cam = scene.cameras.main;
+  const VW = cam.width / cam.zoom;
+  const VH = cam.height / cam.zoom;
+  if (!panel) return { W: VW, H: VH, items: [] };
 
   const items = [];
   const walk = (list) => {
@@ -122,7 +129,7 @@ const panelReportFn = () => {
     }
   };
   walk(panel.list);
-  return { W: scene.scale.width, H: scene.scale.height, items };
+  return { W: VW, H: VH, items };
 };
 
 /** Apre un pannello del titolo cliccandone la voce di menu sul canvas. */
