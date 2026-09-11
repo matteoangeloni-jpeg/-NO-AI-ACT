@@ -8,6 +8,7 @@ import { Panel } from '../ui/Panel';
 import { TypewriterText } from '../ui/TypewriterText';
 import { L, caseText } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene, fadeOutScene } from '../ui/motion';
 
 const CHOICES: IncidentChoice[] = ['document', 'suspend', 'minimize'];
 const NUMBER_KEYS = ['ONE', 'TWO', 'THREE'];
@@ -40,7 +41,7 @@ export class IncidentScene extends Phaser.Scene {
       return;
     }
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(200, 0, 0, 0);
+    fadeInScene(this, 200);
     AudioSystem.alert();
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.5);
 
@@ -62,10 +63,8 @@ export class IncidentScene extends Phaser.Scene {
       const delta = this.caseData.incidentDeltas?.[choice];
       if (delta) StateManager.applyIndicatorDelta(delta);
       AudioSystem.confirm();
-      this.cameras.main.fadeOut(200, 0, 0, 0);
-      this.cameras.main.once('camerafadeoutcomplete', () =>
-        this.scene.start('Decision', { caseId: this.caseData.id, citedClues: this.citedClues, incidentChoice: choice })
-      );
+      fadeOutScene(this, 200, () =>
+        this.scene.start('Decision', { caseId: this.caseData.id, citedClues: this.citedClues, incidentChoice: choice }));
     };
 
     labels.forEach((label, i) => {

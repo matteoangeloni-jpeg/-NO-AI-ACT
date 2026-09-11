@@ -13,6 +13,7 @@ import { NormCardView } from '../ui/NormCard';
 import { L, fmt } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene } from '../ui/motion';
 
 const CLASSIFICATIONS: Classification[] = ['vietata', 'alto_rischio', 'trasparenza', 'basso_rischio', 'non_rilevante'];
 const MEASURES: Measure[] = ['blocco', 'oversight', 'audit', 'informare', 'etichettare', 'dati_logging', 'nessuna'];
@@ -63,7 +64,7 @@ export class DecisionScene extends Phaser.Scene {
 
   create(): void {
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(250, 0, 0, 0);
+    fadeInScene(this, 250);
     AudioSystem.crossfadeToTheme(this.caseData.id);
     this.add.tileSprite(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
     this.contextOverlay = new CaseContextOverlay(this, this.caseData.id, 'closeToDecision');

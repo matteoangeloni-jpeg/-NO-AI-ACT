@@ -8,6 +8,7 @@ import { TypewriterText } from '../ui/TypewriterText';
 import { L, caseText, fmt, locationName } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene } from '../ui/motion';
 
 /** Apertura del fascicolo: scenario narrativo del caso. */
 export class CaseScene extends Phaser.Scene {
@@ -25,7 +26,7 @@ export class CaseScene extends Phaser.Scene {
     const cx = GAME_WIDTH / 2;
     const texts = caseText(this.caseData.id);
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(250, 0, 0, 0);
+    fadeInScene(this, 250);
     AnalyticsSystem.page('case');
     AnalyticsSystem.track('case_started', { caseId: this.caseData.id, locationId: this.caseData.locationId });
     AudioSystem.crossfadeToTheme(this.caseData.id); // tema musicale del livello

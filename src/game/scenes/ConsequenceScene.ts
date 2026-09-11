@@ -12,6 +12,7 @@ import { Panel } from '../ui/Panel';
 import { TypewriterText } from '../ui/TypewriterText';
 import { L, caseText, fmt } from '../i18n';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene } from '../ui/motion';
 
 interface ConsequenceParams {
   caseId: string;
@@ -53,7 +54,7 @@ export class ConsequenceScene extends Phaser.Scene {
     const texts = caseText(this.caseData.id);
     const ui = L().ui.consequence;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(250, 0, 0, 0);
+    fadeInScene(this, 250);
     AudioSystem.crossfadeToTheme(this.caseData.id);
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
 

@@ -11,6 +11,7 @@ import { TypewriterText } from '../ui/TypewriterText';
 import { L } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene } from '../ui/motion';
 
 /** Rapporto finale: l'esito dipende dagli indicatori accumulati. */
 export class FinaleScene extends Phaser.Scene {
@@ -21,7 +22,7 @@ export class FinaleScene extends Phaser.Scene {
   create(): void {
     const cx = GAME_WIDTH / 2;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(500, 0, 0, 0);
+    fadeInScene(this, 500);
     this.add.image(cx, GAME_HEIGHT / 2, 'citymap').setDisplaySize(GAME_WIDTH, GAME_HEIGHT).setAlpha(0.15);
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.5);
 

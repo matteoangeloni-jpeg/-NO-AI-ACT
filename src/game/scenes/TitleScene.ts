@@ -15,6 +15,7 @@ import { ReadingLayer } from '../systems/ReadingLayer';
 import type { DifficultyMode } from '../data/types';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { footerBaselineY, layoutVStack } from '../ui/layout';
+import { fadeOutScene } from '../ui/motion';
 
 /**
  * Schermata titolo "player-first": due azioni primarie (CONTINUA / NUOVA
@@ -276,8 +277,7 @@ export class TitleScene extends Phaser.Scene {
       AudioSystem.init();
       AudioSystem.confirm();
       StateManager.markStarted();
-      this.cameras.main.fadeOut(300, 0, 0, 0);
-      this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('Case', { caseId: plan.caseIds[0] }));
+      fadeOutScene(this, 300, () => this.scene.start('Case', { caseId: plan.caseIds[0] }));
     }, { width: 760, height: 48, fontSize: 14 });
 
     refresh();
@@ -333,8 +333,7 @@ export class TitleScene extends Phaser.Scene {
     AudioSystem.confirm();
     AnalyticsSystem.track('game_started', { language: StateManager.language });
     StateManager.markStarted();
-    this.cameras.main.fadeOut(300, 0, 0, 0);
-    this.cameras.main.once('camerafadeoutcomplete', () => {
+    fadeOutScene(this, 300, () => {
       if (isNew || !StateManager.briefingSeen) this.scene.start('Briefing');
       else this.scene.start('CityMap');
     });

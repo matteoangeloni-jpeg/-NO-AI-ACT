@@ -12,6 +12,11 @@ import { showToast } from '../ui/AlertToast';
 import { L, fmt, locationName } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene, fadeOutScene } from '../ui/motion';
+
+/** Deriva massima, in pixel logici, dei due strati di fondo della mappa. */
+const PARALLAX_MAP = 12;
+const PARALLAX_GRAIN = 6;
 
 export class CityMapScene extends Phaser.Scene {
   /** Selezione da tastiera (§11.2): indice nel vettore dei casi aperti. */
@@ -22,13 +27,25 @@ export class CityMapScene extends Phaser.Scene {
     super('CityMap');
   }
 
+  private readonly drift = { x: 0, y: 0 };
+  private mapLayer?: Phaser.GameObjects.Image;
+  private grainLayer?: Phaser.GameObjects.TileSprite;
+
   create(): void {
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(300, 0, 0, 0);
+    fadeInScene(this, 300);
     AnalyticsSystem.page('map');
     AudioSystem.crossfadeToTheme('city'); // no-op se già attivo
-    this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'citymap').setDisplaySize(GAME_WIDTH, GAME_HEIGHT);
-    this.add.tileSprite(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.6);
+    // Parallasse: la mappa e la grana scorrono di pochi pixel seguendo il
+    // puntatore, in direzioni opposte e con ampiezze diverse. La mappa è
+    // disegnata più larga del riquadro esattamente del doppio della deriva,
+    // altrimenti muovendola comparirebbe il fondo lungo i bordi.
+    this.mapLayer = this.add
+      .image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'citymap')
+      .setDisplaySize(GAME_WIDTH + PARALLAX_MAP * 2, GAME_HEIGHT + PARALLAX_MAP * 2);
+    this.grainLayer = this.add
+      .tileSprite(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH + PARALLAX_GRAIN * 2, GAME_HEIGHT + PARALLAX_GRAIN * 2, 'noise')
+      .setAlpha(0.6);
 
     // header istituzionale
     this.add.rectangle(GAME_WIDTH / 2, 30, GAME_WIDTH, 60, COLORS.carbon, 0.85);
@@ -65,8 +82,7 @@ export class CityMapScene extends Phaser.Scene {
     if (StateManager.completedCount() >= CASES_REQUIRED_FOR_FINALE) {
       new Button(this, GAME_WIDTH - 170, GAME_HEIGHT - 40, L().ui.map.finaleButton, () => {
         AudioSystem.alert();
-        this.cameras.main.fadeOut(400, 0, 0, 0);
-        this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('Finale'));
+        fadeOutScene(this, 400, () => this.scene.start('Finale'));
       }, { width: 260, variant: 'danger' });
       // avvisa solo finché il rapporto non è mai stato generato
       if (StateManager.endingId === null) {
@@ -105,8 +121,7 @@ export class CityMapScene extends Phaser.Scene {
       const sel = this.keyIndex >= 0 ? open[this.keyIndex] : undefined;
       if (!sel) return;
       AudioSystem.confirm();
-      this.cameras.main.fadeOut(250, 0, 0, 0);
-      this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('Case', { caseId: sel.caseId }));
+      fadeOutScene(this, 250, () => this.scene.start('Case', { caseId: sel.caseId }));
     });
   }
 
@@ -195,8 +210,34 @@ export class CityMapScene extends Phaser.Scene {
           return;
         }
         AudioSystem.confirm();
-        this.cameras.main.fadeOut(250, 0, 0, 0);
-        this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('Case', { caseId: caseData.id }));
+        fadeOutScene(this, 250, () => this.scene.start('Case', { caseId: caseData.id }));
       });
+  }
+
+  /**
+   * Segue il puntatore con inerzia. Con "riduci movimento" i due strati
+   * restano fermi al centro: è movimento decorativo, non informazione, ed
+   * è esattamente ciò che quell'impostazione chiede di togliere.
+   */
+  update(): void {
+    if (!this.mapLayer || !this.grainLayer) return;
+    const target = StateManager.reducedMotion
+      ? { x: 0, y: 0 }
+      : {
+          x: (this.input.activePointer.worldX - GAME_WIDTH / 2) / (GAME_WIDTH / 2),
+          y: (this.input.activePointer.worldY - GAME_HEIGHT / 2) / (GAME_HEIGHT / 2)
+        };
+    const ease = 0.06;
+    this.drift.x += (Phaser.Math.Clamp(target.x, -1, 1) - this.drift.x) * ease;
+    this.drift.y += (Phaser.Math.Clamp(target.y, -1, 1) - this.drift.y) * ease;
+    this.mapLayer.setPosition(
+      GAME_WIDTH / 2 - this.drift.x * PARALLAX_MAP,
+      GAME_HEIGHT / 2 - this.drift.y * PARALLAX_MAP
+    );
+    // la grana va nel verso opposto: è ciò che dà la sensazione di due piani
+    this.grainLayer.setPosition(
+      GAME_WIDTH / 2 + this.drift.x * PARALLAX_GRAIN,
+      GAME_HEIGHT / 2 + this.drift.y * PARALLAX_GRAIN
+    );
   }
 }

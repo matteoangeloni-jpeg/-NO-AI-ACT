@@ -21,6 +21,7 @@ import { DecisionDebriefOverlay } from '../ui/DecisionDebriefOverlay';
 import { L, caseText, fmt, normText } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene } from '../ui/motion';
 
 interface ReportParams {
   caseId: string;
@@ -67,7 +68,7 @@ export class ReportScene extends Phaser.Scene {
     const oc = OUTCOME_COLORS[result.outcome];
 
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(250, 0, 0, 0);
+    fadeInScene(this, 250);
     AudioSystem.crossfadeToTheme(this.caseData.id);
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
 

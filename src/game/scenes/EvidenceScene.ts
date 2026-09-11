@@ -12,6 +12,7 @@ import { L, caseText, fmt } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { evidenceReadingLine } from '../systems/evidenceReading';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene } from '../ui/motion';
 
 /**
  * Esame dei reperti: aprire tutti gli indizi, poi citare nel rapporto
@@ -44,7 +45,7 @@ export class EvidenceScene extends Phaser.Scene {
     const cx = GAME_WIDTH / 2;
     const texts = caseText(this.caseData.id);
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(250, 0, 0, 0);
+    fadeInScene(this, 250);
     AnalyticsSystem.page('evidence');
     AnalyticsSystem.track('evidence_opened', { caseId: this.caseData.id });
     AudioSystem.crossfadeToTheme(this.caseData.id);

@@ -8,6 +8,7 @@ import { Button } from '../ui/Button';
 import { NormCardView } from '../ui/NormCard';
 import { L } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene, fadeOutScene } from '../ui/motion';
 
 /** Sblocco della carta norma con animazione di flip. */
 export class NormCardScene extends Phaser.Scene {
@@ -28,7 +29,7 @@ export class NormCardScene extends Phaser.Scene {
     const cy = GAME_HEIGHT / 2;
     const ui = L().ui.normCard;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(250, 0, 0, 0);
+    fadeInScene(this, 250);
     this.add.tileSprite(cx, cy, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
 
     const norm = NormSystem.view(this.normId);
@@ -61,8 +62,7 @@ export class NormCardScene extends Phaser.Scene {
     }
 
     const backToMap = (): void => {
-      this.cameras.main.fadeOut(250, 0, 0, 0);
-      this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('CityMap'));
+      fadeOutScene(this, 250, () => this.scene.start('CityMap'));
     };
     new Button(this, cx, GAME_HEIGHT - 50, ui.backToMap, backToMap);
     // tastiera (v1.1): INVIO chiude la carta norma e torna alla mappa

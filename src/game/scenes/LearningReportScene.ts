@@ -6,6 +6,7 @@ import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
 import { L, fmt } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene } from '../ui/motion';
 
 /**
  * Rapporto di apprendimento finale (v1.1): trasforma gli esiti dei casi in un
@@ -25,7 +26,7 @@ export class LearningReportScene extends Phaser.Scene {
     const report = buildLearningReport(StateManager.completedCases, StateManager.language);
 
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    if (!StateManager.reducedMotion) this.cameras.main.fadeIn(250, 0, 0, 0);
+    fadeInScene(this, 250);
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
 
     this.add.text(cx, 40, ui.header, textStyle(13, COLOR_STR.paperDim)).setOrigin(0.5);

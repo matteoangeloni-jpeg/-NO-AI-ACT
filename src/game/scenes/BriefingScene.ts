@@ -8,6 +8,7 @@ import { TypewriterText } from '../ui/TypewriterText';
 import { L } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene, fadeOutScene } from '../ui/motion';
 
 export class BriefingScene extends Phaser.Scene {
   constructor() {
@@ -17,7 +18,7 @@ export class BriefingScene extends Phaser.Scene {
   create(): void {
     const cx = GAME_WIDTH / 2;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(300, 0, 0, 0);
+    fadeInScene(this, 300);
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
 
     new Panel(this, cx, GAME_HEIGHT / 2, 860, 560);
@@ -34,8 +35,7 @@ export class BriefingScene extends Phaser.Scene {
     // La mappa resta a un tocco di distanza, come seconda opzione dichiarata.
     const enter = (go: () => void) => () => {
       StateManager.setBriefingSeen();
-      this.cameras.main.fadeOut(300, 0, 0, 0);
-      this.cameras.main.once('camerafadeoutcomplete', go);
+      fadeOutScene(this, 300, go);
     };
     const btn = new Button(this, cx, btnY, L().briefing.ctaFirstCase,
       enter(() => this.scene.start('Case', { caseId: firstCaseId() })), { width: 340 });

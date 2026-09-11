@@ -8,6 +8,7 @@ import { Button } from '../ui/Button';
 import { LockedNormCard, NormCardView } from '../ui/NormCard';
 import { L, fmt } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene } from '../ui/motion';
 
 /** Confini verticali dell'area scrollabile della griglia (fissi: header sopra, nav sotto). */
 const GRID_TOP = 110;
@@ -39,7 +40,7 @@ export class ArchiveScene extends Phaser.Scene {
     const cx = GAME_WIDTH / 2;
     const ui = L().ui.archive;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(250, 0, 0, 0);
+    fadeInScene(this, 250);
     this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
 
     const unlockedCount = NormSystem.unlocked().length;
