@@ -422,6 +422,7 @@ export const en: Locale = {
         durationTitle: 'HOW LONG YOU HAVE',
         durationLabel: 'LENGTH: {value} min',
         planLine: '{count} case files · about {minutes} min · {difficulty} difficulty',
+        planLineOne: 'one case file · about {minutes} min · {difficulty} difficulty',
         overBudget: 'The first case file on this track needs about {minutes} min: more than the time you picked.',
         note: 'The time is an estimate used to build the session. The game does not measure or limit your real time.',
         start: 'START THIS TRACK ▸',

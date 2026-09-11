@@ -421,6 +421,7 @@ export const it = {
         durationTitle: 'QUANTO TEMPO HAI',
         durationLabel: 'DURATA: {value} min',
         planLine: '{count} fascicoli · circa {minutes} min · difficoltà {difficulty}',
+        planLineOne: 'un fascicolo · circa {minutes} min · difficoltà {difficulty}',
         overBudget: 'Il primo fascicolo di questo percorso chiede circa {minutes} min: più del tempo scelto.',
         note: 'Il tempo è una stima per comporre la sessione. Il gioco non misura e non limita il tuo tempo reale.',
         start: 'AVVIA QUESTO PERCORSO ▸',

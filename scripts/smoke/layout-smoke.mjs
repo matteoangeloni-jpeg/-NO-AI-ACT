@@ -79,6 +79,97 @@ const sceneReportFn = () => {
 const intersects = (a, b) =>
   a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
 
+/**
+ * Il pannello "per chi giochi" è un Container: sceneReportFn guarda solo i
+ * figli di primo livello della scena, quindi lo vedrebbe come un blocco
+ * unico e non accorgerebbe di nulla al suo interno. Questo reporter scende
+ * dentro il pannello aperto e restituisce i suoi elementi, che è dove
+ * un'etichetta più lunga in una lingua può uscire dal bordo o finire sopra
+ * il bottone successivo.
+ */
+const panelReportFn = () => {
+  const g = window.game;
+  if (!g) return null;
+  const a = g.scene.getScenes(true);
+  const scene = a[a.length - 1];
+  if (!scene) return null;
+  // Il pannello è l'ULTIMO container di primo livello: tutto ciò che sta
+  // dietro appartiene al titolo e va ignorato, altrimenti ogni voce di menu
+  // coperta dal pannello verrebbe segnalata come sovrapposizione.
+  const top = scene.children.list;
+  let panel = null;
+  for (let i = top.length - 1; i >= 0; i--) {
+    const o = top[i];
+    if (Array.isArray(o?.list) && o.list.length > 2 && !(o.input && o.input.enabled)) { panel = o; break; }
+  }
+  if (!panel) return { W: scene.scale.width, H: scene.scale.height, items: [] };
+
+  const items = [];
+  const walk = (list) => {
+    for (const o of list) {
+      if (!o || typeof o.getBounds !== 'function') continue;
+      const b = o.getBounds();
+      let text = typeof o.text === 'string' ? o.text : null;
+      const interactive = !!(o.input && o.input.enabled);
+      if (text == null && Array.isArray(o.list)) {
+        const t = o.list.find((c) => typeof c.text === 'string');
+        text = t ? t.text : null;
+      }
+      if (text != null && text.trim() !== '') {
+        items.push({ text, interactive, x: b.x, y: b.y, w: b.width, h: b.height });
+      }
+      if (Array.isArray(o.list) && !interactive) walk(o.list);
+    }
+  };
+  walk(panel.list);
+  return { W: scene.scale.width, H: scene.scale.height, items };
+};
+
+/** Apre un pannello del titolo cliccandone la voce di menu sul canvas. */
+const openTitlePanel = (labelRe) => {
+  const g = window.game;
+  const a = g.scene.getScenes(true);
+  const scene = a[a.length - 1];
+  for (const o of scene.children.list) {
+    const t = Array.isArray(o.list) ? o.list.find((c) => typeof c.text === 'string') : null;
+    if (t && new RegExp(labelRe, 'i').test(t.text) && o.input && o.input.enabled) {
+      o.emit('pointerdown');
+      o.emit('pointerup');
+      return t.text;
+    }
+  }
+  return null;
+};
+
+/**
+ * Il pannello scelto: niente fuori dal canvas, nessuna sovrapposizione fra i
+ * suoi elementi. Il fondale a tutto schermo e il titolo che sta dietro sono
+ * esclusi: coprono per definizione tutto il resto.
+ */
+function assertPanelLayout(report, ctx, mustContain) {
+  if (!report) { fail.push(`${ctx}: no panel report`); return; }
+  const { W, H, items } = report;
+  const own = items.filter((i) => i.w < W * 0.9);
+  if (own.length < 6) { fail.push(`${ctx}: panel looks empty (${own.length} items)`); return; }
+  for (const needle of mustContain) {
+    if (!own.some((i) => i.text.includes(needle))) fail.push(`${ctx}: missing "${needle}"`);
+  }
+  for (const el of own) {
+    const label = `"${el.text.slice(0, 28)}"`;
+    if (el.x < EDGE) fail.push(`${ctx}: ${label} clipped at left (x=${el.x.toFixed(0)})`);
+    if (el.y < EDGE) fail.push(`${ctx}: ${label} clipped at top (y=${el.y.toFixed(0)})`);
+    if (el.x + el.w > W - EDGE) fail.push(`${ctx}: ${label} clipped at right (${(el.x + el.w).toFixed(0)} > ${W - EDGE})`);
+    if (el.y + el.h > H - EDGE) fail.push(`${ctx}: ${label} below bottom (${(el.y + el.h).toFixed(0)} > ${H - EDGE})`);
+  }
+  for (let i = 0; i < own.length; i++) {
+    for (let j = i + 1; j < own.length; j++) {
+      if (intersects(own[i], own[j])) {
+        fail.push(`${ctx}: "${own[i].text.slice(0, 20)}" overlaps "${own[j].text.slice(0, 20)}"`);
+      }
+    }
+  }
+}
+
 function assertSceneLayout(report, ctx, expectedKey) {
   if (!report) { fail.push(`${ctx}: no window.game / scene report`); return; }
   const { key, W, H, items } = report;
@@ -149,6 +240,22 @@ for (const vp of CANVAS_VIEWPORTS) {
     assertSceneLayout(await page.evaluate(sceneReportFn), `${ctx} Title`, 'Title');
     await page.screenshot({ path: `${OUT}/title-${vp.w}x${vp.h}-${lang}.png` });
 
+    // pannello "per chi giochi": pubblico + durata, con la riga di riepilogo
+    const opened = await page.evaluate(openTitlePanel, 'PER CHI GIOCHI|WHO YOU PLAY AS');
+    if (!opened) {
+      fail.push(`${ctx}: audience menu entry not found on Title`);
+    } else {
+      await page.waitForTimeout(400);
+      assertPanelLayout(
+        await page.evaluate(panelReportFn),
+        `${ctx} Audience`,
+        lang === 'en' ? ['AUDIENCE:', 'LENGTH:', 'case file'] : ['PUBBLICO:', 'DURATA:', 'fascicol']
+      );
+      await page.screenshot({ path: `${OUT}/audience-${vp.w}x${vp.h}-${lang}.png` });
+      await page.evaluate(() => window.game.scene.start('Title'));
+      await page.waitForTimeout(300);
+    }
+
     await gotoBriefing(page);
     assertSceneLayout(await page.evaluate(sceneReportFn), `${ctx} Briefing`, 'Briefing');
     await page.screenshot({ path: `${OUT}/briefing-${vp.w}x${vp.h}-${lang}.png` });
@@ -201,4 +308,4 @@ console.log('  external hosts:', JSON.stringify(externalHosts));
 console.log('  console errors:', relevantErrors.length);
 console.log('  screenshots:', OUT);
 if (fail.length) { for (const f of fail) console.log('  ✗', f); process.exit(1); }
-console.log('  ✓ Title + Briefing safe-area clean across desktop/tablet/mobile, IT + EN');
+console.log('  ✓ Title + Briefing + audience panel safe-area clean across desktop/tablet/mobile, IT + EN');

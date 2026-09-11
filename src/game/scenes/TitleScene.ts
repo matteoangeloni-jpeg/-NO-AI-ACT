@@ -233,8 +233,10 @@ export class TitleScene extends Phaser.Scene {
 
     const refresh = (): void => {
       const plan = StateManager.sessionPlan;
+      // "1 fascicoli" non lo scrive nessuno: il singolare ha una riga sua.
+      const one = plan.caseIds.length === 1;
       planText.setText(
-        fmt(a.planLine, {
+        fmt(one ? a.planLineOne : a.planLine, {
           count: String(plan.caseIds.length),
           minutes: String(plan.estimatedMinutes),
           difficulty: L().ui.difficulty.modes[plan.difficulty].name

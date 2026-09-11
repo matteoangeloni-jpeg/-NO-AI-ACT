@@ -153,6 +153,32 @@ describe('il piano di sessione rispetta il budget, o lo dichiara', () => {
   });
 });
 
+describe('la riga di riepilogo non scrive "1 fascicoli"', () => {
+  it('esiste una forma singolare in entrambe le lingue, senza segnaposto del conteggio', () => {
+    for (const [lang, dict] of [['it', itDict], ['en', en]] as const) {
+      const one = dict.ui.audience.planLineOne;
+      expect(one, `${lang}: manca planLineOne`).toBeTruthy();
+      expect(one, `${lang}: il singolare non deve interpolare un conteggio`).not.toContain('{count}');
+      for (const ph of ['{minutes}', '{difficulty}']) {
+        expect(one, `${lang}: il singolare perde ${ph}`).toContain(ph);
+      }
+    }
+  });
+
+  it('il plurale interpola tutti e tre i valori', () => {
+    for (const [lang, dict] of [['it', itDict], ['en', en]] as const) {
+      for (const ph of ['{count}', '{minutes}', '{difficulty}']) {
+        expect(dict.ui.audience.planLine, `${lang}: il plurale perde ${ph}`).toContain(ph);
+      }
+    }
+  });
+
+  it('esiste almeno una combinazione che produce un solo fascicolo, quindi la forma serve davvero', () => {
+    const singles = AUDIENCE_IDS.flatMap((a) => SESSION_DURATIONS.filter((d) => planSession(a, d).caseIds.length === 1));
+    expect(singles.length, 'se nessun piano dà un caso solo, il singolare è codice morto').toBeGreaterThan(0);
+  });
+});
+
 describe('la difficoltà segue il tempo, e chi gioca per capire resta accompagnato', () => {
   it('un quarto d\'ora è sempre accompagnato', () => {
     for (const a of AUDIENCE_IDS) expect(planSession(a, 15).difficulty).toBe('base');
