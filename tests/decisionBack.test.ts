@@ -23,20 +23,23 @@ const src = readFileSync(resolve(__dirname, '../src/game/scenes/DecisionScene.ts
 describe('ogni passo della decisione ha un ritorno', () => {
   it('tutte le associazioni dei tasti dichiarano anche un ritorno', () => {
     const calls = [...src.matchAll(/this\.bindNumberKeys\(([^;]*?)\);/gs)].map((m) => m[1]);
-    expect(calls.length, 'i passi della decisione sono quattro').toBe(4);
+    // Cinque da quando riepilogo e firma sono separati (U03): il quinto
+    // passo non ha tasti numerici, ma passa comunque di qui per riagganciare
+    // il ritorno, che removeAllListeners() azzera a ogni passo.
+    expect(calls.length, 'i passi della decisione sono cinque').toBe(5);
     for (const [i, args] of calls.entries()) {
       expect(args.split(',').length, `passo ${i + 1}: bindNumberKeys senza terzo argomento`).toBeGreaterThanOrEqual(3);
     }
   });
 
   it('ogni passo costruisce il proprio bottone di ritorno', () => {
-    expect((src.match(/this\.backBtn = this\.addBackButton\(/g) ?? []).length).toBe(4);
+    expect((src.match(/this\.backBtn = this\.addBackButton\(/g) ?? []).length).toBe(5);
     expect(src, 'nessun passo deve più azzerare il bottone di ritorno').not.toContain('this.backBtn = undefined;');
   });
 
   it('il ritorno azzera una sola scelta per passo, e sono tutte e tre', () => {
     const cleared = [...src.matchAll(/this\.stepBack\(\(\) => \{ this\.(\w+) = null; \}/g)].map((m) => m[1]);
-    expect(cleared).toEqual(['classification', 'measure', 'subject']);
+    expect(cleared).toEqual(['classification', 'measure', 'subject', 'motivation']);
   });
 
   it('il bottone di ritorno resta dentro il canvas', () => {

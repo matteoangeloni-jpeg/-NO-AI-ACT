@@ -114,7 +114,8 @@ await waitScene('Decision');
 await page.keyboard.press('1'); await page.waitForTimeout(600); // classification
 await page.keyboard.press('1'); await page.waitForTimeout(600); // measure
 await page.keyboard.press('2'); await page.waitForTimeout(600); // subject
-await page.keyboard.press('2');                                 // motivation -> report
+await page.keyboard.press('2'); await page.waitForTimeout(600); // motivation -> summary
+await page.keyboard.press('Enter');                             // sign -> report
 await waitScene('Report');
 await page.waitForTimeout(800); // let the report body render
 

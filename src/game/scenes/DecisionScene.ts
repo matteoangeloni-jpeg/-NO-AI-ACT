@@ -15,6 +15,14 @@ import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
 
+/**
+ * Riga dell'avviso sulla firma. Sta fra il riepilogo e la fila della
+ * fiducia dichiarata, che buildConfidenceRow disegna a y=566: le due cose
+ * vanno tenute distanti a mano, perché nessuna delle due conosce l'altra.
+ */
+const SIGN_NOTE_Y = 470;
+const CONFIDENCE_ROW_Y = 566;
+
 const CLASSIFICATIONS: Classification[] = ['vietata', 'alto_rischio', 'trasparenza', 'basso_rischio', 'non_rilevante'];
 const MEASURES: Measure[] = ['blocco', 'oversight', 'audit', 'informare', 'etichettare', 'dati_logging', 'nessuna'];
 const SUBJECTS: ResponsibleSubject[] = ['provider', 'deployer', 'autorita', 'responsabile_umano', 'fornitore_esterno'];
@@ -34,6 +42,7 @@ export class DecisionScene extends Phaser.Scene {
   private classification: Classification | null = null;
   private measure: Measure | null = null;
   private subject: ResponsibleSubject | null = null;
+  private motivation: number | null = null;
   private citedClues: number[] = [];
   private confidence: ConfidenceLevel | null = null;
   private incidentChoice?: IncidentChoice;
@@ -55,6 +64,7 @@ export class DecisionScene extends Phaser.Scene {
     this.classification = null;
     this.measure = null;
     this.subject = null;
+    this.motivation = null;
     this.citedClues = data.citedClues ?? [];
     this.confidence = null;
     this.incidentChoice = data.incidentChoice;
@@ -275,18 +285,89 @@ export class DecisionScene extends Phaser.Scene {
     const texts = (L().cases as Record<string, { motivations: string[] }>)[this.caseData.id];
     this.header(L().ui.decision.step4, L().ui.decision.question4);
 
+    const pick = (i: number): void => {
+      if (this.motivation !== null) return;
+      this.motivation = i;
+      AudioSystem.confirm();
+      this.nextStep(() => this.showSummaryStep());
+    };
+
     texts.motivations.forEach((motivation, i) => {
       // bottone largo con etichetta vuota: il testo multilinea è sovrapposto
-      new Button(this, cx, 230 + i * 110, '', () => this.resolve(i), { width: 880, height: 92, fontSize: 13 });
+      new Button(this, cx, 230 + i * 110, '', () => pick(i), { width: 880, height: 92, fontSize: 13 });
       this.add
         .text(cx - 410, 230 + i * 110, `${i + 1}. ${motivation}`, textStyle(13.5, COLOR_STR.paper, { wordWrap: { width: 800 }, lineSpacing: 5 }))
         .setOrigin(0, 0.5);
     });
     const back = (): void => this.stepBack(() => { this.subject = null; }, () => this.showSubjectStep());
-    this.bindNumberKeys(3, (i) => this.resolve(i), back);
+    this.bindNumberKeys(3, pick, back);
     this.add.text(cx, GAME_HEIGHT - 80, L().ui.decision.keys3, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
     this.backBtn = this.addBackButton(L().ui.decision.stepBack, back);
+  }
+
+  // ------------------------------------------------------------ passo 5
+  /**
+   * RIEPILOGO E FIRMA (U03).
+   *
+   * Prima scegliere la motivazione FIRMAVA: il quarto bottone chiamava
+   * direttamente resolve(), cioè archiviava il rapporto, muoveva gli
+   * indicatori e chiudeva il caso. Chi cliccava per leggere meglio
+   * l'opzione aveva già consegnato.
+   *
+   * Ora le due cose sono separate: qui si rivede ciò che si è deciso e si
+   * firma con un gesto suo. La firma richiede che il rapporto sia COMPLETO,
+   * non che sia giusto — la valutazione arriva dopo, e un rapporto sbagliato
+   * resta giocabile e discutibile.
+   */
+  private showSummaryStep(): void {
+    const cx = GAME_WIDTH / 2;
+    const t = L().ui.decision;
+    const texts = (L().cases as Record<string, { motivations: string[] }>)[this.caseData.id];
+    this.header(t.step5, t.question5);
+
+    const rows: Array<[string, string]> = [
+      [t.summary.classification, L().classifications[this.classification!]],
+      [t.summary.measure, L().measures[this.measure!]],
+      [t.summary.subject, L().ui.subjects[this.subject!]],
+      [t.summary.clues, this.citedClues.map((i) => String(i + 1)).join(', ')],
+      [t.summary.motivation, texts.motivations[this.motivation!]]
+    ];
+    let y = 196;
+    for (const [label, value] of rows) {
+      this.add.text(cx - 430, y, label.toUpperCase(), textStyle(11.5, COLOR_STR.paperDim));
+      const v = this.add.text(cx - 430, y + 18, value, textStyle(13.5, COLOR_STR.paper, { wordWrap: { width: 860 }, lineSpacing: 4 }));
+      y += 26 + v.height;
+    }
+
+    // L'avviso sta SOPRA la fila della fiducia, non sotto: buildConfidenceRow
+    // disegna a y=566 e qui finiva esattamente addosso, in entrambe le lingue.
+    this.add
+      .text(cx, SIGN_NOTE_Y, t.signNote, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 880 }, align: 'center' }))
+      .setOrigin(0.5);
+
+    const back = (): void => this.stepBack(() => { this.motivation = null; }, () => this.showMotivationStep());
+    // Nessun tasto numerico qui: l'unico gesto è firmare, e va compiuto
+    // apposta. bindNumberKeys serve comunque per riagganciare il ritorno.
+    this.bindNumberKeys(0, () => undefined, back);
+    this.input.keyboard?.on('keydown-ENTER', () => {
+      if (!this.overlay && !this.contextOverlay.isOpen && !this.caseNormOverlay.isOpen) this.sign();
+    });
+
+    new Button(this, cx, GAME_HEIGHT - 104, t.sign, () => this.sign(), { width: 460, height: 48, fontSize: 14 });
+    this.add.text(cx, GAME_HEIGHT - 70, t.signHint, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
+    this.backBtn = this.addBackButton(t.stepBack, back);
     this.buildConfidenceRow(cx);
+  }
+
+  /**
+   * Firma: consentita solo su un rapporto completo, e una volta sola. La
+   * guardia `resolved` in resolve() copre già il doppio clic; questa
+   * verifica la completezza, che è l'altra metà di U03.
+   */
+  private sign(): void {
+    if (this.resolved) return;
+    if (this.classification === null || this.measure === null || this.subject === null || this.motivation === null) return;
+    this.resolve(this.motivation);
   }
 
   /**
@@ -297,8 +378,12 @@ export class DecisionScene extends Phaser.Scene {
    */
   private buildConfidenceRow(cx: number): void {
     const t = L().learningLayer.confidence;
-    const y = 566;
-    this.add.text(cx - 430, y, `${t.label} ${t.optionalTag}`, textStyle(11.5, COLOR_STR.paperDim)).setOrigin(0, 0.5);
+    const y = CONFIDENCE_ROW_Y;
+    // L'etichetta sta SOPRA i bottoni, non sulla loro riga: in italiano e in
+    // inglese è lunga abbastanza da arrivare sotto il primo ("7. Poco"), e
+    // le due scritte si sovrapponevano. Difetto che c'era già quando questa
+    // fila stava sul passo della motivazione; è emerso misurando la scena.
+    this.add.text(cx - 430, y - 28, `${t.label} ${t.optionalTag}`, textStyle(11.5, COLOR_STR.paperDim)).setOrigin(0, 0.5);
     const status = this.add.text(cx + 430, y + 26, '', textStyle(11.5, COLOR_STR.accent)).setOrigin(1, 0.5);
     const levels: Array<{ level: ConfidenceLevel; label: string }> = [
       { level: 1, label: t.levels.low },

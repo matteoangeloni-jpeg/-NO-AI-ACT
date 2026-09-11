@@ -6,7 +6,8 @@
  *   → CityMap: ARROW selects an open case, ENTER opens it
  *   → Case: ENTER examines the exhibits (after the typewriter reveals the CTA)
  *   → Evidence: keys 1..3 reveal each exhibit, again to cite two, ENTER proceeds
- *   → Decision: 1 (classification), 1 (measure), 2 (subject), 8 (confidence), 2 (motivation)
+ *   → Decision: 1 (classification), 1 (measure), 2 (subject), 2 (motivation),
+ *     then on the summary step: 8 (confidence), ENTER (sign)
  *   → Report: ENTER continues → Consequence: ENTER → CityMap
  *
  * Also verifies: the semantic reading layer mirrors each scene (§11.1), the
@@ -94,12 +95,17 @@ await press('Enter', 800);
 await waitScene('Decision');
 await readingLayerHas('Decision', 'Decision');
 
-// classification, measure, subject, optional confidence (8), motivation
+// classification, measure, subject, motivation → summary, then sign.
+// La fiducia dichiarata sta ora sul riepilogo e non sulla motivazione: si
+// dichiara guardando il rapporto intero, non la singola opzione. E la firma
+// è un gesto suo (U03): scegliere la motivazione non consegna più.
 await press('1', 600);
 await press('1', 600);
 await press('2', 600);
+await press('2', 600);
+await waitScene('Decision');
 await press('8', 300); // confidence "Fairly" — optional, must not block
-await press('2', 900);
+await press('Enter', 900); // firma
 await waitScene('Report');
 await readingLayerHas('Inspection report', 'Report');
 const announced = await page.evaluate(() => document.getElementById('sr-announcer')?.textContent ?? '');

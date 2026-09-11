@@ -206,6 +206,27 @@ function assertSceneLayout(report, ctx, expectedKey) {
   }
 }
 
+/**
+ * Porta la decisione fino al riepilogo (passo 5) e restituisce la geometria
+ * della scena. È l'unica schermata del gioco costruita da una sequenza di
+ * scelte, quindi l'unico modo di guardarla è giocarla: qui si è già
+ * sovrapposto l'avviso sulla firma alla fila della fiducia dichiarata, in
+ * entrambe le lingue, e nessun controllo statico poteva accorgersene.
+ */
+async function gotoDecisionSummary(page) {
+  await page.evaluate(() => window.game.scene.start('Decision', { caseId: 'case_scoring', citedClues: [0, 1] }));
+  await page.waitForFunction(() => {
+    const a = window.game?.scene?.getScenes(true);
+    return a && a.length && a[a.length - 1].scene.key === 'Decision';
+  }, { timeout: 8000 }).catch(() => {});
+  await page.waitForTimeout(500);
+  for (const k of ['1', '1', '2', '2']) {
+    await page.keyboard.press(k);
+    await page.waitForTimeout(650);
+  }
+  await page.waitForTimeout(400);
+}
+
 async function bootTitle(page, lang) {
   await page.addInitScript((seed) => localStorage.setItem('no-ai-act-save-v1', seed), SEED_WITH_PROGRESS);
   await page.goto(`${BASE}/play/?lang=${lang}`, { waitUntil: 'load' });
@@ -247,11 +268,19 @@ for (const vp of CANVAS_VIEWPORTS) {
     assertSceneLayout(await page.evaluate(sceneReportFn), `${ctx} Title`, 'Title');
     await page.screenshot({ path: `${OUT}/title-${vp.w}x${vp.h}-${lang}.png` });
 
+    // Pannello e riepilogo si controllano su UN solo viewport per lingua.
+    // Il gioco disegna in uno spazio logico fisso 1280×720 con Scale.FIT: la
+    // geometria della scena è identica a ogni dimensione di finestra, e ciò
+    // che cambia col viewport — il fit del canvas — è già coperto dai
+    // controlli su Title e Briefing qui sopra. Ripeterli otto volte
+    // allungherebbe il gate di minuti senza verificare nulla di nuovo.
+    const deepChecks = vp.w === 1792;
+
     // pannello "per chi giochi": pubblico + durata, con la riga di riepilogo
-    const opened = await page.evaluate(openTitlePanel, 'PER CHI GIOCHI|WHO YOU PLAY AS');
+    const opened = deepChecks ? await page.evaluate(openTitlePanel, 'PER CHI GIOCHI|WHO YOU PLAY AS') : 'skipped';
     if (!opened) {
       fail.push(`${ctx}: audience menu entry not found on Title`);
-    } else {
+    } else if (opened !== 'skipped') {
       await page.waitForTimeout(400);
       assertPanelLayout(
         await page.evaluate(panelReportFn),
@@ -266,6 +295,19 @@ for (const vp of CANVAS_VIEWPORTS) {
     await gotoBriefing(page);
     assertSceneLayout(await page.evaluate(sceneReportFn), `${ctx} Briefing`, 'Briefing');
     await page.screenshot({ path: `${OUT}/briefing-${vp.w}x${vp.h}-${lang}.png` });
+
+    if (deepChecks) {
+      // riepilogo e firma: unica schermata che esiste solo dopo quattro scelte
+      await gotoDecisionSummary(page);
+      const summary = await page.evaluate(sceneReportFn);
+      const signed = lang === 'en' ? 'SIGN THE REPORT' : 'FIRMA IL RAPPORTO';
+      if (!summary || !summary.items.some((i) => String(i.text || '').includes(signed))) {
+        fail.push(`${ctx} Decision summary: passo di firma non raggiunto`);
+      } else {
+        assertSceneLayout(summary, `${ctx} Decision summary`, 'Decision');
+        await page.screenshot({ path: `${OUT}/decision-summary-${vp.w}x${vp.h}-${lang}.png` });
+      }
+    }
 
     await context.close();
   }
@@ -315,4 +357,4 @@ console.log('  external hosts:', JSON.stringify(externalHosts));
 console.log('  console errors:', relevantErrors.length);
 console.log('  screenshots:', OUT);
 if (fail.length) { for (const f of fail) console.log('  ✗', f); process.exit(1); }
-console.log('  ✓ Title + Briefing + audience panel safe-area clean across desktop/tablet/mobile, IT + EN');
+console.log('  ✓ Title + Briefing + audience panel + decision summary safe-area clean, desktop/tablet/mobile, IT + EN');
