@@ -272,6 +272,14 @@ export interface SaveData {
   difficulty: DifficultyMode;
   /** Missione/percorso selezionato (v0.4). Default sicuro: 'full'. */
   mission: MissionId;
+  /**
+   * Pubblico della sessione (2.2). Default sicuro: 'casual'. Non è un dato
+   * personale: è una preferenza di percorso, sta solo in locale e non
+   * identifica nessuno.
+   */
+  audience: AudienceId;
+  /** Minuti dichiarati per la sessione (2.2). Default sicuro: 30. */
+  sessionMinutes: SessionMinutes;
   /** Annotazioni metacognitive per caso (2.0, schema v2). */
   caseMeta: Record<string, CaseMeta>;
   /** Autocontrolli locali facoltativi pre/post missione (2.0, schema v2). */

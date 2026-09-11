@@ -10,6 +10,8 @@ import { SiteResourcesOverlay } from '../ui/SiteResourcesOverlay';
 import { showToast } from '../ui/AlertToast';
 import { L, fmt, nextLanguage } from '../i18n';
 import { MISSION_IDS } from '../data/missions';
+import { AUDIENCE_IDS, SESSION_DURATIONS } from '../data/audiences';
+import { ReadingLayer } from '../systems/ReadingLayer';
 import type { DifficultyMode } from '../data/types';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { footerBaselineY, layoutVStack } from '../ui/layout';
@@ -73,6 +75,7 @@ export class TitleScene extends Phaser.Scene {
       if (hasSave) StateManager.newGame();
       this.startGame(true);
     }) });
+    specs.push({ height: GROUP_H, build: (y) => new Button(this, cx, y, m.audienceMenu, () => this.openAudience(), { height: GROUP_H, fontSize: 14, variant: 'ghost' }) });
     specs.push({ height: GROUP_H, build: (y) => new Button(this, cx, y, m.teachers, () => this.openTeachers(guide), { height: GROUP_H, fontSize: 14, variant: 'ghost' }) });
     specs.push({ height: GROUP_H, build: (y) => new Button(this, cx, y, m.resources, () => this.openResources(siteLinks), { height: GROUP_H, fontSize: 14, variant: 'ghost' }) });
     specs.push({ height: GROUP_H, build: (y) => new Button(this, cx, y, m.settings, () => this.openSettings(), { height: GROUP_H, fontSize: 14, variant: 'ghost' }) });
@@ -206,6 +209,77 @@ export class TitleScene extends Phaser.Scene {
     // nota privacy locale, concisa
     const note = this.add.text(cx - 380, rowY(4) + 44, g.settingsPrivacy, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
     c.add([audioBtn, musicBtn, motionBtn, crtBtn, langBtn, diffBtn, missBtn, resetBtn, creditsBtn, note]);
+  }
+
+  /**
+   * PER CHI GIOCHI: pubblico + durata. È una scelta di percorso, non un
+   * filtro: i casi non consigliati restano tutti aperti sulla mappa, come
+   * già accade per le missioni storiche. La riga di riepilogo si aggiorna a
+   * ogni cambio, così chi sceglie vede subito che cosa ottiene invece di
+   * scoprirlo giocando.
+   */
+  private openAudience(): void {
+    const cx = GAME_WIDTH / 2;
+    const cy = GAME_HEIGHT / 2;
+    const a = L().ui.audience;
+    const c = this.openPanel(a.title, 440);
+    const top = cy - 220;
+
+    const sub = this.add.text(cx - 380, top + 60, a.subtitle, textStyle(12.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 4 }));
+
+    // riepilogo vivo del piano: conta fascicoli, minuti stimati e difficoltà
+    const planText = this.add.text(cx - 380, top + 214, '', textStyle(13, COLOR_STR.accent, { wordWrap: { width: 760 }, lineSpacing: 4 }));
+    const warnText = this.add.text(cx - 380, top + 246, '', textStyle(12, COLOR_STR.warning, { wordWrap: { width: 760 }, lineSpacing: 4 }));
+
+    const refresh = (): void => {
+      const plan = StateManager.sessionPlan;
+      planText.setText(
+        fmt(a.planLine, {
+          count: String(plan.caseIds.length),
+          minutes: String(plan.estimatedMinutes),
+          difficulty: L().ui.difficulty.modes[plan.difficulty].name
+        })
+      );
+      warnText.setText(plan.overBudget ? fmt(a.overBudget, { minutes: String(plan.estimatedMinutes) }) : '');
+      ReadingLayer.announce(planText.text);
+    };
+
+    const audLabel = (): string => fmt(a.label, { value: a.modes[StateManager.audience].name });
+    const audBtn = new Button(this, cx, top + 110, audLabel(), () => {
+      const next = AUDIENCE_IDS[(AUDIENCE_IDS.indexOf(StateManager.audience) + 1) % AUDIENCE_IDS.length];
+      StateManager.setAudience(next);
+      audBtn.setLabel(audLabel());
+      desc.setText(a.modes[next].desc);
+      refresh();
+    }, { width: 760, height: 46, fontSize: 13, variant: 'ghost' });
+
+    const desc = this.add.text(cx - 380, top + 140, a.modes[StateManager.audience].desc, textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
+
+    const durLabel = (): string => fmt(a.durationLabel, { value: String(StateManager.sessionMinutes) });
+    const durBtn = new Button(this, cx, top + 182, durLabel(), () => {
+      const next = SESSION_DURATIONS[(SESSION_DURATIONS.indexOf(StateManager.sessionMinutes) + 1) % SESSION_DURATIONS.length];
+      StateManager.setSessionMinutes(next);
+      durBtn.setLabel(durLabel());
+      refresh();
+    }, { width: 760, height: 44, fontSize: 13, variant: 'ghost' });
+
+    const note = this.add.text(cx - 380, top + 292, a.note, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
+
+    // Avvia dal primo fascicolo del percorso scelto. Gli altri casi restano
+    // tutti aperti sulla mappa: il percorso dice da dove conviene partire,
+    // non che cosa è permesso.
+    const startBtn = new Button(this, cx, top + 350, a.start, () => {
+      const plan = StateManager.sessionPlan;
+      this.closeGroup();
+      AudioSystem.init();
+      AudioSystem.confirm();
+      StateManager.markStarted();
+      this.cameras.main.fadeOut(300, 0, 0, 0);
+      this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('Case', { caseId: plan.caseIds[0] }));
+    }, { width: 760, height: 48, fontSize: 14 });
+
+    refresh();
+    c.add([sub, audBtn, desc, durBtn, planText, warnText, note, startBtn]);
   }
 
   /** DOCENTI E CLASSE: modalità docente + guida, tutto locale. */

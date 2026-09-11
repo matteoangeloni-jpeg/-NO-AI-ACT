@@ -72,16 +72,39 @@ describe('save schema v2 — key, shape, version', () => {
     expect(storage.getItem(KEY)).not.toBeNull();
   });
 
-  it('SaveData keeps a stable v2 key set (v1 keys + caseMeta + selfCheck)', () => {
+  it('SaveData keeps a stable v2 key set (v1 keys + caseMeta, selfCheck, audience, sessionMinutes)', () => {
     const keys = Object.keys(defaultSave()).sort();
     expect(keys).toEqual([
-      'audioMuted', 'briefingSeen', 'caseMeta', 'caseReports', 'completedCases', 'crtOverlay',
-      'difficulty', 'endingId', 'indicators', 'language', 'mission', 'musicVolume',
-      'reducedMotion', 'selfCheck', 'startedAt', 'teacherMode', 'unlockedNorms', 'version'
+      'audience', 'audioMuted', 'briefingSeen', 'caseMeta', 'caseReports', 'completedCases',
+      'crtOverlay', 'difficulty', 'endingId', 'indicators', 'language', 'mission', 'musicVolume',
+      'reducedMotion', 'selfCheck', 'sessionMinutes', 'startedAt', 'teacherMode', 'unlockedNorms',
+      'version'
     ]);
     expect(defaultSave().version).toBe(2);
     expect(defaultSave().caseMeta).toEqual({});
     expect(defaultSave().selfCheck).toEqual({ pre: null, post: null });
+  });
+
+  /**
+   * I campi 2.2 (audience, sessionMinutes) sono stati aggiunti a v2 SENZA
+   * cambiare versione. È lecito solo perché sono additivi in entrambe le
+   * direzioni: un salvataggio v2 che non li ha prende i default senza
+   * perdere nulla, e un client più vecchio li conserva passandoli avanti.
+   * Se un giorno un campo nuovo non soddisfa questa condizione, quel giorno
+   * la versione va alzata — e questo test è il posto in cui accorgersene.
+   */
+  it('un salvataggio v2 anteriore a 2.2 si apre senza perdite e prende i default', () => {
+    const { audience: _a, sessionMinutes: _s, ...preexisting } = defaultSave();
+    const older = { ...preexisting, difficulty: 'expert' as const, mission: 'pack' as const, briefingSeen: true };
+    storage.setItem(KEY, JSON.stringify(older));
+
+    const loaded = SaveSystem.load();
+    expect(loaded.audience, 'il default sicuro è il percorso per conto proprio').toBe('casual');
+    expect(loaded.sessionMinutes).toBe(30);
+    for (const [k, v] of Object.entries(older)) {
+      expect((loaded as unknown as Record<string, unknown>)[k], `campo preesistente ${k}`).toEqual(v);
+    }
+    expect(loaded.version, 'aggiungere campi additivi non alza la versione').toBe(2);
   });
 });
 

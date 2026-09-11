@@ -31,6 +31,7 @@ export const en: Locale = {
       teacherOff: 'TEACHER MODE: OFF',
       teacherScope: 'Local debrief: no classes, no accounts, no server.',
       resetDone: 'Save data cleared.',
+      audienceMenu: 'WHO YOU PLAY AS',
       teachers: 'TEACHERS & CLASSROOM',
       resources: 'RESOURCES',
       settings: 'SETTINGS',
@@ -412,6 +413,23 @@ export const en: Locale = {
       recommendedHeader: 'RECOMMENDED PATHS',
       recommendedLine: '{name} · {duration} · {goal}'
     },
+      audience: {
+        title: 'WHO ARE YOU PLAYING AS',
+        subtitle: 'It changes which case files come first, not which ones you can open.',
+        label: 'AUDIENCE: {value}',
+        durationTitle: 'HOW LONG YOU HAVE',
+        durationLabel: 'LENGTH: {value} min',
+        planLine: '{count} case files · about {minutes} min · {difficulty} difficulty',
+        overBudget: 'The first case file on this track needs about {minutes} min: more than the time you picked.',
+        note: 'The time is an estimate used to build the session. The game does not measure or limit your real time.',
+        start: 'START THIS TRACK ▸',
+        modes: {
+          casual: { name: 'On my own', desc: "You don't work in the field and want to understand the AI Act. Cases picked for clarity, not for a role." },
+          pa: { name: 'Public administration', desc: 'Front desk, procurement and fraud detection: deciding with a system you did not write.' },
+          scuola: { name: 'Schools and training', desc: 'Emotion recognition in class, adaptive platforms and general-purpose models.' },
+          hr: { name: 'Human resources', desc: 'Hiring, rankings and general-purpose models used downstream.' }
+        }
+      },
     missions: {
       title: 'CHOOSE A PATH',
       subtitle: 'A path suggests recommended cases. You can still play them all.',

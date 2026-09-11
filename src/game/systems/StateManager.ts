@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { applyOutcome, clampIndicator } from '../data/indicators';
-import type { CaseMeta, CaseReport, DifficultyMode, IndicatorState, LanguageCode, MissionId, OutcomeQuality, SaveData, SelfCheckPhase, SelfCheckResult } from '../data/types';
+import type { AudienceId, CaseMeta, CaseReport, DifficultyMode, IndicatorState, LanguageCode, MissionId, OutcomeQuality, SaveData, SelfCheckPhase, SelfCheckResult, SessionMinutes } from '../data/types';
+import { planSession, type SessionPlan } from '../data/audiences';
 import { setLanguage } from '../i18n';
 import { SaveSystem } from './SaveSystem';
 
@@ -70,6 +71,37 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
 
   setMission(value: MissionId): void {
     this.data.mission = value;
+    this.persist();
+  }
+
+  get audience(): AudienceId {
+    return this.data.audience;
+  }
+
+  get sessionMinutes(): SessionMinutes {
+    return this.data.sessionMinutes;
+  }
+
+  /** Piano corrente: casi proposti e difficoltà, derivati da pubblico e durata. */
+  get sessionPlan(): SessionPlan {
+    return planSession(this.data.audience, this.data.sessionMinutes);
+  }
+
+  /**
+   * Cambiare pubblico o durata allinea anche la difficoltà proposta. Non
+   * tocca i casi già completati né i rapporti archiviati: il percorso dice
+   * che cosa viene consigliato d'ora in poi, non riscrive ciò che è stato
+   * giocato.
+   */
+  setAudience(value: AudienceId): void {
+    this.data.audience = value;
+    this.data.difficulty = planSession(value, this.data.sessionMinutes).difficulty;
+    this.persist();
+  }
+
+  setSessionMinutes(value: SessionMinutes): void {
+    this.data.sessionMinutes = value;
+    this.data.difficulty = planSession(this.data.audience, value).difficulty;
     this.persist();
   }
 

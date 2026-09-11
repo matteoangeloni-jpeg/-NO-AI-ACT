@@ -30,6 +30,7 @@ export const it = {
       teacherOff: 'MODALITÀ DOCENTE: OFF',
       teacherScope: 'Debrief locale: niente classi, niente account, niente server.',
       resetDone: 'Salvataggio azzerato.',
+      audienceMenu: 'PER CHI GIOCHI',
       teachers: 'DOCENTI E CLASSE',
       resources: 'RISORSE',
       settings: 'IMPOSTAZIONI',
@@ -411,6 +412,23 @@ export const it = {
       recommendedHeader: 'PERCORSI CONSIGLIATI',
       recommendedLine: '{name} · {duration} · {goal}'
     },
+      audience: {
+        title: 'PER CHI GIOCHI',
+        subtitle: 'Cambia quali fascicoli vengono proposti per primi, non che cosa puoi aprire.',
+        label: 'PUBBLICO: {value}',
+        durationTitle: 'QUANTO TEMPO HAI',
+        durationLabel: 'DURATA: {value} min',
+        planLine: '{count} fascicoli · circa {minutes} min · difficoltà {difficulty}',
+        overBudget: 'Il primo fascicolo di questo percorso chiede circa {minutes} min: più del tempo scelto.',
+        note: 'Il tempo è una stima per comporre la sessione. Il gioco non misura e non limita il tuo tempo reale.',
+        start: 'AVVIA QUESTO PERCORSO ▸',
+        modes: {
+          casual: { name: 'Per conto mio', desc: 'Non lavori nel settore e vuoi capire l\'AI Act. Casi scelti per chiarezza, non per ruolo.' },
+          pa: { name: 'Pubblica amministrazione', desc: 'Sportello, appalti e antifrode: decidere con un sistema che non hai scritto tu.' },
+          scuola: { name: 'Scuola e formazione', desc: 'Emozioni in classe, piattaforme adattive e modelli generali.' },
+          hr: { name: 'Risorse umane', desc: 'Selezione, graduatorie e modelli generali usati a valle.' }
+        }
+      },
     missions: {
       title: 'SCEGLI IL PERCORSO',
       subtitle: 'Un percorso suggerisce i casi consigliati. Puoi comunque giocarli tutti.',

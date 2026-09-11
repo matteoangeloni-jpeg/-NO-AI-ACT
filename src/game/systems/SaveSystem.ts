@@ -33,6 +33,8 @@ export function defaultSave(): SaveData {
     startedAt: null,
     difficulty: 'standard',
     mission: 'full',
+    audience: 'casual',
+    sessionMinutes: 30,
     caseMeta: {},
     selfCheck: { pre: null, post: null }
   };
