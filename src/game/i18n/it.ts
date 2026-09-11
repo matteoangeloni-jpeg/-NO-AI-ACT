@@ -227,6 +227,8 @@ export const it = {
       }
     },
     decision: {
+      stepBack: '◂ PASSO PRECEDENTE',
+      stepBackHint: 'BACKSPACE torna al passo precedente e lo rende di nuovo modificabile.',
       step1: 'DECISIONE 1 DI 4 — CLASSIFICAZIONE',
       step2: 'DECISIONE 2 DI 4 — MISURA CORRETTIVA',
       step3: 'DECISIONE 3 DI 4 — SOGGETTO RESPONSABILE',

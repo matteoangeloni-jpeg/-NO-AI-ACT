@@ -228,6 +228,8 @@ export const en: Locale = {
       }
     },
     decision: {
+      stepBack: '◂ PREVIOUS STEP',
+      stepBackHint: 'BACKSPACE goes back one step and makes it editable again.',
       step1: 'DECISION 1 OF 4 — CLASSIFICATION',
       step2: 'DECISION 2 OF 4 — CORRECTIVE MEASURE',
       step3: 'DECISION 3 OF 4 — RESPONSIBLE SUBJECT',

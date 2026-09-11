@@ -17,6 +17,10 @@ import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/the
 const CLASSIFICATIONS: Classification[] = ['vietata', 'alto_rischio', 'trasparenza', 'basso_rischio', 'non_rilevante'];
 const MEASURES: Measure[] = ['blocco', 'oversight', 'audit', 'informare', 'etichettare', 'dati_logging', 'nessuna'];
 const SUBJECTS: ResponsibleSubject[] = ['provider', 'deployer', 'autorita', 'responsabile_umano', 'fornitore_esterno'];
+/** Ritorno al passo precedente: centro e larghezza, con 15 px di margine. */
+export const BACK_BTN_X = 115;
+export const BACK_BTN_W = 200;
+
 const NUMBER_KEYS = ['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN'];
 
 /**
@@ -70,7 +74,13 @@ export class DecisionScene extends Phaser.Scene {
 
   private header(step: string, question: string): void {
     // strato di lettura (§11.1): passo corrente e domanda, a ogni transizione
-    ReadingLayer.setScene(fmt(L().a11y.decisionTitle, { step }), [{ text: question }]);
+    // Il ritorno al passo precedente è annunciato qui e non nei tasti in
+    // fondo: chi legge con uno strumento assistivo incontra la scena
+    // dall'alto, e deve sapere di poter correggere prima di scegliere.
+    ReadingLayer.setScene(fmt(L().a11y.decisionTitle, { step }), [
+      { text: question },
+      { text: L().ui.decision.stepBackHint }
+    ]);
     const cx = GAME_WIDTH / 2;
     this.add
       .text(cx, 56, fmt(L().ui.case.fileLabel, { code: this.caseData.fileCode }), textStyle(13, COLOR_STR.alertText))
@@ -112,8 +122,13 @@ export class DecisionScene extends Phaser.Scene {
     this.backBtn?.setVisible(!hideNav);
   }
 
-  /** Associa i tasti numerici 1..n alle opzioni correnti. */
-  private bindNumberKeys(count: number, onPick: (index: number) => void): void {
+  /**
+   * Associa i tasti numerici 1..n alle opzioni correnti, e BACKSPACE al
+   * ritorno al passo precedente. La riassociazione avviene a ogni passo
+   * perché removeAllListeners() qui sotto azzera anche il ritorno: senza
+   * questo parametro, indietro funzionerebbe col mouse e non da tastiera.
+   */
+  private bindNumberKeys(count: number, onPick: (index: number) => void, onBack?: () => void): void {
     this.input.keyboard?.removeAllListeners();
     NUMBER_KEYS.slice(0, count).forEach((key, i) => {
       this.input.keyboard?.on(`keydown-${key}`, () => {
@@ -121,10 +136,45 @@ export class DecisionScene extends Phaser.Scene {
         if (!this.overlay && !this.contextOverlay.isOpen && !this.caseNormOverlay.isOpen) onPick(i);
       });
     });
+    if (onBack) {
+      this.input.keyboard?.on('keydown-BACKSPACE', () => {
+        if (!this.overlay && !this.contextOverlay.isOpen && !this.caseNormOverlay.isOpen && !this.resolved) onBack();
+      });
+    }
     this.input.keyboard?.on('keydown-ESC', () => {
       if (this.contextOverlay.isOpen) this.contextOverlay.close();
       else if (this.caseNormOverlay.isOpen) this.caseNormOverlay.close();
       else this.closeNormsOverlay();
+    });
+  }
+
+  /**
+   * Torna al passo precedente (U02). Azzera SOLO la scelta di quel passo,
+   * così le altre restano: tornare indietro per correggere una misura non
+   * deve costare la classificazione già data. Il rapporto non è ancora
+   * firmato, quindi nulla di archiviato viene toccato.
+   */
+  private stepBack(clear: () => void, builder: () => void): void {
+    if (this.resolved) return;
+    clear();
+    AudioSystem.confirm();
+    this.nextStep(builder);
+  }
+
+  /**
+   * Bottone di ritorno, nella stessa posizione in tutti i passi.
+   *
+   * Il Button è centrato su (x, y): con BACK_BTN_W più larga del doppio di
+   * BACK_BTN_X il bordo sinistro finirebbe fuori dal canvas. Le due costanti
+   * stanno qui insieme, e un test le confronta, perché allargare l'etichetta
+   * senza spostare il centro è esattamente l'errore facile da fare.
+   */
+  private addBackButton(label: string, onBack: () => void): Button {
+    return new Button(this, BACK_BTN_X, GAME_HEIGHT - 36, label, onBack, {
+      width: BACK_BTN_W,
+      height: 36,
+      fontSize: 12,
+      variant: 'ghost'
     });
   }
 
@@ -161,16 +211,17 @@ export class DecisionScene extends Phaser.Scene {
     CLASSIFICATIONS.forEach((cls, i) => {
       new Button(this, cx, 228 + i * 62, `${i + 1}. ${L().classifications[cls].toUpperCase()}`, () => pick(cls), { width: 460 });
     });
-    this.bindNumberKeys(CLASSIFICATIONS.length, (i) => pick(CLASSIFICATIONS[i]));
+    const toEvidence = (): void => {
+      this.scene.start('Evidence', { caseId: this.caseData.id });
+    };
+    this.bindNumberKeys(CLASSIFICATIONS.length, (i) => pick(CLASSIFICATIONS[i]), toEvidence);
     this.add.text(cx, GAME_HEIGHT - 80, L().ui.decision.keys5, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
-
-    this.backBtn = new Button(this, 90, GAME_HEIGHT - 36, L().ui.evidence.backToEvidence, () => this.scene.start('Evidence', { caseId: this.caseData.id }), { width: 150, height: 36, fontSize: 12, variant: 'ghost' });
+    this.backBtn = this.addBackButton(L().ui.evidence.backToEvidence, toEvidence);
   }
 
   // ------------------------------------------------------------ passo 2
   private showMeasureStep(): void {
     const cx = GAME_WIDTH / 2;
-    this.backBtn = undefined; // destroyed by nextStep()'s cleanup; only step 1 has a back button
     this.header(L().ui.decision.step2, L().ui.decision.question2);
     this.add
       .text(cx, 170, fmt(L().ui.decision.recorded, { value: L().classifications[this.classification!].toUpperCase() }), textStyle(12, COLOR_STR.accent))
@@ -190,8 +241,10 @@ export class DecisionScene extends Phaser.Scene {
       const x = col === 0 ? cx - 240 : cx + 240;
       new Button(this, i === MEASURES.length - 1 ? cx : x, 224 + row * 62, `${i + 1}. ${L().measures[measure].toUpperCase()}`, () => pick(measure), { width: 440, fontSize: 14 });
     });
-    this.bindNumberKeys(MEASURES.length, (i) => pick(MEASURES[i]));
+    const back = (): void => this.stepBack(() => { this.classification = null; }, () => this.showClassificationStep());
+    this.bindNumberKeys(MEASURES.length, (i) => pick(MEASURES[i]), back);
     this.add.text(cx, GAME_HEIGHT - 80, L().ui.decision.keys7, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
+    this.backBtn = this.addBackButton(L().ui.decision.stepBack, back);
   }
 
   // ------------------------------------------------------------ passo 3
@@ -209,8 +262,10 @@ export class DecisionScene extends Phaser.Scene {
     SUBJECTS.forEach((subject, i) => {
       new Button(this, cx, 210 + i * 62, `${i + 1}. ${L().ui.subjects[subject].toUpperCase()}`, () => pick(subject), { width: 560, fontSize: 14 });
     });
-    this.bindNumberKeys(SUBJECTS.length, (i) => pick(SUBJECTS[i]));
+    const back = (): void => this.stepBack(() => { this.measure = null; }, () => this.showMeasureStep());
+    this.bindNumberKeys(SUBJECTS.length, (i) => pick(SUBJECTS[i]), back);
     this.add.text(cx, GAME_HEIGHT - 80, L().ui.decision.keys5, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
+    this.backBtn = this.addBackButton(L().ui.decision.stepBack, back);
   }
 
   // ------------------------------------------------------------ passo 4
@@ -226,8 +281,10 @@ export class DecisionScene extends Phaser.Scene {
         .text(cx - 410, 230 + i * 110, `${i + 1}. ${motivation}`, textStyle(13.5, COLOR_STR.paper, { wordWrap: { width: 800 }, lineSpacing: 5 }))
         .setOrigin(0, 0.5);
     });
-    this.bindNumberKeys(3, (i) => this.resolve(i));
+    const back = (): void => this.stepBack(() => { this.subject = null; }, () => this.showSubjectStep());
+    this.bindNumberKeys(3, (i) => this.resolve(i), back);
     this.add.text(cx, GAME_HEIGHT - 80, L().ui.decision.keys3, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
+    this.backBtn = this.addBackButton(L().ui.decision.stepBack, back);
     this.buildConfidenceRow(cx);
   }
 
