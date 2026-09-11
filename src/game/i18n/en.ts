@@ -1730,6 +1730,7 @@ export const en: Locale = {
     mapHint: 'Arrow keys cycle the open case files, ENTER opens the selected one.',
     selectedCase: 'Selected: {name}',
     evidenceHint: 'Keys 1–{n}: open an exhibit, then press again to cite it. ENTER proceeds when possible.',
+    evidenceCited: 'cited in the report',
     decisionTitle: 'Decision — {step}',
     reportTitle: 'Inspection report',
     briefingTitle: 'Initial briefing',

@@ -1726,6 +1726,7 @@ export const it = {
     mapHint: 'Frecce per scorrere i fascicoli aperti, INVIO per aprire quello selezionato.',
     selectedCase: 'Selezionato: {name}',
     evidenceHint: 'Tasti 1–{n}: apri un reperto, poi premili di nuovo per citarlo. INVIO prosegue quando possibile.',
+    evidenceCited: 'citato nel rapporto',
     decisionTitle: 'Decisione — {step}',
     reportTitle: 'Rapporto ispettivo',
     briefingTitle: 'Briefing iniziale',

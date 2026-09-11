@@ -10,6 +10,7 @@ import { DossierCard } from '../ui/DossierCard';
 import { showToast } from '../ui/AlertToast';
 import { L, caseText, fmt } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
+import { evidenceReadingLine } from '../systems/evidenceReading';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 
 /**
@@ -167,8 +168,11 @@ export class EvidenceScene extends Phaser.Scene {
       {
         items: texts.clues.map((clue, i) => {
           const card = this.cards[i];
-          const state = card?.isCited ? L().ui.evidence.cited : card?.isRevealed ? clue.text : L().ui.evidence.sealed;
-          return `${clue.title} — ${state}`;
+          return evidenceReadingLine(
+            clue,
+            card ? { revealed: card.isRevealed, cited: card.isCited } : undefined,
+            { sealed: L().ui.evidence.sealed, cited: L().a11y.evidenceCited }
+          );
         })
       }
     ]);
