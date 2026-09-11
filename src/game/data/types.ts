@@ -55,6 +55,19 @@ export type DifficultyMode = 'base' | 'standard' | 'expert';
 /** Percorsi didattici / missioni (v0.4; 'pack' = Advanced Case Pack v0.6). */
 export type MissionId = 'demo' | 'lab' | 'full' | 'advanced' | 'pack';
 
+/**
+ * Pubblico di una sessione (2.2). Affianca MissionId senza sostituirlo: le
+ * missioni storiche restano esattamente com'erano, questi percorsi
+ * compongono invece i casi a partire da chi gioca e da quanto tempo ha.
+ * 'casual' è chi non lavora nel settore e vuole capire l'AI Act per conto
+ * proprio: non è un profilo professionale annacquato, ha un ordine di casi
+ * suo, scelto per leggibilità narrativa invece che per rilevanza di ruolo.
+ */
+export type AudienceId = 'casual' | 'pa' | 'scuola' | 'hr';
+
+/** Durate proposte, in minuti. Un budget dichiarato, non un timer. */
+export type SessionMinutes = 15 | 30 | 60 | 90;
+
 /** Fonte/attendibilità di un reperto (etichetta investigativa, v0.4). */
 export type EvidenceSource =
   | 'amministrativa'
@@ -109,6 +122,13 @@ export interface CaseData {
   relevantClues: number[];
   normId: string;
   playable: boolean;
+  /**
+   * Minuti di gioco stimati per questo fascicolo, esclusa la presa di
+   * confidenza iniziale (che vale una volta sola, vedi SESSION_WARMUP_MINUTES).
+   * Serve a comporre una sessione di durata scelta: non è un timer, il gioco
+   * non misura né limita il tempo reale di nessuno.
+   */
+  estimatedMinutes: number;
   /** Soggetto a cui imputare gli obblighi principali. */
   responsibleSubjectCorrect: ResponsibleSubject;
   /** Soggetto difendibile ma incompleto (opzionale). */
