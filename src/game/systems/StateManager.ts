@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { applyOutcome, clampIndicator } from '../data/indicators';
 import type { AudienceId, CaseMeta, CaseReport, DifficultyMode, IndicatorState, LanguageCode, MissionId, OutcomeQuality, SaveData, SelfCheckPhase, SelfCheckResult, SessionMinutes } from '../data/types';
 import { planSession, type SessionPlan } from '../data/audiences';
+import { DRAFT_SCHEMA, emptyDraft, hasProgress, isResumable, type CaseDraft } from './caseDraft';
 import { setLanguage } from '../i18n';
 import { SaveSystem } from './SaveSystem';
 
@@ -129,6 +130,10 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
   resolveCase(caseId: string, normId: string, quality: OutcomeQuality): IndicatorState {
     this.data.indicators = applyOutcome(this.data.indicators, quality);
     this.data.completedCases[caseId] = quality;
+    // Firmare chiude il fascicolo: la bozza sparisce qui e non nella scena,
+    // così non esiste un percorso che archivia un rapporto lasciandosi
+    // dietro una bozza dello stesso caso.
+    delete this.data.caseDrafts[caseId];
     if (!this.data.unlockedNorms.includes(normId)) {
       this.data.unlockedNorms.push(normId);
     }
@@ -158,6 +163,38 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
    * Annotazioni metacognitive locali (2.0): fiducia dichiarata e riflessione.
    * Facoltative, solo localStorage, MAI usate nel calcolo del punteggio.
    */
+  /** Bozza riprendibile di un fascicolo, o null se non ce n'è una utile. */
+  draftFor(caseId: string): CaseDraft | null {
+    const d = this.data.caseDrafts[caseId];
+    if (!d || !isResumable(d, Object.keys(this.data.completedCases))) return null;
+    return hasProgress(d) ? d : null;
+  }
+
+  /** Tutte le bozze riprendibili, dalla più recente. */
+  resumableDrafts(): CaseDraft[] {
+    return Object.values(this.data.caseDrafts)
+      .filter((d) => isResumable(d, Object.keys(this.data.completedCases)) && hasProgress(d))
+      .sort((a, b) => b.updatedAt - a.updatedAt);
+  }
+
+  /**
+   * Aggiorna la bozza di un fascicolo. Non scrive nulla se il caso è già
+   * chiuso: un rapporto firmato non torna indietro a essere una bozza.
+   */
+  saveDraft(caseId: string, patch: Partial<Omit<CaseDraft, 'schema' | 'caseId'>>): void {
+    if (caseId in this.data.completedCases) return;
+    const base = this.data.caseDrafts[caseId] ?? emptyDraft(caseId, Date.now());
+    this.data.caseDrafts[caseId] = { ...base, ...patch, schema: DRAFT_SCHEMA, caseId, updatedAt: Date.now() };
+    this.persist();
+  }
+
+  /** Abbandona la bozza di un fascicolo, senza toccare i casi già chiusi. */
+  clearDraft(caseId: string): void {
+    if (!(caseId in this.data.caseDrafts)) return;
+    delete this.data.caseDrafts[caseId];
+    this.persist();
+  }
+
   saveCaseMeta(caseId: string, meta: Partial<CaseMeta>): void {
     this.data.caseMeta[caseId] = { ...this.data.caseMeta[caseId], ...meta };
     this.persist();
@@ -247,7 +284,11 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
       language: this.data.language,
       teacherMode: this.data.teacherMode,
       difficulty: this.data.difficulty,
-      mission: this.data.mission
+      mission: this.data.mission,
+      // pubblico e durata sono preferenze come le altre: una partita nuova
+      // non deve dimenticare per chi stai giocando e quanto tempo hai
+      audience: this.data.audience,
+      sessionMinutes: this.data.sessionMinutes
     };
     this.data = { ...SaveSystem.reset(), ...prefs };
     this.persist();

@@ -1,3 +1,4 @@
+import type { CaseDraft } from '../systems/caseDraft';
 /** Tipi condivisi del dominio di gioco. */
 
 import type { ConceptId } from './concepts';
@@ -280,6 +281,12 @@ export interface SaveData {
   audience: AudienceId;
   /** Minuti dichiarati per la sessione (2.2). Default sicuro: 30. */
   sessionMinutes: SessionMinutes;
+  /**
+   * Bozze dei fascicoli aperti e non ancora firmati (2.2), per caso.
+   * Additivo: un salvataggio che non le ha riparte da {} senza perdere
+   * nulla. Una bozza non è mai un rapporto: firmare la cancella.
+   */
+  caseDrafts: Record<string, CaseDraft>;
   /** Annotazioni metacognitive per caso (2.0, schema v2). */
   caseMeta: Record<string, CaseMeta>;
   /** Autocontrolli locali facoltativi pre/post missione (2.0, schema v2). */

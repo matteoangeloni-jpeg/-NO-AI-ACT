@@ -107,6 +107,29 @@ export class DossierCard extends Phaser.GameObjects.Container {
     this.onChange();
   }
 
+  /**
+   * Riporta la carta allo stato salvato in una bozza (U01).
+   *
+   * Non passa da activate(): riaprire un fascicolo non è un gesto del
+   * giocatore. Niente suoni — sei conferme in fila all'apertura suonerebbero
+   * come un allarme — niente dissolvenze, e nessuna notifica di cambiamento,
+   * perché la scena richiama refreshState() una volta sola alla fine.
+   */
+  restore(revealed: boolean, cited: boolean): void {
+    if (!revealed) return;
+    const { sealed, title, body } = this.revealElements;
+    this.revealed = true;
+    this.cited = cited;
+    sealed.setVisible(false);
+    for (const el of [title, body, this.citeLabel]) {
+      el.setVisible(true);
+      el.setAlpha(1);
+    }
+    this.citeLabel.setText(cited ? L().ui.evidence.cited : L().ui.evidence.cite);
+    this.citeLabel.setColor(cited ? COLOR_STR.ok : COLOR_STR.accent);
+    this.refreshBorder();
+  }
+
   private refreshBorder(): void {
     if (this.cited) this.bg.setStrokeStyle(2, COLORS.ok);
     else if (this.revealed) this.bg.setStrokeStyle(1, COLORS.warning);

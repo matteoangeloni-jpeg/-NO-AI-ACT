@@ -72,13 +72,13 @@ describe('save schema v2 — key, shape, version', () => {
     expect(storage.getItem(KEY)).not.toBeNull();
   });
 
-  it('SaveData keeps a stable v2 key set (v1 keys + caseMeta, selfCheck, audience, sessionMinutes)', () => {
+  it('SaveData keeps a stable v2 key set (v1 keys + caseMeta, selfCheck, audience, sessionMinutes, caseDrafts)', () => {
     const keys = Object.keys(defaultSave()).sort();
     expect(keys).toEqual([
-      'audience', 'audioMuted', 'briefingSeen', 'caseMeta', 'caseReports', 'completedCases',
-      'crtOverlay', 'difficulty', 'endingId', 'indicators', 'language', 'mission', 'musicVolume',
-      'reducedMotion', 'selfCheck', 'sessionMinutes', 'startedAt', 'teacherMode', 'unlockedNorms',
-      'version'
+      'audience', 'audioMuted', 'briefingSeen', 'caseDrafts', 'caseMeta', 'caseReports',
+      'completedCases', 'crtOverlay', 'difficulty', 'endingId', 'indicators', 'language', 'mission',
+      'musicVolume', 'reducedMotion', 'selfCheck', 'sessionMinutes', 'startedAt', 'teacherMode',
+      'unlockedNorms', 'version'
     ]);
     expect(defaultSave().version).toBe(2);
     expect(defaultSave().caseMeta).toEqual({});
@@ -94,17 +94,69 @@ describe('save schema v2 — key, shape, version', () => {
    * la versione va alzata — e questo test è il posto in cui accorgersene.
    */
   it('un salvataggio v2 anteriore a 2.2 si apre senza perdite e prende i default', () => {
-    const { audience: _a, sessionMinutes: _s, ...preexisting } = defaultSave();
+    const { audience: _a, sessionMinutes: _s, caseDrafts: _d, ...preexisting } = defaultSave();
     const older = { ...preexisting, difficulty: 'expert' as const, mission: 'pack' as const, briefingSeen: true };
     storage.setItem(KEY, JSON.stringify(older));
 
     const loaded = SaveSystem.load();
     expect(loaded.audience, 'il default sicuro è il percorso per conto proprio').toBe('casual');
     expect(loaded.sessionMinutes).toBe(30);
+    expect(loaded.caseDrafts, 'un salvataggio senza bozze non ne inventa').toEqual({});
     for (const [k, v] of Object.entries(older)) {
       expect((loaded as unknown as Record<string, unknown>)[k], `campo preesistente ${k}`).toEqual(v);
     }
     expect(loaded.version, 'aggiungere campi additivi non alza la versione').toBe(2);
+  });
+});
+
+describe('le bozze sono l\'unico campo che il caricamento non prende così com\'è', () => {
+  beforeEach(() => storage.clear());
+
+  const goodDraft = (caseId: string) => ({
+    schema: 1, caseId, step: 'measure', revealedClues: [0, 1], citedClues: [1],
+    classification: 'vietata', measure: null, subject: null, motivation: null,
+    confidence: null, updatedAt: 1_700_000_000_000
+  });
+
+  it('una bozza valida sopravvive al giro salva → carica', () => {
+    storage.setItem(KEY, JSON.stringify({ ...defaultSave(), caseDrafts: { case_scoring: goodDraft('case_scoring') } }));
+    expect(SaveSystem.load().caseDrafts.case_scoring?.classification).toBe('vietata');
+  });
+
+  it('una bozza di un caso già chiuso non torna su: ha vinto il rapporto firmato', () => {
+    storage.setItem(KEY, JSON.stringify({
+      ...defaultSave(),
+      completedCases: { case_scoring: 'correct' },
+      caseDrafts: { case_scoring: goodDraft('case_scoring') }
+    }));
+    const loaded = SaveSystem.load();
+    expect(loaded.caseDrafts).toEqual({});
+    expect(loaded.completedCases, 'scartare una bozza non tocca i casi chiusi').toEqual({ case_scoring: 'correct' });
+  });
+
+  it('una bozza di uno schema futuro viene scartata senza portarsi via il resto', () => {
+    storage.setItem(KEY, JSON.stringify({
+      ...defaultSave(),
+      language: 'en',
+      caseReports: { case_media: { outcome: 'conforme' } },
+      caseDrafts: { case_scoring: { ...goodDraft('case_scoring'), schema: 99 }, case_lavoro: goodDraft('case_lavoro') }
+    }));
+    const loaded = SaveSystem.load();
+    expect(Object.keys(loaded.caseDrafts)).toEqual(['case_lavoro']);
+    expect(loaded.language).toBe('en');
+    expect(loaded.caseReports).toHaveProperty('case_media');
+  });
+
+  it('un contenitore di bozze corrotto non impedisce di caricare la partita', () => {
+    storage.setItem(KEY, JSON.stringify({ ...defaultSave(), completedCases: { case_media: 'correct' }, caseDrafts: 'rotto' }));
+    const loaded = SaveSystem.load();
+    expect(loaded.caseDrafts).toEqual({});
+    expect(loaded.completedCases).toEqual({ case_media: 'correct' });
+  });
+
+  it('una migrazione da 1.x non inventa bozze', () => {
+    storage.setItem(LEGACY_KEY, JSON.stringify(v11Save()));
+    expect(SaveSystem.load().caseDrafts).toEqual({});
   });
 });
 

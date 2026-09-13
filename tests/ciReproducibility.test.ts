@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
@@ -26,18 +26,31 @@ describe('browser smokes are reproducible from a clean clone', () => {
     expect(pkg.devDependencies.playwright).toBeTruthy();
   });
 
-  it('all four smoke npm scripts exist and run the committed files', () => {
-    expect(pkg.scripts['smoke:gameplay']).toContain('scripts/smoke/gameplay-smoke.mjs');
-    expect(pkg.scripts['smoke:keyboard']).toContain('scripts/smoke/keyboard-smoke.mjs');
-    expect(pkg.scripts['smoke:layout']).toContain('scripts/smoke/layout-smoke.mjs');
-    expect(pkg.scripts['smoke:all']).toContain('scripts/smoke/run-all.mjs');
+  /**
+   * L'elenco degli smoke si LEGGE dall'orchestratore invece di essere
+   * ricopiato qui: prima era trascritto, e aggiungerne uno lasciava il
+   * controllo fermo ai tre di prima senza che nulla diventasse rosso.
+   */
+  const orchestrator = read('scripts/smoke/run-all.mjs');
+  const declaredSmokes = [...orchestrator.matchAll(/'([a-z-]+-smoke\.mjs)'/g)].map((m) => m[1]);
+
+  it('l\'orchestratore dichiara almeno gli smoke storici', () => {
+    expect(declaredSmokes.length, 'nessuno smoke dichiarato in run-all.mjs?').toBeGreaterThanOrEqual(3);
+    for (const smoke of ['gameplay-smoke.mjs', 'keyboard-smoke.mjs', 'layout-smoke.mjs']) {
+      expect(declaredSmokes, `l'orchestratore non esegue più ${smoke}`).toContain(smoke);
+    }
   });
 
-  it('the orchestrator the scripts point at is committed', () => {
-    const orchestrator = read('scripts/smoke/run-all.mjs');
-    for (const smoke of ['gameplay-smoke.mjs', 'keyboard-smoke.mjs', 'layout-smoke.mjs']) {
-      expect(orchestrator, `orchestrator runs ${smoke}`).toContain(smoke);
+  it('ogni smoke dichiarato è un file committato e ha il suo script npm', () => {
+    for (const smoke of declaredSmokes) {
+      expect(existsSync(resolve(root, 'scripts/smoke', smoke)), `${smoke} non è nel repository`).toBe(true);
+      const name = `smoke:${smoke.replace('-smoke.mjs', '')}`;
+      expect(pkg.scripts[name], `manca lo script npm ${name}`).toContain(`scripts/smoke/${smoke}`);
     }
+  });
+
+  it('smoke:all punta all\'orchestratore committato', () => {
+    expect(pkg.scripts['smoke:all']).toContain('scripts/smoke/run-all.mjs');
   });
 });
 

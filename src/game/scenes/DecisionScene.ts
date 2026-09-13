@@ -14,6 +14,7 @@ import { L, fmt } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
+import type { DraftStep } from '../systems/caseDraft';
 
 /**
  * Riga dell'avviso sulla firma. Sta fra il riepilogo e la fila della
@@ -70,6 +71,45 @@ export class DecisionScene extends Phaser.Scene {
     this.incidentChoice = data.incidentChoice;
     this.resolved = false; // le istanze di scena vengono riusate tra start()
     this.overlay = undefined;
+
+    // Ripresa della bozza (U01). Le scelte non firmate tornano com'erano, e
+    // con loro i reperti citati: ricostruire la decisione senza le prove su
+    // cui si fondava darebbe un rapporto diverso da quello lasciato a metà.
+    const draft = StateManager.draftFor(this.caseData.id);
+    if (draft) {
+      this.classification = draft.classification;
+      this.measure = draft.measure;
+      this.subject = draft.subject;
+      this.motivation = draft.motivation;
+      this.confidence = draft.confidence;
+      if (draft.citedClues.length > 0 && this.citedClues.length === 0) this.citedClues = [...draft.citedClues];
+    }
+  }
+
+  /**
+   * Salva la bozza dopo ogni scelta. La fase dichiarata è quella in cui il
+   * giocatore si trova ORA, non quella appena conclusa: riaprendo deve
+   * ritrovare la domanda a cui non ha ancora risposto.
+   */
+  private persistDraft(step: DraftStep): void {
+    StateManager.saveDraft(this.caseData.id, {
+      step,
+      citedClues: this.citedClues,
+      classification: this.classification,
+      measure: this.measure,
+      subject: this.subject,
+      motivation: this.motivation,
+      confidence: this.confidence
+    });
+  }
+
+  /** Passo da cui ripartire, secondo le scelte già prese. */
+  private resumeStep(): DraftStep {
+    if (this.classification === null) return 'classification';
+    if (this.measure === null) return 'measure';
+    if (this.subject === null) return 'subject';
+    if (this.motivation === null) return 'motivation';
+    return 'summary';
   }
 
   create(): void {
@@ -80,7 +120,15 @@ export class DecisionScene extends Phaser.Scene {
     this.contextOverlay = new CaseContextOverlay(this, this.caseData.id, 'closeToDecision');
     // read-only "Norma del caso": relevant rule of the current case (no unlock)
     this.caseNormOverlay = new CaseNormOverlay(this, this.caseData.normId);
-    this.showClassificationStep();
+    const builders: Record<DraftStep, () => void> = {
+      evidence: () => this.showClassificationStep(),
+      classification: () => this.showClassificationStep(),
+      measure: () => this.showMeasureStep(),
+      subject: () => this.showSubjectStep(),
+      motivation: () => this.showMotivationStep(),
+      summary: () => this.showSummaryStep()
+    };
+    builders[this.resumeStep()]();
   }
 
   private header(step: string, question: string): void {
@@ -168,6 +216,9 @@ export class DecisionScene extends Phaser.Scene {
   private stepBack(clear: () => void, builder: () => void): void {
     if (this.resolved) return;
     clear();
+    // anche tornare indietro è uno stato da salvare: chi corregge e poi
+    // chiude la scheda deve ritrovare la correzione, non la scelta annullata
+    this.persistDraft(this.resumeStep());
     AudioSystem.confirm();
     this.nextStep(builder);
   }
@@ -214,6 +265,7 @@ export class DecisionScene extends Phaser.Scene {
     const pick = (cls: Classification): void => {
       if (this.classification !== null) return;
       this.classification = cls;
+      this.persistDraft('measure');
       AnalyticsSystem.track('classification_selected', { caseId: this.caseData.id, classification: cls });
       AudioSystem.confirm();
       this.nextStep(() => this.showMeasureStep());
@@ -241,6 +293,7 @@ export class DecisionScene extends Phaser.Scene {
     const pick = (measure: Measure): void => {
       if (this.measure !== null) return;
       this.measure = measure;
+      this.persistDraft('subject');
       AnalyticsSystem.track('measure_selected', { caseId: this.caseData.id, measure });
       AudioSystem.confirm();
       this.nextStep(() => this.showSubjectStep());
@@ -266,6 +319,7 @@ export class DecisionScene extends Phaser.Scene {
     const pick = (subject: ResponsibleSubject): void => {
       if (this.subject !== null) return;
       this.subject = subject;
+      this.persistDraft('motivation');
       AudioSystem.confirm();
       this.nextStep(() => this.showMotivationStep());
     };
@@ -288,6 +342,7 @@ export class DecisionScene extends Phaser.Scene {
     const pick = (i: number): void => {
       if (this.motivation !== null) return;
       this.motivation = i;
+      this.persistDraft('summary');
       AudioSystem.confirm();
       this.nextStep(() => this.showSummaryStep());
     };
@@ -392,8 +447,15 @@ export class DecisionScene extends Phaser.Scene {
     ];
     const pick = (level: ConfidenceLevel, label: string): void => {
       this.confidence = level;
+      this.persistDraft('summary');
       status.setText(fmt(t.recorded, { level: label }));
     };
+    // Una fiducia già dichiarata e poi ripresa da una bozza deve rileggersi:
+    // senza questo il giocatore la ritroverebbe salvata ma invisibile, e la
+    // ridichiarerebbe convinto di non averlo fatto.
+    const restored = levels.find((l) => l.level === this.confidence);
+    if (restored) status.setText(fmt(t.recorded, { level: restored.label }));
+
     levels.forEach(({ level, label }, i) => {
       new Button(this, cx + 150 + i * 130, y, `${7 + i}. ${label}`, () => pick(level, label), { width: 118, height: 32, fontSize: 11, variant: 'ghost' });
     });

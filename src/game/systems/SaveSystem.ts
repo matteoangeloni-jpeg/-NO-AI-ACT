@@ -1,5 +1,6 @@
 import { INITIAL_INDICATORS } from '../data/indicators';
 import type { SaveData } from '../data/types';
+import { sanitizeDrafts } from './caseDraft';
 
 /**
  * Persistenza locale (schema v2, mission §10.8).
@@ -35,6 +36,7 @@ export function defaultSave(): SaveData {
     mission: 'full',
     audience: 'casual',
     sessionMinutes: 30,
+    caseDrafts: {},
     caseMeta: {},
     selfCheck: { pre: null, post: null }
   };
@@ -53,20 +55,28 @@ export function migrateV1toV2(v1: Record<string, unknown>): SaveData {
     version: CURRENT_SAVE_VERSION,
     indicators: { ...INITIAL_INDICATORS, ...(v1.indicators as object | undefined) },
     caseMeta: { ...base.caseMeta, ...(v1.caseMeta as object | undefined) },
-    selfCheck: { ...base.selfCheck, ...(v1.selfCheck as object | undefined) }
+    selfCheck: { ...base.selfCheck, ...(v1.selfCheck as object | undefined) },
+    // un salvataggio 1.x non ha bozze: non se ne inventano
+    caseDrafts: {}
   } as SaveData;
 }
 
 /** Merge non distruttivo di un v2 (anche parziale) sui default. */
 function hydrateV2(parsed: Record<string, unknown>): SaveData {
   const base = defaultSave();
-  return {
+  const merged = {
     ...base,
     ...parsed,
     indicators: { ...INITIAL_INDICATORS, ...(parsed.indicators as object | undefined) },
     caseMeta: { ...base.caseMeta, ...(parsed.caseMeta as object | undefined) },
     selfCheck: { ...base.selfCheck, ...(parsed.selfCheck as object | undefined) }
   } as SaveData;
+  // Le bozze sono l'unico campo che NON viene preso così com'è: sono lavoro
+  // non consegnato, e una bozza scritta da un altro schema o riferita a un
+  // caso già chiuso va scartata invece che interpretata. Scartarla non
+  // tocca nient'altro del salvataggio.
+  merged.caseDrafts = sanitizeDrafts(merged.caseDrafts, Object.keys(merged.completedCases ?? {}));
+  return merged;
 }
 
 export const SaveSystem = {

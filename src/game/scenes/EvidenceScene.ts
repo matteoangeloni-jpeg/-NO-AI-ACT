@@ -13,6 +13,7 @@ import { ReadingLayer } from '../systems/ReadingLayer';
 import { evidenceReadingLine } from '../systems/evidenceReading';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
+import { StateManager } from '../systems/StateManager';
 
 /**
  * Esame dei reperti: aprire tutti gli indizi, poi citare nel rapporto
@@ -92,6 +93,19 @@ export class EvidenceScene extends Phaser.Scene {
       this.tweens.add({ targets: card, alpha: 1, duration: 250, delay: i * 100 });
       this.cards.push(card);
     });
+
+    // Ripresa della bozza (U01): reperti già aperti e già citati tornano
+    // come erano. Le carte sono appena state create con una dissolvenza
+    // scaglionata: restore() la annulla su quelle ripristinate, altrimenti
+    // comparirebbero vuote e poi si riempirebbero.
+    const draft = StateManager.draftFor(this.caseData.id);
+    if (draft) {
+      this.cards.forEach((card, i) => {
+        card.setAlpha(1);
+        card.restore(draft.revealedClues.includes(i), draft.citedClues.includes(i));
+      });
+      this.revealToastShown = this.cards.every((c) => c.isRevealed);
+    }
 
     this.proceedBtn = new Button(this, cx, GAME_HEIGHT - 90, L().ui.evidence.proceedButton, () => this.proceed(), { width: 380 });
     this.proceedBtn.setVisible(false);
@@ -193,6 +207,13 @@ export class EvidenceScene extends Phaser.Scene {
   private refreshState(): void {
     const allRevealed = this.cards.every((c) => c.isRevealed);
     const citedCount = this.cards.filter((c) => c.isCited).length;
+    // La bozza si aggiorna a ogni tocco: è il punto unico in cui lo stato
+    // delle carte cambia, quindi è anche l'unico posto da cui salvarlo.
+    StateManager.saveDraft(this.caseData.id, {
+      step: 'evidence',
+      revealedClues: this.cards.flatMap((c, i) => (c.isRevealed ? [i] : [])),
+      citedClues: this.cards.flatMap((c, i) => (c.isCited ? [i] : []))
+    });
     if (allRevealed && !this.revealToastShown) {
       this.revealToastShown = true;
       // topOffset 20 (vs default 36): the file-code header sits at y=56 here,
