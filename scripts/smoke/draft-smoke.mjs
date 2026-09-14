@@ -42,11 +42,21 @@ await page.addInitScript((key) => {
   }
 }, KEY);
 
-const boot = async () => {
-  await page.goto(`${BASE}/play/?lang=it`, { waitUntil: 'load' });
-  await page.waitForFunction(() => window.game?.scene?.getScenes(true)?.length > 0, null, { timeout: 30000 });
-  await page.waitForTimeout(9000);
+/**
+ * Attende che il gioco sia davvero pronto, invece di dormire un tempo fisso.
+ * Il preload ha una sequenza scriptata prima di passare a Title: aspettare
+ * la scena giusta è più robusto di un'attesa a occhio, e qui conta anche
+ * perché questo smoke ricarica la pagina quattro volte.
+ */
+const bootAt = async (lang) => {
+  await page.goto(`${BASE}/play/?lang=${lang}`, { waitUntil: 'load' });
+  await page.waitForFunction(() => {
+    const a = window.game?.scene?.getScenes(true);
+    return !!a && a.length > 0 && a[a.length - 1].scene.key === 'Title';
+  }, { timeout: 40000 });
+  await page.waitForTimeout(400);
 };
+const boot = () => bootAt('it');
 
 const activeScene = () => page.evaluate(() => {
   const a = window.game.scene.getScenes(true);
@@ -121,6 +131,31 @@ const sealedInLayer = (layer.match(/SIGILLATO/gi) ?? []).length;
 if (citedInLayer < 2) fail.push(`dopo il ricaricamento lo strato di lettura dichiara ${citedInLayer} reperti citati, attesi 2`);
 if (sealedInLayer > 4) fail.push(`dopo il ricaricamento risultano ${sealedInLayer} reperti ancora sigillati: il ripristino non ha aperto nulla`);
 
+// --- 3b. cambio lingua: la bozza è fatta di indici, non di testi ------------
+// Se le due traduzioni avessero un numero diverso di reperti o motivazioni,
+// gli indici salvati significherebbero cose diverse e la bozza ripresa in
+// inglese ricostruirebbe una decisione diversa da quella lasciata in
+// italiano — senza alcun errore, valutando la cosa sbagliata. Il test
+// languageParityIndices difende il presupposto; qui si controlla l'effetto.
+await bootAt('en');
+const afterLang = (await draft())?.[CASE];
+if (!afterLang) fail.push('la bozza è sparita cambiando lingua');
+else {
+  if (afterLang.classification !== d2.classification) fail.push('classificazione cambiata col cambio lingua');
+  if (afterLang.measure !== d2.measure) fail.push('misura cambiata col cambio lingua');
+  if (JSON.stringify(afterLang.citedClues) !== JSON.stringify(d2.citedClues)) fail.push('reperti citati cambiati col cambio lingua');
+}
+await page.evaluate((id) => window.game.scene.start('Decision', { caseId: id }), CASE);
+await page.waitForTimeout(1200);
+const stepEn = await page.evaluate(() => {
+  const a = window.game.scene.getScenes(true); const s = a[a.length - 1];
+  return s.children.list.map((o) => (typeof o.text === 'string' ? o.text : '')).join(' | ');
+});
+if (!/DECISION 3 OF 5/.test(stepEn)) fail.push(`in inglese la ripresa cade sul passo sbagliato: ${stepEn.slice(0, 120)}`);
+
+// torna in italiano per il resto del percorso
+await bootAt('it');
+
 // --- 4. firma: la bozza deve sparire ----------------------------------------
 await page.evaluate((id) => window.game.scene.start('Decision', { caseId: id }), CASE);
 await page.waitForTimeout(1000);
@@ -152,4 +187,4 @@ if (fail.length) {
 console.log('draft smoke — PASS');
 console.log(`  console errors: ${relevantErrors.length}`);
 console.log('  ✓ reperti e scelte sopravvivono a un ricaricamento, la ripresa cade sul passo giusto,');
-console.log('    la firma cancella la bozza e non la fa tornare');
+console.log('    sopravvive al cambio lingua, e la firma la cancella senza farla tornare');
