@@ -19,6 +19,7 @@
     "smoke:gameplay": "node scripts/smoke/gameplay-smoke.mjs",
     "smoke:keyboard": "node scripts/smoke/keyboard-smoke.mjs",
     "smoke:draft": "node scripts/smoke/draft-smoke.mjs",
+    "smoke:privacy": "node scripts/smoke/privacy-smoke.mjs",
     "smoke:layout": "node scripts/smoke/layout-smoke.mjs",
     "smoke:all": "node scripts/smoke/run-all.mjs"
   },
