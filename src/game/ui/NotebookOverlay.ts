@@ -54,7 +54,7 @@ export class NotebookOverlay {
     const wrap = panelW - 100;
     let y = cy - panelH / 2 + 24;
     const heading = (text: string): void => {
-      container.add(this.scene.add.text(left, y, text, textStyle(13, COLOR_STR.accent, { fontStyle: 'bold' })));
+      container.add(this.scene.add.text(left, y, text, textStyle(13, COLOR_STR.accentText, { fontStyle: 'bold' })));
       y += 22;
     };
     const line = (text: string, color: string = COLOR_STR.paper, size = 11.5): void => {

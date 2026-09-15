@@ -36,7 +36,7 @@ export class DossierCard extends Phaser.GameObjects.Container {
       .setOrigin(0, 0.5);
     // etichetta-fonte (attendibilità): sempre visibile, aiuta a ragionare
     const srcText = sourceLabel
-      ? scene.add.text(width / 2 - 12, -height / 2 + 14, sourceLabel, textStyle(11, COLOR_STR.accent)).setOrigin(1, 0.5)
+      ? scene.add.text(width / 2 - 12, -height / 2 + 14, sourceLabel, textStyle(11, COLOR_STR.accentText)).setOrigin(1, 0.5)
       : null;
     // micro-tag investigativo (v0.5): nell'angolo in basso a destra, lontano da
     // codice reperto, fonte, titolo e corpo — nessuna sovrapposizione
@@ -44,7 +44,7 @@ export class DossierCard extends Phaser.GameObjects.Container {
       ? scene.add.text(width / 2 - 12, height / 2 - 40, stanceLabel, textStyle(10.5, COLOR_STR.warning)).setOrigin(1, 0.5)
       : null;
     const sealed = scene.add
-      .text(0, 10, L().ui.evidence.sealed, textStyle(13, COLOR_STR.accent, { align: 'center' }))
+      .text(0, 10, L().ui.evidence.sealed, textStyle(13, COLOR_STR.accentText, { align: 'center' }))
       .setOrigin(0.5);
     const title = scene.add
       .text(-width / 2 + 14, -height / 2 + 38, clue.title.toUpperCase(), textStyle(13, COLOR_STR.warning, { wordWrap: { width: width - 28 } }))
@@ -53,7 +53,7 @@ export class DossierCard extends Phaser.GameObjects.Container {
       .text(-width / 2 + 14, -height / 2 + 64, clue.text, textStyle(12.5, COLOR_STR.paper, { wordWrap: { width: width - 28 }, lineSpacing: 5 }))
       .setVisible(false);
     this.citeLabel = scene.add
-      .text(0, height / 2 - 22, L().ui.evidence.cite, textStyle(12.5, COLOR_STR.accent))
+      .text(0, height / 2 - 22, L().ui.evidence.cite, textStyle(12.5, COLOR_STR.accentText))
       .setOrigin(0.5)
       .setVisible(false);
 
@@ -101,7 +101,7 @@ export class DossierCard extends Phaser.GameObjects.Container {
       this.cited = !this.cited;
       AudioSystem.click();
       this.citeLabel.setText(this.cited ? L().ui.evidence.cited : L().ui.evidence.cite);
-      this.citeLabel.setColor(this.cited ? COLOR_STR.ok : COLOR_STR.accent);
+      this.citeLabel.setColor(this.cited ? COLOR_STR.ok : COLOR_STR.accentText);
     }
     this.refreshBorder();
     this.onChange();
@@ -126,7 +126,7 @@ export class DossierCard extends Phaser.GameObjects.Container {
       el.setAlpha(1);
     }
     this.citeLabel.setText(cited ? L().ui.evidence.cited : L().ui.evidence.cite);
-    this.citeLabel.setColor(cited ? COLOR_STR.ok : COLOR_STR.accent);
+    this.citeLabel.setColor(cited ? COLOR_STR.ok : COLOR_STR.accentText);
     this.refreshBorder();
   }
 

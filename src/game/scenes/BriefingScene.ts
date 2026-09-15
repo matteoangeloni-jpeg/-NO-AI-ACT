@@ -48,7 +48,7 @@ export class BriefingScene extends Phaser.Scene {
     // IT/EN non si sovrappongono mai al bottone (prima erano a y fisse in
     // collisione).
     const how = this.add
-      .text(cx - 400, 0, L().briefing.how, textStyle(12.5, COLOR_STR.accent, { wordWrap: { width: 800 }, lineSpacing: 4, fontStyle: 'italic' }))
+      .text(cx - 400, 0, L().briefing.how, textStyle(12.5, COLOR_STR.accentText, { wordWrap: { width: 800 }, lineSpacing: 4, fontStyle: 'italic' }))
       .setAlpha(0);
     how.setY(btnY - btn.height / 2 - 16 - how.height);
 

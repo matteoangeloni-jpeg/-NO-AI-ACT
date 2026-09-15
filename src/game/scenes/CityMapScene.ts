@@ -43,7 +43,7 @@ function caseStatus(caseId: string | null | undefined, playable: boolean): { lab
     const { taken, total } = draftProgress(draft);
     return {
       label: taken > 0 ? fmt(t.statusDraft, { taken: String(taken), total: String(total) }) : t.statusDraftEvidence,
-      color: COLOR_STR.accent
+      color: COLOR_STR.accentText
     };
   }
   return { label: t.statusOpen, color: COLOR_STR.alertText };
@@ -200,7 +200,7 @@ export class CityMapScene extends Phaser.Scene {
 
     // evidenzia i casi consigliati dalla missione corrente (non blocca gli altri)
     if (caseData && playable && isRecommended(StateManager.mission, caseData.id)) {
-      const rec = this.add.text(0, 74, `★ ${L().ui.missions.recommendedTag}`, textStyle(11, COLOR_STR.accent)).setOrigin(0.5);
+      const rec = this.add.text(0, 74, `★ ${L().ui.missions.recommendedTag}`, textStyle(11, COLOR_STR.accentText)).setOrigin(0.5);
       container.add(rec);
       ring.setStrokeStyle(2, COLORS.accent);
     }

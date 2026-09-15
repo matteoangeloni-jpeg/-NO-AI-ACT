@@ -74,7 +74,7 @@ export class CaseNormOverlay {
     y += 44;
 
     const labelled = (label: string, value: string, valueStyle = textStyle(13.5, COLOR_STR.paper, { wordWrap: { width: wrap }, lineSpacing: 5 })): void => {
-      container.add(scene.add.text(left, y, label, textStyle(11.5, COLOR_STR.accent, { fontStyle: 'bold' })));
+      container.add(scene.add.text(left, y, label, textStyle(11.5, COLOR_STR.accentText, { fontStyle: 'bold' })));
       y += 20;
       const v = scene.add.text(left, y, value, valueStyle);
       container.add(v);

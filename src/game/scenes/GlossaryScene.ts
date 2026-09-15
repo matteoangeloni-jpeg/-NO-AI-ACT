@@ -65,7 +65,7 @@ export class GlossaryScene extends Phaser.Scene {
     let y = 120;
 
     c.add(this.add.text(cx + 430, y, fmt(g.counter, { index: this.index + 1, total: entries.length }), textStyle(12, COLOR_STR.paperDim)).setOrigin(1, 0));
-    c.add(this.add.text(left, y, entry.term.toUpperCase(), textStyle(20, COLOR_STR.accent, { fontStyle: 'bold' })));
+    c.add(this.add.text(left, y, entry.term.toUpperCase(), textStyle(20, COLOR_STR.accentText, { fontStyle: 'bold' })));
     y += 40;
     const def = this.add.text(left, y, entry.definition, textStyle(14, COLOR_STR.paper, { wordWrap: { width: 880 }, lineSpacing: 5 }));
     y += def.height + 18;

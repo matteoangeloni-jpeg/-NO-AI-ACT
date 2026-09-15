@@ -278,7 +278,7 @@ export class DecisionScene extends Phaser.Scene {
       .setOrigin(0.5, 0);
     // microcopy: la decisione è distinta dal rapporto e si svolge in 4 passi
     this.add
-      .text(cx, GAME_HEIGHT - 110, L().ui.decision.processNote, textStyle(12, COLOR_STR.accent, { wordWrap: { width: 900 }, align: 'center' }))
+      .text(cx, GAME_HEIGHT - 110, L().ui.decision.processNote, textStyle(12, COLOR_STR.accentText, { wordWrap: { width: 900 }, align: 'center' }))
       .setOrigin(0.5);
 
     const pick = (cls: Classification): void => {
@@ -310,7 +310,7 @@ export class DecisionScene extends Phaser.Scene {
     const cx = GAME_WIDTH / 2;
     this.header(L().ui.decision.step2, L().ui.decision.question2);
     this.add
-      .text(cx, 170, fmt(L().ui.decision.recorded, { value: L().classifications[this.classification!].toUpperCase() }), textStyle(12, COLOR_STR.accent))
+      .text(cx, 170, fmt(L().ui.decision.recorded, { value: L().classifications[this.classification!].toUpperCase() }), textStyle(12, COLOR_STR.accentText))
       .setOrigin(0.5);
 
     const pick = (measure: Measure): void => {
@@ -464,7 +464,7 @@ export class DecisionScene extends Phaser.Scene {
     // le due scritte si sovrapponevano. Difetto che c'era già quando questa
     // fila stava sul passo della motivazione; è emerso misurando la scena.
     this.add.text(cx - 430, y - 28, `${t.label} ${t.optionalTag}`, textStyle(11.5, COLOR_STR.paperDim)).setOrigin(0, 0.5);
-    const status = this.add.text(cx + 430, y + 26, '', textStyle(11.5, COLOR_STR.accent)).setOrigin(1, 0.5);
+    const status = this.add.text(cx + 430, y + 26, '', textStyle(11.5, COLOR_STR.accentText)).setOrigin(1, 0.5);
     const levels: Array<{ level: ConfidenceLevel; label: string }> = [
       { level: 1, label: t.levels.low },
       { level: 2, label: t.levels.mid },
@@ -530,7 +530,7 @@ export class DecisionScene extends Phaser.Scene {
     const TOP = cy - 214;
     const sheet = this.add.rectangle(cx, cy, 960, 100, COLORS.night, 0.96).setStrokeStyle(1, COLORS.iron);
     container.add(sheet);
-    container.add(this.add.text(cx, TOP, t.termsTitle, textStyle(15, COLOR_STR.accent)).setOrigin(0.5));
+    container.add(this.add.text(cx, TOP, t.termsTitle, textStyle(15, COLOR_STR.accentText)).setOrigin(0.5));
 
     let y = TOP + 36;
     const read: Array<{ text: string }> = [{ text: t.termsHint }];

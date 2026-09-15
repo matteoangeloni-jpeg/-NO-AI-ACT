@@ -25,7 +25,16 @@ export const COLOR_STR = {
   alertText: '#e25b5b',
   warning: '#d9a521',
   ok: '#3fa66a',
-  accent: '#5d7fb8'
+  accent: '#5d7fb8',
+  /**
+   * Variante chiara dell'accento per il TESTO, come alertText lo è per
+   * alert. Il blu pieno regge 4,92:1 sul fondo della scena ma scende a
+   * 4,34:1 sopra un pannello (night2 al 92% su carbon): sotto la soglia AA,
+   * e i pannelli sono proprio dove l'accento viene usato a corpo piccolo.
+   * #6a8cc4 sta a 5,15:1 sul pannello e 5,84:1 sulla scena. Misurato, non
+   * stimato: lo verifica tests/contrast.test.ts.
+   */
+  accentText: '#6a8cc4'
 } as const;
 
 export const FONT_MONO =

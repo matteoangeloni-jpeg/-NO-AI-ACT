@@ -66,7 +66,7 @@ export class FinaleScene extends Phaser.Scene {
 
     // messaggio finale obbligatorio
     const msg = this.add
-      .text(cx, 510, `“${L().endings.finalMessage}”`, textStyle(16, COLOR_STR.accent, { wordWrap: { width: 880 }, align: 'center', lineSpacing: 6 }))
+      .text(cx, 510, `“${L().endings.finalMessage}”`, textStyle(16, COLOR_STR.accentText, { wordWrap: { width: 880 }, align: 'center', lineSpacing: 6 }))
       .setOrigin(0.5)
       .setAlpha(0);
     this.tweens.add({ targets: msg, alpha: 1, duration: 900, delay: StateManager.reducedMotion ? 0 : 1500 });
@@ -94,7 +94,7 @@ export class FinaleScene extends Phaser.Scene {
     // esterno, rimosso dal prodotto pubblico.
     const privacy = L().ui.finale.privacyNote;
     const fbLeft = cx - 570;
-    this.add.text(fbLeft, 540, privacy.title, textStyle(13, COLOR_STR.accent, { fontStyle: 'bold' }));
+    this.add.text(fbLeft, 540, privacy.title, textStyle(13, COLOR_STR.accentText, { fontStyle: 'bold' }));
     this.add.text(fbLeft, 562, privacy.text, textStyle(11, COLOR_STR.paperDim, { wordWrap: { width: 410 }, lineSpacing: 3 }));
   }
 }

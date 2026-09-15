@@ -44,7 +44,7 @@ export class TitleScene extends Phaser.Scene {
 
     this.add.text(cx, 150, L().ui.titleHeader, textStyle(13, COLOR_STR.paperDim)).setOrigin(0.5);
     this.titleText = this.add.text(cx, 220, L().ui.gameTitle, textStyle(76, COLOR_STR.paper, { fontStyle: 'bold' })).setOrigin(0.5);
-    this.add.text(cx, 285, L().ui.gameSubtitle, textStyle(18, COLOR_STR.accent)).setOrigin(0.5);
+    this.add.text(cx, 285, L().ui.gameSubtitle, textStyle(18, COLOR_STR.accentText)).setOrigin(0.5);
     // micro-framing (< 10 secondi): ruolo, effetto delle scelte, obiettivo
     this.add
       .text(cx, 318, L().ui.titleTagline, textStyle(13, COLOR_STR.paper, { wordWrap: { width: 940 }, align: 'center', lineSpacing: 4 }))
@@ -116,7 +116,7 @@ export class TitleScene extends Phaser.Scene {
     c.add(this.add.rectangle(cx, cy, GAME_WIDTH, GAME_HEIGHT, 0x000000, 0.82).setInteractive().on('pointerdown', () => this.closeGroup()));
     c.add(new Panel(this, cx, cy, panelW, panelH));
     c.add(this.add.rectangle(cx, cy, panelW, panelH, 0x000000, 0.001).setInteractive());
-    c.add(this.add.text(cx - panelW / 2 + 40, cy - panelH / 2 + 26, title, textStyle(18, COLOR_STR.accent, { fontStyle: 'bold' })));
+    c.add(this.add.text(cx - panelW / 2 + 40, cy - panelH / 2 + 26, title, textStyle(18, COLOR_STR.accentText, { fontStyle: 'bold' })));
     c.add(new Button(this, cx, cy + panelH / 2 - 38, L().ui.titleGroups.close, () => this.closeGroup(), { width: 220, height: 40, fontSize: 13 }));
     this.input.keyboard?.on('keydown-ESC', this.escHandler);
     this.group = c;
@@ -229,7 +229,7 @@ export class TitleScene extends Phaser.Scene {
     const sub = this.add.text(cx - 380, top + 60, a.subtitle, textStyle(12.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 4 }));
 
     // riepilogo vivo del piano: conta fascicoli, minuti stimati e difficoltà
-    const planText = this.add.text(cx - 380, top + 214, '', textStyle(13, COLOR_STR.accent, { wordWrap: { width: 760 }, lineSpacing: 4 }));
+    const planText = this.add.text(cx - 380, top + 214, '', textStyle(13, COLOR_STR.accentText, { wordWrap: { width: 760 }, lineSpacing: 4 }));
     const warnText = this.add.text(cx - 380, top + 246, '', textStyle(12, COLOR_STR.warning, { wordWrap: { width: 760 }, lineSpacing: 4 }));
 
     const refresh = (): void => {
@@ -339,13 +339,21 @@ export class TitleScene extends Phaser.Scene {
     });
   }
 
-  /** Glitch del titolo: brevi offset orizzontali e cambio colore. */
+  /**
+   * Glitch del titolo: brevi offset orizzontali e cambio colore.
+   *
+   * Usa le varianti chiare anche qui. Il titolo è a 76px, quindi la tinta
+   * piena reggerebbe la soglia del testo grande — ma tenere una sola regola
+   * ("le tinte piene non sono colori di testo") vale più della sfumatura di
+   * un lampo da 60 ms, e permette al controllo sul contrasto di non dover
+   * conoscere il corpo di ogni scritta raggiunta per via indiretta.
+   */
   private glitch(): void {
     const original = this.titleText.x;
-    this.titleText.setColor(COLOR_STR.alert);
+    this.titleText.setColor(COLOR_STR.alertText);
     this.titleText.setX(original + Phaser.Math.Between(-6, 6));
     this.time.delayedCall(60, () => {
-      this.titleText.setColor(COLOR_STR.accent);
+      this.titleText.setColor(COLOR_STR.accentText);
       this.titleText.setX(original + Phaser.Math.Between(-3, 3));
     });
     this.time.delayedCall(120, () => {

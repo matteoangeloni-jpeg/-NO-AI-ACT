@@ -62,7 +62,7 @@ export class ChaptersOverlay {
     for (const p of progress) {
       const d = defs[p.chapter.id];
       const header = `${fmt(t.orderLabel, { order: p.chapter.order, total: CHAPTERS.length })} — ${d.title.toUpperCase()}`;
-      container.add(this.scene.add.text(left, y, header, textStyle(13.5, p.complete ? COLOR_STR.ok : COLOR_STR.accent, { fontStyle: 'bold' })));
+      container.add(this.scene.add.text(left, y, header, textStyle(13.5, p.complete ? COLOR_STR.ok : COLOR_STR.accentText, { fontStyle: 'bold' })));
       const status = p.complete
         ? t.completeTag
         : `${fmt(t.completionLabel, { done: p.done, total: p.total })} · ${fmt(t.durationLabel, { minutes: p.chapter.estimatedMinutes })}`;

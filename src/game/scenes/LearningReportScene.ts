@@ -40,7 +40,7 @@ export class LearningReportScene extends Phaser.Scene {
     y += intro.height + 14;
 
     // esiti dei casi
-    this.add.text(left, y, ui.scoreLabel, textStyle(12, COLOR_STR.accent, { fontStyle: 'bold' }));
+    this.add.text(left, y, ui.scoreLabel, textStyle(12, COLOR_STR.accentText, { fontStyle: 'bold' }));
     y += 20;
     this.add.text(
       left,
@@ -57,7 +57,7 @@ export class LearningReportScene extends Phaser.Scene {
     y += 30;
 
     // concetti incontrati, con giudizio qualitativo (mai un voto)
-    this.add.text(left, y, ui.conceptsLabel, textStyle(12, COLOR_STR.accent, { fontStyle: 'bold' }));
+    this.add.text(left, y, ui.conceptsLabel, textStyle(12, COLOR_STR.accentText, { fontStyle: 'bold' }));
     y += 20;
     if (report.concepts.length === 0) {
       this.add.text(left, y, ui.noneYet, textStyle(12.5, COLOR_STR.paperDim));
@@ -81,7 +81,7 @@ export class LearningReportScene extends Phaser.Scene {
     y += 34;
 
     // tre letture consigliate: pagine interne del sito, in una nuova scheda
-    this.add.text(left, y, ui.recommendedLabel, textStyle(12, COLOR_STR.accent, { fontStyle: 'bold' }));
+    this.add.text(left, y, ui.recommendedLabel, textStyle(12, COLOR_STR.accentText, { fontStyle: 'bold' }));
     y += 48; // i pulsanti-link sono centrati verticalmente: spazio per l'etichetta
     const linkW = 330;
     report.recommended.forEach((rec, i) => {

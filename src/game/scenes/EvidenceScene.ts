@@ -55,7 +55,7 @@ export class EvidenceScene extends Phaser.Scene {
     this.add.text(cx, 56, fmt(L().ui.evidence.header, { code: this.caseData.fileCode }), textStyle(14, COLOR_STR.alertText)).setOrigin(0.5);
     this.add.text(cx, 78, L().ui.evidence.instruction, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
     // microcopy: citare un reperto costruisce il rapporto, non è la classificazione
-    this.add.text(cx, 98, L().ui.evidence.citeNote, textStyle(11, COLOR_STR.accent, { wordWrap: { width: 900 }, align: 'center' })).setOrigin(0.5);
+    this.add.text(cx, 98, L().ui.evidence.citeNote, textStyle(11, COLOR_STR.accentText, { wordWrap: { width: 900 }, align: 'center' })).setOrigin(0.5);
     this.add.rectangle(cx, 116, 900, 1, COLORS.iron);
 
     // read-only "Rivedi contesto" — re-read the case without leaving the scene

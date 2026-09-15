@@ -95,7 +95,7 @@ export class ConsequenceScene extends Phaser.Scene {
     new Panel(this, cx - 190, NOTE_BOX.panelCenterY, NOTE_BOX.width, NOTE_BOX.height);
     const noteText = noteFor(texts, quality);
     const note = this.add
-      .text(cx - 480, NOTE_BOX.textY, noteText, textStyle(NOTE_BOX.fontSize, quality === 'wrong' ? COLOR_STR.alertText : COLOR_STR.accent, { wordWrap: { width: NOTE_BOX.wrapWidth }, lineSpacing: NOTE_BOX.lineSpacing }))
+      .text(cx - 480, NOTE_BOX.textY, noteText, textStyle(NOTE_BOX.fontSize, quality === 'wrong' ? COLOR_STR.alertText : COLOR_STR.accentText, { wordWrap: { width: NOTE_BOX.wrapWidth }, lineSpacing: NOTE_BOX.lineSpacing }))
       .setAlpha(0);
 
     // pannello indicatori animati

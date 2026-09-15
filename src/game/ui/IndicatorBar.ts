@@ -58,7 +58,7 @@ export class IndicatorBar {
     if (delta !== 0) {
       const sign = delta > 0 ? '+' : '';
       const deltaText = this.scene.add
-        .text(this.valueText.x + 8, this.valueText.y, `${sign}${delta}`, textStyle(12, delta > 0 ? COLOR_STR.accent : COLOR_STR.warning))
+        .text(this.valueText.x + 8, this.valueText.y, `${sign}${delta}`, textStyle(12, delta > 0 ? COLOR_STR.accentText : COLOR_STR.warning))
         .setOrigin(0, 0);
       this.scene.tweens.add({
         targets: deltaText,

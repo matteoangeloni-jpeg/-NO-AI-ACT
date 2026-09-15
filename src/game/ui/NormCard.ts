@@ -6,7 +6,7 @@ import { L } from '../i18n';
 const LEVEL_COLORS: Record<NormLevel, { stroke: number; text: string }> = {
   vietata: { stroke: COLORS.alert, text: COLOR_STR.alertText },
   alto: { stroke: COLORS.warning, text: COLOR_STR.warning },
-  trasparenza: { stroke: COLORS.accent, text: COLOR_STR.accent },
+  trasparenza: { stroke: COLORS.accent, text: COLOR_STR.accentText },
   restrittivo: { stroke: COLORS.alert, text: COLOR_STR.alertText }
 };
 
@@ -39,7 +39,7 @@ export class NormCardView extends Phaser.GameObjects.Container {
       -width / 2 + 20,
       -height / 2 + 64,
       norm.reference,
-      textStyle(compact ? 12 : 12.5, COLOR_STR.accent, { wordWrap: { width: width - 40 } })
+      textStyle(compact ? 12 : 12.5, COLOR_STR.accentText, { wordWrap: { width: width - 40 } })
     );
 
     this.add([bg, header, icon, levelTag, title, reference]);

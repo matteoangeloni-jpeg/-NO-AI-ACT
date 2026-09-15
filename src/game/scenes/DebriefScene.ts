@@ -42,11 +42,11 @@ export class DebriefScene extends Phaser.Scene {
     const left = cx - 510;
     let y = 96;
     // missione + difficoltà del percorso giocato
-    this.add.text(left, y, fmt(t.ui.debrief.missionLine, { mission: report.mission }), textStyle(12, COLOR_STR.accent));
-    this.add.text(left + 540, y, fmt(t.ui.debrief.difficultyLine, { difficulty: report.difficulty }), textStyle(12, COLOR_STR.accent));
+    this.add.text(left, y, fmt(t.ui.debrief.missionLine, { mission: report.mission }), textStyle(12, COLOR_STR.accentText));
+    this.add.text(left + 540, y, fmt(t.ui.debrief.difficultyLine, { difficulty: report.difficulty }), textStyle(12, COLOR_STR.accentText));
     y += 22;
 
-    this.add.text(left, y, t.ui.debrief.casesLabel, textStyle(12, COLOR_STR.accent));
+    this.add.text(left, y, t.ui.debrief.casesLabel, textStyle(12, COLOR_STR.accentText));
     y += 22;
     // una riga per caso: il titolo+esito restano sempre leggibili, il rilievo
     // è troncato per non far traboccare il pannello con 6 casi completati
@@ -66,10 +66,10 @@ export class DebriefScene extends Phaser.Scene {
     y += 22;
     // fascicolo città (v0.5): effetti sistemici qualitativi, una riga compatta
     const dossierLine = report.cityDossier.map((d) => `${d.indicator}: ${d.trend}`).join(' · ');
-    this.add.text(left, y, `${t.ui.cityDossier.title} — ${dossierLine}`, textStyle(11.5, COLOR_STR.accent, { wordWrap: { width: 1020 } }));
+    this.add.text(left, y, `${t.ui.cityDossier.title} — ${dossierLine}`, textStyle(11.5, COLOR_STR.accentText, { wordWrap: { width: 1020 } }));
     y += 28;
 
-    this.add.text(left, y, t.ui.debrief.questionsLabel, textStyle(12, COLOR_STR.accent));
+    this.add.text(left, y, t.ui.debrief.questionsLabel, textStyle(12, COLOR_STR.accentText));
     y += 22;
     report.questions.forEach((q, i) => {
       const qt = this.add.text(left, y, `${i + 1}. ${q}`, textStyle(12.5, COLOR_STR.paper, { wordWrap: { width: 1020 }, lineSpacing: 4 }));

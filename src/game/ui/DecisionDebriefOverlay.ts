@@ -100,13 +100,13 @@ export class DecisionDebriefOverlay {
     let y = cy - panelH / 2 + 28;
 
     const titleText = d.positive ? ui.correctTitle : ui.title;
-    container.add(scene.add.text(left, y, titleText, textStyle(18, d.positive ? COLOR_STR.ok : COLOR_STR.accent, { fontStyle: 'bold' })));
+    container.add(scene.add.text(left, y, titleText, textStyle(18, d.positive ? COLOR_STR.ok : COLOR_STR.accentText, { fontStyle: 'bold' })));
     y += 30;
     container.add(scene.add.text(left, y, ui.intro, textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: wrap } })));
     y += 40;
 
     const labelled = (label: string, value: string): void => {
-      container.add(scene.add.text(left, y, label, textStyle(11.5, COLOR_STR.accent, { fontStyle: 'bold' })));
+      container.add(scene.add.text(left, y, label, textStyle(11.5, COLOR_STR.accentText, { fontStyle: 'bold' })));
       y += 20;
       const v = scene.add.text(left, y, value, textStyle(13.5, COLOR_STR.paper, { wordWrap: { width: wrap }, lineSpacing: 4 }));
       container.add(v);
@@ -132,14 +132,14 @@ export class DecisionDebriefOverlay {
     // 2.1: multi-axis reading — the same decision seen on three axes at once
     // (legal validity, fundamental rights, public trust); presentation only
     if (d.axes) {
-      container.add(scene.add.text(left, y, `${ui.axes.label}: ${d.axes}`, textStyle(11.5, COLOR_STR.accent, { wordWrap: { width: wrap } })));
+      container.add(scene.add.text(left, y, `${ui.axes.label}: ${d.axes}`, textStyle(11.5, COLOR_STR.accentText, { wordWrap: { width: wrap } })));
       y += 26;
     }
 
     // 2.0: one concise reflection question (optional, local, no score effect)
     if (d.onReflect) {
       const r = L().learningLayer.reflection;
-      container.add(scene.add.text(left, y, `${r.label} — ${r.prompt}`, textStyle(11.5, COLOR_STR.accent, { fontStyle: 'bold' })));
+      container.add(scene.add.text(left, y, `${r.label} — ${r.prompt}`, textStyle(11.5, COLOR_STR.accentText, { fontStyle: 'bold' })));
       y += 24;
       const ack = scene.add.text(left, y + 34, '', textStyle(11.5, COLOR_STR.ok));
       container.add(ack);

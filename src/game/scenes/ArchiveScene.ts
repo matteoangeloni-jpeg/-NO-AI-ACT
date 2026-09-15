@@ -99,7 +99,7 @@ export class ArchiveScene extends Phaser.Scene {
     // 2.1 (roadmap §6, Her Story) — ricerca digitata: si scrive e basta.
     // Filtra le carte sbloccate (le bloccate restano opache: nessuno spoiler
     // dei titoli non ancora guadagnati) e riassume i risultati extra.
-    this.searchText = this.add.text(cx, 96, '', textStyle(12, COLOR_STR.accent)).setOrigin(0.5);
+    this.searchText = this.add.text(cx, 96, '', textStyle(12, COLOR_STR.accentText)).setOrigin(0.5);
     this.applySearch();
     this.input.keyboard?.on('keydown', (e: KeyboardEvent) => {
       if (this.detail) return;

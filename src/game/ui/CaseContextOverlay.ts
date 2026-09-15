@@ -73,7 +73,7 @@ export class CaseContextOverlay {
     const wrap = panelW - 80;
     let y = cy - panelH / 2 + 30;
 
-    container.add(scene.add.text(left, y, ui.title, textStyle(18, COLOR_STR.accent, { fontStyle: 'bold' })));
+    container.add(scene.add.text(left, y, ui.title, textStyle(18, COLOR_STR.accentText, { fontStyle: 'bold' })));
     y += 34;
     container.add(
       scene.add.text(left, y, texts.title.toUpperCase(), textStyle(15, COLOR_STR.paper, { fontStyle: 'bold', wordWrap: { width: wrap } }))
@@ -96,7 +96,7 @@ export class CaseContextOverlay {
 
     container.add(scene.add.text(left, y, ui.objectiveLabel, textStyle(12, COLOR_STR.paperDim)));
     y += 22;
-    container.add(scene.add.text(left, y, ui.objective, textStyle(13.5, COLOR_STR.accent, { wordWrap: { width: wrap }, lineSpacing: 4 })));
+    container.add(scene.add.text(left, y, ui.objective, textStyle(13.5, COLOR_STR.accentText, { wordWrap: { width: wrap }, lineSpacing: 4 })));
 
     container.add(
       scene.add

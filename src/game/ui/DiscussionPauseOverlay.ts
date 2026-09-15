@@ -60,7 +60,7 @@ export class DiscussionPauseOverlay {
     const wrap = panelW - 80;
     let y = cy - panelH / 2 + 30;
 
-    container.add(scene.add.text(left, y, ui.title, textStyle(18, COLOR_STR.accent, { fontStyle: 'bold' })));
+    container.add(scene.add.text(left, y, ui.title, textStyle(18, COLOR_STR.accentText, { fontStyle: 'bold' })));
     y += 30;
     const intro = scene.add.text(left, y, ui.intro, textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: wrap }, lineSpacing: 4 }));
     container.add(intro);

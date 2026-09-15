@@ -30,9 +30,9 @@ export class CreditsScene extends Phaser.Scene {
     new Panel(this, cx, cy, 680, 460);
     this.add.text(cx, cy - 110, ui.heading, textStyle(34, COLOR_STR.paper, { fontStyle: 'bold' })).setOrigin(0.5);
     this.add.text(cx, cy - 56, ui.roleLabel, textStyle(13, COLOR_STR.paperDim)).setOrigin(0.5);
-    this.add.text(cx, cy - 22, ui.author, textStyle(20, COLOR_STR.accent)).setOrigin(0.5);
+    this.add.text(cx, cy - 22, ui.author, textStyle(20, COLOR_STR.accentText)).setOrigin(0.5);
     this.add.text(cx, cy + 8, ui.affiliation, textStyle(13, COLOR_STR.paper)).setOrigin(0.5);
-    this.add.text(cx, cy + 30, ui.phdProgramme, textStyle(12.5, COLOR_STR.accent)).setOrigin(0.5);
+    this.add.text(cx, cy + 30, ui.phdProgramme, textStyle(12.5, COLOR_STR.accentText)).setOrigin(0.5);
 
     // Link istituzionali: gli unici indirizzi esterni che il gioco apre, elencati
     // in data/affiliation.ts e nell'allowlist di release.config.json. Si aprono

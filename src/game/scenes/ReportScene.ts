@@ -133,8 +133,8 @@ export class ReportScene extends Phaser.Scene {
     if (shouldShowHint(StateManager.difficulty, result)) {
       const hk = hintKeyFor(result);
       if (hk) {
-        this.add.text(left, y, t.ui.difficulty.hintLabel, textStyle(12, COLOR_STR.accent));
-        this.add.text(left + 200, y, t.ui.difficulty.hints[hk], textStyle(12.5, COLOR_STR.accent, { wordWrap: { width: 620 }, lineSpacing: 4 }));
+        this.add.text(left, y, t.ui.difficulty.hintLabel, textStyle(12, COLOR_STR.accentText));
+        this.add.text(left + 200, y, t.ui.difficulty.hints[hk], textStyle(12.5, COLOR_STR.accentText, { wordWrap: { width: 620 }, lineSpacing: 4 }));
       }
     }
 
@@ -174,7 +174,7 @@ export class ReportScene extends Phaser.Scene {
           ? confidence === 1 ? m.underconfident : m.calibrated
           : confidence === 3 ? m.overconfident : m.calibrated;
       const lineText = `${m.label}: ${fmt(m.line, { confidence: levelLabel, outcome: t.ui.outcomes[result.outcome] })} ${judgment}`;
-      this.add.text(left, 632, lineText, textStyle(11.5, COLOR_STR.accent, { wordWrap: { width: 940 } })).setOrigin(0, 0);
+      this.add.text(left, 632, lineText, textStyle(11.5, COLOR_STR.accentText, { wordWrap: { width: 940 } })).setOrigin(0, 0);
     }
 
     // post-decision debrief (read-only): turns the already-computed outcome into
