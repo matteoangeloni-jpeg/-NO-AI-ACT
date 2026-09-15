@@ -1,6 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { it as itDict } from '../src/game/i18n/it';
+import { en } from '../src/game/i18n/en';
 import {
   DRAFT_SCHEMA,
   DRAFT_STEPS,
@@ -166,5 +168,52 @@ describe('il gioco scrive e cancella la bozza nei punti giusti', () => {
     const restore = card.slice(card.indexOf('restore(revealed'), card.indexOf('private refreshBorder()'));
     expect(restore, 'sei conferme in fila all’apertura suonerebbero come un allarme').not.toContain('AudioSystem');
     expect(restore, 'la scena richiama refreshState() una volta sola').not.toContain('this.onChange()');
+  });
+});
+
+/**
+ * U04 — LA BOZZA SI VEDE DALLA MAPPA.
+ *
+ * Una bozza esisteva ma era invisibile: un fascicolo lasciato a metà
+ * mostrava "INCIDENTE APERTO" esattamente come uno mai toccato, e l'unico
+ * modo di scoprire dove si era rimasti era riaprirli a uno a uno. Persistere
+ * il lavoro senza mostrarlo è mezzo lavoro.
+ */
+describe('lo stato di un fascicolo distingue "mai toccato" da "lasciato a metà"', () => {
+  const read = (p: string): string => readFileSync(resolve(__dirname, '..', p), 'utf8');
+  const map = read('src/game/scenes/CityMapScene.ts');
+  const status = map.slice(map.indexOf('function caseStatus('), map.indexOf('export class CityMapScene'));
+
+  it('la ripresa è uno stato a sé, con quante decisioni sono già prese', () => {
+    expect(status).toContain('StateManager.draftFor(');
+    expect(status).toContain('draftProgress(draft)');
+    expect(status).toContain('t.statusDraft');
+    expect(status, 'senza decisioni prese il conteggio 0/4 non dice nulla').toContain('t.statusDraftEvidence');
+  });
+
+  it('un rapporto firmato vince sempre su una bozza dello stesso caso', () => {
+    // stesso ordine di precedenza del modello: i rami sugli esiti vengono prima
+    expect(status.indexOf('statusClosed')).toBeLessThan(status.indexOf('draftFor('));
+    expect(status.indexOf('statusNonCompliant')).toBeLessThan(status.indexOf('draftFor('));
+  });
+
+  it('un fascicolo sotto sequestro non mostra una ripresa', () => {
+    expect(status.indexOf('statusSealed')).toBeLessThan(status.indexOf('draftFor('));
+  });
+
+  it('lo strato di lettura annuncia lo stesso stato del canvas, dalla stessa funzione', () => {
+    const reading = map.slice(map.indexOf('private syncReadingLayer'));
+    expect(reading, 'due fonti di verità diverse divergerebbero in silenzio').toContain('caseStatus(');
+    // una sola definizione dello stato in tutta la scena
+    expect((map.match(/const status(Label)? = /g) ?? []).length).toBeLessThanOrEqual(2);
+  });
+
+  it('le etichette esistono nelle due lingue, e quella con i numeri li interpola', () => {
+    for (const [lang, dict] of [['it', itDict], ['en', en]] as const) {
+      expect(dict.ui.map.statusDraft, `${lang}: manca statusDraft`).toContain('{taken}');
+      expect(dict.ui.map.statusDraft, `${lang}`).toContain('{total}');
+      expect(dict.ui.map.statusDraftEvidence, `${lang}: manca statusDraftEvidence`).toBeTruthy();
+      expect(dict.ui.map.statusDraftEvidence, `${lang}: la forma senza numeri non deve interpolarli`).not.toContain('{');
+    }
   });
 });

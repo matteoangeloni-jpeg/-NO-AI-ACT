@@ -60,6 +60,8 @@ export const en: Locale = {
       header: 'CIVIC MAP — AUTOMATED SYSTEMS NETWORK',
       progress: 'INSPECTOR AX · CASES CLOSED: {done}/{total}',
       statusOpen: '[ OPEN INCIDENT ]',
+      statusDraft: '[ RESUME · {taken}/{total} decisions ]',
+      statusDraftEvidence: '[ RESUME · exhibits opened ]',
       statusClosed: '[ CASE CLOSED ]',
       statusNonCompliant: '[ CLOSED — NON-COMPLIANT ]',
       statusSealed: '[ CASE FILE IMPOUNDED ]',

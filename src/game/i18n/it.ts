@@ -59,6 +59,8 @@ export const it = {
       header: 'MAPPA CIVICA — RETE DEI SISTEMI AUTOMATIZZATI',
       progress: 'ISPETTORE AX · CASI CHIUSI: {done}/{total}',
       statusOpen: '[ INCIDENTE APERTO ]',
+      statusDraft: '[ RIPRENDI · {taken}/{total} decisioni ]',
+      statusDraftEvidence: '[ RIPRENDI · reperti aperti ]',
       statusClosed: '[ CASO CHIUSO ]',
       statusNonCompliant: '[ CHIUSO — NON CONFORME ]',
       statusSealed: '[ FASCICOLO SOTTO SEQUESTRO ]',

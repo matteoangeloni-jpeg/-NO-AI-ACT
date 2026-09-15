@@ -131,6 +131,25 @@ const sealedInLayer = (layer.match(/SIGILLATO/gi) ?? []).length;
 if (citedInLayer < 2) fail.push(`dopo il ricaricamento lo strato di lettura dichiara ${citedInLayer} reperti citati, attesi 2`);
 if (sealedInLayer > 4) fail.push(`dopo il ricaricamento risultano ${sealedInLayer} reperti ancora sigillati: il ripristino non ha aperto nulla`);
 
+// --- 3a. la mappa deve DIRE che quel fascicolo è a metà ---------------------
+// Persistere il lavoro senza mostrarlo è mezzo lavoro: prima un caso lasciato
+// a metà appariva identico a uno mai toccato.
+await page.evaluate(() => window.game.scene.start('CityMap'));
+// Si attende il CONTENUTO della mappa, non "quale scena è attiva":
+// getScenes(true) non garantisce che la scena corrente sia l'ultima
+// dell'elenco, e aspettare quella condizione scadeva in silenzio — il
+// controllo qui sotto girava allora su una schermata qualsiasi.
+await page.waitForFunction(() => {
+  const t = document.getElementById('reading-layer')?.textContent ?? '';
+  return /CASI CHIUSI|CASES CLOSED/i.test(t);
+}, { timeout: 15000 });
+await page.waitForTimeout(400);
+const mapLayer = await page.evaluate(() => document.getElementById('reading-layer')?.textContent ?? '');
+if (!/RIPRENDI/i.test(mapLayer)) fail.push('la mappa non segnala il fascicolo lasciato a metà');
+if (!/RIPRENDI · 2\/4 decisioni/i.test(mapLayer)) {
+  fail.push(`la mappa non dice a che punto era: ${(mapLayer.match(/RIPRENDI[^—\n]*/i) ?? ['(niente)'])[0]}`);
+}
+
 // --- 3b. cambio lingua: la bozza è fatta di indici, non di testi ------------
 // Se le due traduzioni avessero un numero diverso di reperti o motivazioni,
 // gli indici salvati significherebbero cose diverse e la bozza ripresa in

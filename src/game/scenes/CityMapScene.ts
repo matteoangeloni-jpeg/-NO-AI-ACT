@@ -13,10 +13,41 @@ import { L, fmt, locationName } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene, fadeOutScene } from '../ui/motion';
+import { draftProgress } from '../systems/caseDraft';
 
 /** Deriva massima, in pixel logici, dei due strati di fondo della mappa. */
 const PARALLAX_MAP = 12;
 const PARALLAX_GRAIN = 6;
+
+/**
+ * Etichetta di stato di un fascicolo sulla mappa (U04).
+ *
+ * Una bozza esisteva ma era invisibile: un caso lasciato a metà mostrava
+ * "INCIDENTE APERTO" esattamente come uno mai toccato, e l'unico modo di
+ * scoprire dove si era rimasti era riaprirli a uno a uno. Qui la ripresa
+ * diventa uno stato a sé, con quante decisioni sono già state prese.
+ *
+ * L'ordine dei rami conta: un caso chiuso non ha bozze (resolveCase le
+ * cancella), ma se un salvataggio ne contenesse comunque una, deve vincere
+ * il rapporto firmato — lo stesso ordine di precedenza del modello.
+ */
+function caseStatus(caseId: string | null | undefined, playable: boolean): { label: string; color: string } {
+  const t = L().ui.map;
+  const quality = caseId ? StateManager.caseQuality(caseId) : undefined;
+  if (quality === 'wrong') return { label: t.statusNonCompliant, color: COLOR_STR.warning };
+  if (quality !== undefined) return { label: t.statusClosed, color: COLOR_STR.ok };
+  if (!playable) return { label: t.statusSealed, color: COLOR_STR.paperDim };
+
+  const draft = caseId ? StateManager.draftFor(caseId) : null;
+  if (draft) {
+    const { taken, total } = draftProgress(draft);
+    return {
+      label: taken > 0 ? fmt(t.statusDraft, { taken: String(taken), total: String(total) }) : t.statusDraftEvidence,
+      color: COLOR_STR.accent
+    };
+  }
+  return { label: t.statusOpen, color: COLOR_STR.alertText };
+}
 
 export class CityMapScene extends Phaser.Scene {
   /** Selezione da tastiera (§11.2): indice nel vettore dei casi aperti. */
@@ -133,11 +164,11 @@ export class CityMapScene extends Phaser.Scene {
       { text: t.a11y.mapHint },
       {
         items: LOCATIONS.filter((l) => l.caseId).map((l) => {
-          const quality = StateManager.caseQuality(l.caseId!);
           const c = getCase(l.caseId!);
-          const status = quality === 'wrong' ? t.ui.map.statusNonCompliant
-            : quality !== undefined ? t.ui.map.statusClosed
-            : c.playable ? t.ui.map.statusOpen : t.ui.map.statusSealed;
+          // stesso stato che si vede sul canvas, derivato dalla stessa funzione:
+          // chi legge con uno strumento assistivo deve sapere dov'era rimasto
+          // quanto chi guarda la mappa
+          const status = caseStatus(l.caseId!, c.playable).label;
           return `${locationName(l.id)} — ${status}`;
         })
       }
@@ -161,20 +192,7 @@ export class CityMapScene extends Phaser.Scene {
     const nameTag = this.add
       .text(0, 42, locationName(loc.id).toUpperCase(), textStyle(12, completed ? (nonConforme ? COLOR_STR.warning : COLOR_STR.ok) : COLOR_STR.paper, { align: 'center' }))
       .setOrigin(0.5);
-    const statusLabel = nonConforme
-      ? L().ui.map.statusNonCompliant
-      : completed
-        ? L().ui.map.statusClosed
-        : playable
-          ? L().ui.map.statusOpen
-          : L().ui.map.statusSealed;
-    const statusColor = nonConforme
-      ? COLOR_STR.warning
-      : completed
-        ? COLOR_STR.ok
-        : playable
-          ? COLOR_STR.alertText
-          : COLOR_STR.paperDim;
+    const { label: statusLabel, color: statusColor } = caseStatus(caseData?.id, playable);
     const statusTag = this.add
       .text(0, 58, statusLabel, textStyle(12, statusColor))
       .setOrigin(0.5);
