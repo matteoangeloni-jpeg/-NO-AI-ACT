@@ -38,10 +38,21 @@ export class DossierCard extends Phaser.GameObjects.Container {
     const srcText = sourceLabel
       ? scene.add.text(width / 2 - 12, -height / 2 + 14, sourceLabel, textStyle(11, COLOR_STR.accentText)).setOrigin(1, 0.5)
       : null;
-    // micro-tag investigativo (v0.5): nell'angolo in basso a destra, lontano da
-    // codice reperto, fonte, titolo e corpo — nessuna sovrapposizione
+    /**
+     * Micro-tag investigativo: che funzione ha il reperto rispetto al
+     * rischio — "prova decisiva", "minimizza", "effetto concreto".
+     *
+     * NASCOSTO FINCHÉ IL REPERTO È SIGILLATO. Era visibile da subito, e
+     * quindi il fascicolo diceva quali reperti contavano prima che li si
+     * aprisse: bastava citare le due carte marcate "prova decisiva" senza
+     * leggere una riga. È la risposta stampata sulla busta chiusa.
+     *
+     * La FONTE resta invece sempre visibile, ed è una scelta diversa e
+     * deliberata: sapere che un documento viene dal fornitore o dal reclamo
+     * di un cittadino è un elemento di attendibilità, non la soluzione.
+     */
     const stanceText = stanceLabel
-      ? scene.add.text(width / 2 - 12, height / 2 - 40, stanceLabel, textStyle(10.5, COLOR_STR.warning)).setOrigin(1, 0.5)
+      ? scene.add.text(width / 2 - 12, height / 2 - 40, stanceLabel, textStyle(10.5, COLOR_STR.warning)).setOrigin(1, 0.5).setVisible(false)
       : null;
     const sealed = scene.add
       .text(0, 10, L().ui.evidence.sealed, textStyle(13, COLOR_STR.accentText, { align: 'center' }))
@@ -70,10 +81,11 @@ export class DossierCard extends Phaser.GameObjects.Container {
       })
       .on('pointerout', () => this.refreshBorder())
       .on('pointerdown', () => this.activate());
-    this.revealElements = { sealed, title, body };
+    this.revealElements = { sealed, title, body, stance: stanceText };
   }
 
   private revealElements!: {
+    stance: Phaser.GameObjects.Text | null;
     sealed: Phaser.GameObjects.Text;
     title: Phaser.GameObjects.Text;
     body: Phaser.GameObjects.Text;
@@ -86,7 +98,7 @@ export class DossierCard extends Phaser.GameObjects.Container {
    */
   activate(): void {
     AudioSystem.init();
-    const { sealed, title, body } = this.revealElements;
+    const { sealed, title, body, stance } = this.revealElements;
     if (!this.revealed) {
       // prima attivazione: apertura del reperto
       this.revealed = true;
@@ -94,6 +106,7 @@ export class DossierCard extends Phaser.GameObjects.Container {
       sealed.setVisible(false);
       title.setVisible(true);
       body.setVisible(true);
+      stance?.setVisible(true);
       this.citeLabel.setVisible(true);
       this.scene.tweens.add({ targets: [title, body, this.citeLabel], alpha: { from: 0, to: 1 }, duration: 250 });
     } else {
@@ -117,10 +130,11 @@ export class DossierCard extends Phaser.GameObjects.Container {
    */
   restore(revealed: boolean, cited: boolean): void {
     if (!revealed) return;
-    const { sealed, title, body } = this.revealElements;
+    const { sealed, title, body, stance } = this.revealElements;
     this.revealed = true;
     this.cited = cited;
     sealed.setVisible(false);
+    stance?.setVisible(true);
     for (const el of [title, body, this.citeLabel]) {
       el.setVisible(true);
       el.setAlpha(1);

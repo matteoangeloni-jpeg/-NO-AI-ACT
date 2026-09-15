@@ -2,16 +2,30 @@ import Phaser from 'phaser';
 import { AudioSystem } from '../systems/AudioSystem';
 import { StateManager } from '../systems/StateManager';
 import { textStyle, COLOR_STR } from './theme';
+import { L } from '../i18n';
 
 /**
  * Testo a macchina da scrivere con suono da terminale.
  * Con "riduci animazioni" attivo il testo appare subito.
- * Un click/tap mentre scrive completa immediatamente.
+ *
+ * SI PUÒ SALTARE, E ORA SI VEDE CHE SI PUÒ.
+ *
+ * Saltare si poteva già — un clic completava la scrittura — ma non lo
+ * diceva nessuno, e la scrittura è la prima cosa che il gioco fa: chi
+ * arriva pensa che i primi minuti siano un'introduzione da subire, e
+ * qualcuno se ne va prima di toccare un fascicolo. Segnalato da chi ha
+ * giocato, come cosa più importante da sistemare.
+ *
+ * Il suggerimento e i tasti stanno QUI e non nelle scene: erano quattro
+ * scene a registrare il clic ciascuna per conto suo, e la tastiera non la
+ * registrava nessuna. Chi aggiunge la prossima scena non deve ricordarsene.
  */
 export class TypewriterText extends Phaser.GameObjects.Text {
   private fullText = '';
   private timer?: Phaser.Time.TimerEvent;
   private onDone?: () => void;
+  private hint?: Phaser.GameObjects.Text;
+  private readonly skipHandler = (): void => this.skip();
 
   constructor(
     scene: Phaser.Scene,
@@ -34,12 +48,24 @@ export class TypewriterText extends Phaser.GameObjects.Text {
     this.timer?.remove();
 
     if (StateManager.reducedMotion) {
+      // niente da saltare, quindi niente da suggerire
       this.setText(text);
       onDone?.();
       return;
     }
 
+    // Il suggerimento va sotto il testo COMPLETO, non sotto quello che sta
+    // crescendo: misurato una volta qui, resta fermo mentre il testo scorre.
+    this.setText(text);
+    const hintY = this.y + this.height + 10;
     this.setText('');
+    this.hint?.destroy();
+    this.hint = this.scene.add
+      .text(this.x, hintY, L().ui.typewriterHint, textStyle(11.5, COLOR_STR.accentText))
+      .setAlpha(0.85);
+    this.scene.input.on('pointerdown', this.skipHandler);
+    for (const key of ['keydown-SPACE', 'keydown-ENTER']) this.scene.input.keyboard?.on(key, this.skipHandler);
+
     let i = 0;
     this.timer = this.scene.time.addEvent({
       delay: 14,
@@ -68,6 +94,10 @@ export class TypewriterText extends Phaser.GameObjects.Text {
   private finish(): void {
     this.timer?.remove();
     this.timer = undefined;
+    this.hint?.destroy();
+    this.hint = undefined;
+    this.scene.input.off('pointerdown', this.skipHandler);
+    for (const key of ['keydown-SPACE', 'keydown-ENTER']) this.scene.input.keyboard?.off(key, this.skipHandler);
     const cb = this.onDone;
     this.onDone = undefined;
     cb?.();

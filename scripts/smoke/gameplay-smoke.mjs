@@ -22,11 +22,24 @@
  */
 import { chromium } from 'playwright';
 import { worldToPageFn } from './lib-canvas-coords.mjs';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve as pathResolve } from 'node:path';
 
 const BASE = process.env.BASE || 'http://localhost:4200';
 const OUT_MOBILE = new URL('./out', import.meta.url).pathname;
 const GAME_HOSTS_ALLOWED = ['static.cloudflareinsights.com']; // pre-existing shell beacon only
 const fail = [];
+
+/**
+ * I micro-tag dei reperti, letti dal dizionario del gioco invece che
+ * trascritti: un tag nuovo entra nel controllo il giorno che nasce.
+ */
+const EVIDENCE_STANCES = (() => {
+  const src = readFileSync(pathResolve(dirname(fileURLToPath(import.meta.url)), '../../src/game/i18n/it.ts'), 'utf8');
+  const block = src.slice(src.indexOf('stances: {'), src.indexOf('}', src.indexOf('stances: {')));
+  return Object.fromEntries([...block.matchAll(/(\w+):\s*'([^']+)'/g)].map((m) => [m[1], m[2]]));
+})();
 /**
  * Quanto può durare, a orologio vero, il passaggio da un pulsante alla
  * schermata successiva.
@@ -374,6 +387,81 @@ for (const vp of [{ w: 390, h: 844, name: 'telefono' }, { w: 768, h: 1024, name:
     fail.push(`transizione: da INIZIA il briefing non arriva entro ${TRANSITION_BUDGET_MS} ms — la schermata sembra bloccata`);
   }
   await hi.close();
+}
+
+// ---- un reperto sigillato non anticipa il proprio contenuto (anti-spoiler) ----
+//
+// Le schede dei reperti portano tre informazioni: il codice, la FONTE e un
+// micro-tag che dice che funzione ha il reperto rispetto al rischio —
+// "prova decisiva", "minimizza", "effetto concreto". La fonte è visibile da
+// subito di proposito: l'attendibilità di chi parla è materia di
+// ragionamento. Il micro-tag no: era visibile anche sulle buste chiuse, e
+// bastava citare le due carte marcate "prova decisiva" senza leggere una
+// riga. Era la risposta stampata sulla busta.
+//
+// I termini NON sono trascritti qui: si leggono dal dizionario del gioco,
+// così un tag nuovo è coperto il giorno che nasce.
+{
+  const ev = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+  await ev.route(/cloudflareinsights\.com/, (r) => r.abort());
+  const ep = await ev.newPage();
+  ep.on('pageerror', (e) => errors.push(`[reperti] ${String(e)}`));
+  await ep.goto(`${BASE}/play/?lang=it`, { waitUntil: 'load' });
+  await ep.waitForFunction(() => window.game?.scene?.getScene('Title')?.scene?.isActive?.(), null, { timeout: 40000 });
+  await ep.evaluate(() => {
+    const g = window.game;
+    for (const s of g.scene.scenes) if (s.scene.isActive() && s.scene.key !== 'Boot') s.scene.stop();
+    g.scene.start('Evidence', { caseId: 'case_scoring' });
+  });
+  await ep.waitForFunction(() => window.game.scene.getScenes(true).some((s) => s.scene.key === 'Evidence'), null, { timeout: 20000 });
+  await ep.waitForTimeout(1200);
+
+  const seen = await ep.evaluate(() => {
+    const g = window.game;
+    const s = g.scene.getScenes(true).slice(-1)[0];
+    const stances = Object.values(window.gameStances || {});
+    const texts = [];
+    const walk = (list, shown) => {
+      for (const o of list) {
+        const vis = shown && o.visible !== false && (o.alpha === undefined || o.alpha > 0.05);
+        if (typeof o.text === 'string' && o.text.trim() && vis) texts.push(o.text);
+        if (Array.isArray(o.list)) walk(o.list, vis);
+      }
+    };
+    walk(s.children.list, true);
+    return { texts, stances };
+  });
+  const stanceLabels = Object.values(EVIDENCE_STANCES);
+  if (stanceLabels.length < 3) fail.push('reperti: nessun micro-tag letto dal dizionario, il controllo sarebbe inerte');
+  const leaked = stanceLabels.filter((label) => seen.texts.some((t) => t.includes(label)));
+  if (leaked.length) {
+    fail.push(`reperti sigillati: il micro-tag è già visibile (${leaked.join(', ')}) — la risposta è stampata sulla busta`);
+  }
+  // e dopo l'apertura deve invece comparire: nasconderlo per sempre sarebbe
+  // l'altro difetto, e questo controllo lo distingue
+  await ep.evaluate(() => {
+    const s = window.game.scene.getScenes(true).slice(-1)[0];
+    const card = s.children.list.find((o) => o.type === 'Container' && typeof o.activate === 'function');
+    card?.activate();
+  });
+  await ep.waitForTimeout(600);
+  const afterOpen = await ep.evaluate(() => {
+    const s = window.game.scene.getScenes(true).slice(-1)[0];
+    const texts = [];
+    const walk = (list, shown) => {
+      for (const o of list) {
+        const vis = shown && o.visible !== false && (o.alpha === undefined || o.alpha > 0.05);
+        if (typeof o.text === 'string' && o.text.trim() && vis) texts.push(o.text);
+        if (Array.isArray(o.list)) walk(o.list, vis);
+      }
+    };
+    walk(s.children.list, true);
+    return texts;
+  });
+  if (!stanceLabels.some((label) => afterOpen.some((t) => t.includes(label)))) {
+    fail.push('reperti aperti: il micro-tag non compare nemmeno dopo aver esaminato — nascosto, non rivelato');
+  }
+  await ev.close();
 }
 
 await browser.close();

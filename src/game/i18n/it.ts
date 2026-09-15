@@ -10,6 +10,7 @@ export const it = {
     gameSubtitle: 'Simulatore di una società non regolata',
     titleTagline: "Valuta casi d'uso dell'IA. Ogni scelta incide su fiducia pubblica, innovazione e diritti. Obiettivo: trovare un equilibrio sostenibile.",
     titleHeader: 'REPUBBLICA MUNICIPALE AUTOMATIZZATA — ANNO 2032',
+    typewriterHint: '▸ clic, SPAZIO o INVIO per mostrare subito tutto il testo',
     footerDisclaimer:
       "Versione didattica semplificata dell'AI Act (Reg. UE 2024/1689). Non costituisce consulenza legale.",
     menu: {
