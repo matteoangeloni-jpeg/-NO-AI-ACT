@@ -204,6 +204,19 @@ function assertSceneLayout(report, ctx, expectedKey) {
       }
     }
   }
+  // Due bottoni sovrapposti: uno dei due è inarrivabile, e il controllo
+  // sopra non poteva vederlo perché confronta solo bottoni con testi. È
+  // successo davvero aggiungendo un terzo bottone alla colonna in alto a
+  // destra della decisione, dove ce n'erano già due impilati.
+  for (let i = 0; i < buttons.length; i++) {
+    for (let j = i + 1; j < buttons.length; j++) {
+      if (intersects(buttons[i], buttons[j])) {
+        fail.push(
+          `${ctx} [${key}]: button "${String(buttons[i].text).slice(0, 20)}" overlaps button "${String(buttons[j].text).slice(0, 20)}"`
+        );
+      }
+    }
+  }
 }
 
 /**
@@ -220,6 +233,11 @@ async function gotoDecisionSummary(page) {
     return a && a.length && a[a.length - 1].scene.key === 'Decision';
   }, { timeout: 8000 }).catch(() => {});
   await page.waitForTimeout(500);
+  return page;
+}
+
+/** Avanza di quattro scelte, dal primo passo al riepilogo. */
+async function advanceToSummary(page) {
   for (const k of ['1', '1', '2', '2']) {
     await page.keyboard.press(k);
     await page.waitForTimeout(650);
@@ -297,8 +315,14 @@ for (const vp of CANVAS_VIEWPORTS) {
     await page.screenshot({ path: `${OUT}/briefing-${vp.w}x${vp.h}-${lang}.png` });
 
     if (deepChecks) {
-      // riepilogo e firma: unica schermata che esiste solo dopo quattro scelte
+      // Primo passo della decisione: qui vivono i tre bottoni impilati in alto
+      // a destra (norme, norma del caso, termini). Il terzo è finito sul
+      // secondo appena aggiunto, in entrambe le lingue, e nulla se ne accorse.
       await gotoDecisionSummary(page);
+      assertSceneLayout(await page.evaluate(sceneReportFn), `${ctx} Decision step 1`, 'Decision');
+
+      // riepilogo e firma: unica schermata che esiste solo dopo quattro scelte
+      await advanceToSummary(page);
       const summary = await page.evaluate(sceneReportFn);
       const signed = lang === 'en' ? 'SIGN THE REPORT' : 'FIRMA IL RAPPORTO';
       if (!summary || !summary.items.some((i) => String(i.text || '').includes(signed))) {
@@ -357,4 +381,4 @@ console.log('  external hosts:', JSON.stringify(externalHosts));
 console.log('  console errors:', relevantErrors.length);
 console.log('  screenshots:', OUT);
 if (fail.length) { for (const f of fail) console.log('  ✗', f); process.exit(1); }
-console.log('  ✓ Title + Briefing + audience panel + decision summary safe-area clean, desktop/tablet/mobile, IT + EN');
+console.log('  ✓ Title + Briefing + audience panel + decision (step 1 + summary) safe-area clean, desktop/tablet/mobile, IT + EN');

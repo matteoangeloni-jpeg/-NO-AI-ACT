@@ -260,7 +260,11 @@ export const it = {
       keys3: 'tastiera: tasti 1–3 per selezionare',
       normsButton: 'CONSULTA NORME',
       normsHint: 'solo consultazione — clic fuori o ESC per chiudere',
-      normsEmpty: 'Nessuna norma ancora acquisita.'
+      normsEmpty: 'Nessuna norma ancora acquisita.',
+      termsButton: 'CHE COSA VUOL DIRE?',
+      termsTitle: 'I TERMINI DI QUESTA SCELTA',
+      termsHint: 'solo consultazione — clic fuori o ESC per chiudere. Non suggerisce la risposta.',
+      termsNoEntry: 'Non è una categoria definita dal regolamento: è ciò che resta fuori dalle altre.'
     },
     subjects: {
       provider: 'Provider (chi sviluppa il sistema)',

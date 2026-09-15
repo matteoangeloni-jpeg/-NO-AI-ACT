@@ -261,7 +261,11 @@ export const en: Locale = {
       keys3: 'keyboard: keys 1–3 to select',
       normsButton: 'CONSULT NORMS',
       normsHint: 'read-only — click outside or ESC to close',
-      normsEmpty: 'No norm acquired yet.'
+      normsEmpty: 'No norm acquired yet.',
+      termsButton: 'WHAT DO THESE MEAN?',
+      termsTitle: 'THE TERMS IN THIS CHOICE',
+      termsHint: 'read-only — click outside or ESC to close. It does not hint at the answer.',
+      termsNoEntry: 'Not a category defined by the regulation: it is what falls outside the others.'
     },
     subjects: {
       provider: 'Provider (who develops the system)',

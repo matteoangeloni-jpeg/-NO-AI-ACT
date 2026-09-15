@@ -15,6 +15,7 @@ import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
 import type { DraftStep } from '../systems/caseDraft';
+import { CLASSIFICATION_TERMS, SUBJECT_TERMS } from '../data/termHints';
 
 /**
  * Riga dell'avviso sulla firma. Sta fra il riepilogo e la fila della
@@ -55,6 +56,8 @@ export class DecisionScene extends Phaser.Scene {
   private normsBtn?: Button;
   private caseNormBtn?: Button;
   private backBtn?: Button;
+  private termsBtn?: Button;
+  private lastStep?: { label: string; question: string };
 
   constructor() {
     super('Decision');
@@ -131,7 +134,22 @@ export class DecisionScene extends Phaser.Scene {
     builders[this.resumeStep()]();
   }
 
+  /**
+   * Riporta lo strato di lettura al passo corrente. Serve dopo la chiusura
+   * di un overlay che lo ha sostituito: senza, chi legge con uno strumento
+   * assistivo resterebbe sui termini del glossario mentre sullo schermo è
+   * tornata la domanda.
+   */
+  private syncStepReading(): void {
+    if (!this.lastStep) return;
+    ReadingLayer.setScene(fmt(L().a11y.decisionTitle, { step: this.lastStep.label }), [
+      { text: this.lastStep.question },
+      { text: L().ui.decision.stepBackHint }
+    ]);
+  }
+
   private header(step: string, question: string): void {
+    this.lastStep = { label: step, question };
     // strato di lettura (§11.1): passo corrente e domanda, a ogni transizione
     // Il ritorno al passo precedente è annunciato qui e non nei tasti in
     // fondo: chi legge con uno strumento assistivo incontra la scena
@@ -179,6 +197,7 @@ export class DecisionScene extends Phaser.Scene {
     this.normsBtn?.setVisible(!hideNav);
     this.caseNormBtn?.setVisible(!hideNav);
     this.backBtn?.setVisible(!hideNav);
+    this.termsBtn?.setVisible(!hideNav);
   }
 
   /**
@@ -274,6 +293,10 @@ export class DecisionScene extends Phaser.Scene {
     CLASSIFICATIONS.forEach((cls, i) => {
       new Button(this, cx, 228 + i * 62, `${i + 1}. ${L().classifications[cls].toUpperCase()}`, () => pick(cls), { width: 460 });
     });
+    this.addTermsButton(
+      CLASSIFICATIONS.map((c) => ({ label: L().classifications[c], glossaryId: CLASSIFICATION_TERMS[c] }))
+    );
+
     const toEvidence = (): void => {
       this.scene.start('Evidence', { caseId: this.caseData.id });
     };
@@ -327,6 +350,8 @@ export class DecisionScene extends Phaser.Scene {
     SUBJECTS.forEach((subject, i) => {
       new Button(this, cx, 210 + i * 62, `${i + 1}. ${L().ui.subjects[subject].toUpperCase()}`, () => pick(subject), { width: 560, fontSize: 14 });
     });
+    this.addTermsButton(SUBJECTS.map((x) => ({ label: L().ui.subjects[x], glossaryId: SUBJECT_TERMS[x] })));
+
     const back = (): void => this.stepBack(() => { this.measure = null; }, () => this.showMeasureStep());
     this.bindNumberKeys(SUBJECTS.length, (i) => pick(SUBJECTS[i]), back);
     this.add.text(cx, GAME_HEIGHT - 80, L().ui.decision.keys5, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
@@ -468,6 +493,81 @@ export class DecisionScene extends Phaser.Scene {
     });
   }
 
+  /**
+   * AIUTO CONTESTUALE (U05): che cosa vogliono dire le opzioni di questo
+   * passo, senza uscire dal fascicolo.
+   *
+   * Le definizioni esistevano già nel glossario, ma in una schermata a
+   * parte raggiungibile solo dalla mappa: per leggerle bisognava lasciare
+   * la decisione. Qui è un overlay dentro la scena, come l'archivio norme,
+   * quindi consultarlo non costa nulla — e con le bozze non costerebbe
+   * comunque più il lavoro fatto, ma costerebbe il filo del ragionamento.
+   *
+   * Un'opzione senza voce di glossario NON viene inventata: mostra perché
+   * non ce l'ha. Vedi il commento in termHints.ts.
+   */
+  private toggleTermsOverlay(options: Array<{ label: string; glossaryId: string | null }>): void {
+    if (this.overlay) {
+      this.closeNormsOverlay();
+      return;
+    }
+    const cx = GAME_WIDTH / 2;
+    const cy = GAME_HEIGHT / 2;
+    const t = L().ui.decision;
+    const container = this.add.container(0, 0).setDepth(80);
+    container.add(
+      this.add
+        .rectangle(cx, cy, GAME_WIDTH, GAME_HEIGHT, 0x000000, 0.86)
+        .setInteractive()
+        .on('pointerdown', () => this.closeNormsOverlay())
+    );
+    // Un foglio con un bordo, non testo sospeso sul fondo scurito: senza, le
+    // definizioni si leggevano sopra l'intestazione del passo rimasta dietro.
+    // Il foglio viene dimensionato DOPO aver misurato le definizioni: le
+    // opzioni non sono sempre cinque e i testi vanno a capo in modo diverso
+    // nelle due lingue, quindi un'altezza fissa lascerebbe un vuoto qui e
+    // taglierebbe là.
+    const TOP = cy - 214;
+    const sheet = this.add.rectangle(cx, cy, 960, 100, COLORS.night, 0.96).setStrokeStyle(1, COLORS.iron);
+    container.add(sheet);
+    container.add(this.add.text(cx, TOP, t.termsTitle, textStyle(15, COLOR_STR.accent)).setOrigin(0.5));
+
+    let y = TOP + 36;
+    const read: Array<{ text: string }> = [{ text: t.termsHint }];
+    for (const opt of options) {
+      const entry = opt.glossaryId
+        ? (L().glossary.entries as Record<string, { term: string; definition: string }>)[opt.glossaryId]
+        : undefined;
+      const title = this.add.text(cx - 440, y, opt.label.toUpperCase(), textStyle(12.5, COLOR_STR.paper));
+      const body = this.add.text(cx - 440, y + 20, entry ? entry.definition : t.termsNoEntry,
+        textStyle(12, entry ? COLOR_STR.paperDim : COLOR_STR.warning, { wordWrap: { width: 880 }, lineSpacing: 3 }));
+      container.add([title, body]);
+      read.push({ text: `${opt.label} — ${entry ? entry.definition : t.termsNoEntry}` });
+      y += 34 + body.height;
+    }
+    const hint = this.add
+      .text(cx, y + 18, t.termsHint, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 900 }, align: 'center' }))
+      .setOrigin(0.5);
+    container.add(hint);
+    const bottom = hint.y + hint.height / 2 + 24;
+    sheet.setSize(960, bottom - (TOP - 28)).setPosition(cx, (TOP - 28 + bottom) / 2);
+    ReadingLayer.setScene(t.termsTitle, read);
+    this.overlay = container;
+  }
+
+  /** Bottone dell'aiuto contestuale, nella stessa posizione in ogni passo. */
+  private addTermsButton(options: Array<{ label: string; glossaryId: string | null }>): void {
+    // Terza riga della colonna in alto a destra: sopra ci sono già
+    // "consulta norme" (centro 36) e "norma del caso" (76). A 76 questo
+    // bottone finiva esattamente sul secondo, in entrambe le lingue.
+    this.termsBtn = new Button(this, GAME_WIDTH - 130, 116, L().ui.decision.termsButton, () => this.toggleTermsOverlay(options), {
+      width: 210,
+      height: 34,
+      fontSize: 11.5,
+      variant: 'ghost'
+    });
+  }
+
   // ----------------------------------------------------- overlay norme
   private toggleNormsOverlay(): void {
     if (this.overlay) {
@@ -510,6 +610,7 @@ export class DecisionScene extends Phaser.Scene {
   private closeNormsOverlay(): void {
     this.overlay?.destroy();
     this.overlay = undefined;
+    this.syncStepReading();
   }
 
   // ------------------------------------------------------------ esito
