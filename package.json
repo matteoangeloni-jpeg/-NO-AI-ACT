@@ -21,6 +21,7 @@
     "smoke:draft": "node scripts/smoke/draft-smoke.mjs",
     "smoke:privacy": "node scripts/smoke/privacy-smoke.mjs",
     "smoke:layout": "node scripts/smoke/layout-smoke.mjs",
+    "smoke:audio": "node scripts/smoke/audio-smoke.mjs",
     "smoke:all": "node scripts/smoke/run-all.mjs"
   },
   "license": "(GPL-3.0-or-later AND CC-BY-SA-4.0)",

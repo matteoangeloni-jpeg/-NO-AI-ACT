@@ -1,8 +1,14 @@
 import { StateManager } from './StateManager';
 import { buildTheme, type ThemeHandle } from './musicThemes';
 
-const MASTER_VOLUME = 0.5;
-const THEME_VOLUME = 0.9;
+/**
+ * Livelli della catena audio. Esportati perché lo smoke audio renda i temi
+ * con gli STESSI guadagni del gioco: misurare la saturazione su una catena
+ * inventata direbbe poco, e ricopiare qui i numeri li farebbe divergere il
+ * giorno che cambiano.
+ */
+export const MASTER_VOLUME = 0.5;
+export const THEME_VOLUME = 0.9;
 
 /**
  * Audio interamente procedurale via Web Audio API (nessun file esterno).

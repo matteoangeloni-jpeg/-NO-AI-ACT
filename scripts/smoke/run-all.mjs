@@ -26,7 +26,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PORT = 4200;
 const PROBE = `http://127.0.0.1:${PORT}/`;
 const BASE = `http://localhost:${PORT}`; // smokes' host allowlists expect "localhost"
-const SMOKES = ['gameplay-smoke.mjs', 'keyboard-smoke.mjs', 'draft-smoke.mjs', 'privacy-smoke.mjs', 'layout-smoke.mjs'];
+const SMOKES = ['gameplay-smoke.mjs', 'keyboard-smoke.mjs', 'draft-smoke.mjs', 'privacy-smoke.mjs', 'layout-smoke.mjs', 'audio-smoke.mjs'];
 
 if (!existsSync(resolve(root, 'dist/index.html'))) {
   console.error('smoke:all: dist/index.html not found — run `npm run build` first.');

@@ -4,6 +4,8 @@ import { initMobileGuard } from './mobileGuard';
 import { initReadingLayer } from './game/systems/ReadingLayer';
 import { languageFromQuery } from './game/i18n';
 import { StateManager } from './game/systems/StateManager';
+import { THEME_IDS, buildTheme } from './game/systems/musicThemes';
+import { MASTER_VOLUME, THEME_VOLUME } from './game/systems/AudioSystem';
 
 /**
  * Public landing handoff: the IT landing links to /play/?lang=it and the EN
@@ -19,5 +21,22 @@ const game = new Phaser.Game(gameConfig);
 // layout smoke to read real canvas-object bounds (buttons are drawn on the
 // canvas, not the DOM, so bounding-box checks need the live Phaser instance).
 (window as unknown as { game?: Phaser.Game }).game = game;
+
+/**
+ * Stessa ragione, per la musica: i temi sono codice che genera suono, e
+ * l'unico modo di verificare che un tema non sia muto — o identico a un
+ * altro — è renderizzarlo con un AudioContext vero. Lo smoke audio li rende
+ * offline da qui. È la funzione già inclusa nel bundle, non un dato in più:
+ * niente lascia il browser.
+ */
+(window as unknown as {
+  audioProbe?: { buildTheme: typeof buildTheme; themeIds: string[]; masterVolume: number; themeVolume: number };
+}).audioProbe = {
+  buildTheme,
+  themeIds: THEME_IDS,
+  // i guadagni veri della catena, così lo smoke non li ricopia
+  masterVolume: MASTER_VOLUME,
+  themeVolume: THEME_VOLUME
+};
 initMobileGuard();
 initReadingLayer();
