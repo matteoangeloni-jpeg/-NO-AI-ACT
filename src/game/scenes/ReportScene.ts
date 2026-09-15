@@ -22,6 +22,7 @@ import { L, caseText, fmt, normText } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 interface ReportParams {
   caseId: string;
@@ -70,7 +71,7 @@ export class ReportScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
     AudioSystem.crossfadeToTheme(this.caseData.id);
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    addNoiseOverlay(this, 0.4);
 
     // documento
     this.add.image(cx, GAME_HEIGHT / 2 - 10, 'dossier_paper').setDisplaySize(940, 580);

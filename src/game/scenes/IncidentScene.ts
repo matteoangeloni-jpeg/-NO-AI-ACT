@@ -9,6 +9,7 @@ import { TypewriterText } from '../ui/TypewriterText';
 import { L, caseText } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene, fadeOutScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 const CHOICES: IncidentChoice[] = ['document', 'suspend', 'minimize'];
 const NUMBER_KEYS = ['ONE', 'TWO', 'THREE'];
@@ -43,7 +44,7 @@ export class IncidentScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 200);
     AudioSystem.alert();
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.5);
+    addNoiseOverlay(this, 0.5);
 
     // height 480 (was 380): with all 3 response options, the last button
     // (y=536, height 48) needs the panel to reach y=585, not 510.

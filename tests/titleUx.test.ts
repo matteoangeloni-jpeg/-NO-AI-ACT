@@ -59,9 +59,12 @@ describe('title screen — simplified player-first hierarchy', () => {
     expect(resources, 'i crediti non stanno piu\' fra le risorse').not.toContain('m.credits');
     const settings = title.slice(title.indexOf('private openSettings'), title.indexOf('private openTeachers'));
     expect(settings, 'i crediti devono essere raggiungibili da Impostazioni').toContain('m.credits');
-    for (const k of ['m.language', 'setDifficulty', 'setMission', 'settingsPrivacy']) {
+    for (const k of ['m.language', 'setDifficulty', 'settingsPrivacy']) {
       expect(settings, `settings must contain ${k}`).toContain(k);
     }
+    // Il percorso NON si sceglie più qui: due manopole per la stessa cosa
+    // erano il motivo per cui girare la durata non cambiava la partita.
+    expect(settings, 'la composizione della sessione vive in NUOVA PARTITA').not.toContain('setMission');
   });
 
   it('save-present and save-absent states differ only by the CONTINUA row', () => {
@@ -98,5 +101,50 @@ describe('title screen — i18n labels and micro-framing', () => {
     expect(en.ui.menu.settings).toBe('SETTINGS');
     expect(itLocale.ui.menu.continue).toBe('CONTINUA INDAGINE');
     expect(en.ui.menu.continue).toBe('CONTINUE INVESTIGATION');
+  });
+});
+
+
+/**
+ * NUOVA PARTITA compone la sessione.
+ *
+ * Prima il bottone partiva e basta: modalità, pubblico e durata stavano in
+ * due posti diversi (una voce di menu e le impostazioni) e nessuno dei due
+ * veniva letto al momento di cominciare. Chi metteva 90 minuti riceveva la
+ * stessa partita di chi ne metteva 15.
+ */
+describe('NUOVA PARTITA apre la composizione della sessione', () => {
+  const panel = title.slice(title.indexOf('private openNewGame'), title.indexOf('private startPlanned'));
+
+  it('il bottone apre il pannello invece di avviare al primo clic', () => {
+    expect(createBody).toContain('m.newGame');
+    expect(createBody).toContain('this.openNewGame(hasSave)');
+  });
+
+  it('la voce di menu separata "per chi giochi" non esiste più', () => {
+    for (const dict of [itLocale, en]) {
+      expect(Object.keys(dict.ui.menu)).not.toContain('audienceMenu');
+    }
+    expect(title).not.toContain('openAudience');
+  });
+
+  it('tutte e tre le manopole stanno nel pannello, a un clic da NUOVA PARTITA', () => {
+    for (const k of ['setGameMode', 'setAudience', 'setSessionMinutes']) {
+      expect(panel, `il pannello deve poter cambiare ${k}`).toContain(k);
+    }
+  });
+
+  it('ogni manopola ricalcola il riepilogo: è la promessa fatta a chi la gira', () => {
+    // tre pulsanti che cambiano la sessione, tre chiamate a refresh()
+    const refreshes = panel.match(/\brefresh\(\);/g) ?? [];
+    expect(refreshes.length, 'un selettore che non ricalcola mente sul piano').toBeGreaterThanOrEqual(4);
+    expect(panel).toContain('StateManager.gamePlan');
+  });
+
+  it('una modalità senza niente da proporre non si può avviare', () => {
+    expect(panel).toContain("plan.unavailable === 'nothingToReview'");
+    expect(panel).toContain('startBtn.setEnabled(false)');
+    const start = title.slice(title.indexOf('private startPlanned'));
+    expect(start, 'e non parte nemmeno se qualcuno ci arriva lo stesso').toContain('if (plan.unavailable) return;');
   });
 });

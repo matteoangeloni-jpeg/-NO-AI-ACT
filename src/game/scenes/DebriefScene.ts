@@ -8,6 +8,7 @@ import { Panel } from '../ui/Panel';
 import { L, fmt } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 /**
  * Debrief docente: report LOCALE delle decisioni di gioco.
@@ -33,7 +34,7 @@ export class DebriefScene extends Phaser.Scene {
 
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    addNoiseOverlay(this, 0.4);
 
     this.add.text(cx, 42, t.ui.debrief.title, textStyle(18, COLOR_STR.paper, { fontStyle: 'bold' })).setOrigin(0.5);
     this.add.text(cx, 66, t.ui.debrief.subtitle, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);

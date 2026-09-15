@@ -81,8 +81,14 @@ export function createCityMap(scene: Phaser.Scene, key: string, width: number, h
     ctx.strokeRect(bx, by, bw, bh);
   }
 
-  // rumore digitale leggero
-  const img = ctx.getImageData(0, 0, width, height);
+  // Rumore digitale leggero.
+  //
+  // getImageData e putImageData lavorano in PIXEL DEL CANVAS e ignorano la
+  // trasformazione impostata con ctx.scale: chiederli in unità logiche legge
+  // e riscrive solo il quarto in alto a sinistra della texture, e la mappa
+  // esce con un quadrante granuloso e tre lisci. Qui si usano quindi le
+  // dimensioni vere del canvas.
+  const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
   for (let p = 0; p < img.data.length; p += 4) {
     if (rnd() > 0.985) {
       const n = 10 + rnd() * 18;

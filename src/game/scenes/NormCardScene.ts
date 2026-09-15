@@ -9,6 +9,7 @@ import { NormCardView } from '../ui/NormCard';
 import { L } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene, fadeOutScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 /** Sblocco della carta norma con animazione di flip. */
 export class NormCardScene extends Phaser.Scene {
@@ -30,7 +31,7 @@ export class NormCardScene extends Phaser.Scene {
     const ui = L().ui.normCard;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
-    this.add.tileSprite(cx, cy, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    addNoiseOverlay(this, 0.4);
 
     const norm = NormSystem.view(this.normId);
     AnalyticsSystem.track('norm_unlocked', {
@@ -64,8 +65,26 @@ export class NormCardScene extends Phaser.Scene {
     const backToMap = (): void => {
       fadeOutScene(this, 250, () => this.scene.start('CityMap'));
     };
-    new Button(this, cx, GAME_HEIGHT - 50, ui.backToMap, backToMap);
-    // tastiera (v1.1): INVIO chiude la carta norma e torna alla mappa
-    this.input.keyboard?.once('keydown-ENTER', backToMap);
+
+    /**
+     * Uscita della carta norma. Nelle modalità in sequenza il fascicolo
+     * successivo è a un tasto di distanza — è questo che le distingue
+     * dall'indagine libera — ma la mappa resta sempre raggiungibile
+     * accanto: una sequenza da cui non si può uscire è una gabbia, non una
+     * modalità.
+     */
+    const nextCaseId = StateManager.nextInPlan();
+    if (nextCaseId) {
+      const goNext = (): void => {
+        fadeOutScene(this, 250, () => this.scene.start('Case', { caseId: nextCaseId }));
+      };
+      new Button(this, cx + 130, GAME_HEIGHT - 50, ui.nextCase, goNext, { width: 300 });
+      new Button(this, cx - 190, GAME_HEIGHT - 50, ui.backToMap, backToMap, { width: 260, variant: 'ghost' });
+      this.input.keyboard?.once('keydown-ENTER', goNext);
+    } else {
+      new Button(this, cx, GAME_HEIGHT - 50, ui.backToMap, backToMap);
+      // tastiera (v1.1): INVIO chiude la carta norma e torna alla mappa
+      this.input.keyboard?.once('keydown-ENTER', backToMap);
+    }
   }
 }

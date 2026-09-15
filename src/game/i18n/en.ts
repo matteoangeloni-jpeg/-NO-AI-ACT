@@ -31,7 +31,6 @@ export const en: Locale = {
       teacherOff: 'TEACHER MODE: OFF',
       teacherScope: 'Local debrief: no classes, no accounts, no server.',
       resetDone: 'Save data cleared.',
-      audienceMenu: 'WHO YOU PLAY AS',
       teachers: 'TEACHERS & CLASSROOM',
       resources: 'RESOURCES',
       settings: 'SETTINGS',
@@ -77,7 +76,7 @@ export const en: Locale = {
       backToMap: '◂ MAP'
     },
     context: {
-      button: 'Review context',
+      button: 'REVIEW CONTEXT',
       title: 'Case context',
       scenarioLabel: 'Case summary',
       objectiveLabel: 'Objective',
@@ -87,7 +86,7 @@ export const en: Locale = {
       closeToEvidence: 'Back to evidence'
     },
     caseNorm: {
-      button: 'Case rule',
+      button: 'CASE RULE',
       supportNote: 'A useful rule to orient your reasoning in this case. Consulting it does not change the report or the decision.',
       relevantLabel: 'Relevant rule',
       referenceLabel: 'Reference',
@@ -171,7 +170,7 @@ export const en: Locale = {
       close: 'Resume'
     },
     decisionDebrief: {
-      button: 'Decision debrief',
+      button: 'DECISION DEBRIEF',
       title: 'Decision debrief',
       intro: 'This panel helps you understand the reasoning without changing the score or the report.',
       yourChoiceLabel: 'Your choice',
@@ -377,7 +376,8 @@ export const en: Locale = {
       unlocked: 'NORM ACQUIRED TO THE ARCHIVE',
       subCorrect: 'This provision would have made the harm preventable or governable.',
       subWrong: 'The norm existed. In another Europe, someone would have applied it.',
-      backToMap: 'BACK TO THE MAP ▸',
+      backToMap: '◂ BACK TO THE MAP',
+      nextCase: 'NEXT CASE FILE ▸',
       disclaimer: 'simplified educational version'
     },
     archive: {
@@ -433,17 +433,32 @@ export const en: Locale = {
       recommendedHeader: 'RECOMMENDED PATHS',
       recommendedLine: '{name} · {duration} · {goal}'
     },
-      audience: {
-        title: 'WHO ARE YOU PLAYING AS',
-        subtitle: 'It changes which case files come first, not which ones you can open.',
-        label: 'AUDIENCE: {value}',
-        durationTitle: 'HOW LONG YOU HAVE',
+      newGamePanel: {
+        title: 'NEW GAME',
+        subtitle: 'Choose how you want to play and how long you have. The plan is recomposed below, before you start.',
+        modeLabel: 'MODE: {value}',
+        audienceLabel: 'PROFILE: {value}',
         durationLabel: 'LENGTH: {value} min',
         planLine: '{count} case files · about {minutes} min · {difficulty} difficulty',
         planLineOne: 'one case file · about {minutes} min · {difficulty} difficulty',
-        overBudget: 'The first case file on this track needs about {minutes} min: more than the time you picked.',
-        note: 'The time is an estimate used to build the session. The game does not measure or limit your real time.',
-        start: 'START THIS TRACK ▸',
+        planLineFree: 'open map · {count} suggested case files · about {minutes} min',
+        planLineFreeOne: 'open map · one suggested case file · about {minutes} min',
+        overBudget: 'The first case file needs about {minutes} min: more than the time you picked.',
+        nothingToReview: 'Nothing to review: no case file closed badly, so far.',
+        note: 'The time is an estimate used to compose the session. The game never measures or limits your real time.',
+        reroll: 'DRAW AGAIN \u27f2',
+        start: 'START \u25b8',
+        modes: {
+          turno: { name: 'Duty shift', desc: 'Your profile\'s case files, in sequence. The classic route: one desk, one queue of cases.' },
+          libera: { name: 'Free investigation', desc: 'The city is open: open the case files in any order. The length only says how many are worth closing.' },
+          sorpresa: { name: 'Surprise inspection', desc: 'Case files drawn at random from all of them, expert difficulty, no hints on the map.' },
+          ripasso: { name: 'Review your mistakes', desc: 'Only the case files you closed badly or halfway. Available once there is at least one.' }
+        }
+      },
+      audience: {
+        // Restano i soli nomi e descrizioni dei profili: il pannello che li
+        // mostrava ("per chi giochi") è confluito in NUOVA PARTITA, e le sue
+        // etichette vivono sotto newGamePanel.
         modes: {
           casual: { name: 'On my own', desc: "You don't work in the field and want to understand the AI Act. Cases picked for clarity, not for a role." },
           pa: { name: 'Public administration', desc: 'Front desk, procurement and fraud detection: deciding with a system you did not write.' },
@@ -1632,7 +1647,7 @@ export const en: Locale = {
   ,
   learningLayer: {
     notebook: {
-      button: 'Notebook',
+      button: 'NOTEBOOK',
       title: 'INVESTIGATION NOTEBOOK',
       intro: 'What you have already established, gathered in one place: closed files, who turned out to be responsible, the patterns you confirmed and the questions you left open.',
       factsLabel: 'Closed files ({n})',
@@ -1655,7 +1670,7 @@ export const en: Locale = {
       close: 'Close'
     },
     chapters: {
-      button: 'Chapters',
+      button: 'CHAPTERS',
       title: 'Chapters of the journey',
       intro: 'Four thematic chapters group the 11 cases. They are a recommended order, not a lock: every dossier stays freely accessible from the map.',
       orderLabel: 'Chapter {order} of {total}',

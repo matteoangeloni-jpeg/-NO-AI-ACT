@@ -12,6 +12,7 @@ import { L } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 /** Rapporto finale: l'esito dipende dagli indicatori accumulati. */
 export class FinaleScene extends Phaser.Scene {
@@ -24,7 +25,7 @@ export class FinaleScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 500);
     this.add.image(cx, GAME_HEIGHT / 2, 'citymap').setDisplaySize(GAME_WIDTH, GAME_HEIGHT).setAlpha(0.15);
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.5);
+    addNoiseOverlay(this, 0.5);
 
     const endingId = computeEnding(StateManager.indicators);
     const ending = L().endings[endingId];

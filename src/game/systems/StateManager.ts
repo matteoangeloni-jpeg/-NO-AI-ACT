@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
 import { applyOutcome, clampIndicator } from '../data/indicators';
-import type { AudienceId, CaseMeta, CaseReport, DifficultyMode, IndicatorState, LanguageCode, MissionId, OutcomeQuality, SaveData, SelfCheckPhase, SelfCheckResult, SessionMinutes } from '../data/types';
+import type { AudienceId, CaseMeta, CaseReport, DifficultyMode, GameModeId, IndicatorState, LanguageCode, MissionId, OutcomeQuality, SaveData, SelfCheckPhase, SelfCheckResult, SessionMinutes } from '../data/types';
 import { planSession, type SessionPlan } from '../data/audiences';
+import { planGame, type GamePlan } from '../data/gameModes';
 import { DRAFT_SCHEMA, emptyDraft, hasProgress, isResumable, type CaseDraft } from './caseDraft';
 import { setLanguage } from '../i18n';
 import { SaveSystem } from './SaveSystem';
@@ -88,6 +89,54 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
     return planSession(this.data.audience, this.data.sessionMinutes);
   }
 
+  get gameMode(): GameModeId {
+    return this.data.gameMode;
+  }
+
+  /**
+   * Seme dell'ispezione a sorpresa. Vive in memoria e non nel salvataggio:
+   * una sorpresa che sopravvive alla chiusura del browser non è una
+   * sorpresa. Si rinnova a ogni NUOVA PARTITA.
+   */
+  private surpriseSeed = (Date.now() & 0x7fffffff) || 1;
+
+  rerollSurprise(): void {
+    this.surpriseSeed = (this.surpriseSeed * 48271) % 0x7fffffff || 1;
+  }
+
+  /**
+   * Piano della modalità corrente: è questo — non più il solo pubblico — a
+   * dire quali fascicoli arrivano, in che ordine e con che difficoltà.
+   */
+  get gamePlan(): GamePlan {
+    return planGame({
+      mode: this.data.gameMode,
+      audience: this.data.audience,
+      minutes: this.data.sessionMinutes,
+      completed: this.data.completedCases,
+      seed: this.surpriseSeed
+    });
+  }
+
+  /**
+   * Prossimo fascicolo del piano non ancora chiuso, o null.
+   *
+   * È ciò che rende una modalità in sequenza diversa dalla mappa aperta:
+   * senza, dopo ogni caso si tornava comunque in città e "turno di
+   * servizio" sarebbe stata una parola sulla scatola.
+   */
+  nextInPlan(): string | null {
+    const plan = this.gamePlan;
+    if (plan.freeMap) return null;
+    return plan.caseIds.find((id) => !(id in this.data.completedCases)) ?? null;
+  }
+
+  setGameMode(value: GameModeId): void {
+    this.data.gameMode = value;
+    this.data.difficulty = this.gamePlan.difficulty;
+    this.persist();
+  }
+
   /**
    * Cambiare pubblico o durata allinea anche la difficoltà proposta. Non
    * tocca i casi già completati né i rapporti archiviati: il percorso dice
@@ -96,13 +145,13 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
    */
   setAudience(value: AudienceId): void {
     this.data.audience = value;
-    this.data.difficulty = planSession(value, this.data.sessionMinutes).difficulty;
+    this.data.difficulty = this.gamePlan.difficulty;
     this.persist();
   }
 
   setSessionMinutes(value: SessionMinutes): void {
     this.data.sessionMinutes = value;
-    this.data.difficulty = planSession(this.data.audience, value).difficulty;
+    this.data.difficulty = this.gamePlan.difficulty;
     this.persist();
   }
 

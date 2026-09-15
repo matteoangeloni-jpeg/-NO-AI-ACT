@@ -1,6 +1,5 @@
 import Phaser from 'phaser';
 import { CASES_REQUIRED_FOR_FINALE, LOCATIONS, PLAYABLE_CASES, getCase } from '../data/cases';
-import { isRecommended } from '../data/missions';
 import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { IndicatorHud } from '../systems/IndicatorSystem';
@@ -11,8 +10,9 @@ import { NotebookOverlay } from '../ui/NotebookOverlay';
 import { showToast } from '../ui/AlertToast';
 import { L, fmt, locationName } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
-import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, RENDER_SCALE, textStyle } from '../ui/theme';
 import { fadeInScene, fadeOutScene } from '../ui/motion';
+import { layoutHStack } from '../ui/layout';
 import { draftProgress } from '../systems/caseDraft';
 
 /** Deriva massima, in pixel logici, dei due strati di fondo della mappa. */
@@ -62,8 +62,14 @@ export class CityMapScene extends Phaser.Scene {
   private mapLayer?: Phaser.GameObjects.Image;
   private grainLayer?: Phaser.GameObjects.TileSprite;
 
+  /** Fascicoli consigliati dalla sessione corrente, calcolati una volta. */
+  private recommendedIds: Set<string> = new Set();
+
   create(): void {
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
+    // L'ispezione a sorpresa non consiglia: l'estrazione perderebbe senso.
+    const plan = StateManager.gamePlan;
+    this.recommendedIds = new Set(plan.mode === 'sorpresa' ? [] : plan.caseIds);
     fadeInScene(this, 300);
     AnalyticsSystem.page('map');
     AudioSystem.crossfadeToTheme('city'); // no-op se già attivo
@@ -76,6 +82,9 @@ export class CityMapScene extends Phaser.Scene {
       .setDisplaySize(GAME_WIDTH + PARALLAX_MAP * 2, GAME_HEIGHT + PARALLAX_MAP * 2);
     this.grainLayer = this.add
       .tileSprite(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH + PARALLAX_GRAIN * 2, GAME_HEIGHT + PARALLAX_GRAIN * 2, 'noise')
+      // stessa compensazione di addNoiseOverlay: qui il velo non è a tutto
+      // schermo perché deve poter scorrere, ma la grana resta grana
+      .setTileScale(1 / RENDER_SCALE)
       .setAlpha(0.6);
 
     // header istituzionale
@@ -94,15 +103,23 @@ export class CityMapScene extends Phaser.Scene {
 
     for (const loc of LOCATIONS) this.buildMarker(loc.id);
 
-    // pulsanti di servizio
-    new Button(this, 110, GAME_HEIGHT - 36, L().ui.menu.archive, () => this.scene.start('Archive', { from: 'CityMap' }), { width: 190, height: 38, fontSize: 12, variant: 'ghost' });
-    new Button(this, 310, GAME_HEIGHT - 36, L().ui.map.menuButton, () => this.scene.start('Title'), { width: 120, height: 38, fontSize: 12, variant: 'ghost' });
+    // Pulsanti di servizio: una riga sola, una larghezza sola, un passo
+    // solo. Erano quattro larghezze diverse e tre distanze diverse, messe a
+    // mano una alla volta man mano che i pulsanti nascevano.
     // capitoli 2.0: panoramica read-only, la selezione libera resta invariata
     const chapters = new ChaptersOverlay(this);
-    new Button(this, 470, GAME_HEIGHT - 36, L().learningLayer.chapters.button, () => chapters.toggle(), { width: 160, height: 38, fontSize: 12, variant: 'ghost' });
     // taccuino 2.1 (§7): cognizione esterna, sola lettura, aperto anche con N
     const notebook = new NotebookOverlay(this);
-    new Button(this, 640, GAME_HEIGHT - 36, L().learningLayer.notebook.button, () => notebook.toggle(), { width: 160, height: 38, fontSize: 12, variant: 'ghost' });
+    const serviceButtons: Array<[string, () => void]> = [
+      [L().ui.menu.archive, () => this.scene.start('Archive', { from: 'CityMap' })],
+      [L().ui.map.menuButton, () => this.scene.start('Title')],
+      [L().learningLayer.chapters.button, () => chapters.toggle()],
+      [L().learningLayer.notebook.button, () => notebook.toggle()]
+    ];
+    const row = layoutHStack({ count: serviceButtons.length, left: 24, right: 744, gap: 16 });
+    serviceButtons.forEach(([label, action], i) => {
+      new Button(this, row.xs[i], GAME_HEIGHT - 36, label, action, { width: row.width, height: 38, fontSize: 12, variant: 'ghost' });
+    });
     this.input.keyboard?.on('keydown-N', () => {
       if (!chapters.isOpen) notebook.toggle();
     });
@@ -198,8 +215,15 @@ export class CityMapScene extends Phaser.Scene {
       .setOrigin(0.5);
     container.add([ring, icon, nameTag, statusTag]);
 
-    // evidenzia i casi consigliati dalla missione corrente (non blocca gli altri)
-    if (caseData && playable && isRecommended(StateManager.mission, caseData.id)) {
+    // Evidenzia i fascicoli del piano della modalità corrente (non blocca
+    // gli altri: la mappa resta tutta aperta, come sempre).
+    //
+    // Prima la stella seguiva la missione scelta nelle impostazioni, che è
+    // il posto che il giocatore non guarda mai. Ora segue la sessione che
+    // ha appena composto premendo NUOVA PARTITA. L'ispezione a sorpresa non
+    // ha stelle per definizione: suggerire i casi estratti a caso
+    // vanificherebbe l'estrazione.
+    if (caseData && playable && this.recommendedIds.has(caseData.id)) {
       const rec = this.add.text(0, 74, `★ ${L().ui.missions.recommendedTag}`, textStyle(11, COLOR_STR.accentText)).setOrigin(0.5);
       container.add(rec);
       ring.setStrokeStyle(2, COLORS.accent);

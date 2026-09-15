@@ -6,6 +6,7 @@ import { AFFILIATION_LINKS } from '../data/affiliation';
 import { L, getLanguage } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 /**
  * Schermata credits essenziale. I crediti tecnici completi vivono nei file
@@ -23,7 +24,7 @@ export class CreditsScene extends Phaser.Scene {
     AnalyticsSystem.track('credits_opened');
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
-    this.add.tileSprite(cx, cy, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    addNoiseOverlay(this, 0.4);
 
     this.add.text(cx, 90, ui.title, textStyle(14, COLOR_STR.paperDim)).setOrigin(0.5);
 

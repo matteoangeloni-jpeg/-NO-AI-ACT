@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { RENDER_SCALE } from '../../ui/theme';
 
 /** Texture minime per particelle e overlay di rumore digitale. */
 export function createParticles(scene: Phaser.Scene): void {
@@ -13,7 +14,11 @@ export function createParticles(scene: Phaser.Scene): void {
   }
 
   if (!scene.textures.exists('noise')) {
-    const size = 256;
+    // Lato in PIXEL REALI: la grana deve restare grana anche quando la
+    // camera ingrandisce di RENDER_SCALE. Chi la usa (addNoiseOverlay)
+    // compensa con tileScale, così un pixel di rumore resta un pixel dello
+    // schermo invece di diventare un quadratino.
+    const size = 256 * RENDER_SCALE;
     const canvas = scene.textures.createCanvas('noise', size, size);
     if (canvas) {
       const ctx = canvas.getContext();

@@ -154,21 +154,41 @@ describe('il piano di sessione rispetta il budget, o lo dichiara', () => {
 });
 
 describe('la riga di riepilogo non scrive "1 fascicoli"', () => {
-  it('esiste una forma singolare in entrambe le lingue, senza segnaposto del conteggio', () => {
+  /**
+   * Quattro righe, non due: la sessione in sequenza dichiara la difficoltà,
+   * la mappa aperta no (lì la difficoltà non decide l'ordine di niente), e
+   * ciascuna ha la sua forma singolare. Se una di queste manca, il pannello
+   * scrive "1 fascicoli" o perde un valore — ed è esattamente il tipo di
+   * dettaglio che si nota solo giocando.
+   */
+  const SINGULARS = [
+    ['planLineOne', ['{minutes}', '{difficulty}']],
+    ['planLineFreeOne', ['{minutes}']]
+  ] as const;
+  const PLURALS = [
+    ['planLine', ['{count}', '{minutes}', '{difficulty}']],
+    ['planLineFree', ['{count}', '{minutes}']]
+  ] as const;
+
+  it('ogni forma singolare esiste in entrambe le lingue, senza segnaposto del conteggio', () => {
     for (const [lang, dict] of [['it', itDict], ['en', en]] as const) {
-      const one = dict.ui.audience.planLineOne;
-      expect(one, `${lang}: manca planLineOne`).toBeTruthy();
-      expect(one, `${lang}: il singolare non deve interpolare un conteggio`).not.toContain('{count}');
-      for (const ph of ['{minutes}', '{difficulty}']) {
-        expect(one, `${lang}: il singolare perde ${ph}`).toContain(ph);
+      for (const [key, placeholders] of SINGULARS) {
+        const one = dict.ui.newGamePanel[key];
+        expect(one, `${lang}: manca ${key}`).toBeTruthy();
+        expect(one, `${lang}: ${key} non deve interpolare un conteggio`).not.toContain('{count}');
+        for (const ph of placeholders) {
+          expect(one, `${lang}: ${key} perde ${ph}`).toContain(ph);
+        }
       }
     }
   });
 
-  it('il plurale interpola tutti e tre i valori', () => {
+  it('ogni forma plurale interpola tutti i suoi valori', () => {
     for (const [lang, dict] of [['it', itDict], ['en', en]] as const) {
-      for (const ph of ['{count}', '{minutes}', '{difficulty}']) {
-        expect(dict.ui.audience.planLine, `${lang}: il plurale perde ${ph}`).toContain(ph);
+      for (const [key, placeholders] of PLURALS) {
+        for (const ph of placeholders) {
+          expect(dict.ui.newGamePanel[key], `${lang}: ${key} perde ${ph}`).toContain(ph);
+        }
       }
     }
   });
@@ -193,5 +213,53 @@ describe('la difficoltà segue il tempo, e chi gioca per capire resta accompagna
   it('chi gioca per conto proprio non viene buttato in modalità esperto', () => {
     expect(planSession('casual', 90).difficulty).toBe('standard');
     expect(getAudience('casual').baseDifficulty).toBe('base');
+  });
+});
+
+/**
+ * PIÙ TEMPO, PIÙ FASCICOLI.
+ *
+ * È la promessa che il pannello fa a chi gira la manopola della durata, ed
+ * era falsa per la pubblica amministrazione: 15 e 30 minuti proponevano
+ * tutti e due un fascicolo solo, perché il primo caso del percorso ne
+ * chiedeva 20 e il secondo altri 15. Chi sceglieva il doppio del tempo
+ * vedeva cambiare il numero sullo schermo e non la sessione.
+ *
+ * La regola non è "il piano cresce": è che ogni scatto della durata deve
+ * aggiungere almeno un fascicolo, finché il percorso ne ha ancora. Se un
+ * giorno un caso si allunga e rompe la scala, il posto dove leggerlo è
+ * questo, non una partita.
+ */
+describe('la durata scelta cambia davvero quanti fascicoli arrivano', () => {
+  for (const audience of AUDIENCE_IDS) {
+    it(`"${audience}": ogni scatto di durata aggiunge almeno un fascicolo`, () => {
+      const pool = getAudience(audience).orderedCaseIds.filter((id) =>
+        PLAYABLE_CASES.some((c) => c.id === id)
+      ).length;
+
+      const counts = SESSION_DURATIONS.map((m) => planSession(audience, m).caseIds.length);
+      for (let i = 1; i < counts.length; i++) {
+        // esaurito il percorso non si può crescere: è l'unica scusa ammessa
+        if (counts[i - 1] >= pool) continue;
+        expect(
+          counts[i],
+          `${SESSION_DURATIONS[i - 1]}→${SESSION_DURATIONS[i]} min: ${counts.join(', ')} su ${pool} disponibili`
+        ).toBeGreaterThan(counts[i - 1]);
+      }
+    });
+  }
+
+  it('il primo fascicolo di ogni percorso sta dentro la durata più corta', () => {
+    const shortest = Math.min(...SESSION_DURATIONS);
+    const offenders: string[] = [];
+    for (const audience of AUDIENCE_IDS) {
+      const first = getAudience(audience).orderedCaseIds.find((id) =>
+        PLAYABLE_CASES.some((c) => c.id === id)
+      );
+      if (!first) continue;
+      const cost = SESSION_WARMUP_MINUTES + getCase(first).estimatedMinutes;
+      if (cost > shortest) offenders.push(`${audience}: ${first} costa ${cost} min`);
+    }
+    expect(offenders, offenders.join('\n')).toEqual([]);
   });
 });

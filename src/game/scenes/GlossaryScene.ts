@@ -5,6 +5,7 @@ import { Panel } from '../ui/Panel';
 import { L, caseText, fmt } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 /**
  * Glossario operativo (v0.5): voci brevi consultabili una alla volta, con
@@ -30,7 +31,7 @@ export class GlossaryScene extends Phaser.Scene {
     const g = L().glossary;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 200);
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    addNoiseOverlay(this, 0.4);
 
     this.add.text(cx, 46, g.title, textStyle(20, COLOR_STR.paper, { fontStyle: 'bold' })).setOrigin(0.5);
     this.add.text(cx, 74, g.subtitle, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);

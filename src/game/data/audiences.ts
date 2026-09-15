@@ -64,12 +64,18 @@ export const AUDIENCES: AudienceData[] = [
   {
     // PA: sportello, appalti, antifrode — i tre punti in cui un ente decide
     // con un sistema che non ha scritto lui.
+    //
+    // Apre il punteggio sui sussidi, che è il caso più corto del percorso e
+    // insieme il più amministrativo: chi ha un quarto d'ora se ne porta a
+    // casa uno intero. Aprendo con lo sportello automatico, che ne chiede
+    // quindici, quindici e trenta minuti proponevano lo stesso singolo
+    // fascicolo, e la manopola della durata non muoveva niente.
     id: 'pa',
     orderedCaseIds: [
+      'case_scoring',
       'case_chatbot',
       'case_procurement',
       'case_frodi',
-      'case_scoring',
       'case_predpol',
       'case_biometria'
     ],

@@ -16,6 +16,7 @@ import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/the
 import { fadeInScene } from '../ui/motion';
 import type { DraftStep } from '../systems/caseDraft';
 import { CLASSIFICATION_TERMS, SUBJECT_TERMS } from '../data/termHints';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 /**
  * Riga dell'avviso sulla firma. Sta fra il riepilogo e la fila della
@@ -119,7 +120,7 @@ export class DecisionScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
     AudioSystem.crossfadeToTheme(this.caseData.id);
-    this.add.tileSprite(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    addNoiseOverlay(this, 0.4);
     this.contextOverlay = new CaseContextOverlay(this, this.caseData.id, 'closeToDecision');
     // read-only "Norma del caso": relevant rule of the current case (no unlock)
     this.caseNormOverlay = new CaseNormOverlay(this, this.caseData.normId);
@@ -264,7 +265,7 @@ export class DecisionScene extends Phaser.Scene {
     this.time.delayedCall(0, () => {
       this.closeNormsOverlay();
       this.children.list.slice().forEach((child) => child.destroy());
-      this.add.tileSprite(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+      addNoiseOverlay(this, 0.4);
       builder();
     });
   }

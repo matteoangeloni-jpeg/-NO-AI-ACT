@@ -13,6 +13,7 @@ import { TypewriterText } from '../ui/TypewriterText';
 import { L, caseText, fmt } from '../i18n';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 interface ConsequenceParams {
   caseId: string;
@@ -56,7 +57,7 @@ export class ConsequenceScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
     AudioSystem.crossfadeToTheme(this.caseData.id);
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    addNoiseOverlay(this, 0.4);
 
     if (quality === 'wrong' && !StateManager.reducedMotion) {
       this.cameras.main.shake(220, 0.004);

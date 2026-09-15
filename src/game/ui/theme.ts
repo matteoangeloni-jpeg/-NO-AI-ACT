@@ -60,8 +60,22 @@ export const GAME_HEIGHT = 720;
  * Qui si calcola quanti pixel reali occuperà davvero un pixel logico —
  * l'ingrandimento di Scale.FIT moltiplicato per la densità dello schermo —
  * e si disegna esattamente quelli, senza superare MAX_RENDER_SCALE.
+ *
+ * Il tetto era 2, e su uno schermo denso restava sotto il necessario: una
+ * finestra 1600×900 a densità 2 chiede 2,5, riceveva 2, e il browser
+ * stirava 2560×1440 fino a 3200×1800. Alzato a 3 copre 1:1 fino a
+ * 1920×1080 a densità 2.
+ *
+ * Il costo è misurato, non stimato: tre avvii per tetto in un browser
+ * senza accelerazione hardware, stessa finestra, danno 11,2-12,7 s a tetto
+ * 2 e 16,4-17,5 s a tetto 3 — cioè circa quanto crescono i pixel (1,56×
+ * di superficie per 1,44× di tempo). È un costo che si paga per intero
+ * solo dove a disegnare è la CPU; con una GPU la stessa proporzione parte
+ * da qualche millisecondo per fotogramma. Il tetto resta comunque un
+ * tetto: oltre 3 la scala adattiva non chiede nulla di più su nessuno
+ * schermo che regga il gioco a schermo intero.
  */
-export const MAX_RENDER_SCALE = 2;
+export const MAX_RENDER_SCALE = 3;
 
 export function computeRenderScale(
   viewportWidth: number,

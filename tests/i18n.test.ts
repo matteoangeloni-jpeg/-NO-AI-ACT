@@ -171,3 +171,43 @@ describe('i18n — runtime', () => {
     expect(fmt('senza parametri', {})).toBe('senza parametri');
   });
 });
+
+/**
+ * MAIUSCOLE SUI PULSANTI.
+ *
+ * Il gioco scrive le etichette dei pulsanti in maiuscolo — è la sua voce,
+ * quella di un'ispettorato che stampa moduli. Alcune aggiunte recenti erano
+ * arrivate in minuscolo, e sulla stessa riga della mappa convivevano
+ * "ARCHIVIO NORME", "MENU", "Capitoli" e "Taccuino": non un errore di
+ * layout, ma abbastanza da far sembrare la schermata montata da due
+ * persone diverse.
+ *
+ * La regola si applica alle chiavi che si chiamano `button`, cioè
+ * esattamente quelle che finiscono dentro un Button. L'elenco si legge dal
+ * dizionario: una voce nuova è coperta il giorno che nasce.
+ */
+describe('le etichette dei pulsanti parlano con la stessa voce', () => {
+  /** Tutte le coppie [percorso, valore] delle chiavi chiamate `button`. */
+  const buttonLabels = (node: unknown, path = ''): Array<[string, string]> => {
+    if (typeof node !== 'object' || node === null) return [];
+    const out: Array<[string, string]> = [];
+    for (const [k, v] of Object.entries(node as Record<string, unknown>)) {
+      const here = path ? `${path}.${k}` : k;
+      if (k === 'button' && typeof v === 'string') out.push([here, v]);
+      else out.push(...buttonLabels(v, here));
+    }
+    return out;
+  };
+
+  for (const [lang, dict] of [['it', it], ['en', en]] as const) {
+    test(`${lang}: nessuna etichetta di pulsante in minuscolo`, () => {
+      // TUTTO il dizionario, non il solo ramo `ui`: taccuino e capitoli
+      // vivono altrove, e limitarsi a `ui` rendeva la guardia cieca proprio
+      // sui due pulsanti che avevano il difetto.
+      const labels = buttonLabels(dict);
+      expect(labels.length, 'nessuna chiave letta: il controllo sarebbe inerte').toBeGreaterThan(7);
+      const offenders = labels.filter(([, v]) => v !== v.toLocaleUpperCase(lang === 'it' ? 'it-IT' : 'en-US'));
+      expect(offenders.map(([k, v]) => `${k} = "${v}"`), offenders.map(([k, v]) => `${k} = "${v}"`).join('\n')).toEqual([]);
+    });
+  }
+});

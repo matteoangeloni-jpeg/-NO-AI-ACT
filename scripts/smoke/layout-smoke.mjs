@@ -112,9 +112,15 @@ const panelReportFn = () => {
   if (!panel) return { W: VW, H: VH, items: [] };
 
   const items = [];
-  const walk = (list) => {
+  // Un elemento nascosto non si sovrappone a niente: il pannello ne tiene
+  // di proposito (il profilo sparisce nelle modalità che non lo usano, il
+  // riestrai esiste solo nell'ispezione a sorpresa). Senza questa
+  // condizione il controllo segnalava incroci fra cose che nessuno vede —
+  // e, peggio, avrebbe potuto dichiarare "pieno" un pannello vuoto.
+  const walk = (list, shown) => {
     for (const o of list) {
       if (!o || typeof o.getBounds !== 'function') continue;
+      const visible = shown && o.visible !== false && (o.alpha === undefined || o.alpha > 0.05);
       const b = o.getBounds();
       let text = typeof o.text === 'string' ? o.text : null;
       const interactive = !!(o.input && o.input.enabled);
@@ -123,12 +129,12 @@ const panelReportFn = () => {
         text = t ? t.text : null;
       }
       if (text != null && text.trim() !== '') {
-        items.push({ text, interactive, x: b.x, y: b.y, w: b.width, h: b.height });
+        items.push({ text, interactive, visible, x: b.x, y: b.y, w: b.width, h: b.height });
       }
-      if (Array.isArray(o.list) && !interactive) walk(o.list);
+      if (Array.isArray(o.list) && !interactive) walk(o.list, visible);
     }
   };
-  walk(panel.list);
+  walk(panel.list, panel.visible !== false);
   return { W: VW, H: VH, items };
 };
 
@@ -156,7 +162,7 @@ const openTitlePanel = (labelRe) => {
 function assertPanelLayout(report, ctx, mustContain) {
   if (!report) { fail.push(`${ctx}: no panel report`); return; }
   const { W, H, items } = report;
-  const own = items.filter((i) => i.w < W * 0.9);
+  const own = items.filter((i) => i.w < W * 0.9 && i.visible);
   if (own.length < 6) { fail.push(`${ctx}: panel looks empty (${own.length} items)`); return; }
   for (const needle of mustContain) {
     if (!own.some((i) => i.text.includes(needle))) fail.push(`${ctx}: missing "${needle}"`);
@@ -217,6 +223,104 @@ function assertSceneLayout(report, ctx, expectedKey) {
       }
     }
   }
+}
+
+
+
+/**
+ * Porta il gioco su una scena FERMANDO quelle attive.
+ *
+ * `scene.start` da fuori avvia la scena chiesta ma non spegne quella che sta
+ * già girando: restano due scene attive e chi legge "l'ultima attiva" trova
+ * quella sbagliata. Succedeva qui: i controlli sulla decisione leggevano il
+ * titolo e passavano annunciando una scena che non stavano guardando.
+ */
+async function switchScene(page, key, data) {
+  await page.evaluate(({ key, data }) => {
+    const g = window.game;
+    for (const s of g.scene.scenes) if (s.scene.isActive() && s.scene.key !== 'Boot') s.scene.stop();
+    g.scene.start(key, data);
+  }, { key, data });
+  await page.waitForFunction((key) => {
+    const a = window.game?.scene?.getScenes(true) ?? [];
+    return a.length > 0 && a[a.length - 1].scene.key === key;
+  }, key, { timeout: 8000 });
+  await page.waitForTimeout(400);
+}
+
+/**
+ * CONTORNO DELLA PAGINA CONTRO PULSANTI DEL CANVAS.
+ *
+ * Il link di ritorno al sito e il pulsante del testo schermata sono elementi
+ * del documento, fissi agli angoli, disegnati SOPRA il canvas. Il canvas è
+ * centrato e scalato: dove cadono i suoi angoli dipende dalla finestra.
+ * Quando le proporzioni della finestra coincidono con quelle del gioco i due
+ * si toccano, e nella scena della decisione "Rivedi contesto" finiva
+ * letteralmente sotto "↩ no-ai-act.eu" — un pulsante coperto da un link.
+ *
+ * Nessun controllo in unità logiche poteva vederlo: i due sistemi di
+ * coordinate sono diversi. Qui si confrontano in pixel della pagina, che è
+ * l'unico posto dove i due esistono insieme. Il 1280×720 dell'elenco dei
+ * viewport è il caso che fallisce per primo, perché è quello in cui il
+ * canvas riempie la finestra.
+ */
+function chromeOverlapFn() {
+  const g = window.game;
+  const s = g?.scene?.scenes?.find((x) => x.scene.isActive() && x.scene.key !== 'Boot');
+  if (!s) return null;
+  const c = g.canvas.getBoundingClientRect();
+  const sx = c.width / g.scale.baseSize.width;
+  const sy = c.height / g.scale.baseSize.height;
+  const cam = s.cameras.main;
+
+  const toPage = (o) => {
+    const b = o.getBounds();
+    return {
+      x: (b.x - cam.scrollX) * cam.zoom * sx + c.left,
+      y: (b.y - cam.scrollY) * cam.zoom * sy + c.top,
+      w: b.width * cam.zoom * sx,
+      h: b.height * cam.zoom * sy
+    };
+  };
+
+  const buttons = [];
+  const walk = (list) => {
+    for (const o of list) {
+      if (o.type !== 'Container') continue;
+      if (o.input && o.visible) buttons.push({ label: String(o.list?.find((k) => k.type === 'Text')?.text ?? '?').slice(0, 24), ...toPage(o) });
+      else if (o.list) walk(o.list);
+    }
+  };
+  walk(s.children.list);
+
+  const chrome = [];
+  for (const sel of ['#site-return', '#reading-toggle']) {
+    const el = document.querySelector(sel);
+    if (!el) continue;
+    // offsetParent è null per definizione su un elemento position:fixed:
+    // la presenza a schermo si legge dal rettangolo e dalla visibilità.
+    const b = el.getBoundingClientRect();
+    if (b.width === 0 || b.height === 0) continue;
+    if (getComputedStyle(el).visibility === 'hidden') continue;
+    chrome.push({ sel, x: b.left, y: b.top, w: b.width, h: b.height });
+  }
+
+  const hits = [];
+  for (const b of buttons) {
+    for (const ch of chrome) {
+      if (b.x < ch.x + ch.w && ch.x < b.x + b.w && b.y < ch.y + ch.h && ch.y < b.y + b.h) {
+        hits.push(`"${b.label}" sotto ${ch.sel}`);
+      }
+    }
+  }
+  return { scene: s.scene.key, buttons: buttons.length, chrome: chrome.length, hits };
+}
+
+function assertNoChromeOverlap(report, ctx) {
+  if (!report) { fail.push(`${ctx}: nessun report di sovrapposizione col contorno`); return; }
+  if (report.buttons === 0) { fail.push(`${ctx} [${report.scene}]: nessun pulsante letto, il controllo sarebbe inerte`); return; }
+  if (report.chrome === 0) { fail.push(`${ctx} [${report.scene}]: contorno della pagina non trovato, il controllo sarebbe inerte`); return; }
+  for (const h of report.hits) fail.push(`${ctx} [${report.scene}]: ${h}`);
 }
 
 /**
@@ -304,7 +408,16 @@ for (const vp of CANVAS_VIEWPORTS) {
       continue;
     }
     assertSceneLayout(await page.evaluate(sceneReportFn), `${ctx} Title`, 'Title');
+    assertNoChromeOverlap(await page.evaluate(chromeOverlapFn), `${ctx} Title`);
     await page.screenshot({ path: `${OUT}/title-${vp.w}x${vp.h}-${lang}.png` });
+
+    // La decisione va guardata a OGNI viewport, non solo in quello dei
+    // controlli profondi: la sovrapposizione col contorno della pagina
+    // dipende dalle proporzioni della finestra, e compare per prima dove il
+    // canvas la riempie tutta (1280×720). Costa una sola start di scena.
+    await switchScene(page, 'Decision', { caseId: 'case_scoring', citedClues: [0, 1] });
+    assertNoChromeOverlap(await page.evaluate(chromeOverlapFn), `${ctx} Decision`);
+    await switchScene(page, 'Title');
 
     // Pannello e riepilogo si controllano su UN solo viewport per lingua.
     // Il gioco disegna in uno spazio logico fisso 1280×720 con Scale.FIT: la
@@ -314,18 +427,18 @@ for (const vp of CANVAS_VIEWPORTS) {
     // allungherebbe il gate di minuti senza verificare nulla di nuovo.
     const deepChecks = vp.w === 1792;
 
-    // pannello "per chi giochi": pubblico + durata, con la riga di riepilogo
-    const opened = deepChecks ? await page.evaluate(openTitlePanel, 'PER CHI GIOCHI|WHO YOU PLAY AS') : 'skipped';
+    // pannello NUOVA PARTITA: modalità, profilo, durata e riga di riepilogo
+    const opened = deepChecks ? await page.evaluate(openTitlePanel, 'NUOVA PARTITA|NEW GAME') : 'skipped';
     if (!opened) {
-      fail.push(`${ctx}: audience menu entry not found on Title`);
+      fail.push(`${ctx}: new-game entry not found on Title`);
     } else if (opened !== 'skipped') {
       await page.waitForTimeout(400);
       assertPanelLayout(
         await page.evaluate(panelReportFn),
-        `${ctx} Audience`,
-        lang === 'en' ? ['AUDIENCE:', 'LENGTH:', 'case file'] : ['PUBBLICO:', 'DURATA:', 'fascicol']
+        `${ctx} New game`,
+        lang === 'en' ? ['MODE:', 'PROFILE:', 'LENGTH:', 'case file'] : ['MODALITÀ:', 'PROFILO:', 'DURATA:', 'fascicol']
       );
-      await page.screenshot({ path: `${OUT}/audience-${vp.w}x${vp.h}-${lang}.png` });
+      await page.screenshot({ path: `${OUT}/newgame-${vp.w}x${vp.h}-${lang}.png` });
       await page.evaluate(() => window.game.scene.start('Title'));
       await page.waitForTimeout(300);
     }
@@ -401,4 +514,4 @@ console.log('  external hosts:', JSON.stringify(externalHosts));
 console.log('  console errors:', relevantErrors.length);
 console.log('  screenshots:', OUT);
 if (fail.length) { for (const f of fail) console.log('  ✗', f); process.exit(1); }
-console.log('  ✓ Title + Briefing + audience panel + decision (step 1 + summary) safe-area clean, desktop/tablet/mobile, IT + EN');
+console.log('  ✓ Title + Briefing + new-game panel + decision (step 1 + summary) safe-area clean, desktop/tablet/mobile, IT + EN');

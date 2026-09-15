@@ -36,6 +36,27 @@ html, body {
   overflow: hidden;
 }
 
+/*
+  FASCE RISERVATE AL CONTORNO DELLA PAGINA.
+
+  Il link di ritorno al sito e il pulsante del testo schermata sono elementi
+  del documento, fissi agli angoli e disegnati SOPRA il canvas. Il canvas,
+  invece, è centrato e scalato: dove cade il suo angolo dipende dalla
+  finestra. Quando le proporzioni coincidono i due si toccano, e i pulsanti
+  che alcune scene mettono negli angoli finiscono sotto il link — succedeva
+  nella scena della decisione, dove "Rivedi contesto" e "↩ no-ai-act.eu" si
+  sovrapponevano davvero.
+
+  Nessuna coordinata di gioco può risolverlo, perché il rapporto fra pixel
+  logici e pixel della pagina cambia con la finestra. Si risolve qui:
+  queste due fasce tolgono spazio al canvas, che rimpicciolisce di
+  altrettanto, e gli angoli restano liberi a ogni dimensione.
+*/
+:root {
+  --play-chrome-top: 32px;
+  --play-chrome-bottom: 38px;
+}
+
 #app {
   position: relative;
   width: 100vw;
@@ -43,6 +64,9 @@ html, body {
   /* dvh segue la viewport reale quando la UI del browser mobile compare/sparisce,
      evitando che il canvas FIT venga tagliato in basso. Fallback: 100vh sopra. */
   height: 100dvh;
+  box-sizing: border-box;
+  padding-top: var(--play-chrome-top);
+  padding-bottom: var(--play-chrome-bottom);
   display: flex;
   align-items: center;
   justify-content: center;

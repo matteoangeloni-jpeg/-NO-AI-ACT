@@ -9,13 +9,14 @@ import { TeacherGuideOverlay } from '../ui/TeacherGuideOverlay';
 import { SiteResourcesOverlay } from '../ui/SiteResourcesOverlay';
 import { showToast } from '../ui/AlertToast';
 import { L, fmt, nextLanguage } from '../i18n';
-import { MISSION_IDS } from '../data/missions';
 import { AUDIENCE_IDS, SESSION_DURATIONS } from '../data/audiences';
+import { GAME_MODE_IDS, getGameMode } from '../data/gameModes';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import type { DifficultyMode } from '../data/types';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { footerBaselineY, layoutVStack } from '../ui/layout';
 import { fadeOutScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 /**
  * Schermata titolo "player-first": due azioni primarie (CONTINUA / NUOVA
@@ -39,8 +40,8 @@ export class TitleScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     AnalyticsSystem.page('title');
     AudioSystem.stopLevelTheme(); // la musica appartiene alla città, non al menu
-    this.add.image(cx, GAME_HEIGHT / 2, 'citymap').setAlpha(0.25);
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.5);
+    this.add.image(cx, GAME_HEIGHT / 2, 'citymap').setDisplaySize(GAME_WIDTH, GAME_HEIGHT).setAlpha(0.25);
+    addNoiseOverlay(this, 0.5);
 
     this.add.text(cx, 150, L().ui.titleHeader, textStyle(13, COLOR_STR.paperDim)).setOrigin(0.5);
     this.titleText = this.add.text(cx, 220, L().ui.gameTitle, textStyle(76, COLOR_STR.paper, { fontStyle: 'bold' })).setOrigin(0.5);
@@ -72,11 +73,11 @@ export class TitleScene extends Phaser.Scene {
     if (showContinue) {
       specs.push({ height: PRIMARY_H, build: (y) => new Button(this, cx, y, m.continue, () => this.startGame(false)) });
     }
-    specs.push({ height: PRIMARY_H, build: (y) => new Button(this, cx, y, m.newGame, () => {
-      if (hasSave) StateManager.newGame();
-      this.startGame(true);
-    }) });
-    specs.push({ height: GROUP_H, build: (y) => new Button(this, cx, y, m.audienceMenu, () => this.openAudience(), { height: GROUP_H, fontSize: 14, variant: 'ghost' }) });
+    // NUOVA PARTITA non parte più al primo clic: apre la scelta della
+    // modalità. Il pubblico e la durata vivono lì dentro, dove servono,
+    // invece che in una voce di menu a parte che nessuno collegava alla
+    // partita che stava per cominciare.
+    specs.push({ height: PRIMARY_H, build: (y) => new Button(this, cx, y, m.newGame, () => this.openNewGame(hasSave)) });
     specs.push({ height: GROUP_H, build: (y) => new Button(this, cx, y, m.teachers, () => this.openTeachers(guide), { height: GROUP_H, fontSize: 14, variant: 'ghost' }) });
     specs.push({ height: GROUP_H, build: (y) => new Button(this, cx, y, m.resources, () => this.openResources(siteLinks), { height: GROUP_H, fontSize: 14, variant: 'ghost' }) });
     specs.push({ height: GROUP_H, build: (y) => new Button(this, cx, y, m.settings, () => this.openSettings(), { height: GROUP_H, fontSize: 14, variant: 'ghost' }) });
@@ -178,13 +179,11 @@ export class TitleScene extends Phaser.Scene {
       diffBtn.setLabel(diffLabel());
     }, { width: BW, height: 44, fontSize: 12, variant: 'ghost' });
 
-    // selettore percorso/missione (demo → lab → full → advanced)
-    const missLabel = (): string => L().ui.missions.modes[StateManager.mission].name.toUpperCase();
-    const missBtn = new Button(this, colL, rowY(3), missLabel(), () => {
-      const next = MISSION_IDS[(MISSION_IDS.indexOf(StateManager.mission) + 1) % MISSION_IDS.length];
-      StateManager.setMission(next);
-      missBtn.setLabel(missLabel());
-    }, { width: BW, height: 44, fontSize: 12, variant: 'ghost' });
+    // Il percorso NON si sceglie più qui: la composizione della sessione —
+    // modalità, profilo, durata — vive tutta dentro NUOVA PARTITA, dove il
+    // giocatore vede subito quanti fascicoli ne escono. Lasciarne una copia
+    // nelle impostazioni significava avere due manopole per la stessa cosa,
+    // e una delle due non veniva letta da chi premeva NUOVA PARTITA.
 
     // RESET SALVATAGGIO: azione distruttiva, MAI di primo livello. Doppio
     // click esplicito: il primo chiede conferma, il secondo azzera.
@@ -204,84 +203,151 @@ export class TitleScene extends Phaser.Scene {
 
     // Crediti: stanno qui e non fra le risorse, perché riguardano chi firma il
     // progetto, non il materiale didattico a cui il giocatore attinge.
-    const creditsBtn = new Button(this, colL, rowY(4), m.credits, () => this.scene.start('Credits'),
+    const creditsBtn = new Button(this, colL, rowY(3), m.credits, () => this.scene.start('Credits'),
       { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
 
     // nota privacy locale, concisa
-    const note = this.add.text(cx - 380, rowY(4) + 44, g.settingsPrivacy, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
-    c.add([audioBtn, musicBtn, motionBtn, crtBtn, langBtn, diffBtn, missBtn, resetBtn, creditsBtn, note]);
+    const note = this.add.text(cx - 380, rowY(4), g.settingsPrivacy, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
+    c.add([audioBtn, musicBtn, motionBtn, crtBtn, langBtn, diffBtn, resetBtn, creditsBtn, note]);
   }
 
   /**
-   * PER CHI GIOCHI: pubblico + durata. È una scelta di percorso, non un
-   * filtro: i casi non consigliati restano tutti aperti sulla mappa, come
-   * già accade per le missioni storiche. La riga di riepilogo si aggiorna a
-   * ogni cambio, così chi sceglie vede subito che cosa ottiene invece di
-   * scoprirlo giocando.
+   * NUOVA PARTITA: modalità, profilo, durata — e il piano che ne esce,
+   * scritto sotto prima di premere INIZIA.
+   *
+   * È l'unico posto in cui si compone una sessione. Prima la scelta era
+   * sparsa fra una voce di menu ("per chi giochi") e due selettori dentro
+   * le impostazioni, e NUOVA PARTITA ignorava tutti e tre: si poteva girare
+   * la durata su 90 minuti e cominciare una partita identica a quella da 15.
+   *
+   * La riga di riepilogo si ricalcola a ogni scatto, così chi sceglie vede
+   * quanti fascicoli riceve invece di scoprirlo giocando.
    */
-  private openAudience(): void {
+  private openNewGame(hasSave: boolean): void {
     const cx = GAME_WIDTH / 2;
     const cy = GAME_HEIGHT / 2;
+    const g = L().ui.newGamePanel;
     const a = L().ui.audience;
-    const c = this.openPanel(a.title, 440);
-    const top = cy - 220;
+    const PANEL_H = 560;
+    // Posizioni verticali del pannello, relative al suo bordo alto. Stanno
+    // qui e non sparse fra le chiamate perché il profilo compare e scompare
+    // a seconda della modalità, e i due casi devono restare pettinati
+    // tutti e due.
+    const AUDIENCE_Y = 218;
+    const DURATION_Y_WITH_AUDIENCE = 274;
+    const DURATION_Y_ALONE = 246;
+    const PLAN_Y = 322;
+    const WARN_Y = 348;
+    const ACTIONS_Y = 452;
+    const c = this.openPanel(g.title, PANEL_H);
+    const top = cy - PANEL_H / 2;
+    const W = 760;
 
-    const sub = this.add.text(cx - 380, top + 60, a.subtitle, textStyle(12.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 4 }));
+    const sub = this.add.text(cx - W / 2, top + 60, g.subtitle, textStyle(12.5, COLOR_STR.paperDim, { wordWrap: { width: W }, lineSpacing: 4 }));
+    const desc = this.add.text(cx - W / 2, top + 148, '', textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: W }, lineSpacing: 3 }));
+    const planText = this.add.text(cx - W / 2, top + PLAN_Y, '', textStyle(13, COLOR_STR.accentText, { wordWrap: { width: W }, lineSpacing: 4 }));
+    const warnText = this.add.text(cx - W / 2, top + WARN_Y, '', textStyle(12, COLOR_STR.warning, { wordWrap: { width: W }, lineSpacing: 4 }));
+    const note = this.add.text(cx - W / 2, top + 380, g.note, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: W }, lineSpacing: 3 }));
 
-    // riepilogo vivo del piano: conta fascicoli, minuti stimati e difficoltà
-    const planText = this.add.text(cx - 380, top + 214, '', textStyle(13, COLOR_STR.accentText, { wordWrap: { width: 760 }, lineSpacing: 4 }));
-    const warnText = this.add.text(cx - 380, top + 246, '', textStyle(12, COLOR_STR.warning, { wordWrap: { width: 760 }, lineSpacing: 4 }));
+    const modeBtn = new Button(this, cx, top + 112, '', () => {
+      const next = GAME_MODE_IDS[(GAME_MODE_IDS.indexOf(StateManager.gameMode) + 1) % GAME_MODE_IDS.length];
+      StateManager.setGameMode(next);
+      refresh();
+    }, { width: W, height: 46, fontSize: 13, variant: 'ghost' });
 
-    const refresh = (): void => {
-      const plan = StateManager.sessionPlan;
-      // "1 fascicoli" non lo scrive nessuno: il singolare ha una riga sua.
-      const one = plan.caseIds.length === 1;
-      planText.setText(
-        fmt(one ? a.planLineOne : a.planLine, {
-          count: String(plan.caseIds.length),
-          minutes: String(plan.estimatedMinutes),
-          difficulty: L().ui.difficulty.modes[plan.difficulty].name
-        })
-      );
-      warnText.setText(plan.overBudget ? fmt(a.overBudget, { minutes: String(plan.estimatedMinutes) }) : '');
-      ReadingLayer.announce(planText.text);
-    };
-
-    const audLabel = (): string => fmt(a.label, { value: a.modes[StateManager.audience].name });
-    const audBtn = new Button(this, cx, top + 110, audLabel(), () => {
+    const audBtn = new Button(this, cx, top + AUDIENCE_Y, '', () => {
       const next = AUDIENCE_IDS[(AUDIENCE_IDS.indexOf(StateManager.audience) + 1) % AUDIENCE_IDS.length];
       StateManager.setAudience(next);
-      audBtn.setLabel(audLabel());
-      desc.setText(a.modes[next].desc);
       refresh();
-    }, { width: 760, height: 46, fontSize: 13, variant: 'ghost' });
+    }, { width: W, height: 44, fontSize: 13, variant: 'ghost' });
 
-    const desc = this.add.text(cx - 380, top + 140, a.modes[StateManager.audience].desc, textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
-
-    const durLabel = (): string => fmt(a.durationLabel, { value: String(StateManager.sessionMinutes) });
-    const durBtn = new Button(this, cx, top + 182, durLabel(), () => {
+    const durBtn = new Button(this, cx, top + DURATION_Y_WITH_AUDIENCE, '', () => {
       const next = SESSION_DURATIONS[(SESSION_DURATIONS.indexOf(StateManager.sessionMinutes) + 1) % SESSION_DURATIONS.length];
       StateManager.setSessionMinutes(next);
-      durBtn.setLabel(durLabel());
       refresh();
-    }, { width: 760, height: 44, fontSize: 13, variant: 'ghost' });
+    }, { width: W, height: 44, fontSize: 13, variant: 'ghost' });
 
-    const note = this.add.text(cx - 380, top + 292, a.note, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
+    // Riestrai vale solo per l'ispezione a sorpresa: senza, il seme resterebbe
+    // lo stesso per tutta la sessione e la sorpresa sarebbe una sola.
+    const rerollBtn = new Button(this, cx - 250, top + ACTIONS_Y, g.reroll, () => {
+      StateManager.rerollSurprise();
+      refresh();
+    }, { width: 240, height: 46, fontSize: 13, variant: 'ghost' });
 
-    // Avvia dal primo fascicolo del percorso scelto. Gli altri casi restano
-    // tutti aperti sulla mappa: il percorso dice da dove conviene partire,
-    // non che cosa è permesso.
-    const startBtn = new Button(this, cx, top + 350, a.start, () => {
-      const plan = StateManager.sessionPlan;
-      this.closeGroup();
-      AudioSystem.init();
-      AudioSystem.confirm();
-      StateManager.markStarted();
-      fadeOutScene(this, 300, () => this.scene.start('Case', { caseId: plan.caseIds[0] }));
-    }, { width: 760, height: 48, fontSize: 14 });
+    const startBtn = new Button(this, cx, top + ACTIONS_Y, g.start, () => this.startPlanned(hasSave), { width: W, height: 48, fontSize: 14 });
+
+    const refresh = (): void => {
+      const plan = StateManager.gamePlan;
+      const mode = getGameMode(plan.mode);
+      modeBtn.setLabel(fmt(g.modeLabel, { value: g.modes[plan.mode].name }));
+      desc.setText(g.modes[plan.mode].desc);
+
+      // Il profilo compare solo dove conta davvero. Quando non conta, la
+      // durata sale al suo posto: un pulsante nascosto non deve lasciare
+      // un buco nel pannello.
+      audBtn.setVisible(mode.usesAudience);
+      audBtn.setLabel(fmt(g.audienceLabel, { value: a.modes[StateManager.audience].name }));
+      // senza il profilo la durata scivola al centro dello spazio libero:
+      // un pulsante nascosto non deve lasciare un buco nel pannello
+      durBtn.setY(top + (mode.usesAudience ? DURATION_Y_WITH_AUDIENCE : DURATION_Y_ALONE));
+      durBtn.setLabel(fmt(g.durationLabel, { value: String(StateManager.sessionMinutes) }));
+
+      const showReroll = plan.mode === 'sorpresa';
+      rerollBtn.setVisible(showReroll);
+      startBtn.setButtonWidth(showReroll ? 480 : W);
+      startBtn.setX(showReroll ? cx + 140 : cx);
+
+      if (plan.unavailable === 'nothingToReview') {
+        // senza riga di piano l'avviso sale al suo posto, invece di lasciare
+        // un vuoto in mezzo al pannello
+        planText.setText('');
+        warnText.setY(top + PLAN_Y);
+        warnText.setText(g.nothingToReview);
+        startBtn.setEnabled(false);
+      } else {
+        // "1 fascicoli" non lo scrive nessuno: il singolare ha una riga sua.
+        const one = plan.caseIds.length === 1;
+        const line = plan.freeMap
+          ? one ? g.planLineFreeOne : g.planLineFree
+          : one ? g.planLineOne : g.planLine;
+        planText.setText(
+          fmt(line, {
+            count: String(plan.caseIds.length),
+            minutes: String(plan.estimatedMinutes),
+            difficulty: L().ui.difficulty.modes[plan.difficulty].name
+          })
+        );
+        warnText.setY(top + WARN_Y);
+        warnText.setText(plan.overBudget ? fmt(g.overBudget, { minutes: String(plan.estimatedMinutes) }) : '');
+        startBtn.setEnabled(true);
+      }
+      ReadingLayer.announce(`${modeBtn.labelText} · ${planText.text} ${warnText.text}`.trim());
+    };
 
     refresh();
-    c.add([sub, audBtn, desc, durBtn, planText, warnText, note, startBtn]);
+    c.add([sub, modeBtn, desc, audBtn, durBtn, planText, warnText, note, rerollBtn, startBtn]);
+  }
+
+  /**
+   * Avvia la sessione composta nel pannello. Il briefing resta la porta
+   * d'ingresso di chi non l'ha mai visto: una modalità non può saltare la
+   * spiegazione di che cosa fa un ispettore.
+   */
+  private startPlanned(hasSave: boolean): void {
+    const plan = StateManager.gamePlan;
+    if (plan.unavailable) return;
+    if (hasSave) StateManager.newGame();
+    StateManager.rerollSurprise();
+    this.closeGroup();
+    AudioSystem.init();
+    AudioSystem.confirm();
+    AnalyticsSystem.track('game_started', { language: StateManager.language });
+    StateManager.markStarted();
+    fadeOutScene(this, 300, () => {
+      if (!StateManager.briefingSeen) this.scene.start('Briefing');
+      else if (plan.freeMap || plan.caseIds.length === 0) this.scene.start('CityMap');
+      else this.scene.start('Case', { caseId: plan.caseIds[0] });
+    });
   }
 
   /** DOCENTI E CLASSE: modalità docente + guida, tutto locale. */

@@ -18,11 +18,11 @@ describe('Case context review — i18n strings (IT/EN)', () => {
   }
 
   test('agreed microcopy matches', () => {
-    expect(it.ui.context.button).toBe('Rivedi contesto');
+    expect(it.ui.context.button).toBe('RIVEDI CONTESTO');
     expect(it.ui.context.title).toBe('Contesto del caso');
     expect(it.ui.context.closeToDecision).toBe('Torna alla decisione');
     expect(it.ui.context.closeToEvidence).toBe('Torna ai reperti');
-    expect(en.ui.context.button).toBe('Review context');
+    expect(en.ui.context.button).toBe('REVIEW CONTEXT');
     expect(en.ui.context.title).toBe('Case context');
     expect(en.ui.context.closeToDecision).toBe('Back to decision');
     expect(en.ui.context.closeToEvidence).toBe('Back to evidence');

@@ -1,6 +1,7 @@
 import { INITIAL_INDICATORS } from '../data/indicators';
 import type { SaveData } from '../data/types';
 import { sanitizeDrafts } from './caseDraft';
+import { DEFAULT_GAME_MODE } from '../data/gameModes';
 
 /**
  * Persistenza locale (schema v2, mission §10.8).
@@ -36,6 +37,7 @@ export function defaultSave(): SaveData {
     mission: 'full',
     audience: 'casual',
     sessionMinutes: 30,
+    gameMode: DEFAULT_GAME_MODE,
     caseDrafts: {},
     caseMeta: {},
     selfCheck: { pre: null, post: null }

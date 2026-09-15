@@ -7,6 +7,7 @@ import { Panel } from '../ui/Panel';
 import { L, fmt } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 /**
  * Rapporto di apprendimento finale (v1.1): trasforma gli esiti dei casi in un
@@ -27,7 +28,7 @@ export class LearningReportScene extends Phaser.Scene {
 
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    addNoiseOverlay(this, 0.4);
 
     this.add.text(cx, 40, ui.header, textStyle(13, COLOR_STR.paperDim)).setOrigin(0.5);
     this.add.text(cx, 68, ui.title.toUpperCase(), textStyle(22, COLOR_STR.paper, { fontStyle: 'bold' })).setOrigin(0.5);

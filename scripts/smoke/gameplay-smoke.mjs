@@ -42,12 +42,40 @@ page.on('pageerror', (e) => errors.push(String(e)));
 page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
 page.on('request', (r) => hosts.add(new URL(r.url()).host));
 
-const click = async (x, y, w = 400) => {
+/**
+ * Dalle coordinate LOGICHE del gioco ai pixel della pagina.
+ *
+ * Non sono più la stessa cosa, e non lo erano mai davvero: il canvas è
+ * centrato, scalato da Scale.FIT e ora anche rientrato dalle fasce riservate
+ * al link di uscita e al pulsante del testo schermata. Questo smoke dava per
+ * scontato che a 1280×720 le due coincidessero; quando hanno smesso di
+ * coincidere, ogni clic è caduto qualche decina di pixel più in là e le scene
+ * non cambiavano più, senza che nessun messaggio dicesse perché.
+ *
+ * La conversione si chiede al gioco — rettangolo del canvas, dimensione base,
+ * zoom e scroll della camera — invece di essere ricavata da un'ipotesi sulla
+ * finestra.
+ */
+const toPage = (lx, ly) => page.evaluate(({ lx, ly }) => {
+  const g = window.game;
+  const c = g.canvas.getBoundingClientRect();
+  const sx = c.width / g.scale.baseSize.width;
+  const sy = c.height / g.scale.baseSize.height;
+  const scenes = g.scene.getScenes(true);
+  const cam = scenes[scenes.length - 1].cameras.main;
+  return {
+    x: (lx - cam.scrollX) * cam.zoom * sx + c.left,
+    y: (ly - cam.scrollY) * cam.zoom * sy + c.top
+  };
+}, { lx, ly });
+
+const click = async (lx, ly, w = 400) => {
+  const { x, y } = await toPage(lx, ly);
   await page.mouse.move(x, y); await page.waitForTimeout(40);
   await page.mouse.down(); await page.mouse.up(); await page.waitForTimeout(w);
 };
 
-// Click a canvas Button by its label (logical coords == screen coords at 1280×720).
+// Click a canvas Button by its label, in logical coordinates (click converts).
 // Robust to title-menu layout changes: reads the live scene via window.game.
 const clickButton = async (labelRe, w = 400) => {
   const pos = await page.evaluate((reSrc) => {
@@ -97,7 +125,11 @@ await page.addInitScript(() => localStorage.setItem('no-ai-act-save-v1', JSON.st
 await page.goto(`${BASE}/play/?lang=en`, { waitUntil: 'load' });
 await waitScene('Title', 30000); // Phaser boot
 
-await clickButton(/NEW GAME/, 300);      // primary action on the simplified title
+// NUOVA PARTITA non avvia più al primo clic: apre la composizione della
+// sessione (modalità, profilo, durata) e INIZIA fa partire il piano scelto.
+// Due clic invece di uno, ed è il punto: la durata scelta adesso conta.
+await clickButton(/NEW GAME/, 400);
+await clickButton(/^START/, 400);
 await waitScene('Briefing');
 await click(640, 300, 400);              // pointerdown skips the typewriter
 await clickButton(/ACCESS THE CIVIC MAP/, 300);
@@ -124,7 +156,7 @@ await page.waitForTimeout(800); // let the report body render
 const reportOk = await page.evaluate(() => document.querySelector('canvas') !== null);
 if (!reportOk) fail.push('no game canvas at report stage');
 
-await clickButton(/Decision debrief/, 700); // open decision debrief overlay
+await clickButton(/DECISION DEBRIEF/, 700); // open decision debrief overlay
 // The link opens with rel=noopener, so newer Playwright does not emit it as a
 // 'popup' of the opener page — listen for any new page in the context instead.
 const [popup] = await Promise.all([

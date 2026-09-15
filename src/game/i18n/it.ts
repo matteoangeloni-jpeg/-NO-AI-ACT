@@ -30,7 +30,6 @@ export const it = {
       teacherOff: 'MODALITÀ DOCENTE: OFF',
       teacherScope: 'Debrief locale: niente classi, niente account, niente server.',
       resetDone: 'Salvataggio azzerato.',
-      audienceMenu: 'PER CHI GIOCHI',
       teachers: 'DOCENTI E CLASSE',
       resources: 'RISORSE',
       settings: 'IMPOSTAZIONI',
@@ -76,7 +75,7 @@ export const it = {
       backToMap: '◂ MAPPA'
     },
     context: {
-      button: 'Rivedi contesto',
+      button: 'RIVEDI CONTESTO',
       title: 'Contesto del caso',
       scenarioLabel: 'Sintesi del caso',
       objectiveLabel: 'Obiettivo',
@@ -86,7 +85,7 @@ export const it = {
       closeToEvidence: 'Torna ai reperti'
     },
     caseNorm: {
-      button: 'Norma del caso',
+      button: 'NORMA DEL CASO',
       supportNote: 'Norma utile per orientarti nel caso. Consultarla non modifica il rapporto né la decisione.',
       relevantLabel: 'Norma rilevante',
       referenceLabel: 'Riferimento',
@@ -170,7 +169,7 @@ export const it = {
       close: 'Riprendi'
     },
     decisionDebrief: {
-      button: 'Debrief della decisione',
+      button: 'DEBRIEF DELLA DECISIONE',
       title: 'Debrief della decisione',
       intro: 'Questa scheda ti aiuta a capire il ragionamento, senza modificare il punteggio o il rapporto.',
       yourChoiceLabel: 'La tua scelta',
@@ -376,7 +375,8 @@ export const it = {
       unlocked: "NORMA ACQUISITA ALL'ARCHIVIO",
       subCorrect: 'Questa disposizione avrebbe reso il danno prevenibile o governabile.',
       subWrong: "La norma esisteva. In un'altra Europa, qualcuno l'avrebbe applicata.",
-      backToMap: 'TORNA ALLA MAPPA ▸',
+      backToMap: '◂ TORNA ALLA MAPPA',
+      nextCase: 'PROSSIMO FASCICOLO ▸',
       disclaimer: 'versione didattica semplificata'
     },
     archive: {
@@ -432,17 +432,32 @@ export const it = {
       recommendedHeader: 'PERCORSI CONSIGLIATI',
       recommendedLine: '{name} · {duration} · {goal}'
     },
-      audience: {
-        title: 'PER CHI GIOCHI',
-        subtitle: 'Cambia quali fascicoli vengono proposti per primi, non che cosa puoi aprire.',
-        label: 'PUBBLICO: {value}',
-        durationTitle: 'QUANTO TEMPO HAI',
+      newGamePanel: {
+        title: 'NUOVA PARTITA',
+        subtitle: 'Scegli come giocare e quanto tempo hai. Il piano si ricompone sotto, prima di iniziare.',
+        modeLabel: 'MODALITÀ: {value}',
+        audienceLabel: 'PROFILO: {value}',
         durationLabel: 'DURATA: {value} min',
         planLine: '{count} fascicoli · circa {minutes} min · difficoltà {difficulty}',
         planLineOne: 'un fascicolo · circa {minutes} min · difficoltà {difficulty}',
-        overBudget: 'Il primo fascicolo di questo percorso chiede circa {minutes} min: più del tempo scelto.',
+        planLineFree: 'mappa aperta · {count} fascicoli consigliati · circa {minutes} min',
+        planLineFreeOne: 'mappa aperta · un fascicolo consigliato · circa {minutes} min',
+        overBudget: 'Il primo fascicolo chiede circa {minutes} min: più del tempo scelto.',
+        nothingToReview: 'Niente da ripassare: nessun fascicolo chiuso male, per ora.',
         note: 'Il tempo è una stima per comporre la sessione. Il gioco non misura e non limita il tuo tempo reale.',
-        start: 'AVVIA QUESTO PERCORSO ▸',
+        reroll: 'RIESTRAI ⟲',
+        start: 'INIZIA ▸',
+        modes: {
+          turno: { name: 'Turno di servizio', desc: 'I fascicoli del tuo profilo, in sequenza. La via classica: una scrivania, una coda di casi.' },
+          libera: { name: 'Indagine libera', desc: 'La città è aperta: apri i fascicoli nell\'ordine che vuoi. La durata dice solo quanti conviene chiuderne.' },
+          sorpresa: { name: 'Ispezione a sorpresa', desc: 'Fascicoli estratti a caso fra tutti, difficoltà esperto, nessun suggerimento sulla mappa.' },
+          ripasso: { name: 'Ripasso degli errori', desc: 'Solo i fascicoli che hai chiuso male o a metà. Disponibile quando ce n\'è almeno uno.' }
+        }
+      },
+      audience: {
+        // Restano i soli nomi e descrizioni dei profili: il pannello che li
+        // mostrava ("per chi giochi") è confluito in NUOVA PARTITA, e le sue
+        // etichette vivono sotto newGamePanel.
         modes: {
           casual: { name: 'Per conto mio', desc: 'Non lavori nel settore e vuoi capire l\'AI Act. Casi scelti per chiarezza, non per ruolo.' },
           pa: { name: 'Pubblica amministrazione', desc: 'Sportello, appalti e antifrode: decidere con un sistema che non hai scritto tu.' },
@@ -1628,7 +1643,7 @@ export const it = {
   ,
   learningLayer: {
     notebook: {
-      button: 'Taccuino',
+      button: 'TACCUINO',
       title: 'TACCUINO INVESTIGATIVO',
       intro: "Quello che hai già stabilito, raccolto in un posto solo: fascicoli chiusi, chi ne è risultato responsabile, gli schemi confermati e le domande che hai lasciato aperte.",
       factsLabel: 'Fascicoli chiusi ({n})',
@@ -1651,7 +1666,7 @@ export const it = {
       close: 'Chiudi'
     },
     chapters: {
-      button: 'Capitoli',
+      button: 'CAPITOLI',
       title: 'Capitoli del percorso',
       intro: "Quattro capitoli tematici raggruppano gli 11 casi. Sono un ordine consigliato, non un vincolo: ogni fascicolo resta apribile liberamente dalla mappa.",
       orderLabel: 'Capitolo {order} di {total}',

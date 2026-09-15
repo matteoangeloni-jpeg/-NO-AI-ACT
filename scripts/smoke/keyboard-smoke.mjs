@@ -118,10 +118,33 @@ if (!meta || !Object.values(meta).some((m) => m.confidence === 2)) fail.push('co
 await press('Enter', 900);
 await waitScene('Consequence');
 await press('Enter', 900);
-// il primo caso sblocca la carta norma: ENTER la archivia e torna alla mappa
 await waitScene('NormCard');
+
+// Il primo caso sblocca la carta norma. Da qui l'uscita dipende dalla
+// modalità: in una sessione in sequenza ENTER apre il fascicolo successivo
+// del piano — è ciò che distingue il turno di servizio dall'indagine libera
+// — e la mappa resta comunque a un tasto di distanza. La destinazione non è
+// trascritta qui: si chiede al piano, così se un giorno il piano cambia è il
+// gioco a dirlo.
+const nextPlanned = await page.evaluate(() => {
+  const s = window.game.scene.getScene('NormCard');
+  const btns = [];
+  const walk = (l) => { for (const o of l) { if (o.type === 'Container') { const t = o.list?.find((k) => k.type === 'Text'); if (o.input && t) btns.push(t.text); walk(o.list ?? []); } } };
+  walk(s.children.list);
+  return btns;
+});
+const hasNext = nextPlanned.some((t) => /FASCICOLO|CASE FILE/i.test(t));
+if (!nextPlanned.some((t) => /MAPPA|MAP/i.test(t))) {
+  fail.push(`NormCard: la mappa deve restare raggiungibile, trovati ${JSON.stringify(nextPlanned)}`);
+}
 await press('Enter', 900);
-await waitScene('CityMap');
+await waitScene(hasNext ? 'Case' : 'CityMap');
+
+if (hasNext) {
+  // e da lì si esce: una sequenza da cui non si può uscire è una gabbia
+  await press('Escape', 900);
+  await waitScene('CityMap');
+}
 
 await browser.close();
 

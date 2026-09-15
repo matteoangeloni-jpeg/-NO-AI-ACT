@@ -14,6 +14,7 @@ import { evidenceReadingLine } from '../systems/evidenceReading';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
 import { StateManager } from '../systems/StateManager';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 /**
  * Esame dei reperti: aprire tutti gli indizi, poi citare nel rapporto
@@ -50,7 +51,7 @@ export class EvidenceScene extends Phaser.Scene {
     AnalyticsSystem.page('evidence');
     AnalyticsSystem.track('evidence_opened', { caseId: this.caseData.id });
     AudioSystem.crossfadeToTheme(this.caseData.id);
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    addNoiseOverlay(this, 0.4);
 
     this.add.text(cx, 56, fmt(L().ui.evidence.header, { code: this.caseData.fileCode }), textStyle(14, COLOR_STR.alertText)).setOrigin(0.5);
     this.add.text(cx, 78, L().ui.evidence.instruction, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);

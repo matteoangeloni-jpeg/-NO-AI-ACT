@@ -9,6 +9,7 @@ import { L } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene, fadeOutScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 export class BriefingScene extends Phaser.Scene {
   constructor() {
@@ -19,7 +20,7 @@ export class BriefingScene extends Phaser.Scene {
     const cx = GAME_WIDTH / 2;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 300);
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    addNoiseOverlay(this, 0.4);
 
     new Panel(this, cx, GAME_HEIGHT / 2, 860, 560);
     this.add.text(cx - 400, 90, L().briefing.header, textStyle(13, COLOR_STR.alertText));

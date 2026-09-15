@@ -20,6 +20,7 @@ export class Button extends Phaser.GameObjects.Container {
   private label: Phaser.GameObjects.Text;
   private opts: Required<ButtonOptions>;
   private enabled: boolean;
+  private readonly onClick: () => void;
 
   constructor(
     scene: Phaser.Scene,
@@ -38,6 +39,7 @@ export class Button extends Phaser.GameObjects.Container {
       disabled: options.disabled ?? false
     };
     this.enabled = !this.opts.disabled;
+    this.onClick = onClick;
 
     const { width, height } = this.opts;
     this.bg = scene.add.rectangle(0, 0, width, height, this.fillColor(), 1);
@@ -50,22 +52,65 @@ export class Button extends Phaser.GameObjects.Container {
     this.setSize(width, height);
     scene.add.existing(this);
 
+    this.applyEnabled();
+  }
+
+  /**
+   * Accende o spegne il bottone dopo la costruzione. Serve dove la
+   * disponibilità di un'azione dipende da una scelta fatta nella stessa
+   * schermata — il ripasso quando non c'è niente da ripassare, per esempio.
+   * Un bottone spento non è solo più pallido: smette di reagire al
+   * puntatore, altrimenti sembrerebbe rotto invece che non disponibile.
+   */
+  setEnabled(value: boolean): void {
+    if (this.enabled === value) return;
+    this.enabled = value;
+    this.applyEnabled();
+  }
+
+  private applyEnabled(): void {
     if (this.enabled) {
+      this.setAlpha(1);
       this.setInteractive({ useHandCursor: true })
         .on('pointerover', () => this.setHover(true))
         .on('pointerout', () => this.setHover(false))
         .on('pointerdown', () => {
           AudioSystem.init();
           AudioSystem.click();
-          onClick();
+          this.onClick();
         });
     } else {
+      this.removeAllListeners();
+      this.disableInteractive();
+      this.setHoverVisual(false);
       this.setAlpha(0.45);
     }
   }
 
+  /**
+   * Cambia la larghezza a bottone già costruito, sfondo, bordo e area
+   * sensibile insieme. Scalare il contenitore invece deformerebbe anche
+   * l'etichetta.
+   */
+  setButtonWidth(width: number): void {
+    this.opts.width = width;
+    this.bg.setSize(width, this.opts.height);
+    this.border.setSize(width, this.opts.height);
+    this.setSize(width, this.opts.height);
+    if (this.enabled) this.setInteractive({ useHandCursor: true });
+  }
+
+  /** Etichetta corrente, per chi deve annunciarla o verificarla. */
+  get labelText(): string {
+    return this.label.text;
+  }
+
   setHover(hover: boolean): void {
     if (!this.enabled) return;
+    this.setHoverVisual(hover);
+  }
+
+  private setHoverVisual(hover: boolean): void {
     this.bg.setFillStyle(hover ? this.hoverColor() : this.fillColor());
     this.border.setStrokeStyle(hover ? 2 : 1, hover ? COLORS.accent : this.strokeColor());
     this.label.setColor(hover ? COLOR_STR.paper : this.textColor());

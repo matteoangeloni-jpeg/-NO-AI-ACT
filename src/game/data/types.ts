@@ -64,6 +64,8 @@ export type MissionId = 'demo' | 'lab' | 'full' | 'advanced' | 'pack';
  * proprio: non è un profilo professionale annacquato, ha un ordine di casi
  * suo, scelto per leggibilità narrativa invece che per rilevanza di ruolo.
  */
+export type GameModeId = 'turno' | 'libera' | 'sorpresa' | 'ripasso';
+
 export type AudienceId = 'casual' | 'pa' | 'scuola' | 'hr';
 
 /** Durate proposte, in minuti. Un budget dichiarato, non un timer. */
@@ -281,6 +283,11 @@ export interface SaveData {
   audience: AudienceId;
   /** Minuti dichiarati per la sessione (2.2). Default sicuro: 30. */
   sessionMinutes: SessionMinutes;
+  /**
+   * Modalità di gioco scelta con NUOVA PARTITA (campo additivo: un
+   * salvataggio che non ce l'ha riceve il default e resta versione 2).
+   */
+  gameMode: GameModeId;
   /**
    * Bozze dei fascicoli aperti e non ancora firmati (2.2), per caso.
    * Additivo: un salvataggio che non le ha riparte da {} senza perdere
