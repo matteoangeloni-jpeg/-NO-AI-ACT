@@ -27,6 +27,18 @@ const BASE = process.env.BASE || 'http://localhost:4200';
 const OUT_MOBILE = new URL('./out', import.meta.url).pathname;
 const GAME_HOSTS_ALLOWED = ['static.cloudflareinsights.com']; // pre-existing shell beacon only
 const fail = [];
+/**
+ * Quanto può durare, a orologio vero, il passaggio da un pulsante alla
+ * schermata successiva.
+ *
+ * Il numero non è scelto a sentimento: con la rete di sicurezza la
+ * transizione misura ~2,0 s nel caso peggiore di questo ambiente (canvas
+ * 2880×1620, disegno software); senza, la dissolvenza guidata dai fotogrammi
+ * ne chiede oltre cinque. 3,5 s sta in mezzo con margine da entrambe le
+ * parti — e un primo tentativo a 6 s non distingueva niente, cioè era una
+ * guardia che non poteva fallire.
+ */
+const TRANSITION_BUDGET_MS = 3500;
 
 const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
 const errors = [];
@@ -304,6 +316,64 @@ for (const vp of [{ w: 390, h: 844, name: 'telefono' }, { w: 768, h: 1024, name:
 
   await mp.screenshot({ path: `${OUT_MOBILE}/play-${vp.w}x${vp.h}.png` }).catch(() => {});
   await mctx.close();
+}
+
+// ---- la transizione fra schermate non può far sembrare il gioco bloccato ----
+//
+// Le dissolvenze di Phaser avanzano per FOTOGRAMMI, non a orologio: sono
+// diciotto passi da 16,67 ms nominali. Su una macchina che ne disegna tre al
+// secondo quei 300 ms diventano sei secondi reali, durante i quali la
+// schermata resta ferma e il pulsante appena premuto sembra non aver fatto
+// niente. Misurato qui: prima della rete di sicurezza, INIZIA a 1440×900 con
+// densità 2 non arrivava MAI al briefing entro tre secondi; ora ci arriva.
+//
+// Il controllo gira a densità 2, dove il canvas è il più grande e questo
+// ambiente il più lento: è il caso peggiore, ed è quello che deve reggere.
+{
+  const hi = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 });
+  await hi.route(/cloudflareinsights\.com/, (r) => r.abort());
+  const hp = await hi.newPage();
+  hp.on('pageerror', (e) => errors.push(`[transizione] ${String(e)}`));
+  await hp.goto(`${BASE}/play/?lang=it`, { waitUntil: 'load' });
+  await hp.waitForFunction(() => window.game?.scene?.getScene('Title')?.scene?.isActive?.(), null, { timeout: 40000 });
+
+  const press = (labelRe) => hp.evaluate((src) => {
+    const g = window.game, re = new RegExp(src, 'i');
+    const scenes = g.scene.getScenes(true);
+    const s = scenes[scenes.length - 1];
+    let found = null;
+    const visit = (o) => {
+      if (found || !o || o.visible === false) return;
+      if (o.type === 'Container' && o.input && o.input.enabled) {
+        const t = (o.list || []).find((c) => typeof c.text === 'string');
+        if (t && re.test(t.text)) { found = o; return; }
+      }
+      for (const c of (o.list || [])) visit(c);
+    };
+    for (const o of s.children.list) visit(o);
+    if (!found) return false;
+    found.emit('pointerdown');
+    return true;
+  }, labelRe.source);
+
+  if (!(await press(/NUOVA PARTITA/))) fail.push('transizione: NUOVA PARTITA non trovato');
+  await hp.waitForTimeout(600);
+  const started = Date.now();
+  if (!(await press(/^INIZIA/))) fail.push('transizione: INIZIA non trovato (o spento su una partita nuova)');
+  try {
+    // Le opzioni di waitForFunction vanno nel TERZO argomento: il secondo è
+    // l'argomento passato alla funzione. Scritte al posto del secondo
+    // vengono prese per un dato qualunque e il timeout resta quello
+    // predefinito — trenta secondi — cioè il controllo smette di
+    // controllare senza dirlo. È successo proprio qui: misurava 7,7 s e
+    // dichiarava PASS con un limite di 3,5.
+    await hp.waitForFunction(() => window.game.scene.getScenes(true).some((s) => s.scene.key === 'Briefing'), null, { timeout: TRANSITION_BUDGET_MS });
+    const took = Date.now() - started;
+    console.log(`  transizione INIZIA → briefing: ${took} ms (limite ${TRANSITION_BUDGET_MS} ms, canvas ${await hp.evaluate(() => `${window.game.canvas.width}x${window.game.canvas.height}`)})`);
+  } catch {
+    fail.push(`transizione: da INIZIA il briefing non arriva entro ${TRANSITION_BUDGET_MS} ms — la schermata sembra bloccata`);
+  }
+  await hi.close();
 }
 
 await browser.close();

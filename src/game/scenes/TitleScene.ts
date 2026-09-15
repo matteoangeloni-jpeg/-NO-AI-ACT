@@ -10,7 +10,7 @@ import { SiteResourcesOverlay } from '../ui/SiteResourcesOverlay';
 import { showToast } from '../ui/AlertToast';
 import { L, fmt, nextLanguage } from '../i18n';
 import { AUDIENCE_IDS, SESSION_DURATIONS } from '../data/audiences';
-import { GAME_MODE_IDS, getGameMode } from '../data/gameModes';
+import { DEFAULT_GAME_MODE, GAME_MODE_IDS, getGameMode } from '../data/gameModes';
 import { ReadingLayer, type ReadingSection } from '../systems/ReadingLayer';
 import type { DifficultyMode } from '../data/types';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
@@ -265,6 +265,22 @@ export class TitleScene extends Phaser.Scene {
    * quanti fascicoli riceve invece di scoprirlo giocando.
    */
   private openNewGame(hasSave: boolean): void {
+    /**
+     * VICOLO CIECO, CHIUSO.
+     *
+     * Chi sfogliava le modalità per leggerle si fermava sull'ultima —
+     * "ripasso degli errori" — che a inizio partita non ha niente da
+     * proporre. La scelta veniva salvata, e riaprendo NUOVA PARTITA ci si
+     * trovava davanti un INIZIA spento: su fondo scuro la differenza fra
+     * spento e acceso è un pulsante che non fa niente.
+     *
+     * Aprendo il pannello su una modalità che oggi non si può giocare, si
+     * riparte da quella predefinita. Restare su di essa girando la manopola
+     * è un'altra cosa: lì la scelta è deliberata, e l'avviso spiega perché
+     * non si parte e che cosa fare.
+     */
+    if (StateManager.gamePlan.unavailable) StateManager.setGameMode(DEFAULT_GAME_MODE);
+
     const cx = GAME_WIDTH / 2;
     const cy = GAME_HEIGHT / 2;
     const g = L().ui.newGamePanel;

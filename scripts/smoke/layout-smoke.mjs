@@ -543,7 +543,7 @@ for (const vp of [{ w: 1792, h: 930 }, { w: 1280, h: 720 }]) {
     await page.addInitScript((seed) => localStorage.setItem('no-ai-act-save-v2', seed), SEED_SHIFT_DONE);
     await page.goto(`${BASE}/play/?lang=${lang}`, { waitUntil: 'load' });
     try {
-      await page.waitForFunction(() => window.game?.scene?.getScenes(true).some((s) => s.scene.key === 'Title'), { timeout: 40000 });
+      await page.waitForFunction(() => window.game?.scene?.getScenes(true).some((s) => s.scene.key === 'Title'), null, { timeout: 40000 });
     } catch {
       fail.push(`${ctx}: la schermata del titolo non è mai arrivata`);
       await context.close();

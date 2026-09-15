@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import {
   DEFAULT_GAME_MODE,
   GAME_MODES,
@@ -137,4 +139,51 @@ describe('ogni modalità ha un nome e una spiegazione, in entrambe le lingue', (
       }
     });
   }
+});
+
+/**
+ * NESSUN VICOLO CIECO IN NUOVA PARTITA.
+ *
+ * Sfogliando le modalità per leggerle ci si fermava sull'ultima — il ripasso
+ * degli errori — che a inizio partita non ha niente da proporre. La scelta
+ * veniva salvata, e riaprendo il pannello si trovava un INIZIA spento: su
+ * fondo scuro, un pulsante che non fa niente. Segnalato da chi giocava con
+ * una parola sola, "bug", ed era esattamente questo.
+ */
+describe('il pannello non si apre mai su una modalità che non si può giocare', () => {
+  const title = readFileSync(resolve(__dirname, '../src/game/scenes/TitleScene.ts'), 'utf8');
+
+  it("all'apertura, una modalità senza niente da proporre lascia il posto a quella predefinita", () => {
+    const open = title.slice(title.indexOf('private openNewGame'), title.indexOf('private startPlanned'));
+    expect(open).toContain('StateManager.gamePlan.unavailable');
+    expect(open).toContain('setGameMode(DEFAULT_GAME_MODE)');
+  });
+
+  it('e la modalità predefinita è sempre giocabile a partita nuova', () => {
+    const fresh = planGame({ mode: DEFAULT_GAME_MODE, audience: 'casual', minutes: 30, completed: {}, seed: 1 });
+    expect(fresh.unavailable, 'il ripiego deve essere un posto da cui si può partire').toBeNull();
+    expect(fresh.caseIds.length).toBeGreaterThan(0);
+  });
+
+  it('il ripiego vale per ogni profilo e ogni durata, non solo per il caso comodo', () => {
+    for (const audience of AUDIENCE_IDS) {
+      for (const minutes of SESSION_DURATIONS) {
+        const p = planGame({ mode: DEFAULT_GAME_MODE, audience, minutes, completed: {}, seed: 1 });
+        expect(p.unavailable, `${audience}/${minutes}`).toBeNull();
+      }
+    }
+  });
+
+  /**
+   * Restare sul ripasso girando la manopola resta possibile: lì la scelta è
+   * deliberata. L'avviso però deve dire anche che cosa fare, non solo che
+   * non si può partire.
+   */
+  it("l'avviso indica la via d'uscita, in entrambe le lingue", () => {
+    for (const [lang, dict] of [['it', itDict], ['en', en]] as const) {
+      const msg = dict.ui.newGamePanel.nothingToReview;
+      expect(msg.length, `${lang}`).toBeGreaterThan(40);
+      expect(msg.toLowerCase(), `${lang}: l'avviso non dice come uscirne`).toMatch(/modalità|mode/);
+    }
+  });
 });

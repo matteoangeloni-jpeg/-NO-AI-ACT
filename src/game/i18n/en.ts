@@ -467,7 +467,7 @@ export const en: Locale = {
         planLineFree: 'open map · {count} suggested case files · about {minutes} min',
         planLineFreeOne: 'open map · one suggested case file · about {minutes} min',
         overBudget: 'The first case file needs about {minutes} min: more than the time you picked.',
-        nothingToReview: 'Nothing to review: no case file closed badly, so far.',
+        nothingToReview: 'Nothing to review: no case file closed badly, so far. Pick another mode to start.',
         note: 'The time is an estimate used to compose the session. The game never measures or limits your real time.',
         reroll: 'DRAW AGAIN \u27f2',
         start: 'START \u25b8',

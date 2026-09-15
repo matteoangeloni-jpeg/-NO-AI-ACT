@@ -466,7 +466,7 @@ export const it = {
         planLineFree: 'mappa aperta · {count} fascicoli consigliati · circa {minutes} min',
         planLineFreeOne: 'mappa aperta · un fascicolo consigliato · circa {minutes} min',
         overBudget: 'Il primo fascicolo chiede circa {minutes} min: più del tempo scelto.',
-        nothingToReview: 'Niente da ripassare: nessun fascicolo chiuso male, per ora.',
+        nothingToReview: 'Niente da ripassare: nessun fascicolo chiuso male, per ora. Scegli un\'altra modalità per cominciare.',
         note: 'Il tempo è una stima per comporre la sessione. Il gioco non misura e non limita il tuo tempo reale.',
         reroll: 'RIESTRAI ⟲',
         start: 'INIZIA ▸',
