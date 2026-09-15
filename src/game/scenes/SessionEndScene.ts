@@ -3,6 +3,7 @@ import { StateManager } from '../systems/StateManager';
 import { buildSessionSummary, type SessionSummaryData } from '../systems/SessionSummary';
 import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
+import { SelfCheckOverlay } from '../ui/SelfCheckOverlay';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { L, caseText, fmt, normText } from '../i18n';
@@ -77,7 +78,9 @@ export class SessionEndScene extends Phaser.Scene {
      */
     const body = this.add.container(0, 0);
     const BAND_TOP = 104;
-    const BAND_BOTTOM = GAME_HEIGHT - 78;
+    // sotto il blocco stanno la riga dei pulsanti e, quando compare,
+    // l'autocontrollo finale: la fascia si ferma prima
+    const BAND_BOTTOM = GAME_HEIGHT - (StateManager.selfCheck.post === null ? 132 : 78);
     const top = BAND_TOP + PAD;
     let y = top;
 
@@ -149,6 +152,30 @@ export class SessionEndScene extends Phaser.Scene {
     // e ora il blocco intero scende al centro della fascia disponibile
     const shift = (BAND_TOP + BAND_BOTTOM) / 2 - (top + y) / 2;
     body.setY(Math.max(0, shift));
+
+    /**
+     * AUTOCONTROLLO FINALE.
+     *
+     * Il confronto fra il "prima" e il "dopo" è il senso di questo
+     * strumento, ma la metà finale viveva soltanto nel finale del gioco, che
+     * chiede almeno quattro fascicoli e una visita esplicita: chi giocava un
+     * turno da mezz'ora non la incontrava mai. Qui sta al suo posto — un
+     * turno è finito, ed è il momento in cui ha senso chiedersi che cosa è
+     * cambiato.
+     *
+     * Si offre solo se non è già stato fatto: rifarlo sovrascriverebbe il
+     * confronto invece di arricchirlo. Resta facoltativo e locale, come
+     * nella sua schermata d'origine.
+     */
+    if (StateManager.selfCheck.post === null) {
+      const selfCheck = new SelfCheckOverlay(this, 'post');
+      new Button(this, cx, GAME_HEIGHT - 104, L().learningLayer.selfCheck.buttonPost, () => selfCheck.open(), {
+        width: 460,
+        height: 36,
+        fontSize: 11.5,
+        variant: 'ghost'
+      });
+    }
 
     // Il debrief docente compare solo in modalità docente: è il suo posto, e
     // fuori da lì sarebbe una voce che non riguarda chi sta giocando.

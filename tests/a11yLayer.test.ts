@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { shouldShowMobileGuard, savedLanguage } from '../src/mobileGuard';
@@ -167,5 +167,106 @@ describe('honesty — no WCAG conformance claim', () => {
         expect(a[k], k).toBeTruthy();
       }
     }
+  });
+});
+
+/**
+ * PANNELLI MODALI E STRATO DI LETTURA.
+ *
+ * Un overlay copre lo schermo. Lo strato di lettura, però, continuava a
+ * descrivere la scena sotto: aprendo la guida docente, l'autocontrollo o il
+ * contesto del caso, chi legge con uno screen reader si ritrovava davanti il
+ * testo di un'altra schermata. Otto pannelli su nove non pubblicavano nulla,
+ * e nessun controllo poteva accorgersene perché l'elenco dei pannelli non
+ * esisteva da nessuna parte.
+ *
+ * L'elenco si legge dal disco: un pannello nuovo è coperto il giorno che
+ * nasce.
+ */
+describe('ogni pannello modale pubblica il proprio testo, e lo restituisce', () => {
+  const overlays = readdirSync(resolve(root, 'src/game/ui'))
+    .filter((f) => f.endsWith('Overlay.ts'))
+    .map((f) => `src/game/ui/${f}`);
+
+  it('i pannelli si trovano davvero (altrimenti il controllo è inerte)', () => {
+    expect(overlays.length).toBeGreaterThan(5);
+  });
+
+  for (const path of overlays) {
+    const name = path.split('/').pop();
+    it(`${name} pubblica all'apertura`, () => {
+      expect(read(path), `${name}: apre un pannello senza dire cosa contiene`).toContain(
+        'ReadingLayer.openOverlay('
+      );
+    });
+
+    it(`${name} rimette la scena alla chiusura`, () => {
+      expect(read(path), `${name}: chiudendosi lascia lo strato sul pannello sparito`).toContain(
+        'ReadingLayer.closeOverlay()'
+      );
+    });
+  }
+});
+
+/**
+ * L'elenco delle scene che pubblicano NON è scritto a mano: una versione
+ * precedente di questo file ne nominava sette, e una scena nuova sarebbe
+ * nata scoperta.
+ */
+describe('nessuna scena pubblica pagina senza testo', () => {
+  const scenes = readdirSync(resolve(root, 'src/game/scenes'))
+    .filter((f) => f.endsWith('Scene.ts'))
+    .map((f) => `src/game/scenes/${f}`);
+
+  /**
+   * Le scene di servizio non hanno contenuto proprio da leggere: Boot e
+   * Preload durano un istante e non mostrano testo di gioco. Sono nominate
+   * qui, e solo qui, perché l'esenzione sia visibile.
+   */
+  const SERVICE_SCENES = ['BootScene.ts', 'PreloadScene.ts'];
+
+  it('le scene si trovano davvero', () => {
+    expect(scenes.length).toBeGreaterThan(10);
+  });
+
+  it('ogni scena di contenuto pubblica sullo strato di lettura', () => {
+    const silent = scenes
+      .filter((p) => !SERVICE_SCENES.includes(p.split('/').pop()!))
+      .filter((p) => !/ReadingLayer\.setScene\(/.test(read(p)));
+    expect(silent, silent.join('\n')).toEqual([]);
+  });
+});
+
+/**
+ * I PANNELLI COSTRUITI DALLE SCENE.
+ *
+ * Quattro pannelli modali del titolo — nuova partita, docenti, risorse,
+ * impostazioni — non sono classi in `ui/` ma container costruiti dentro la
+ * scena, e per questo erano sfuggiti a ogni controllo: si apriva NUOVA
+ * PARTITA e lo strato di lettura continuava a descrivere il titolo.
+ *
+ * Passano tutti da `openPanel` e `closeGroup`, quindi basta chiedere che
+ * quei due facciano il loro mestiere — e che ciascun costruttore descriva
+ * il proprio contenuto invece di lasciare il pannello col solo titolo.
+ */
+describe('i pannelli modali costruiti dal titolo pubblicano anche loro', () => {
+  const title = read('src/game/scenes/TitleScene.ts');
+
+  it('aprire un pannello lo pubblica, chiuderlo rimette il titolo', () => {
+    const open = title.slice(title.indexOf('private openPanel'), title.indexOf('private openNewGame'));
+    expect(open).toContain('ReadingLayer.openOverlay(');
+    const close = title.slice(title.indexOf('private closeGroup'), title.indexOf('private readonly escHandler'));
+    expect(close).toContain('ReadingLayer.closeOverlay()');
+  });
+
+  it('ogni pannello descrive il proprio contenuto, non solo il titolo', () => {
+    const builders = ['openNewGame', 'openTeachers', 'openResources', 'openSettings'];
+    const missing = builders.filter((b) => {
+      const start = title.indexOf(`private ${b}`);
+      const rest = title.slice(start);
+      const end = rest.indexOf('\n  private ', 1);
+      return !(end === -1 ? rest : rest.slice(0, end)).includes('this.describePanel(');
+    });
+    expect(missing, missing.join(', ')).toEqual([]);
   });
 });

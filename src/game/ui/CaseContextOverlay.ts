@@ -3,6 +3,7 @@ import { getCase } from '../data/cases';
 import { Button } from './Button';
 import { Panel } from './Panel';
 import { L, caseText, fmt, locationName } from '../i18n';
+import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from './theme';
 
 /**
@@ -41,8 +42,10 @@ export class CaseContextOverlay {
   }
 
   close(): void {
-    this.container?.destroy();
+    if (!this.container) return;
+    this.container.destroy();
     this.container = undefined;
+    ReadingLayer.closeOverlay();
   }
 
   open(): void {
@@ -110,5 +113,13 @@ export class CaseContextOverlay {
     );
 
     this.container = container;
+
+    // stesso testo del pannello, reso leggibile
+    ReadingLayer.openOverlay(ui.title, [
+      { heading: texts.title, text: `${fmt(L().ui.case.fileLabel, { code: data.fileCode })} · ${locationName(data.locationId)}` },
+      { heading: ui.scenarioLabel, text: texts.scenario },
+      { heading: ui.objectiveLabel, text: ui.objective },
+      { text: ui.note }
+    ]);
   }
 }

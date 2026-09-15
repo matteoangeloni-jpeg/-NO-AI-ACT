@@ -101,9 +101,27 @@ describe('PR 1E — overlay is strictly presentational / read-only', () => {
     }
   });
 
-  test('is decoupled: imports no data/systems modules (pure presentation)', () => {
+  /**
+   * Il pannello resta presentazione pura: non legge dati di gioco, non
+   * calcola esiti, non tocca lo stato. L'unica eccezione è lo strato di
+   * lettura, che è a sua volta una superficie di presentazione — scrive
+   * testo nel DOM e non restituisce nulla — ed è ciò che rende il pannello
+   * leggibile a chi usa uno screen reader. È nominata qui, e solo qui, per
+   * restare un'eccezione e non diventare una porta aperta su `systems/`.
+   */
+  const READING_LAYER_IMPORT = /from '\.\.\/systems\/ReadingLayer'/;
+
+  test('is decoupled: imports no data modules, and no systems beyond the reading layer', () => {
     expect(overlay).not.toMatch(/from '\.\.\/data\//);
-    expect(overlay).not.toMatch(/from '\.\.\/systems\//);
+    const systemImports = [...overlay.matchAll(/from '(\.\.\/systems\/[A-Za-z]+)'/g)].map((m) => m[1]);
+    const unexpected = systemImports.filter((i) => !READING_LAYER_IMPORT.test(`from '${i}'`));
+    expect(unexpected, unexpected.join(', ')).toEqual([]);
+  });
+
+  test('e il pannello legge davvero soltanto: nessuna scrittura di stato', () => {
+    for (const forbidden of ['StateManager.set', 'StateManager.resolve', 'StateManager.save', 'evaluateReport']) {
+      expect(overlay, `${forbidden} non deve comparire in un pannello di sola lettura`).not.toContain(forbidden);
+    }
   });
 });
 

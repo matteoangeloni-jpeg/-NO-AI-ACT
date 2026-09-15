@@ -6,6 +6,7 @@ import { L, caseText, fmt } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
 import { addNoiseOverlay } from '../ui/backdrop';
+import { ReadingLayer, type ReadingSection } from '../systems/ReadingLayer';
 
 /**
  * Glossario operativo (v0.5): voci brevi consultabili una alla volta, con
@@ -90,5 +91,22 @@ export class GlossaryScene extends Phaser.Scene {
 
     c.add([def, why, caution]);
     this.content = c;
+
+    /**
+     * Il glossario è una voce alla volta, sfogliata con le frecce: lo strato
+     * di lettura pubblica la voce corrente, e si aggiorna a ogni passo. È
+     * `render` a farlo, non `create`, altrimenti resterebbe fermo sulla
+     * prima voce per tutto il tempo.
+     */
+    const sections: ReadingSection[] = [
+      { text: fmt(g.counter, { index: this.index + 1, total: entries.length }) },
+      { heading: entry.term, text: entry.definition },
+      { heading: g.whyLabel, text: entry.whyItMatters }
+    ];
+    if (entry.relatedCases.length > 0) {
+      sections.push({ heading: g.relatedLabel, items: entry.relatedCases.map((id) => caseText(id).title) });
+    }
+    sections.push({ heading: g.cautionLabel, text: entry.caution });
+    ReadingLayer.setScene(g.title, sections);
   }
 }

@@ -6,6 +6,7 @@ import { NOTE_BOX } from './consequenceLayout';
 import { AudioSystem } from '../systems/AudioSystem';
 import { IndicatorHud, randomComment } from '../systems/IndicatorSystem';
 import { StateManager } from '../systems/StateManager';
+import { ReadingLayer } from '../systems/ReadingLayer';
 import { Button } from '../ui/Button';
 import { DiscussionPauseOverlay } from '../ui/DiscussionPauseOverlay';
 import { Panel } from '../ui/Panel';
@@ -125,6 +126,20 @@ export class ConsequenceScene extends Phaser.Scene {
     if (pause) {
       new Button(this, 240, GAME_HEIGHT - 60, L().ui.discussionPause.button, () => pause.toggle(), { width: 320, height: 40, fontSize: 13, variant: 'ghost' });
     }
+
+    // Conseguenza e nota arrivano a macchina o in dissolvenza: lo strato di
+    // lettura le pubblica per intero subito, perché un'animazione non è un
+    // modo di leggere.
+    ReadingLayer.setScene(headerText, [
+      {
+        text: fmt(ui.summary, {
+          classification: L().classifications[this.params.classification],
+          measure: L().measures[this.params.measure]
+        })
+      },
+      { heading: ui.territoryLabel, text: consequenceFor(texts, quality) },
+      { heading: ui.noteLabel, text: noteText }
+    ]);
 
     consequence.write(consequenceFor(texts, quality), () => {
       this.tweens.add({ targets: note, alpha: 1, duration: 300 });

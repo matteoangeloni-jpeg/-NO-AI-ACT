@@ -9,6 +9,7 @@ import { L, fmt } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
 import { addNoiseOverlay } from '../ui/backdrop';
+import { ReadingLayer } from '../systems/ReadingLayer';
 
 /**
  * Debrief docente: report LOCALE delle decisioni di gioco.
@@ -68,6 +69,23 @@ export class DebriefScene extends Phaser.Scene {
     // fascicolo città (v0.5): effetti sistemici qualitativi, una riga compatta
     const dossierLine = report.cityDossier.map((d) => `${d.indicator}: ${d.trend}`).join(' · ');
     this.add.text(left, y, `${t.ui.cityDossier.title} — ${dossierLine}`, textStyle(11.5, COLOR_STR.accentText, { wordWrap: { width: 1020 } }));
+
+    // Il debrief è fatto per essere letto e stampato: è la schermata che più
+    // di tutte doveva esistere anche nello strato di lettura, e non c'era. Il
+    // rilievo NON è troncato qui: il taglio a 72 caratteri serve a non far
+    // traboccare il pannello, non a nascondere qualcosa a chi legge.
+    ReadingLayer.setScene(t.ui.debrief.title, [
+      { text: t.ui.debrief.subtitle },
+      { text: `${fmt(t.ui.debrief.missionLine, { mission: report.mission })} · ${fmt(t.ui.debrief.difficultyLine, { difficulty: report.difficulty })}` },
+      {
+        heading: t.ui.debrief.casesLabel,
+        items: report.cases.map((row) => `${fmt(t.ui.debrief.caseLine, { title: row.title, outcome: row.outcome })} — ${row.mainFinding}`)
+      },
+      { text: fmt(t.ui.debrief.normsLine, { done: report.normsUnlocked, total: NORMS.length }) },
+      { text: timeLine },
+      { text: indicatorsLine },
+      { heading: t.ui.cityDossier.title, text: dossierLine }
+    ]);
     y += 28;
 
     this.add.text(left, y, t.ui.debrief.questionsLabel, textStyle(12, COLOR_STR.accentText));

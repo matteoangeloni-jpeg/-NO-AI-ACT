@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { RECURRENCE_THRESHOLD, buildSessionSummary, sessionIsOver } from '../src/game/systems/SessionSummary';
 import { planGame } from '../src/game/data/gameModes';
 import { PLAYABLE_CASES, getCase } from '../src/game/data/cases';
@@ -166,4 +168,35 @@ describe('il cruscotto ha i suoi testi in entrambe le lingue', () => {
       expect(s.recurring.trimEnd(), `${lang}: il segnaposto dell'errore porta già la sua chiusura`).toMatch(/\{error\}$/);
     });
   }
+});
+
+/**
+ * AUTOCONTROLLO FINALE ALLA FINE DEL TURNO.
+ *
+ * Il confronto pre/post è il senso dello strumento, ma la metà finale
+ * viveva solo nel finale del gioco — quattro fascicoli e una visita
+ * esplicita — e chi giocava mezz'ora non la incontrava mai.
+ */
+describe("l'autocontrollo finale è raggiungibile a fine turno", () => {
+  const scene = readFileSync(resolve(__dirname, '../src/game/scenes/SessionEndScene.ts'), 'utf8');
+
+  it('il cruscotto lo propone, con la fase giusta', () => {
+    expect(scene).toContain("new SelfCheckOverlay(this, 'post')");
+    expect(scene).toContain('buttonPost');
+  });
+
+  it('solo se non è già stato fatto: rifarlo cancellerebbe il confronto', () => {
+    expect(scene).toContain('StateManager.selfCheck.post === null');
+  });
+
+  it('e il blocco centrale lascia spazio alla riga in più quando compare', () => {
+    // senza questo il pannello finiva sotto il pulsante
+    const band = scene.slice(scene.indexOf('BAND_BOTTOM'), scene.indexOf('const top ='));
+    expect(band).toContain('selfCheck.post === null');
+  });
+
+  it('il finale continua a offrirlo: questa è una porta in più, non una che si sposta', () => {
+    const finale = readFileSync(resolve(__dirname, '../src/game/scenes/FinaleScene.ts'), 'utf8');
+    expect(finale).toContain("new SelfCheckOverlay(this, 'post')");
+  });
 });

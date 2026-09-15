@@ -3,6 +3,7 @@ import { Button } from './Button';
 import { Panel } from './Panel';
 import { L } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from './theme';
+import { ReadingLayer } from '../systems/ReadingLayer';
 
 /**
  * Pausa di discussione (v1.1, solo modalità docente): mostra le domande di
@@ -32,9 +33,11 @@ export class DiscussionPauseOverlay {
   }
 
   close(): void {
+    if (!this.container) return;
     this.scene.input.keyboard?.off('keydown-ESC', this.escHandler);
-    this.container?.destroy();
+    this.container.destroy();
     this.container = undefined;
+    ReadingLayer.closeOverlay();
   }
 
   private readonly escHandler = (): void => this.close();
@@ -73,6 +76,7 @@ export class DiscussionPauseOverlay {
     });
 
     container.add(new Button(scene, cx, cy + panelH / 2 - 34, ui.close, () => this.close(), { width: 220, height: 38, fontSize: 13 }));
+    ReadingLayer.openOverlay(ui.title, [{ text: ui.intro }, { items: [...this.questions] }]);
 
     scene.input.keyboard?.on('keydown-ESC', this.escHandler);
     this.container = container;

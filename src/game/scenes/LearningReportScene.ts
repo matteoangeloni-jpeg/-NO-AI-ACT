@@ -8,6 +8,7 @@ import { L, fmt } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
 import { addNoiseOverlay } from '../ui/backdrop';
+import { ReadingLayer } from '../systems/ReadingLayer';
 
 /**
  * Rapporto di apprendimento finale (v1.1): trasforma gli esiti dei casi in un
@@ -102,6 +103,29 @@ export class LearningReportScene extends Phaser.Scene {
 
     // avvertenza obbligatoria: didattico, non consulenza legale
     this.add.text(left, y, ui.disclaimer, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 1040 }, lineSpacing: 4, fontStyle: 'italic' }));
+
+    ReadingLayer.setScene(ui.title, [
+      { text: ui.intro },
+      {
+        heading: ui.scoreLabel,
+        text: fmt(ui.scoreLine, {
+          correct: report.correct,
+          partial: report.partial,
+          wrong: report.wrong,
+          completed: report.completedCount,
+          total: report.totalPlayable
+        })
+      },
+      {
+        heading: ui.conceptsLabel,
+        items: report.concepts.length === 0
+          ? [ui.noneYet]
+          : report.concepts.map((c) => `${t.ui.concepts[c.id]} (${ui.performance[perfOf(c.score)]})`)
+      },
+      { text: `${ui.strongestLabel}: ${strongestValue}` },
+      { text: `${ui.reviewLabel}: ${reviewValue}` },
+      { text: ui.disclaimer }
+    ]);
 
     new Button(this, cx, GAME_HEIGHT - 44, ui.back, () => this.scene.start('Finale'), { width: 320, height: 40, fontSize: 13 });
     this.input.keyboard?.on('keydown-ESC', () => this.scene.start('Finale'));

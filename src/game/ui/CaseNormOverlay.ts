@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { Button } from './Button';
 import { Panel } from './Panel';
 import { L, normText } from '../i18n';
+import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from './theme';
 
 /**
@@ -40,8 +41,10 @@ export class CaseNormOverlay {
   }
 
   close(): void {
-    this.container?.destroy();
+    if (!this.container) return;
+    this.container.destroy();
     this.container = undefined;
+    ReadingLayer.closeOverlay();
   }
 
   open(): void {
@@ -95,5 +98,16 @@ export class CaseNormOverlay {
     container.add(new Button(scene, cx, cy + panelH / 2 - 34, ui.close, () => this.close(), { width: 280, height: 38, fontSize: 13 }));
 
     this.container = container;
+
+    // Lo stesso testo che il pannello mostra, reso leggibile: senza, chi usa
+    // uno screen reader apre la norma del caso e continua a sentire la
+    // schermata della decisione sotto.
+    ReadingLayer.openOverlay(rule.title, [
+      { text: ui.supportNote },
+      { heading: ui.referenceLabel, text: rule.reference },
+      { heading: ui.inShortLabel, text: rule.explanation },
+      { heading: ui.whyLabel, text: ui.whyFallback },
+      { text: ui.continuityNote }
+    ]);
   }
 }

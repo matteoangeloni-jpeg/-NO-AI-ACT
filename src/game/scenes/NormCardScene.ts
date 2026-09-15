@@ -4,6 +4,7 @@ import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { NormSystem } from '../systems/NormSystem';
 import { StateManager } from '../systems/StateManager';
+import { ReadingLayer } from '../systems/ReadingLayer';
 import { sessionIsOver } from '../systems/SessionSummary';
 import { Button } from '../ui/Button';
 import { NormCardView } from '../ui/NormCard';
@@ -62,6 +63,14 @@ export class NormCardScene extends Phaser.Scene {
       });
       emitter.explode(36);
     }
+
+    ReadingLayer.setScene(ui.unlocked, [
+      { text: this.quality === 'wrong' ? ui.subWrong : ui.subCorrect },
+      { heading: norm.title, text: norm.reference },
+      { text: norm.explanation },
+      { heading: ui.democraticFunctionLabel, text: norm.democraticFunction },
+      { text: norm.notMeaning }
+    ]);
 
     const backToMap = (): void => {
       fadeOutScene(this, 250, () => this.scene.start('CityMap'));

@@ -11,7 +11,7 @@ import { showToast } from '../ui/AlertToast';
 import { L, fmt, nextLanguage } from '../i18n';
 import { AUDIENCE_IDS, SESSION_DURATIONS } from '../data/audiences';
 import { GAME_MODE_IDS, getGameMode } from '../data/gameModes';
-import { ReadingLayer } from '../systems/ReadingLayer';
+import { ReadingLayer, type ReadingSection } from '../systems/ReadingLayer';
 import type { DifficultyMode } from '../data/types';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { footerBaselineY, layoutVStack } from '../ui/layout';
@@ -70,17 +70,25 @@ export class TitleScene extends Phaser.Scene {
     const GROUP_H = 44;
     const m = L().ui.menu;
     const specs: Array<{ height: number; build: (y: number) => void }> = [];
+    // le etichette si raccolgono insieme ai pulsanti: due elenchi separati
+    // divergerebbero alla prima voce aggiunta
+    const labels: string[] = [];
     if (showContinue) {
       specs.push({ height: PRIMARY_H, build: (y) => new Button(this, cx, y, m.continue, () => this.startGame(false)) });
+      labels.push(m.continue);
     }
     // NUOVA PARTITA non parte più al primo clic: apre la scelta della
     // modalità. Il pubblico e la durata vivono lì dentro, dove servono,
     // invece che in una voce di menu a parte che nessuno collegava alla
     // partita che stava per cominciare.
     specs.push({ height: PRIMARY_H, build: (y) => new Button(this, cx, y, m.newGame, () => this.openNewGame(hasSave)) });
+    labels.push(m.newGame);
     specs.push({ height: GROUP_H, build: (y) => new Button(this, cx, y, m.teachers, () => this.openTeachers(guide), { height: GROUP_H, fontSize: 14, variant: 'ghost' }) });
+    labels.push(m.teachers);
     specs.push({ height: GROUP_H, build: (y) => new Button(this, cx, y, m.resources, () => this.openResources(siteLinks), { height: GROUP_H, fontSize: 14, variant: 'ghost' }) });
+    labels.push(m.resources);
     specs.push({ height: GROUP_H, build: (y) => new Button(this, cx, y, m.settings, () => this.openSettings(), { height: GROUP_H, fontSize: 14, variant: 'ghost' }) });
+    labels.push(m.settings);
 
     const footerY = footerBaselineY();
     const ys = layoutVStack({
@@ -95,19 +103,46 @@ export class TitleScene extends Phaser.Scene {
     this.add
       .text(cx, footerY, L().ui.footerDisclaimer, textStyle(12, COLOR_STR.paperDim))
       .setOrigin(0.5);
+
+    // Le voci del menu sono pulsanti sul canvas: senza questo, chi legge con
+    // uno screen reader arriva sul titolo e non sa che cosa può fare.
+    ReadingLayer.setScene(L().ui.gameTitle, [
+      { text: L().ui.gameSubtitle },
+      { text: L().ui.titleTagline },
+      { items: specs.map((_, i) => labels[i]) },
+      { text: L().ui.footerDisclaimer }
+    ]);
   }
 
   // ------------------------- pannelli di gruppo -------------------------
 
   private closeGroup(): void {
+    if (!this.group) return;
     this.input.keyboard?.off('keydown-ESC', this.escHandler);
-    this.group?.destroy();
+    this.group.destroy();
     this.group = undefined;
+    ReadingLayer.closeOverlay();
   }
 
   private readonly escHandler = (): void => this.closeGroup();
 
-  /** Fondale + pannello + titolo + CHIUDI. Un solo pannello aperto alla volta. */
+  /** Titolo del pannello aperto, per poterne sostituire il contenuto. */
+  private panelTitle = '';
+
+  /** Contenuto del pannello aperto, per lo strato di lettura. */
+  private describePanel(sections: ReadingSection[]): void {
+    ReadingLayer.replaceOverlay(this.panelTitle, sections);
+  }
+
+  /**
+   * Fondale + pannello + titolo + CHIUDI. Un solo pannello aperto alla volta.
+   *
+   * Pubblica anche sullo strato di lettura. Questi quattro pannelli non sono
+   * classi in ui/ ma container costruiti qui, e per questo erano sfuggiti a
+   * ogni controllo: chi legge con uno screen reader apriva NUOVA PARTITA e
+   * continuava a sentire la schermata del titolo. Il titolo si pubblica
+   * subito; chi costruisce il contenuto lo arricchisce con `describePanel`.
+   */
   private openPanel(title: string, panelH: number): Phaser.GameObjects.Container {
     this.closeGroup();
     const cx = GAME_WIDTH / 2;
@@ -119,6 +154,8 @@ export class TitleScene extends Phaser.Scene {
     c.add(this.add.rectangle(cx, cy, panelW, panelH, 0x000000, 0.001).setInteractive());
     c.add(this.add.text(cx - panelW / 2 + 40, cy - panelH / 2 + 26, title, textStyle(18, COLOR_STR.accentText, { fontStyle: 'bold' })));
     c.add(new Button(this, cx, cy + panelH / 2 - 38, L().ui.titleGroups.close, () => this.closeGroup(), { width: 220, height: 40, fontSize: 13 }));
+    ReadingLayer.openOverlay(title, []);
+    this.panelTitle = title;
     this.input.keyboard?.on('keydown-ESC', this.escHandler);
     this.group = c;
     return c;
@@ -208,6 +245,10 @@ export class TitleScene extends Phaser.Scene {
 
     // nota privacy locale, concisa
     const note = this.add.text(cx - 380, rowY(4), g.settingsPrivacy, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
+    this.describePanel([
+      { items: [audioBtn, musicBtn, motionBtn, crtBtn, langBtn, diffBtn, creditsBtn, resetBtn].map((b) => b.labelText) },
+      { text: g.settingsPrivacy }
+    ]);
     c.add([audioBtn, musicBtn, motionBtn, crtBtn, langBtn, diffBtn, resetBtn, creditsBtn, note]);
   }
 
@@ -321,6 +362,14 @@ export class TitleScene extends Phaser.Scene {
         warnText.setText(plan.overBudget ? fmt(g.overBudget, { minutes: String(plan.estimatedMinutes) }) : '');
         startBtn.setEnabled(true);
       }
+      this.describePanel([
+        { text: g.subtitle },
+        { heading: modeBtn.labelText, text: desc.text },
+        { text: audBtn.visible ? audBtn.labelText : '' },
+        { text: durBtn.labelText },
+        { text: `${planText.text} ${warnText.text}`.trim() },
+        { text: g.note }
+      ]);
       ReadingLayer.announce(`${modeBtn.labelText} · ${planText.text} ${warnText.text}`.trim());
     };
 
@@ -378,6 +427,7 @@ export class TitleScene extends Phaser.Scene {
 
     // guida docente (prima/durante/dopo la lezione), sopra il pannello (depth 90)
     const guideBtn = new Button(this, cx + 190, cy - 8, L().ui.teacherGuide.button, () => guide.toggle(), { width: 360, height: 46, fontSize: 12, variant: 'ok' });
+    this.describePanel([{ text: g.teachersNote }, { items: [teacherBtn.labelText, guideBtn.labelText] }]);
     c.add([note, teacherBtn, guideBtn]);
   }
 
@@ -401,6 +451,7 @@ export class TitleScene extends Phaser.Scene {
       const by = cy - 42 + Math.floor(i / 2) * 58;
       return new Button(this, bx, by, it.label, it.go, { width: 360, height: 46, fontSize: 13, variant: 'ghost' });
     });
+    this.describePanel([{ text: g.resourcesNote }, { items: items.map((it) => it.label) }]);
     c.add([note, ...built]);
   }
 

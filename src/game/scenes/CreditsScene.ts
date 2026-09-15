@@ -7,6 +7,7 @@ import { L, getLanguage } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
 import { addNoiseOverlay } from '../ui/backdrop';
+import { ReadingLayer } from '../systems/ReadingLayer';
 
 /**
  * Schermata credits essenziale. I crediti tecnici completi vivono nei file
@@ -55,6 +56,14 @@ export class CreditsScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     this.add.text(cx, GAME_HEIGHT - 86, L().ui.footerDisclaimer, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
+
+    ReadingLayer.setScene(ui.title, [
+      { heading: ui.heading, text: `${ui.roleLabel}: ${ui.author}` },
+      { text: `${ui.affiliation} — ${ui.phdProgramme}` },
+      { text: ui.independence },
+      { text: ui.note },
+      { text: L().ui.footerDisclaimer }
+    ]);
 
     new Button(this, cx, GAME_HEIGHT - 46, ui.back, () => this.scene.start('Title'), { width: 240, variant: 'ghost' });
     this.input.keyboard?.on('keydown-ESC', () => this.scene.start('Title'));

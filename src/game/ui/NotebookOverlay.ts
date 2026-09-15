@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { buildNotebook } from '../systems/InvestigationNotebook';
 import { StateManager } from '../systems/StateManager';
-import { ReadingLayer } from '../systems/ReadingLayer';
+import { ReadingLayer, type ReadingSection } from '../systems/ReadingLayer';
 import { Button } from './Button';
 import { Panel } from './Panel';
 import { L, caseText, fmt } from '../i18n';
@@ -29,9 +29,11 @@ export class NotebookOverlay {
   }
 
   close(): void {
+    if (!this.container) return;
     this.scene.input.keyboard?.off('keydown-ESC', this.escHandler);
-    this.container?.destroy();
+    this.container.destroy();
     this.container = undefined;
+    ReadingLayer.closeOverlay();
   }
 
   private readonly escHandler = (): void => this.close();
@@ -53,14 +55,25 @@ export class NotebookOverlay {
     const left = cx - panelW / 2 + 36;
     const wrap = panelW - 100;
     let y = cy - panelH / 2 + 24;
+    /**
+     * Le sezioni per lo strato di lettura si raccolgono DENTRO gli stessi
+     * due aiutanti che disegnano: scrivere il taccuino due volte, una per il
+     * canvas e una per chi legge, significa vederli divergere alla prima
+     * modifica. Così il testo letto è quello disegnato, per costruzione.
+     */
+    const sections: ReadingSection[] = [];
     const heading = (text: string): void => {
       container.add(this.scene.add.text(left, y, text, textStyle(13, COLOR_STR.accentText, { fontStyle: 'bold' })));
       y += 22;
+      sections.push({ heading: text, items: [] });
     };
     const line = (text: string, color: string = COLOR_STR.paper, size = 11.5): void => {
       const o = this.scene.add.text(left, y, text, textStyle(size, color, { wordWrap: { width: wrap }, lineSpacing: 3 }));
       container.add(o);
       y += o.height + 4;
+      const last = sections[sections.length - 1];
+      if (last?.items) last.items.push(text);
+      else sections.push({ text });
     };
 
     container.add(this.scene.add.text(left, y, t.title, textStyle(18, COLOR_STR.paper, { fontStyle: 'bold' })));
@@ -107,6 +120,7 @@ export class NotebookOverlay {
     }
 
     container.add(new Button(this.scene, cx, cy + panelH / 2 - 32, t.close, () => this.close(), { width: 200, height: 38, fontSize: 13 }));
+    ReadingLayer.openOverlay(t.title, sections);
     ReadingLayer.announce(fmt(t.announce, { n: nb.facts.length, open: nb.openQuestions.length }));
     this.scene.input.keyboard?.on('keydown-ESC', this.escHandler);
     this.container = container;

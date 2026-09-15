@@ -3,6 +3,7 @@ import { getCase } from '../data/cases';
 import type { CaseData, IncidentChoice } from '../data/types';
 import { AudioSystem } from '../systems/AudioSystem';
 import { StateManager } from '../systems/StateManager';
+import { ReadingLayer } from '../systems/ReadingLayer';
 import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
 import { TypewriterText } from '../ui/TypewriterText';
@@ -73,5 +74,13 @@ export class IncidentScene extends Phaser.Scene {
     });
     NUMBER_KEYS.forEach((key, i) => this.input.keyboard?.on(`keydown-${key}`, () => pick(i)));
     this.add.text(cx, GAME_HEIGHT - 66, L().ui.incident.hint, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
+
+    // Il testo arriva a macchina: lo strato di lettura lo pubblica per
+    // intero subito, perché un'animazione non è un modo di leggere.
+    ReadingLayer.setScene(L().ui.incident.header, [
+      { heading: incident.title, text: incident.text },
+      { items: labels.map((label, i) => `${i + 1}. ${label}`) },
+      { text: L().ui.incident.hint }
+    ]);
   }
 }
