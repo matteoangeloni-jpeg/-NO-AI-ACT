@@ -18,6 +18,7 @@
  * Exits non-zero on any failed check. Screenshots go to scripts/smoke/out/.
  */
 import { chromium } from 'playwright';
+import { boundsToPageSrc } from './lib-canvas-coords.mjs';
 import { mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
@@ -265,23 +266,13 @@ async function switchScene(page, key, data) {
  * canvas riempie la finestra.
  */
 function chromeOverlapFn() {
+  /* eslint-disable no-undef */
   const g = window.game;
   const s = g?.scene?.scenes?.find((x) => x.scene.isActive() && x.scene.key !== 'Boot');
   if (!s) return null;
-  const c = g.canvas.getBoundingClientRect();
-  const sx = c.width / g.scale.baseSize.width;
-  const sy = c.height / g.scale.baseSize.height;
-  const cam = s.cameras.main;
-
-  const toPage = (o) => {
-    const b = o.getBounds();
-    return {
-      x: (b.x - cam.scrollX) * cam.zoom * sx + c.left,
-      y: (b.y - cam.scrollY) * cam.zoom * sy + c.top,
-      w: b.width * cam.zoom * sx,
-      h: b.height * cam.zoom * sy
-    };
-  };
+  // La conversione mondo→pagina è quella di lib-canvas-coords.mjs, iniettata
+  // qui come sorgente: `page.evaluate` non può chiudere su un import.
+  const toPage = boundsToPage;
 
   const buttons = [];
   const walk = (list) => {
@@ -315,6 +306,13 @@ function chromeOverlapFn() {
   }
   return { scene: s.scene.key, buttons: buttons.length, chrome: chrome.length, hits };
 }
+
+/**
+ * `page.evaluate` serializza la funzione e la esegue in un contesto che non
+ * conosce i nostri import: la conversione mondo→pagina va portata dentro
+ * come sorgente. Si compone qui una volta sola.
+ */
+const chromeOverlapSrc = `(() => { ${boundsToPageSrc}\n return (${chromeOverlapFn.toString()})(); })()`;
 
 function assertNoChromeOverlap(report, ctx) {
   if (!report) { fail.push(`${ctx}: nessun report di sovrapposizione col contorno`); return; }
@@ -408,7 +406,7 @@ for (const vp of CANVAS_VIEWPORTS) {
       continue;
     }
     assertSceneLayout(await page.evaluate(sceneReportFn), `${ctx} Title`, 'Title');
-    assertNoChromeOverlap(await page.evaluate(chromeOverlapFn), `${ctx} Title`);
+    assertNoChromeOverlap(await page.evaluate(chromeOverlapSrc), `${ctx} Title`);
     await page.screenshot({ path: `${OUT}/title-${vp.w}x${vp.h}-${lang}.png` });
 
     // La decisione va guardata a OGNI viewport, non solo in quello dei
@@ -416,7 +414,7 @@ for (const vp of CANVAS_VIEWPORTS) {
     // dipende dalle proporzioni della finestra, e compare per prima dove il
     // canvas la riempie tutta (1280×720). Costa una sola start di scena.
     await switchScene(page, 'Decision', { caseId: 'case_scoring', citedClues: [0, 1] });
-    assertNoChromeOverlap(await page.evaluate(chromeOverlapFn), `${ctx} Decision`);
+    assertNoChromeOverlap(await page.evaluate(chromeOverlapSrc), `${ctx} Decision`);
     await switchScene(page, 'Title');
 
     // Pannello e riepilogo si controllano su UN solo viewport per lingua.

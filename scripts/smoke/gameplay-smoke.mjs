@@ -21,6 +21,7 @@
  * Exits non-zero on any failed check.
  */
 import { chromium } from 'playwright';
+import { worldToPageFn } from './lib-canvas-coords.mjs';
 
 const BASE = process.env.BASE || 'http://localhost:4200';
 const OUT_MOBILE = new URL('./out', import.meta.url).pathname;
@@ -43,31 +44,11 @@ page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
 page.on('request', (r) => hosts.add(new URL(r.url()).host));
 
 /**
- * Dalle coordinate LOGICHE del gioco ai pixel della pagina.
- *
- * Non sono più la stessa cosa, e non lo erano mai davvero: il canvas è
- * centrato, scalato da Scale.FIT e ora anche rientrato dalle fasce riservate
- * al link di uscita e al pulsante del testo schermata. Questo smoke dava per
- * scontato che a 1280×720 le due coincidessero; quando hanno smesso di
- * coincidere, ogni clic è caduto qualche decina di pixel più in là e le scene
- * non cambiavano più, senza che nessun messaggio dicesse perché.
- *
- * La conversione si chiede al gioco — rettangolo del canvas, dimensione base,
- * zoom e scroll della camera — invece di essere ricavata da un'ipotesi sulla
- * finestra.
+ * Dalle coordinate LOGICHE del gioco ai pixel della pagina: la conversione
+ * vive in lib-canvas-coords.mjs, perché non è una formula ma tre
+ * trasformazioni in fila e scriverla a mano l'ha già sbagliata una volta.
  */
-const toPage = (lx, ly) => page.evaluate(({ lx, ly }) => {
-  const g = window.game;
-  const c = g.canvas.getBoundingClientRect();
-  const sx = c.width / g.scale.baseSize.width;
-  const sy = c.height / g.scale.baseSize.height;
-  const scenes = g.scene.getScenes(true);
-  const cam = scenes[scenes.length - 1].cameras.main;
-  return {
-    x: (lx - cam.scrollX) * cam.zoom * sx + c.left,
-    y: (ly - cam.scrollY) * cam.zoom * sy + c.top
-  };
-}, { lx, ly });
+const toPage = (lx, ly) => page.evaluate(worldToPageFn, { x: lx, y: ly });
 
 const click = async (lx, ly, w = 400) => {
   const { x, y } = await toPage(lx, ly);
