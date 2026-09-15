@@ -142,3 +142,48 @@ describe('the Node version in .nvmrc satisfies the toolchain', () => {
     );
   });
 });
+
+/**
+ * AUDIT DEI METADATI PUBBLICI (ticket Q14).
+ *
+ * La suite release-integrity impedisce che un conteggio di casi sbagliato
+ * ricompaia in una pagina, in un README o nel bundle. Non poteva vedere
+ * l'unico posto in cui "11 casi" è sopravvissuto per mesi: la descrizione
+ * del repository su GitHub, che non è un file.
+ *
+ * Il controllo di rete non può stare nel gate di build — né la build né i
+ * test devono dipendere da una chiamata a GitHub — quindi qui si verifica
+ * che lo strumento esista, sia invocabile e ricavi i valori attesi dal
+ * repository invece di ripeterli.
+ */
+describe('esiste uno strumento per i metadati che nessun file può guardare', () => {
+  const script = read('scripts/ci/audit-metadata.mjs');
+
+  it('è committato e ha il suo script npm', () => {
+    expect(pkg.scripts['audit:metadata']).toContain('scripts/ci/audit-metadata.mjs');
+  });
+
+  it('resta FUORI dal gate di build: fa rete, e la build non deve dipenderne', () => {
+    const workflow = read('.github/workflows/deploy.yml');
+    expect(workflow, 'un gate che chiama GitHub fallisce quando GitHub è lento').not.toContain('audit:metadata');
+  });
+
+  it('senza token non fallisce: tace ed esce pulito', () => {
+    expect(script).toContain('SALTATO');
+    expect(script).toMatch(/process\.exit\(0\)/);
+  });
+
+  it('il conteggio atteso è LETTO da release.config.json, non ricopiato', () => {
+    expect(script).toContain('cfg.playableCases');
+    expect(script, 'un numero scritto qui sarebbe la stessa trappola di prima').not.toMatch(/=== 13|!== 13/);
+  });
+
+  it('segnala i refusi nei topic senza vietare un topic nuovo', () => {
+    expect(script, 'un elenco chiuso fallirebbe al primo topic legittimo aggiunto').toContain('distance(t, k) <= 2');
+  });
+
+  it('confronta anche la licenza che GitHub riconosce con quella dichiarata', () => {
+    expect(script).toContain('meta.license');
+    expect(script).toContain('cfg.licenses?.code');
+  });
+});
