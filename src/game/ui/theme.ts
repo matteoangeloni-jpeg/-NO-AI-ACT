@@ -38,14 +38,44 @@ export const GAME_HEIGHT = 720;
  * Fattore di risoluzione del rendering.
  *
  * Il mondo di gioco resta 1280×720 in unità logiche — nessuna coordinata
- * cambia — ma il canvas viene disegnato a RENDER_SCALE volte quei pixel e
- * poi rimpicciolito dallo scale manager. Su uno schermo 1080p o 1440p il
- * risultato smette di essere un 720p ingrandito.
+ * cambia — ma il canvas viene disegnato a RENDER_SCALE volte quei pixel,
+ * così su uno schermo grande il gioco non è un 720p ingrandito.
  *
- * 2 è il compromesso: 4× i pixel da riempire è già percepibile su macchine
- * modeste, e oltre il raddoppio il guadagno visivo non si vede più.
+ * Il fattore NON è fisso. Disegnare sempre al doppio significa, su uno
+ * schermo che mostra il gioco a 1280×720 reali, riempire quattro volte i
+ * pixel necessari per non guadagnare nulla — e il costo non è teorico:
+ * misurato in un browser senza accelerazione hardware, il doppio fisso
+ * portava l'avvio da 2,3 a 7,1 secondi, perché a rallentare è il ritmo dei
+ * fotogrammi, non la generazione delle texture (86 ms in tutto).
+ *
+ * Qui si calcola quanti pixel reali occuperà davvero un pixel logico —
+ * l'ingrandimento di Scale.FIT moltiplicato per la densità dello schermo —
+ * e si disegna esattamente quelli, senza superare MAX_RENDER_SCALE.
  */
-export const RENDER_SCALE = 2;
+export const MAX_RENDER_SCALE = 2;
+
+export function computeRenderScale(
+  viewportWidth: number,
+  viewportHeight: number,
+  devicePixelRatio: number
+): number {
+  const fit = Math.min(viewportWidth / GAME_WIDTH, viewportHeight / GAME_HEIGHT);
+  const wanted = fit * (devicePixelRatio > 0 ? devicePixelRatio : 1);
+  if (!Number.isFinite(wanted) || wanted <= 0) return 1;
+  // Mai sotto 1: sotto la dimensione logica si perderebbe dettaglio invece
+  // di risparmiare. Mai sopra il tetto: oltre non si vede la differenza.
+  return Math.min(MAX_RENDER_SCALE, Math.max(1, wanted));
+}
+
+/**
+ * Fattore scelto all'avvio. È deciso una volta: cambiarlo a finestra
+ * ridimensionata vorrebbe dire ricreare il canvas e tutte le texture
+ * generate, per una nitidezza che l'ingrandimento di FIT già preserva.
+ */
+export const RENDER_SCALE: number =
+  typeof window === 'undefined'
+    ? 1
+    : computeRenderScale(window.innerWidth, window.innerHeight, window.devicePixelRatio || 1);
 
 export function textStyle(
   size: number,

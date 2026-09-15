@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { MAX_RENDER_SCALE, computeRenderScale } from '../src/game/ui/theme';
 
 /**
  * RISOLUZIONE DI RENDERING.
@@ -27,10 +28,39 @@ const config = read('src/game/GameConfig.ts');
 const theme = read('src/game/ui/theme.ts');
 
 describe('il canvas è più grande del mondo logico', () => {
-  it('RENDER_SCALE è dichiarato una volta sola e vale almeno 2', () => {
-    const m = theme.match(/export const RENDER_SCALE = (\d+)/);
-    expect(m, 'RENDER_SCALE deve restare in theme.ts, accanto a GAME_WIDTH').not.toBeNull();
-    expect(Number(m?.[1])).toBeGreaterThanOrEqual(2);
+  it('il fattore vale quanti pixel reali occuperà un pixel logico', () => {
+    // schermo che mostra il gioco a dimensione logica: 1:1, niente da guadagnare
+    expect(computeRenderScale(1280, 720, 1)).toBe(1);
+    // schermo più grande: si disegna quanto verrà davvero mostrato
+    expect(computeRenderScale(1920, 1080, 1)).toBeCloseTo(1.5, 5);
+    expect(computeRenderScale(2560, 1440, 1)).toBe(2);
+    // densità dello schermo compresa
+    expect(computeRenderScale(1280, 720, 2)).toBe(2);
+  });
+
+  it('non scende mai sotto 1: sotto la dimensione logica si perde dettaglio', () => {
+    expect(computeRenderScale(640, 360, 1)).toBe(1);
+    expect(computeRenderScale(320, 240, 0.5)).toBe(1);
+  });
+
+  it('non supera il tetto: oltre non si vede la differenza e si paga sola', () => {
+    expect(computeRenderScale(5120, 2880, 2)).toBe(MAX_RENDER_SCALE);
+    expect(MAX_RENDER_SCALE).toBeGreaterThanOrEqual(2);
+  });
+
+  it('un viewport assurdo non produce un canvas assurdo', () => {
+    for (const bad of [
+      computeRenderScale(0, 0, 1),
+      computeRenderScale(Number.NaN, 720, 1),
+      computeRenderScale(1280, 720, Number.NaN)
+    ]) {
+      expect(bad).toBeGreaterThanOrEqual(1);
+      expect(bad).toBeLessThanOrEqual(MAX_RENDER_SCALE);
+    }
+  });
+
+  it('fuori da un browser vale 1, così i test non dipendono da una finestra', () => {
+    expect(theme).toContain("typeof window === 'undefined'");
   });
 
   it('la dimensione del gioco è il mondo moltiplicato per RENDER_SCALE', () => {

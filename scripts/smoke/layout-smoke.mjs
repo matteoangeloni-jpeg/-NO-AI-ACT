@@ -245,15 +245,31 @@ async function advanceToSummary(page) {
   await page.waitForTimeout(400);
 }
 
-async function bootTitle(page, lang) {
+/**
+ * Porta il gioco alla schermata del titolo.
+ *
+ * Aspettava nove secondi fissi prima di controllare, e il controllo che
+ * seguiva inghiottiva il proprio scadere con un .catch vuoto: se il titolo
+ * non fosse mai arrivato, le verifiche sarebbero girate su una schermata
+ * qualsiasi dichiarando PASS. Ora attende la condizione — più veloce, perché
+ * il preload dura molto meno di nove secondi, e soprattutto onesto, perché
+ * se non arriva lo dice invece di proseguire al buio.
+ */
+async function bootTitle(page, lang, ctx) {
   await page.addInitScript((seed) => localStorage.setItem('no-ai-act-save-v1', seed), SEED_WITH_PROGRESS);
   await page.goto(`${BASE}/play/?lang=${lang}`, { waitUntil: 'load' });
-  await page.waitForTimeout(9000); // Phaser boot
-  await page.waitForFunction(() => {
-    const g = window.game; if (!g) return false;
-    const a = g.scene.getScenes(true);
-    return a.length && a[a.length - 1].scene.key === 'Title';
-  }, { timeout: 15000 }).catch(() => {});
+  try {
+    await page.waitForFunction(() => {
+      const g = window.game; if (!g) return false;
+      const a = g.scene.getScenes(true);
+      return a.some((s) => s.scene.key === 'Title');
+    }, { timeout: 40000 });
+  } catch {
+    fail.push(`${ctx}: la schermata del titolo non è mai arrivata`);
+    return false;
+  }
+  await page.waitForTimeout(300);
+  return true;
 }
 
 async function gotoBriefing(page) {
@@ -282,7 +298,11 @@ for (const vp of CANVAS_VIEWPORTS) {
     page.on('console', (m) => { if (m.type() === 'error') errors.push(`[${ctx}] ${m.text()}`); });
     page.on('request', (r) => { try { hosts.add(new URL(r.url()).host); } catch { /* ignore */ } });
 
-    await bootTitle(page, lang);
+    const booted = await bootTitle(page, lang, ctx);
+    if (!booted) {
+      await context.close();
+      continue;
+    }
     assertSceneLayout(await page.evaluate(sceneReportFn), `${ctx} Title`, 'Title');
     await page.screenshot({ path: `${OUT}/title-${vp.w}x${vp.h}-${lang}.png` });
 
