@@ -29,7 +29,12 @@ export interface GameModeData {
    * false: si parte dal primo fascicolo del piano, in sequenza.
    */
   freeMap: boolean;
-  /** Difficoltà imposta dalla modalità; null = la decide il piano. */
+  /**
+   * Difficoltà che la modalità impone quando la sessione parte; null = la
+   * decide il piano a partire da profilo e durata. Resta comunque
+   * modificabile dalle impostazioni a partita avviata: è una scelta del
+   * giocatore, non un vincolo che il gioco difende.
+   */
   forcedDifficulty: DifficultyMode | null;
 }
 

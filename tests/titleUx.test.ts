@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { it as itLocale } from '../src/game/i18n/it';
 import { en } from '../src/game/i18n/en';
+import { getGameMode } from '../src/game/data/gameModes';
 
 /**
  * TITLE-SCREEN UX GUARD (post-Tally simplification).
@@ -146,5 +147,27 @@ describe('NUOVA PARTITA apre la composizione della sessione', () => {
     expect(panel).toContain('startBtn.setEnabled(false)');
     const start = title.slice(title.indexOf('private startPlanned'));
     expect(start, 'e non parte nemmeno se qualcuno ci arriva lo stesso').toContain('if (plan.unavailable) return;');
+  });
+});
+
+/**
+ * Il pannello NUOVA PARTITA dichiara una difficoltà nella riga di riepilogo.
+ * Se poi la partita ne usasse un'altra — quella lasciata nelle impostazioni —
+ * il pannello mentirebbe, e proprio sull'ispezione a sorpresa, che annuncia
+ * l'esperto per definizione.
+ */
+describe('la difficoltà annunciata è quella che si gioca', () => {
+  const start = title.slice(title.indexOf('private startPlanned'));
+
+  it("l'avvio applica la difficoltà del piano", () => {
+    expect(start).toContain('StateManager.setDifficulty(plan.difficulty)');
+  });
+
+  it("e la applica prima di far partire la scena, non dopo", () => {
+    expect(start.indexOf('setDifficulty')).toBeLessThan(start.indexOf('fadeOutScene'));
+  });
+
+  it("l'ispezione a sorpresa dichiara davvero l'esperto", () => {
+    expect(getGameMode('sorpresa').forcedDifficulty).toBe('expert');
   });
 });

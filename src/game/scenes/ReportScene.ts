@@ -9,7 +9,7 @@ import type {
   ReportOutcome,
   ResponsibleSubject
 } from '../data/types';
-import { hintKeyFor, shouldShowHint, type ReportResult } from '../systems/ReportSystem';
+import { hintKeyFor, shouldShowHint, showsSecondaryErrors, type ReportResult } from '../systems/ReportSystem';
 import { conceptLink } from '../data/concepts';
 import { caseLearning } from '../data/learning';
 import { decisionAnalysisKeys } from '../systems/DecisionIssues';
@@ -113,7 +113,7 @@ export class ReportScene extends Phaser.Scene {
       this.add.text(left, y, t.ui.report.dominantLabel, textStyle(12, oc.text));
       const dom = this.add.text(left + 200, y, t.ui.errors[result.dominantError], textStyle(13, oc.text, { wordWrap: { width: 620 }, lineSpacing: 4 }));
       y += Math.max(26, dom.height + 8);
-      if (result.secondaryErrors.length > 0) {
+      if (result.secondaryErrors.length > 0 && showsSecondaryErrors(StateManager.difficulty)) {
         this.add.text(left, y, t.ui.report.secondaryLabel, textStyle(12, COLOR_STR.paperDim));
         const sec = result.secondaryErrors.map((e) => `· ${t.ui.errors[e]}`).join('\n');
         const secText = this.add.text(left + 200, y, sec, textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: 620 }, lineSpacing: 4 }));

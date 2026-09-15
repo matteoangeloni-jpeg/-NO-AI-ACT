@@ -337,6 +337,16 @@ export class TitleScene extends Phaser.Scene {
     const plan = StateManager.gamePlan;
     if (plan.unavailable) return;
     if (hasSave) StateManager.newGame();
+    /**
+     * Quello che il pannello ha scritto è quello che si gioca. La riga di
+     * riepilogo dichiara una difficoltà — per l'ispezione a sorpresa sempre
+     * "esperto" — ma il valore usato in partita è quello nelle impostazioni,
+     * e i due potevano divergere: bastava abbassare la difficoltà nelle
+     * impostazioni e il pannello continuava ad annunciare l'esperto mentre
+     * il gioco restava indulgente. Resta cambiabile dalle impostazioni a
+     * partita avviata: è una scelta del giocatore, non un vincolo.
+     */
+    StateManager.setDifficulty(plan.difficulty);
     StateManager.rerollSurprise();
     this.closeGroup();
     AudioSystem.init();

@@ -1,7 +1,10 @@
 import { describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { INCIDENT_DELTAS, PLAYABLE_CASES, getCase } from '../src/game/data/cases';
 import type { ReportInput } from '../src/game/systems/ReportSystem';
-import { evaluateReport, gradeMotivation, gradeSubject, reasonKeyFor } from '../src/game/systems/ReportSystem';
+import type { DifficultyMode } from '../src/game/data/types';
+import { evaluateReport, gradeMotivation, gradeSubject, reasonKeyFor, shouldShowHint, showsSecondaryErrors, type ReportResult } from '../src/game/systems/ReportSystem';
 import { buildTeacherReport, teacherReportToText } from '../src/game/systems/TeacherReportSystem';
 import { setLanguage } from '../src/game/i18n';
 import { it as itLocale } from '../src/game/i18n/it';
@@ -233,5 +236,183 @@ describe('debrief docente', () => {
     setLanguage('it');
     const txtIt = teacherReportToText(buildTeacherReport(sampleInput));
     expect(txtIt).toContain('DEBRIEF DOCENTE');
+  });
+});
+
+/**
+ * DIFFICOLTÀ ESPERTO.
+ *
+ * I tre livelli non erano tre: `evaluateReport` distingueva soltanto 'base',
+ * e 'expert' si comportava esattamente come 'standard'. La descrizione
+ * pubblicata prometteva però "severità su soggetto e motivazione", e
+ * l'ispezione a sorpresa forza l'esperto proprio per essere più dura — una
+ * modalità che si annunciava severa e giocava identica.
+ *
+ * La severità è quella promessa, né più né meno: in esperto un soggetto
+ * PARZIALE e una motivazione DEBOLE smettono di essere vizi lievi e contano
+ * come gravi. Sui nuclei corretti l'esito non cambia (un vizio qualunque li
+ * rende contestabili già in standard); cambia dove il nucleo è a sua volta
+ * parziale, che è il caso in cui la differenza fra i tre livelli si vede.
+ */
+describe('i tre livelli di difficoltà sono davvero tre', () => {
+  /** Nucleo parziale (misura solo parziale) + soggetto parziale. */
+  const partialCoreAndSubject = (caseId: string): ReportInput => {
+    const caseData = getCase(caseId);
+    return {
+      caseData,
+      citedClues: caseData.relevantClues,
+      classification: caseData.correctClassification,
+      measure: caseData.partialMeasures[0],
+      subject: caseData.responsibleSubjectPartial!,
+      motivationIndex: caseData.correctMotivation
+    };
+  };
+
+  /** Nucleo parziale + motivazione debole. */
+  const partialCoreWeakMotivation = (caseId: string): ReportInput => {
+    const caseData = getCase(caseId);
+    return {
+      caseData,
+      citedClues: caseData.relevantClues,
+      classification: caseData.correctClassification,
+      measure: caseData.partialMeasures[0],
+      subject: caseData.responsibleSubjectCorrect,
+      motivationIndex: caseData.weakMotivation
+    };
+  };
+
+  it('un soggetto parziale su nucleo parziale: esperto più severo di standard', () => {
+    const input = partialCoreAndSubject('case_scoring');
+    expect(evaluateReport(input, 'standard').outcome).toBe('contestabile');
+    expect(
+      evaluateReport(input, 'expert').outcome,
+      "l'esperto promette severità sul soggetto: deve pesare più dello standard"
+    ).toBe('non_conforme');
+  });
+
+  it('una motivazione debole su nucleo parziale: esperto più severo di standard', () => {
+    const input = partialCoreWeakMotivation('case_scoring');
+    expect(evaluateReport(input, 'standard').outcome).toBe('contestabile');
+    expect(evaluateReport(input, 'expert').outcome).toBe('non_conforme');
+  });
+
+  it('la base resta la più indulgente dei tre, su entrambi i vizi', () => {
+    for (const build of [partialCoreAndSubject, partialCoreWeakMotivation]) {
+      const input = build('case_scoring');
+      expect(evaluateReport(input, 'base').outcome).toBe('parziale');
+    }
+  });
+
+  /**
+   * La severità NON si estende a ciò che la descrizione non promette: i
+   * reperti non pertinenti restano un vizio lieve anche in esperto. Senza
+   * questo controllo "più severo" diventerebbe col tempo "severo su tutto".
+   */
+  it("l'esperto non inasprisce ciò che non ha annunciato", () => {
+    const caseData = getCase('case_scoring');
+    const input: ReportInput = {
+      caseData,
+      citedClues: [],
+      classification: caseData.correctClassification,
+      measure: caseData.partialMeasures[0],
+      subject: caseData.responsibleSubjectCorrect,
+      motivationIndex: caseData.correctMotivation
+    };
+    expect(evaluateReport(input, 'standard').outcome).toBe('contestabile');
+    expect(evaluateReport(input, 'expert').outcome).toBe('contestabile');
+  });
+
+  /**
+   * Nessun livello può diventare inerte in silenzio: su tutta la casistica
+   * giocabile i tre devono produrre almeno un esito che li distingue a due a
+   * due. È la guardia che sarebbe stata rossa dal giorno in cui expert è
+   * nato uguale a standard.
+   */
+  it('su tutti i casi giocabili nessuna coppia di livelli è indistinguibile', () => {
+    const pairs: Array<[DifficultyMode, DifficultyMode]> = [
+      ['base', 'standard'],
+      ['standard', 'expert'],
+      ['base', 'expert']
+    ];
+    const differing = new Map<string, number>(pairs.map(([a, b]) => [`${a}/${b}`, 0]));
+
+    for (const c of PLAYABLE_CASES) {
+      if (!c.responsibleSubjectPartial || c.partialMeasures.length === 0) continue;
+      for (const build of [partialCoreAndSubject, partialCoreWeakMotivation]) {
+        const input = build(c.id);
+        for (const [a, b] of pairs) {
+          if (evaluateReport(input, a).outcome !== evaluateReport(input, b).outcome) {
+            differing.set(`${a}/${b}`, (differing.get(`${a}/${b}`) ?? 0) + 1);
+          }
+        }
+      }
+    }
+    for (const [pair, n] of differing) {
+      expect(n, `${pair}: nessun caso li distingue, uno dei due è una parola sul menu`).toBeGreaterThan(0);
+    }
+  });
+});
+
+/**
+ * Le tre schede dei livelli promettono cose diverse; il gioco deve
+ * mantenerle tutte. Questi controlli guardano le tre leve osservabili —
+ * indulgenza dell'esito, suggerimento dopo l'errore, rilievi secondari nel
+ * rapporto — e chiedono che nessuna coppia di livelli si comporti allo
+ * stesso modo su tutte e tre.
+ */
+describe('ogni livello mantiene quello che la sua scheda promette', () => {
+  const failed = (caseId: string): ReportResult => {
+    const caseData = getCase(caseId);
+    return evaluateReport(
+      {
+        caseData,
+        citedClues: caseData.relevantClues,
+        classification: caseData.correctClassification,
+        measure: caseData.partialMeasures[0],
+        subject: caseData.responsibleSubjectPartial!,
+        motivationIndex: caseData.correctMotivation
+      },
+      'standard'
+    );
+  };
+
+  it('base è l\'unico che suggerisce dopo un errore', () => {
+    const r = failed('case_scoring');
+    expect(r.dominantError, 'il caso di prova deve avere un rilievo, o il controllo è inerte').not.toBeNull();
+    expect(shouldShowHint('base', r)).toBe(true);
+    expect(shouldShowHint('standard', r)).toBe(false);
+    expect(shouldShowHint('expert', r)).toBe(false);
+  });
+
+  it("esperto è l'unico che tace i rilievi secondari: è il \"feedback asciutto\"", () => {
+    expect(showsSecondaryErrors('base')).toBe(true);
+    expect(showsSecondaryErrors('standard')).toBe(true);
+    expect(showsSecondaryErrors('expert')).toBe(false);
+  });
+
+  it('e il rapporto li nasconde davvero, invece di calcolarli e mostrarli lo stesso', () => {
+    const src = readFileSync(resolve(__dirname, '../src/game/scenes/ReportScene.ts'), 'utf8');
+    expect(src, 'la decisione deve passare dal predicato, non da un confronto sparso').toContain(
+      'showsSecondaryErrors(StateManager.difficulty)'
+    );
+  });
+
+  it('nessuna coppia di livelli è identica su tutte le leve insieme', () => {
+    const r = failed('case_scoring');
+    const profile = (d: DifficultyMode): string =>
+      [shouldShowHint(d, r), showsSecondaryErrors(d), evaluateReport(
+        {
+          caseData: scoring,
+          citedClues: scoring.relevantClues,
+          classification: scoring.correctClassification,
+          measure: scoring.partialMeasures[0],
+          subject: scoring.responsibleSubjectPartial!,
+          motivationIndex: scoring.correctMotivation
+        },
+        d
+      ).outcome].join('|');
+
+    const profiles = (['base', 'standard', 'expert'] as const).map(profile);
+    expect(new Set(profiles).size, `profili: ${profiles.join(' / ')}`).toBe(3);
   });
 });
