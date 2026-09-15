@@ -72,13 +72,13 @@ describe('save schema v2 — key, shape, version', () => {
     expect(storage.getItem(KEY)).not.toBeNull();
   });
 
-  it('SaveData keeps a stable v2 key set (v1 keys + caseMeta, selfCheck, audience, sessionMinutes, caseDrafts, gameMode)', () => {
+  it('SaveData keeps a stable v2 key set (v1 keys + caseMeta, selfCheck, audience, sessionMinutes, caseDrafts, gameMode, textSpeed)', () => {
     const keys = Object.keys(defaultSave()).sort();
     expect(keys).toEqual([
       'audience', 'audioMuted', 'briefingSeen', 'caseDrafts', 'caseMeta', 'caseReports',
       'completedCases', 'crtOverlay', 'difficulty', 'endingId', 'gameMode', 'indicators', 'language',
       'mission', 'musicVolume', 'reducedMotion', 'selfCheck', 'sessionMinutes', 'startedAt', 'teacherMode',
-      'unlockedNorms', 'version'
+      'textSpeed', 'unlockedNorms', 'version'
     ]);
     expect(defaultSave().version).toBe(2);
     expect(defaultSave().caseMeta).toEqual({});
@@ -86,15 +86,15 @@ describe('save schema v2 — key, shape, version', () => {
   });
 
   /**
-   * I campi 2.2 (audience, sessionMinutes) e 2.3 (gameMode) sono stati
-   * aggiunti a v2 SENZA cambiare versione. È lecito solo perché sono additivi in entrambe le
+   * I campi 2.2 (audience, sessionMinutes), 2.3 (gameMode) e 2.4 (textSpeed)
+   * sono stati aggiunti a v2 SENZA cambiare versione. È lecito solo perché sono additivi in entrambe le
    * direzioni: un salvataggio v2 che non li ha prende i default senza
    * perdere nulla, e un client più vecchio li conserva passandoli avanti.
    * Se un giorno un campo nuovo non soddisfa questa condizione, quel giorno
    * la versione va alzata — e questo test è il posto in cui accorgersene.
    */
   it('un salvataggio v2 anteriore a 2.2 si apre senza perdite e prende i default', () => {
-    const { audience: _a, sessionMinutes: _s, caseDrafts: _d, gameMode: _g, ...preexisting } = defaultSave();
+    const { audience: _a, sessionMinutes: _s, caseDrafts: _d, gameMode: _g, textSpeed: _t, ...preexisting } = defaultSave();
     const older = { ...preexisting, difficulty: 'expert' as const, mission: 'pack' as const, briefingSeen: true };
     storage.setItem(KEY, JSON.stringify(older));
 

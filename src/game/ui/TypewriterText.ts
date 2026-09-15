@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { AudioSystem } from '../systems/AudioSystem';
 import { StateManager } from '../systems/StateManager';
+import type { TextSpeed } from '../data/types';
 import { textStyle, COLOR_STR } from './theme';
 import { L } from '../i18n';
 
@@ -20,6 +21,16 @@ import { L } from '../i18n';
  * scene a registrare il clic ciascuna per conto suo, e la tastiera non la
  * registrava nessuna. Chi aggiunge la prossima scena non deve ricordarsene.
  */
+/**
+ * Millisecondi per carattere. Il valore storico è quello di 'normal': le
+ * altre due velocità gli stanno intorno, una doppia e una nulla.
+ */
+export const CHAR_DELAY_MS: Record<TextSpeed, number> = {
+  slow: 28,
+  normal: 14,
+  instant: 0
+};
+
 export class TypewriterText extends Phaser.GameObjects.Text {
   private fullText = '';
   private timer?: Phaser.Time.TimerEvent;
@@ -47,7 +58,15 @@ export class TypewriterText extends Phaser.GameObjects.Text {
     this.onDone = onDone;
     this.timer?.remove();
 
-    if (StateManager.reducedMotion) {
+    /**
+     * "Riduci animazioni" e velocità istantanea arrivano allo stesso punto
+     * per ragioni diverse: la prima spegne ogni movimento del gioco, la
+     * seconda è una preferenza sul solo ritmo del testo. Tenerle separate
+     * significa che chi vuole leggere subito non deve rinunciare anche alle
+     * dissolvenze e alla parallasse.
+     */
+    const delay = CHAR_DELAY_MS[StateManager.textSpeed] ?? CHAR_DELAY_MS.normal;
+    if (StateManager.reducedMotion || delay === 0) {
       // niente da saltare, quindi niente da suggerire
       this.setText(text);
       onDone?.();
@@ -68,7 +87,7 @@ export class TypewriterText extends Phaser.GameObjects.Text {
 
     let i = 0;
     this.timer = this.scene.time.addEvent({
-      delay: 14,
+      delay,
       repeat: text.length - 1,
       callback: () => {
         i += 1;

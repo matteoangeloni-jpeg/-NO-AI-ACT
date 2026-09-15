@@ -270,3 +270,30 @@ describe('i pannelli modali costruiti dal titolo pubblicano anche loro', () => {
     expect(missing, missing.join(', ')).toEqual([]);
   });
 });
+
+/**
+ * UN AVVISO ALLA VOLTA.
+ *
+ * Ogni chiamata a showToast creava il proprio riquadro senza sapere di
+ * quelli già in volo, e due eventi ravvicinati — aprire l'ultimo reperto e
+ * citarne uno — producevano due avvisi sovrapposti nello stesso punto:
+ * "[AVVI[AVVISO] Citato…", illeggibili tutti e due.
+ */
+describe('gli avvisi non si accavallano', () => {
+  const src = read('src/game/ui/AlertToast.ts');
+
+  it("l'avviso in corso viene tolto prima di mostrarne uno nuovo", () => {
+    expect(src).toContain('previous.destroy()');
+    expect(src, 'va fermata anche la sua animazione, o continua a muovere un oggetto distrutto').toContain(
+      'killTweensOf(previous)'
+    );
+  });
+
+  it('il riferimento è per scena, e non trattiene la scena in memoria', () => {
+    expect(src).toContain('WeakMap<Phaser.Scene');
+  });
+
+  it("l'avviso nuovo prende il posto del vecchio nel registro", () => {
+    expect(src).toContain('current.set(scene, container)');
+  });
+});

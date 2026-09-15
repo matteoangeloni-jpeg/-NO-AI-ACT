@@ -11,6 +11,10 @@ export const en: Locale = {
     gameSubtitle: 'Simulator of an unregulated society',
     titleTagline: 'Evaluate AI use cases. Each decision affects public trust, innovation and rights. Goal: find a sustainable balance.',
     titleHeader: 'AUTOMATED MUNICIPAL REPUBLIC — YEAR 2032',
+    textSpeed: {
+      label: 'TEXT SPEED: {value}',
+      modes: { slow: 'slow', normal: 'normal', instant: 'instant' }
+    },
     typewriterHint: '▸ click, SPACE or ENTER to show the whole text at once',
     footerDisclaimer:
       'Simplified educational version of the AI Act (Reg. EU 2024/1689). This is not legal advice.',
@@ -208,6 +212,9 @@ export const en: Locale = {
       contradictionButton: 'Mark contradiction [C]',
       contradictionFound: 'Documentary contradiction: “{a}” refutes “{b}”.',
       contradictionNone: 'No documentary contradiction among the cited exhibits: cite the decisive exhibit and the account that minimizes it.',
+      progress: 'Exhibits examined: {opened} of {total} · cited: {cited} (at least {min} needed)',
+      progressReady: 'You have enough to work with: you can move to the classification.',
+      citedBecause: 'Cited "{title}" \u2014 {stance}.',
       proceedButton: 'PROCEED TO CLASSIFICATION ▸',
       backToEvidence: '◂ EXHIBITS',
       sourceLabel: 'SOURCE',

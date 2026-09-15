@@ -12,7 +12,7 @@ import { L, fmt, nextLanguage } from '../i18n';
 import { AUDIENCE_IDS, SESSION_DURATIONS } from '../data/audiences';
 import { DEFAULT_GAME_MODE, GAME_MODE_IDS, getGameMode } from '../data/gameModes';
 import { ReadingLayer, type ReadingSection } from '../systems/ReadingLayer';
-import type { DifficultyMode } from '../data/types';
+import type { DifficultyMode, TextSpeed } from '../data/types';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { footerBaselineY, layoutVStack } from '../ui/layout';
 import { fadeOutScene } from '../ui/motion';
@@ -216,6 +216,17 @@ export class TitleScene extends Phaser.Scene {
       diffBtn.setLabel(diffLabel());
     }, { width: BW, height: 44, fontSize: 12, variant: 'ghost' });
 
+    // Velocità del testo: chi legge in fretta non deve subire la macchina da
+    // scrivere, e chi legge piano non deve rincorrerla. È separata da "riduci
+    // animazioni", che spegne il movimento di tutto il gioco.
+    const speedOrder: TextSpeed[] = ['slow', 'normal', 'instant'];
+    const speedLabel = (): string => fmt(L().ui.textSpeed.label, { value: L().ui.textSpeed.modes[StateManager.textSpeed] });
+    const speedBtn = new Button(this, colL, rowY(3), speedLabel(), () => {
+      const next = speedOrder[(speedOrder.indexOf(StateManager.textSpeed) + 1) % speedOrder.length];
+      StateManager.setTextSpeed(next);
+      speedBtn.setLabel(speedLabel());
+    }, { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
+
     // Il percorso NON si sceglie più qui: la composizione della sessione —
     // modalità, profilo, durata — vive tutta dentro NUOVA PARTITA, dove il
     // giocatore vede subito quanti fascicoli ne escono. Lasciarne una copia
@@ -240,16 +251,16 @@ export class TitleScene extends Phaser.Scene {
 
     // Crediti: stanno qui e non fra le risorse, perché riguardano chi firma il
     // progetto, non il materiale didattico a cui il giocatore attinge.
-    const creditsBtn = new Button(this, colL, rowY(3), m.credits, () => this.scene.start('Credits'),
+    const creditsBtn = new Button(this, colL, rowY(4), m.credits, () => this.scene.start('Credits'),
       { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
 
     // nota privacy locale, concisa
-    const note = this.add.text(cx - 380, rowY(4), g.settingsPrivacy, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
+    const note = this.add.text(cx - 380, rowY(4) + 40, g.settingsPrivacy, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
     this.describePanel([
-      { items: [audioBtn, musicBtn, motionBtn, crtBtn, langBtn, diffBtn, creditsBtn, resetBtn].map((b) => b.labelText) },
+      { items: [audioBtn, musicBtn, motionBtn, crtBtn, langBtn, diffBtn, speedBtn, creditsBtn, resetBtn].map((b) => b.labelText) },
       { text: g.settingsPrivacy }
     ]);
-    c.add([audioBtn, musicBtn, motionBtn, crtBtn, langBtn, diffBtn, resetBtn, creditsBtn, note]);
+    c.add([audioBtn, musicBtn, motionBtn, crtBtn, langBtn, diffBtn, speedBtn, resetBtn, creditsBtn, note]);
   }
 
   /**

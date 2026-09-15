@@ -38,6 +38,7 @@ export function defaultSave(): SaveData {
     audience: 'casual',
     sessionMinutes: 30,
     gameMode: DEFAULT_GAME_MODE,
+    textSpeed: 'normal',
     caseDrafts: {},
     caseMeta: {},
     selfCheck: { pre: null, post: null }

@@ -71,3 +71,47 @@ describe('la scrittura a macchina dichiara che si può saltare', () => {
     expect(offenders, offenders.join('\n')).toEqual([]);
   });
 });
+
+/**
+ * TRE VELOCITÀ, NON DUE STATI.
+ *
+ * "Riduci animazioni" spegneva la scrittura insieme a tutto il resto: chi
+ * voleva solo leggere subito doveva rinunciare anche a dissolvenze e
+ * parallasse. La velocità del testo è ora una preferenza a sé.
+ */
+describe('la velocità del testo è una scelta, separata da "riduci animazioni"', () => {
+  it('le tre velocità esistono e solo una è istantanea', () => {
+    const m = /export const CHAR_DELAY_MS: Record<TextSpeed, number> = \{([^}]*)\}/.exec(src);
+    expect(m, 'i ritardi devono restare una tabella dichiarata').not.toBeNull();
+    const delays = Object.fromEntries(
+      [...m![1].matchAll(/(\w+):\s*(\d+)/g)].map((x) => [x[1], Number(x[2])])
+    );
+    expect(Object.keys(delays).sort()).toEqual(['instant', 'normal', 'slow']);
+    expect(delays.instant, 'istantanea significa nessuna attesa').toBe(0);
+    expect(delays.slow, 'lenta deve essere più lenta di normale').toBeGreaterThan(delays.normal);
+    expect(delays.normal).toBeGreaterThan(0);
+  });
+
+  it('la scrittura legge la preferenza invece di un numero fisso', () => {
+    const write = src.slice(src.indexOf('write(text: string'), src.indexOf('skip(): void'));
+    expect(write).toContain('CHAR_DELAY_MS[StateManager.textSpeed]');
+    expect(write, 'il ritardo non deve più essere scritto nel timer').not.toMatch(/delay:\s*\d+/);
+  });
+
+  it('le due impostazioni restano distinte: una non implica l\'altra', () => {
+    const write = src.slice(src.indexOf('write(text: string'), src.indexOf('skip(): void'));
+    expect(write).toContain('StateManager.reducedMotion || delay === 0');
+  });
+
+  it('il selettore esiste nelle impostazioni, con la sua etichetta', () => {
+    const title = read('src/game/scenes/TitleScene.ts');
+    const settings = title.slice(title.indexOf('private openSettings'), title.indexOf('private openTeachers'));
+    expect(settings).toContain('setTextSpeed');
+    for (const [lang, dict] of [['it', itDict], ['en', en]] as const) {
+      expect(dict.ui.textSpeed.label, `${lang}`).toContain('{value}');
+      for (const k of ['slow', 'normal', 'instant'] as const) {
+        expect(String(dict.ui.textSpeed.modes[k]).length, `${lang}/${k}`).toBeGreaterThan(2);
+      }
+    }
+  });
+});

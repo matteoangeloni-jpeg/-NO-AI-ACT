@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { applyOutcome, clampIndicator } from '../data/indicators';
-import type { AudienceId, CaseMeta, CaseReport, DifficultyMode, GameModeId, IndicatorState, LanguageCode, MissionId, OutcomeQuality, SaveData, SelfCheckPhase, SelfCheckResult, SessionMinutes } from '../data/types';
+import type { AudienceId, CaseMeta, CaseReport, DifficultyMode, GameModeId, IndicatorState, LanguageCode, MissionId, OutcomeQuality, SaveData, SelfCheckPhase, SelfCheckResult, SessionMinutes, TextSpeed } from '../data/types';
 import { planSession, type SessionPlan } from '../data/audiences';
 import { planGame, type GamePlan } from '../data/gameModes';
 import { DRAFT_SCHEMA, emptyDraft, hasProgress, isResumable, type CaseDraft } from './caseDraft';
@@ -87,6 +87,15 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
   /** Piano corrente: casi proposti e difficoltà, derivati da pubblico e durata. */
   get sessionPlan(): SessionPlan {
     return planSession(this.data.audience, this.data.sessionMinutes);
+  }
+
+  get textSpeed(): TextSpeed {
+    return this.data.textSpeed;
+  }
+
+  setTextSpeed(value: TextSpeed): void {
+    this.data.textSpeed = value;
+    this.persist();
   }
 
   get gameMode(): GameModeId {

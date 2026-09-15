@@ -64,6 +64,13 @@ export type MissionId = 'demo' | 'lab' | 'full' | 'advanced' | 'pack';
  * proprio: non è un profilo professionale annacquato, ha un ordine di casi
  * suo, scelto per leggibilità narrativa invece che per rilevanza di ruolo.
  */
+/**
+ * Velocità della scrittura a macchina. 'instant' non è la stessa cosa di
+ * "riduci animazioni": quella spegne ogni movimento del gioco, questa
+ * riguarda solo il ritmo con cui compare il testo.
+ */
+export type TextSpeed = 'slow' | 'normal' | 'instant';
+
 export type GameModeId = 'turno' | 'libera' | 'sorpresa' | 'ripasso';
 
 export type AudienceId = 'casual' | 'pa' | 'scuola' | 'hr';
@@ -288,6 +295,8 @@ export interface SaveData {
    * salvataggio che non ce l'ha riceve il default e resta versione 2).
    */
   gameMode: GameModeId;
+  /** Velocità della scrittura a macchina (campo additivo: resta versione 2). */
+  textSpeed: TextSpeed;
   /**
    * Bozze dei fascicoli aperti e non ancora firmati (2.2), per caso.
    * Additivo: un salvataggio che non le ha riparte da {} senza perdere

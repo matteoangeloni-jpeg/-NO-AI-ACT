@@ -10,6 +10,10 @@ export const it = {
     gameSubtitle: 'Simulatore di una società non regolata',
     titleTagline: "Valuta casi d'uso dell'IA. Ogni scelta incide su fiducia pubblica, innovazione e diritti. Obiettivo: trovare un equilibrio sostenibile.",
     titleHeader: 'REPUBBLICA MUNICIPALE AUTOMATIZZATA — ANNO 2032',
+    textSpeed: {
+      label: 'VELOCITÀ TESTO: {value}',
+      modes: { slow: 'lenta', normal: 'normale', instant: 'istantanea' }
+    },
     typewriterHint: '▸ clic, SPAZIO o INVIO per mostrare subito tutto il testo',
     footerDisclaimer:
       "Versione didattica semplificata dell'AI Act (Reg. UE 2024/1689). Non costituisce consulenza legale.",
@@ -207,6 +211,9 @@ export const it = {
       contradictionButton: 'Segna contraddizione [C]',
       contradictionFound: 'Contraddizione documentale: «{a}» smentisce «{b}».',
       contradictionNone: 'Nessuna contraddizione documentale tra i reperti citati: cita il reperto decisivo e il resoconto che minimizza.',
+      progress: 'Reperti esaminati: {opened} di {total} · citati: {cited} (ne servono almeno {min})',
+      progressReady: 'Hai abbastanza elementi: puoi passare alla classificazione.',
+      citedBecause: 'Citato «{title}» — {stance}.',
       proceedButton: 'PROCEDI ALLA CLASSIFICAZIONE ▸',
       backToEvidence: '◂ REPERTI',
       sourceLabel: 'FONTE',
