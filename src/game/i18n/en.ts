@@ -377,6 +377,7 @@ export const en: Locale = {
       subCorrect: 'This provision would have made the harm preventable or governable.',
       subWrong: 'The norm existed. In another Europe, someone would have applied it.',
       backToMap: '◂ BACK TO THE MAP',
+      endOfShift: 'END OF SHIFT \u25b8',
       nextCase: 'NEXT CASE FILE ▸',
       disclaimer: 'simplified educational version'
     },
@@ -433,6 +434,28 @@ export const en: Locale = {
       recommendedHeader: 'RECOMMENDED PATHS',
       recommendedLine: '{name} · {duration} · {goal}'
     },
+      sessionEnd: {
+        title: 'END OF SHIFT',
+        subtitle: '{mode} · {count} case files · about {minutes} min',
+        subtitleOne: '{mode} · one case file · about {minutes} min',
+        countCorrectOne: 'one closed well',
+        countCorrect: '{n} closed well',
+        countPartialOne: 'one halfway',
+        countPartial: '{n} halfway',
+        countWrongOne: 'one wrong',
+        countWrong: '{n} wrong',
+        recurring: 'The same slip {times} times. {error}',
+        noRecurring: 'No mistake repeated itself in this shift.',
+        normsTouched: 'Articles touched: {norms}',
+        incompleteOne: 'One case file from the plan was left open. It stays on the map.',
+        incomplete: '{count} case files from the plan were left open. They stay on the map.',
+        quality: { correct: 'closed well', partial: 'halfway', wrong: 'wrong' },
+        open: 'open',
+        toMap: 'BACK TO THE MAP',
+        learningReport: 'LEARNING REPORT \u25b8',
+        debrief: 'TEACHER DEBRIEF \u25b8',
+        note: 'Summary of the shift you just played. It stays on your device: nothing sent, no account.'
+      },
       newGamePanel: {
         title: 'NEW GAME',
         subtitle: 'Choose how you want to play and how long you have. The plan is recomposed below, before you start.',

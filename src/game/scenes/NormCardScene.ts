@@ -4,6 +4,7 @@ import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { NormSystem } from '../systems/NormSystem';
 import { StateManager } from '../systems/StateManager';
+import { sessionIsOver } from '../systems/SessionSummary';
 import { Button } from '../ui/Button';
 import { NormCardView } from '../ui/NormCard';
 import { L } from '../i18n';
@@ -73,7 +74,23 @@ export class NormCardScene extends Phaser.Scene {
      * accanto: una sequenza da cui non si può uscire è una gabbia, non una
      * modalità.
      */
+    /**
+     * Fine del turno: se il piano era una sequenza e non resta nulla da
+     * aprire, si passa dal cruscotto invece di tornare sulla mappa come
+     * dopo un caso qualunque. L'indagine libera non finisce mai — la città
+     * resta aperta — e infatti sessionIsOver la esclude.
+     */
     const nextCaseId = StateManager.nextInPlan();
+    if (!nextCaseId && sessionIsOver(StateManager.gamePlan, StateManager.completedCases)) {
+      const toSummary = (): void => {
+        fadeOutScene(this, 250, () => this.scene.start('SessionEnd'));
+      };
+      new Button(this, cx + 130, GAME_HEIGHT - 50, ui.endOfShift, toSummary, { width: 300 });
+      new Button(this, cx - 190, GAME_HEIGHT - 50, ui.backToMap, backToMap, { width: 260, variant: 'ghost' });
+      this.input.keyboard?.once('keydown-ENTER', toSummary);
+      return;
+    }
+
     if (nextCaseId) {
       const goNext = (): void => {
         fadeOutScene(this, 250, () => this.scene.start('Case', { caseId: nextCaseId }));

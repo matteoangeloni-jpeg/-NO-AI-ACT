@@ -37,6 +37,31 @@ const CANVAS_VIEWPORTS = [
   { w: 1280, h: 720 }, { w: 1024, h: 768 }, { w: 768, h: 1024 }
 ];
 
+/**
+ * Turno concluso: il piano predefinito (turno di servizio, profilo "per
+ * conto mio", 30 minuti) propone tre fascicoli, e qui sono tutti chiusi con
+ * esiti diversi e lo stesso errore due volte — così il cruscotto ha da
+ * mostrare tre righe, tre verdetti distinti e una tendenza.
+ *
+ * I tre identificativi NON sono scelti a caso: sono quelli che planGame
+ * compone per quella combinazione, ed è la stessa che il gioco usa per
+ * difetto. Se un giorno il piano cambia, il cruscotto mostrerà fascicoli
+ * aperti e il controllo sulla completezza qui sotto lo dirà.
+ */
+const SEED_SHIFT_DONE = JSON.stringify({
+  version: 2, indicators: { efficienza: 50, controllo: 50, diritti: 50, fiducia: 50 },
+  completedCases: { case_scoring: 'wrong', case_media: 'partial', case_biometria: 'correct' },
+  caseReports: {
+    case_scoring: { outcome: 'non_conforme', dominantError: 'prove', classification: 'alto_rischio', measure: 'audit', subject: 'deployer', motivationIndex: 0, citedClues: [] },
+    case_media: { outcome: 'parziale', dominantError: 'prove', classification: 'trasparenza', measure: 'etichettare', subject: 'provider', motivationIndex: 1, citedClues: [] },
+    case_biometria: { outcome: 'conforme', dominantError: null, classification: 'vietato', measure: 'blocco', subject: 'provider', motivationIndex: 0, citedClues: [] }
+  },
+  unlockedNorms: [], audioMuted: true, musicVolume: 0, reducedMotion: true, crtOverlay: false,
+  language: 'it', endingId: null, briefingSeen: true, teacherMode: false, startedAt: 1,
+  difficulty: 'base', mission: 'full', audience: 'casual', sessionMinutes: 30, gameMode: 'turno',
+  caseDrafts: {}, caseMeta: {}, selfCheck: { pre: null, post: null }
+});
+
 const SEED_WITH_PROGRESS = JSON.stringify({
   version: 1, indicators: { efficienza: 50, controllo: 50, diritti: 50, fiducia: 50 },
   completedCases: { case_credito: 'correct' }, unlockedNorms: [], audioMuted: true,
@@ -498,6 +523,76 @@ for (const vp of [{ w: 390, h: 844 }, { w: 360, h: 800 }]) {
   await mctx.close();
 }
 
+// ---- fine turno: il cruscotto si adatta al numero di fascicoli ----
+//
+// L'altezza del pannello e il passo delle righe NON sono fissi: con tre
+// fascicoli il riquadro è basso, con otto arriva quasi ai pulsanti, e i
+// riferimenti agli articoli vanno a capo di lunghezza diversa nelle due
+// lingue. È proprio dove un passo costante faceva finire una riga sopra
+// l'altra, quindi va guardato in due lingue e a due proporzioni di finestra.
+for (const vp of [{ w: 1792, h: 930 }, { w: 1280, h: 720 }]) {
+  for (const lang of vp.w === 1792 ? ['it', 'en'] : ['it']) {
+    const ctx = `${vp.w}x${vp.h} ${lang} SessionEnd`;
+    const context = await browser.newContext({ viewport: { width: vp.w, height: vp.h } });
+    await context.route(/cloudflareinsights\.com/, (r) => r.abort());
+    const page = await context.newPage();
+    page.on('pageerror', (e) => errors.push(`[${ctx}] ${String(e)}`));
+    page.on('console', (m) => { if (m.type() === 'error') errors.push(`[${ctx}] ${m.text()}`); });
+    page.on('request', (r) => { try { hosts.add(new URL(r.url()).host); } catch { /* ignore */ } });
+
+    await page.addInitScript((seed) => localStorage.setItem('no-ai-act-save-v2', seed), SEED_SHIFT_DONE);
+    await page.goto(`${BASE}/play/?lang=${lang}`, { waitUntil: 'load' });
+    try {
+      await page.waitForFunction(() => window.game?.scene?.getScenes(true).some((s) => s.scene.key === 'Title'), { timeout: 40000 });
+    } catch {
+      fail.push(`${ctx}: la schermata del titolo non è mai arrivata`);
+      await context.close();
+      continue;
+    }
+    await switchScene(page, 'SessionEnd');
+
+    assertSceneLayout(await page.evaluate(sceneReportFn), ctx, 'SessionEnd');
+    assertNoChromeOverlap(await page.evaluate(chromeOverlapSrc), ctx);
+
+    /**
+     * Il contenuto del cruscotto vive dentro un contenitore — è così che
+     * viene centrato — e sceneReportFn guarda solo i figli di primo livello
+     * della scena: da lì il cruscotto è un blocco unico e ogni controllo
+     * sulle righe sarebbe cieco. panelReportFn scende dentro, ed è la stessa
+     * lettura che serve per ritagli e sovrapposizioni riga per riga.
+     */
+    const inner = await page.evaluate(panelReportFn);
+    assertPanelLayout(
+      inner,
+      ctx,
+      lang === 'en' ? ['closed well', 'Articles touched'] : ['chiuso bene', 'Articoli toccati']
+    );
+
+    // il cruscotto deve dire qualcosa: tre righe di fascicolo e una tendenza
+    const texts = (inner?.items ?? []).map((i) => String(i.text || ''));
+    const expectedClosed = lang === 'en'
+      ? ['COMPLIANT', 'PARTIALLY COMPLIANT', 'NON-COMPLIANT']
+      : ['CONFORME', 'PARZIALMENTE CONFORME', 'NON CONFORME'];
+    for (const verdict of expectedClosed) {
+      if (!texts.some((t) => t.toUpperCase().includes(verdict))) {
+        fail.push(`${ctx}: manca il verdetto "${verdict}" — il piano non è più quello atteso, o le righe non si disegnano`);
+      }
+    }
+    const trend = lang === 'en' ? /same slip 2 times/i : /stesso scivolone 2 volte/i;
+    if (!texts.some((t) => trend.test(t))) {
+      fail.push(`${ctx}: la tendenza ricorrente non compare`);
+    }
+    // e non deve dichiarare fascicoli aperti: il turno è finito
+    const openLine = lang === 'en' ? /left open/i : /rimast[oi] apert/i;
+    if (texts.some((t) => openLine.test(t))) {
+      fail.push(`${ctx}: dichiara fascicoli aperti su un turno che è concluso`);
+    }
+
+    await page.screenshot({ path: `${OUT}/session-end-${vp.w}x${vp.h}-${lang}.png` });
+    await context.close();
+  }
+}
+
 await browser.close();
 
 // ---- privacy / stability assertions (shared with gameplay smoke) ----
@@ -512,4 +607,4 @@ console.log('  external hosts:', JSON.stringify(externalHosts));
 console.log('  console errors:', relevantErrors.length);
 console.log('  screenshots:', OUT);
 if (fail.length) { for (const f of fail) console.log('  ✗', f); process.exit(1); }
-console.log('  ✓ Title + Briefing + new-game panel + decision (step 1 + summary) safe-area clean, desktop/tablet/mobile, IT + EN');
+console.log('  ✓ Title + Briefing + new-game panel + decision (step 1 + summary) + fine turno\n    safe-area clean, desktop/tablet/mobile, IT + EN');

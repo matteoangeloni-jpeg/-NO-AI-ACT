@@ -16,6 +16,7 @@ import { ArchiveScene } from './scenes/ArchiveScene';
 import { GlossaryScene } from './scenes/GlossaryScene';
 import { FinaleScene } from './scenes/FinaleScene';
 import { LearningReportScene } from './scenes/LearningReportScene';
+import { SessionEndScene } from './scenes/SessionEndScene';
 import { CreditsScene } from './scenes/CreditsScene';
 import { GAME_HEIGHT, GAME_WIDTH, RENDER_SCALE } from './ui/theme';
 
@@ -74,6 +75,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     GlossaryScene,
     FinaleScene,
     LearningReportScene,
+    SessionEndScene,
     CreditsScene
   ]
 };

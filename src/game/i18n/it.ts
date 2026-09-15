@@ -376,6 +376,7 @@ export const it = {
       subCorrect: 'Questa disposizione avrebbe reso il danno prevenibile o governabile.',
       subWrong: "La norma esisteva. In un'altra Europa, qualcuno l'avrebbe applicata.",
       backToMap: '◂ TORNA ALLA MAPPA',
+      endOfShift: 'FINE TURNO ▸',
       nextCase: 'PROSSIMO FASCICOLO ▸',
       disclaimer: 'versione didattica semplificata'
     },
@@ -432,6 +433,28 @@ export const it = {
       recommendedHeader: 'PERCORSI CONSIGLIATI',
       recommendedLine: '{name} · {duration} · {goal}'
     },
+      sessionEnd: {
+        title: 'FINE TURNO',
+        subtitle: '{mode} · {count} fascicoli · circa {minutes} min',
+        subtitleOne: '{mode} · un fascicolo · circa {minutes} min',
+        countCorrectOne: 'uno chiuso bene',
+        countCorrect: '{n} chiusi bene',
+        countPartialOne: 'uno a metà',
+        countPartial: '{n} a metà',
+        countWrongOne: 'uno sbagliato',
+        countWrong: '{n} sbagliati',
+        recurring: 'Lo stesso scivolone {times} volte. {error}',
+        noRecurring: 'Nessun errore si è ripetuto in questo turno.',
+        normsTouched: 'Articoli toccati: {norms}',
+        incompleteOne: 'Un fascicolo del piano è rimasto aperto. Resta sulla mappa.',
+        incomplete: '{count} fascicoli del piano sono rimasti aperti. Restano sulla mappa.',
+        quality: { correct: 'chiuso bene', partial: 'a metà', wrong: 'sbagliato' },
+        open: 'aperto',
+        toMap: 'TORNA ALLA MAPPA',
+        learningReport: 'RAPPORTO DI APPRENDIMENTO ▸',
+        debrief: 'DEBRIEF DOCENTE ▸',
+        note: 'Riepilogo del turno appena giocato. Resta sul tuo dispositivo: nessun invio, nessun account.'
+      },
       newGamePanel: {
         title: 'NUOVA PARTITA',
         subtitle: 'Scegli come giocare e quanto tempo hai. Il piano si ricompone sotto, prima di iniziare.',
