@@ -369,3 +369,129 @@ export function drawDoubleRule(
   drawHeaderRule(ctx, x, y, w, colore);
   drawHeaderRule(ctx, x, y + 3, w, colorePallido);
 }
+
+// ------------------------------------------------- cornici che dicono uno stato
+
+/** Rettangolo continuo, centrato sull'origine. Lo stato più chiuso che c'è. */
+export function drawFrameSolid(ctx: CanvasRenderingContext2D, w: number, h: number, weight: number, colore: string): void {
+  ctx.save();
+  ctx.strokeStyle = colore;
+  ctx.lineWidth = weight;
+  ctx.strokeRect(-w / 2, -h / 2, w, h);
+  ctx.restore();
+}
+
+/** Due rettangoli concentrici: il grado più alto di conferma. */
+export function drawFrameDouble(
+  ctx: CanvasRenderingContext2D,
+  w: number,
+  h: number,
+  weight: number,
+  colore: string,
+  inset = 4
+): void {
+  drawFrameSolid(ctx, w, h, weight, colore);
+  ctx.save();
+  ctx.globalAlpha = 0.75;
+  drawFrameSolid(ctx, w - inset * 2, h - inset * 2, Math.max(1, weight - 1), colore);
+  ctx.restore();
+}
+
+/**
+ * Rettangolo con un VUOTO VERO al centro dei lati lunghi. Non è un
+ * tratteggio decorativo: è la stessa forma usata sui collegamenti della
+ * mappa per dire che il dato lì non passa, e serve a far leggere
+ * «qualcosa non torna» anche a chi non distingue i colori.
+ */
+export function drawFrameBroken(
+  ctx: CanvasRenderingContext2D,
+  w: number,
+  h: number,
+  weight: number,
+  colore: string,
+  buco = 0.26
+): void {
+  ctx.save();
+  ctx.strokeStyle = colore;
+  ctx.lineWidth = weight;
+  const t = (w * (1 - buco)) / 2;
+  ctx.beginPath();
+  // lato alto e lato basso, spezzati al centro
+  for (const y of [-h / 2, h / 2]) {
+    ctx.moveTo(-w / 2, y);
+    ctx.lineTo(-w / 2 + t, y);
+    ctx.moveTo(w / 2 - t, y);
+    ctx.lineTo(w / 2, y);
+  }
+  // lati corti interi: la cornice resta una cornice
+  ctx.moveTo(-w / 2, -h / 2);
+  ctx.lineTo(-w / 2, h / 2);
+  ctx.moveTo(w / 2, -h / 2);
+  ctx.lineTo(w / 2, h / 2);
+  ctx.stroke();
+  ctx.restore();
+}
+
+/** Tratteggio obliquo dentro un riquadro centrato: «annullato», «barrato». */
+export function drawHatch(
+  ctx: CanvasRenderingContext2D,
+  w: number,
+  h: number,
+  passo: number,
+  colore: string,
+  weight = 1
+): void {
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(-w / 2, -h / 2, w, h);
+  ctx.clip();
+  ctx.strokeStyle = colore;
+  ctx.lineWidth = weight;
+  ctx.beginPath();
+  for (let x = -w / 2 - h; x < w / 2 + h; x += passo) {
+    ctx.moveTo(x, -h / 2);
+    ctx.lineTo(x + h, h / 2);
+  }
+  ctx.stroke();
+  ctx.restore();
+}
+
+/** Riempimento parziale da sinistra: «a metà», su una forma e non su un colore. */
+export function drawHalfFill(ctx: CanvasRenderingContext2D, w: number, h: number, frazione: number, colore: string): void {
+  ctx.save();
+  ctx.globalAlpha = 0.22;
+  ctx.fillStyle = colore;
+  ctx.fillRect(-w / 2, -h / 2, w * frazione, h);
+  ctx.restore();
+}
+
+/**
+ * CODICE A BARRE VERO: le cifre diventano larghezze.
+ *
+ * La striscia di registrazione era un ornamento — barre a caso da un seme
+ * qualunque. Qui ogni cifra del protocollo è una barra di larghezza
+ * proporzionale, quindi due protocolli diversi hanno strisce diverse e la
+ * stessa pratica ha sempre la sua. Una decorazione che non codifica niente
+ * su un atto amministrativo è peggio che assente: promette un dato che non
+ * c'è.
+ */
+export function drawBarCode(
+  ctx: CanvasRenderingContext2D,
+  cifre: string,
+  x: number,
+  y: number,
+  h: number,
+  colore: string
+): number {
+  ctx.save();
+  ctx.fillStyle = colore;
+  let cx = x;
+  for (const c of cifre) {
+    const d = Number.isNaN(Number(c)) ? 0 : Number(c);
+    const larghezza = 1 + (d % 5);
+    ctx.fillRect(cx, y, larghezza, h);
+    cx += larghezza + 2;
+  }
+  ctx.restore();
+  return cx - x;
+}

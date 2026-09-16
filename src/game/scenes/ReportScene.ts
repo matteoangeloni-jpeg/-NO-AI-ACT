@@ -13,10 +13,25 @@ import { conceptLink } from '../data/concepts';
 import { caseLearning } from '../data/learning';
 
 /** Riga dell'analisi: le due righe che la precedono devono starle sopra. */
-const ANALYSIS_Y = 600;
+const ANALYSIS_Y = 582;
+
+/**
+ * Bordo basso della carta del rapporto: la carta è alta 580 e centrata a
+ * GAME_HEIGHT/2 - 10, quindi finisce qui. Niente testo sotto questa riga.
+ */
+export const REPORT_PAPER_BOTTOM = 640;
 import { decisionAnalysisKeys } from '../systems/DecisionIssues';
 import { multiAxisFeedback } from '../systems/MultiAxisFeedback';
-import { OUTCOME_COLORS, SEAL_HEIGHT, SEAL_WIDTH, createDecisionSeal } from '../assets/procedural/decisionSeal';
+import {
+  OUTCOME_COLORS,
+  SEAL_HEIGHT,
+  SEAL_WIDTH,
+  createDecisionSeal,
+  createRegistryStrip,
+  protocolDate,
+  protocolNumber
+} from '../assets/procedural/decisionSeal';
+import { STATE_MARKS } from '../assets/procedural/visualStates';
 import { seeded } from '../assets/procedural/kit';
 import { AudioSystem } from '../systems/AudioSystem';
 import { StateManager } from '../systems/StateManager';
@@ -58,6 +73,65 @@ export class ReportScene extends Phaser.Scene {
     this.caseData = getCase(data.caseId);
   }
 
+  /**
+   * L'INTESTAZIONE CHE FA DI UN FOGLIO UN ATTO.
+   *
+   * Il rapporto diceva il titolo e il codice pratica, e basta. Mancava
+   * tutto ciò che in un atto amministrativo viene prima del contenuto:
+   * quale ufficio lo emette, con che numero è stato protocollato, quando è
+   * stato redatto, con che classifica esce. Sono metadati noiosi, ed è
+   * esattamente il motivo per cui funzionano: il giocatore li riconosce
+   * come «ufficiale» senza doverli imparare.
+   *
+   * Tutto quello che si legge qui ESISTEVA GIÀ nel mondo del gioco:
+   * l'ufficio è quello del briefing, il codice pratica è `fileCode`
+   * (AX-031/2032), l'anno è il 2032 che il briefing dichiara. Protocollo e
+   * data si ricavano dall'identificativo del caso, quindi la stessa pratica
+   * riaperta porta sempre gli stessi numeri.
+   *
+   * Sono TESTI DI PHASER, non parole cotte nella texture: seguono la lingua
+   * e arrivano allo strato di lettura. La striscia accanto al protocollo ne
+   * codifica le cifre, e non è un ornamento.
+   */
+  private buildRegistryBlock(cx: number): void {
+    const t = L();
+    const r = t.ui.report.registry;
+    const destra = cx + 440;
+    const protocollo = protocolNumber(this.caseData.id);
+
+    const riga = (y: number, etichetta: string, valore: string, colore: string = COLOR_STR.paper): void => {
+      this.add.text(destra, y, `${etichetta} ${valore}`, textStyle(10.5, colore)).setOrigin(1, 0.5);
+    };
+
+    // l'ufficio emittente in alto, dove sta l'intestazione di un atto
+    this.add
+      .text(destra, 72, `${r.officeLabel}: ${t.briefing.header}`, textStyle(10.5, COLOR_STR.accentText))
+      .setOrigin(1, 0.5);
+    riga(88, `${r.fileLabel}:`, this.caseData.fileCode);
+
+    /**
+     * LA STRISCIA STA ACCANTO AL NUMERO CHE CODIFICA.
+     *
+     * Aveva una didascalia sotto — «striscia di registrazione: il protocollo
+     * in forma di barre» — che diceva a parole quello che la posizione dice
+     * da sola, e per giunta finiva addosso alla riga della classifica. Una
+     * didascalia su un timbro è il segno che il timbro non si spiega: qui
+     * basta metterla a fianco del protocollo perché il legame si veda.
+     */
+    const etichettaProt = `${r.protocolLabel}: ${protocollo}`;
+    this.add.text(destra, 104, etichettaProt, textStyle(10.5, COLOR_STR.paper)).setOrigin(1, 0.5);
+    const striscia = createRegistryStrip(this, protocollo);
+    if (striscia) {
+      const larghezzaEtichetta = etichettaProt.length * 10.5 * 0.6;
+      this.add
+        .image(destra - larghezzaEtichetta - 8 - striscia.width / 2, 104, striscia.key)
+        .setDisplaySize(striscia.width, 14);
+    }
+
+    riga(120, `${r.dateLabel}:`, protocolDate(this.caseData.id), COLOR_STR.paperDim);
+    this.add.text(destra, 136, `${r.statusLabel}: ${r.status}`, textStyle(10, COLOR_STR.paperDim)).setOrigin(1, 0.5);
+  }
+
   create(): void {
     const cx = GAME_WIDTH / 2;
     const t = L();
@@ -74,7 +148,8 @@ export class ReportScene extends Phaser.Scene {
     this.add.image(cx, GAME_HEIGHT / 2 - 10, 'report_paper').setDisplaySize(940, 580);
     const left = cx - 430;
     let y = 76;
-    this.add.text(left, y, `${t.ui.report.title} — ${fmt(t.ui.case.fileLabel, { code: this.caseData.fileCode })}`, textStyle(14, COLOR_STR.alertText));
+    this.add.text(left, y, t.ui.report.title, textStyle(14, COLOR_STR.alertText));
+    this.buildRegistryBlock(cx);
     y += 24;
     this.add.text(left, y, texts.title.toUpperCase(), textStyle(19, COLOR_STR.paper, { fontStyle: 'bold' }));
     y += 40;
@@ -159,13 +234,22 @@ export class ReportScene extends Phaser.Scene {
 
     // timbro dell'esito: applicato in basso a destra del documento, come su un
     // modulo reale — fuori dalla colonna di testo, nessuna collisione
-    const stamp = this.add.container(cx + 250, 556);
+    /**
+     * Il sigillo sta a y=500, non a 556.
+     *
+     * A 556 la sua cornice arrivava a y=601 e l'analisi della decisione
+     * comincia a 582: il timbro cadeva sulla prima riga dell'analisi, e su
+     * un esito con la frase lunga la copriva. Lo spazio fra la lezione del
+     * caso e l'analisi era comunque vuoto, quindi il sigillo ci sta per
+     * intero senza togliere niente a nessuno.
+     */
+    const stamp = this.add.container(cx + 250, 500);
     const sealKey = createDecisionSeal(this, result.outcome, this.caseData.id);
     const cornice: Phaser.GameObjects.GameObject = sealKey
       ? this.add.image(0, 0, sealKey).setDisplaySize(SEAL_WIDTH + 20, SEAL_HEIGHT + 20)
       : this.add.rectangle(0, 0, SEAL_WIDTH, SEAL_HEIGHT).setStrokeStyle(3, oc.stroke, 0.9);
     const label = this.add
-      .text(0, 0, t.ui.outcomes[result.outcome], textStyle(result.outcome === 'parziale' ? 16 : 20, oc.text, { fontStyle: 'bold', align: 'center', wordWrap: { width: SEAL_WIDTH - 24 } }))
+      .text(0, 0, `${STATE_MARKS[result.outcome].glyph} ${t.ui.outcomes[result.outcome]}`, textStyle(result.outcome === 'parziale' ? 16 : 20, oc.text, { fontStyle: 'bold', align: 'center', wordWrap: { width: SEAL_WIDTH - 24 } }))
       .setOrigin(0.5);
     stamp.add([cornice, label]);
     // l'inclinazione viene dal caso: due sigilli di casi diversi non escono
@@ -182,8 +266,21 @@ export class ReportScene extends Phaser.Scene {
     const analysis = ak.issue
       ? `${t.ui.report.analysis[ak.outcome]} ${t.ui.report.issues[ak.issue]}`
       : t.ui.report.analysis[ak.outcome];
-    this.add
-      .text(left, ANALYSIS_Y, `${t.ui.report.analysisLabel}: ${analysis}`, textStyle(13, oc.text, { wordWrap: { width: 620 }, lineSpacing: 4 }))
+    /**
+     * LE DUE RIGHE IN FONDO NON SI SOVRAPPONGONO PIÙ.
+     *
+     * L'analisi stava a y=600 e la calibrazione a y=632, due altezze fisse
+     * decise separatamente. Quando l'analisi va su due righe — e ci va, in
+     * italiano, per tre esiti su quattro — occupa fino a y=636 e la
+     * calibrazione le finiva addosso; entrambe uscivano anche dal bordo
+     * basso della carta, che sta a y=640.
+     *
+     * Ora l'analisi è più stretta e la calibrazione la SEGUE, misurata e non
+     * stimata. Il fondo utile è il bordo della carta: sotto ci sono i
+     * pulsanti.
+     */
+    const analisi = this.add
+      .text(left, ANALYSIS_Y, `${t.ui.report.analysisLabel}: ${analysis}`, textStyle(12.5, oc.text, { wordWrap: { width: 880 }, lineSpacing: 3 }))
       .setOrigin(0, 0);
 
     // 2.0 — calibrazione metacognitiva: solo se il giocatore ha dichiarato la
@@ -197,7 +294,9 @@ export class ReportScene extends Phaser.Scene {
           ? confidence === 1 ? m.underconfident : m.calibrated
           : confidence === 3 ? m.overconfident : m.calibrated;
       const lineText = `${m.label}: ${fmt(m.line, { confidence: levelLabel, outcome: t.ui.outcomes[result.outcome] })} ${judgment}`;
-      this.add.text(left, 632, lineText, textStyle(11.5, COLOR_STR.accentText, { wordWrap: { width: 940 } })).setOrigin(0, 0);
+      this.add
+        .text(left, analisi.y + analisi.height + 6, lineText, textStyle(11, COLOR_STR.accentText, { wordWrap: { width: 880 } }))
+        .setOrigin(0, 0);
     }
 
     // post-decision debrief (read-only): turns the already-computed outcome into

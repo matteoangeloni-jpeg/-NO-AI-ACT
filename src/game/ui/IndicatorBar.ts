@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { COLORS, COLOR_STR, textStyle } from './theme';
+import { StateManager } from '../systems/StateManager';
 
 /**
  * Barra indicatore con etichetta e valore numerico sempre visibili
@@ -41,6 +42,13 @@ export class IndicatorBar {
 
   animateTo(from: number, to: number): void {
     this.barFill.fillColor = this.colorFor(to);
+    if (StateManager.reducedMotion) {
+      // Niente conteggio animato: il valore nuovo è già tutta
+      // l'informazione, e la barra che si riempie è l'animazione.
+      this.setValue(to);
+      this.showDelta(to - from);
+      return;
+    }
     this.scene.tweens.addCounter({
       from,
       to,
@@ -53,13 +61,32 @@ export class IndicatorBar {
       },
       onComplete: () => this.setValue(to)
     });
-    // pulse del delta accanto al valore
-    const delta = to - from;
+    this.showDelta(to - from);
+  }
+
+  /** Il delta accanto al valore: quanto è cambiato, e in che verso. */
+  private showDelta(delta: number): void {
     if (delta !== 0) {
       const sign = delta > 0 ? '+' : '';
       const deltaText = this.scene.add
         .text(this.valueText.x + 8, this.valueText.y, `${sign}${delta}`, textStyle(12, delta > 0 ? COLOR_STR.accentText : COLOR_STR.warning))
         .setOrigin(0, 0);
+      /**
+       * QUI `reveal` SAREBBE SBAGLIATO, e per poco non lo è stato.
+       *
+       * L'aiutante porta l'oggetto allo stato finale quando il movimento è
+       * ridotto — ed è giusto per una COMPARSA, dove lo stato finale è
+       * «visibile». Qui lo stato finale è `alpha: 0`: applicarlo subito
+       * avrebbe cancellato il delta prima che si potesse leggerlo, cioè
+       * avrebbe tolto un'informazione a chi ha chiesto meno movimento.
+       *
+       * «Riduci movimento» non significa «mostra meno cose». Il delta resta
+       * leggibile lo stesso tempo; quello che sparisce è la salita.
+       */
+      if (StateManager.reducedMotion) {
+        this.scene.time.delayedCall(1600, () => deltaText.destroy());
+        return;
+      }
       this.scene.tweens.add({
         targets: deltaText,
         alpha: 0,

@@ -12,7 +12,7 @@ import { L, caseText, fmt } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { evidenceReadingLine } from '../systems/evidenceReading';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
-import { fadeInScene } from '../ui/motion';
+import { fadeInScene, reveal } from '../ui/motion';
 import { StateManager } from '../systems/StateManager';
 import { addNoiseOverlay } from '../ui/backdrop';
 import { createDocumentTextures } from '../assets/procedural/documentStyles';
@@ -75,13 +75,22 @@ export class EvidenceScene extends Phaser.Scene {
     const cols = Math.min(n, 3);
     const rows = Math.ceil(n / cols);
     const cardW = 360;
-    const cardH = rows === 1 ? 320 : 230;
+    /**
+     * L'altezza su due file è 216, non 230.
+     *
+     * Con 230 la fila di sotto arrivava a y=597 e la riga di avanzamento
+     * («hai abbastanza elementi: puoi passare alla classificazione») sta a
+     * y=588: la frase finiva dentro le schede. Era già così prima dei
+     * distintivi, ma i distintivi stanno proprio lì e l'hanno resa visibile.
+     */
+    const cardH = rows === 1 ? 320 : 216;
     // I fogli si generano alla dimensione VERA della scheda: una texture
     // stirata perderebbe il passo delle righe e la grana, che sono il
     // motivo per cui esiste.
     createDocumentTextures(this, cardW, cardH);
     const colX = cols === 1 ? [cx] : cols === 2 ? [cx - 300, cx + 300] : [cx - 390, cx, cx + 390];
     const rowY = rows === 1 ? [290] : [236, 236 + cardH + 16];
+    const fondoSchede = rowY[rowY.length - 1] + cardH / 2;
     const sources = texts.clueSources;
     texts.clues.forEach((clue, i) => {
       const x = colX[i % cols];
@@ -93,11 +102,13 @@ export class EvidenceScene extends Phaser.Scene {
       // micro-tag investigativo (v0.5): funzione del reperto rispetto al rischio
       // (minimizza / prova decisiva / effetto concreto…), reso da DossierCard
       // su una propria riga — niente concatenazione con la fonte
+      // Alla scheda si passa la FUNZIONE del reperto, non la sua etichetta:
+      // è lei a sapere che «prova decisiva» è uno stato e merita il
+      // distintivo, mentre le altre funzioni restano una riga di testo.
       const stance = this.caseData.clueStances?.[i];
-      const stanceLabel = stance ? (L().ui.evidence.stances as Record<string, string>)[stance] : undefined;
-      const card = new DossierCard(this, x, y, cardW, cardH, clue, i, () => this.refreshState(), sourceLabel, stanceLabel, src);
+      const card = new DossierCard(this, x, y, cardW, cardH, clue, i, () => this.refreshState(), sourceLabel, stance, src);
       card.setAlpha(0);
-      this.tweens.add({ targets: card, alpha: 1, duration: 250, delay: i * 100 });
+      reveal(this, { targets: card, alpha: 1, duration: 250, delay: i * 100 });
       this.cards.push(card);
     });
 
@@ -128,7 +139,7 @@ export class EvidenceScene extends Phaser.Scene {
      * MIN_CITED_CLUES.
      */
     this.progressText = this.add
-      .text(cx, GAME_HEIGHT - 132, '', textStyle(13, COLOR_STR.accentText, { align: 'center' }))
+      .text(cx, Math.max(GAME_HEIGHT - 132, fondoSchede + 14), '', textStyle(13, COLOR_STR.accentText, { align: 'center' }))
       .setOrigin(0.5);
 
     this.proceedBtn = new Button(this, cx, GAME_HEIGHT - 90, L().ui.evidence.proceedButton, () => this.proceed(), { width: 380 });
@@ -187,6 +198,16 @@ export class EvidenceScene extends Phaser.Scene {
       const msg = fmt(L().ui.evidence.contradictionFound, { a: texts.clues[hit[0]].title, b: texts.clues[hit[1]].title });
       showToast(this, msg, 'info', 20);
       ReadingLayer.announce(msg);
+      /**
+       * Le due schede restano marcate. Il toast passa dopo qualche secondo
+       * e la contraddizione se ne va con lui: chi la trova a inizio esame e
+       * poi costruisce il rapporto non ha più niente sotto gli occhi che
+       * gliela ricordi. Il distintivo è il verbale di un accertamento che
+       * il giocatore ha già fatto — non anticipa nulla, perché arriva solo
+       * dopo che lui l'ha dichiarata e i dati l'hanno confermata.
+       */
+      this.cards[hit[0]]?.markContradiction();
+      this.cards[hit[1]]?.markContradiction();
     } else {
       showToast(this, L().ui.evidence.contradictionNone, 'info', 20);
       ReadingLayer.announce(L().ui.evidence.contradictionNone);

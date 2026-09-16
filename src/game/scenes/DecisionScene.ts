@@ -17,6 +17,9 @@ import { fadeInScene } from '../ui/motion';
 import type { DraftStep } from '../systems/caseDraft';
 import { CLASSIFICATION_TERMS, SUBJECT_TERMS } from '../data/termHints';
 import { addNoiseOverlay } from '../ui/backdrop';
+import { CLASSIFICATION_SEVERITY, MEASURE_SEVERITY, SEVERITY_SIZE, createSeverityGauge } from '../assets/procedural/severity';
+import { protocolDate } from '../assets/procedural/decisionSeal';
+import { stateBadge } from '../assets/procedural/visualStates';
 import { INDICATOR_KEYS, IndicatorHud } from '../systems/IndicatorSystem';
 
 /**
@@ -26,6 +29,16 @@ import { INDICATOR_KEYS, IndicatorHud } from '../systems/IndicatorSystem';
  */
 const SIGN_NOTE_Y = 470;
 const CONFIDENCE_ROW_Y = 566;
+
+/**
+ * Larghezza della nota di contesto nel primo passo. La colonna «stato della
+ * città» comincia a GAME_WIDTH-250 ed è larga 226: la nota è centrata, quindi
+ * può essere larga al massimo il doppio della distanza fra il centro e quel
+ * bordo, meno un margine. Scritta come calcolo e non come numero, così
+ * spostare la colonna non rimette in piedi la sovrapposizione.
+ */
+export const CITY_COLUMN_X = GAME_WIDTH - 250;
+export const CONTEXT_NOTE_WRAP = (CITY_COLUMN_X - GAME_WIDTH / 2 - 20) * 2;
 
 const CLASSIFICATIONS: Classification[] = ['vietata', 'alto_rischio', 'trasparenza', 'basso_rischio', 'non_rilevante'];
 const MEASURES: Measure[] = ['blocco', 'oversight', 'audit', 'informare', 'etichettare', 'dati_logging', 'nessuna'];
@@ -122,6 +135,7 @@ export class DecisionScene extends Phaser.Scene {
     fadeInScene(this, 250);
     AudioSystem.setMusicRole('decision', this.caseData.id);
     addNoiseOverlay(this, 0.4);
+    this.buildPaper();
     this.contextOverlay = new CaseContextOverlay(this, this.caseData.id, 'closeToDecision');
     // read-only "Norma del caso": relevant rule of the current case (no unlock)
     this.caseNormOverlay = new CaseNormOverlay(this, this.caseData.normId);
@@ -200,6 +214,36 @@ export class DecisionScene extends Phaser.Scene {
     }
   }
 
+  /**
+   * LA CARTA SOTTO LA DECISIONE.
+   *
+   * La decisione si svolgeva su fondo nero, fra i fascicoli e il rapporto,
+   * che sono carta. Era l'unico momento in cui il gioco smetteva di essere
+   * un ufficio e tornava a essere un menù — e proprio il momento in cui
+   * l'atto si sta scrivendo.
+   *
+   * È la carta dell'istruttoria: qui l'atto non esiste ancora, la pratica
+   * si sta costruendo. Larga quanto la scena, perché la decisione occupa
+   * tutto — reperti a sinistra, città a destra — e un foglio più stretto
+   * sarebbe un rettangolo appoggiato sopra invece di un piano di lavoro.
+   */
+  private buildPaper(): void {
+    if (!this.textures.exists('decision_paper')) return;
+    this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 24, 'decision_paper').setDisplaySize(1180, 620).setAlpha(0.55);
+  }
+
+  /**
+   * La scala di gravità accanto a un'opzione. Dice quanto quella scelta è
+   * invasiva, MAI quanto è giusta: la proporzionalità resta il giudizio che
+   * il gioco chiede, e si può giudicare solo se si sa quanto pesa ciò che
+   * si ha in mano.
+   */
+  private addSeverity(x: number, y: number, livello: number): void {
+    const key = createSeverityGauge(this, livello);
+    if (!key) return;
+    this.add.image(x, y, key).setDisplaySize(SEVERITY_SIZE.width, SEVERITY_SIZE.height).setAlpha(0.9);
+  }
+
   private header(step: string, question: string, sidebar = true): void {
     this.lastStep = { label: step, question };
     // strato di lettura (§11.1): passo corrente e domanda, a ogni transizione
@@ -259,7 +303,7 @@ export class DecisionScene extends Phaser.Scene {
    * dove si trova, non che cosa conviene.
    */
   private buildCityState(): void {
-    const right = GAME_WIDTH - 250;
+    const right = CITY_COLUMN_X;
     this.add.text(right, 176, L().ui.decision.cityState, textStyle(11, COLOR_STR.accentText, { fontStyle: 'bold' }));
     new IndicatorHud(this, right, 204, 226);
     this.add.text(right, 204 + INDICATOR_KEYS.length * 34, L().ui.decision.cityStateNote, textStyle(10.5, COLOR_STR.paperDim, { wordWrap: { width: 226 }, lineSpacing: 2 }));
@@ -342,6 +386,7 @@ export class DecisionScene extends Phaser.Scene {
       this.closeNormsOverlay();
       this.children.list.slice().forEach((child) => child.destroy());
       addNoiseOverlay(this, 0.4);
+      this.buildPaper();
       builder();
     });
   }
@@ -351,7 +396,14 @@ export class DecisionScene extends Phaser.Scene {
     const cx = GAME_WIDTH / 2;
     this.header(L().ui.decision.step1, L().ui.decision.question1);
     this.add
-      .text(cx, 168, L().ui.decision.contextNote, textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: 880 }, align: 'center' }))
+      /**
+       * La larghezza NON è 880. Con quella, la nota centrata occupava da
+       * x=200 a x=1080 e finiva sotto «STATO DELLA CITTÀ», che comincia a
+       * x=1030: le due scritte si sovrapponevano su ogni schermo. La
+       * colonna di destra è larga 226 e parte da GAME_WIDTH-250, quindi la
+       * nota deve stare dentro i 700 che le restano.
+       */
+      .text(cx, 168, L().ui.decision.contextNote, textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: CONTEXT_NOTE_WRAP }, align: 'center' }))
       .setOrigin(0.5, 0);
     // microcopy: la decisione è distinta dal rapporto e si svolge in 4 passi
     this.add
@@ -368,7 +420,9 @@ export class DecisionScene extends Phaser.Scene {
     };
 
     CLASSIFICATIONS.forEach((cls, i) => {
-      new Button(this, cx, 228 + i * 62, `${i + 1}. ${L().classifications[cls].toUpperCase()}`, () => pick(cls), { width: 460 });
+      const y = 228 + i * 62;
+      new Button(this, cx, y, `${i + 1}. ${L().classifications[cls].toUpperCase()}`, () => pick(cls), { width: 460 });
+      this.addSeverity(cx + 268, y, CLASSIFICATION_SEVERITY[cls]);
     });
     this.addTermsButton(
       CLASSIFICATIONS.map((c) => ({ label: L().classifications[c], glossaryId: CLASSIFICATION_TERMS[c] }))
@@ -403,7 +457,10 @@ export class DecisionScene extends Phaser.Scene {
       const col = i % 2;
       const row = Math.floor(i / 2);
       const x = col === 0 ? cx - 240 : cx + 240;
-      new Button(this, i === MEASURES.length - 1 ? cx : x, 224 + row * 62, `${i + 1}. ${L().measures[measure].toUpperCase()}`, () => pick(measure), { width: 440, fontSize: 14 });
+      const bx = i === MEASURES.length - 1 ? cx : x;
+      const by = 224 + row * 62;
+      new Button(this, bx, by, `${i + 1}. ${L().measures[measure].toUpperCase()}`, () => pick(measure), { width: 440, fontSize: 14 });
+      this.addSeverity(bx + 258, by, MEASURE_SEVERITY[measure]);
     });
     const back = (): void => this.stepBack(() => { this.classification = null; }, () => this.showClassificationStep());
     this.bindNumberKeys(MEASURES.length, (i) => pick(MEASURES[i]), back);
@@ -481,6 +538,34 @@ export class DecisionScene extends Phaser.Scene {
     const t = L().ui.decision;
     const texts = (L().cases as Record<string, { motivations: string[] }>)[this.caseData.id];
     this.header(t.step5, t.question5, false);
+
+    /**
+     * L'ATTO IN BOZZA, con la sua intestazione.
+     *
+     * Il riepilogo è il documento un istante prima della firma, e si
+     * presentava come un elenco di righe. Qui prende i metadati dell'atto —
+     * ufficio, codice pratica, data — e la classifica che gli spetta:
+     * BOZZA, non protocollata. Il numero di protocollo NON c'è, e non è una
+     * dimenticanza: un atto prende il protocollo quando viene depositato,
+     * ed è il rapporto a mostrarlo. La differenza fra le due schermate è
+     * essa stessa un'informazione.
+     */
+    const r = L().ui.report.registry;
+    const destra = cx + 430;
+    this.add
+      .text(destra, 168, `${r.officeLabel}: ${L().briefing.header}`, textStyle(10.5, COLOR_STR.accentText))
+      .setOrigin(1, 0.5);
+    this.add
+      .text(destra, 184, `${r.fileLabel}: ${this.caseData.fileCode}`, textStyle(10.5, COLOR_STR.paper))
+      .setOrigin(1, 0.5);
+    this.add
+      .text(destra, 200, `${r.dateLabel}: ${protocolDate(this.caseData.id)}`, textStyle(10.5, COLOR_STR.paperDim))
+      .setOrigin(1, 0.5);
+    const bozza = stateBadge(this, 0, 0, 'procedibile', { height: 20, fontSize: 10 });
+    bozza.setPosition(destra - bozza.width / 2, 222);
+    this.add
+      .text(destra, 244, `${r.statusLabel}: ${r.draftStatus}`, textStyle(10, COLOR_STR.paperDim))
+      .setOrigin(1, 0.5);
 
     const rows: Array<[string, string]> = [
       [t.summary.classification, L().classifications[this.classification!]],

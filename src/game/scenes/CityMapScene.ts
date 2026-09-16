@@ -15,7 +15,7 @@ import { fadeInScene, fadeOutScene } from '../ui/motion';
 import { layoutHStack } from '../ui/layout';
 import { draftProgress } from '../systems/caseDraft';
 import { drawCivicNetwork, type CivicNode, type NodeState } from '../assets/procedural/civicNetwork';
-import { OUTCOME_STAMP_FONT, OUTCOME_STAMP_KEYS, OUTCOME_STAMP_SIZE, createOutcomeStamps } from '../assets/procedural/stamps';
+import { STATE_MARKS, stateBadge, type VisualState } from '../assets/procedural/visualStates';
 import { seeded } from '../assets/procedural/kit';
 
 /** Deriva massima, in pixel logici, dei due strati di fondo della mappa. */
@@ -37,9 +37,23 @@ const PARALLAX_GRAIN = 6;
 function caseStatus(caseId: string | null | undefined, playable: boolean): { label: string; color: string } {
   const t = L().ui.map;
   const quality = caseId ? StateManager.caseQuality(caseId) : undefined;
-  if (quality === 'wrong') return { label: t.statusNonCompliant, color: COLOR_STR.warning };
-  if (quality !== undefined) return { label: t.statusClosed, color: COLOR_STR.ok };
-  if (!playable) return { label: t.statusSealed, color: COLOR_STR.paperDim };
+  /**
+   * La riga di stato del segnaposto porta il GLIFO del linguaggio comune.
+   *
+   * Sulla mappa lo stato si leggeva dal colore dell'anello e da una parola
+   * scritta nel colore corrispondente: due segnali che sono in realtà lo
+   * stesso segnale. Il glifo è il terzo, e l'unico che sopravvive al bianco
+   * e nero — «▸ DA ISPEZIONARE» resta distinguibile da «■ CHIUSO» anche
+   * stampato in grigio.
+   */
+  const con = (state: VisualState, label: string): { label: string; color: string } => ({
+    label: `${STATE_MARKS[state].glyph} ${label}`,
+    color: STATE_MARKS[state].color
+  });
+  if (quality === 'wrong') return con('contestabile', t.statusNonCompliant);
+  if (quality === 'partial') return con('parziale', t.statusClosed);
+  if (quality !== undefined) return con('conforme', t.statusClosed);
+  if (!playable) return con('sigillato', t.statusSealed);
 
   const draft = caseId ? StateManager.draftFor(caseId) : null;
   if (draft) {
@@ -124,10 +138,6 @@ export class CityMapScene extends Phaser.Scene {
       return { id: l.id, x: l.x * GAME_WIDTH, y: l.y * GAME_HEIGHT, state };
     });
     drawCivicNetwork(this, nodi, !StateManager.reducedMotion);
-
-    // Le cornici dei timbri d'esito. Sono mute: la parola la mette il
-    // segnaposto, con un testo che segue la lingua scelta.
-    createOutcomeStamps(this);
 
     for (const loc of LOCATIONS) this.buildMarker(loc.id);
 
@@ -254,30 +264,15 @@ export class CityMapScene extends Phaser.Scene {
      * escono paralleli come due adesivi.
      */
     if (caseData && quality) {
-      const key = OUTCOME_STAMP_KEYS[quality];
-      if (this.textures.exists(key)) {
-        const inclina = (seeded(`inclinazione:${caseData.id}`)() - 0.5) * 0.34;
-        const timbro = this.add
-          .image(0, -34, key)
-          .setDisplaySize(OUTCOME_STAMP_SIZE.width, OUTCOME_STAMP_SIZE.height)
-          .setRotation(inclina)
-          .setAlpha(0.9);
-        // La PAROLA non sta nella texture: è un testo di Phaser, quindi segue
-        // la lingua scelta invece di restare quella del primo avvio.
-        const esitoLabel: Record<'correct' | 'partial' | 'wrong', string> = {
-          correct: L().ui.outcomes.conforme,
-          partial: L().ui.outcomes.parziale,
-          wrong: L().ui.outcomes.contestabile
-        };
-        const colore =
-          quality === 'correct' ? COLOR_STR.ok : quality === 'wrong' ? COLOR_STR.alertText : COLOR_STR.warning;
-        const parola = this.add
-          .text(0, -34, esitoLabel[quality], textStyle(OUTCOME_STAMP_FONT, colore, { align: 'center' }))
-          .setOrigin(0.5)
-          .setRotation(inclina)
-          .setAlpha(0.9);
-        container.add([timbro, parola]);
-      }
+      const statoEsito: Record<'correct' | 'partial' | 'wrong', 'conforme' | 'parziale' | 'contestabile'> = {
+        correct: 'conforme',
+        partial: 'parziale',
+        wrong: 'contestabile'
+      };
+      const inclina = (seeded(`inclinazione:${caseData.id}`)() - 0.5) * 0.34;
+      const timbro = stateBadge(this, 0, -34, statoEsito[quality], { height: 24, fontSize: 10 });
+      timbro.setRotation(inclina).setAlpha(0.9);
+      container.add(timbro);
     }
 
     // Evidenzia i fascicoli del piano della modalità corrente (non blocca
@@ -294,7 +289,12 @@ export class CityMapScene extends Phaser.Scene {
       ring.setStrokeStyle(2, COLORS.accent);
     }
 
-    // pulsazione dei casi aperti
+    /**
+     * PULSAZIONE dei casi aperti. Resta, ma non è più il segnale: lo stato
+     * «procedibile» sta scritto nella riga di stato, con il suo glifo, e
+     * con «riduci movimento» attivo — quando la pulsazione non c'è — quella
+     * riga è l'unica cosa che distingue un caso da aprire, e basta da sola.
+     */
     if (playable && !StateManager.reducedMotion) {
       const pulse = this.add.circle(x, y, 26).setStrokeStyle(2, COLORS.alert, 0.8);
       this.tweens.add({ targets: pulse, scale: 1.6, alpha: 0, duration: 1500, repeat: -1 });

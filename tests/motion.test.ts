@@ -147,19 +147,28 @@ describe('la transizione fra scene ha una rete di sicurezza a orologio', () => {
 });
 
 /**
- * IL MOVIMENTO CHE NON FINISCE MAI.
+ * OGNI ANIMAZIONE, NON SOLO QUELLE CHE NON FINISCONO MAI.
  *
- * Una dissolvenza dura 300 ms e poi è finita: chi ha chiesto meno movimento
- * la subisce una volta. Un tween con `repeat: -1` non finisce mai — resta
- * lì a muoversi finché la schermata è aperta — quindi è proprio quello che
- * l'impostazione deve poter spegnere, ed è anche quello che si dimentica,
- * perché lo si scrive una volta e non lo si rilegge più.
+ * La prima versione di questo controllo guardava i tween con `repeat: -1`,
+ * e per quelli andava bene. Ma «riduci movimento» non è una richiesta di
+ * evitare le animazioni *lunghe*: è una richiesta di non vederne. Le
+ * animazioni una tantum erano quattro, ognuna innocua da sola — le schede
+ * reperto che entravano una dopo l'altra, il fascicolo che saliva dal
+ * basso, la nota della conseguenza che sfumava, la barra dell'indicatore
+ * che si riempiva — e tutte insieme l'esatto contrario di quello che
+ * l'impostazione promette. Nessuna aveva `repeat: -1`, quindi nessuna era
+ * coperta.
  *
- * L'elenco dei file si legge dal disco: un'animazione perpetua nuova finisce
- * sotto questo controllo il giorno che nasce, invece di aspettare che
- * qualcuno si ricordi di aggiungerla a una lista.
+ * La regola ora è completa: NESSUN tween, di nessuna durata, senza che
+ * l'impostazione sia stata consultata. Ci si arriva in tre modi — un `if`
+ * accanto alla chiamata, l'aiutante `reveal` di motion.ts, o un
+ * interruttore che il chiamante deriva dall'impostazione — e il controllo
+ * li accetta tutti e tre, purché uno ci sia.
+ *
+ * L'elenco dei file si legge dal disco, ricorsivamente: un'animazione nuova
+ * finisce sotto questo controllo il giorno che nasce.
  */
-describe('nessuna animazione perpetua ignora "riduci movimento"', () => {
+describe('nessuna animazione ignora "riduci movimento"', () => {
   const tutti = (dir: string): string[] => {
     const out: string[] = [];
     for (const e of readdirSync(resolve(root, dir), { withFileTypes: true })) {
@@ -170,25 +179,52 @@ describe('nessuna animazione perpetua ignora "riduci movimento"', () => {
   };
   const files = tutti('src/game');
 
+  /** motion.ts È la decisione: chiedere a sé stessa non avrebbe senso. */
+  const CASA = 'src/game/ui/motion.ts';
+
   it('la lettura del disco trova davvero i sorgenti del gioco', () => {
     expect(files.length, 'se la ricorsione fallisse, il controllo sarebbe vuoto').toBeGreaterThan(30);
   });
 
-  it('chi scrive un tween perpetuo o guarda l\'impostazione, o si fa passare un interruttore', () => {
+  it('ogni tween ha l\'impostazione a portata di sguardo', () => {
     const colpevoli: string[] = [];
+    let esaminati = 0;
     for (const f of files) {
+      if (f === CASA) continue;
       const src = read(f);
-      if (!/repeat:\s*-1/.test(src)) continue;
-      // O il file conosce l'impostazione, o espone un interruttore che il
-      // chiamante deriva da lei: i generatori procedurali non importano lo
-      // StateManager di proposito, restano funzioni pure sulla scena.
-      const sa = /reducedMotion/.test(src) || /animate\s*=\s*false/.test(src);
-      if (!sa) colpevoli.push(f);
+      const re = /tweens\s*\.\s*(add|addCounter)\s*\(/g;
+      let m: RegExpExecArray | null;
+      while ((m = re.exec(src)) !== null) {
+        esaminati += 1;
+        /**
+         * La finestra è quella che un lettore abbraccia con lo sguardo:
+         * 400 caratteri prima della chiamata, più la chiamata intera. Il
+         * «dopo» conta quanto il «prima», perché il modo più diretto di
+         * rispettare l'impostazione è dentro la configurazione stessa —
+         * `duration: reducedMotion ? 0 : 400` — e una finestra solo
+         * all'indietro lo dichiarava colpevole.
+         */
+        const fine = src.indexOf(';', m.index);
+        const finestra =
+          src.slice(Math.max(0, m.index - 400), m.index) + src.slice(m.index, fine === -1 ? m.index : fine);
+        if (!/reducedMotion|\banimate\b/.test(finestra)) {
+          const riga = src.slice(0, m.index).split('\n').length;
+          colpevoli.push(`${f}:${riga}`);
+        }
+      }
     }
+    expect(esaminati, 'nessun tween trovato = controllo inerte').toBeGreaterThan(3);
     expect(
       colpevoli,
-      `animazione senza fine e senza freno:\n${colpevoli.join('\n')}`
+      `tween senza freno (usa reveal() di motion.ts, o un if sull'impostazione):\n${colpevoli.join('\n')}`
     ).toEqual([]);
+  });
+
+  it("l'aiutante esiste, ed è lui a saltare l'animazione invece di saltarne il risultato", () => {
+    const src = read(CASA);
+    const fn = src.slice(src.indexOf('export function reveal'));
+    expect(fn, "con l'impostazione attiva si deve arrivare allo stato finale").toContain('finale');
+    expect(fn, 'il seguito va eseguito lo stesso, o la scena resta senza pulsante').toContain('onComplete');
   });
 
   it("l'interruttore, dove c'è, è davvero l'impostazione e non un `true` scritto a mano", () => {
@@ -209,7 +245,6 @@ describe('nessuna animazione perpetua ignora "riduci movimento"', () => {
         let m: RegExpExecArray | null;
         while ((m = re.exec(src)) !== null) {
           const args = m[1];
-          // la dichiarazione stessa non è una chiamata
           if (src.slice(Math.max(0, m.index - 20), m.index).includes('function')) continue;
           if (args.split(',').length < 3) continue; // chiamata senza interruttore: resta ferma
           if (!/reducedMotion/.test(args)) colpevoli.push(`${f}: ${nome}(${args.trim()})`);

@@ -4,15 +4,14 @@ import { describe, expect, it as test } from 'vitest';
 import { PAPER_SPECS } from '../src/game/assets/procedural/createDossierTextures';
 import { OUTCOME_COLORS } from '../src/game/assets/procedural/decisionSeal';
 import {
-  CITE_STAMP_FONT,
-  CITE_STAMP_SIZE,
-  MONO_ADVANCE,
-  OUTCOME_STAMP_FONT,
-  OUTCOME_STAMP_SIZE,
-  STAMP_PADDING
-} from '../src/game/assets/procedural/stamps';
-import { en as enDict } from '../src/game/i18n/en';
+  STATE_MARKS,
+  stateFrameKey,
+  stateText,
+  stateTextWidth,
+  type VisualState
+} from '../src/game/assets/procedural/visualStates';
 import { it as itDict } from '../src/game/i18n/it';
+import { setLanguage } from '../src/game/i18n';
 import { COLOR_STR } from '../src/game/ui/theme';
 
 /**
@@ -78,11 +77,48 @@ describe('nessuna parola finisce cotta dentro una texture', () => {
     ).toEqual([]);
   });
 
-  test('nessun generatore riceve testo da i18n', () => {
-    // Il modo in cui la regola veniva aggirata: passare le etichette al
-    // generatore invece di scriverle dentro. Il risultato è lo stesso.
-    const colpevoli = generatori.filter((f) => /from '\.\.\/\.\.\/i18n'/.test(read(`${dir}/${f}`)));
-    expect(colpevoli, `generatori che importano i18n: ${colpevoli.join(', ')}`).toEqual([]);
+  test('una texture il cui contenuto dipende dalla lingua ha la lingua nella chiave', () => {
+    /**
+     * La regola precedente era «nessun generatore importa i18n», e ha
+     * segnalato i due moduli del linguaggio degli stati — che i18n lo usano
+     * eccome, ma per i TESTI DI PHASER accanto alla cornice, non per i
+     * pixel. Era un proxy sbagliato: da quando `fillText` è vietato del
+     * tutto, cuocere una parola in una texture non è più possibile.
+     *
+     * Quello che resta da garantire è più sottile. Il distintivo ricava la
+     * propria LARGHEZZA dalla parola, quindi la texture della cornice
+     * dipende dalla lingua anche senza contenere parole: se la chiave non
+     * seguisse quella misura, passando all'inglese si riuserebbe la cornice
+     * italiana, larga per una parola che non c'è più.
+     *
+     * Qui si verifica la proprietà vera, sulle due lingue vere.
+     */
+    const stati = Object.keys(STATE_MARKS) as VisualState[];
+    const chiavi = (lingua: 'it' | 'en'): Map<VisualState, number> => {
+      setLanguage(lingua);
+      const m = new Map<VisualState, number>();
+      for (const stato of stati) {
+        m.set(stato, Math.ceil(stateTextWidth(stato, 11.5)));
+      }
+      return m;
+    };
+    const itW = chiavi('it');
+    const enW = chiavi('en');
+    setLanguage('it');
+
+    let almenoUnaDiversa = false;
+    for (const [stato, w] of itW) {
+      const we = enW.get(stato) ?? 0;
+      if (w !== we) almenoUnaDiversa = true;
+      // la chiave della cornice contiene la larghezza: misure diverse,
+      // texture diverse
+      expect(stateFrameKey(stato, w, 26)).toContain(String(w));
+      expect(stateFrameKey(stato, we, 26)).toContain(String(we));
+    }
+    expect(
+      almenoUnaDiversa,
+      'se nessuna etichetta cambiasse lunghezza fra le due lingue, questo controllo sarebbe inerte'
+    ).toBe(true);
   });
 });
 
@@ -162,41 +198,70 @@ describe('il sigillo copre tutti gli esiti', () => {
   });
 });
 
-describe('le parole stanno dentro i timbri', () => {
+describe('il linguaggio degli stati è leggibile senza colore', () => {
   /**
-   * IL DIFETTO CHE QUESTO CONTROLLO HA TROVATO DAVVERO.
+   * IL DIFETTO CHE QUESTA REGOLA CHIUDE.
    *
-   * La cornice d'esito era 148px meno di così, e "PARZIALMENTE CONFORME"
-   * usciva da tutte e due le parti. Non si vedeva provando il gioco, per due
-   * motivi messi insieme: l'esito parziale è il meno frequente, e chi prova
-   * il gioco lo prova nella propria lingua — l'inglese, più corto, non
-   * sbordava. È il genere di difetto che una guardia trova e una prova a
-   * schermo no.
+   * La cornice d'esito aveva una larghezza scritta a mano, e «PARZIALMENTE
+   * CONFORME» ne usciva da tutte e due le parti. Non si vedeva provando il
+   * gioco: l'esito parziale è il meno frequente e l'inglese è più corto.
    *
-   * Le etichette si LEGGONO da tutte e due i dizionari. Una lingua nuova, o
-   * una traduzione più lunga, passa di qui il giorno che viene scritta.
+   * Ora la larghezza del distintivo si RICAVA dalla parola, quindi il
+   * difetto non può più nascere; quello che resta da verificare è che il
+   * linguaggio regga le sue promesse — che ogni stato porti un segnale che
+   * non sia il colore, e che nessuno di questi segnali si ripeta.
    */
-  const larghezza = (testo: string, corpo: number): number => testo.length * corpo * MONO_ADVANCE;
-
-  test("l'etichetta d'esito sta nella cornice del timbro, in tutte e due le lingue", () => {
-    const luce = OUTCOME_STAMP_SIZE.width - STAMP_PADDING * 2;
-    for (const [lingua, dict] of [['it', itDict], ['en', enDict]] as const) {
-      for (const [chiave, testo] of Object.entries(dict.ui.outcomes)) {
-        const w = larghezza(testo, OUTCOME_STAMP_FONT);
-        expect(
-          w,
-          `[${lingua}] "${testo}" (${chiave}) occupa ${w.toFixed(0)}px in una luce di ${luce}px`
-        ).toBeLessThanOrEqual(luce);
-      }
+  test('ogni stato ha un glifo, e nessuno lo condivide con un altro', () => {
+    const glifi = Object.entries(STATE_MARKS).map(([s, m]) => [s, m.glyph] as const);
+    expect(glifi.length).toBeGreaterThan(8);
+    const visti = new Map<string, string>();
+    for (const [stato, glifo] of glifi) {
+      expect(glifo, `lo stato "${stato}" non ha glifo: resterebbe il solo colore`).not.toBe('');
+      const gemello = visti.get(glifo);
+      expect(gemello, `"${stato}" e "${gemello}" usano lo stesso glifo "${glifo}"`).toBeUndefined();
+      visti.set(glifo, stato);
     }
   });
 
-  test('"citato nel rapporto" sta nella sua cornice, in tutte e due le lingue', () => {
-    const luce = CITE_STAMP_SIZE.width - STAMP_PADDING * 2;
-    for (const [lingua, dict] of [['it', itDict], ['en', enDict]] as const) {
-      const testo = dict.ui.evidence.cited;
-      const w = larghezza(testo, CITE_STAMP_FONT);
-      expect(w, `[${lingua}] "${testo}" occupa ${w.toFixed(0)}px in una luce di ${luce}px`).toBeLessThanOrEqual(luce);
+  test('i glifi vengono tutti dal blocco con la prova a schermo', () => {
+    /**
+     * Geometric Shapes (U+25A0–U+25FF) è l'unico blocco di cui il gioco ha
+     * già la prova: ▢ ▣ ▸ ◂ ▲ ▼ erano in uso da prima di questo linguaggio.
+     * Un glifo preso da un blocco non verificato esce come rettangolo vuoto
+     * dove manca il font — cioè un segnale in meno proprio dove servono.
+     */
+    for (const [stato, m] of Object.entries(STATE_MARKS)) {
+      const cp = m.glyph.codePointAt(0) ?? 0;
+      expect(
+        cp >= 0x25a0 && cp <= 0x25ff,
+        `"${stato}" usa U+${cp.toString(16).toUpperCase()}, fuori da Geometric Shapes`
+      ).toBe(true);
     }
+  });
+
+  test('due stati non condividono lo stesso trattamento CON lo stesso colore', () => {
+    // Trattamento uguale e colore uguale = due stati indistinguibili.
+    // Trattamento uguale e colore diverso va bene: il glifo li separa.
+    const visti = new Map<string, string>();
+    for (const [stato, m] of Object.entries(STATE_MARKS)) {
+      const impronta = `${m.treatment}|${m.color}`;
+      const gemello = visti.get(impronta);
+      expect(gemello, `"${stato}" è indistinguibile da "${gemello}" senza leggere la parola`).toBeUndefined();
+      visti.set(impronta, stato);
+    }
+  });
+
+  test('il testo di uno stato porta sempre il glifo davanti alla parola', () => {
+    setLanguage('it');
+    for (const stato of Object.keys(STATE_MARKS) as VisualState[]) {
+      expect(stateText(stato).startsWith(STATE_MARKS[stato].glyph)).toBe(true);
+      expect(stateText(stato).length, `"${stato}" non ha parola dopo il glifo`).toBeGreaterThan(3);
+    }
+    setLanguage('en');
+    for (const stato of Object.keys(STATE_MARKS) as VisualState[]) {
+      expect(stateText(stato).startsWith(STATE_MARKS[stato].glyph)).toBe(true);
+      expect(stateText(stato).length, `[en] "${stato}" non ha parola dopo il glifo`).toBeGreaterThan(3);
+    }
+    setLanguage('it');
   });
 });

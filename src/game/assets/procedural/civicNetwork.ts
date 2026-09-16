@@ -154,16 +154,20 @@ export function drawCivicNetwork(
     const [da, verso] = a.state === 'aperto' ? [b, a] : [a, b];
     const pacchetto = scene.add.circle(da.x, da.y, 2, COLORS.accent, 0.6);
     pacchetto.setDepth(g.depth);
-    scene.tweens.add({
-      targets: pacchetto,
-      x: verso.x,
-      y: verso.y,
-      duration: 2600,
-      // sfalsati: dodici punti che partono insieme sono una parata, non un flusso
-      delay: between(seeded(`pacchetto:${a.id}:${b.id}`), 0, 2200),
-      repeat: -1,
-      ease: 'Sine.easeInOut'
-    });
+    // `animate` è vero qui: il punto si muove solo perché il chiamante l'ha
+    // ricavato da `reducedMotion`, mai perché lo ha deciso questo modulo.
+    if (animate) {
+      scene.tweens.add({
+        targets: pacchetto,
+        x: verso.x,
+        y: verso.y,
+        duration: 2600,
+        // sfalsati: dodici punti che partono insieme sono una parata, non un flusso
+        delay: between(seeded(`pacchetto:${a.id}:${b.id}`), 0, 2200),
+        repeat: -1,
+        ease: 'Sine.easeInOut'
+      });
+    }
   }
 
   return g;

@@ -320,6 +320,26 @@ export const it = {
         trasparenza: 'manca la trasparenza richiesta: i cittadini non possono riconoscere il sistema o il contenuto',
         motivazione: 'la decisione è corretta, ma la motivazione è debole'
       },
+      /**
+       * Intestazione dell'atto. Un rapporto ispettivo senza ufficio
+       * emittente, codice pratica e protocollo è un foglio di appunti: sono
+       * questi metadati a farne un atto, e sono l'unica cosa che il
+       * giocatore riconosce come "ufficiale" senza doverla imparare.
+       * L'autorità NON è ripetuta qui: si legge da briefing.header, dove
+       * vive già.
+       */
+      registry: {
+        officeLabel: 'UFFICIO EMITTENTE',
+        fileLabel: 'CODICE PRATICA',
+        protocolLabel: 'PROTOCOLLO',
+        dateLabel: 'DATA DI REDAZIONE',
+        statusLabel: 'CLASSIFICA',
+        status: 'ATTO CONCLUSIVO · NON CLASSIFICATO',
+        /** Stato dell'atto mentre lo si sta ancora scrivendo. */
+        draftStatus: 'BOZZA · NON PROTOCOLLATA',
+        /** Legenda della striscia: dice che non è un ornamento. */
+        stripNote: 'striscia di registrazione: il protocollo in forma di barre'
+      },
       lessonLabel: 'LEZIONE DEL CASO',
       analysisLabel: 'ANALISI DELLA DECISIONE',
       analysis: {
@@ -340,6 +360,28 @@ export const it = {
         context_misread: "il contesto d'uso del sistema è stato letto male.",
         proportionality_problem: 'la misura non è proporzionata al rischio effettivo.'
       }
+    },
+    /**
+     * NOMI DEGLI STATI VISIVI. I quattro esiti NON stanno qui: vivono in
+     * `outcomes` e il linguaggio degli stati li legge da lì, perché la
+     * stessa parola scritta in due posti diventa due parole diverse alla
+     * prima revisione.
+     */
+    states: {
+      sigillato: 'SIGILLATO',
+      aperto: 'APERTO',
+      citato: 'CITATO',
+      prova_decisiva: 'PROVA DECISIVA',
+      contraddizione: 'CONTRADDIZIONE',
+      procedibile: 'PROCEDIBILE'
+    },
+    /** Categorie normative: come si chiama l'identità, non il livello. */
+    normIdentities: {
+      vietata: 'PRATICA VIETATA',
+      alto: 'ALTO RISCHIO',
+      trasparenza: 'TRASPARENZA',
+      biometria: 'BIOMETRIA A CONDIZIONI',
+      gpai: 'MODELLO GPAI'
     },
     outcomes: {
       conforme: 'CONFORME',

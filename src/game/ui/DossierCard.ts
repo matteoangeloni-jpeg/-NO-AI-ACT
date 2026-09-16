@@ -2,9 +2,13 @@ import Phaser from 'phaser';
 import { COLORS, COLOR_STR, textStyle } from './theme';
 import { AudioSystem } from '../systems/AudioSystem';
 import { L, fmt } from '../i18n';
-import type { EvidenceSource } from '../data/types';
+import type { EvidenceSource, EvidenceStance } from '../data/types';
 import { documentTextureKey } from '../assets/procedural/documentStyles';
-import { CITE_STAMP_FONT, CITE_STAMP_KEY, CITE_STAMP_SIZE, createCiteStamp } from '../assets/procedural/stamps';
+import { STATE_MARKS, createStateFrame, stateBadge } from '../assets/procedural/visualStates';
+
+/** Corpo dell'invito a citare e del distintivo che lo sostituisce. */
+const CITE_FONT = 12.5;
+import { reveal } from './motion';
 
 /**
  * Scheda reperto del fascicolo. Tre stati:
@@ -17,7 +21,9 @@ export class DossierCard extends Phaser.GameObjects.Container {
   private cited = false;
   private citeLabel!: Phaser.GameObjects.Text;
   private bg!: Phaser.GameObjects.Rectangle;
-  private citeFrame: Phaser.GameObjects.Image | null = null;
+  private citeFrame: Phaser.GameObjects.Container | null = null;
+  private apertoFrame: Phaser.GameObjects.Image | null = null;
+  private contraddizione: Phaser.GameObjects.Container | null = null;
 
   constructor(
     scene: Phaser.Scene,
@@ -29,7 +35,7 @@ export class DossierCard extends Phaser.GameObjects.Container {
     index: number,
     private onChange: () => void,
     sourceLabel?: string,
-    stanceLabel?: string,
+    stance?: EvidenceStance,
     source?: EvidenceSource
   ) {
     super(scene, x, y);
@@ -76,11 +82,32 @@ export class DossierCard extends Phaser.GameObjects.Container {
      * deliberata: sapere che un documento viene dal fornitore o dal reclamo
      * di un cittadino è un elemento di attendibilità, non la soluzione.
      */
-    const stanceText = stanceLabel
-      ? scene.add.text(width / 2 - 12, height / 2 - 40, stanceLabel, textStyle(10.5, COLOR_STR.warning)).setOrigin(1, 0.5).setVisible(false)
-      : null;
+    /**
+     * La PROVA DECISIVA è uno stato, non una sfumatura: è il reperto su cui
+     * la classificazione regge o cade. Prende il distintivo del linguaggio
+     * comune — rombo pieno, cornice doppia — mentre le altre funzioni
+     * restano un'etichetta di testo, perché dicono una gradazione
+     * («minimizza», «contesto») e non uno stato dell'atto.
+     */
+    const stanceLabel = stance ? (L().ui.evidence.stances as Record<string, string>)[stance] : undefined;
+    /**
+     * LA STRISCIA IN FONDO HA DUE POSTI, NON UNO.
+     *
+     * A sinistra l'AZIONE — l'invito a citare, o il timbro «citato» che lo
+     * sostituisce. A destra la FUNZIONE del reperto. Prima stavano sulla
+     * stessa verticale a due altezze vicine, e appena il reperto decisivo
+     * veniva citato i due distintivi si accavallavano: si vedeva solo su un
+     * reperto decisivo E citato, cioè proprio sulla scheda più importante
+     * della schermata.
+     */
+    const stanceText: (Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Visible) | null =
+      stance === 'decisive'
+        ? stateBadge(scene, width / 4 + 6, height / 2 - 22, 'prova_decisiva', { height: 20, fontSize: 10.5 }).setVisible(false)
+        : stanceLabel
+          ? scene.add.text(width / 2 - 12, height / 2 - 22, stanceLabel, textStyle(10.5, COLOR_STR.warning)).setOrigin(1, 0.5).setVisible(false)
+          : null;
     const sealed = scene.add
-      .text(0, 10, L().ui.evidence.sealed, textStyle(13, COLOR_STR.accentText, { align: 'center' }))
+      .text(0, 10, `${STATE_MARKS.sigillato.glyph} ${L().ui.evidence.sealed}`, textStyle(13, COLOR_STR.accentText, { align: 'center' }))
       .setOrigin(0.5);
     const title = scene.add
       .text(-width / 2 + 14, -height / 2 + 38, clue.title.toUpperCase(), textStyle(13, COLOR_STR.warning, { wordWrap: { width: width - 28 } }))
@@ -89,38 +116,51 @@ export class DossierCard extends Phaser.GameObjects.Container {
       .text(-width / 2 + 14, -height / 2 + 64, clue.text, textStyle(12.5, COLOR_STR.paper, { wordWrap: { width: width - 28 }, lineSpacing: 5 }))
       .setVisible(false);
     this.citeLabel = scene.add
-      .text(0, height / 2 - 22, L().ui.evidence.cite, textStyle(CITE_STAMP_FONT, COLOR_STR.accentText))
+      .text(-width / 4 - 6, height / 2 - 22, L().ui.evidence.cite, textStyle(CITE_FONT, COLOR_STR.accentText))
       .setOrigin(0.5)
       .setVisible(false);
 
     /**
-     * LA CORNICE DEL TIMBRO "CITATO".
+     * I DISTINTIVI DI STATO, NELLA LINGUA COMUNE.
      *
      * Citare un reperto cambiava il colore del bordo della scheda e la
-     * parola in fondo. Il colore da solo non basta — è l'informazione che
-     * sparisce per prima a chi non distingue verde e blu — e la parola
-     * cambiava senza che nulla dicesse che quel documento era stato *preso*.
+     * parola in fondo: il colore da solo è l'informazione che sparisce per
+     * prima — su un proiettore, in stampa, per chi non distingue verde e
+     * blu — e la parola cambiava senza che nulla dicesse che quel documento
+     * era stato *preso*.
      *
-     * La cornice consumata attorno all'etichetta dice "timbrato": si vede
-     * anche in bianco e nero, sta nella striscia che l'etichetta occupava
-     * già, e non passa sopra una riga di testo.
+     * Ora gli stati della scheda usano il linguaggio condiviso di
+     * `visualStates`: glifo, trattamento della cornice e colore, in
+     * quest'ordine di importanza. Chi impara a leggerli qui li ritrova
+     * identici sulla mappa, nel rapporto e sulla conseguenza.
      */
-    createCiteStamp(scene);
-    const citeFrame = scene.textures.exists(CITE_STAMP_KEY)
-      ? scene.add
-          .image(0, height / 2 - 22, CITE_STAMP_KEY)
-          .setDisplaySize(CITE_STAMP_SIZE.width, CITE_STAMP_SIZE.height)
-          .setRotation(-0.02)
-          .setVisible(false)
+    const citato = stateBadge(scene, -width / 4 - 6, height / 2 - 22, 'citato', { height: 22, fontSize: CITE_FONT });
+    citato.setVisible(false);
+    this.citeFrame = citato;
+
+    /**
+     * APERTO: crocini agli angoli della scheda. È il trattamento che il
+     * linguaggio assegna ad «aperto», e diventa il segnale di forma della
+     * scheda esaminata — il bordo colorato da solo non bastava.
+     *
+     * Qui serve la sola cornice, senza parola: una scheda che mostra il
+     * proprio testo è già evidentemente aperta, e scriverci sopra «APERTO»
+     * sarebbe rumore. Per questo si usa `createStateFrame` e non
+     * `stateBadge`: il distintivo con la parola è per gli stati che senza
+     * parola non si capiscono.
+     */
+    const apertoKey = createStateFrame(scene, 'aperto', width - 12, height - 12);
+    const aperto = apertoKey
+      ? scene.add.image(0, 0, apertoKey).setDisplaySize(width + 4, height + 4).setVisible(false)
       : null;
-    this.citeFrame = citeFrame;
+    this.apertoFrame = aperto;
 
     // Il foglio va sotto a tutto: i contenitori di Phaser disegnano in
     // ordine di inserimento, non per profondità dichiarata.
     if (paper) this.add(paper);
     this.add([this.bg, tape, code, sealed, title, body]);
-    if (citeFrame) this.add(citeFrame);
-    this.add(this.citeLabel);
+    if (aperto) this.add(aperto);
+    this.add([citato, this.citeLabel]);
     if (srcText) this.add(srcText);
     if (stanceText) this.add(stanceText);
     this.setSize(width, height);
@@ -137,7 +177,7 @@ export class DossierCard extends Phaser.GameObjects.Container {
   }
 
   private revealElements!: {
-    stance: Phaser.GameObjects.Text | null;
+    stance: (Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Visible) | null;
     sealed: Phaser.GameObjects.Text;
     title: Phaser.GameObjects.Text;
     body: Phaser.GameObjects.Text;
@@ -160,14 +200,22 @@ export class DossierCard extends Phaser.GameObjects.Container {
       body.setVisible(true);
       stance?.setVisible(true);
       this.citeLabel.setVisible(true);
-      this.scene.tweens.add({ targets: [title, body, this.citeLabel], alpha: { from: 0, to: 1 }, duration: 250 });
+      this.apertoFrame?.setVisible(true);
+      /**
+       * «Riduci movimento» vale anche per una dissolvenza di 250 ms.
+       *
+       * Questa era l'ultima animazione del gioco che non chiedeva
+       * l'impostazione: chi apre dodici reperti in un caso riceveva dodici
+       * dissolvenze pur avendo chiesto di non riceverne. Era sfuggita
+       * perché è breve e perché non si ripete da sola — il controllo
+       * automatico cercava `repeat: -1`, e un tween una tantum non lo è.
+       */
+      reveal(this.scene, { targets: [title, body, this.citeLabel], alpha: { from: 0, to: 1 }, duration: 250 });
     } else {
       // attivazioni successive: toggle citazione nel rapporto
       this.cited = !this.cited;
       AudioSystem.click();
-      this.citeLabel.setText(this.cited ? L().ui.evidence.cited : L().ui.evidence.cite);
-      this.citeLabel.setColor(this.cited ? COLOR_STR.ok : COLOR_STR.accentText);
-      this.citeFrame?.setVisible(this.cited);
+      this.applyCited();
     }
     this.refreshBorder();
     this.onChange();
@@ -192,10 +240,36 @@ export class DossierCard extends Phaser.GameObjects.Container {
       el.setVisible(true);
       el.setAlpha(1);
     }
-    this.citeLabel.setText(cited ? L().ui.evidence.cited : L().ui.evidence.cite);
-    this.citeLabel.setColor(cited ? COLOR_STR.ok : COLOR_STR.accentText);
-    this.citeFrame?.setVisible(cited);
+    this.apertoFrame?.setVisible(true);
+    this.applyCited();
     this.refreshBorder();
+  }
+
+  /**
+   * Lo stato «citato», su due segnali: il distintivo timbrato compare e
+   * l'invito a citare sparisce. Erano due scritture sparse fra `activate` e
+   * `restore`, che è il modo in cui il gesto e la bozza ripristinata
+   * finiscono per raccontare due cose diverse.
+   */
+  private applyCited(): void {
+    this.citeLabel.setVisible(!this.cited);
+    this.citeFrame?.setVisible(this.cited);
+  }
+
+  /**
+   * CONTRADDIZIONE ACCERTATA. La marca solo la scena, e solo dopo che il
+   * giocatore l'ha dichiarata e il gioco l'ha confermata sui dati: non è
+   * un suggerimento, è la registrazione di una cosa che il giocatore ha
+   * già trovato da sé. Marcarla prima sarebbe scrivere la risposta sulla
+   * busta chiusa, che è la regola che questa scheda rispetta da sempre.
+   */
+  markContradiction(): void {
+    if (this.contraddizione) return;
+    this.contraddizione = stateBadge(this.scene, 0, -this.height / 2 + 44, 'contraddizione', {
+      height: 22,
+      fontSize: 11
+    });
+    this.add(this.contraddizione);
   }
 
   private refreshBorder(): void {

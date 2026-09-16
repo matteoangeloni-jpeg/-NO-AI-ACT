@@ -96,6 +96,7 @@ with only committed dependencies:
 | `smoke:layout` | text or controls under the page chrome; a panel that clips its own content; a heading that repeats itself |
 | `smoke:audio` | silence where a theme should play; clipping; every theme collapsing onto the same loudness |
 | `smoke:action-layer` | a drawn button with no real button behind it; a focus ring off its target; the TAB escaping an open panel; one ENTER firing two actions |
+| `smoke:visual-language` | a state glyph the font cannot draw (it renders as an empty box, so one of the three signals vanishes); two texts landing on top of each other; text spilling past the bottom edge of the report paper; a canvas rendered at fewer pixels than the screen. Runs the whole flow six times: Italian and English, reduced motion on and off, 1280×720, Full HD and Full HD at 2× device pixel ratio |
 
 
 ```bash

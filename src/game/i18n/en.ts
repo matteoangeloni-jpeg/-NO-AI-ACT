@@ -321,6 +321,16 @@ export const en: Locale = {
         trasparenza: 'the required transparency is missing: citizens cannot recognize the system or the content',
         motivazione: 'the decision is correct, but the reasoning is weak'
       },
+      registry: {
+        officeLabel: 'ISSUING OFFICE',
+        fileLabel: 'CASE CODE',
+        protocolLabel: 'PROTOCOL',
+        dateLabel: 'DATE OF RECORD',
+        statusLabel: 'CLASSIFICATION',
+        status: 'FINAL ACT · UNCLASSIFIED',
+        draftStatus: 'DRAFT · NOT YET FILED',
+        stripNote: 'registration strip: the protocol number in bar form'
+      },
       lessonLabel: 'LESSON OF THE CASE',
       analysisLabel: 'DECISION ANALYSIS',
       analysis: {
@@ -341,6 +351,21 @@ export const en: Locale = {
         context_misread: "the system's context of use was misread.",
         proportionality_problem: 'the measure is not proportionate to the actual risk.'
       }
+    },
+    states: {
+      sigillato: 'SEALED',
+      aperto: 'OPENED',
+      citato: 'CITED',
+      prova_decisiva: 'DECISIVE EVIDENCE',
+      contraddizione: 'CONTRADICTION',
+      procedibile: 'ACTIONABLE'
+    },
+    normIdentities: {
+      vietata: 'PROHIBITED PRACTICE',
+      alto: 'HIGH RISK',
+      trasparenza: 'TRANSPARENCY',
+      biometria: 'CONDITIONAL BIOMETRICS',
+      gpai: 'GPAI MODEL'
     },
     outcomes: {
       conforme: 'COMPLIANT',
