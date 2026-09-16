@@ -65,6 +65,22 @@ describe('il manifesto copre tutto e non ha doppioni', () => {
     }
   });
 
+  it('ogni campione consegnato ha un ruolo: niente peso morto nel pacchetto', () => {
+    /**
+     * `import.meta.glob` raccoglie TUTTO ciò che trova in quella cartella,
+     * quindi un file che nessun ruolo usa verrebbe comunque pubblicato e
+     * scaricato da chi gioca. È già successo: un campione di riserva da
+     * 1,4 MB caricato insieme agli altri sarebbe finito in produzione senza
+     * suonare mai. I file non assegnati vanno in `spare/`, che il glob non
+     * guarda.
+     */
+    const dir = resolve(root, 'src/game/assets/audio');
+    const consegnati = readdirSync(dir).filter((f) => f.endsWith('.mp3'));
+    const dichiarati = new Set([...Object.values(MUSIC_FILES), ...Object.values(SFX_FILES)]);
+    const orfani = consegnati.filter((f) => !dichiarati.has(f));
+    expect(orfani, `campioni senza ruolo (spostali in spare/): ${orfani.join(', ')}`).toEqual([]);
+  });
+
   it('nessun file è usato per due cose diverse', () => {
     const all = [...Object.values(MUSIC_FILES), ...Object.values(SFX_FILES)];
     expect(new Set(all).size, `file ripetuti: ${all.join(', ')}`).toBe(all.length);
@@ -141,6 +157,23 @@ describe('ogni gesto sonoro sa cosa fare senza il suo campione', () => {
         `il gesto "${cue}" non ha un ripiego sintetizzato: senza il file resta muto`
       ).toBe(true);
     }
+  });
+
+  it('al primo clic si scaricano gli effetti, non gli 8 MB di musica', () => {
+    /**
+     * Misurato: caricare tutto insieme costava 8,7 MB al primo clic, di cui
+     * 8,4 di musiche che una sessione in gran parte non ascolta. Ora `load`
+     * prende solo gli effetti (~270 KB, servono entro il primo secondo) e
+     * ogni musica arriva quando la sua fase comincia — 1,7 MB al primo
+     * clic. Se qualcuno rimette i ruoli musicali dentro `load`, il costo
+     * torna quello di prima senza che nulla si rompa: solo la scuola con la
+     * linea lenta se ne accorge.
+     */
+    const bank = read('src/game/systems/audioBank.ts');
+    const loadBody = bank.slice(bank.indexOf('load(ctx: AudioContext)'), bank.indexOf('ensureMusic('));
+    expect(loadBody, 'load() non deve scaricare le musiche').not.toContain('musicPath');
+    expect(loadBody, 'load() non deve ciclare i ruoli musicali').not.toContain('MUSIC_ROLES');
+    expect(bank, 'manca il caricamento a richiesta della musica').toContain('ensureMusic');
   });
 
   it('il banco non tratta un file mancante come un errore', () => {

@@ -155,6 +155,19 @@ class AudioSystemImpl {
     if (!StateManager.musicEnabled) return;
     const buffer = AudioBank.music(req.role);
     if (!buffer) {
+      /**
+       * La musica di questa fase non è ancora in memoria: la si chiede
+       * adesso, e intanto suona il tema sintetizzato. Quando arriva, si
+       * riprova — ma solo se nel frattempo la fase non è cambiata, perché
+       * far partire la traccia dell'archivio mentre il giocatore è già
+       * dentro la decisione sarebbe peggio che non farla partire.
+       */
+      const ctx = this.ctx;
+      void AudioBank.ensureMusic(ctx, req.role).then(() => {
+        if (this.pendingRole?.role === req.role && !this.currentTrack) {
+          this.applyRole(req, true);
+        }
+      });
       // Nessun campione: il mondo procedurale di sempre. Senza nemmeno un
       // tema di ripiego il ruolo è muto per costruzione (il menu lo era
       // anche prima) e allora va ZITTITO ciò che suonava: lasciar correre

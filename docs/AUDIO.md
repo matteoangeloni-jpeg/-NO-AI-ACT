@@ -106,12 +106,22 @@ picco, perché l'orecchio media sulla durata — è normale doverlo alzare.
 Correggerlo lì invece che nei file lascia intatti gli originali e permette
 di annullare una correzione sbagliata cambiando un numero.
 
-## Autoplay
+## Autoplay e peso
 
 Niente suona prima del primo gesto dell'utente, e niente si **scarica**
 prima: il contesto audio nasce dentro `AudioSystem.init()`, e il banco dei
 campioni parte da lì. Chi apre la pagina per leggere e se ne va non paga il
 download.
+
+E non si scarica tutto insieme. Gli **effetti** sì, subito: dieci file per
+circa 270 KB, servono entro il primo secondo di gioco. Le **musiche** no:
+sono sei loop da un minuto, 1,4 MB l'uno, e una sessione ne attraversa due
+o tre. Ognuna arriva quando la sua fase comincia, e intanto suona il tema
+sintetizzato — l'attesa non è mai silenzio.
+
+Misurato in locale: **1,7 MB al primo clic** invece di 8,7, e 3,1 MB dopo
+essere entrati nella mappa. Su una linea scolastica da 4 Mbps la differenza
+fra i due è di circa quattordici secondi.
 
 L'hover sui pulsanti è l'unica eccezione apparente: suona, ma non chiama
 `init()`. Il passaggio del mouse non è un gesto che i browser accettano

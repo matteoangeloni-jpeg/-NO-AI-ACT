@@ -1,5 +1,4 @@
 import {
-  MUSIC_ROLES,
   SFX_CUES,
   musicPath,
   sfxPath,
@@ -26,10 +25,18 @@ import {
  * lascia leggere (troncato, formato non gestito da quel browser): anche
  * quello finisce fra gli assenti, in silenzio.
  *
- * Il caricamento parte DOPO il primo gesto dell'utente, insieme al resto
- * dell'audio, per due ragioni: la policy di autoplay dei browser non
- * permette comunque di suonare prima, e chi apre la pagina e legge senza
- * toccare niente non deve scaricare qualche megabyte che non ascolterà.
+ * Il caricamento parte DOPO il primo gesto dell'utente: la policy di
+ * autoplay non permette comunque di suonare prima, e chi apre la pagina per
+ * leggere e se ne va non deve pagare il download.
+ *
+ * E non si scarica tutto. Gli EFFETTI sì, subito: sono dieci file per circa
+ * 270 KB in tutto, servono entro il primo secondo di gioco e aspettarli
+ * significherebbe un click muto. Le MUSICHE no: sono sei loop da un minuto,
+ * 1,4 MB l'uno, e una sessione ne attraversa due o tre. Scaricarle tutte al
+ * primo clic sono 8,4 MB — su una connessione scolastica da 4 Mbps,
+ * diciassette secondi di attesa per roba che in buona parte non verrà mai
+ * ascoltata. Ogni musica arriva quando la sua fase comincia; nel frattempo
+ * suona il tema sintetizzato, quindi l'attesa non è mai silenzio.
  */
 
 type BankKey = `music:${MusicRole}` | `sfx:${SfxCue}`;
@@ -37,6 +44,8 @@ type BankKey = `music:${MusicRole}` | `sfx:${SfxCue}`;
 const buffers = new Map<BankKey, AudioBuffer>();
 const missing = new Set<BankKey>();
 let loading: Promise<void> | null = null;
+/** Una promessa per ogni musica già chiesta: niente doppi download. */
+const musicLoads = new Map<BankKey, Promise<void>>();
 
 async function fetchOne(ctx: AudioContext, key: BankKey, url: string | null): Promise<void> {
   // Nessun indirizzo: quel campione non è stato consegnato. Non si chiede
@@ -63,16 +72,28 @@ async function fetchOne(ctx: AudioContext, key: BankKey, url: string | null): Pr
 
 export const AudioBank = {
   /**
-   * Carica tutto. Si può chiamare più volte: la seconda restituisce la
-   * promessa della prima invece di riscaricare.
+   * Carica gli EFFETTI, tutti. Si può chiamare più volte: la seconda
+   * restituisce la promessa della prima invece di riscaricare.
    */
   load(ctx: AudioContext): Promise<void> {
     if (loading) return loading;
-    const jobs: Promise<void>[] = [];
-    for (const role of MUSIC_ROLES) jobs.push(fetchOne(ctx, `music:${role}`, musicPath(role)));
-    for (const cue of SFX_CUES) jobs.push(fetchOne(ctx, `sfx:${cue}`, sfxPath(cue)));
+    const jobs = SFX_CUES.map((cue) => fetchOne(ctx, `sfx:${cue}`, sfxPath(cue)));
     loading = Promise.all(jobs).then(() => undefined);
     return loading;
+  },
+
+  /**
+   * Scarica la musica di UN ruolo, la prima volta che quella fase comincia.
+   * Chiamarla di nuovo per lo stesso ruolo non riscarica niente: restituisce
+   * la promessa già in volo, o una già risolta se il file è in memoria.
+   */
+  ensureMusic(ctx: AudioContext, role: MusicRole): Promise<void> {
+    const key: BankKey = `music:${role}`;
+    const pending = musicLoads.get(key);
+    if (pending) return pending;
+    const job = fetchOne(ctx, key, musicPath(role));
+    musicLoads.set(key, job);
+    return job;
   },
 
   music(role: MusicRole): AudioBuffer | null {
@@ -97,6 +118,7 @@ export const AudioBank = {
   reset(): void {
     buffers.clear();
     missing.clear();
+    musicLoads.clear();
     loading = null;
   }
 };
