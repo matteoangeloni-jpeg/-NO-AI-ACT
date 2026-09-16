@@ -4,6 +4,7 @@ import { AudioSystem } from '../systems/AudioSystem';
 import { L, fmt } from '../i18n';
 import type { EvidenceSource } from '../data/types';
 import { documentTextureKey } from '../assets/procedural/documentStyles';
+import { CITE_STAMP_FONT, CITE_STAMP_KEY, CITE_STAMP_SIZE, createCiteStamp } from '../assets/procedural/stamps';
 
 /**
  * Scheda reperto del fascicolo. Tre stati:
@@ -16,6 +17,7 @@ export class DossierCard extends Phaser.GameObjects.Container {
   private cited = false;
   private citeLabel!: Phaser.GameObjects.Text;
   private bg!: Phaser.GameObjects.Rectangle;
+  private citeFrame: Phaser.GameObjects.Image | null = null;
 
   constructor(
     scene: Phaser.Scene,
@@ -87,14 +89,38 @@ export class DossierCard extends Phaser.GameObjects.Container {
       .text(-width / 2 + 14, -height / 2 + 64, clue.text, textStyle(12.5, COLOR_STR.paper, { wordWrap: { width: width - 28 }, lineSpacing: 5 }))
       .setVisible(false);
     this.citeLabel = scene.add
-      .text(0, height / 2 - 22, L().ui.evidence.cite, textStyle(12.5, COLOR_STR.accentText))
+      .text(0, height / 2 - 22, L().ui.evidence.cite, textStyle(CITE_STAMP_FONT, COLOR_STR.accentText))
       .setOrigin(0.5)
       .setVisible(false);
+
+    /**
+     * LA CORNICE DEL TIMBRO "CITATO".
+     *
+     * Citare un reperto cambiava il colore del bordo della scheda e la
+     * parola in fondo. Il colore da solo non basta — è l'informazione che
+     * sparisce per prima a chi non distingue verde e blu — e la parola
+     * cambiava senza che nulla dicesse che quel documento era stato *preso*.
+     *
+     * La cornice consumata attorno all'etichetta dice "timbrato": si vede
+     * anche in bianco e nero, sta nella striscia che l'etichetta occupava
+     * già, e non passa sopra una riga di testo.
+     */
+    createCiteStamp(scene);
+    const citeFrame = scene.textures.exists(CITE_STAMP_KEY)
+      ? scene.add
+          .image(0, height / 2 - 22, CITE_STAMP_KEY)
+          .setDisplaySize(CITE_STAMP_SIZE.width, CITE_STAMP_SIZE.height)
+          .setRotation(-0.02)
+          .setVisible(false)
+      : null;
+    this.citeFrame = citeFrame;
 
     // Il foglio va sotto a tutto: i contenitori di Phaser disegnano in
     // ordine di inserimento, non per profondità dichiarata.
     if (paper) this.add(paper);
-    this.add([this.bg, tape, code, sealed, title, body, this.citeLabel]);
+    this.add([this.bg, tape, code, sealed, title, body]);
+    if (citeFrame) this.add(citeFrame);
+    this.add(this.citeLabel);
     if (srcText) this.add(srcText);
     if (stanceText) this.add(stanceText);
     this.setSize(width, height);
@@ -141,6 +167,7 @@ export class DossierCard extends Phaser.GameObjects.Container {
       AudioSystem.click();
       this.citeLabel.setText(this.cited ? L().ui.evidence.cited : L().ui.evidence.cite);
       this.citeLabel.setColor(this.cited ? COLOR_STR.ok : COLOR_STR.accentText);
+      this.citeFrame?.setVisible(this.cited);
     }
     this.refreshBorder();
     this.onChange();
@@ -167,6 +194,7 @@ export class DossierCard extends Phaser.GameObjects.Container {
     }
     this.citeLabel.setText(cited ? L().ui.evidence.cited : L().ui.evidence.cite);
     this.citeLabel.setColor(cited ? COLOR_STR.ok : COLOR_STR.accentText);
+    this.citeFrame?.setVisible(cited);
     this.refreshBorder();
   }
 

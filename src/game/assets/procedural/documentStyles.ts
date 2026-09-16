@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import type { EvidenceSource } from '../../data/types';
 import { RENDER_SCALE } from '../../ui/theme';
-import { between, drawDataGrid, drawGlitchBands, drawGrain, drawPaper, drawPunchHoles, drawRedactionBars, seeded } from './kit';
+import { drawDataGrid, drawGlitchBands, drawGrain, drawPaper, drawPunchHoles, drawRedactionBars, drawRegistryStrip, seeded } from './kit';
 
 /**
  * SETTE DOCUMENTI, NON SETTE DECORAZIONI.
@@ -238,12 +238,14 @@ export function createDocumentTextures(scene: Phaser.Scene, width: number, heigh
     ctx.fillStyle = 'rgba(7,9,15,0.55)';
     ctx.fillRect(0, 0, width, 28);
 
-    // firma d'angolo: una sigla di protocollo diversa per tipo, piccolissima
-    ctx.font = '9px monospace';
-    ctx.fillStyle = 'rgba(216,214,205,0.20)';
-    ctx.textAlign = 'right';
-    const protocollo = `AX/${String(Math.floor(between(rnd, 100, 999)))}-${String(Math.floor(between(rnd, 10, 99)))}`;
-    ctx.fillText(protocollo, width - 8, height - 8);
+    /**
+     * Sigla di protocollo d'angolo, SENZA PAROLE: trattini di registrazione
+     * invece della stringa "AX/123-45" che c'era prima. Non è purismo — una
+     * texture nasce una volta sola e sopravvive al cambio di lingua, quindi
+     * qualunque cosa scritta qui dentro resta nella lingua di chi l'ha
+     * scritta. La striscia dice la stessa cosa e non ha una lingua.
+     */
+    drawRegistryStrip(ctx, rnd, width - 78, height - 14, 70, 6, 'rgba(216,214,205,0.22)');
 
     // la grana per ultima: sopra ogni tratto, in pixel veri
     drawGrain(ctx, canvas.width, canvas.height, rnd, style.grain);

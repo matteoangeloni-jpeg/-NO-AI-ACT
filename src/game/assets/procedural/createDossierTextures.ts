@@ -1,52 +1,129 @@
 import Phaser from 'phaser';
 import { RENDER_SCALE } from '../../ui/theme';
+import {
+  drawCornerTicks,
+  drawDoubleRule,
+  drawGrain,
+  drawPaper,
+  drawPunchHoles,
+  drawRegistryStrip,
+  seeded
+} from './kit';
 
 /**
- * Texture "carta da fascicolo": fondo scuro con righe orizzontali deboli
- * e timbratura d'angolo, usata come sfondo dei dossier.
+ * LE DUE CARTE: il fascicolo e il rapporto.
+ *
+ * Erano una sola texture, usata da entrambe le schermate e stirata da
+ * 900×560 a 940×580 sul rapporto — e con dentro, cotto nei pixel, un timbro
+ * fisso che diceva "NON CLASSIFICATO / ISPETTORATO AX".
+ *
+ * Quel timbro era il difetto strutturale da rimuovere, per due motivi.
+ *
+ * 1. NON POTEVA VARIARE. Un timbro è il segno di un atto singolo: uguale su
+ *    tredici fascicoli diversi legge come sfondo, non come atto. E non
+ *    poteva portare lo stato del caso, perché la texture nasce una volta
+ *    sola nel preload, quando ancora non si sa cosa farà il giocatore.
+ * 2. ERA IN ITALIANO ANCHE IN INGLESE. Le parole cotte in una texture non
+ *    passano da i18n: chi giocava in inglese leggeva comunque "ISPETTORATO".
+ *
+ * Ora la carta porta solo segni SENZA PAROLE — righe, margini, fori da
+ * faldone, crocini di taglio, striscia di protocollo — e tutto ciò che
+ * parla o che dipende dal caso è un oggetto separato, sopra il foglio.
+ *
+ * Il rapporto ha una carta sua, generata alla misura in cui si mostra
+ * invece di essere un ingrandimento della carta del fascicolo.
  */
-export function createDossierTextures(scene: Phaser.Scene): void {
-  if (scene.textures.exists('dossier_paper')) return;
-  const w = 900;
-  const h = 560;
-  const canvas = scene.textures.createCanvas('dossier_paper', w * RENDER_SCALE, h * RENDER_SCALE);
-  if (!canvas) return;
-  const ctx = canvas.getContext();
-  ctx.scale(RENDER_SCALE, RENDER_SCALE);
 
-  ctx.fillStyle = '#101a30';
-  ctx.fillRect(0, 0, w, h);
+export interface PaperSpec {
+  key: string;
+  /** Misura logica: la stessa con cui la scena la mostra. */
+  width: number;
+  height: number;
+  fill: string;
+  /** Passo delle righe da modulo; 0 = nessuna. */
+  ruleStep: number;
+  /** Colonna di margine; 0 = nessuna. */
+  marginX: number;
+  /** Altezza della fascia d'intestazione. */
+  headerBand: number;
+  /** Striscia di protocollo nella fascia, a destra. */
+  registry: boolean;
+  grain: number;
+}
 
-  // righe da modulo amministrativo
-  ctx.strokeStyle = 'rgba(74,82,96,0.16)';
-  ctx.lineWidth = 1;
-  for (let y = 60; y < h; y += 28) {
-    ctx.beginPath();
-    ctx.moveTo(24, y);
-    ctx.lineTo(w - 24, y);
-    ctx.stroke();
+/**
+ * Le due carte. Le misure NON sono decorative: sono quelle con cui le scene
+ * mostrano l'immagine, e generare alla misura giusta è ciò che evita lo
+ * stiramento che il rapporto subiva.
+ */
+export const PAPER_SPECS: PaperSpec[] = [
+  {
+    // fascicolo: modulo rigato da archivio, con margine rosso e faldone
+    key: 'dossier_paper',
+    width: 900,
+    height: 560,
+    fill: '#101a30',
+    ruleStep: 28,
+    marginX: 70,
+    headerBand: 56,
+    registry: false,
+    grain: 0.45
+  },
+  {
+    // rapporto ispettivo: atto in uscita, non modulo rigato. Niente righe:
+    // il corpo del rapporto è una colonna di coppie etichetta/valore ad
+    // altezze variabili, e delle righe fisse sotto ci passerebbero in mezzo.
+    key: 'report_paper',
+    width: 940,
+    height: 580,
+    fill: '#0f1a2e',
+    ruleStep: 0,
+    marginX: 0,
+    headerBand: 62,
+    registry: true,
+    grain: 0.35
   }
+];
 
-  // colonna margine
-  ctx.strokeStyle = 'rgba(210,59,59,0.25)';
-  ctx.beginPath();
-  ctx.moveTo(70, 24);
-  ctx.lineTo(70, h - 24);
-  ctx.stroke();
+/** Le carte dei documenti: fascicolo e rapporto, generate una volta sola. */
+export function createDossierTextures(scene: Phaser.Scene): void {
+  for (const spec of PAPER_SPECS) {
+    if (scene.textures.exists(spec.key)) continue;
+    const canvas = scene.textures.createCanvas(spec.key, spec.width * RENDER_SCALE, spec.height * RENDER_SCALE);
+    if (!canvas) continue;
+    const ctx = canvas.getContext();
+    ctx.scale(RENDER_SCALE, RENDER_SCALE);
 
-  // timbro d'angolo
-  ctx.save();
-  ctx.translate(w - 130, 90);
-  ctx.rotate(-0.18);
-  ctx.strokeStyle = 'rgba(210,59,59,0.5)';
-  ctx.lineWidth = 2;
-  ctx.strokeRect(-85, -26, 170, 52);
-  ctx.font = '16px monospace';
-  ctx.fillStyle = 'rgba(210,59,59,0.6)';
-  ctx.textAlign = 'center';
-  ctx.fillText('NON CLASSIFICATO', 0, -2);
-  ctx.fillText('ISPETTORATO AX', 0, 18);
-  ctx.restore();
+    const rnd = seeded(`carta:${spec.key}`);
+    const { width: w, height: h } = spec;
 
-  canvas.refresh();
+    drawPaper(ctx, w, h, {
+      fill: spec.fill,
+      ruleStep: spec.ruleStep,
+      ruleColor: 'rgba(74,82,96,0.16)',
+      marginX: spec.marginX,
+      marginColor: 'rgba(210,59,59,0.25)'
+    });
+
+    // fascia d'intestazione: il posto dove la scena scrive codice e titolo.
+    // Più scura della carta, così il testo chiaro ci sta sopra con margine.
+    ctx.fillStyle = 'rgba(7,9,15,0.45)';
+    ctx.fillRect(0, 0, w, spec.headerBand);
+    drawDoubleRule(ctx, 18, spec.headerBand, w - 36, 'rgba(74,82,96,0.55)', 'rgba(74,82,96,0.22)');
+
+    // fori da faldone: il dettaglio che fa leggere "archiviato"
+    drawPunchHoles(ctx, 20, h, 'rgba(7,9,15,0.85)');
+
+    // crocini di taglio: modulo stampato, non pannello dell'interfaccia
+    drawCornerTicks(ctx, w, h, 12, 14, 'rgba(74,82,96,0.45)');
+
+    if (spec.registry) {
+      drawRegistryStrip(ctx, rnd, w - 190, 16, 170, 12, 'rgba(93,127,184,0.30)');
+    }
+
+    // la grana per ultima, sopra ogni tratto, in pixel veri del canvas
+    drawGrain(ctx, canvas.width, canvas.height, rnd, spec.grain);
+
+    canvas.refresh();
+  }
 }

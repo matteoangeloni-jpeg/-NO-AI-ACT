@@ -14,7 +14,8 @@ import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, RENDER_SCALE, textStyle } f
 import { fadeInScene, fadeOutScene } from '../ui/motion';
 import { layoutHStack } from '../ui/layout';
 import { draftProgress } from '../systems/caseDraft';
-import { OUTCOME_STAMP_KEYS, createOutcomeStamps, drawCivicNetwork, type CivicNode, type NodeState } from '../assets/procedural/civicNetwork';
+import { drawCivicNetwork, type CivicNode, type NodeState } from '../assets/procedural/civicNetwork';
+import { OUTCOME_STAMP_FONT, OUTCOME_STAMP_KEYS, OUTCOME_STAMP_SIZE, createOutcomeStamps } from '../assets/procedural/stamps';
 import { seeded } from '../assets/procedural/kit';
 
 /** Deriva massima, in pixel logici, dei due strati di fondo della mappa. */
@@ -122,15 +123,11 @@ export class CityMapScene extends Phaser.Scene {
       else if (c?.playable) state = 'aperto';
       return { id: l.id, x: l.x * GAME_WIDTH, y: l.y * GAME_HEIGHT, state };
     });
-    drawCivicNetwork(this, nodi);
+    drawCivicNetwork(this, nodi, !StateManager.reducedMotion);
 
-    // I timbri d'esito: le etichette vengono da i18n, non dal generatore —
-    // un timbro con la parola cotta dentro sarebbe italiano anche in inglese.
-    createOutcomeStamps(this, {
-      correct: L().ui.outcomes.conforme,
-      partial: L().ui.outcomes.parziale,
-      wrong: L().ui.outcomes.contestabile
-    });
+    // Le cornici dei timbri d'esito. Sono mute: la parola la mette il
+    // segnaposto, con un testo che segue la lingua scelta.
+    createOutcomeStamps(this);
 
     for (const loc of LOCATIONS) this.buildMarker(loc.id);
 
@@ -262,10 +259,24 @@ export class CityMapScene extends Phaser.Scene {
         const inclina = (seeded(`inclinazione:${caseData.id}`)() - 0.5) * 0.34;
         const timbro = this.add
           .image(0, -34, key)
-          .setDisplaySize(112, 26)
+          .setDisplaySize(OUTCOME_STAMP_SIZE.width, OUTCOME_STAMP_SIZE.height)
           .setRotation(inclina)
           .setAlpha(0.9);
-        container.add(timbro);
+        // La PAROLA non sta nella texture: è un testo di Phaser, quindi segue
+        // la lingua scelta invece di restare quella del primo avvio.
+        const esitoLabel: Record<'correct' | 'partial' | 'wrong', string> = {
+          correct: L().ui.outcomes.conforme,
+          partial: L().ui.outcomes.parziale,
+          wrong: L().ui.outcomes.contestabile
+        };
+        const colore =
+          quality === 'correct' ? COLOR_STR.ok : quality === 'wrong' ? COLOR_STR.alertText : COLOR_STR.warning;
+        const parola = this.add
+          .text(0, -34, esitoLabel[quality], textStyle(OUTCOME_STAMP_FONT, colore, { align: 'center' }))
+          .setOrigin(0.5)
+          .setRotation(inclina)
+          .setAlpha(0.9);
+        container.add([timbro, parola]);
       }
     }
 
