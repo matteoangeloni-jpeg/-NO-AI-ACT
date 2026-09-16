@@ -10,7 +10,7 @@ import { Button } from '../ui/Button';
 import { CaseContextOverlay } from '../ui/CaseContextOverlay';
 import { CaseNormOverlay } from '../ui/CaseNormOverlay';
 import { NormCardView } from '../ui/NormCard';
-import { L, fmt } from '../i18n';
+import { L, caseText, fmt } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
@@ -149,7 +149,57 @@ export class DecisionScene extends Phaser.Scene {
     ]);
   }
 
-  private header(step: string, question: string): void {
+  /**
+   * RIEPILOGO LATERALE, SEMPRE LÌ.
+   *
+   * Durante la decisione il giocatore doveva tenere a mente che cosa aveva
+   * citato e che cosa aveva già scelto: i reperti erano a una scena di
+   * distanza, e le scelte fatte sparivano insieme al passo che le aveva
+   * prese. "Voglio poter tornare facilmente alle prove mentre scelgo",
+   * detto da chi ha giocato.
+   *
+   * Non introduce nulla di nuovo: i titoli dei reperti citati e le scelte
+   * già prese sono gli stessi dati che il riepilogo finale rimette in fila.
+   * Sta nella colonna di sinistra, che nei passi di scelta è vuota, e non
+   * compare nel riepilogo finale — lì sarebbe la stessa cosa scritta due
+   * volte sulla stessa schermata.
+   */
+  private buildSidebar(): void {
+    const t = L().ui.decision;
+    const texts = caseText(this.caseData.id);
+    const left = 24;
+    const wrap = 226;
+    let y = 176;
+
+    const heading = (label: string): void => {
+      this.add.text(left, y, label, textStyle(11, COLOR_STR.accentText, { fontStyle: 'bold' }));
+      y += 18;
+    };
+    const line = (text: string, color: string): void => {
+      const o = this.add.text(left, y, text, textStyle(11.5, color, { wordWrap: { width: wrap }, lineSpacing: 2 }));
+      y += o.height + 5;
+    };
+
+    heading(t.sidebar.cited);
+    for (const i of this.citedClues) line(`· ${texts.clues[i].title}`, COLOR_STR.paper);
+    y += 12;
+
+    heading(t.sidebar.soFar);
+    const pending = t.sidebar.pending;
+    const rows: Array<[string, string | null]> = [
+      [t.summary.classification, this.classification ? L().classifications[this.classification] : null],
+      [t.summary.measure, this.measure ? L().measures[this.measure] : null],
+      [t.summary.subject, this.subject ? L().ui.subjects[this.subject] : null]
+    ];
+    for (const [label, value] of rows) {
+      this.add.text(left, y, label.toUpperCase(), textStyle(10, COLOR_STR.paperDim));
+      y += 14;
+      line(value ?? pending, value ? COLOR_STR.paper : COLOR_STR.paperDim);
+      y += 4;
+    }
+  }
+
+  private header(step: string, question: string, sidebar = true): void {
     this.lastStep = { label: step, question };
     // strato di lettura (§11.1): passo corrente e domanda, a ogni transizione
     // Il ritorno al passo precedente è annunciato qui e non nei tasti in
@@ -187,6 +237,7 @@ export class DecisionScene extends Phaser.Scene {
       fontSize: 12,
       variant: 'ghost'
     });
+    if (sidebar) this.buildSidebar();
   }
 
   update(): void {
@@ -404,7 +455,7 @@ export class DecisionScene extends Phaser.Scene {
     const cx = GAME_WIDTH / 2;
     const t = L().ui.decision;
     const texts = (L().cases as Record<string, { motivations: string[] }>)[this.caseData.id];
-    this.header(t.step5, t.question5);
+    this.header(t.step5, t.question5, false);
 
     const rows: Array<[string, string]> = [
       [t.summary.classification, L().classifications[this.classification!]],

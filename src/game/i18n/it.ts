@@ -44,6 +44,9 @@ export const it = {
       settingsTitle: 'Impostazioni',
       settingsPrivacy: 'Salvataggio e preferenze restano solo nel tuo browser: nessun account, nessun dato inviato.',
       teachersTitle: 'Docenti e classe',
+      classPreset: 'PRONTI PER LA CLASSE ▸',
+      classPresetDone: 'Modalità docente attiva e testo istantaneo.',
+      classPresetNote: 'Attiva le pause di discussione dopo ogni caso e mostra il testo senza attesa. Non introduce timer e non confronta gruppi: il gioco non misura il tuo tempo e non fa uscire dati dal dispositivo.',
       teachersNote: 'Modalità docente: pause di discussione dopo ogni caso e debrief locale a fine partita. Uso in classe: 20–40 minuti, nessun account, nessun dato raccolto.',
       resourcesTitle: 'Risorse',
       resourcesNote: 'Archivio e glossario del gioco, più le guide del sito (nuova scheda).',
@@ -244,6 +247,11 @@ export const it = {
       step4: 'DECISIONE 4 DI 5 — MOTIVAZIONE',
       step5: 'DECISIONE 5 DI 5 — RIEPILOGO E FIRMA',
       question5: 'Rivedi il rapporto prima di firmarlo.',
+      sidebar: {
+        cited: 'REPERTI CITATI',
+        soFar: 'DECISIONE FINORA',
+        pending: 'da scegliere'
+      },
       summary: {
         classification: 'Classificazione',
         measure: 'Misura',

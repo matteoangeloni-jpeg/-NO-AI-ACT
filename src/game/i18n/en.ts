@@ -45,6 +45,9 @@ export const en: Locale = {
       settingsTitle: 'Settings',
       settingsPrivacy: 'Save data and preferences stay in your browser only: no account, nothing is sent anywhere.',
       teachersTitle: 'Teachers & classroom',
+      classPreset: 'READY FOR THE CLASSROOM \u25b8',
+      classPresetDone: 'Teacher mode on, text shown instantly.',
+      classPresetNote: 'Turns on the discussion pauses after each case and shows text without waiting. It adds no timer and compares no groups: the game does not measure your time and no data leaves the device.',
       teachersNote: 'Teacher mode: discussion pauses after each case and a local debrief at the end. Classroom use: 20–40 minutes, no accounts, no data collected.',
       resourcesTitle: 'Resources',
       resourcesNote: 'In-game archive and glossary, plus the site guides (new tab).',
@@ -245,6 +248,11 @@ export const en: Locale = {
       step4: 'DECISION 4 OF 5 — REASONING',
       step5: 'DECISION 5 OF 5 — REVIEW AND SIGN',
       question5: 'Review the report before signing it.',
+      sidebar: {
+        cited: 'CITED EXHIBITS',
+        soFar: 'DECISION SO FAR',
+        pending: 'still to choose'
+      },
       summary: {
         classification: 'Classification',
         measure: 'Measure',

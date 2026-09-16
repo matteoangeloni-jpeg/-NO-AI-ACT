@@ -442,7 +442,7 @@ export class TitleScene extends Phaser.Scene {
     const m = L().ui.menu;
     const cx = GAME_WIDTH / 2;
     const cy = GAME_HEIGHT / 2;
-    const c = this.openPanel(g.teachersTitle, 380);
+    const c = this.openPanel(g.teachersTitle, 440);
     const note = this.add.text(cx - 380, cy - 190 + 66, g.teachersNote, textStyle(12.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 4 }));
 
     const teacherBtn = new Button(this, cx - 190, cy - 8, StateManager.teacherMode ? m.teacherOn : m.teacherOff, () => {
@@ -454,8 +454,38 @@ export class TitleScene extends Phaser.Scene {
 
     // guida docente (prima/durante/dopo la lezione), sopra il pannello (depth 90)
     const guideBtn = new Button(this, cx + 190, cy - 8, L().ui.teacherGuide.button, () => guide.toggle(), { width: 360, height: 46, fontSize: 12, variant: 'ok' });
-    this.describePanel([{ text: g.teachersNote }, { items: [teacherBtn.labelText, guideBtn.labelText] }]);
-    c.add([note, teacherBtn, guideBtn]);
+
+    /**
+     * PRONTI PER LA CLASSE.
+     *
+     * Un tasto che mette insieme le impostazioni che una lezione vuole, e
+     * che oggi vanno cercate in due pannelli diversi: pause di discussione
+     * dopo ogni caso, e testo istantaneo — con trenta persone davanti,
+     * aspettare la macchina da scrivere è tempo tolto alla discussione.
+     *
+     * NON aggiunge un timer e NON confronta gruppi, per quanto entrambi
+     * siano stati chiesti: il gioco dichiara di non misurare il tempo reale
+     * di nessuno, e il confronto fra gruppi richiederebbe di far uscire dati
+     * dal dispositivo. Sono due promesse scritte nelle pagine pubbliche, e
+     * non si toccano con un tasto di comodo.
+     *
+     * Dice esattamente che cosa ha cambiato: un preset che agisce in
+     * silenzio è un preset di cui non ci si fida.
+     */
+    const classBtn = new Button(this, cx, cy + 62, g.classPreset, () => {
+      StateManager.setTeacherMode(true);
+      StateManager.setTextSpeed('instant');
+      teacherBtn.setLabel(m.teacherOn);
+      showToast(this, g.classPresetDone, 'ok');
+    }, { width: 560, height: 44, fontSize: 13, variant: 'ok' });
+    const classNote = this.add.text(cx - 380, cy + 96, g.classPresetNote, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
+
+    this.describePanel([
+      { text: g.teachersNote },
+      { items: [teacherBtn.labelText, guideBtn.labelText, classBtn.labelText] },
+      { text: g.classPresetNote }
+    ]);
+    c.add([note, teacherBtn, guideBtn, classBtn, classNote]);
   }
 
   /** RISORSE: archivio e glossario del gioco + guide del sito. */

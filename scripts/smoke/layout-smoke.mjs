@@ -475,7 +475,21 @@ for (const vp of CANVAS_VIEWPORTS) {
       // a destra (norme, norma del caso, termini). Il terzo è finito sul
       // secondo appena aggiunto, in entrambe le lingue, e nulla se ne accorse.
       await gotoDecisionSummary(page);
-      assertSceneLayout(await page.evaluate(sceneReportFn), `${ctx} Decision step 1`, 'Decision');
+      const step1 = await page.evaluate(sceneReportFn);
+      assertSceneLayout(step1, `${ctx} Decision step 1`, 'Decision');
+
+      /**
+       * Riepilogo laterale: i reperti citati e le scelte già prese devono
+       * essere leggibili SENZA lasciare la decisione. Prima bisognava
+       * tenerli a mente, e i reperti erano a una scena di distanza.
+       * I titoli non sono trascritti qui: si chiedono al gioco.
+       */
+      const headings = lang === 'en' ? ['CITED EXHIBITS', 'DECISION SO FAR'] : ['REPERTI CITATI', 'DECISIONE FINORA'];
+      for (const h of headings) {
+        if (!(step1?.items ?? []).some((i) => String(i.text || '').includes(h))) {
+          fail.push(`${ctx} Decision step 1: manca "${h}" nel riepilogo laterale`);
+        }
+      }
 
       // riepilogo e firma: unica schermata che esiste solo dopo quattro scelte
       await advanceToSummary(page);
@@ -485,6 +499,20 @@ for (const vp of CANVAS_VIEWPORTS) {
         fail.push(`${ctx} Decision summary: passo di firma non raggiunto`);
       } else {
         assertSceneLayout(summary, `${ctx} Decision summary`, 'Decision');
+        /**
+         * Nel riepilogo finale la colonna laterale NON si ripete: sarebbe la
+         * stessa cosa scritta due volte sulla stessa schermata.
+         *
+         * Il termine da cercare è "DECISIONE FINORA", non "REPERTI CITATI":
+         * quest'ultimo è anche l'etichetta di una riga del riepilogo finale
+         * stesso, e cercarlo faceva scattare il controllo su una schermata
+         * corretta. Una guardia che grida sul comportamento giusto è peggio
+         * di nessuna guardia.
+         */
+        const sidebarOnly = lang === 'en' ? 'DECISION SO FAR' : 'DECISIONE FINORA';
+        if (summary.items.some((i) => String(i.text || '').includes(sidebarOnly))) {
+          fail.push(`${ctx} Decision summary: il riepilogo laterale è ripetuto sopra il riepilogo finale`);
+        }
         await page.screenshot({ path: `${OUT}/decision-summary-${vp.w}x${vp.h}-${lang}.png` });
       }
     }

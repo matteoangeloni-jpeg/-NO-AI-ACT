@@ -171,3 +171,41 @@ describe('la difficoltà annunciata è quella che si gioca', () => {
     expect(getGameMode('sorpresa').forcedDifficulty).toBe('expert');
   });
 });
+
+/**
+ * PRONTI PER LA CLASSE.
+ *
+ * Un tasto che mette insieme le impostazioni che una lezione vuole e che
+ * oggi vivono in due pannelli diversi. Chiesto da chi ha giocato insieme a
+ * un timer e a un confronto fra gruppi: quei due NON ci sono, e questo
+ * controllo serve a tenerli fuori. Il gioco dichiara nelle sue pagine
+ * pubbliche di non misurare il tempo reale di nessuno e di non far uscire
+ * dati dal dispositivo; un preset di comodo non è il posto da cui
+ * rimangiarsi due promesse.
+ */
+describe('il preset per la classe fa quello che dice, e nulla di più', () => {
+  const teachers = title.slice(title.indexOf('private openTeachers'), title.indexOf('private openResources'));
+
+  it('accende la modalità docente e il testo istantaneo', () => {
+    expect(teachers).toContain('setTeacherMode(true)');
+    expect(teachers).toContain("setTextSpeed('instant')");
+  });
+
+  it('dichiara che cosa ha cambiato invece di agire in silenzio', () => {
+    expect(teachers).toContain('classPresetDone');
+  });
+
+  it('non introduce alcun timer e non confronta gruppi', () => {
+    for (const forbidden of ['setTimer', 'countdown', 'timeLimit', 'groupCompare']) {
+      expect(teachers, `${forbidden} contraddirebbe una promessa pubblica`).not.toContain(forbidden);
+    }
+  });
+
+  it("la nota lo dice al docente, in entrambe le lingue, invece di lasciarlo scoprire", () => {
+    for (const [lang, dict] of [['it', itLocale], ['en', en]] as const) {
+      const note = dict.ui.titleGroups.classPresetNote;
+      expect(note.length, `${lang}`).toBeGreaterThan(80);
+      expect(note.toLowerCase(), `${lang}: la nota deve nominare il timer che NON c'è`).toContain('timer');
+    }
+  });
+});
