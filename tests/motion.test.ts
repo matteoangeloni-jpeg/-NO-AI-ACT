@@ -145,3 +145,77 @@ describe('la transizione fra scene ha una rete di sicurezza a orologio', () => {
     expect(offenders, offenders.join(', ')).toEqual([]);
   });
 });
+
+/**
+ * IL MOVIMENTO CHE NON FINISCE MAI.
+ *
+ * Una dissolvenza dura 300 ms e poi è finita: chi ha chiesto meno movimento
+ * la subisce una volta. Un tween con `repeat: -1` non finisce mai — resta
+ * lì a muoversi finché la schermata è aperta — quindi è proprio quello che
+ * l'impostazione deve poter spegnere, ed è anche quello che si dimentica,
+ * perché lo si scrive una volta e non lo si rilegge più.
+ *
+ * L'elenco dei file si legge dal disco: un'animazione perpetua nuova finisce
+ * sotto questo controllo il giorno che nasce, invece di aspettare che
+ * qualcuno si ricordi di aggiungerla a una lista.
+ */
+describe('nessuna animazione perpetua ignora "riduci movimento"', () => {
+  const tutti = (dir: string): string[] => {
+    const out: string[] = [];
+    for (const e of readdirSync(resolve(root, dir), { withFileTypes: true })) {
+      if (e.isDirectory()) out.push(...tutti(`${dir}/${e.name}`));
+      else if (e.name.endsWith('.ts')) out.push(`${dir}/${e.name}`);
+    }
+    return out;
+  };
+  const files = tutti('src/game');
+
+  it('la lettura del disco trova davvero i sorgenti del gioco', () => {
+    expect(files.length, 'se la ricorsione fallisse, il controllo sarebbe vuoto').toBeGreaterThan(30);
+  });
+
+  it('chi scrive un tween perpetuo o guarda l\'impostazione, o si fa passare un interruttore', () => {
+    const colpevoli: string[] = [];
+    for (const f of files) {
+      const src = read(f);
+      if (!/repeat:\s*-1/.test(src)) continue;
+      // O il file conosce l'impostazione, o espone un interruttore che il
+      // chiamante deriva da lei: i generatori procedurali non importano lo
+      // StateManager di proposito, restano funzioni pure sulla scena.
+      const sa = /reducedMotion/.test(src) || /animate\s*=\s*false/.test(src);
+      if (!sa) colpevoli.push(f);
+    }
+    expect(
+      colpevoli,
+      `animazione senza fine e senza freno:\n${colpevoli.join('\n')}`
+    ).toEqual([]);
+  });
+
+  it("l'interruttore, dove c'è, è davvero l'impostazione e non un `true` scritto a mano", () => {
+    // I generatori che espongono `animate` si trovano dal disco, e così i
+    // loro chiamanti: passare `true` renderebbe il parametro un ornamento.
+    const generatori: string[] = [];
+    for (const f of files) {
+      const m = /export function (\w+)\([\s\S]{0,400}?animate\s*=\s*false/.exec(read(f));
+      if (m) generatori.push(m[1]);
+    }
+    expect(generatori.length, 'nessun generatore con interruttore = controllo inerte').toBeGreaterThan(0);
+
+    const colpevoli: string[] = [];
+    for (const f of files) {
+      const src = read(f);
+      for (const nome of generatori) {
+        const re = new RegExp(`\\b${nome}\\s*\\(([^;]*?)\\)\\s*;`, 'g');
+        let m: RegExpExecArray | null;
+        while ((m = re.exec(src)) !== null) {
+          const args = m[1];
+          // la dichiarazione stessa non è una chiamata
+          if (src.slice(Math.max(0, m.index - 20), m.index).includes('function')) continue;
+          if (args.split(',').length < 3) continue; // chiamata senza interruttore: resta ferma
+          if (!/reducedMotion/.test(args)) colpevoli.push(`${f}: ${nome}(${args.trim()})`);
+        }
+      }
+    }
+    expect(colpevoli, `interruttore acceso senza chiedere all'impostazione:\n${colpevoli.join('\n')}`).toEqual([]);
+  });
+});

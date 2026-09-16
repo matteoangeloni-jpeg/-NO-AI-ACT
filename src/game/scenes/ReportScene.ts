@@ -6,7 +6,6 @@ import type {
   IncidentChoice,
   IndicatorState,
   Measure,
-  ReportOutcome,
   ResponsibleSubject
 } from '../data/types';
 import { hintKeyFor, shouldShowHint, showsSecondaryErrors, type ReportResult } from '../systems/ReportSystem';
@@ -17,6 +16,8 @@ import { caseLearning } from '../data/learning';
 const ANALYSIS_Y = 600;
 import { decisionAnalysisKeys } from '../systems/DecisionIssues';
 import { multiAxisFeedback } from '../systems/MultiAxisFeedback';
+import { OUTCOME_COLORS, SEAL_HEIGHT, SEAL_WIDTH, createDecisionSeal } from '../assets/procedural/decisionSeal';
+import { seeded } from '../assets/procedural/kit';
 import { AudioSystem } from '../systems/AudioSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
@@ -39,13 +40,6 @@ interface ReportParams {
   before: IndicatorState;
   after: IndicatorState;
 }
-
-const OUTCOME_COLORS: Record<ReportOutcome, { stroke: number; text: string }> = {
-  conforme: { stroke: COLORS.ok, text: COLOR_STR.ok },
-  parziale: { stroke: COLORS.warning, text: COLOR_STR.warning },
-  contestabile: { stroke: COLORS.warning, text: COLOR_STR.warning },
-  non_conforme: { stroke: COLORS.alert, text: COLOR_STR.alertText }
-};
 
 /**
  * Il rapporto ispettivo: il documento che il giocatore ha costruito,
@@ -77,7 +71,7 @@ export class ReportScene extends Phaser.Scene {
     addNoiseOverlay(this, 0.4);
 
     // documento
-    this.add.image(cx, GAME_HEIGHT / 2 - 10, 'dossier_paper').setDisplaySize(940, 580);
+    this.add.image(cx, GAME_HEIGHT / 2 - 10, 'report_paper').setDisplaySize(940, 580);
     const left = cx - 430;
     let y = 76;
     this.add.text(left, y, `${t.ui.report.title} — ${fmt(t.ui.case.fileLabel, { code: this.caseData.fileCode })}`, textStyle(14, COLOR_STR.alertText));
@@ -166,13 +160,17 @@ export class ReportScene extends Phaser.Scene {
     // timbro dell'esito: applicato in basso a destra del documento, come su un
     // modulo reale — fuori dalla colonna di testo, nessuna collisione
     const stamp = this.add.container(cx + 250, 556);
-    const stampW = 300;
-    const box = this.add.rectangle(0, 0, stampW, 70).setStrokeStyle(3, oc.stroke, 0.9);
+    const sealKey = createDecisionSeal(this, result.outcome, this.caseData.id);
+    const cornice: Phaser.GameObjects.GameObject = sealKey
+      ? this.add.image(0, 0, sealKey).setDisplaySize(SEAL_WIDTH + 20, SEAL_HEIGHT + 20)
+      : this.add.rectangle(0, 0, SEAL_WIDTH, SEAL_HEIGHT).setStrokeStyle(3, oc.stroke, 0.9);
     const label = this.add
-      .text(0, 0, t.ui.outcomes[result.outcome], textStyle(result.outcome === 'parziale' ? 16 : 20, oc.text, { fontStyle: 'bold', align: 'center', wordWrap: { width: stampW - 24 } }))
+      .text(0, 0, t.ui.outcomes[result.outcome], textStyle(result.outcome === 'parziale' ? 16 : 20, oc.text, { fontStyle: 'bold', align: 'center', wordWrap: { width: SEAL_WIDTH - 24 } }))
       .setOrigin(0.5);
-    stamp.add([box, label]);
-    stamp.setRotation(-0.06);
+    stamp.add([cornice, label]);
+    // l'inclinazione viene dal caso: due sigilli di casi diversi non escono
+    // paralleli, e lo stesso caso riaperto ha sempre la sua
+    stamp.setRotation(-0.06 + (seeded(`sigillo-inclinazione:${this.caseData.id}`)() - 0.5) * 0.06);
     if (!StateManager.reducedMotion) {
       stamp.setScale(2.2).setAlpha(0);
       this.tweens.add({ targets: stamp, scale: 1, alpha: 1, duration: 320, ease: 'Cubic.easeIn', onComplete: () => this.cameras.main.shake(90, 0.002) });

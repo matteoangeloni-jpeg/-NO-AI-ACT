@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
-import { COLORS, COLOR_STR, RENDER_SCALE } from '../../ui/theme';
-import { between, drawStamp, seeded } from './kit';
+import { COLORS } from '../../ui/theme';
+import { between, seeded } from './kit';
 
 /**
  * LA RETE CIVICA: la mappa smette di essere uno sfondo.
@@ -90,7 +90,11 @@ function linkStyle(a: NodeState, b: NodeState): { color: number; alpha: number; 
  * dovrebbe. La differenza si vede anche in bianco e nero, che è il motivo
  * per cui non è affidata al solo colore.
  */
-export function drawCivicNetwork(scene: Phaser.Scene, nodes: CivicNode[]): Phaser.GameObjects.Graphics {
+export function drawCivicNetwork(
+  scene: Phaser.Scene,
+  nodes: CivicNode[],
+  animate = false
+): Phaser.GameObjects.Graphics {
   const g = scene.add.graphics();
   const links = deriveLinks(nodes);
   const rnd = seeded('rete-civica');
@@ -123,68 +127,44 @@ export function drawCivicNetwork(scene: Phaser.Scene, nodes: CivicNode[]): Phase
     g.strokePath();
   }
 
-  // Pacchetti di dati: un punto a metà dei collegamenti attivi. Sta fermo —
-  // il movimento lo aggiunge la scena, e solo se il giocatore lo permette.
-  for (const [i, j] of links) {
+  /**
+   * PACCHETTI DI DATI sui collegamenti verso un fascicolo aperto.
+   *
+   * Dicono una cosa sola, e per questo ci sono: il dato *passa adesso*. Un
+   * caso aperto non è una pratica ferma in un cassetto, è un sistema in
+   * funzione che continua a decidere sulle persone mentre l'ispettore ci
+   * pensa. Su un caso chiuso non si muove niente.
+   *
+   * IL MOVIMENTO È UN'AGGIUNTA, MAI IL PORTATORE DELL'INFORMAZIONE. Con
+   * `reducedMotion` il pacchetto resta un punto fermo a metà del
+   * collegamento: la stessa informazione, senza moto. Chi ha chiesto di non
+   * vedere animazioni non perde niente di leggibile — perde solo l'effetto.
+   */
+  const attivi = links.filter(([i, j]) => nodes[i].state === 'aperto' || nodes[j].state === 'aperto');
+  for (const [i, j] of attivi) {
     const a = nodes[i];
     const b = nodes[j];
-    if (a.state !== 'aperto' && b.state !== 'aperto') continue;
-    g.fillStyle(COLORS.accent, 0.5);
-    g.fillCircle((a.x + b.x) / 2, (a.y + b.y) / 2, 2);
+    if (!animate) {
+      g.fillStyle(COLORS.accent, 0.5);
+      g.fillCircle((a.x + b.x) / 2, (a.y + b.y) / 2, 2);
+      continue;
+    }
+    // Il verso va dal nodo sano verso quello aperto: il dato arriva al
+    // fascicolo sotto ispezione, non ne esce.
+    const [da, verso] = a.state === 'aperto' ? [b, a] : [a, b];
+    const pacchetto = scene.add.circle(da.x, da.y, 2, COLORS.accent, 0.6);
+    pacchetto.setDepth(g.depth);
+    scene.tweens.add({
+      targets: pacchetto,
+      x: verso.x,
+      y: verso.y,
+      duration: 2600,
+      // sfalsati: dodici punti che partono insieme sono una parata, non un flusso
+      delay: between(seeded(`pacchetto:${a.id}:${b.id}`), 0, 2200),
+      repeat: -1,
+      ease: 'Sine.easeInOut'
+    });
   }
 
   return g;
-}
-
-/**
- * Timbro d'esito sul segnaposto di un caso chiuso: la mappa porta i segni
- * delle decisioni prese, invece di dimenticarle appena si cambia schermata.
- *
- * Tre texture in tutto, condivise da tutti i segnaposto. La rotazione la
- * mette il chiamante, così due timbri uguali non escono paralleli.
- */
-export const OUTCOME_STAMP_KEYS: Record<'correct' | 'partial' | 'wrong', string> = {
-  correct: 'stamp_conforme',
-  partial: 'stamp_parziale',
-  wrong: 'stamp_contestabile'
-};
-
-const STAMP_W = 132;
-const STAMP_H = 30;
-
-/**
- * Genera i tre timbri. Le etichette arrivano dal chiamante perché il gioco è
- * bilingue e i testi vivono in i18n: un timbro con la parola scritta qui
- * dentro sarebbe italiano anche per chi gioca in inglese.
- */
-export function createOutcomeStamps(
-  scene: Phaser.Scene,
-  etichette: Record<'correct' | 'partial' | 'wrong', string>
-): void {
-  const colori: Record<'correct' | 'partial' | 'wrong', string> = {
-    correct: COLOR_STR.ok,
-    partial: COLOR_STR.warning,
-    wrong: COLOR_STR.alertText
-  };
-
-  for (const esito of ['correct', 'partial', 'wrong'] as const) {
-    const key = OUTCOME_STAMP_KEYS[esito];
-    if (scene.textures.exists(key)) continue;
-    const canvas = scene.textures.createCanvas(key, STAMP_W * RENDER_SCALE, STAMP_H * RENDER_SCALE);
-    if (!canvas) continue;
-    const ctx = canvas.getContext();
-    ctx.scale(RENDER_SCALE, RENDER_SCALE);
-    ctx.translate(STAMP_W / 2, STAMP_H / 2);
-    // Seme dall'esito: lo stesso timbro è sempre consumato allo stesso modo,
-    // ma tre esiti diversi non escono identici.
-    drawStamp(ctx, seeded(`timbro:${esito}`), {
-      lines: [etichette[esito]],
-      color: colori[esito],
-      width: STAMP_W - 8,
-      height: STAMP_H - 8,
-      fontSize: 11,
-      wear: 0.22
-    });
-    canvas.refresh();
-  }
 }

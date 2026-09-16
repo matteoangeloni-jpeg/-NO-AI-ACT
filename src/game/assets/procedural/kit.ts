@@ -120,8 +120,6 @@ export function drawGrain(
 // ------------------------------------------------------------------ timbri
 
 export interface StampOptions {
-  /** Righe del timbro: una o due. */
-  lines: string[];
   color: string;
   /** Rotazione in radianti. Un timbro dritto non sembra apposto a mano. */
   rotation?: number;
@@ -129,19 +127,28 @@ export interface StampOptions {
   wear?: number;
   width?: number;
   height?: number;
-  fontSize?: number;
 }
 
 /**
- * Timbro d'ufficio. Il bordo è disegnato a segmenti e alcuni saltano: un
- * rettangolo continuo e perfettamente orizzontale legge come una cornice
- * grafica, non come inchiostro premuto male su carta.
+ * CORNICE DI TIMBRO — e SOLO la cornice.
+ *
+ * Il bordo è disegnato a segmenti e alcuni saltano: un rettangolo continuo e
+ * perfettamente orizzontale legge come una cornice grafica, non come
+ * inchiostro premuto male su carta.
+ *
+ * LE PAROLE NON ENTRANO QUI. Prima questa funzione stampava anche il testo
+ * del timbro, e i chiamanti le passavano etichette prese da i18n: quelle
+ * parole finivano cotte nei pixel di una texture che nasce una volta sola e
+ * sopravvive al cambio di lingua, quindi chi passava all'inglese continuava
+ * a vedere "CONFORME" sui timbri della mappa. Ora la cornice è muta e la
+ * parola la mette il chiamante con un testo di Phaser: segue la lingua,
+ * segue l'ingrandimento del testo, e si legge allo strato di lettura.
  *
  * L'origine è il CENTRO del timbro. Chi chiama posiziona con `translate`.
  */
 export function drawStamp(ctx: CanvasRenderingContext2D, rnd: () => number, o: StampOptions): void {
   const w = o.width ?? 170;
-  const h = o.height ?? (o.lines.length > 1 ? 52 : 34);
+  const h = o.height ?? 34;
   const wear = o.wear ?? 0.18;
 
   ctx.save();
@@ -168,15 +175,6 @@ export function drawStamp(ctx: CanvasRenderingContext2D, rnd: () => number, o: S
       ctx.stroke();
     }
   }
-
-  const fs = o.fontSize ?? 15;
-  ctx.font = `${fs}px monospace`;
-  ctx.fillStyle = o.color;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  const passo = fs + 5;
-  const primaY = -((o.lines.length - 1) * passo) / 2;
-  o.lines.forEach((riga, i) => ctx.fillText(riga, 0, primaY + i * passo));
   ctx.restore();
 }
 
@@ -287,4 +285,87 @@ export function drawHeaderRule(
   ctx.lineTo(x + w, y);
   ctx.stroke();
   ctx.restore();
+}
+
+/**
+ * Crocini d'angolo. Sono i segni di taglio di un modulo stampato: quattro
+ * coppie di trattini che non chiudono il rettangolo. Una cornice continua
+ * legge come "riquadro dell'interfaccia"; questi leggono come "foglio
+ * uscito da una tipografia d'ufficio", che è la differenza fra un pannello
+ * e un documento.
+ */
+export function drawCornerTicks(
+  ctx: CanvasRenderingContext2D,
+  w: number,
+  h: number,
+  inset: number,
+  lunghezza: number,
+  colore: string
+): void {
+  ctx.save();
+  ctx.strokeStyle = colore;
+  ctx.lineWidth = 1;
+  const angoli: [number, number, number, number][] = [
+    [inset, inset, 1, 1],
+    [w - inset, inset, -1, 1],
+    [inset, h - inset, 1, -1],
+    [w - inset, h - inset, -1, -1]
+  ];
+  for (const [x, y, sx, sy] of angoli) {
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + sx * lunghezza, y);
+    ctx.moveTo(x, y);
+    ctx.lineTo(x, y + sy * lunghezza);
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+/**
+ * Striscia di protocollo: trattini verticali di larghezza variabile, come il
+ * codice a barre che gli uffici stampano sul margine per la registrazione.
+ *
+ * È volutamente SENZA PAROLE. Il gioco è bilingue e queste texture sono
+ * condivise fra italiano e inglese: qualunque parola cotta qui dentro
+ * resterebbe nella lingua di chi l'ha scritta anche per l'altro pubblico —
+ * difetto che c'era davvero, con "NON CLASSIFICATO / ISPETTORATO AX"
+ * stampato nella carta e mostrato identico nella versione inglese.
+ */
+export function drawRegistryStrip(
+  ctx: CanvasRenderingContext2D,
+  rnd: () => number,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  colore: string
+): void {
+  ctx.save();
+  ctx.fillStyle = colore;
+  let cx = x;
+  while (cx < x + w) {
+    const larghezza = between(rnd, 1, 3.5);
+    if (cx + larghezza > x + w) break;
+    ctx.fillRect(cx, y, larghezza, h);
+    cx += larghezza + between(rnd, 1.5, 4);
+  }
+  ctx.restore();
+}
+
+/**
+ * Doppio filo: la riga spessa e la sua sottile appaiata. È il taglio che
+ * separa l'intestazione dal corpo in un atto amministrativo — un filo solo
+ * sembra un divisore qualunque, due sembrano un modulo.
+ */
+export function drawDoubleRule(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  colore: string,
+  colorePallido: string
+): void {
+  drawHeaderRule(ctx, x, y, w, colore);
+  drawHeaderRule(ctx, x, y + 3, w, colorePallido);
 }

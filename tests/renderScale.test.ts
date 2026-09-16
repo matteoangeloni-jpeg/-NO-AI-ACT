@@ -151,8 +151,17 @@ describe('le texture generate al doppio dichiarano la dimensione con cui si most
    * davvero la mappa grande il doppio — non era fra quelle: la guardia
    * passava verde sopra il difetto che esisteva per trovare. Ora i file si
    * leggono dal disco, così una scena nuova è coperta il giorno che nasce.
+   *
+   * E NEMMENO LE CHIAVI. La versione dopo elencava a mano le texture da
+   * sorvegliare — `citymap`, `dossier_paper`, `icon_*` — e quell'elenco è
+   * invecchiato in silenzio: i fogli dei reperti, i timbri della mappa e il
+   * sigillo del rapporto sono nati dopo e non ci sono mai entrati. La regola
+   * vera non ha bisogno di un elenco: in questo gioco NESSUNA texture
+   * arriva da un file, quindi ognuna è generata a RENDER_SCALE e ognuna va
+   * mostrata a una misura dichiarata. La premessa è verificata qui sotto,
+   * invece di essere data per buona.
    */
-  it('nessuna scena disegna una texture generata affidandosi alla sua dimensione nativa', () => {
+  const sorgenti = (): string[] => {
     const dirs = ['src/game/scenes', 'src/game/ui'];
     const files: string[] = [];
     for (const dir of dirs) {
@@ -160,13 +169,40 @@ describe('le texture generate al doppio dichiarano la dimensione con cui si most
         if (f.endsWith('.ts')) files.push(`${dir}/${f}`);
       }
     }
+    return files;
+  };
+
+  it('la premessa regge: nessuna texture arriva da un file', () => {
+    const colpevoli: string[] = [];
+    for (const path of sorgenti()) {
+      for (const line of read(path).split('\n')) {
+        if (/\bload\.(image|spritesheet|atlas)\s*\(/.test(line)) colpevoli.push(`${path}: ${line.trim()}`);
+      }
+    }
+    expect(
+      colpevoli,
+      `se un giorno si caricasse una texture da file, la regola qui sotto andrebbe ristretta.\n${colpevoli.join('\n')}`
+    ).toEqual([]);
+  });
+
+  it('nessuna scena disegna una texture generata affidandosi alla sua dimensione nativa', () => {
+    const files = sorgenti();
     expect(files.length, 'se la lettura del disco fallisse, il controllo sarebbe vuoto').toBeGreaterThan(20);
 
     const offenders: string[] = [];
     for (const path of files) {
-      for (const line of read(path).split('\n')) {
-        const usesTexture = /add\.image\([^)]*'(citymap|dossier_paper|icon_[a-z_]+)'/.test(line);
-        if (usesTexture && !line.includes('setDisplaySize')) offenders.push(`${path}: ${line.trim()}`);
+      const src = read(path);
+      // La catena può andare a capo: si guarda l'istruzione intera, non la
+      // riga. `.setDisplaySize` su CityMapScene stava sulla riga dopo, e un
+      // controllo riga per riga l'avrebbe dato per mancante.
+      const re = /add\s*\.image\s*\(/g;
+      let m: RegExpExecArray | null;
+      while ((m = re.exec(src)) !== null) {
+        const fine = src.indexOf(';', m.index);
+        const istruzione = src.slice(m.index, fine === -1 ? src.length : fine);
+        if (!istruzione.includes('setDisplaySize')) {
+          offenders.push(`${path}: ${istruzione.split('\n')[0].trim()}`);
+        }
       }
     }
     expect(offenders, offenders.join('\n')).toEqual([]);
