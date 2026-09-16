@@ -66,7 +66,14 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
   const page = await ctx.newPage();
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
-  page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+  // la richiesta al beacon la interrompiamo noi, per non dipendere dalla
+  // rete: il suo ERR_FAILED non è un errore del gioco
+  page.on('console', (m) => {
+    if (m.type() !== 'error') return;
+    const t = m.text();
+    if (/ERR_FAILED|cloudflareinsights/.test(t)) return;
+    errors.push(t);
+  });
   await page.addInitScript((s) => localStorage.setItem('no-ai-act-save-v1', s), save({ lang, reducedMotion }));
   await page.goto(`${BASE}/play/?lang=${lang}`, { waitUntil: 'load' });
 
@@ -130,15 +137,61 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
   if (!(await waitScene('Title', 40000))) { await ctx.close(); return; }
 
   // --- 1. i glifi esistono davvero nel font del gioco
-  const tofu = await page.evaluate((glifi) => {
-    const c = document.createElement('canvas').getContext('2d');
+  /**
+   * SI CONFRONTANO I PIXEL, NON LE LARGHEZZE.
+   *
+   * Il primo tentativo misurava `measureText(glifo).width` contro quella di
+   * U+FFFF, che non è assegnato. In un font a larghezza fissa — e il gioco
+   * usa solo monospace — OGNI carattere ha la stessa larghezza
+   * d'avanzamento, compreso il rettangolo vuoto: il controllo dichiarava
+   * introvabili tutti e quindici i glifi mentre gli screenshot li mostravano
+   * disegnati. Una guardia che non può distinguere niente è peggio di
+   * nessuna guardia, perché la si spegne.
+   *
+   * Qui si disegna il glifo su un canvas e si confronta l'IMMAGINE con
+   * quella di U+FFFF e con il vuoto. Due glifi diversi che producono gli
+   * stessi pixel sono lo stesso disegno, e un glifo che non produce pixel
+   * non c'è.
+   */
+  const glifi = await page.evaluate((lista) => {
+    const cv = document.createElement('canvas');
+    cv.width = 48; cv.height = 48;
+    const c = cv.getContext('2d', { willReadFrequently: true });
     const famiglia = getComputedStyle(document.body).fontFamily || 'monospace';
-    c.font = `20px ${famiglia}`;
-    // U+FFFF non è assegnato: la sua larghezza È quella del rettangolo vuoto
-    const notdef = c.measureText('￿').width;
-    return glifi.filter((g) => Math.abs(c.measureText(g.glifo).width - notdef) < 0.01).map((g) => g.nome);
+    const impronta = (ch) => {
+      c.clearRect(0, 0, 48, 48);
+      c.fillStyle = '#fff';
+      c.font = `32px ${famiglia}`;
+      c.textBaseline = 'middle';
+      c.textAlign = 'center';
+      c.fillText(ch, 24, 24);
+      const d = c.getImageData(0, 0, 48, 48).data;
+      let h = 2166136261, acceso = 0;
+      for (let i = 3; i < d.length; i += 4) {
+        if (d[i] > 12) acceso += 1;
+        h ^= d[i]; h = Math.imul(h, 16777619);
+      }
+      return { h: h >>> 0, acceso };
+    };
+    const notdef = impronta('\uFFFF');
+    return lista.map((g) => {
+      const imp = impronta(g.glifo);
+      return { nome: g.nome, vuoto: imp.acceso < 8, comeNotdef: imp.h === notdef.h && notdef.acceso > 0, impronta: imp.h };
+    });
   }, GLYPHS);
-  if (tofu.length > 0) fail.push(`[${tag}] glifi non disegnabili (escono come rettangolo vuoto): ${tofu.join(', ')}`);
+
+  const mancanti = glifi.filter((g) => g.vuoto || g.comeNotdef).map((g) => g.nome);
+  if (mancanti.length > 0) fail.push(`[${tag}] glifi che il font non disegna: ${mancanti.join(', ')}`);
+
+  // due glifi con la stessa immagine sono lo stesso segnale, anche se i
+  // codepoint sono diversi: è il caso in cui il font sostituisce entrambi
+  const perImmagine = new Map();
+  for (const g of glifi) {
+    if (g.vuoto) continue;
+    const gemello = perImmagine.get(g.impronta);
+    if (gemello) fail.push(`[${tag}] "${g.nome}" e "${gemello}" escono con lo stesso disegno`);
+    else perImmagine.set(g.impronta, g.nome);
+  }
 
   // --- 2. il canvas ha i pixel dello schermo
   const scala = await page.evaluate(() => {
