@@ -176,6 +176,26 @@ describe('ogni gesto sonoro sa cosa fare senza il suo campione', () => {
     expect(bank, 'manca il caricamento a richiesta della musica').toContain('ensureMusic');
   });
 
+  it('applyRole non richiama sé stesso: un file illeggibile non può congelare la pagina', () => {
+    /**
+     * `ensureMusic` RICORDA la propria promessa. Per un campione assente o
+     * che non si decodifica quella promessa è già risolta, quindi un `then`
+     * che rientrasse in `applyRole` si richiamerebbe subito, un microtask
+     * dopo l'altro, all'infinito: la pagina si congela e il gioco smette di
+     * disegnare. È stato misurato — con la ricorsione la scheda non
+     * rispondeva più dopo 90 secondi, senza gira a pieni fotogrammi.
+     *
+     * Il difetto si toglie alla radice: nessuna ricorsione. Chi ottiene il
+     * campione fa partire la traccia e basta.
+     */
+    const start = src.indexOf('private applyRole(');
+    const end = src.indexOf('\n  /** Fa partire una traccia in loop', start);
+    expect(start, 'applyRole non trovato: il controllo non sta più guardando niente').toBeGreaterThan(-1);
+    expect(end, 'la fine di applyRole non è più riconoscibile').toBeGreaterThan(start);
+    const body = src.slice(start, end);
+    expect(body, 'applyRole richiama sé stesso: rischio di ciclo infinito').not.toContain('this.applyRole(');
+  });
+
   it('il banco non tratta un file mancante come un errore', () => {
     const bank = read('src/game/systems/audioBank.ts');
     // Un 404 previsto scritto in console nasconde i 404 veri.

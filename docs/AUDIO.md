@@ -97,6 +97,21 @@ Le preferenze sopravvivono a una partita nuova e a un salvataggio vecchio:
 `hydrateV2` riempie i campi mancanti con i default, quindi chi ha già
 giocato eredita 0,30 e 0,70 senza migrazioni.
 
+## Un file illeggibile non deve congelare il gioco
+
+`AudioBank.ensureMusic` ricorda la propria promessa. Per un campione
+assente o che non si decodifica quella promessa è **già risolta**, quindi
+un `then` che rientrasse in `applyRole` si richiamerebbe subito, un
+microtask dopo l'altro, all'infinito: la pagina smette di rispondere e il
+gioco smette di disegnare.
+
+È stato misurato: togliendo un mp3 dal pacchetto pubblicato, con la
+ricorsione la scheda non rispondeva più dopo 90 secondi; senza, il gioco
+continua a girare a pieni fotogrammi e suona il tema sintetizzato.
+
+La ricorsione è stata tolta alla radice — chi ottiene il campione chiama
+`startTrack` e basta — e un controllo impedisce che torni.
+
 ## Se un effetto suona basso
 
 Non toccare il file. `SFX_TRIM` e `MUSIC_TRIM` in `audioAssets.ts` sono i

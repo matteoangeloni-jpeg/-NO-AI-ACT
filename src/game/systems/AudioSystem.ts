@@ -164,9 +164,21 @@ class AudioSystemImpl {
        */
       const ctx = this.ctx;
       void AudioBank.ensureMusic(ctx, req.role).then(() => {
-        if (this.pendingRole?.role === req.role && !this.currentTrack) {
-          this.applyRole(req, true);
-        }
+        /**
+         * Qui si fa partire la traccia DIRETTAMENTE, senza richiamare
+         * applyRole. Non è pignoleria: `ensureMusic` ricorda la propria
+         * promessa, quindi per un file assente o illeggibile la seconda
+         * richiesta restituisce una promessa GIÀ risolta. Una versione
+         * precedente rientrava in applyRole, che non trovava il campione e
+         * richiedeva di nuovo — un microtask dopo l'altro, all'infinito,
+         * con la pagina congelata. Un solo mp3 corrotto avrebbe bloccato il
+         * gioco invece di farlo suonare sintetizzato.
+         */
+        const arrivato = AudioBank.music(req.role);
+        if (!arrivato) return;
+        if (this.pendingRole?.role !== req.role || this.currentTrack) return;
+        this.disposeTheme(CROSSFADE_SECONDS);
+        this.startTrack(req.role, arrivato);
       });
       // Nessun campione: il mondo procedurale di sempre. Senza nemmeno un
       // tema di ripiego il ruolo è muto per costruzione (il menu lo era
@@ -180,18 +192,23 @@ class AudioSystemImpl {
     if (!force && this.currentTrack?.role === req.role) return;
     // un campione ha vinto: il tema sintetizzato si ritira nello stesso tempo
     this.disposeTheme(CROSSFADE_SECONDS);
-    this.stopTrack(CROSSFADE_SECONDS);
+    this.startTrack(req.role, buffer);
+  }
 
+  /** Fa partire una traccia in loop, incrociandola su quella in corso. */
+  private startTrack(role: MusicRole, buffer: AudioBuffer): void {
+    if (!this.ctx || !this.musicGain) return;
+    this.stopTrack(CROSSFADE_SECONDS);
     const gain = this.ctx.createGain();
     gain.gain.setValueAtTime(0.0001, this.ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(MUSIC_TRIM[req.role], this.ctx.currentTime + CROSSFADE_SECONDS);
+    gain.gain.linearRampToValueAtTime(MUSIC_TRIM[role], this.ctx.currentTime + CROSSFADE_SECONDS);
     gain.connect(this.musicGain);
     const src = this.ctx.createBufferSource();
     src.buffer = buffer;
     src.loop = true;
     src.connect(gain);
     src.start();
-    this.currentTrack = { role: req.role, src, gain };
+    this.currentTrack = { role, src, gain };
   }
 
   /** Ruolo musicale in corso, per i controlli. */
