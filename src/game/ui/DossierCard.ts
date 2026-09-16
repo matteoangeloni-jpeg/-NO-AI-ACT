@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 import { COLORS, COLOR_STR, textStyle } from './theme';
 import { AudioSystem } from '../systems/AudioSystem';
 import { L, fmt } from '../i18n';
+import type { EvidenceSource } from '../data/types';
+import { documentTextureKey } from '../assets/procedural/documentStyles';
 
 /**
  * Scheda reperto del fascicolo. Tre stati:
@@ -25,12 +27,33 @@ export class DossierCard extends Phaser.GameObjects.Container {
     index: number,
     private onChange: () => void,
     sourceLabel?: string,
-    stanceLabel?: string
+    stanceLabel?: string,
+    source?: EvidenceSource
   ) {
     super(scene, x, y);
 
-    this.bg = scene.add.rectangle(0, 0, width, height, COLORS.night2, 0.95).setStrokeStyle(1, COLORS.iron);
-    const tape = scene.add.rectangle(0, -height / 2 + 14, width, 28, COLORS.carbon).setStrokeStyle(1, COLORS.iron);
+    /**
+     * IL FOGLIO PRIMA DEL TESTO.
+     *
+     * La scheda era un rettangolo pieno: tutti i reperti avevano la stessa
+     * faccia, e da dove veniva un documento si leggeva solo nell'etichetta
+     * in alto a destra. Ora il foglio è una texture generata dal TIPO di
+     * fonte — modulo protocollato, perizia, tabulato, nota interna epurata,
+     * reclamo, brochure, comunicato — così la provenienza si vede prima di
+     * essere letta.
+     *
+     * Il rettangolo resta sotto come bordo: è lui a portare gli stati
+     * (sigillato, aperto, citato), che devono restare leggibili sopra
+     * qualunque foglio.
+     */
+    const paperKey = documentTextureKey(source ?? null);
+    const paper = scene.textures.exists(paperKey)
+      ? scene.add.image(0, 0, paperKey).setDisplaySize(width, height)
+      : null;
+    this.bg = scene.add
+      .rectangle(0, 0, width, height, COLORS.night2, paper ? 0 : 0.95)
+      .setStrokeStyle(1, COLORS.iron);
+    const tape = scene.add.rectangle(0, -height / 2 + 14, width, 28, COLORS.carbon, paper ? 0.55 : 1).setStrokeStyle(1, COLORS.iron);
     const code = scene.add
       .text(-width / 2 + 12, -height / 2 + 14, fmt(L().ui.evidence.exhibit, { num: String(index + 1).padStart(2, '0') }), textStyle(12, COLOR_STR.paperDim))
       .setOrigin(0, 0.5);
@@ -68,6 +91,9 @@ export class DossierCard extends Phaser.GameObjects.Container {
       .setOrigin(0.5)
       .setVisible(false);
 
+    // Il foglio va sotto a tutto: i contenitori di Phaser disegnano in
+    // ordine di inserimento, non per profondità dichiarata.
+    if (paper) this.add(paper);
     this.add([this.bg, tape, code, sealed, title, body, this.citeLabel]);
     if (srcText) this.add(srcText);
     if (stanceText) this.add(stanceText);

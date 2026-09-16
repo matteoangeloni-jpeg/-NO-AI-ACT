@@ -15,6 +15,7 @@ import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/the
 import { fadeInScene } from '../ui/motion';
 import { StateManager } from '../systems/StateManager';
 import { addNoiseOverlay } from '../ui/backdrop';
+import { createDocumentTextures } from '../assets/procedural/documentStyles';
 
 /**
  * Esame dei reperti: aprire tutti gli indizi, poi citare nel rapporto
@@ -75,6 +76,10 @@ export class EvidenceScene extends Phaser.Scene {
     const rows = Math.ceil(n / cols);
     const cardW = 360;
     const cardH = rows === 1 ? 320 : 230;
+    // I fogli si generano alla dimensione VERA della scheda: una texture
+    // stirata perderebbe il passo delle righe e la grana, che sono il
+    // motivo per cui esiste.
+    createDocumentTextures(this, cardW, cardH);
     const colX = cols === 1 ? [cx] : cols === 2 ? [cx - 300, cx + 300] : [cx - 390, cx, cx + 390];
     const rowY = rows === 1 ? [290] : [236, 236 + cardH + 16];
     const sources = texts.clueSources;
@@ -90,7 +95,7 @@ export class EvidenceScene extends Phaser.Scene {
       // su una propria riga — niente concatenazione con la fonte
       const stance = this.caseData.clueStances?.[i];
       const stanceLabel = stance ? (L().ui.evidence.stances as Record<string, string>)[stance] : undefined;
-      const card = new DossierCard(this, x, y, cardW, cardH, clue, i, () => this.refreshState(), sourceLabel, stanceLabel);
+      const card = new DossierCard(this, x, y, cardW, cardH, clue, i, () => this.refreshState(), sourceLabel, stanceLabel, src);
       card.setAlpha(0);
       this.tweens.add({ targets: card, alpha: 1, duration: 250, delay: i * 100 });
       this.cards.push(card);
