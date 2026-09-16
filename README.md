@@ -63,7 +63,7 @@ citazione (CITATION.cff, pagine come citare/ricerca/press kit), sistema SEO
 con audit in CI e 4 nuove coppie di pagine IT/EN (56 URL pubblici). Dettagli:
 `docs/RELEASE_NOTES_v2.1.0.md`.
 
-La 2.2 aggiunge l'audio registrato (sei musiche in loop, una per fase del
+La 2.2 aggiunge l'audio registrato (sette musiche in loop, una per fase del
 procedimento, e dieci effetti legati ai gesti), rende ogni pulsante
 disegnato un pulsante vero raggiungibile da tastiera e da screen reader, e
 disegna il gioco alla risoluzione dello schermo invece di stirare un

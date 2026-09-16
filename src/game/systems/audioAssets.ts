@@ -58,11 +58,22 @@ function discover(fileName: string): string | null {
  */
 export type MusicRole =
   | 'menu'       // titolo, preload, menu
-  | 'archive'    // mappa civica, fascicolo, reperti
+  | 'city'       // mappa civica, scelta del fascicolo, consultazione: si naviga
+  | 'archive'    // fascicolo aperto e reperti: si indaga
   | 'decision'   // classificazione, misura, soggetto, motivazione
   | 'debrief'    // rapporto, conseguenza, fine turno
   | 'tension'    // casi gravi, sistema opaco, incidenti critici
   | 'classroom'; // modalità docente, pause di discussione
+
+/**
+ * Perché `city` e `archive` sono due ruoli e non uno.
+ *
+ * Erano la stessa cosa, e sbagliato: scegliere quale fascicolo aprire e
+ * spulciare i reperti di quello aperto sono momenti diversi. Il primo è
+ * navigazione — si guarda la città, si valuta, non si è ancora dentro
+ * niente; il secondo è l'indagine vera. Dare loro la stessa musica
+ * appiattiva il passaggio che il gioco vuole far sentire.
+ */
 
 /**
  * GESTI SONORI. Nomi di ciò che il giocatore FA, non di come suona: il
@@ -82,6 +93,7 @@ export type SfxCue =
 
 export const MUSIC_FILES: Record<MusicRole, string> = {
   menu: 'music_menu_directive.mp3',
+  city: 'music_civic_interface.mp3',
   archive: 'music_archive_loop.mp3',
   decision: 'music_decision_audit.mp3',
   debrief: 'music_debrief_report.mp3',
@@ -129,6 +141,7 @@ export const SFX_TRIM: Record<SfxCue, number> = {
 
 export const MUSIC_TRIM: Record<MusicRole, number> = {
   menu: 1,
+  city: 0.85,
   archive: 0.85,
   decision: 1,
   debrief: 0.85,

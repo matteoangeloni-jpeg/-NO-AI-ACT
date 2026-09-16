@@ -72,7 +72,7 @@ export class CityMapScene extends Phaser.Scene {
     this.recommendedIds = new Set(plan.mode === 'sorpresa' ? [] : plan.caseIds);
     fadeInScene(this, 300);
     AnalyticsSystem.page('map');
-    AudioSystem.setMusicRole('archive', 'city'); // no-op se già attivo
+    AudioSystem.setMusicRole('city', 'city'); // no-op se già attivo
     // Parallasse: la mappa e la grana scorrono di pochi pixel seguendo il
     // puntatore, in direzioni opposte e con ampiezze diverse. La mappa è
     // disegnata più larga del riquadro esattamente del doppio della deriva,
