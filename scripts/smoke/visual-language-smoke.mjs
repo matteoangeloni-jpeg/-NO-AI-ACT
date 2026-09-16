@@ -276,8 +276,28 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
 
   await clickButton(lang === 'it' ? 'PROSEGUI' : 'CONTINUE');
   if (await waitScene('Consequence')) {
-    await page.waitForTimeout(700);
+    await page.waitForTimeout(1400);
     await page.screenshot({ path: `${OUT}/${tag}-07-consequence.png` });
+    // la carta norma è l'unico posto in cui si vede l'identità normativa:
+    // senza questo passo il distintivo delle categorie non lo guarda nessuno
+    await click(640, 300, 200);
+    await clickButton(lang === 'it' ? 'NORMA' : 'NORM', 500);
+    if (await waitScene('NormCard', 12000)) {
+      await page.waitForTimeout(900);
+      await page.screenshot({ path: `${OUT}/${tag}-08-normcard.png` });
+      const cartaNorma = await textBoxes();
+      const scontri = [];
+      for (let i = 0; i < cartaNorma.length; i++) {
+        for (let j = i + 1; j < cartaNorma.length; j++) {
+          const a = cartaNorma[i], b = cartaNorma[j];
+          if (a.depth !== b.depth) continue;
+          const ox = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
+          const oy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
+          if (ox > 6 && oy > 6) scontri.push(`«${a.text}» × «${b.text}»`);
+        }
+      }
+      if (scontri.length > 0) fail.push(`[${tag}] testi sovrapposti sulla carta norma:\n    ${scontri.join('\n    ')}`);
+    }
   }
 
   if (errors.length > 0) fail.push(`[${tag}] errori in console: ${errors.slice(0, 3).join(' | ')}`);
@@ -293,7 +313,9 @@ const MATRICE = [
   { tag: 'en-ridotto', lang: 'en', reducedMotion: true,  width: 1280, height: 720, dpr: 1 }
 ];
 
-for (const v of MATRICE) {
+/** `ONLY=it-720` gira un solo caso: serve quando si sta correggendo una scena. */
+const solo = process.env.ONLY ? process.env.ONLY.split(',') : null;
+for (const v of MATRICE.filter((m) => !solo || solo.includes(m.tag))) {
   process.stdout.write(`  ${v.tag} (${v.width}×${v.height} @${v.dpr}x, ${v.lang}, movimento ${v.reducedMotion ? 'ridotto' : 'pieno'})\n`);
   await giro(v);
 }
@@ -306,4 +328,4 @@ if (fail.length > 0) {
   process.exit(1);
 }
 console.log('\nvisual language smoke — PASS');
-console.log(`  ${MATRICE.length} giri, immagini in ${OUT}`);
+console.log(`  ${(solo ?? MATRICE).length} giri, immagini in ${OUT}`);
