@@ -316,6 +316,7 @@ export const en: Locale = {
         trasparenza: 'the required transparency is missing: citizens cannot recognize the system or the content',
         motivazione: 'the decision is correct, but the reasoning is weak'
       },
+      lessonLabel: 'LESSON OF THE CASE',
       analysisLabel: 'DECISION ANALYSIS',
       analysis: {
         conforme: 'The decision holds: classification, measure, responsible subject, and reasoning are supported by the decisive evidence.',

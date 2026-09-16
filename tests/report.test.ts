@@ -7,6 +7,7 @@ import type { DifficultyMode } from '../src/game/data/types';
 import { evaluateReport, gradeMotivation, gradeSubject, reasonKeyFor, shouldShowHint, showsSecondaryErrors, type ReportResult } from '../src/game/systems/ReportSystem';
 import { buildTeacherReport, teacherReportToText } from '../src/game/systems/TeacherReportSystem';
 import { setLanguage } from '../src/game/i18n';
+import { caseLearning } from '../src/game/data/learning';
 import { it as itLocale } from '../src/game/i18n/it';
 import { en as enLocale } from '../src/game/i18n/en';
 
@@ -414,5 +415,44 @@ describe('ogni livello mantiene quello che la sua scheda promette', () => {
 
     const profiles = (['base', 'standard', 'expert'] as const).map(profile);
     expect(new Set(profiles).size, `profili: ${profiles.join(' / ')}`).toBe(3);
+  });
+});
+
+/**
+ * LA LEZIONE DEL CASO, SEMPRE.
+ *
+ * Il ragionamento atteso viveva dietro un pulsante facoltativo, e chi aveva
+ * risposto correttamente non aveva motivo di aprirlo: proprio chi ha capito
+ * se ne andava senza la frase che glielo conferma.
+ */
+describe('il rapporto chiude sempre con la lezione del caso', () => {
+  const src = readFileSync(resolve(__dirname, '../src/game/scenes/ReportScene.ts'), 'utf8');
+
+  it('la riga è nel rapporto, non solo nel debrief facoltativo', () => {
+    expect(src).toContain('ui.report.lessonLabel');
+    expect(src).toContain('caseLearning(this.caseData.id).takeaway');
+  });
+
+  it('non dipende da come è andata: nessun ramo la esclude', () => {
+    const before = src.slice(0, src.indexOf('const lesson = this.add'));
+    const lastBrace = before.lastIndexOf('}');
+    const tail = before.slice(lastBrace);
+    expect(tail, "la lezione non deve stare dentro un ramo su result").not.toMatch(/if\s*\(/);
+  });
+
+  it('ogni caso giocabile ha davvero la sua frase, in entrambe le lingue', () => {
+    for (const lang of ['it', 'en'] as const) {
+      setLanguage(lang);
+      const empty = PLAYABLE_CASES.filter((c) => (caseLearning(c.id).takeaway ?? '').trim().length < 20);
+      expect(empty.map((c) => `${lang}/${c.id}`), 'senza frase il rapporto scrive un\'etichetta vuota').toEqual([]);
+    }
+    setLanguage('it');
+  });
+
+  it('e il debrief resta, con il confronto per assi che il rapporto non ha', () => {
+    expect(src).toContain('DecisionDebriefOverlay');
+    expect(src, 'il pulsante non è una decorazione: variante primaria').not.toMatch(
+      /decisionDebrief\.button[^;]*variant: 'ghost'/
+    );
   });
 });

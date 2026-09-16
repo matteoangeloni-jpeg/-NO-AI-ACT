@@ -12,6 +12,9 @@ import type {
 import { hintKeyFor, shouldShowHint, showsSecondaryErrors, type ReportResult } from '../systems/ReportSystem';
 import { conceptLink } from '../data/concepts';
 import { caseLearning } from '../data/learning';
+
+/** Riga dell'analisi: le due righe che la precedono devono starle sopra. */
+const ANALYSIS_Y = 600;
 import { decisionAnalysisKeys } from '../systems/DecisionIssues';
 import { multiAxisFeedback } from '../systems/MultiAxisFeedback';
 import { AudioSystem } from '../systems/AudioSystem';
@@ -139,6 +142,27 @@ export class ReportScene extends Phaser.Scene {
       }
     }
 
+    /**
+     * LA LEZIONE DEL CASO, SEMPRE, ANCHE QUANDO SI È RISPOSTO BENE.
+     *
+     * Il ragionamento atteso esisteva già — è la riga che il debrief della
+     * decisione mostra come "takeaway" — ma viveva dietro un pulsante
+     * facoltativo, e chi aveva risposto correttamente non aveva motivo di
+     * aprirlo: proprio chi ha capito se ne andava senza la frase che glielo
+     * conferma. "Voglio un perché più visibile dopo ogni scelta, non
+     * nascosto dietro bottoni opzionali."
+     *
+     * Sta nel flusso della colonna, non a un'altezza fissa: sotto c'è
+     * l'analisi a y=600, e una riga piantata più in basso finiva sopra i
+     * pulsanti. Il limite superiore è quel 600 meno lo spazio che la frase
+     * occupa davvero, misurato e non stimato.
+     */
+    const lesson = this.add
+      .text(left, 0, `${t.ui.report.lessonLabel}: ${caseLearning(this.caseData.id).takeaway}`,
+        textStyle(12, COLOR_STR.accentText, { wordWrap: { width: 620 }, lineSpacing: 3 }))
+      .setOrigin(0, 0);
+    lesson.setY(Math.min(y + 24, ANALYSIS_Y - lesson.height - 16));
+
     // timbro dell'esito: applicato in basso a destra del documento, come su un
     // modulo reale — fuori dalla colonna di testo, nessuna collisione
     const stamp = this.add.container(cx + 250, 556);
@@ -161,7 +185,7 @@ export class ReportScene extends Phaser.Scene {
       ? `${t.ui.report.analysis[ak.outcome]} ${t.ui.report.issues[ak.issue]}`
       : t.ui.report.analysis[ak.outcome];
     this.add
-      .text(left, 600, `${t.ui.report.analysisLabel}: ${analysis}`, textStyle(13, oc.text, { wordWrap: { width: 620 }, lineSpacing: 4 }))
+      .text(left, ANALYSIS_Y, `${t.ui.report.analysisLabel}: ${analysis}`, textStyle(13, oc.text, { wordWrap: { width: 620 }, lineSpacing: 4 }))
       .setOrigin(0, 0);
 
     // 2.0 — calibrazione metacognitiva: solo se il giocatore ha dichiarato la
@@ -209,7 +233,9 @@ export class ReportScene extends Phaser.Scene {
       // 2.0: riflessione facoltativa, annotata solo in locale (mai nel punteggio)
       onReflect: (choice) => StateManager.saveCaseMeta(this.caseData.id, { reflection: choice })
     });
-    new Button(this, 240, GAME_HEIGHT - 46, t.ui.decisionDebrief.button, () => debrief.toggle(), { width: 320, height: 40, fontSize: 13, variant: 'ghost' });
+    // non è una decorazione: è dove sta il confronto per assi, i concetti e la
+    // lettura consigliata. Variante primaria, non fantasma.
+    new Button(this, 240, GAME_HEIGHT - 46, t.ui.decisionDebrief.button, () => debrief.toggle(), { width: 320, height: 40, fontSize: 13 });
 
     // strato di lettura (§11.1) + annuncio dell'esito (aria-live)
     ReadingLayer.setScene(t.a11y.reportTitle, [

@@ -315,6 +315,7 @@ export const it = {
         trasparenza: 'manca la trasparenza richiesta: i cittadini non possono riconoscere il sistema o il contenuto',
         motivazione: 'la decisione è corretta, ma la motivazione è debole'
       },
+      lessonLabel: 'LEZIONE DEL CASO',
       analysisLabel: 'ANALISI DELLA DECISIONE',
       analysis: {
         conforme: 'La decisione regge: classificazione, misura, soggetto e motivazione sono coerenti con le prove decisive.',
