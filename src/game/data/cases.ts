@@ -58,7 +58,8 @@ export const CASES: CaseData[] = [
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione'],
     concepts: ['prohibited_practices', 'risk_based_approach'],
     hasIncident: false,
-    playable: true
+    playable: true,
+    estimatedMinutes: 8
   },
   {
     id: 'case_lavoro',
@@ -82,7 +83,8 @@ export const CASES: CaseData[] = [
     concepts: ['high_risk', 'human_oversight', 'data_governance'],
     hasIncident: true,
     incidentDeltas: INCIDENT_DELTAS,
-    playable: true
+    playable: true,
+    estimatedMinutes: 8
   },
   {
     id: 'case_media',
@@ -103,7 +105,8 @@ export const CASES: CaseData[] = [
     concepts: ['transparency', 'ai_literacy'],
     hasIncident: true,
     incidentDeltas: INCIDENT_DELTAS,
-    playable: true
+    playable: true,
+    estimatedMinutes: 8
   },
   {
     id: 'case_scuola',
@@ -124,7 +127,8 @@ export const CASES: CaseData[] = [
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione'],
     concepts: ['prohibited_practices', 'privacy_by_design'],
     hasIncident: false,
-    playable: true
+    playable: true,
+    estimatedMinutes: 8
   },
   {
     id: 'case_ospedale',
@@ -148,7 +152,8 @@ export const CASES: CaseData[] = [
     concepts: ['high_risk', 'data_governance', 'human_oversight'],
     hasIncident: true,
     incidentDeltas: INCIDENT_DELTAS,
-    playable: true
+    playable: true,
+    estimatedMinutes: 8
   },
   {
     id: 'case_biometria',
@@ -169,7 +174,8 @@ export const CASES: CaseData[] = [
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione'],
     concepts: ['prohibited_practices', 'risk_based_approach'],
     hasIncident: false,
-    playable: true
+    playable: true,
+    estimatedMinutes: 8
   },
   {
     // CASO 7 — caso-specchio credito/welfare (v0.4).
@@ -200,7 +206,8 @@ export const CASES: CaseData[] = [
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'eccesso_cautela', 'soggetto', 'motivazione', 'trasparenza'],
     concepts: ['prohibited_practices', 'data_governance'],
     hasIncident: false,
-    playable: true
+    playable: true,
+    estimatedMinutes: 15
   },
 
   // ===================== ADVANCED CASE PACK (v0.6) =====================
@@ -226,7 +233,8 @@ export const CASES: CaseData[] = [
     possibleDominantErrors: ['classificazione', 'prove', 'trasparenza', 'misura_insufficiente', 'soggetto', 'motivazione'],
     concepts: ['transparency', 'human_oversight', 'ai_literacy'],
     hasIncident: false,
-    playable: true
+    playable: true,
+    estimatedMinutes: 15
   },
   {
     // CASO 9 — Procurement AI. Acquisto pubblico senza documentazione né
@@ -250,7 +258,8 @@ export const CASES: CaseData[] = [
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione', 'eccesso_cautela'],
     concepts: ['high_risk', 'data_governance'],
     hasIncident: false,
-    playable: true
+    playable: true,
+    estimatedMinutes: 15
   },
   {
     // CASO 10 — Piattaforma educativa adattiva. Profila studenti e orienta
@@ -274,7 +283,8 @@ export const CASES: CaseData[] = [
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione', 'eccesso_cautela'],
     concepts: ['high_risk', 'privacy_by_design', 'human_oversight'],
     hasIncident: false,
-    playable: true
+    playable: true,
+    estimatedMinutes: 15
   },
   {
     // CASO 11 — GPAI in azienda/PA. Modello generale usato in processi
@@ -298,7 +308,8 @@ export const CASES: CaseData[] = [
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'trasparenza', 'soggetto', 'motivazione', 'eccesso_cautela'],
     concepts: ['gpai', 'high_risk', 'human_oversight'],
     hasIncident: false,
-    playable: true
+    playable: true,
+    estimatedMinutes: 15
   },
 {
     id: 'case_predpol',
@@ -320,7 +331,8 @@ export const CASES: CaseData[] = [
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione'],
     concepts: ['prohibited_practices', 'risk_based_approach'],
     hasIncident: false,
-    playable: true
+    playable: true,
+    estimatedMinutes: 15
   },
   {
     id: 'case_frodi',
@@ -342,7 +354,8 @@ export const CASES: CaseData[] = [
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione', 'eccesso_cautela'],
     concepts: ['high_risk', 'human_oversight', 'data_governance'],
     hasIncident: false,
-    playable: true
+    playable: true,
+    estimatedMinutes: 15
   }
 ];
 

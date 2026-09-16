@@ -83,9 +83,20 @@ The files themselves are fine (200, real XML, correct namespace, 26 + 30 = 56 ca
 
 ## Browser smoke tests (reproducible from a clean clone)
 
-Playwright is a committed `devDependency` and the three browser smokes
-(gameplay, keyboard, layout) are wired as npm scripts, so the full browser
-gate reproduces from a fresh clone with only committed dependencies:
+Playwright is a committed `devDependency` and every browser smoke is wired as
+its own npm script, so the full browser gate reproduces from a fresh clone
+with only committed dependencies:
+
+| script | what it would catch |
+|---|---|
+| `smoke:gameplay` | a case that cannot be played through with a pointer; a scene transition slower than the budget; a spoiler shown before the decision |
+| `smoke:keyboard` | a core action reachable only with a pointer; the reading layer out of step with the scene; the outcome never announced |
+| `smoke:draft` | a case draft that does not survive leaving and re-entering the file |
+| `smoke:privacy` | a request to a host outside the allowlist; an external form; `/play/` losing its `noindex` |
+| `smoke:layout` | text or controls under the page chrome; a panel that clips its own content; a heading that repeats itself |
+| `smoke:audio` | silence where a theme should play; clipping; every theme collapsing onto the same loudness |
+| `smoke:action-layer` | a drawn button with no real button behind it; a focus ring off its target; the TAB escaping an open panel; one ENTER firing two actions |
+
 
 ```bash
 npm ci
@@ -96,15 +107,15 @@ npm run smoke:all
 
 `npm run smoke:all` (`scripts/smoke/run-all.mjs`) requires a built `dist/`,
 starts `vite preview` on port 4200, waits until `http://127.0.0.1:4200`
-responds, runs `smoke:gameplay`, `smoke:keyboard` and `smoke:layout`
-sequentially, exits with the first non-zero smoke status, and always tears the
+responds, runs each smoke in the table above sequentially, exits with the
+first non-zero smoke status, and always tears the
 preview server down (success, failure or Ctrl-C — no orphaned processes).
 
 To run one smoke against a server you manage yourself:
 
 ```bash
 npx vite preview --port 4200   # in another terminal, after npm run build
-npm run smoke:gameplay         # or smoke:keyboard / smoke:layout
+npm run smoke:gameplay         # or any other script in the table above
 ```
 
 Each smoke honours `BASE` (default `http://localhost:4200`) and
@@ -120,6 +131,6 @@ uploaded — a smoke failure fails the workflow and blocks deployment.
 1. `npm run typecheck` — clean.
 2. `npm test` — full suite green (includes all guardrails above).
 3. `npm run build` — clean.
-4. `npm run smoke:all` — all three browser smokes green (see above).
+4. `npm run smoke:all` — every browser smoke green (see above).
 5. Confirm: no new external host, no console errors, `/play/` noindex, no
    external forms, no gameplay/scoring/case/ending/save changes.

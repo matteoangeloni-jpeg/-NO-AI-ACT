@@ -16,18 +16,52 @@ import { ArchiveScene } from './scenes/ArchiveScene';
 import { GlossaryScene } from './scenes/GlossaryScene';
 import { FinaleScene } from './scenes/FinaleScene';
 import { LearningReportScene } from './scenes/LearningReportScene';
+import { SessionEndScene } from './scenes/SessionEndScene';
 import { CreditsScene } from './scenes/CreditsScene';
-import { GAME_HEIGHT, GAME_WIDTH } from './ui/theme';
+import { GAME_HEIGHT, GAME_WIDTH, RENDER_SCALE } from './ui/theme';
+import { ActionLayer } from './ui/ActionLayer';
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
   parent: 'game-container',
-  width: GAME_WIDTH,
-  height: GAME_HEIGHT,
+  // Il canvas è RENDER_SCALE volte il mondo logico: è l'unico modo per non
+  // disegnare un 720p e poi stirarlo. Le coordinate delle scene restano in
+  // unità 1280×720 — ci pensa lo zoom della camera, applicato in postBoot.
+  width: GAME_WIDTH * RENDER_SCALE,
+  height: GAME_HEIGHT * RENDER_SCALE,
   backgroundColor: '#07090f',
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH
+  },
+  /**
+   * Ogni scena vede un mondo 1280×720 dentro un canvas 2560×1440: la camera
+   * lo ingrandisce e lo centra, così nessuna coordinata delle scene cambia.
+   * Va fatto qui e non nelle diciotto scene, perché una dimenticata
+   * mostrerebbe un quarto di schermo invece di sgranare soltanto.
+   *
+   * `zoom` nella configurazione dello scale manager NON serve a questo: con
+   * mode FIT viene ignorato, e il canvas resta della dimensione logica.
+   * Misurato, non dedotto.
+   */
+  callbacks: {
+    postBoot: (game): void => {
+      for (const scene of game.scene.scenes) {
+        scene.sys.events.on(Phaser.Scenes.Events.CREATE, () => {
+          scene.cameras.main.setZoom(RENDER_SCALE);
+          scene.cameras.main.centerOn(GAME_WIDTH / 2, GAME_HEIGHT / 2);
+        });
+      }
+      /**
+       * Lo strato delle azioni si riallinea a ogni passo del gioco. Non
+       * basterebbe aggiornarlo sugli eventi: i contenitori si spostano — un
+       * pannello che scende al centro, una colonna che cambia altezza —
+       * senza che il pulsante dentro lo sappia. Il costo è una manciata di
+       * confronti, e nel DOM si scrive solo quando qualcosa è cambiato
+       * davvero.
+       */
+      game.events.on(Phaser.Core.Events.POST_STEP, () => ActionLayer.sync());
+    }
   },
   render: {
     antialias: true,
@@ -51,6 +85,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     GlossaryScene,
     FinaleScene,
     LearningReportScene,
+    SessionEndScene,
     CreditsScene
   ]
 };

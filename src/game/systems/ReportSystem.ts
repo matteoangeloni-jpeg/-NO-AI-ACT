@@ -75,6 +75,21 @@ export function hintKeyFor(result: ReportResult): ErrorType | null {
   return result.dominantError;
 }
 
+/**
+ * Il rapporto elenca, sotto il rilievo principale, fino a due rilievi
+ * secondari. In 'expert' no: è il "feedback asciutto" che la scheda del
+ * livello promette, e senza questo restava una parola — standard ed esperto
+ * mostravano esattamente lo stesso rapporto.
+ *
+ * Il dato non sparisce: `secondaryErrors` continua a essere calcolato e
+ * archiviato nel rapporto del caso, quindi taccuino e debrief docente lo
+ * vedono comunque. A cambiare è quanto il gioco ti suggerisce al momento
+ * dell'esito, che è ciò che distingue un livello dall'altro.
+ */
+export function showsSecondaryErrors(difficulty: DifficultyMode): boolean {
+  return difficulty !== 'expert';
+}
+
 export function gradeSubject(caseData: CaseData, subject: ResponsibleSubject): SubjectGrade {
   if (subject === caseData.responsibleSubjectCorrect) return 'full';
   if (caseData.responsibleSubjectPartial && subject === caseData.responsibleSubjectPartial) return 'partial';
@@ -114,15 +129,28 @@ const OUTCOME_TO_QUALITY: Record<ReportOutcome, OutcomeQuality> = {
 };
 
 /**
- * Valutazione del rapporto, con difficoltà (v0.4).
+ * Valutazione del rapporto, con difficoltà.
+ *
  *  - 'base' (indulgente): un vizio di fondamento SOLO lieve (prove non
  *    pertinenti, motivazione debole, soggetto parziale) non degrada un nucleo
  *    corretto a contestabile, e un nucleo parziale con vizio grave resta
  *    contestabile (non non conforme).
- *  - 'standard' (default) ed 'expert': comportamento severo storico — qualunque
- *    vizio di fondamento su nucleo corretto rende l'atto contestabile.
- * Standard ed expert condividono la logica d'esito (l'esperto differisce per
- * assenza di suggerimenti e feedback più asciutto, gestiti nella UI).
+ *  - 'standard' (default): comportamento severo storico — qualunque vizio di
+ *    fondamento su nucleo corretto rende l'atto contestabile.
+ *  - 'expert': come standard, più la severità che la scheda del livello
+ *    annuncia da sempre, "severità su soggetto e motivazione": imputare gli
+ *    obblighi a un soggetto solo PARZIALMENTE competente, o motivare in modo
+ *    DEBOLE, smette di essere un vizio lieve e conta come grave.
+ *
+ * Fino a qui i livelli erano due travestiti da tre: la funzione distingueva
+ * soltanto 'base', ed 'expert' era una parola sul menu — mentre l'ispezione a
+ * sorpresa lo forzava proprio per essere più dura. La severità aggiunta è
+ * esattamente quella promessa: i reperti non pertinenti, che la scheda non
+ * nomina, restano un vizio lieve anche in esperto.
+ *
+ * Dove si vede: su un nucleo CORRETTO l'esito non cambia (un vizio qualunque
+ * lo rende contestabile già in standard). Cambia sui nuclei parziali, dove il
+ * peso del vizio decide fra contestabile e non conforme.
  */
 export function evaluateReport(input: ReportInput, difficulty: DifficultyMode = 'standard'): ReportResult {
   const { caseData, citedClues, classification, measure, subject, motivationIndex } = input;
@@ -132,7 +160,12 @@ export function evaluateReport(input: ReportInput, difficulty: DifficultyMode = 
   const cluesOk = cluesSupportClassification(caseData, citedClues);
   const overcaution = isOvercaution(caseData, classification, measure);
 
-  const foundationHardFlaw = subjectGrade === 'wrong' || motivationGrade === 'wrong';
+  const strict = difficulty === 'expert';
+  // in 'expert' soggetto parziale e motivazione debole pesano come vizi gravi
+  const foundationHardFlaw =
+    subjectGrade === 'wrong' ||
+    motivationGrade === 'wrong' ||
+    (strict && (subjectGrade === 'partial' || motivationGrade === 'weak'));
   const foundationSoftFlaw = !cluesOk || subjectGrade === 'partial' || motivationGrade === 'weak';
   const lenient = difficulty === 'base';
   // in 'base' i vizi lievi non contano ai fini dell'esito; restano i gravi

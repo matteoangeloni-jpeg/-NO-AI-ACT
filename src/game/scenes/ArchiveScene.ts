@@ -6,8 +6,11 @@ import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { NormSystem } from '../systems/NormSystem';
 import { Button } from '../ui/Button';
 import { LockedNormCard, NormCardView } from '../ui/NormCard';
-import { L, fmt } from '../i18n';
+import { L, fmt, normText } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
+import { AudioSystem } from '../systems/AudioSystem';
 
 /** Confini verticali dell'area scrollabile della griglia (fissi: header sopra, nav sotto). */
 const GRID_TOP = 110;
@@ -39,8 +42,10 @@ export class ArchiveScene extends Phaser.Scene {
     const cx = GAME_WIDTH / 2;
     const ui = L().ui.archive;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(250, 0, 0, 0);
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    fadeInScene(this, 250);
+    AudioSystem.setMusicRole('archive', 'city');
+    AudioSystem.openLegalArchive();
+    addNoiseOverlay(this, 0.4);
 
     const unlockedCount = NormSystem.unlocked().length;
     AnalyticsSystem.track('archive_opened', { unlockedNormsCount: unlockedCount });
@@ -76,6 +81,24 @@ export class ArchiveScene extends Phaser.Scene {
       }
     });
 
+    /**
+     * L'archivio è una griglia scrollabile: chi legge con uno screen reader
+     * non ha una griglia e non ha uno scroll, ha un elenco. Le norme ancora
+     * bloccate compaiono come tali — sapere che cosa manca fa parte
+     * dell'archivio quanto sapere che cosa c'è.
+     */
+    ReadingLayer.setScene(ui.title, [
+      { text: fmt(ui.subtitle, { done: unlockedCount, total: NORMS.length }) },
+      {
+        items: NORMS.map((norm) =>
+          NormSystem.isUnlocked(norm.id)
+            ? `${normText(norm.id).title} — ${normText(norm.id).reference}`
+            : ui.locked
+        )
+      },
+      { text: ui.hint }
+    ]);
+
     const rows = Math.ceil(NORMS.length / cols);
     const contentHeight = rows * (cardH + 40);
     const visibleHeight = GRID_BOTTOM - GRID_TOP;
@@ -98,7 +121,7 @@ export class ArchiveScene extends Phaser.Scene {
     // 2.1 (roadmap §6, Her Story) — ricerca digitata: si scrive e basta.
     // Filtra le carte sbloccate (le bloccate restano opache: nessuno spoiler
     // dei titoli non ancora guadagnati) e riassume i risultati extra.
-    this.searchText = this.add.text(cx, 96, '', textStyle(12, COLOR_STR.accent)).setOrigin(0.5);
+    this.searchText = this.add.text(cx, 96, '', textStyle(12, COLOR_STR.accentText)).setOrigin(0.5);
     this.applySearch();
     this.input.keyboard?.on('keydown', (e: KeyboardEvent) => {
       if (this.detail) return;

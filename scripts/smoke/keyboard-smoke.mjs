@@ -6,7 +6,8 @@
  *   → CityMap: ARROW selects an open case, ENTER opens it
  *   → Case: ENTER examines the exhibits (after the typewriter reveals the CTA)
  *   → Evidence: keys 1..3 reveal each exhibit, again to cite two, ENTER proceeds
- *   → Decision: 1 (classification), 1 (measure), 2 (subject), 8 (confidence), 2 (motivation)
+ *   → Decision: 1 (classification), 1 (measure), 2 (subject), 2 (motivation),
+ *     then on the summary step: 8 (confidence), ENTER (sign)
  *   → Report: ENTER continues → Consequence: ENTER → CityMap
  *
  * Also verifies: the semantic reading layer mirrors each scene (§11.1), the
@@ -94,12 +95,17 @@ await press('Enter', 800);
 await waitScene('Decision');
 await readingLayerHas('Decision', 'Decision');
 
-// classification, measure, subject, optional confidence (8), motivation
+// classification, measure, subject, motivation → summary, then sign.
+// La fiducia dichiarata sta ora sul riepilogo e non sulla motivazione: si
+// dichiara guardando il rapporto intero, non la singola opzione. E la firma
+// è un gesto suo (U03): scegliere la motivazione non consegna più.
 await press('1', 600);
 await press('1', 600);
 await press('2', 600);
+await press('2', 600);
+await waitScene('Decision');
 await press('8', 300); // confidence "Fairly" — optional, must not block
-await press('2', 900);
+await press('Enter', 900); // firma
 await waitScene('Report');
 await readingLayerHas('Inspection report', 'Report');
 const announced = await page.evaluate(() => document.getElementById('sr-announcer')?.textContent ?? '');
@@ -112,10 +118,33 @@ if (!meta || !Object.values(meta).some((m) => m.confidence === 2)) fail.push('co
 await press('Enter', 900);
 await waitScene('Consequence');
 await press('Enter', 900);
-// il primo caso sblocca la carta norma: ENTER la archivia e torna alla mappa
 await waitScene('NormCard');
+
+// Il primo caso sblocca la carta norma. Da qui l'uscita dipende dalla
+// modalità: in una sessione in sequenza ENTER apre il fascicolo successivo
+// del piano — è ciò che distingue il turno di servizio dall'indagine libera
+// — e la mappa resta comunque a un tasto di distanza. La destinazione non è
+// trascritta qui: si chiede al piano, così se un giorno il piano cambia è il
+// gioco a dirlo.
+const nextPlanned = await page.evaluate(() => {
+  const s = window.game.scene.getScene('NormCard');
+  const btns = [];
+  const walk = (l) => { for (const o of l) { if (o.type === 'Container') { const t = o.list?.find((k) => k.type === 'Text'); if (o.input && t) btns.push(t.text); walk(o.list ?? []); } } };
+  walk(s.children.list);
+  return btns;
+});
+const hasNext = nextPlanned.some((t) => /FASCICOLO|CASE FILE/i.test(t));
+if (!nextPlanned.some((t) => /MAPPA|MAP/i.test(t))) {
+  fail.push(`NormCard: la mappa deve restare raggiungibile, trovati ${JSON.stringify(nextPlanned)}`);
+}
 await press('Enter', 900);
-await waitScene('CityMap');
+await waitScene(hasNext ? 'Case' : 'CityMap');
+
+if (hasNext) {
+  // e da lì si esce: una sequenza da cui non si può uscire è una gabbia
+  await press('Escape', 900);
+  await waitScene('CityMap');
+}
 
 await browser.close();
 

@@ -5,6 +5,7 @@ import { Button } from './Button';
 import { Panel } from './Panel';
 import { L, fmt } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from './theme';
+import { ReadingLayer, type ReadingSection } from '../systems/ReadingLayer';
 
 /**
  * Panoramica dei capitoli (2.0 — mission §10.2), aperta dalla mappa.
@@ -29,9 +30,11 @@ export class ChaptersOverlay {
   }
 
   close(): void {
+    if (!this.container) return;
     this.scene.input.keyboard?.off('keydown-ESC', this.escHandler);
-    this.container?.destroy();
+    this.container.destroy();
     this.container = undefined;
+    ReadingLayer.closeOverlay();
   }
 
   private readonly escHandler = (): void => this.close();
@@ -59,10 +62,14 @@ export class ChaptersOverlay {
 
     const progress = chapterProgress(StateManager.completedCases);
     const defs = t.defs as Record<string, { title: string; intro: string; debrief: string }>;
+    // le sezioni per lo strato di lettura si raccolgono mentre si disegna:
+    // ricostruirle a parte vorrebbe dire scrivere due volte la stessa cosa,
+    // e vederle divergere alla prima modifica
+    const sections: ReadingSection[] = [{ text: t.intro }];
     for (const p of progress) {
       const d = defs[p.chapter.id];
       const header = `${fmt(t.orderLabel, { order: p.chapter.order, total: CHAPTERS.length })} — ${d.title.toUpperCase()}`;
-      container.add(this.scene.add.text(left, y, header, textStyle(13.5, p.complete ? COLOR_STR.ok : COLOR_STR.accent, { fontStyle: 'bold' })));
+      container.add(this.scene.add.text(left, y, header, textStyle(13.5, p.complete ? COLOR_STR.ok : COLOR_STR.accentText, { fontStyle: 'bold' })));
       const status = p.complete
         ? t.completeTag
         : `${fmt(t.completionLabel, { done: p.done, total: p.total })} · ${fmt(t.durationLabel, { minutes: p.chapter.estimatedMinutes })}`;
@@ -75,9 +82,11 @@ export class ChaptersOverlay {
       const objLine = `${t.objectivesLabel}: ${p.chapter.objectives.map((o) => objectives[o]).join(' · ')}`;
       container.add(this.scene.add.text(left, y, objLine, textStyle(10.5, COLOR_STR.paperDim, { wordWrap: { width: panelW - 100 } })));
       y += 30;
+      sections.push({ heading: `${header} — ${status}`, items: [body, objLine] });
     }
 
     container.add(new Button(this.scene, cx, cy + panelH / 2 - 32, t.close, () => this.close(), { width: 200, height: 38, fontSize: 13 }));
+    ReadingLayer.openOverlay(t.title, sections);
     this.scene.input.keyboard?.on('keydown-ESC', this.escHandler);
     this.container = container;
   }

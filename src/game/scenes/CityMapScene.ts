@@ -1,6 +1,5 @@
 import Phaser from 'phaser';
 import { CASES_REQUIRED_FOR_FINALE, LOCATIONS, PLAYABLE_CASES, getCase } from '../data/cases';
-import { isRecommended } from '../data/missions';
 import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { IndicatorHud } from '../systems/IndicatorSystem';
@@ -11,7 +10,44 @@ import { NotebookOverlay } from '../ui/NotebookOverlay';
 import { showToast } from '../ui/AlertToast';
 import { L, fmt, locationName } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
-import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, RENDER_SCALE, textStyle } from '../ui/theme';
+import { fadeInScene, fadeOutScene } from '../ui/motion';
+import { layoutHStack } from '../ui/layout';
+import { draftProgress } from '../systems/caseDraft';
+
+/** Deriva massima, in pixel logici, dei due strati di fondo della mappa. */
+const PARALLAX_MAP = 12;
+const PARALLAX_GRAIN = 6;
+
+/**
+ * Etichetta di stato di un fascicolo sulla mappa (U04).
+ *
+ * Una bozza esisteva ma era invisibile: un caso lasciato a metà mostrava
+ * "INCIDENTE APERTO" esattamente come uno mai toccato, e l'unico modo di
+ * scoprire dove si era rimasti era riaprirli a uno a uno. Qui la ripresa
+ * diventa uno stato a sé, con quante decisioni sono già state prese.
+ *
+ * L'ordine dei rami conta: un caso chiuso non ha bozze (resolveCase le
+ * cancella), ma se un salvataggio ne contenesse comunque una, deve vincere
+ * il rapporto firmato — lo stesso ordine di precedenza del modello.
+ */
+function caseStatus(caseId: string | null | undefined, playable: boolean): { label: string; color: string } {
+  const t = L().ui.map;
+  const quality = caseId ? StateManager.caseQuality(caseId) : undefined;
+  if (quality === 'wrong') return { label: t.statusNonCompliant, color: COLOR_STR.warning };
+  if (quality !== undefined) return { label: t.statusClosed, color: COLOR_STR.ok };
+  if (!playable) return { label: t.statusSealed, color: COLOR_STR.paperDim };
+
+  const draft = caseId ? StateManager.draftFor(caseId) : null;
+  if (draft) {
+    const { taken, total } = draftProgress(draft);
+    return {
+      label: taken > 0 ? fmt(t.statusDraft, { taken: String(taken), total: String(total) }) : t.statusDraftEvidence,
+      color: COLOR_STR.accentText
+    };
+  }
+  return { label: t.statusOpen, color: COLOR_STR.alertText };
+}
 
 export class CityMapScene extends Phaser.Scene {
   /** Selezione da tastiera (§11.2): indice nel vettore dei casi aperti. */
@@ -22,13 +58,34 @@ export class CityMapScene extends Phaser.Scene {
     super('CityMap');
   }
 
+  private readonly drift = { x: 0, y: 0 };
+  private mapLayer?: Phaser.GameObjects.Image;
+  private grainLayer?: Phaser.GameObjects.TileSprite;
+
+  /** Fascicoli consigliati dalla sessione corrente, calcolati una volta. */
+  private recommendedIds: Set<string> = new Set();
+
   create(): void {
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(300, 0, 0, 0);
+    // L'ispezione a sorpresa non consiglia: l'estrazione perderebbe senso.
+    const plan = StateManager.gamePlan;
+    this.recommendedIds = new Set(plan.mode === 'sorpresa' ? [] : plan.caseIds);
+    fadeInScene(this, 300);
     AnalyticsSystem.page('map');
-    AudioSystem.crossfadeToTheme('city'); // no-op se già attivo
-    this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'citymap');
-    this.add.tileSprite(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.6);
+    AudioSystem.setMusicRole('archive', 'city'); // no-op se già attivo
+    // Parallasse: la mappa e la grana scorrono di pochi pixel seguendo il
+    // puntatore, in direzioni opposte e con ampiezze diverse. La mappa è
+    // disegnata più larga del riquadro esattamente del doppio della deriva,
+    // altrimenti muovendola comparirebbe il fondo lungo i bordi.
+    this.mapLayer = this.add
+      .image(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'citymap')
+      .setDisplaySize(GAME_WIDTH + PARALLAX_MAP * 2, GAME_HEIGHT + PARALLAX_MAP * 2);
+    this.grainLayer = this.add
+      .tileSprite(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH + PARALLAX_GRAIN * 2, GAME_HEIGHT + PARALLAX_GRAIN * 2, 'noise')
+      // stessa compensazione di addNoiseOverlay: qui il velo non è a tutto
+      // schermo perché deve poter scorrere, ma la grana resta grana
+      .setTileScale(1 / RENDER_SCALE)
+      .setAlpha(0.6);
 
     // header istituzionale
     this.add.rectangle(GAME_WIDTH / 2, 30, GAME_WIDTH, 60, COLORS.carbon, 0.85);
@@ -46,15 +103,23 @@ export class CityMapScene extends Phaser.Scene {
 
     for (const loc of LOCATIONS) this.buildMarker(loc.id);
 
-    // pulsanti di servizio
-    new Button(this, 110, GAME_HEIGHT - 36, L().ui.menu.archive, () => this.scene.start('Archive', { from: 'CityMap' }), { width: 190, height: 38, fontSize: 12, variant: 'ghost' });
-    new Button(this, 310, GAME_HEIGHT - 36, L().ui.map.menuButton, () => this.scene.start('Title'), { width: 120, height: 38, fontSize: 12, variant: 'ghost' });
+    // Pulsanti di servizio: una riga sola, una larghezza sola, un passo
+    // solo. Erano quattro larghezze diverse e tre distanze diverse, messe a
+    // mano una alla volta man mano che i pulsanti nascevano.
     // capitoli 2.0: panoramica read-only, la selezione libera resta invariata
     const chapters = new ChaptersOverlay(this);
-    new Button(this, 470, GAME_HEIGHT - 36, L().learningLayer.chapters.button, () => chapters.toggle(), { width: 160, height: 38, fontSize: 12, variant: 'ghost' });
     // taccuino 2.1 (§7): cognizione esterna, sola lettura, aperto anche con N
     const notebook = new NotebookOverlay(this);
-    new Button(this, 640, GAME_HEIGHT - 36, L().learningLayer.notebook.button, () => notebook.toggle(), { width: 160, height: 38, fontSize: 12, variant: 'ghost' });
+    const serviceButtons: Array<[string, () => void]> = [
+      [L().ui.menu.archive, () => this.scene.start('Archive', { from: 'CityMap' })],
+      [L().ui.map.menuButton, () => this.scene.start('Title')],
+      [L().learningLayer.chapters.button, () => chapters.toggle()],
+      [L().learningLayer.notebook.button, () => notebook.toggle()]
+    ];
+    const row = layoutHStack({ count: serviceButtons.length, left: 24, right: 744, gap: 16 });
+    serviceButtons.forEach(([label, action], i) => {
+      new Button(this, row.xs[i], GAME_HEIGHT - 36, label, action, { width: row.width, height: 38, fontSize: 12, variant: 'ghost' });
+    });
     this.input.keyboard?.on('keydown-N', () => {
       if (!chapters.isOpen) notebook.toggle();
     });
@@ -65,8 +130,7 @@ export class CityMapScene extends Phaser.Scene {
     if (StateManager.completedCount() >= CASES_REQUIRED_FOR_FINALE) {
       new Button(this, GAME_WIDTH - 170, GAME_HEIGHT - 40, L().ui.map.finaleButton, () => {
         AudioSystem.alert();
-        this.cameras.main.fadeOut(400, 0, 0, 0);
-        this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('Finale'));
+        fadeOutScene(this, 400, () => this.scene.start('Finale'));
       }, { width: 260, variant: 'danger' });
       // avvisa solo finché il rapporto non è mai stato generato
       if (StateManager.endingId === null) {
@@ -105,8 +169,7 @@ export class CityMapScene extends Phaser.Scene {
       const sel = this.keyIndex >= 0 ? open[this.keyIndex] : undefined;
       if (!sel) return;
       AudioSystem.confirm();
-      this.cameras.main.fadeOut(250, 0, 0, 0);
-      this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('Case', { caseId: sel.caseId }));
+      fadeOutScene(this, 250, () => this.scene.start('Case', { caseId: sel.caseId }));
     });
   }
 
@@ -118,11 +181,11 @@ export class CityMapScene extends Phaser.Scene {
       { text: t.a11y.mapHint },
       {
         items: LOCATIONS.filter((l) => l.caseId).map((l) => {
-          const quality = StateManager.caseQuality(l.caseId!);
           const c = getCase(l.caseId!);
-          const status = quality === 'wrong' ? t.ui.map.statusNonCompliant
-            : quality !== undefined ? t.ui.map.statusClosed
-            : c.playable ? t.ui.map.statusOpen : t.ui.map.statusSealed;
+          // stesso stato che si vede sul canvas, derivato dalla stessa funzione:
+          // chi legge con uno strumento assistivo deve sapere dov'era rimasto
+          // quanto chi guarda la mappa
+          const status = caseStatus(l.caseId!, c.playable).label;
           return `${locationName(l.id)} — ${status}`;
         })
       }
@@ -146,28 +209,22 @@ export class CityMapScene extends Phaser.Scene {
     const nameTag = this.add
       .text(0, 42, locationName(loc.id).toUpperCase(), textStyle(12, completed ? (nonConforme ? COLOR_STR.warning : COLOR_STR.ok) : COLOR_STR.paper, { align: 'center' }))
       .setOrigin(0.5);
-    const statusLabel = nonConforme
-      ? L().ui.map.statusNonCompliant
-      : completed
-        ? L().ui.map.statusClosed
-        : playable
-          ? L().ui.map.statusOpen
-          : L().ui.map.statusSealed;
-    const statusColor = nonConforme
-      ? COLOR_STR.warning
-      : completed
-        ? COLOR_STR.ok
-        : playable
-          ? COLOR_STR.alertText
-          : COLOR_STR.paperDim;
+    const { label: statusLabel, color: statusColor } = caseStatus(caseData?.id, playable);
     const statusTag = this.add
       .text(0, 58, statusLabel, textStyle(12, statusColor))
       .setOrigin(0.5);
     container.add([ring, icon, nameTag, statusTag]);
 
-    // evidenzia i casi consigliati dalla missione corrente (non blocca gli altri)
-    if (caseData && playable && isRecommended(StateManager.mission, caseData.id)) {
-      const rec = this.add.text(0, 74, `★ ${L().ui.missions.recommendedTag}`, textStyle(11, COLOR_STR.accent)).setOrigin(0.5);
+    // Evidenzia i fascicoli del piano della modalità corrente (non blocca
+    // gli altri: la mappa resta tutta aperta, come sempre).
+    //
+    // Prima la stella seguiva la missione scelta nelle impostazioni, che è
+    // il posto che il giocatore non guarda mai. Ora segue la sessione che
+    // ha appena composto premendo NUOVA PARTITA. L'ispezione a sorpresa non
+    // ha stelle per definizione: suggerire i casi estratti a caso
+    // vanificherebbe l'estrazione.
+    if (caseData && playable && this.recommendedIds.has(caseData.id)) {
+      const rec = this.add.text(0, 74, `★ ${L().ui.missions.recommendedTag}`, textStyle(11, COLOR_STR.accentText)).setOrigin(0.5);
       container.add(rec);
       ring.setStrokeStyle(2, COLORS.accent);
     }
@@ -195,8 +252,34 @@ export class CityMapScene extends Phaser.Scene {
           return;
         }
         AudioSystem.confirm();
-        this.cameras.main.fadeOut(250, 0, 0, 0);
-        this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('Case', { caseId: caseData.id }));
+        fadeOutScene(this, 250, () => this.scene.start('Case', { caseId: caseData.id }));
       });
+  }
+
+  /**
+   * Segue il puntatore con inerzia. Con "riduci movimento" i due strati
+   * restano fermi al centro: è movimento decorativo, non informazione, ed
+   * è esattamente ciò che quell'impostazione chiede di togliere.
+   */
+  update(): void {
+    if (!this.mapLayer || !this.grainLayer) return;
+    const target = StateManager.reducedMotion
+      ? { x: 0, y: 0 }
+      : {
+          x: (this.input.activePointer.worldX - GAME_WIDTH / 2) / (GAME_WIDTH / 2),
+          y: (this.input.activePointer.worldY - GAME_HEIGHT / 2) / (GAME_HEIGHT / 2)
+        };
+    const ease = 0.06;
+    this.drift.x += (Phaser.Math.Clamp(target.x, -1, 1) - this.drift.x) * ease;
+    this.drift.y += (Phaser.Math.Clamp(target.y, -1, 1) - this.drift.y) * ease;
+    this.mapLayer.setPosition(
+      GAME_WIDTH / 2 - this.drift.x * PARALLAX_MAP,
+      GAME_HEIGHT / 2 - this.drift.y * PARALLAX_MAP
+    );
+    // la grana va nel verso opposto: è ciò che dà la sensazione di due piani
+    this.grainLayer.setPosition(
+      GAME_WIDTH / 2 + this.drift.x * PARALLAX_GRAIN,
+      GAME_HEIGHT / 2 + this.drift.y * PARALLAX_GRAIN
+    );
   }
 }

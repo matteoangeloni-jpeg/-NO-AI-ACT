@@ -55,5 +55,9 @@ repository upstream.
 ---
 
 Nessun altro materiale di terze parti (immagini, audio, font, dati) è
-incluso: tutti gli asset di gioco sono generati proceduralmente dal codice
-del progetto (vedi ASSET_REGISTER.md).
+incluso. Gli asset grafici e tipografici sono generati proceduralmente dal
+codice del progetto; i campioni audio in `src/game/assets/audio/` sono
+stati prodotti dall'autore con ElevenLabs su piano a pagamento, che
+attribuisce all'abbonato i diritti d'uso commerciale sull'output generato.
+Non sono quindi materiale di terze parti, ma opera dell'autore realizzata
+con uno strumento. Vedi ASSET_REGISTER.md e CREDITS.md.

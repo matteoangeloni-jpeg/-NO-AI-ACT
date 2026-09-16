@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
@@ -26,18 +26,48 @@ describe('browser smokes are reproducible from a clean clone', () => {
     expect(pkg.devDependencies.playwright).toBeTruthy();
   });
 
-  it('all four smoke npm scripts exist and run the committed files', () => {
-    expect(pkg.scripts['smoke:gameplay']).toContain('scripts/smoke/gameplay-smoke.mjs');
-    expect(pkg.scripts['smoke:keyboard']).toContain('scripts/smoke/keyboard-smoke.mjs');
-    expect(pkg.scripts['smoke:layout']).toContain('scripts/smoke/layout-smoke.mjs');
+  /**
+   * L'elenco degli smoke si LEGGE dall'orchestratore invece di essere
+   * ricopiato qui: prima era trascritto, e aggiungerne uno lasciava il
+   * controllo fermo ai tre di prima senza che nulla diventasse rosso.
+   */
+  const orchestrator = read('scripts/smoke/run-all.mjs');
+  const declaredSmokes = [...orchestrator.matchAll(/'([a-z-]+-smoke\.mjs)'/g)].map((m) => m[1]);
+
+  it('l\'orchestratore dichiara almeno gli smoke storici', () => {
+    expect(declaredSmokes.length, 'nessuno smoke dichiarato in run-all.mjs?').toBeGreaterThanOrEqual(3);
+    for (const smoke of ['gameplay-smoke.mjs', 'keyboard-smoke.mjs', 'layout-smoke.mjs']) {
+      expect(declaredSmokes, `l'orchestratore non esegue più ${smoke}`).toContain(smoke);
+    }
+  });
+
+  it('ogni smoke dichiarato è un file committato e ha il suo script npm', () => {
+    for (const smoke of declaredSmokes) {
+      expect(existsSync(resolve(root, 'scripts/smoke', smoke)), `${smoke} non è nel repository`).toBe(true);
+      const name = `smoke:${smoke.replace('-smoke.mjs', '')}`;
+      expect(pkg.scripts[name], `manca lo script npm ${name}`).toContain(`scripts/smoke/${smoke}`);
+    }
+  });
+
+  it('smoke:all punta all\'orchestratore committato', () => {
     expect(pkg.scripts['smoke:all']).toContain('scripts/smoke/run-all.mjs');
   });
 
-  it('the orchestrator the scripts point at is committed', () => {
-    const orchestrator = read('scripts/smoke/run-all.mjs');
-    for (const smoke of ['gameplay-smoke.mjs', 'keyboard-smoke.mjs', 'layout-smoke.mjs']) {
-      expect(orchestrator, `orchestrator runs ${smoke}`).toContain(smoke);
+  /**
+   * La documentazione del gate elencava "i tre smoke del browser" quando
+   * erano già sei: chi arriva da fuori legge quel numero e crede di aver
+   * eseguito tutto. L'elenco atteso si ricava dall'orchestratore, così
+   * aggiungerne uno senza dirlo in GUARDRAILS.md diventa rosso.
+   */
+  it('GUARDRAILS.md nomina ogni smoke che il gate esegue davvero', () => {
+    const doc = read('docs/GUARDRAILS.md');
+    for (const smoke of declaredSmokes) {
+      const name = smoke.replace('-smoke.mjs', '');
+      expect(doc, `GUARDRAILS.md non nomina lo smoke ${name}`).toContain(`smoke:${name}`);
     }
+    expect(doc, 'il conteggio degli smoke non va scritto a parole: invecchia da solo').not.toMatch(
+      /\b(three|tre|four|quattro|five|cinque|six|sei)\s+browser\s+smokes?/i
+    );
   });
 });
 
@@ -127,5 +157,50 @@ describe('the Node version in .nvmrc satisfies the toolchain', () => {
     expect(workflow, 'a hardcoded node-version would silently outrank .nvmrc').not.toMatch(
       /node-version:\s*['"]?\d/
     );
+  });
+});
+
+/**
+ * AUDIT DEI METADATI PUBBLICI (ticket Q14).
+ *
+ * La suite release-integrity impedisce che un conteggio di casi sbagliato
+ * ricompaia in una pagina, in un README o nel bundle. Non poteva vedere
+ * l'unico posto in cui "11 casi" è sopravvissuto per mesi: la descrizione
+ * del repository su GitHub, che non è un file.
+ *
+ * Il controllo di rete non può stare nel gate di build — né la build né i
+ * test devono dipendere da una chiamata a GitHub — quindi qui si verifica
+ * che lo strumento esista, sia invocabile e ricavi i valori attesi dal
+ * repository invece di ripeterli.
+ */
+describe('esiste uno strumento per i metadati che nessun file può guardare', () => {
+  const script = read('scripts/ci/audit-metadata.mjs');
+
+  it('è committato e ha il suo script npm', () => {
+    expect(pkg.scripts['audit:metadata']).toContain('scripts/ci/audit-metadata.mjs');
+  });
+
+  it('resta FUORI dal gate di build: fa rete, e la build non deve dipenderne', () => {
+    const workflow = read('.github/workflows/deploy.yml');
+    expect(workflow, 'un gate che chiama GitHub fallisce quando GitHub è lento').not.toContain('audit:metadata');
+  });
+
+  it('senza token non fallisce: tace ed esce pulito', () => {
+    expect(script).toContain('SALTATO');
+    expect(script).toMatch(/process\.exit\(0\)/);
+  });
+
+  it('il conteggio atteso è LETTO da release.config.json, non ricopiato', () => {
+    expect(script).toContain('cfg.playableCases');
+    expect(script, 'un numero scritto qui sarebbe la stessa trappola di prima').not.toMatch(/=== 13|!== 13/);
+  });
+
+  it('segnala i refusi nei topic senza vietare un topic nuovo', () => {
+    expect(script, 'un elenco chiuso fallirebbe al primo topic legittimo aggiunto').toContain('distance(t, k) <= 2');
+  });
+
+  it('confronta anche la licenza che GitHub riconosce con quella dichiarata', () => {
+    expect(script).toContain('meta.license');
+    expect(script).toContain('cfg.licenses?.code');
   });
 });

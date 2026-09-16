@@ -6,11 +6,29 @@ import { L } from '../i18n';
 export type ToastKind = 'info' | 'warning' | 'alert' | 'ok';
 
 /**
+ * Avviso a schermo per scena. Più avvisi si sovrapponevano nello stesso
+ * punto e diventavano illeggibili — "[AVVI[AVVISO] Citato..." — perché ogni
+ * chiamata creava il proprio riquadro senza sapere di quelli già in volo.
+ * Succede ogni volta che due eventi capitano ravvicinati: aprire l'ultimo
+ * reperto e citarne uno, per esempio.
+ *
+ * Qui l'avviso in corso viene tolto prima di mostrarne uno nuovo: sullo
+ * schermo ce n'è sempre al massimo uno, ed è l'ultimo — quello che si
+ * riferisce a ciò che il giocatore ha appena fatto.
+ */
+const current = new WeakMap<Phaser.Scene, Phaser.GameObjects.Container>();
+
+/**
  * Notifica impersonale in stile burocratico, slide-in dall'alto.
  * `topOffset` sposta il punto di riposo (default 36) per le scene il cui
  * header occupa già quella fascia verticale.
  */
 export function showToast(scene: Phaser.Scene, message: string, kind: ToastKind = 'info', topOffset = 36): void {
+  const previous = current.get(scene);
+  if (previous?.active) {
+    scene.tweens.killTweensOf(previous);
+    previous.destroy();
+  }
   const colors: Record<ToastKind, { stroke: number; text: string }> = {
     info: { stroke: COLORS.accent, text: COLOR_STR.paper },
     warning: { stroke: COLORS.warning, text: COLOR_STR.warning },
@@ -26,6 +44,7 @@ export function showToast(scene: Phaser.Scene, message: string, kind: ToastKind 
     .text(0, 0, `[${c.prefix}] ${message}`, textStyle(13, c.text))
     .setOrigin(0.5);
   container.add([bg, stripe, label]);
+  current.set(scene, container);
 
   const targetY = topOffset;
   if (StateManager.reducedMotion) {

@@ -6,12 +6,15 @@ import { NOTE_BOX } from './consequenceLayout';
 import { AudioSystem } from '../systems/AudioSystem';
 import { IndicatorHud, randomComment } from '../systems/IndicatorSystem';
 import { StateManager } from '../systems/StateManager';
+import { ReadingLayer } from '../systems/ReadingLayer';
 import { Button } from '../ui/Button';
 import { DiscussionPauseOverlay } from '../ui/DiscussionPauseOverlay';
 import { Panel } from '../ui/Panel';
 import { TypewriterText } from '../ui/TypewriterText';
 import { L, caseText, fmt } from '../i18n';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 interface ConsequenceParams {
   caseId: string;
@@ -53,9 +56,9 @@ export class ConsequenceScene extends Phaser.Scene {
     const texts = caseText(this.caseData.id);
     const ui = L().ui.consequence;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(250, 0, 0, 0);
-    AudioSystem.crossfadeToTheme(this.caseData.id);
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    fadeInScene(this, 250);
+    AudioSystem.setMusicRole('debrief', this.caseData.id);
+    addNoiseOverlay(this, 0.4);
 
     if (quality === 'wrong' && !StateManager.reducedMotion) {
       this.cameras.main.shake(220, 0.004);
@@ -94,7 +97,7 @@ export class ConsequenceScene extends Phaser.Scene {
     new Panel(this, cx - 190, NOTE_BOX.panelCenterY, NOTE_BOX.width, NOTE_BOX.height);
     const noteText = noteFor(texts, quality);
     const note = this.add
-      .text(cx - 480, NOTE_BOX.textY, noteText, textStyle(NOTE_BOX.fontSize, quality === 'wrong' ? COLOR_STR.alertText : COLOR_STR.accent, { wordWrap: { width: NOTE_BOX.wrapWidth }, lineSpacing: NOTE_BOX.lineSpacing }))
+      .text(cx - 480, NOTE_BOX.textY, noteText, textStyle(NOTE_BOX.fontSize, quality === 'wrong' ? COLOR_STR.alertText : COLOR_STR.accentText, { wordWrap: { width: NOTE_BOX.wrapWidth }, lineSpacing: NOTE_BOX.lineSpacing }))
       .setAlpha(0);
 
     // pannello indicatori animati
@@ -123,6 +126,20 @@ export class ConsequenceScene extends Phaser.Scene {
     if (pause) {
       new Button(this, 240, GAME_HEIGHT - 60, L().ui.discussionPause.button, () => pause.toggle(), { width: 320, height: 40, fontSize: 13, variant: 'ghost' });
     }
+
+    // Conseguenza e nota arrivano a macchina o in dissolvenza: lo strato di
+    // lettura le pubblica per intero subito, perché un'animazione non è un
+    // modo di leggere.
+    ReadingLayer.setScene(headerText, [
+      {
+        text: fmt(ui.summary, {
+          classification: L().classifications[this.params.classification],
+          measure: L().measures[this.params.measure]
+        })
+      },
+      { heading: ui.territoryLabel, text: consequenceFor(texts, quality) },
+      { heading: ui.noteLabel, text: noteText }
+    ]);
 
     consequence.write(consequenceFor(texts, quality), () => {
       this.tweens.add({ targets: note, alpha: 1, duration: 300 });

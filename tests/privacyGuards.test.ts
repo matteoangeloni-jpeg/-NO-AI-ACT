@@ -43,12 +43,54 @@ describe('analytics resolves OFF in production by default', () => {
 });
 
 describe('no network primitives in game code outside the analytics abstraction', () => {
-  it('no fetch / XHR / sendBeacon / WebSocket / EventSource in src/game (except AnalyticsSystem transport)', () => {
+  /**
+   * DUE ECCEZIONI, ENTRAMBE NOMINATE E ENTRAMBE CON UN OBBLIGO.
+   *
+   * AnalyticsSystem è il trasporto approvato, ed è chiuso dietro un
+   * interruttore (test qui sotto). audioBank scarica i campioni audio:
+   * non può usare altro che `fetch`, ma il permesso vale solo finché
+   * scarica roba NOSTRA, dalla nostra origine. Il test subito dopo lo
+   * verifica; senza quello questa eccezione sarebbe un buco.
+   */
+  const NETWORK_EXCEPTIONS = ['systems/AnalyticsSystem.ts', 'systems/audioBank.ts'];
+
+  it('no fetch / XHR / sendBeacon / WebSocket / EventSource in src/game (except the named exceptions)', () => {
     const banned = /\bfetch\s*\(|XMLHttpRequest|sendBeacon|new WebSocket|new EventSource|navigator\.sendBeacon/;
     const offenders = GAME_FILES
-      .filter((f) => !f.endsWith('systems/AnalyticsSystem.ts'))
+      .filter((f) => !NETWORK_EXCEPTIONS.some((e) => f.endsWith(e)))
       .filter((f) => banned.test(read(f)));
     expect(offenders, `network primitives found in: ${offenders.join(', ')}`).toEqual([]);
+  });
+
+  it('il banco audio scarica solo dalla nostra origine, e solo nomi del manifesto', () => {
+    const bank = read('src/game/systems/audioBank.ts');
+    const manifest = read('src/game/systems/audioAssets.ts');
+
+    // Nessun indirizzo assoluto: né http(s), né protocol-relative, né
+    // un'origine costruita a mano. Un campione servito da altrove sarebbe
+    // una richiesta verso terzi, cioè esattamente ciò che il sito promette
+    // di non fare.
+    for (const src of [bank, manifest]) {
+      expect(src).not.toMatch(/https?:\/\//);
+      expect(src).not.toMatch(/(?:^|[^:])\/\/[a-z0-9-]+\.[a-z]{2,}/im);
+      expect(src).not.toMatch(/location\.(host|origin)/);
+    }
+
+    // I nomi dei file esistono solo nel manifesto: il banco cicla ciò che
+    // il manifesto dichiara e non compone percorsi per conto proprio.
+    expect(bank).not.toMatch(/\.mp3/);
+    expect(bank).toContain('musicPath');
+    expect(bank).toContain('sfxPath');
+  });
+
+  it('nessun nome di file audio vive fuori dal manifesto', () => {
+    // È la regola che tiene insieme tutto il resto: le scene chiedono un
+    // ruolo o un gesto, mai un file. Se un `.mp3` ricompare altrove vuol
+    // dire che qualcuno ha ricominciato a spargere riproduzioni nel codice.
+    const offenders = GAME_FILES
+      .filter((f) => !f.endsWith('systems/audioAssets.ts'))
+      .filter((f) => /\.(mp3|ogg|wav|m4a|opus)\b/.test(read(f)));
+    expect(offenders, `nomi di file audio fuori dal manifesto: ${offenders.join(', ')}`).toEqual([]);
   });
 
   it('AnalyticsSystem is the only file that may contain a transport, and it is gated', () => {

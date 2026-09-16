@@ -33,6 +33,11 @@
     <a id="site-return" href="../" aria-label="Torna al sito NO AI ACT / Back to the NO AI ACT website">↩ no-ai-act.eu</a>
     <button id="reading-toggle" type="button" aria-pressed="false" aria-controls="reading-layer"></button>
     <div id="game-container" role="application" aria-label="NO AI ACT, gioco investigativo sull'AI Act"></div>
+    <!-- Strato delle azioni: un <button> vero per ogni pulsante disegnato sul
+         canvas, trasparente e sovrapposto al suo riquadro. Stessa azione, non
+         una seconda implementazione: serve a chi naviga con TAB o con uno
+         screen reader, per cui un canvas non ha nulla da premere. -->
+    <div id="action-layer"></div>
     <!-- Strato di lettura semantico (2.0, §11.1): testo dei contenuti chiave
          sincronizzato con lo stato Phaser. Solo lettura — nessuna interazione
          duplicata: le azioni restano su canvas e tastiera. Nascosto ma

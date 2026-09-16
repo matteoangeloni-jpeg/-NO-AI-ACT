@@ -10,6 +10,11 @@ export const it = {
     gameSubtitle: 'Simulatore di una società non regolata',
     titleTagline: "Valuta casi d'uso dell'IA. Ogni scelta incide su fiducia pubblica, innovazione e diritti. Obiettivo: trovare un equilibrio sostenibile.",
     titleHeader: 'REPUBBLICA MUNICIPALE AUTOMATIZZATA — ANNO 2032',
+    textSpeed: {
+      label: 'VELOCITÀ TESTO: {value}',
+      modes: { slow: 'lenta', normal: 'normale', instant: 'istantanea' }
+    },
+    typewriterHint: '▸ clic, SPAZIO o INVIO per mostrare subito tutto il testo',
     footerDisclaimer:
       "Versione didattica semplificata dell'AI Act (Reg. UE 2024/1689). Non costituisce consulenza legale.",
     menu: {
@@ -25,6 +30,11 @@ export const it = {
       crtOn: 'EFFETTO CRT: ON',
       crtOff: 'EFFETTO CRT: OFF',
       music: 'MUSICA: {value}',
+      musicOn: 'MUSICA: ON',
+      musicOff: 'MUSICA: OFF',
+      sfx: 'EFFETTI: {value}',
+      sfxOn: 'EFFETTI: ON',
+      sfxOff: 'EFFETTI: OFF',
       language: 'LINGUA: ITALIANO',
       teacherOn: 'MODALITÀ DOCENTE: ON',
       teacherOff: 'MODALITÀ DOCENTE: OFF',
@@ -39,6 +49,9 @@ export const it = {
       settingsTitle: 'Impostazioni',
       settingsPrivacy: 'Salvataggio e preferenze restano solo nel tuo browser: nessun account, nessun dato inviato.',
       teachersTitle: 'Docenti e classe',
+      classPreset: 'PRONTI PER LA CLASSE ▸',
+      classPresetDone: 'Modalità docente attiva e testo istantaneo.',
+      classPresetNote: 'Attiva le pause di discussione dopo ogni caso e mostra il testo senza attesa. Non introduce timer e non confronta gruppi: il gioco non misura il tuo tempo e non fa uscire dati dal dispositivo.',
       teachersNote: 'Modalità docente: pause di discussione dopo ogni caso e debrief locale a fine partita. Uso in classe: 20–40 minuti, nessun account, nessun dato raccolto.',
       resourcesTitle: 'Risorse',
       resourcesNote: 'Archivio e glossario del gioco, più le guide del sito (nuova scheda).',
@@ -58,6 +71,8 @@ export const it = {
       header: 'MAPPA CIVICA — RETE DEI SISTEMI AUTOMATIZZATI',
       progress: 'ISPETTORE AX · CASI CHIUSI: {done}/{total}',
       statusOpen: '[ INCIDENTE APERTO ]',
+      statusDraft: '[ RIPRENDI · {taken}/{total} decisioni ]',
+      statusDraftEvidence: '[ RIPRENDI · reperti aperti ]',
       statusClosed: '[ CASO CHIUSO ]',
       statusNonCompliant: '[ CHIUSO — NON CONFORME ]',
       statusSealed: '[ FASCICOLO SOTTO SEQUESTRO ]',
@@ -73,7 +88,7 @@ export const it = {
       backToMap: '◂ MAPPA'
     },
     context: {
-      button: 'Rivedi contesto',
+      button: 'RIVEDI CONTESTO',
       title: 'Contesto del caso',
       scenarioLabel: 'Sintesi del caso',
       objectiveLabel: 'Obiettivo',
@@ -83,7 +98,7 @@ export const it = {
       closeToEvidence: 'Torna ai reperti'
     },
     caseNorm: {
-      button: 'Norma del caso',
+      button: 'NORMA DEL CASO',
       supportNote: 'Norma utile per orientarti nel caso. Consultarla non modifica il rapporto né la decisione.',
       relevantLabel: 'Norma rilevante',
       referenceLabel: 'Riferimento',
@@ -167,7 +182,7 @@ export const it = {
       close: 'Riprendi'
     },
     decisionDebrief: {
-      button: 'Debrief della decisione',
+      button: 'DEBRIEF DELLA DECISIONE',
       title: 'Debrief della decisione',
       intro: 'Questa scheda ti aiuta a capire il ragionamento, senza modificare il punteggio o il rapporto.',
       yourChoiceLabel: 'La tua scelta',
@@ -204,6 +219,9 @@ export const it = {
       contradictionButton: 'Segna contraddizione [C]',
       contradictionFound: 'Contraddizione documentale: «{a}» smentisce «{b}».',
       contradictionNone: 'Nessuna contraddizione documentale tra i reperti citati: cita il reperto decisivo e il resoconto che minimizza.',
+      progress: 'Reperti esaminati: {opened} di {total} · citati: {cited} (ne servono almeno {min})',
+      progressReady: 'Hai abbastanza elementi: puoi passare alla classificazione.',
+      citedBecause: 'Citato «{title}» — {stance}.',
       proceedButton: 'PROCEDI ALLA CLASSIFICAZIONE ▸',
       backToEvidence: '◂ REPERTI',
       sourceLabel: 'FONTE',
@@ -226,10 +244,31 @@ export const it = {
       }
     },
     decision: {
-      step1: 'DECISIONE 1 DI 4 — CLASSIFICAZIONE',
-      step2: 'DECISIONE 2 DI 4 — MISURA CORRETTIVA',
-      step3: 'DECISIONE 3 DI 4 — SOGGETTO RESPONSABILE',
-      step4: 'DECISIONE 4 DI 4 — MOTIVAZIONE',
+      stepBack: '◂ PASSO PRECEDENTE',
+      stepBackHint: 'BACKSPACE torna al passo precedente e lo rende di nuovo modificabile.',
+      step1: 'DECISIONE 1 DI 5 — CLASSIFICAZIONE',
+      step2: 'DECISIONE 2 DI 5 — MISURA CORRETTIVA',
+      step3: 'DECISIONE 3 DI 5 — SOGGETTO RESPONSABILE',
+      step4: 'DECISIONE 4 DI 5 — MOTIVAZIONE',
+      step5: 'DECISIONE 5 DI 5 — RIEPILOGO E FIRMA',
+      question5: 'Rivedi il rapporto prima di firmarlo.',
+      cityState: 'STATO DELLA CITTÀ',
+      cityStateNote: 'Com\'è adesso. Il gioco non anticipa che cosa farebbe ciascuna scelta.',
+      sidebar: {
+        cited: 'REPERTI CITATI',
+        soFar: 'DECISIONE FINORA',
+        pending: 'da scegliere'
+      },
+      summary: {
+        classification: 'Classificazione',
+        measure: 'Misura',
+        subject: 'Soggetto responsabile',
+        motivation: 'Motivazione',
+        clues: 'Reperti citati'
+      },
+      sign: 'FIRMA IL RAPPORTO ▸',
+      signHint: 'INVIO firma il rapporto. BACKSPACE torna alla motivazione.',
+      signNote: 'Firmare non vuol dire aver risposto bene: la valutazione arriva dopo. Finché non firmi puoi ancora cambiare ogni scelta.',
       question1: "Come si qualifica questo sistema rispetto all'AI Act?",
       question2: "Quale misura dispone l'ispettorato?",
       question3: 'A chi imputi gli obblighi principali?',
@@ -243,7 +282,11 @@ export const it = {
       keys3: 'tastiera: tasti 1–3 per selezionare',
       normsButton: 'CONSULTA NORME',
       normsHint: 'solo consultazione — clic fuori o ESC per chiudere',
-      normsEmpty: 'Nessuna norma ancora acquisita.'
+      normsEmpty: 'Nessuna norma ancora acquisita.',
+      termsButton: 'CHE COSA VUOL DIRE?',
+      termsTitle: 'I TERMINI DI QUESTA SCELTA',
+      termsHint: 'solo consultazione — clic fuori o ESC per chiudere. Non suggerisce la risposta.',
+      termsNoEntry: 'Non è una categoria definita dal regolamento: è ciò che resta fuori dalle altre.'
     },
     subjects: {
       provider: 'Provider (chi sviluppa il sistema)',
@@ -277,6 +320,7 @@ export const it = {
         trasparenza: 'manca la trasparenza richiesta: i cittadini non possono riconoscere il sistema o il contenuto',
         motivazione: 'la decisione è corretta, ma la motivazione è debole'
       },
+      lessonLabel: 'LEZIONE DEL CASO',
       analysisLabel: 'ANALISI DELLA DECISIONE',
       analysis: {
         conforme: 'La decisione regge: classificazione, misura, soggetto e motivazione sono coerenti con le prove decisive.',
@@ -355,7 +399,9 @@ export const it = {
       unlocked: "NORMA ACQUISITA ALL'ARCHIVIO",
       subCorrect: 'Questa disposizione avrebbe reso il danno prevenibile o governabile.',
       subWrong: "La norma esisteva. In un'altra Europa, qualcuno l'avrebbe applicata.",
-      backToMap: 'TORNA ALLA MAPPA ▸',
+      backToMap: '◂ TORNA ALLA MAPPA',
+      endOfShift: 'FINE TURNO ▸',
+      nextCase: 'PROSSIMO FASCICOLO ▸',
       disclaimer: 'versione didattica semplificata'
     },
     archive: {
@@ -411,6 +457,61 @@ export const it = {
       recommendedHeader: 'PERCORSI CONSIGLIATI',
       recommendedLine: '{name} · {duration} · {goal}'
     },
+      sessionEnd: {
+        title: 'FINE TURNO',
+        subtitle: '{mode} · {count} fascicoli · circa {minutes} min',
+        subtitleOne: '{mode} · un fascicolo · circa {minutes} min',
+        countCorrectOne: 'uno chiuso bene',
+        countCorrect: '{n} chiusi bene',
+        countPartialOne: 'uno a metà',
+        countPartial: '{n} a metà',
+        countWrongOne: 'uno sbagliato',
+        countWrong: '{n} sbagliati',
+        recurring: 'Lo stesso scivolone {times} volte. {error}',
+        noRecurring: 'Nessun errore si è ripetuto in questo turno.',
+        normsTouched: 'Articoli toccati: {norms}',
+        incompleteOne: 'Un fascicolo del piano è rimasto aperto. Resta sulla mappa.',
+        incomplete: '{count} fascicoli del piano sono rimasti aperti. Restano sulla mappa.',
+        quality: { correct: 'chiuso bene', partial: 'a metà', wrong: 'sbagliato' },
+        open: 'aperto',
+        toMap: 'TORNA ALLA MAPPA',
+        learningReport: 'RAPPORTO DI APPRENDIMENTO ▸',
+        debrief: 'DEBRIEF DOCENTE ▸',
+        note: 'Riepilogo del turno appena giocato. Resta sul tuo dispositivo: nessun invio, nessun account.'
+      },
+      newGamePanel: {
+        title: 'NUOVA PARTITA',
+        subtitle: 'Scegli come giocare e quanto tempo hai. Il piano si ricompone sotto, prima di iniziare.',
+        modeLabel: 'MODALITÀ: {value}',
+        audienceLabel: 'PROFILO: {value}',
+        durationLabel: 'DURATA: {value} min',
+        planLine: '{count} fascicoli · circa {minutes} min · difficoltà {difficulty}',
+        planLineOne: 'un fascicolo · circa {minutes} min · difficoltà {difficulty}',
+        planLineFree: 'mappa aperta · {count} fascicoli consigliati · circa {minutes} min',
+        planLineFreeOne: 'mappa aperta · un fascicolo consigliato · circa {minutes} min',
+        overBudget: 'Il primo fascicolo chiede circa {minutes} min: più del tempo scelto.',
+        nothingToReview: 'Niente da ripassare: nessun fascicolo chiuso male, per ora. Scegli un\'altra modalità per cominciare.',
+        note: 'Il tempo è una stima per comporre la sessione. Il gioco non misura e non limita il tuo tempo reale.',
+        reroll: 'RIESTRAI ⟲',
+        start: 'INIZIA ▸',
+        modes: {
+          turno: { name: 'Turno di servizio', desc: 'I fascicoli del tuo profilo, in sequenza. La via classica: una scrivania, una coda di casi.' },
+          libera: { name: 'Indagine libera', desc: 'La città è aperta: apri i fascicoli nell\'ordine che vuoi. La durata dice solo quanti conviene chiuderne.' },
+          sorpresa: { name: 'Ispezione a sorpresa', desc: 'Fascicoli estratti a caso fra tutti, difficoltà esperto, nessun suggerimento sulla mappa.' },
+          ripasso: { name: 'Ripasso degli errori', desc: 'Solo i fascicoli che hai chiuso male o a metà. Disponibile quando ce n\'è almeno uno.' }
+        }
+      },
+      audience: {
+        // Restano i soli nomi e descrizioni dei profili: il pannello che li
+        // mostrava ("per chi giochi") è confluito in NUOVA PARTITA, e le sue
+        // etichette vivono sotto newGamePanel.
+        modes: {
+          casual: { name: 'Per conto mio', desc: 'Non lavori nel settore e vuoi capire l\'AI Act. Casi scelti per chiarezza, non per ruolo.' },
+          pa: { name: 'Pubblica amministrazione', desc: 'Sportello, appalti e antifrode: decidere con un sistema che non hai scritto tu.' },
+          scuola: { name: 'Scuola e formazione', desc: 'Emozioni in classe, piattaforme adattive e modelli generali.' },
+          hr: { name: 'Risorse umane', desc: 'Selezione, graduatorie e modelli generali usati a valle.' }
+        }
+      },
     missions: {
       title: 'SCEGLI IL PERCORSO',
       subtitle: 'Un percorso suggerisce i casi consigliati. Puoi comunque giocarli tutti.',
@@ -1589,7 +1690,7 @@ export const it = {
   ,
   learningLayer: {
     notebook: {
-      button: 'Taccuino',
+      button: 'TACCUINO',
       title: 'TACCUINO INVESTIGATIVO',
       intro: "Quello che hai già stabilito, raccolto in un posto solo: fascicoli chiusi, chi ne è risultato responsabile, gli schemi confermati e le domande che hai lasciato aperte.",
       factsLabel: 'Fascicoli chiusi ({n})',
@@ -1612,7 +1713,7 @@ export const it = {
       close: 'Chiudi'
     },
     chapters: {
-      button: 'Capitoli',
+      button: 'CAPITOLI',
       title: 'Capitoli del percorso',
       intro: "Quattro capitoli tematici raggruppano gli 11 casi. Sono un ordine consigliato, non un vincolo: ogni fascicolo resta apribile liberamente dalla mappa.",
       orderLabel: 'Capitolo {order} di {total}',
@@ -1726,6 +1827,7 @@ export const it = {
     mapHint: 'Frecce per scorrere i fascicoli aperti, INVIO per aprire quello selezionato.',
     selectedCase: 'Selezionato: {name}',
     evidenceHint: 'Tasti 1–{n}: apri un reperto, poi premili di nuovo per citarlo. INVIO prosegue quando possibile.',
+    evidenceCited: 'citato nel rapporto',
     decisionTitle: 'Decisione — {step}',
     reportTitle: 'Rapporto ispettivo',
     briefingTitle: 'Briefing iniziale',

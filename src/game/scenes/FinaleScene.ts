@@ -11,6 +11,8 @@ import { TypewriterText } from '../ui/TypewriterText';
 import { L } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 /** Rapporto finale: l'esito dipende dagli indicatori accumulati. */
 export class FinaleScene extends Phaser.Scene {
@@ -21,9 +23,9 @@ export class FinaleScene extends Phaser.Scene {
   create(): void {
     const cx = GAME_WIDTH / 2;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(500, 0, 0, 0);
-    this.add.image(cx, GAME_HEIGHT / 2, 'citymap').setAlpha(0.15);
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.5);
+    fadeInScene(this, 500);
+    this.add.image(cx, GAME_HEIGHT / 2, 'citymap').setDisplaySize(GAME_WIDTH, GAME_HEIGHT).setAlpha(0.15);
+    addNoiseOverlay(this, 0.5);
 
     const endingId = computeEnding(StateManager.indicators);
     const ending = L().endings[endingId];
@@ -65,7 +67,7 @@ export class FinaleScene extends Phaser.Scene {
 
     // messaggio finale obbligatorio
     const msg = this.add
-      .text(cx, 510, `“${L().endings.finalMessage}”`, textStyle(16, COLOR_STR.accent, { wordWrap: { width: 880 }, align: 'center', lineSpacing: 6 }))
+      .text(cx, 510, `“${L().endings.finalMessage}”`, textStyle(16, COLOR_STR.accentText, { wordWrap: { width: 880 }, align: 'center', lineSpacing: 6 }))
       .setOrigin(0.5)
       .setAlpha(0);
     this.tweens.add({ targets: msg, alpha: 1, duration: 900, delay: StateManager.reducedMotion ? 0 : 1500 });
@@ -93,7 +95,7 @@ export class FinaleScene extends Phaser.Scene {
     // esterno, rimosso dal prodotto pubblico.
     const privacy = L().ui.finale.privacyNote;
     const fbLeft = cx - 570;
-    this.add.text(fbLeft, 540, privacy.title, textStyle(13, COLOR_STR.accent, { fontStyle: 'bold' }));
+    this.add.text(fbLeft, 540, privacy.title, textStyle(13, COLOR_STR.accentText, { fontStyle: 'bold' }));
     this.add.text(fbLeft, 562, privacy.text, textStyle(11, COLOR_STR.paperDim, { wordWrap: { width: 410 }, lineSpacing: 3 }));
   }
 }

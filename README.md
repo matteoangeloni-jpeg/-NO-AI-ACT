@@ -6,7 +6,7 @@
 [![Contenuti: CC BY-SA 4.0](https://img.shields.io/badge/contenuti-CC%20BY--SA%204.0-5d7fb8)](LICENSE)
 [![Stack](https://img.shields.io/badge/stack-TypeScript%20%2B%20Phaser%203%20%2B%20Vite-101a30)](#stack)
 [![Test](https://img.shields.io/badge/test-Vitest-d9a521)](tests/)
-[![Stato](https://img.shields.io/badge/stato-v2.1.0-3fa66a)](#stato-release)
+[![Stato](https://img.shields.io/badge/stato-v2.2.0-3fa66a)](#stato-release)
 [![Lingue](https://img.shields.io/badge/lingue-IT%20%2B%20EN-d8d6cd)](#lingue)
 
 **Serious game investigativo sull'AI Act europeo · browser, zero asset esterni, salvataggio locale**
@@ -51,7 +51,7 @@ Questo gioco **non costituisce consulenza legale**.
 | **Lingue** | Italiano / English |
 | **Account / dati** | Nessun account, nessun dato personale, nessun backend |
 
-## Stato attuale del codice (v2.1.0, su `main`)
+## Stato attuale del codice (v2.2.0, su `main`)
 
 La 2.0 trasforma il progetto in un prodotto educativo e di ricerca più
 solido: modello di apprendimento tipizzato e matrice legale machine-readable,
@@ -61,7 +61,14 @@ lettura semantico + percorso completo da tastiera, 2 nuovi casi (polizia
 predittiva, punteggio antifrode welfare → 13 totali), infrastruttura di
 citazione (CITATION.cff, pagine come citare/ricerca/press kit), sistema SEO
 con audit in CI e 4 nuove coppie di pagine IT/EN (56 URL pubblici). Dettagli:
-`docs/RELEASE_NOTES_v2.1.0.md`; metadati correnti: `release.config.json`.
+`docs/RELEASE_NOTES_v2.1.0.md`.
+
+La 2.2 aggiunge l'audio registrato (sei musiche in loop, una per fase del
+procedimento, e dieci effetti legati ai gesti), rende ogni pulsante
+disegnato un pulsante vero raggiungibile da tastiera e da screen reader, e
+disegna il gioco alla risoluzione dello schermo invece di stirare un
+720p. Dettagli: `docs/RELEASE_NOTES_v2.2.0.md`; metadati correnti:
+`release.config.json`.
 
 ## Novità in v1.0.0 — Prima release pubblica stabile (storico)
 
@@ -312,6 +319,14 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 ## Roadmap
 
+**🔜 v2.2.0 — Audio, tastiera, risoluzione** — non ancora taggata
+- Sei musiche in loop e dieci effetti (generati dall'autore con ElevenLabs,
+  CC BY-SA 4.0 come gli altri contenuti), con ripiego sulla sintesi quando
+  un campione manca; controlli separati per musica ed effetti. Ogni pulsante
+  disegnato è anche un `<button>` vero: TAB, anello di fuoco, screen reader.
+  Canvas 1:1 su Full HD, 2K e 4K. Dettagli:
+  [`docs/RELEASE_NOTES_v2.2.0.md`](docs/RELEASE_NOTES_v2.2.0.md).
+
 **✅ v2.1.0 — Consolidamento e passaggio al copyleft** — [release](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v2.1.0)
 - Codice GPL-3.0-or-later e contenuti CC BY-SA 4.0 (eccezione CC BY per i
   materiali stampa); copyright intestato all'autore. Il briefing apre un
@@ -362,14 +377,13 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 Fonte machine-readable: [`release.config.json`](release.config.json)
 (coerenza garantita da test automatici).
-Note di rilascio: [`docs/RELEASE_NOTES_v2.1.0.md`](docs/RELEASE_NOTES_v2.1.0.md).
+Note di rilascio: [`docs/RELEASE_NOTES_v2.2.0.md`](docs/RELEASE_NOTES_v2.2.0.md).
 
-- **Versione**: v2.1.0 (codice su `main`; fonte: `package.json`)
-- **Tag della versione**: `v2.1.0` — **pubblicato** il 2026-08-26
-- **Ultima release effettivamente taggata**: `v2.1.0`
-- **Nota**: il tag `v2.1.0` punta a `1b45295`, la testa di `main` al momento
-  del rilascio: per la prima volta da mesi release e codice pubblicato
-  coincidono
+- **Versione**: v2.2.0 (codice su `main`; fonte: `package.json`)
+- **Tag della versione**: `v2.2.0` — **non ancora pubblicato**
+- **Ultima release effettivamente taggata**: `v2.1.0` (2026-08-26)
+- **Nota**: il codice su `main` è avanti rispetto all'ultimo tag. Il tag
+  `v2.2.0` va creato dal titolare del repository
 - **Casi giocabili**: 13
 - **Lingue**: italiano e inglese
 - **URL pubblici**: 56 (26 IT + 30 EN)

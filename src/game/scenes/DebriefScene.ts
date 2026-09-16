@@ -7,6 +7,10 @@ import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
 import { L, fmt } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
+import { ReadingLayer } from '../systems/ReadingLayer';
+import { AudioSystem } from '../systems/AudioSystem';
 
 /**
  * Debrief docente: report LOCALE delle decisioni di gioco.
@@ -31,8 +35,9 @@ export class DebriefScene extends Phaser.Scene {
     });
 
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(250, 0, 0, 0);
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    fadeInScene(this, 250);
+    AudioSystem.setMusicRole('classroom');
+    addNoiseOverlay(this, 0.4);
 
     this.add.text(cx, 42, t.ui.debrief.title, textStyle(18, COLOR_STR.paper, { fontStyle: 'bold' })).setOrigin(0.5);
     this.add.text(cx, 66, t.ui.debrief.subtitle, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
@@ -41,11 +46,11 @@ export class DebriefScene extends Phaser.Scene {
     const left = cx - 510;
     let y = 96;
     // missione + difficoltà del percorso giocato
-    this.add.text(left, y, fmt(t.ui.debrief.missionLine, { mission: report.mission }), textStyle(12, COLOR_STR.accent));
-    this.add.text(left + 540, y, fmt(t.ui.debrief.difficultyLine, { difficulty: report.difficulty }), textStyle(12, COLOR_STR.accent));
+    this.add.text(left, y, fmt(t.ui.debrief.missionLine, { mission: report.mission }), textStyle(12, COLOR_STR.accentText));
+    this.add.text(left + 540, y, fmt(t.ui.debrief.difficultyLine, { difficulty: report.difficulty }), textStyle(12, COLOR_STR.accentText));
     y += 22;
 
-    this.add.text(left, y, t.ui.debrief.casesLabel, textStyle(12, COLOR_STR.accent));
+    this.add.text(left, y, t.ui.debrief.casesLabel, textStyle(12, COLOR_STR.accentText));
     y += 22;
     // una riga per caso: il titolo+esito restano sempre leggibili, il rilievo
     // è troncato per non far traboccare il pannello con 6 casi completati
@@ -65,10 +70,27 @@ export class DebriefScene extends Phaser.Scene {
     y += 22;
     // fascicolo città (v0.5): effetti sistemici qualitativi, una riga compatta
     const dossierLine = report.cityDossier.map((d) => `${d.indicator}: ${d.trend}`).join(' · ');
-    this.add.text(left, y, `${t.ui.cityDossier.title} — ${dossierLine}`, textStyle(11.5, COLOR_STR.accent, { wordWrap: { width: 1020 } }));
+    this.add.text(left, y, `${t.ui.cityDossier.title} — ${dossierLine}`, textStyle(11.5, COLOR_STR.accentText, { wordWrap: { width: 1020 } }));
+
+    // Il debrief è fatto per essere letto e stampato: è la schermata che più
+    // di tutte doveva esistere anche nello strato di lettura, e non c'era. Il
+    // rilievo NON è troncato qui: il taglio a 72 caratteri serve a non far
+    // traboccare il pannello, non a nascondere qualcosa a chi legge.
+    ReadingLayer.setScene(t.ui.debrief.title, [
+      { text: t.ui.debrief.subtitle },
+      { text: `${fmt(t.ui.debrief.missionLine, { mission: report.mission })} · ${fmt(t.ui.debrief.difficultyLine, { difficulty: report.difficulty })}` },
+      {
+        heading: t.ui.debrief.casesLabel,
+        items: report.cases.map((row) => `${fmt(t.ui.debrief.caseLine, { title: row.title, outcome: row.outcome })} — ${row.mainFinding}`)
+      },
+      { text: fmt(t.ui.debrief.normsLine, { done: report.normsUnlocked, total: NORMS.length }) },
+      { text: timeLine },
+      { text: indicatorsLine },
+      { heading: t.ui.cityDossier.title, text: dossierLine }
+    ]);
     y += 28;
 
-    this.add.text(left, y, t.ui.debrief.questionsLabel, textStyle(12, COLOR_STR.accent));
+    this.add.text(left, y, t.ui.debrief.questionsLabel, textStyle(12, COLOR_STR.accentText));
     y += 22;
     report.questions.forEach((q, i) => {
       const qt = this.add.text(left, y, `${i + 1}. ${q}`, textStyle(12.5, COLOR_STR.paper, { wordWrap: { width: 1020 }, lineSpacing: 4 }));

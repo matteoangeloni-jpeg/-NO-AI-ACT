@@ -1,6 +1,9 @@
 import Phaser from 'phaser';
 import { applyOutcome, clampIndicator } from '../data/indicators';
-import type { CaseMeta, CaseReport, DifficultyMode, IndicatorState, LanguageCode, MissionId, OutcomeQuality, SaveData, SelfCheckPhase, SelfCheckResult } from '../data/types';
+import type { AudienceId, CaseMeta, CaseReport, DifficultyMode, GameModeId, IndicatorState, LanguageCode, MissionId, OutcomeQuality, SaveData, SelfCheckPhase, SelfCheckResult, SessionMinutes, TextSpeed } from '../data/types';
+import { planSession, type SessionPlan } from '../data/audiences';
+import { planGame, type GamePlan } from '../data/gameModes';
+import { DRAFT_SCHEMA, emptyDraft, hasProgress, isResumable, type CaseDraft } from './caseDraft';
 import { setLanguage } from '../i18n';
 import { SaveSystem } from './SaveSystem';
 
@@ -43,6 +46,18 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
     return this.data.musicVolume;
   }
 
+  get sfxVolume(): number {
+    return this.data.sfxVolume;
+  }
+
+  get musicEnabled(): boolean {
+    return this.data.musicEnabled;
+  }
+
+  get sfxEnabled(): boolean {
+    return this.data.sfxEnabled;
+  }
+
   get teacherMode(): boolean {
     return this.data.teacherMode;
   }
@@ -73,6 +88,94 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
     this.persist();
   }
 
+  get audience(): AudienceId {
+    return this.data.audience;
+  }
+
+  get sessionMinutes(): SessionMinutes {
+    return this.data.sessionMinutes;
+  }
+
+  /** Piano corrente: casi proposti e difficoltà, derivati da pubblico e durata. */
+  get sessionPlan(): SessionPlan {
+    return planSession(this.data.audience, this.data.sessionMinutes);
+  }
+
+  get textSpeed(): TextSpeed {
+    return this.data.textSpeed;
+  }
+
+  setTextSpeed(value: TextSpeed): void {
+    this.data.textSpeed = value;
+    this.persist();
+  }
+
+  get gameMode(): GameModeId {
+    return this.data.gameMode;
+  }
+
+  /**
+   * Seme dell'ispezione a sorpresa. Vive in memoria e non nel salvataggio:
+   * una sorpresa che sopravvive alla chiusura del browser non è una
+   * sorpresa. Si rinnova a ogni NUOVA PARTITA.
+   */
+  private surpriseSeed = (Date.now() & 0x7fffffff) || 1;
+
+  rerollSurprise(): void {
+    this.surpriseSeed = (this.surpriseSeed * 48271) % 0x7fffffff || 1;
+  }
+
+  /**
+   * Piano della modalità corrente: è questo — non più il solo pubblico — a
+   * dire quali fascicoli arrivano, in che ordine e con che difficoltà.
+   */
+  get gamePlan(): GamePlan {
+    return planGame({
+      mode: this.data.gameMode,
+      audience: this.data.audience,
+      minutes: this.data.sessionMinutes,
+      completed: this.data.completedCases,
+      seed: this.surpriseSeed
+    });
+  }
+
+  /**
+   * Prossimo fascicolo del piano non ancora chiuso, o null.
+   *
+   * È ciò che rende una modalità in sequenza diversa dalla mappa aperta:
+   * senza, dopo ogni caso si tornava comunque in città e "turno di
+   * servizio" sarebbe stata una parola sulla scatola.
+   */
+  nextInPlan(): string | null {
+    const plan = this.gamePlan;
+    if (plan.freeMap) return null;
+    return plan.caseIds.find((id) => !(id in this.data.completedCases)) ?? null;
+  }
+
+  setGameMode(value: GameModeId): void {
+    this.data.gameMode = value;
+    this.data.difficulty = this.gamePlan.difficulty;
+    this.persist();
+  }
+
+  /**
+   * Cambiare pubblico o durata allinea anche la difficoltà proposta. Non
+   * tocca i casi già completati né i rapporti archiviati: il percorso dice
+   * che cosa viene consigliato d'ora in poi, non riscrive ciò che è stato
+   * giocato.
+   */
+  setAudience(value: AudienceId): void {
+    this.data.audience = value;
+    this.data.difficulty = this.gamePlan.difficulty;
+    this.persist();
+  }
+
+  setSessionMinutes(value: SessionMinutes): void {
+    this.data.sessionMinutes = value;
+    this.data.difficulty = this.gamePlan.difficulty;
+    this.persist();
+  }
+
   get endingId(): string | null {
     return this.data.endingId;
   }
@@ -97,6 +200,10 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
   resolveCase(caseId: string, normId: string, quality: OutcomeQuality): IndicatorState {
     this.data.indicators = applyOutcome(this.data.indicators, quality);
     this.data.completedCases[caseId] = quality;
+    // Firmare chiude il fascicolo: la bozza sparisce qui e non nella scena,
+    // così non esiste un percorso che archivia un rapporto lasciandosi
+    // dietro una bozza dello stesso caso.
+    delete this.data.caseDrafts[caseId];
     if (!this.data.unlockedNorms.includes(normId)) {
       this.data.unlockedNorms.push(normId);
     }
@@ -126,6 +233,38 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
    * Annotazioni metacognitive locali (2.0): fiducia dichiarata e riflessione.
    * Facoltative, solo localStorage, MAI usate nel calcolo del punteggio.
    */
+  /** Bozza riprendibile di un fascicolo, o null se non ce n'è una utile. */
+  draftFor(caseId: string): CaseDraft | null {
+    const d = this.data.caseDrafts[caseId];
+    if (!d || !isResumable(d, Object.keys(this.data.completedCases))) return null;
+    return hasProgress(d) ? d : null;
+  }
+
+  /** Tutte le bozze riprendibili, dalla più recente. */
+  resumableDrafts(): CaseDraft[] {
+    return Object.values(this.data.caseDrafts)
+      .filter((d) => isResumable(d, Object.keys(this.data.completedCases)) && hasProgress(d))
+      .sort((a, b) => b.updatedAt - a.updatedAt);
+  }
+
+  /**
+   * Aggiorna la bozza di un fascicolo. Non scrive nulla se il caso è già
+   * chiuso: un rapporto firmato non torna indietro a essere una bozza.
+   */
+  saveDraft(caseId: string, patch: Partial<Omit<CaseDraft, 'schema' | 'caseId'>>): void {
+    if (caseId in this.data.completedCases) return;
+    const base = this.data.caseDrafts[caseId] ?? emptyDraft(caseId, Date.now());
+    this.data.caseDrafts[caseId] = { ...base, ...patch, schema: DRAFT_SCHEMA, caseId, updatedAt: Date.now() };
+    this.persist();
+  }
+
+  /** Abbandona la bozza di un fascicolo, senza toccare i casi già chiusi. */
+  clearDraft(caseId: string): void {
+    if (!(caseId in this.data.caseDrafts)) return;
+    delete this.data.caseDrafts[caseId];
+    this.persist();
+  }
+
   saveCaseMeta(caseId: string, meta: Partial<CaseMeta>): void {
     this.data.caseMeta[caseId] = { ...this.data.caseMeta[caseId], ...meta };
     this.persist();
@@ -206,16 +345,45 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
     this.persist();
   }
 
+  setSfxVolume(volume: number): void {
+    this.data.sfxVolume = volume;
+    this.persist();
+  }
+
+  /**
+   * Acceso/spento non è volume zero. A zero la traccia continua a girare
+   * muta: spenta non parte, non si scarica e non consuma niente. È la
+   * differenza che serve in aula, dove la musica va tolta del tutto e gli
+   * effetti devono restare.
+   */
+  setMusicEnabled(enabled: boolean): void {
+    this.data.musicEnabled = enabled;
+    this.persist();
+    this.emit('music-enabled-changed', enabled);
+  }
+
+  setSfxEnabled(enabled: boolean): void {
+    this.data.sfxEnabled = enabled;
+    this.persist();
+  }
+
   newGame(): void {
     const prefs = {
       audioMuted: this.data.audioMuted,
       musicVolume: this.data.musicVolume,
+      sfxVolume: this.data.sfxVolume,
+      musicEnabled: this.data.musicEnabled,
+      sfxEnabled: this.data.sfxEnabled,
       reducedMotion: this.data.reducedMotion,
       crtOverlay: this.data.crtOverlay,
       language: this.data.language,
       teacherMode: this.data.teacherMode,
       difficulty: this.data.difficulty,
-      mission: this.data.mission
+      mission: this.data.mission,
+      // pubblico e durata sono preferenze come le altre: una partita nuova
+      // non deve dimenticare per chi stai giocando e quanto tempo hai
+      audience: this.data.audience,
+      sessionMinutes: this.data.sessionMinutes
     };
     this.data = { ...SaveSystem.reset(), ...prefs };
     this.persist();

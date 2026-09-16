@@ -3,6 +3,7 @@ import { Button } from './Button';
 import { Panel } from './Panel';
 import { L } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from './theme';
+import { ReadingLayer, type ReadingSection } from '../systems/ReadingLayer';
 
 /**
  * Pre-computed, localized content for the decision debrief. ReportScene builds
@@ -65,9 +66,11 @@ export class DecisionDebriefOverlay {
   }
 
   close(): void {
+    if (!this.container) return;
     this.scene.input.keyboard?.off('keydown-ESC', this.escHandler);
-    this.container?.destroy();
+    this.container.destroy();
     this.container = undefined;
+    ReadingLayer.closeOverlay();
   }
 
   /** ESC chiude l'overlay (accessibilità da tastiera, v1.1). */
@@ -100,17 +103,21 @@ export class DecisionDebriefOverlay {
     let y = cy - panelH / 2 + 28;
 
     const titleText = d.positive ? ui.correctTitle : ui.title;
-    container.add(scene.add.text(left, y, titleText, textStyle(18, d.positive ? COLOR_STR.ok : COLOR_STR.accent, { fontStyle: 'bold' })));
+    container.add(scene.add.text(left, y, titleText, textStyle(18, d.positive ? COLOR_STR.ok : COLOR_STR.accentText, { fontStyle: 'bold' })));
     y += 30;
     container.add(scene.add.text(left, y, ui.intro, textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: wrap } })));
     y += 40;
 
+    // Le sezioni per lo strato di lettura si raccolgono dentro `labelled`,
+    // così il testo letto è quello disegnato e non una seconda copia.
+    const sections: ReadingSection[] = [{ text: ui.intro }];
     const labelled = (label: string, value: string): void => {
-      container.add(scene.add.text(left, y, label, textStyle(11.5, COLOR_STR.accent, { fontStyle: 'bold' })));
+      container.add(scene.add.text(left, y, label, textStyle(11.5, COLOR_STR.accentText, { fontStyle: 'bold' })));
       y += 20;
       const v = scene.add.text(left, y, value, textStyle(13.5, COLOR_STR.paper, { wordWrap: { width: wrap }, lineSpacing: 4 }));
       container.add(v);
       y += Math.max(24, v.height + 12);
+      sections.push({ heading: label, text: value });
     };
 
     if (d.positive) {
@@ -132,14 +139,15 @@ export class DecisionDebriefOverlay {
     // 2.1: multi-axis reading — the same decision seen on three axes at once
     // (legal validity, fundamental rights, public trust); presentation only
     if (d.axes) {
-      container.add(scene.add.text(left, y, `${ui.axes.label}: ${d.axes}`, textStyle(11.5, COLOR_STR.accent, { wordWrap: { width: wrap } })));
+      container.add(scene.add.text(left, y, `${ui.axes.label}: ${d.axes}`, textStyle(11.5, COLOR_STR.accentText, { wordWrap: { width: wrap } })));
       y += 26;
+      sections.push({ heading: ui.axes.label, text: d.axes });
     }
 
     // 2.0: one concise reflection question (optional, local, no score effect)
     if (d.onReflect) {
       const r = L().learningLayer.reflection;
-      container.add(scene.add.text(left, y, `${r.label} — ${r.prompt}`, textStyle(11.5, COLOR_STR.accent, { fontStyle: 'bold' })));
+      container.add(scene.add.text(left, y, `${r.label} — ${r.prompt}`, textStyle(11.5, COLOR_STR.accentText, { fontStyle: 'bold' })));
       y += 24;
       const ack = scene.add.text(left, y + 34, '', textStyle(11.5, COLOR_STR.ok));
       container.add(ack);
@@ -171,6 +179,7 @@ export class DecisionDebriefOverlay {
       container.add(new Button(scene, cx, cy + panelH / 2 - 34, ui.close, () => this.close(), { width: 220, height: 38, fontSize: 13 }));
     }
 
+    ReadingLayer.openOverlay(titleText, sections);
     this.scene.input.keyboard?.on('keydown-ESC', this.escHandler);
     this.container = container;
   }

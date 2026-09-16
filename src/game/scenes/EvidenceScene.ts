@@ -10,7 +10,11 @@ import { DossierCard } from '../ui/DossierCard';
 import { showToast } from '../ui/AlertToast';
 import { L, caseText, fmt } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
+import { evidenceReadingLine } from '../systems/evidenceReading';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene } from '../ui/motion';
+import { StateManager } from '../systems/StateManager';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 /**
  * Esame dei reperti: aprire tutti gli indizi, poi citare nel rapporto
@@ -21,6 +25,7 @@ export class EvidenceScene extends Phaser.Scene {
   private caseData!: CaseData;
   private cards: DossierCard[] = [];
   private proceedBtn!: Button;
+  private progressText!: Phaser.GameObjects.Text;
   private proceedEligible = false;
   private revealToastShown = false;
   private contextOverlay!: CaseContextOverlay;
@@ -43,16 +48,16 @@ export class EvidenceScene extends Phaser.Scene {
     const cx = GAME_WIDTH / 2;
     const texts = caseText(this.caseData.id);
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(250, 0, 0, 0);
+    fadeInScene(this, 250);
     AnalyticsSystem.page('evidence');
     AnalyticsSystem.track('evidence_opened', { caseId: this.caseData.id });
-    AudioSystem.crossfadeToTheme(this.caseData.id);
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    AudioSystem.setMusicRole('archive', this.caseData.id);
+    addNoiseOverlay(this, 0.4);
 
     this.add.text(cx, 56, fmt(L().ui.evidence.header, { code: this.caseData.fileCode }), textStyle(14, COLOR_STR.alertText)).setOrigin(0.5);
     this.add.text(cx, 78, L().ui.evidence.instruction, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
     // microcopy: citare un reperto costruisce il rapporto, non è la classificazione
-    this.add.text(cx, 98, L().ui.evidence.citeNote, textStyle(11, COLOR_STR.accent, { wordWrap: { width: 900 }, align: 'center' })).setOrigin(0.5);
+    this.add.text(cx, 98, L().ui.evidence.citeNote, textStyle(11, COLOR_STR.accentText, { wordWrap: { width: 900 }, align: 'center' })).setOrigin(0.5);
     this.add.rectangle(cx, 116, 900, 1, COLORS.iron);
 
     // read-only "Rivedi contesto" — re-read the case without leaving the scene
@@ -91,8 +96,41 @@ export class EvidenceScene extends Phaser.Scene {
       this.cards.push(card);
     });
 
+    // Ripresa della bozza (U01): reperti già aperti e già citati tornano
+    // come erano. Le carte sono appena state create con una dissolvenza
+    // scaglionata: restore() la annulla su quelle ripristinate, altrimenti
+    // comparirebbero vuote e poi si riempirebbero.
+    const draft = StateManager.draftFor(this.caseData.id);
+    if (draft) {
+      this.cards.forEach((card, i) => {
+        card.setAlpha(1);
+        card.restore(draft.revealedClues.includes(i), draft.citedClues.includes(i));
+      });
+      this.revealToastShown = this.cards.every((c) => c.isRevealed);
+    }
+
+    /**
+     * QUANTO MANCA PER PROCEDERE, SCRITTO.
+     *
+     * Il pulsante per proseguire era semplicemente nascosto finché non si
+     * aveva diritto a vederlo: tutti i reperti aperti e almeno due citati.
+     * Chi giocava non aveva modo di sapere che cosa mancasse — il pulsante
+     * compariva dal nulla, e fino a quel momento la schermata sembrava senza
+     * uscita. Segnalato da chi ha giocato.
+     *
+     * I numeri sono DERIVATI: quanti reperti ha il fascicolo e quanti ne
+     * servono citati non sono scritti qui, si leggono dal caso e da
+     * MIN_CITED_CLUES.
+     */
+    this.progressText = this.add
+      .text(cx, GAME_HEIGHT - 132, '', textStyle(13, COLOR_STR.accentText, { align: 'center' }))
+      .setOrigin(0.5);
+
     this.proceedBtn = new Button(this, cx, GAME_HEIGHT - 90, L().ui.evidence.proceedButton, () => this.proceed(), { width: 380 });
     this.proceedBtn.setVisible(false);
+    this.citedBefore = new Set(this.cards.flatMap((c, i) => (c.isCited ? [i] : [])));
+    this.proceedEligible = this.cards.every((c) => c.isRevealed) && this.citedBefore.size >= MIN_CITED_CLUES;
+    this.refreshProgressLine();
 
     this.backBtn = new Button(this, 90, GAME_HEIGHT - 36, L().ui.case.backToMap, () => this.scene.start('CityMap'), { width: 140, height: 36, fontSize: 12, variant: 'ghost' });
     // ESC closes the context overlay first (if open), otherwise leaves to the map
@@ -129,12 +167,18 @@ export class EvidenceScene extends Phaser.Scene {
 
   private pairs: Array<[number, number]> = [];
 
+  /** Reperti già citati all'ultimo aggiornamento: serve a riconoscere l'ultimo. */
+  private citedBefore = new Set<number>();
+
   /** Verifica la contraddizione dichiarata sui reperti CITATI (mai sul punteggio). */
   private markContradiction(): void {
     const texts = caseText(this.caseData.id);
     const cited = new Set(this.cards.flatMap((card, i) => (card.isCited ? [i] : [])));
     const hit = this.pairs.find(([s, m]) => cited.has(s) && cited.has(m));
     if (hit) {
+      // una contraddizione documentale accertata: è esattamente l'opacità
+      // del sistema che il gioco racconta, e ora si sente
+      AudioSystem.glitchOpacity();
       const msg = fmt(L().ui.evidence.contradictionFound, { a: texts.clues[hit[0]].title, b: texts.clues[hit[1]].title });
       showToast(this, msg, 'info', 20);
       ReadingLayer.announce(msg);
@@ -167,8 +211,11 @@ export class EvidenceScene extends Phaser.Scene {
       {
         items: texts.clues.map((clue, i) => {
           const card = this.cards[i];
-          const state = card?.isCited ? L().ui.evidence.cited : card?.isRevealed ? clue.text : L().ui.evidence.sealed;
-          return `${clue.title} — ${state}`;
+          return evidenceReadingLine(
+            clue,
+            card ? { revealed: card.isRevealed, cited: card.isCited } : undefined,
+            { sealed: L().ui.evidence.sealed, cited: L().a11y.evidenceCited }
+          );
         })
       }
     ]);
@@ -185,9 +232,41 @@ export class EvidenceScene extends Phaser.Scene {
     this.contradictionBtn?.setVisible(!hideNav);
   }
 
+  /**
+   * Scritta separata da refreshState perché va mostrata anche APPENA SI
+   * ENTRA, quando nessuna carta è stata ancora toccata: mettendola solo
+   * nella reazione al tocco, la schermata si apriva muta proprio nel
+   * momento in cui il giocatore si chiede che cosa deve fare.
+   *
+   * refreshState invece salva la bozza, e chiamarlo all'ingresso
+   * scriverebbe un salvataggio per un fascicolo che nessuno ha ancora
+   * aperto.
+   */
+  private refreshProgressLine(): void {
+    const ui = L().ui.evidence;
+    this.progressText.setText(
+      this.proceedEligible
+        ? ui.progressReady
+        : fmt(ui.progress, {
+            opened: String(this.cards.filter((c) => c.isRevealed).length),
+            total: String(this.cards.length),
+            cited: String(this.cards.filter((c) => c.isCited).length),
+            min: String(MIN_CITED_CLUES)
+          })
+    );
+    this.progressText.setColor(this.proceedEligible ? COLOR_STR.ok : COLOR_STR.accentText);
+  }
+
   private refreshState(): void {
     const allRevealed = this.cards.every((c) => c.isRevealed);
     const citedCount = this.cards.filter((c) => c.isCited).length;
+    // La bozza si aggiorna a ogni tocco: è il punto unico in cui lo stato
+    // delle carte cambia, quindi è anche l'unico posto da cui salvarlo.
+    StateManager.saveDraft(this.caseData.id, {
+      step: 'evidence',
+      revealedClues: this.cards.flatMap((c, i) => (c.isRevealed ? [i] : [])),
+      citedClues: this.cards.flatMap((c, i) => (c.isCited ? [i] : []))
+    });
     if (allRevealed && !this.revealToastShown) {
       this.revealToastShown = true;
       // topOffset 20 (vs default 36): the file-code header sits at y=56 here,
@@ -195,7 +274,45 @@ export class EvidenceScene extends Phaser.Scene {
       showToast(this, L().ui.evidence.allRevealedToast, 'info', 20);
     }
     // senza almeno MIN_CITED_CLUES reperti citati non si procede
+    const couldProceedBefore = this.proceedEligible;
     this.proceedEligible = allRevealed && citedCount >= MIN_CITED_CLUES;
+
+    this.refreshProgressLine();
+
+    /**
+     * IL MOMENTO IN CUI SI PUÒ PROCEDERE HA UN SUONO SUO.
+     *
+     * La riga di avanzamento cambia colore e il pulsante compare, ma
+     * entrambi stanno in fondo allo schermo mentre lo sguardo è sulle
+     * schede: chi sta leggendo il terzo reperto non si accorge di avere
+     * già finito. Suona solo sul PASSAGGIO, non a ogni tocco successivo.
+     */
+    if (this.proceedEligible && !couldProceedBefore) AudioSystem.canProceed();
+
+    /**
+     * RISCONTRO IMMEDIATO SU UNA CITAZIONE.
+     *
+     * Citare un reperto non diceva niente sul perché contasse: si scopriva
+     * solo alla fine, nel rapporto. Ora appena si cita il gioco nomina la
+     * funzione di quel reperto rispetto al rischio — la stessa che la scheda
+     * mostra una volta aperta, non un'informazione nuova e non un giudizio
+     * sulla decisione, che resta tutta da prendere.
+     */
+    const justCited = this.cards.findIndex((c, i) => c.isCited && !this.citedBefore.has(i));
+    this.citedBefore = new Set(this.cards.flatMap((c, i) => (c.isCited ? [i] : [])));
+    if (justCited >= 0) {
+      // il gesto centrale del gioco: finora suonava come un pulsante qualunque
+      AudioSystem.citeEvidence();
+      const ui = L().ui.evidence;
+      const stance = this.caseData.clueStances?.[justCited];
+      const label = stance ? (ui.stances as Record<string, string>)[stance] : null;
+      if (label) {
+        const msg = fmt(ui.citedBecause, { title: caseText(this.caseData.id).clues[justCited].title, stance: label });
+        showToast(this, msg, 'info', 20);
+        ReadingLayer.announce(msg);
+      }
+    }
+
     this.syncReadingLayer();
   }
 }

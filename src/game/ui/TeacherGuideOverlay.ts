@@ -4,6 +4,7 @@ import { Button } from './Button';
 import { Panel } from './Panel';
 import { L } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from './theme';
+import { ReadingLayer } from '../systems/ReadingLayer';
 
 /**
  * Guida docente in gioco (v1.1): struttura prima/durante/dopo per usare il
@@ -29,9 +30,11 @@ export class TeacherGuideOverlay {
   }
 
   close(): void {
+    if (!this.container) return;
     this.scene.input.keyboard?.off('keydown-ESC', this.escHandler);
-    this.container?.destroy();
+    this.container.destroy();
     this.container = undefined;
+    ReadingLayer.closeOverlay();
   }
 
   private readonly escHandler = (): void => this.close();
@@ -57,7 +60,7 @@ export class TeacherGuideOverlay {
     const wrap = panelW - 80;
     let y = cy - panelH / 2 + 28;
 
-    container.add(scene.add.text(left, y, ui.title, textStyle(18, COLOR_STR.accent, { fontStyle: 'bold' })));
+    container.add(scene.add.text(left, y, ui.title, textStyle(18, COLOR_STR.accentText, { fontStyle: 'bold' })));
     y += 28;
     const intro = scene.add.text(left, y, ui.intro, textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: wrap }, lineSpacing: 4 }));
     container.add(intro);
@@ -91,6 +94,13 @@ export class TeacherGuideOverlay {
     });
 
     container.add(new Button(scene, cx, cy + panelH / 2 - 34, ui.close, () => this.close(), { width: 220, height: 38, fontSize: 13 }));
+    ReadingLayer.openOverlay(ui.title, [
+      { text: ui.intro },
+      { heading: ui.beforeTitle, text: ui.beforeText },
+      { heading: ui.duringTitle, text: ui.duringText },
+      { heading: ui.afterTitle, text: ui.afterText },
+      { heading: ui.resourcesLabel, items: TEACHER_RESOURCES.map((res) => ui.links[res.id as keyof typeof ui.links]) }
+    ]);
 
     scene.input.keyboard?.on('keydown-ESC', this.escHandler);
     this.container = container;

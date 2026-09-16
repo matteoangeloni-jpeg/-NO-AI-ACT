@@ -8,6 +8,8 @@ import { TypewriterText } from '../ui/TypewriterText';
 import { L, caseText, fmt, locationName } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 /** Apertura del fascicolo: scenario narrativo del caso. */
 export class CaseScene extends Phaser.Scene {
@@ -25,15 +27,16 @@ export class CaseScene extends Phaser.Scene {
     const cx = GAME_WIDTH / 2;
     const texts = caseText(this.caseData.id);
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(250, 0, 0, 0);
+    fadeInScene(this, 250);
     AnalyticsSystem.page('case');
     AnalyticsSystem.track('case_started', { caseId: this.caseData.id, locationId: this.caseData.locationId });
-    AudioSystem.crossfadeToTheme(this.caseData.id); // tema musicale del livello
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    AudioSystem.setMusicRole('archive', this.caseData.id);
+    AudioSystem.openCase();
+    addNoiseOverlay(this, 0.4);
 
     // dossier che "compare" dal basso
     const dossier = this.add.container(cx, GAME_HEIGHT / 2 + 30);
-    const paper = this.add.image(0, 0, 'dossier_paper');
+    const paper = this.add.image(0, 0, 'dossier_paper').setDisplaySize(900, 560);
     dossier.add(paper);
     dossier.setAlpha(0);
     this.tweens.add({ targets: dossier, alpha: 1, y: GAME_HEIGHT / 2, duration: 350, ease: 'Cubic.easeOut' });

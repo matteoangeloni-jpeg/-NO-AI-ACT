@@ -3,6 +3,7 @@ import { getCase } from '../data/cases';
 import { Button } from './Button';
 import { Panel } from './Panel';
 import { L, caseText, fmt, locationName } from '../i18n';
+import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from './theme';
 
 /**
@@ -41,8 +42,10 @@ export class CaseContextOverlay {
   }
 
   close(): void {
-    this.container?.destroy();
+    if (!this.container) return;
+    this.container.destroy();
     this.container = undefined;
+    ReadingLayer.closeOverlay();
   }
 
   open(): void {
@@ -73,7 +76,7 @@ export class CaseContextOverlay {
     const wrap = panelW - 80;
     let y = cy - panelH / 2 + 30;
 
-    container.add(scene.add.text(left, y, ui.title, textStyle(18, COLOR_STR.accent, { fontStyle: 'bold' })));
+    container.add(scene.add.text(left, y, ui.title, textStyle(18, COLOR_STR.accentText, { fontStyle: 'bold' })));
     y += 34;
     container.add(
       scene.add.text(left, y, texts.title.toUpperCase(), textStyle(15, COLOR_STR.paper, { fontStyle: 'bold', wordWrap: { width: wrap } }))
@@ -96,7 +99,7 @@ export class CaseContextOverlay {
 
     container.add(scene.add.text(left, y, ui.objectiveLabel, textStyle(12, COLOR_STR.paperDim)));
     y += 22;
-    container.add(scene.add.text(left, y, ui.objective, textStyle(13.5, COLOR_STR.accent, { wordWrap: { width: wrap }, lineSpacing: 4 })));
+    container.add(scene.add.text(left, y, ui.objective, textStyle(13.5, COLOR_STR.accentText, { wordWrap: { width: wrap }, lineSpacing: 4 })));
 
     container.add(
       scene.add
@@ -110,5 +113,13 @@ export class CaseContextOverlay {
     );
 
     this.container = container;
+
+    // stesso testo del pannello, reso leggibile
+    ReadingLayer.openOverlay(ui.title, [
+      { heading: texts.title, text: `${fmt(L().ui.case.fileLabel, { code: data.fileCode })} · ${locationName(data.locationId)}` },
+      { heading: ui.scenarioLabel, text: texts.scenario },
+      { heading: ui.objectiveLabel, text: ui.objective },
+      { text: ui.note }
+    ]);
   }
 }

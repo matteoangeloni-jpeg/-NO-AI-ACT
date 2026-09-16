@@ -1,5 +1,7 @@
 import { INITIAL_INDICATORS } from '../data/indicators';
 import type { SaveData } from '../data/types';
+import { sanitizeDrafts } from './caseDraft';
+import { DEFAULT_GAME_MODE } from '../data/gameModes';
 
 /**
  * Persistenza locale (schema v2, mission §10.8).
@@ -22,7 +24,14 @@ export function defaultSave(): SaveData {
     completedCases: {},
     unlockedNorms: [],
     audioMuted: false,
-    musicVolume: 1,
+    // Volumi di partenza deliberatamente bassi: la musica è un tappeto, non
+    // un annuncio, e chi apre il gioco in ufficio o in aula non deve
+    // spegnerlo di corsa. Gli effetti stanno più in alto perché sono corti
+    // e devono restare udibili sopra la musica.
+    musicVolume: 0.3,
+    sfxVolume: 0.7,
+    musicEnabled: true,
+    sfxEnabled: true,
     reducedMotion: false,
     crtOverlay: true,
     language: 'it',
@@ -33,6 +42,11 @@ export function defaultSave(): SaveData {
     startedAt: null,
     difficulty: 'standard',
     mission: 'full',
+    audience: 'casual',
+    sessionMinutes: 30,
+    gameMode: DEFAULT_GAME_MODE,
+    textSpeed: 'normal',
+    caseDrafts: {},
     caseMeta: {},
     selfCheck: { pre: null, post: null }
   };
@@ -51,20 +65,28 @@ export function migrateV1toV2(v1: Record<string, unknown>): SaveData {
     version: CURRENT_SAVE_VERSION,
     indicators: { ...INITIAL_INDICATORS, ...(v1.indicators as object | undefined) },
     caseMeta: { ...base.caseMeta, ...(v1.caseMeta as object | undefined) },
-    selfCheck: { ...base.selfCheck, ...(v1.selfCheck as object | undefined) }
+    selfCheck: { ...base.selfCheck, ...(v1.selfCheck as object | undefined) },
+    // un salvataggio 1.x non ha bozze: non se ne inventano
+    caseDrafts: {}
   } as SaveData;
 }
 
 /** Merge non distruttivo di un v2 (anche parziale) sui default. */
 function hydrateV2(parsed: Record<string, unknown>): SaveData {
   const base = defaultSave();
-  return {
+  const merged = {
     ...base,
     ...parsed,
     indicators: { ...INITIAL_INDICATORS, ...(parsed.indicators as object | undefined) },
     caseMeta: { ...base.caseMeta, ...(parsed.caseMeta as object | undefined) },
     selfCheck: { ...base.selfCheck, ...(parsed.selfCheck as object | undefined) }
   } as SaveData;
+  // Le bozze sono l'unico campo che NON viene preso così com'è: sono lavoro
+  // non consegnato, e una bozza scritta da un altro schema o riferita a un
+  // caso già chiuso va scartata invece che interpretata. Scartarla non
+  // tocca nient'altro del salvataggio.
+  merged.caseDrafts = sanitizeDrafts(merged.caseDrafts, Object.keys(merged.completedCases ?? {}));
+  return merged;
 }
 
 export const SaveSystem = {

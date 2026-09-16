@@ -1,3 +1,4 @@
+import type { CaseDraft } from '../systems/caseDraft';
 /** Tipi condivisi del dominio di gioco. */
 
 import type { ConceptId } from './concepts';
@@ -55,6 +56,28 @@ export type DifficultyMode = 'base' | 'standard' | 'expert';
 /** Percorsi didattici / missioni (v0.4; 'pack' = Advanced Case Pack v0.6). */
 export type MissionId = 'demo' | 'lab' | 'full' | 'advanced' | 'pack';
 
+/**
+ * Pubblico di una sessione (2.2). Affianca MissionId senza sostituirlo: le
+ * missioni storiche restano esattamente com'erano, questi percorsi
+ * compongono invece i casi a partire da chi gioca e da quanto tempo ha.
+ * 'casual' è chi non lavora nel settore e vuole capire l'AI Act per conto
+ * proprio: non è un profilo professionale annacquato, ha un ordine di casi
+ * suo, scelto per leggibilità narrativa invece che per rilevanza di ruolo.
+ */
+/**
+ * Velocità della scrittura a macchina. 'instant' non è la stessa cosa di
+ * "riduci animazioni": quella spegne ogni movimento del gioco, questa
+ * riguarda solo il ritmo con cui compare il testo.
+ */
+export type TextSpeed = 'slow' | 'normal' | 'instant';
+
+export type GameModeId = 'turno' | 'libera' | 'sorpresa' | 'ripasso';
+
+export type AudienceId = 'casual' | 'pa' | 'scuola' | 'hr';
+
+/** Durate proposte, in minuti. Un budget dichiarato, non un timer. */
+export type SessionMinutes = 15 | 30 | 60 | 90;
+
 /** Fonte/attendibilità di un reperto (etichetta investigativa, v0.4). */
 export type EvidenceSource =
   | 'amministrativa'
@@ -109,6 +132,13 @@ export interface CaseData {
   relevantClues: number[];
   normId: string;
   playable: boolean;
+  /**
+   * Minuti di gioco stimati per questo fascicolo, esclusa la presa di
+   * confidenza iniziale (che vale una volta sola, vedi SESSION_WARMUP_MINUTES).
+   * Serve a comporre una sessione di durata scelta: non è un timer, il gioco
+   * non misura né limita il tempo reale di nessuno.
+   */
+  estimatedMinutes: number;
   /** Soggetto a cui imputare gli obblighi principali. */
   responsibleSubjectCorrect: ResponsibleSubject;
   /** Soggetto difendibile ma incompleto (opzionale). */
@@ -234,9 +264,16 @@ export interface SaveData {
   indicators: IndicatorState;
   completedCases: Record<string, OutcomeQuality>;
   unlockedNorms: string[];
+  /** Silenzio totale: taglia il master, musica ed effetti insieme. */
   audioMuted: boolean;
-  /** Volume musica 0..1 (gli effetti seguono solo il mute globale). */
+  /** Volume musica 0..1. */
   musicVolume: number;
+  /** Volume effetti 0..1, indipendente dalla musica. */
+  sfxVolume: number;
+  /** Musica accesa. Spento non è volume zero: la traccia non parte proprio. */
+  musicEnabled: boolean;
+  /** Effetti accesi. */
+  sfxEnabled: boolean;
   reducedMotion: boolean;
   crtOverlay: boolean;
   language: LanguageCode;
@@ -252,6 +289,27 @@ export interface SaveData {
   difficulty: DifficultyMode;
   /** Missione/percorso selezionato (v0.4). Default sicuro: 'full'. */
   mission: MissionId;
+  /**
+   * Pubblico della sessione (2.2). Default sicuro: 'casual'. Non è un dato
+   * personale: è una preferenza di percorso, sta solo in locale e non
+   * identifica nessuno.
+   */
+  audience: AudienceId;
+  /** Minuti dichiarati per la sessione (2.2). Default sicuro: 30. */
+  sessionMinutes: SessionMinutes;
+  /**
+   * Modalità di gioco scelta con NUOVA PARTITA (campo additivo: un
+   * salvataggio che non ce l'ha riceve il default e resta versione 2).
+   */
+  gameMode: GameModeId;
+  /** Velocità della scrittura a macchina (campo additivo: resta versione 2). */
+  textSpeed: TextSpeed;
+  /**
+   * Bozze dei fascicoli aperti e non ancora firmati (2.2), per caso.
+   * Additivo: un salvataggio che non le ha riparte da {} senza perdere
+   * nulla. Una bozza non è mai un rapporto: firmare la cancella.
+   */
+  caseDrafts: Record<string, CaseDraft>;
   /** Annotazioni metacognitive per caso (2.0, schema v2). */
   caseMeta: Record<string, CaseMeta>;
   /** Autocontrolli locali facoltativi pre/post missione (2.0, schema v2). */

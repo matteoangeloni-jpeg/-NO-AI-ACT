@@ -4,6 +4,10 @@ import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
 import { L, caseText, fmt } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
+import { ReadingLayer, type ReadingSection } from '../systems/ReadingLayer';
+import { AudioSystem } from '../systems/AudioSystem';
 
 /**
  * Glossario operativo (v0.5): voci brevi consultabili una alla volta, con
@@ -28,8 +32,10 @@ export class GlossaryScene extends Phaser.Scene {
     const cx = GAME_WIDTH / 2;
     const g = L().glossary;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(200, 0, 0, 0);
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    fadeInScene(this, 200);
+    AudioSystem.setMusicRole('archive', 'city');
+    AudioSystem.openLegalArchive();
+    addNoiseOverlay(this, 0.4);
 
     this.add.text(cx, 46, g.title, textStyle(20, COLOR_STR.paper, { fontStyle: 'bold' })).setOrigin(0.5);
     this.add.text(cx, 74, g.subtitle, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
@@ -64,7 +70,7 @@ export class GlossaryScene extends Phaser.Scene {
     let y = 120;
 
     c.add(this.add.text(cx + 430, y, fmt(g.counter, { index: this.index + 1, total: entries.length }), textStyle(12, COLOR_STR.paperDim)).setOrigin(1, 0));
-    c.add(this.add.text(left, y, entry.term.toUpperCase(), textStyle(20, COLOR_STR.accent, { fontStyle: 'bold' })));
+    c.add(this.add.text(left, y, entry.term.toUpperCase(), textStyle(20, COLOR_STR.accentText, { fontStyle: 'bold' })));
     y += 40;
     const def = this.add.text(left, y, entry.definition, textStyle(14, COLOR_STR.paper, { wordWrap: { width: 880 }, lineSpacing: 5 }));
     y += def.height + 18;
@@ -88,5 +94,22 @@ export class GlossaryScene extends Phaser.Scene {
 
     c.add([def, why, caution]);
     this.content = c;
+
+    /**
+     * Il glossario è una voce alla volta, sfogliata con le frecce: lo strato
+     * di lettura pubblica la voce corrente, e si aggiorna a ogni passo. È
+     * `render` a farlo, non `create`, altrimenti resterebbe fermo sulla
+     * prima voce per tutto il tempo.
+     */
+    const sections: ReadingSection[] = [
+      { text: fmt(g.counter, { index: this.index + 1, total: entries.length }) },
+      { heading: entry.term, text: entry.definition },
+      { heading: g.whyLabel, text: entry.whyItMatters }
+    ];
+    if (entry.relatedCases.length > 0) {
+      sections.push({ heading: g.relatedLabel, items: entry.relatedCases.map((id) => caseText(id).title) });
+    }
+    sections.push({ heading: g.cautionLabel, text: entry.caution });
+    ReadingLayer.setScene(g.title, sections);
   }
 }

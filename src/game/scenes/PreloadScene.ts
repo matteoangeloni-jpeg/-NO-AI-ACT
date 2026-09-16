@@ -21,7 +21,7 @@ export class PreloadScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
 
     this.add.text(cx, cy - 60, L().ui.preload.systemName, textStyle(14, COLOR_STR.paperDim)).setOrigin(0.5);
-    const status = this.add.text(cx, cy + 34, '', textStyle(12, COLOR_STR.accent)).setOrigin(0.5);
+    const status = this.add.text(cx, cy + 34, '', textStyle(12, COLOR_STR.accentText)).setOrigin(0.5);
     this.add.rectangle(cx, cy, 420, 14).setStrokeStyle(1, COLORS.iron);
     const fill = this.add.rectangle(cx - 208, cy, 0, 8, COLORS.accent).setOrigin(0, 0.5);
 

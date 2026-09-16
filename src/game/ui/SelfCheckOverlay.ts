@@ -6,6 +6,7 @@ import { Button } from './Button';
 import { Panel } from './Panel';
 import { L, fmt } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from './theme';
+import { ReadingLayer, type ReadingSection } from '../systems/ReadingLayer';
 
 /**
  * Autocontrollo locale FACOLTATIVO (2.0 — mission §10.3).
@@ -36,13 +37,19 @@ export class SelfCheckOverlay {
     if (this.isOpen) return;
     this.index = 0;
     this.correct = 0;
+    this.published = false;
     this.renderQuestion();
   }
 
   close(): void {
+    if (!this.container) return;
     this.scene.input.keyboard?.off('keydown-ESC', this.escHandler);
-    this.container?.destroy();
+    this.container.destroy();
     this.container = undefined;
+    if (this.published) {
+      ReadingLayer.closeOverlay();
+      this.published = false;
+    }
     this.onClose?.();
   }
 
@@ -60,7 +67,7 @@ export class SelfCheckOverlay {
     const t = L().learningLayer.selfCheck;
     const left = cx - panelW / 2 + 40;
     container.add(
-      this.scene.add.text(left, cy - panelH / 2 + 26, this.phase === 'pre' ? t.titlePre : t.titlePost, textStyle(18, COLOR_STR.accent, { fontStyle: 'bold' }))
+      this.scene.add.text(left, cy - panelH / 2 + 26, this.phase === 'pre' ? t.titlePre : t.titlePost, textStyle(18, COLOR_STR.accentText, { fontStyle: 'bold' }))
     );
     container.add(
       this.scene.add.text(left, cy - panelH / 2 + 56, t.formative, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: panelW - 80 }, lineSpacing: 3 }))
@@ -101,6 +108,30 @@ export class SelfCheckOverlay {
     });
 
     c.add(new Button(this.scene, cx, cy + 226, t.skip, () => this.close(), { width: 180, height: 38, fontSize: 12, variant: 'ghost' }));
+
+    /**
+     * Le opzioni sono Button con etichetta vuota — il testo è disegnato
+     * accanto — quindi chi legge con uno screen reader non vedrebbe nulla di
+     * ciò che sta scegliendo. Qui domanda e risposte finiscono nello strato
+     * di lettura, numerate come sullo schermo, dove i tasti 1–3 le attivano.
+     *
+     * Ogni domanda RIPUBBLICA senza impilare: baseFrame ha già distrutto il
+     * pannello precedente, e contare un'apertura per domanda lascerebbe la
+     * pila sbilanciata alla chiusura.
+     */
+    const publish = (): void => {
+      const payload: [string, ReadingSection[]] = [
+        this.phase === 'pre' ? t.titlePre : t.titlePost,
+        [
+          { text: fmt(t.questionLabel, { i: this.index + 1, total: SELF_CHECK_QUESTIONS.length }) },
+          { heading: texts.q, items: texts.options.map((o, i) => `${i + 1}. ${o}`) },
+          { text: t.formative }
+        ]
+      ];
+      if (this.published) ReadingLayer.replaceOverlay(...payload);
+      else { ReadingLayer.openOverlay(...payload); this.published = true; }
+    };
+    publish();
   }
 
   private answer(isCorrect: boolean): void {
@@ -109,6 +140,9 @@ export class SelfCheckOverlay {
     if (this.index < SELF_CHECK_QUESTIONS.length) this.renderQuestion();
     else this.renderResult();
   }
+
+  /** true dalla prima pubblicazione: le successive sostituiscono. */
+  private published = false;
 
   private renderResult(): void {
     const t = L().learningLayer.selfCheck;
@@ -121,8 +155,14 @@ export class SelfCheckOverlay {
     // confronto pre/post quando entrambi esistono (solo locale)
     const pre = StateManager.selfCheck.pre;
     if (this.phase === 'post' && pre) {
-      c.add(this.scene.add.text(left, cy - 40, fmt(t.compareLine, { correct: pre.correct, total: pre.total }), textStyle(13, COLOR_STR.accent, { wordWrap: { width: wrap } })));
+      c.add(this.scene.add.text(left, cy - 40, fmt(t.compareLine, { correct: pre.correct, total: pre.total }), textStyle(13, COLOR_STR.accentText, { wordWrap: { width: wrap } })));
     }
     c.add(new Button(this.scene, cx, cy + 180, t.close, () => this.close(), { width: 200, height: 40, fontSize: 13 }));
+
+    const sections: ReadingSection[] = [{ text: fmt(t.resultLine, { correct: this.correct, total }) }];
+    if (this.phase === 'post' && pre) sections.push({ text: fmt(t.compareLine, { correct: pre.correct, total: pre.total }) });
+    const title = this.phase === 'pre' ? t.titlePre : t.titlePost;
+    if (this.published) ReadingLayer.replaceOverlay(title, sections);
+    else { ReadingLayer.openOverlay(title, sections); this.published = true; }
   }
 }

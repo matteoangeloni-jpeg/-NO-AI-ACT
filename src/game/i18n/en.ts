@@ -11,6 +11,11 @@ export const en: Locale = {
     gameSubtitle: 'Simulator of an unregulated society',
     titleTagline: 'Evaluate AI use cases. Each decision affects public trust, innovation and rights. Goal: find a sustainable balance.',
     titleHeader: 'AUTOMATED MUNICIPAL REPUBLIC — YEAR 2032',
+    textSpeed: {
+      label: 'TEXT SPEED: {value}',
+      modes: { slow: 'slow', normal: 'normal', instant: 'instant' }
+    },
+    typewriterHint: '▸ click, SPACE or ENTER to show the whole text at once',
     footerDisclaimer:
       'Simplified educational version of the AI Act (Reg. EU 2024/1689). This is not legal advice.',
     menu: {
@@ -26,6 +31,11 @@ export const en: Locale = {
       crtOn: 'CRT EFFECT: ON',
       crtOff: 'CRT EFFECT: OFF',
       music: 'MUSIC: {value}',
+      musicOn: 'MUSIC: ON',
+      musicOff: 'MUSIC: OFF',
+      sfx: 'SOUND FX: {value}',
+      sfxOn: 'SOUND FX: ON',
+      sfxOff: 'SOUND FX: OFF',
       language: 'LANGUAGE: ENGLISH',
       teacherOn: 'TEACHER MODE: ON',
       teacherOff: 'TEACHER MODE: OFF',
@@ -40,6 +50,9 @@ export const en: Locale = {
       settingsTitle: 'Settings',
       settingsPrivacy: 'Save data and preferences stay in your browser only: no account, nothing is sent anywhere.',
       teachersTitle: 'Teachers & classroom',
+      classPreset: 'READY FOR THE CLASSROOM \u25b8',
+      classPresetDone: 'Teacher mode on, text shown instantly.',
+      classPresetNote: 'Turns on the discussion pauses after each case and shows text without waiting. It adds no timer and compares no groups: the game does not measure your time and no data leaves the device.',
       teachersNote: 'Teacher mode: discussion pauses after each case and a local debrief at the end. Classroom use: 20–40 minutes, no accounts, no data collected.',
       resourcesTitle: 'Resources',
       resourcesNote: 'In-game archive and glossary, plus the site guides (new tab).',
@@ -59,6 +72,8 @@ export const en: Locale = {
       header: 'CIVIC MAP — AUTOMATED SYSTEMS NETWORK',
       progress: 'INSPECTOR AX · CASES CLOSED: {done}/{total}',
       statusOpen: '[ OPEN INCIDENT ]',
+      statusDraft: '[ RESUME · {taken}/{total} decisions ]',
+      statusDraftEvidence: '[ RESUME · exhibits opened ]',
       statusClosed: '[ CASE CLOSED ]',
       statusNonCompliant: '[ CLOSED — NON-COMPLIANT ]',
       statusSealed: '[ CASE FILE IMPOUNDED ]',
@@ -74,7 +89,7 @@ export const en: Locale = {
       backToMap: '◂ MAP'
     },
     context: {
-      button: 'Review context',
+      button: 'REVIEW CONTEXT',
       title: 'Case context',
       scenarioLabel: 'Case summary',
       objectiveLabel: 'Objective',
@@ -84,7 +99,7 @@ export const en: Locale = {
       closeToEvidence: 'Back to evidence'
     },
     caseNorm: {
-      button: 'Case rule',
+      button: 'CASE RULE',
       supportNote: 'A useful rule to orient your reasoning in this case. Consulting it does not change the report or the decision.',
       relevantLabel: 'Relevant rule',
       referenceLabel: 'Reference',
@@ -168,7 +183,7 @@ export const en: Locale = {
       close: 'Resume'
     },
     decisionDebrief: {
-      button: 'Decision debrief',
+      button: 'DECISION DEBRIEF',
       title: 'Decision debrief',
       intro: 'This panel helps you understand the reasoning without changing the score or the report.',
       yourChoiceLabel: 'Your choice',
@@ -205,6 +220,9 @@ export const en: Locale = {
       contradictionButton: 'Mark contradiction [C]',
       contradictionFound: 'Documentary contradiction: “{a}” refutes “{b}”.',
       contradictionNone: 'No documentary contradiction among the cited exhibits: cite the decisive exhibit and the account that minimizes it.',
+      progress: 'Exhibits examined: {opened} of {total} · cited: {cited} (at least {min} needed)',
+      progressReady: 'You have enough to work with: you can move to the classification.',
+      citedBecause: 'Cited "{title}" \u2014 {stance}.',
       proceedButton: 'PROCEED TO CLASSIFICATION ▸',
       backToEvidence: '◂ EXHIBITS',
       sourceLabel: 'SOURCE',
@@ -227,10 +245,31 @@ export const en: Locale = {
       }
     },
     decision: {
-      step1: 'DECISION 1 OF 4 — CLASSIFICATION',
-      step2: 'DECISION 2 OF 4 — CORRECTIVE MEASURE',
-      step3: 'DECISION 3 OF 4 — RESPONSIBLE SUBJECT',
-      step4: 'DECISION 4 OF 4 — REASONING',
+      stepBack: '◂ PREVIOUS STEP',
+      stepBackHint: 'BACKSPACE goes back one step and makes it editable again.',
+      step1: 'DECISION 1 OF 5 — CLASSIFICATION',
+      step2: 'DECISION 2 OF 5 — CORRECTIVE MEASURE',
+      step3: 'DECISION 3 OF 5 — RESPONSIBLE SUBJECT',
+      step4: 'DECISION 4 OF 5 — REASONING',
+      step5: 'DECISION 5 OF 5 — REVIEW AND SIGN',
+      question5: 'Review the report before signing it.',
+      cityState: 'STATE OF THE CITY',
+      cityStateNote: 'As it stands now. The game does not preview what each choice would do.',
+      sidebar: {
+        cited: 'CITED EXHIBITS',
+        soFar: 'DECISION SO FAR',
+        pending: 'still to choose'
+      },
+      summary: {
+        classification: 'Classification',
+        measure: 'Measure',
+        subject: 'Responsible subject',
+        motivation: 'Reasoning',
+        clues: 'Cited exhibits'
+      },
+      sign: 'SIGN THE REPORT ▸',
+      signHint: 'ENTER signs the report. BACKSPACE goes back to the reasoning.',
+      signNote: 'Signing does not mean you answered correctly: the assessment comes afterwards. Until you sign you can still change every choice.',
       question1: 'How does this system qualify under the AI Act?',
       question2: 'Which measure does the inspectorate order?',
       question3: 'To whom do you attribute the main obligations?',
@@ -244,7 +283,11 @@ export const en: Locale = {
       keys3: 'keyboard: keys 1–3 to select',
       normsButton: 'CONSULT NORMS',
       normsHint: 'read-only — click outside or ESC to close',
-      normsEmpty: 'No norm acquired yet.'
+      normsEmpty: 'No norm acquired yet.',
+      termsButton: 'WHAT DO THESE MEAN?',
+      termsTitle: 'THE TERMS IN THIS CHOICE',
+      termsHint: 'read-only — click outside or ESC to close. It does not hint at the answer.',
+      termsNoEntry: 'Not a category defined by the regulation: it is what falls outside the others.'
     },
     subjects: {
       provider: 'Provider (who develops the system)',
@@ -278,6 +321,7 @@ export const en: Locale = {
         trasparenza: 'the required transparency is missing: citizens cannot recognize the system or the content',
         motivazione: 'the decision is correct, but the reasoning is weak'
       },
+      lessonLabel: 'LESSON OF THE CASE',
       analysisLabel: 'DECISION ANALYSIS',
       analysis: {
         conforme: 'The decision holds: classification, measure, responsible subject, and reasoning are supported by the decisive evidence.',
@@ -356,7 +400,9 @@ export const en: Locale = {
       unlocked: 'NORM ACQUIRED TO THE ARCHIVE',
       subCorrect: 'This provision would have made the harm preventable or governable.',
       subWrong: 'The norm existed. In another Europe, someone would have applied it.',
-      backToMap: 'BACK TO THE MAP ▸',
+      backToMap: '◂ BACK TO THE MAP',
+      endOfShift: 'END OF SHIFT \u25b8',
+      nextCase: 'NEXT CASE FILE ▸',
       disclaimer: 'simplified educational version'
     },
     archive: {
@@ -412,6 +458,61 @@ export const en: Locale = {
       recommendedHeader: 'RECOMMENDED PATHS',
       recommendedLine: '{name} · {duration} · {goal}'
     },
+      sessionEnd: {
+        title: 'END OF SHIFT',
+        subtitle: '{mode} · {count} case files · about {minutes} min',
+        subtitleOne: '{mode} · one case file · about {minutes} min',
+        countCorrectOne: 'one closed well',
+        countCorrect: '{n} closed well',
+        countPartialOne: 'one halfway',
+        countPartial: '{n} halfway',
+        countWrongOne: 'one wrong',
+        countWrong: '{n} wrong',
+        recurring: 'The same slip {times} times. {error}',
+        noRecurring: 'No mistake repeated itself in this shift.',
+        normsTouched: 'Articles touched: {norms}',
+        incompleteOne: 'One case file from the plan was left open. It stays on the map.',
+        incomplete: '{count} case files from the plan were left open. They stay on the map.',
+        quality: { correct: 'closed well', partial: 'halfway', wrong: 'wrong' },
+        open: 'open',
+        toMap: 'BACK TO THE MAP',
+        learningReport: 'LEARNING REPORT \u25b8',
+        debrief: 'TEACHER DEBRIEF \u25b8',
+        note: 'Summary of the shift you just played. It stays on your device: nothing sent, no account.'
+      },
+      newGamePanel: {
+        title: 'NEW GAME',
+        subtitle: 'Choose how you want to play and how long you have. The plan is recomposed below, before you start.',
+        modeLabel: 'MODE: {value}',
+        audienceLabel: 'PROFILE: {value}',
+        durationLabel: 'LENGTH: {value} min',
+        planLine: '{count} case files · about {minutes} min · {difficulty} difficulty',
+        planLineOne: 'one case file · about {minutes} min · {difficulty} difficulty',
+        planLineFree: 'open map · {count} suggested case files · about {minutes} min',
+        planLineFreeOne: 'open map · one suggested case file · about {minutes} min',
+        overBudget: 'The first case file needs about {minutes} min: more than the time you picked.',
+        nothingToReview: 'Nothing to review: no case file closed badly, so far. Pick another mode to start.',
+        note: 'The time is an estimate used to compose the session. The game never measures or limits your real time.',
+        reroll: 'DRAW AGAIN \u27f2',
+        start: 'START \u25b8',
+        modes: {
+          turno: { name: 'Duty shift', desc: 'Your profile\'s case files, in sequence. The classic route: one desk, one queue of cases.' },
+          libera: { name: 'Free investigation', desc: 'The city is open: open the case files in any order. The length only says how many are worth closing.' },
+          sorpresa: { name: 'Surprise inspection', desc: 'Case files drawn at random from all of them, expert difficulty, no hints on the map.' },
+          ripasso: { name: 'Review your mistakes', desc: 'Only the case files you closed badly or halfway. Available once there is at least one.' }
+        }
+      },
+      audience: {
+        // Restano i soli nomi e descrizioni dei profili: il pannello che li
+        // mostrava ("per chi giochi") è confluito in NUOVA PARTITA, e le sue
+        // etichette vivono sotto newGamePanel.
+        modes: {
+          casual: { name: 'On my own', desc: "You don't work in the field and want to understand the AI Act. Cases picked for clarity, not for a role." },
+          pa: { name: 'Public administration', desc: 'Front desk, procurement and fraud detection: deciding with a system you did not write.' },
+          scuola: { name: 'Schools and training', desc: 'Emotion recognition in class, adaptive platforms and general-purpose models.' },
+          hr: { name: 'Human resources', desc: 'Hiring, rankings and general-purpose models used downstream.' }
+        }
+      },
     missions: {
       title: 'CHOOSE A PATH',
       subtitle: 'A path suggests recommended cases. You can still play them all.',
@@ -1593,7 +1694,7 @@ export const en: Locale = {
   ,
   learningLayer: {
     notebook: {
-      button: 'Notebook',
+      button: 'NOTEBOOK',
       title: 'INVESTIGATION NOTEBOOK',
       intro: 'What you have already established, gathered in one place: closed files, who turned out to be responsible, the patterns you confirmed and the questions you left open.',
       factsLabel: 'Closed files ({n})',
@@ -1616,7 +1717,7 @@ export const en: Locale = {
       close: 'Close'
     },
     chapters: {
-      button: 'Chapters',
+      button: 'CHAPTERS',
       title: 'Chapters of the journey',
       intro: 'Four thematic chapters group the 11 cases. They are a recommended order, not a lock: every dossier stays freely accessible from the map.',
       orderLabel: 'Chapter {order} of {total}',
@@ -1730,6 +1831,7 @@ export const en: Locale = {
     mapHint: 'Arrow keys cycle the open case files, ENTER opens the selected one.',
     selectedCase: 'Selected: {name}',
     evidenceHint: 'Keys 1–{n}: open an exhibit, then press again to cite it. ENTER proceeds when possible.',
+    evidenceCited: 'cited in the report',
     decisionTitle: 'Decision — {step}',
     reportTitle: 'Inspection report',
     briefingTitle: 'Initial briefing',

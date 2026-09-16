@@ -1,15 +1,23 @@
 import Phaser from 'phaser';
+import { RENDER_SCALE } from '../../ui/theme';
 
 /**
  * Genera la mappa civica come texture canvas: reticolo stradale ortogonale,
  * isolati, un fiume-canale e rumore leggero. Estetica: cartografia
  * amministrativa notturna, non cyberpunk.
+ *
+
+ * La texture è generata a RENDER_SCALE volte le dimensioni logiche e il
+ * contesto è scalato di conseguenza: il disegno qui sotto resta in unità
+ * logiche, ma i pixel sono il quadruplo. Chi la usa deve dichiarare la
+ * dimensione di visualizzazione, altrimenti compare grande il doppio.
  */
 export function createCityMap(scene: Phaser.Scene, key: string, width: number, height: number): void {
   if (scene.textures.exists(key)) return;
-  const canvas = scene.textures.createCanvas(key, width, height);
+  const canvas = scene.textures.createCanvas(key, width * RENDER_SCALE, height * RENDER_SCALE);
   if (!canvas) return;
   const ctx = canvas.getContext();
+  ctx.scale(RENDER_SCALE, RENDER_SCALE);
 
   // fondale blu notte con vignettatura
   const grad = ctx.createRadialGradient(width / 2, height / 2, 80, width / 2, height / 2, width * 0.7);
@@ -73,8 +81,14 @@ export function createCityMap(scene: Phaser.Scene, key: string, width: number, h
     ctx.strokeRect(bx, by, bw, bh);
   }
 
-  // rumore digitale leggero
-  const img = ctx.getImageData(0, 0, width, height);
+  // Rumore digitale leggero.
+  //
+  // getImageData e putImageData lavorano in PIXEL DEL CANVAS e ignorano la
+  // trasformazione impostata con ctx.scale: chiederli in unità logiche legge
+  // e riscrive solo il quarto in alto a sinistra della texture, e la mappa
+  // esce con un quadrante granuloso e tre lisci. Qui si usano quindi le
+  // dimensioni vere del canvas.
+  const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
   for (let p = 0; p < img.data.length; p += 4) {
     if (rnd() > 0.985) {
       const n = 10 + rnd() * 18;

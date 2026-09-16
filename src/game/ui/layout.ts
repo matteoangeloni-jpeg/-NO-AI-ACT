@@ -106,3 +106,42 @@ export function layoutVStack(opts: VStackOptions): number[] {
   }
   return ys;
 }
+
+export interface HStackOptions {
+  /** How many items sit in the row. */
+  count: number;
+  /** Left edge of the band the row must live in. */
+  left: number;
+  /** Right edge of the band. */
+  right: number;
+  /** Gap between items. */
+  gap?: number;
+}
+
+export interface HStackResult {
+  /** Width every item takes, identical for all of them. */
+  width: number;
+  /** Center-X of each item, in order. */
+  xs: number[];
+}
+
+/**
+ * Lay out a row of equally wide items inside `[left, right]`.
+ *
+ * The footer row of the city map used to carry four widths (190, 120, 160,
+ * 160) and four different gaps (45, 20, 10), because each button had been
+ * placed by hand as it was added. Nothing was clipped and nothing overlapped,
+ * so no guard could see it — it just looked like the screen had been
+ * assembled by four different people. One width and one gap, both derived
+ * from the band, is the whole fix.
+ */
+export function layoutHStack(opts: HStackOptions): HStackResult {
+  const { count, left, right } = opts;
+  const gap = opts.gap ?? 16;
+  if (count <= 0) return { width: 0, xs: [] };
+
+  const width = Math.floor((right - left - gap * (count - 1)) / count);
+  const xs: number[] = [];
+  for (let i = 0; i < count; i++) xs.push(left + i * (width + gap) + width / 2);
+  return { width, xs };
+}

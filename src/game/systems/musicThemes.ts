@@ -11,7 +11,14 @@
  *  - case_media     → glitch radio, banda che scivola, interferenze;
  *  - case_scuola    → ambiente clinico: sinusoidi pure in battimento;
  *  - case_ospedale  → battito lento (lub-dub) e segnali medicali astratti;
- *  - case_biometria → radar basso, ping in discesa, tensione.
+ *  - case_biometria → radar basso, ping in discesa, tensione;
+ *  - case_credito   → conteggio: una scaletta che sale e ricade;
+ *  - case_chatbot   → musica d'attesa e tick del numero di coda;
+ *  - case_procurement → carta e timbri: colpo secco a tempo d'ufficio;
+ *  - case_edtech    → arpeggio che si riadatta, con una nota fuori;
+ *  - case_gpai      → sei voci scordate che convergono e si riaprono;
+ *  - case_predpol   → sirena lontana e tick della griglia;
+ *  - case_frodi     → scansione che passa, ripassa e ogni tanto aggancia.
  */
 
 export interface ThemeHandle {
@@ -226,6 +233,207 @@ const biometria: ThemeBuilder = (ctx, out) =>
     parts.timers.push(setInterval(() => blip(ctx, gain, 'sine', 1400, 0.5, 0.06, 700), 2600));
   });
 
+
+const credito: ThemeBuilder = (ctx, out) =>
+  makeHandle(ctx, out, (gain, parts) => {
+    // Credito civico: il suono di un conteggio. Un pedale basso e una coppia
+    // di tick che salgono e ricadono, come una cifra che viene ricalcolata e
+    // non torna mai al punto di partenza.
+    const lp = filter(ctx, parts, 'lowpass', 160);
+    lp.connect(gain);
+    osc(ctx, parts, 'sawtooth', 43.7).connect(lp);
+    const pedal = gainNode(ctx, parts, 0.06);
+    pedal.connect(gain);
+    osc(ctx, parts, 'sine', 87.3).connect(pedal);
+
+    // scaletta di quattro gradini: sale tre volte, scende di più
+    const steps = [392, 440, 494, 330];
+    let i = 0;
+    parts.timers.push(
+      setInterval(() => {
+        blip(ctx, gain, 'triangle', steps[i % steps.length], 0.16, 0.045);
+        i += 1;
+      }, 1150)
+    );
+  });
+
+const chatbot: ThemeBuilder = (ctx, out) =>
+  makeHandle(ctx, out, (gain, parts) => {
+    // Sportello automatico: musica d'attesa che non arriva mai da nessuna
+    // parte. Due note educate in loop, e il tick del numero di coda.
+    const bed = filter(ctx, parts, 'lowpass', 500);
+    bed.connect(gain);
+    const bedGain = gainNode(ctx, parts, 0.05);
+    bed.connect(bedGain);
+    bedGain.connect(gain);
+    osc(ctx, parts, 'triangle', 131).connect(bed);
+
+    const phrase = [523, 392];
+    let i = 0;
+    parts.timers.push(
+      setInterval(() => {
+        blip(ctx, gain, 'sine', phrase[i % phrase.length], 0.45, 0.05);
+        i += 1;
+      }, 1800)
+    );
+    // cambio del numero servito: due colpi asciutti, sempre uguali
+    parts.timers.push(
+      setInterval(() => {
+        blip(ctx, gain, 'square', 880, 0.05, 0.04);
+        setTimeout(() => blip(ctx, gain, 'square', 660, 0.05, 0.04), 140);
+      }, 7300)
+    );
+  });
+
+const procurement: ThemeBuilder = (ctx, out) =>
+  makeHandle(ctx, out, (gain, parts) => {
+    // Ufficio appalti: carta e timbri. Un colpo secco a tempo d'ufficio,
+    // fatto di rumore filtrato, su un drone che non si muove mai.
+    const lp = filter(ctx, parts, 'lowpass', 140);
+    lp.connect(gain);
+    osc(ctx, parts, 'sawtooth', 58).connect(lp);
+    osc(ctx, parts, 'sawtooth', 58.3).connect(lp);
+
+    const src = ctx.createBufferSource();
+    src.buffer = noiseBuffer(ctx);
+    src.loop = true;
+    src.start();
+    parts.sources.push(src);
+    parts.nodes.push(src);
+    const stampBand = filter(ctx, parts, 'bandpass', 1200, 2);
+    const stampGate = gainNode(ctx, parts, 0);
+    src.connect(stampBand);
+    stampBand.connect(stampGate);
+    stampGate.connect(gain);
+
+    // il timbro: apre e chiude il gate in 60 ms
+    parts.timers.push(
+      setInterval(() => {
+        const t = ctx.currentTime;
+        stampGate.gain.cancelScheduledValues(t);
+        stampGate.gain.setValueAtTime(0.16, t);
+        stampGate.gain.exponentialRampToValueAtTime(0.0001, t + 0.06);
+      }, 2400)
+    );
+  });
+
+const edtech: ThemeBuilder = (ctx, out) =>
+  makeHandle(ctx, out, (gain, parts) => {
+    // Campus adattivo: un arpeggio che si riadatta di continuo, gentile e un
+    // grado troppo allegro, con una nota che ogni tanto cade fuori — la
+    // piattaforma che corregge il percorso di qualcuno.
+    const pad = gainNode(ctx, parts, 0.045);
+    pad.connect(gain);
+    osc(ctx, parts, 'sine', 196).connect(pad);
+    osc(ctx, parts, 'sine', 293.7).connect(pad);
+
+    const scale = [523, 587, 659, 784, 880];
+    let i = 0;
+    parts.timers.push(
+      setInterval(() => {
+        // una volta su cinque la piattaforma "riadatta": semitono sotto
+        const wrong = i % 5 === 4;
+        const f = scale[i % scale.length] * (wrong ? 0.944 : 1);
+        blip(ctx, gain, 'triangle', f, 0.22, wrong ? 0.05 : 0.035);
+        i += 1;
+      }, 620)
+    );
+  });
+
+const gpai: ThemeBuilder = (ctx, out) =>
+  makeHandle(ctx, out, (gain, parts) => {
+    // Modello generale: il suono di una media. Sei voci scordate che
+    // convergono lentamente verso la stessa nota e poi si riaprono, senza
+    // che nessuna sia quella giusta.
+    const bus = filter(ctx, parts, 'lowpass', 1400);
+    const busGain = gainNode(ctx, parts, 0.04);
+    bus.connect(busGain);
+    busGain.connect(gain);
+
+    const base = 174.6;
+    const spread = [-7.5, -4.1, -1.3, 1.9, 4.6, 8.2];
+    for (const cents of spread) {
+      const voice = osc(ctx, parts, 'sawtooth', base * Math.pow(2, cents / 1200));
+      voice.connect(bus);
+      // ogni voce respira a velocità diversa: la convergenza non è mai netta
+      const drift = osc(ctx, parts, 'sine', 0.02 + Math.abs(cents) / 900);
+      const driftDepth = gainNode(ctx, parts, Math.abs(cents) / 12);
+      drift.connect(driftDepth);
+      driftDepth.connect(voice.frequency);
+    }
+
+    // il campionamento: un fruscio corto, irregolare
+    parts.timers.push(setInterval(() => blip(ctx, gain, 'sawtooth', 3100, 0.04, 0.03, 1200), 4700));
+  });
+
+const predpol: ThemeBuilder = (ctx, out) =>
+  makeHandle(ctx, out, (gain, parts) => {
+    // Quartiere sorvegliato: una sirena lontanissima, filtrata quasi via, e
+    // il tick della griglia che ricalcola dove mandare la pattuglia.
+    const lp = filter(ctx, parts, 'lowpass', 190);
+    lp.connect(gain);
+    osc(ctx, parts, 'triangle', 61.7).connect(lp);
+
+    // due toni che si alternano piano: la sirena a distanza di isolati
+    const sirenBand = filter(ctx, parts, 'lowpass', 420, 4);
+    const sirenGain = gainNode(ctx, parts, 0.03);
+    sirenBand.connect(sirenGain);
+    sirenGain.connect(gain);
+    const siren = osc(ctx, parts, 'sine', 370);
+    siren.connect(sirenBand);
+    const sweep = osc(ctx, parts, 'square', 0.22);
+    const sweepDepth = gainNode(ctx, parts, 55);
+    sweep.connect(sweepDepth);
+    sweepDepth.connect(siren.frequency);
+
+    // ricalcolo della griglia: tre tick ravvicinati, poi silenzio
+    parts.timers.push(
+      setInterval(() => {
+        for (let k = 0; k < 3; k++) {
+          setTimeout(() => blip(ctx, gain, 'square', 1046, 0.035, 0.03), k * 130);
+        }
+      }, 5600)
+    );
+  });
+
+
+const frodi: ThemeBuilder = (ctx, out) =>
+  makeHandle(ctx, out, (gain, parts) => {
+    // Ufficio antifrode: qualcosa che cerca. Una scansione che passa e
+    // ripassa sulla stessa banda, e ogni tanto si ferma su un punto — il
+    // falso positivo che costa una settimana a qualcuno.
+    const lp = filter(ctx, parts, 'lowpass', 150);
+    lp.connect(gain);
+    osc(ctx, parts, 'sawtooth', 51.9).connect(lp);
+
+    const src = ctx.createBufferSource();
+    src.buffer = noiseBuffer(ctx);
+    src.loop = true;
+    src.start();
+    parts.sources.push(src);
+    parts.nodes.push(src);
+    const scan = filter(ctx, parts, 'bandpass', 900, 14);
+    const scanGain = gainNode(ctx, parts, 0.1);
+    src.connect(scan);
+    scan.connect(scanGain);
+    scanGain.connect(gain);
+    // la scansione va avanti e indietro, lenta e regolare
+    const sweep = osc(ctx, parts, 'triangle', 0.09);
+    const sweepDepth = gainNode(ctx, parts, 700);
+    sweep.connect(sweepDepth);
+    sweepDepth.connect(scan.frequency);
+
+    // l'aggancio: un tono che resta un istante di troppo
+    parts.timers.push(setInterval(() => blip(ctx, gain, 'sine', 740, 0.55, 0.05), 8100));
+  });
+
+/**
+ * Un timbro per fascicolo. Sei casi ne prendevano in prestito uno di un
+ * altro — l'ufficio appalti suonava identico al punteggio sui sussidi, la
+ * polizia predittiva identica alla biometria — e chi giocava due casi di
+ * fila sentiva la stessa stanza. Ora ciascuno ha il suo, e un test impedisce
+ * che un caso nuovo nasca in prestito.
+ */
 export const THEME_BUILDERS: Record<string, ThemeBuilder> = {
   city,
   case_scoring: scoring,
@@ -234,21 +442,66 @@ export const THEME_BUILDERS: Record<string, ThemeBuilder> = {
   case_scuola: scuola,
   case_ospedale: ospedale,
   case_biometria: biometria,
-  // credito civico: stesso drone burocratico freddo del social scoring (ufficio welfare)
-  case_credito: scoring,
-  // Advanced Case Pack (v0.6): riuso dei timbri esistenti, nessun file nuovo
-  case_chatbot: media, // sportello automatico: comunicazione/interferenza
-  case_procurement: scoring, // ufficio appalti: drone burocratico
-  case_edtech: scuola, // campus adattivo: ambiente educativo
-  case_gpai: media, // modello generativo: sintetico/glitch
-  // 2.0 case pack: riuso dei timbri esistenti, nessun asset nuovo
-  case_predpol: biometria, // sorveglianza di quartiere: stesso registro teso
-  case_frodi: scoring // ufficio sussidi: drone burocratico freddo
+  case_credito: credito,
+  case_chatbot: chatbot,
+  case_procurement: procurement,
+  case_edtech: edtech,
+  case_gpai: gpai,
+  case_predpol: predpol,
+  case_frodi: frodi
 };
 
 export const THEME_IDS = Object.keys(THEME_BUILDERS);
 
+/**
+ * LIVELLAMENTO.
+ *
+ * Ogni tema è nato per conto suo, con i guadagni scelti a orecchio mentre lo
+ * si scriveva, e i livelli erano finiti a trenta volte di distanza: il letto
+ * sonoro dell'ospedale stava a 0,013 di RMS e quello della biometria a 0,359.
+ * Passare da un fascicolo all'altro voleva dire una botta di volume, e la
+ * mappa civica arrivava a 0,967 di picco — il tre per cento dal distorcere,
+ * con la musica al massimo.
+ *
+ * Questi fattori NON sono stimati: vengono dalle misure dello smoke audio,
+ * che rende ogni tema con la catena di guadagni vera del gioco. Servono a
+ * portare tutti i letti dentro la stessa fascia senza toccare l'equilibrio
+ * interno di nessun tema — un tema resta com'era, solo più vicino agli altri.
+ *
+ * Gli eventi a tempo (tick, ping, timbri) usano setInterval e quindi NON
+ * compaiono in un rendering offline: il fattore vale sul letto continuo, che
+ * è ciò che si sente per la maggior parte del tempo.
+ */
+const THEME_TRIM: Record<string, number> = {
+  city: 0.55,
+  case_scoring: 0.55,
+  case_lavoro: 1.5,
+  case_media: 3.5,
+  case_scuola: 1.8,
+  case_ospedale: 4,
+  case_biometria: 0.5,
+  case_credito: 0.75,
+  case_chatbot: 0.6,
+  case_procurement: 0.55,
+  case_edtech: 2.7,
+  case_gpai: 3,
+  case_predpol: 0.6,
+  case_frodi: 0.75
+};
+
 export function buildTheme(ctx: AudioContext, out: AudioNode, themeId: string): ThemeHandle {
   const builder = THEME_BUILDERS[themeId] ?? THEME_BUILDERS.city;
-  return builder(ctx, out);
+  // Il trim sta FRA il tema e l'uscita: l'AudioSystem continua a fare i
+  // suoi fade su handle.gain senza sapere che esiste.
+  const trim = ctx.createGain();
+  trim.gain.value = THEME_TRIM[themeId] ?? 1;
+  trim.connect(out);
+  const handle = builder(ctx, trim);
+  return {
+    gain: handle.gain,
+    dispose() {
+      handle.dispose();
+      setTimeout(() => trim.disconnect(), 250);
+    }
+  };
 }

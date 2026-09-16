@@ -1,15 +1,15 @@
 /**
  * Browser-smoke orchestrator (`npm run smoke:all`).
  *
- * Runs the three committed Playwright smokes (gameplay, keyboard, layout)
- * against an already-built `dist/`, managing the preview server so the gate is
+ * Runs the committed Playwright smokes (the list below) against an
+ * already-built `dist/`, managing the preview server so the gate is
  * reproducible from a clean clone on both local machines and Linux CI:
  *
  *   1. requires `dist/index.html` (fails fast with instructions otherwise);
  *   2. starts `vite preview` on a fixed port (4200, strict);
  *   3. waits until http://127.0.0.1:4200 actually responds;
- *   4. runs the three smokes sequentially, each with BASE set;
- *   5. exits with the FIRST non-zero smoke exit status (all three always run,
+ *   4. runs the smokes sequentially, each with BASE set;
+ *   5. exits with the FIRST non-zero smoke exit status (all of them always run,
  *      so one failure does not hide another);
  *   6. always tears the preview server down — success, failure, or Ctrl-C —
  *      by killing its whole process group (no orphaned servers).
@@ -26,7 +26,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PORT = 4200;
 const PROBE = `http://127.0.0.1:${PORT}/`;
 const BASE = `http://localhost:${PORT}`; // smokes' host allowlists expect "localhost"
-const SMOKES = ['gameplay-smoke.mjs', 'keyboard-smoke.mjs', 'layout-smoke.mjs'];
+const SMOKES = ['gameplay-smoke.mjs', 'keyboard-smoke.mjs', 'draft-smoke.mjs', 'privacy-smoke.mjs', 'layout-smoke.mjs', 'audio-smoke.mjs', 'action-layer-smoke.mjs'];
 
 if (!existsSync(resolve(root, 'dist/index.html'))) {
   console.error('smoke:all: dist/index.html not found — run `npm run build` first.');

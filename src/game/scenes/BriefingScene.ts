@@ -8,6 +8,9 @@ import { TypewriterText } from '../ui/TypewriterText';
 import { L } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene, fadeOutScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
+import { AudioSystem } from '../systems/AudioSystem';
 
 export class BriefingScene extends Phaser.Scene {
   constructor() {
@@ -17,8 +20,9 @@ export class BriefingScene extends Phaser.Scene {
   create(): void {
     const cx = GAME_WIDTH / 2;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(300, 0, 0, 0);
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    fadeInScene(this, 300);
+    AudioSystem.setMusicRole('menu');
+    addNoiseOverlay(this, 0.4);
 
     new Panel(this, cx, GAME_HEIGHT / 2, 860, 560);
     this.add.text(cx - 400, 90, L().briefing.header, textStyle(13, COLOR_STR.alertText));
@@ -34,8 +38,7 @@ export class BriefingScene extends Phaser.Scene {
     // La mappa resta a un tocco di distanza, come seconda opzione dichiarata.
     const enter = (go: () => void) => () => {
       StateManager.setBriefingSeen();
-      this.cameras.main.fadeOut(300, 0, 0, 0);
-      this.cameras.main.once('camerafadeoutcomplete', go);
+      fadeOutScene(this, 300, go);
     };
     const btn = new Button(this, cx, btnY, L().briefing.ctaFirstCase,
       enter(() => this.scene.start('Case', { caseId: firstCaseId() })), { width: 340 });
@@ -48,7 +51,7 @@ export class BriefingScene extends Phaser.Scene {
     // IT/EN non si sovrappongono mai al bottone (prima erano a y fisse in
     // collisione).
     const how = this.add
-      .text(cx - 400, 0, L().briefing.how, textStyle(12.5, COLOR_STR.accent, { wordWrap: { width: 800 }, lineSpacing: 4, fontStyle: 'italic' }))
+      .text(cx - 400, 0, L().briefing.how, textStyle(12.5, COLOR_STR.accentText, { wordWrap: { width: 800 }, lineSpacing: 4, fontStyle: 'italic' }))
       .setAlpha(0);
     how.setY(btnY - btn.height / 2 - 16 - how.height);
 

@@ -36,6 +36,27 @@ html, body {
   overflow: hidden;
 }
 
+/*
+  FASCE RISERVATE AL CONTORNO DELLA PAGINA.
+
+  Il link di ritorno al sito e il pulsante del testo schermata sono elementi
+  del documento, fissi agli angoli e disegnati SOPRA il canvas. Il canvas,
+  invece, è centrato e scalato: dove cade il suo angolo dipende dalla
+  finestra. Quando le proporzioni coincidono i due si toccano, e i pulsanti
+  che alcune scene mettono negli angoli finiscono sotto il link — succedeva
+  nella scena della decisione, dove "Rivedi contesto" e "↩ no-ai-act.eu" si
+  sovrapponevano davvero.
+
+  Nessuna coordinata di gioco può risolverlo, perché il rapporto fra pixel
+  logici e pixel della pagina cambia con la finestra. Si risolve qui:
+  queste due fasce tolgono spazio al canvas, che rimpicciolisce di
+  altrettanto, e gli angoli restano liberi a ogni dimensione.
+*/
+:root {
+  --play-chrome-top: 32px;
+  --play-chrome-bottom: 38px;
+}
+
 #app {
   position: relative;
   width: 100vw;
@@ -43,6 +64,9 @@ html, body {
   /* dvh segue la viewport reale quando la UI del browser mobile compare/sparisce,
      evitando che il canvas FIT venga tagliato in basso. Fallback: 100vh sopra. */
   height: 100dvh;
+  box-sizing: border-box;
+  padding-top: var(--play-chrome-top);
+  padding-bottom: var(--play-chrome-bottom);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -143,6 +167,42 @@ body:not(.reduced-motion) #crt-overlay { animation: crt-flicker 7s infinite; }
   font-size: 16px;
   line-height: 1.5;
   margin: 0;
+}
+
+/* ---- Action layer: real controls over the canvas buttons ----------------- */
+/*
+  Ogni pulsante disegnato ha qui il suo <button> vero, trasparente e messo
+  esattamente sopra. Non si vede e non intercetta il puntatore: il mouse
+  continua a parlare col canvas, che ha già hover, suoni e aree sensibili, e
+  un elemento sopra li farebbe gestire due volte. Tastiera e strumenti
+  assistivi non passano dal puntatore, quindi funzionano lo stesso.
+
+  L'unica cosa che si vede è l'anello di fuoco: senza, chi naviga col TAB non
+  saprebbe dove si trova.
+*/
+#action-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+#action-layer .action-btn {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: transparent;
+  font: inherit;
+  pointer-events: none;
+  cursor: default;
+  /* il testo resta leggibile dagli strumenti assistivi, non dallo schermo */
+  overflow: hidden;
+}
+#action-layer .action-btn:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius);
 }
 
 /* ---- Reading layer (2.0, §11.1): semantic text mirror of the canvas ---- */

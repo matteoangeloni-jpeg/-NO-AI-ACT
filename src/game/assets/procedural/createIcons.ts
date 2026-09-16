@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { RENDER_SCALE } from '../../ui/theme';
 
 type Drawer = (ctx: CanvasRenderingContext2D, s: number) => void;
 
@@ -122,9 +123,10 @@ export function createIcons(scene: Phaser.Scene): void {
 
   for (const [key, draw] of Object.entries(icons)) {
     if (scene.textures.exists(key)) continue;
-    const canvas = scene.textures.createCanvas(key, size, size);
+    const canvas = scene.textures.createCanvas(key, size * RENDER_SCALE, size * RENDER_SCALE);
     if (!canvas) continue;
     const ctx = canvas.getContext();
+    ctx.scale(RENDER_SCALE, RENDER_SCALE);
     ctx.strokeStyle = STROKE;
     ctx.lineWidth = 2.5;
     ctx.lineCap = 'round';

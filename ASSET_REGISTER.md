@@ -10,8 +10,11 @@ Game-icons.net, Google Fonts, ecc.) **non è stata completata con verifica diret
 delle pagine di licenza**: questo progetto è stato generato in un ambiente senza
 possibilità di verificare asset per asset autore, pagina e termini. Regola del
 progetto: *nessuna licenza inventata, nessun asset non verificato*. Di
-conseguenza tutti gli asset grafici, audio e tipografici sono stati **generati
-proceduralmente** (stato `procedural fallback`). Le librerie npm sono invece
+conseguenza tutti gli asset grafici e tipografici sono **generati
+proceduralmente** (stato `procedural fallback`). L'audio è procedurale per
+costruzione, con in più i campioni registrati elencati sotto, prodotti
+dall'autore e quindi verificabili alla fonte — che è esattamente la
+condizione che la regola chiedeva. Le librerie npm sono invece
 verificabili dal campo `license` dei rispettivi pacchetti installati.
 
 ## Registro
@@ -28,6 +31,7 @@ verificabili dal campo `license` dei rispettivi pacchetti installati.
 | Carta dossier | texture canvas | generata: `createDossierTextures.ts` | repo | GPL-3.0-or-later (codice generatore) | sfondo fascicoli | n/a | procedural fallback |
 | Suoni UI (click, alert, errore, conferma, unlock, terminale) | sintesi Web Audio | generati: `AudioSystem.ts` | repo | GPL-3.0-or-later (codice generatore) | feedback UI | n/a | procedural fallback |
 | Drone ambientale | sintesi Web Audio | generato: `AudioSystem.ts` | repo | GPL-3.0-or-later (codice generatore) | atmosfera | n/a | procedural fallback |
+| 6 musiche in loop + 10 effetti | campioni audio | generati dall'autore con ElevenLabs (piano a pagamento) | `src/game/assets/audio/` | CC BY-SA 4.0 (media del progetto) | musica di fase e riscontro ai gesti | sì, per chi li riusa (vedi LICENSE Sez. 2) | approved |
 | Scanline/CRT/glitch | CSS + tween Phaser | `global.css`, scene | repo | MIT (codice) | effetti visivi | n/a | procedural fallback |
 | Testi narrativi, casi, carte norma | contenuto editoriale | `src/game/data/` | repo | CC BY 4.0 | gameplay e didattica | sì, per chi li riusa (vedi LICENSE Sez. 2) | approved |
 | Font | font stack di sistema (IBM Plex Mono *se presente localmente*, altrimenti Consolas/DejaVu/monospace) | sistema operativo utente | n/a | nessun file font distribuito | tipografia | no | approved |
@@ -63,7 +67,9 @@ verificabili dal campo `license` dei rispettivi pacchetti installati.
 
 1. Grafica: Canvas 2D a runtime (mappa con PRNG deterministico, icone a tratti
    geometrici, texture di rumore).
-2. Audio: oscillatori e inviluppi Web Audio (nessun campione).
+2. Audio: oscillatori e inviluppi Web Audio. NON è più solo un ripiego: è
+   ciò che suona quando un campione manca o non si decodifica, anche in
+   produzione. Il gioco non tace mai per un file assente.
 3. Tipografia: font stack di sistema, zero file distribuiti.
 4. Quando un asset esterno verrà adottato (v0.2+), andrà aggiunto a questo
    registro **prima** del commit, con link alla pagina di licenza e stato

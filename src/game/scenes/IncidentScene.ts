@@ -3,11 +3,14 @@ import { getCase } from '../data/cases';
 import type { CaseData, IncidentChoice } from '../data/types';
 import { AudioSystem } from '../systems/AudioSystem';
 import { StateManager } from '../systems/StateManager';
+import { ReadingLayer } from '../systems/ReadingLayer';
 import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
 import { TypewriterText } from '../ui/TypewriterText';
 import { L, caseText } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene, fadeOutScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 const CHOICES: IncidentChoice[] = ['document', 'suspend', 'minimize'];
 const NUMBER_KEYS = ['ONE', 'TWO', 'THREE'];
@@ -40,9 +43,13 @@ export class IncidentScene extends Phaser.Scene {
       return;
     }
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(200, 0, 0, 0);
+    fadeInScene(this, 200);
+    // L'incidente è il momento di tensione del caso: la musica cambia
+    // registro qui e torna al suo posto quando la scena successiva
+    // dichiara il proprio ruolo.
+    AudioSystem.setMusicRole('tension', this.caseData.id);
     AudioSystem.alert();
-    this.add.tileSprite(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.5);
+    addNoiseOverlay(this, 0.5);
 
     // height 480 (was 380): with all 3 response options, the last button
     // (y=536, height 48) needs the panel to reach y=585, not 510.
@@ -62,10 +69,8 @@ export class IncidentScene extends Phaser.Scene {
       const delta = this.caseData.incidentDeltas?.[choice];
       if (delta) StateManager.applyIndicatorDelta(delta);
       AudioSystem.confirm();
-      this.cameras.main.fadeOut(200, 0, 0, 0);
-      this.cameras.main.once('camerafadeoutcomplete', () =>
-        this.scene.start('Decision', { caseId: this.caseData.id, citedClues: this.citedClues, incidentChoice: choice })
-      );
+      fadeOutScene(this, 200, () =>
+        this.scene.start('Decision', { caseId: this.caseData.id, citedClues: this.citedClues, incidentChoice: choice }));
     };
 
     labels.forEach((label, i) => {
@@ -73,5 +78,13 @@ export class IncidentScene extends Phaser.Scene {
     });
     NUMBER_KEYS.forEach((key, i) => this.input.keyboard?.on(`keydown-${key}`, () => pick(i)));
     this.add.text(cx, GAME_HEIGHT - 66, L().ui.incident.hint, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
+
+    // Il testo arriva a macchina: lo strato di lettura lo pubblica per
+    // intero subito, perché un'animazione non è un modo di leggere.
+    ReadingLayer.setScene(L().ui.incident.header, [
+      { heading: incident.title, text: incident.text },
+      { items: labels.map((label, i) => `${i + 1}. ${label}`) },
+      { text: L().ui.incident.hint }
+    ]);
   }
 }

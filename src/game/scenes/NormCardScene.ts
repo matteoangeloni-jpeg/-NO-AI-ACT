@@ -4,10 +4,14 @@ import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { NormSystem } from '../systems/NormSystem';
 import { StateManager } from '../systems/StateManager';
+import { ReadingLayer } from '../systems/ReadingLayer';
+import { sessionIsOver } from '../systems/SessionSummary';
 import { Button } from '../ui/Button';
 import { NormCardView } from '../ui/NormCard';
 import { L } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { fadeInScene, fadeOutScene } from '../ui/motion';
+import { addNoiseOverlay } from '../ui/backdrop';
 
 /** Sblocco della carta norma con animazione di flip. */
 export class NormCardScene extends Phaser.Scene {
@@ -28,8 +32,8 @@ export class NormCardScene extends Phaser.Scene {
     const cy = GAME_HEIGHT / 2;
     const ui = L().ui.normCard;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
-    this.cameras.main.fadeIn(250, 0, 0, 0);
-    this.add.tileSprite(cx, cy, GAME_WIDTH, GAME_HEIGHT, 'noise').setAlpha(0.4);
+    fadeInScene(this, 250);
+    addNoiseOverlay(this, 0.4);
 
     const norm = NormSystem.view(this.normId);
     AnalyticsSystem.track('norm_unlocked', {
@@ -60,12 +64,53 @@ export class NormCardScene extends Phaser.Scene {
       emitter.explode(36);
     }
 
+    ReadingLayer.setScene(ui.unlocked, [
+      { text: this.quality === 'wrong' ? ui.subWrong : ui.subCorrect },
+      { heading: norm.title, text: norm.reference },
+      { text: norm.explanation },
+      { heading: ui.democraticFunctionLabel, text: norm.democraticFunction },
+      { text: norm.notMeaning }
+    ]);
+
     const backToMap = (): void => {
-      this.cameras.main.fadeOut(250, 0, 0, 0);
-      this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('CityMap'));
+      fadeOutScene(this, 250, () => this.scene.start('CityMap'));
     };
-    new Button(this, cx, GAME_HEIGHT - 50, ui.backToMap, backToMap);
-    // tastiera (v1.1): INVIO chiude la carta norma e torna alla mappa
-    this.input.keyboard?.once('keydown-ENTER', backToMap);
+
+    /**
+     * Uscita della carta norma. Nelle modalità in sequenza il fascicolo
+     * successivo è a un tasto di distanza — è questo che le distingue
+     * dall'indagine libera — ma la mappa resta sempre raggiungibile
+     * accanto: una sequenza da cui non si può uscire è una gabbia, non una
+     * modalità.
+     */
+    /**
+     * Fine del turno: se il piano era una sequenza e non resta nulla da
+     * aprire, si passa dal cruscotto invece di tornare sulla mappa come
+     * dopo un caso qualunque. L'indagine libera non finisce mai — la città
+     * resta aperta — e infatti sessionIsOver la esclude.
+     */
+    const nextCaseId = StateManager.nextInPlan();
+    if (!nextCaseId && sessionIsOver(StateManager.gamePlan, StateManager.completedCases)) {
+      const toSummary = (): void => {
+        fadeOutScene(this, 250, () => this.scene.start('SessionEnd'));
+      };
+      new Button(this, cx + 130, GAME_HEIGHT - 50, ui.endOfShift, toSummary, { width: 300 });
+      new Button(this, cx - 190, GAME_HEIGHT - 50, ui.backToMap, backToMap, { width: 260, variant: 'ghost' });
+      this.input.keyboard?.once('keydown-ENTER', toSummary);
+      return;
+    }
+
+    if (nextCaseId) {
+      const goNext = (): void => {
+        fadeOutScene(this, 250, () => this.scene.start('Case', { caseId: nextCaseId }));
+      };
+      new Button(this, cx + 130, GAME_HEIGHT - 50, ui.nextCase, goNext, { width: 300 });
+      new Button(this, cx - 190, GAME_HEIGHT - 50, ui.backToMap, backToMap, { width: 260, variant: 'ghost' });
+      this.input.keyboard?.once('keydown-ENTER', goNext);
+    } else {
+      new Button(this, cx, GAME_HEIGHT - 50, ui.backToMap, backToMap);
+      // tastiera (v1.1): INVIO chiude la carta norma e torna alla mappa
+      this.input.keyboard?.once('keydown-ENTER', backToMap);
+    }
   }
 }
