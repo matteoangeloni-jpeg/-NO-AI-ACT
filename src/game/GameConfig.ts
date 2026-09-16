@@ -19,6 +19,7 @@ import { LearningReportScene } from './scenes/LearningReportScene';
 import { SessionEndScene } from './scenes/SessionEndScene';
 import { CreditsScene } from './scenes/CreditsScene';
 import { GAME_HEIGHT, GAME_WIDTH, RENDER_SCALE } from './ui/theme';
+import { ActionLayer } from './ui/ActionLayer';
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -51,6 +52,15 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
           scene.cameras.main.centerOn(GAME_WIDTH / 2, GAME_HEIGHT / 2);
         });
       }
+      /**
+       * Lo strato delle azioni si riallinea a ogni passo del gioco. Non
+       * basterebbe aggiornarlo sugli eventi: i contenitori si spostano — un
+       * pannello che scende al centro, una colonna che cambia altezza —
+       * senza che il pulsante dentro lo sappia. Il costo è una manciata di
+       * confronti, e nel DOM si scrive solo quando qualcosa è cambiato
+       * davvero.
+       */
+      game.events.on(Phaser.Core.Events.POST_STEP, () => ActionLayer.sync());
     }
   },
   render: {

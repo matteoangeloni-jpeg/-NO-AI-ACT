@@ -52,6 +52,23 @@ describe('browser smokes are reproducible from a clean clone', () => {
   it('smoke:all punta all\'orchestratore committato', () => {
     expect(pkg.scripts['smoke:all']).toContain('scripts/smoke/run-all.mjs');
   });
+
+  /**
+   * La documentazione del gate elencava "i tre smoke del browser" quando
+   * erano già sei: chi arriva da fuori legge quel numero e crede di aver
+   * eseguito tutto. L'elenco atteso si ricava dall'orchestratore, così
+   * aggiungerne uno senza dirlo in GUARDRAILS.md diventa rosso.
+   */
+  it('GUARDRAILS.md nomina ogni smoke che il gate esegue davvero', () => {
+    const doc = read('docs/GUARDRAILS.md');
+    for (const smoke of declaredSmokes) {
+      const name = smoke.replace('-smoke.mjs', '');
+      expect(doc, `GUARDRAILS.md non nomina lo smoke ${name}`).toContain(`smoke:${name}`);
+    }
+    expect(doc, 'il conteggio degli smoke non va scritto a parole: invecchia da solo').not.toMatch(
+      /\b(three|tre|four|quattro|five|cinque|six|sei)\s+browser\s+smokes?/i
+    );
+  });
 });
 
 describe('the Pages workflow actually enforces the browser smokes', () => {
