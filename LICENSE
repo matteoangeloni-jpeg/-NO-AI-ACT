@@ -13,7 +13,13 @@ SEZIONE 1 — CODICE: GNU General Public License v3.0 o successiva
 Si applica a: codice sorgente TypeScript/JavaScript/CSS/HTML, sistemi di gioco,
 generatori di asset procedurali (src/game/assets/procedural/), sintesi audio,
 componenti UI, configurazione tecnica, script e test.
-(In breve: tutto tranne quanto indicato nella Sezione 2.)
+(In breve: tutto il software, tranne quanto indicato nella Sezione 2.)
+
+Nota: la SINTESI audio — cioè il codice che genera suoni e temi a runtime —
+sta qui. I CAMPIONI audio registrati (file in src/game/assets/audio/) non
+sono software e stanno nella Sezione 2: un file audio non ha un "codice
+sorgente" nel senso della GPL, e applicargliela creerebbe un obbligo privo
+di oggetto.
 
 Questo programma è software libero: puoi ridistribuirlo e/o modificarlo secondo
 i termini della GNU General Public License, pubblicata dalla Free Software
@@ -37,7 +43,9 @@ SEZIONE 2 — CONTENUTI NARRATIVI E DIDATTICI: CC BY-SA 4.0
 
 Si applica a: testi narrativi, casi investigativi, indizi, note, conseguenze,
 finali e testi delle carte norma (contenuti editoriali in src/game/data/),
-nonché alla documentazione didattica (README.md, docs/, CREDITS.md e affini).
+ai campioni audio registrati (musiche ed effetti in src/game/assets/audio/,
+provenienza dichiarata in CREDITS.md), nonché alla documentazione didattica
+(README.md, docs/, CREDITS.md e affini).
 
 Questi contenuti sono rilasciati con licenza Creative Commons
 Attribuzione - Condividi allo stesso modo 4.0 Internazionale (CC BY-SA 4.0).
