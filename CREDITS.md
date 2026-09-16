@@ -23,7 +23,7 @@ l'eccezione dei campioni registrati descritti sotto.
 
 ### Campioni audio registrati
 
-`src/game/assets/audio/` può contenere sedici campioni (sei musiche in loop
+`src/game/assets/audio/` può contenere diciassette campioni (sette musiche in loop
 e dieci effetti) elencati in `src/game/systems/audioAssets.ts`. Il gioco
 funziona con o senza: quando un campione manca, suona la sua versione
 sintetizzata.
@@ -37,7 +37,7 @@ dell'autore realizzata con uno strumento.
 
 | Asset | Autore | Fonte | Licenza | Modifiche |
 |---|---|---|---|---|
-| 6 musiche in loop e 10 effetti in `src/game/assets/audio/` | progetto NO AI ACT | generati con ElevenLabs (piano a pagamento) | CC BY-SA 4.0 (vedi LICENSE, Sez. 2) | guadagni di mix applicati a runtime (`SFX_TRIM`, `MUSIC_TRIM`); i file non sono modificati |
+| 7 musiche in loop e 10 effetti in `src/game/assets/audio/` | progetto NO AI ACT | generati con ElevenLabs (piano a pagamento) | CC BY-SA 4.0 (vedi LICENSE, Sez. 2) | guadagni di mix applicati a runtime (`SFX_TRIM`, `MUSIC_TRIM`); i file non sono modificati |
 
 ### Dichiarazione di sintesi
 

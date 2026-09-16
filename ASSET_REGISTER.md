@@ -31,7 +31,7 @@ verificabili dal campo `license` dei rispettivi pacchetti installati.
 | Carta dossier | texture canvas | generata: `createDossierTextures.ts` | repo | GPL-3.0-or-later (codice generatore) | sfondo fascicoli | n/a | procedural fallback |
 | Suoni UI (click, alert, errore, conferma, unlock, terminale) | sintesi Web Audio | generati: `AudioSystem.ts` | repo | GPL-3.0-or-later (codice generatore) | feedback UI | n/a | procedural fallback |
 | Drone ambientale | sintesi Web Audio | generato: `AudioSystem.ts` | repo | GPL-3.0-or-later (codice generatore) | atmosfera | n/a | procedural fallback |
-| 6 musiche in loop + 10 effetti | campioni audio | generati dall'autore con ElevenLabs (piano a pagamento) | `src/game/assets/audio/` | CC BY-SA 4.0 (media del progetto) | musica di fase e riscontro ai gesti | sì, per chi li riusa (vedi LICENSE Sez. 2) | approved |
+| 7 musiche in loop + 10 effetti | campioni audio | generati dall'autore con ElevenLabs (piano a pagamento) | `src/game/assets/audio/` | CC BY-SA 4.0 (media del progetto) | musica di fase e riscontro ai gesti | sì, per chi li riusa (vedi LICENSE Sez. 2) | approved |
 | Scanline/CRT/glitch | CSS + tween Phaser | `global.css`, scene | repo | MIT (codice) | effetti visivi | n/a | procedural fallback |
 | Testi narrativi, casi, carte norma | contenuto editoriale | `src/game/data/` | repo | CC BY 4.0 | gameplay e didattica | sì, per chi li riusa (vedi LICENSE Sez. 2) | approved |
 | Font | font stack di sistema (IBM Plex Mono *se presente localmente*, altrimenti Consolas/DejaVu/monospace) | sistema operativo utente | n/a | nessun file font distribuito | tipografia | no | approved |

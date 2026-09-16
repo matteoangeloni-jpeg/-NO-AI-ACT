@@ -46,8 +46,11 @@ Il secondo argomento è il tema *sintetizzato* di ripiego. Senza campione il
 gioco si comporta come si è sempre comportato; con il campione parte quello,
 in loop, incrociandosi sulla traccia precedente in 1,6 secondi.
 
-I ruoli sono `menu`, `archive`, `decision`, `debrief`, `tension`,
-`classroom`. Un ruolo senza tema di ripiego (il menu) resta muto quando il
+I ruoli sono `menu`, `city`, `archive`, `decision`, `debrief`, `tension`,
+`classroom`. `city` e `archive` sono separati di proposito: la mappa, la
+scelta del fascicolo e la consultazione dell'archivio sono navigazione — si
+valuta, non si è ancora dentro niente — mentre `archive` copre il fascicolo
+aperto e i suoi reperti, cioè l'indagine vera. Un ruolo senza tema di ripiego (il menu) resta muto quando il
 campione manca, e zittisce comunque ciò che suonava prima: lasciar correre
 la musica della schermata precedente sarebbe peggio del silenzio.
 

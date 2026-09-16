@@ -33,7 +33,7 @@ export class GlossaryScene extends Phaser.Scene {
     const g = L().glossary;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 200);
-    AudioSystem.setMusicRole('archive', 'city');
+    AudioSystem.setMusicRole('city', 'city');
     AudioSystem.openLegalArchive();
     addNoiseOverlay(this, 0.4);
 

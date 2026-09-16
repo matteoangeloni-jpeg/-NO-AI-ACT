@@ -15,12 +15,18 @@ arrivano dai default senza migrazione. I casi restano 13, gli URL pubblici
 
 ## Audio registrato
 
-Sedici campioni: **sei musiche in loop**, una per momento del procedimento
-— menu, archivio, decisione, rapporto, tensione, aula — e **dieci effetti**
-legati ai gesti: aprire un fascicolo, consultare l'archivio delle norme,
+Diciassette campioni: **sette musiche in loop**, una per momento del
+procedimento — menu, città, archivio, decisione, rapporto, tensione, aula —
+e **dieci effetti** legati ai gesti: aprire un fascicolo, consultare l'archivio delle norme,
 citare un reperto, registrare una decisione, poter procedere, il timbro di
 conformità, l'esito contestabile, il glitch sul sistema opaco, l'hover e il
 click.
+
+Città e archivio sono due ruoli distinti, non uno: scegliere quale
+fascicolo aprire e spulciare i reperti di quello aperto sono momenti
+diversi. Il primo è navigazione — si guarda la città, si valuta, non si è
+ancora dentro niente; il secondo è l'indagine. La stessa musica su entrambi
+appiattiva il passaggio che il gioco vuole far sentire.
 
 La sintesi Web Audio che il gioco aveva prima **non è stata tolta**: è
 diventata il ripiego. Chi scrive una scena non sa quale dei due sta

@@ -1,6 +1,6 @@
 # Campioni audio
 
-Qui vanno i 16 file audio del gioco.
+Qui vanno i 17 file audio del gioco.
 
 Questa cartella NON è `public/`, ed è una scelta. Vite guarda dentro qui in
 fase di build e sa esattamente quali file esistono: manda in `dist/` solo
@@ -19,7 +19,8 @@ un campione: le scene chiedono un ruolo musicale o un gesto, mai un file.
 | file | quando suona |
 |---|---|
 | `music_menu_directive.mp3` | titolo, preload, menu |
-| `music_archive_loop.mp3` | mappa civica, fascicolo, reperti |
+| `music_civic_interface.mp3` | mappa civica, scelta del fascicolo, archivio e glossario |
+| `music_archive_loop.mp3` | fascicolo aperto e reperti: l'indagine vera |
 | `music_decision_audit.mp3` | classificazione, misura, soggetto, motivazione |
 | `music_debrief_report.mp3` | rapporto, conseguenza, fine turno |
 | `music_high_tension_incident.mp3` | casi gravi, sistema opaco, incidenti critici |

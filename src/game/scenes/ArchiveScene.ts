@@ -43,7 +43,7 @@ export class ArchiveScene extends Phaser.Scene {
     const ui = L().ui.archive;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
-    AudioSystem.setMusicRole('archive', 'city');
+    AudioSystem.setMusicRole('city', 'city');
     AudioSystem.openLegalArchive();
     addNoiseOverlay(this, 0.4);
 
