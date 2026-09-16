@@ -31,10 +31,10 @@ import {
  *
  * E non si scarica tutto. Gli EFFETTI sì, subito: sono dieci file per circa
  * 270 KB in tutto, servono entro il primo secondo di gioco e aspettarli
- * significherebbe un click muto. Le MUSICHE no: sono sei loop da un minuto,
- * 1,4 MB l'uno, e una sessione ne attraversa due o tre. Scaricarle tutte al
- * primo clic sono 8,4 MB — su una connessione scolastica da 4 Mbps,
- * diciassette secondi di attesa per roba che in buona parte non verrà mai
+ * significherebbe un click muto. Le MUSICHE no: sono sette loop da un
+ * minuto, 1,4 MB l'uno, e una sessione ne attraversa due o tre. Scaricarle
+ * tutte al primo clic sono quasi 10 MB — su una connessione scolastica da
+ * 4 Mbps, venti secondi di attesa per roba che in buona parte non verrà mai
  * ascoltata. Ogni musica arriva quando la sua fase comincia; nel frattempo
  * suona il tema sintetizzato, quindi l'attesa non è mai silenzio.
  */

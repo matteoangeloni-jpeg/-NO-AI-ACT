@@ -136,5 +136,4 @@ dopo misura il codice di prima riportando PASS.
 
 ## Tag
 
-Il tag `v2.2.0` va creato dal titolare del repository: le credenziali di
-questo ambiente sono limitate al ramo di lavoro.
+`v2.2.0`, pubblicato il 16 settembre 2026 su `main`.
