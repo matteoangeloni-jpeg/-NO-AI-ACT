@@ -14,6 +14,8 @@ import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, RENDER_SCALE, textStyle } f
 import { fadeInScene, fadeOutScene } from '../ui/motion';
 import { layoutHStack } from '../ui/layout';
 import { draftProgress } from '../systems/caseDraft';
+import { OUTCOME_STAMP_KEYS, createOutcomeStamps, drawCivicNetwork, type CivicNode, type NodeState } from '../assets/procedural/civicNetwork';
+import { seeded } from '../assets/procedural/kit';
 
 /** Deriva massima, in pixel logici, dei due strati di fondo della mappa. */
 const PARALLAX_MAP = 12;
@@ -100,6 +102,35 @@ export class CityMapScene extends Phaser.Scene {
     // HUD indicatori
     this.add.rectangle(GAME_WIDTH - 150, 150, 290, 190, COLORS.carbon, 0.8).setStrokeStyle(1, COLORS.iron);
     new IndicatorHud(this, GAME_WIDTH - 280, 72, 250);
+
+    /**
+     * LA RETE PRIMA DEI SEGNAPOSTO.
+     *
+     * I sistemi automatizzati di questa città si parlano, ed è l'unica cosa
+     * che rende il tema comprensibile: un punteggio di credito che pesca
+     * dai dati della scuola non è un caso isolato. La rete sta SOPRA la
+     * texture e SOTTO i segnaposto, così i collegamenti passano dietro i
+     * nodi invece di attraversarli.
+     */
+    const nodi: CivicNode[] = LOCATIONS.map((l) => {
+      const c = l.caseId ? getCase(l.caseId) : null;
+      const q = c ? StateManager.caseQuality(c.id) : undefined;
+      let state: NodeState = 'inattivo';
+      if (q === 'correct') state = 'chiusoBene';
+      else if (q === 'wrong') state = 'chiusoMale';
+      else if (q === 'partial') state = 'chiusoParziale';
+      else if (c?.playable) state = 'aperto';
+      return { id: l.id, x: l.x * GAME_WIDTH, y: l.y * GAME_HEIGHT, state };
+    });
+    drawCivicNetwork(this, nodi);
+
+    // I timbri d'esito: le etichette vengono da i18n, non dal generatore —
+    // un timbro con la parola cotta dentro sarebbe italiano anche in inglese.
+    createOutcomeStamps(this, {
+      correct: L().ui.outcomes.conforme,
+      partial: L().ui.outcomes.parziale,
+      wrong: L().ui.outcomes.contestabile
+    });
 
     for (const loc of LOCATIONS) this.buildMarker(loc.id);
 
@@ -214,6 +245,29 @@ export class CityMapScene extends Phaser.Scene {
       .text(0, 58, statusLabel, textStyle(12, statusColor))
       .setOrigin(0.5);
     container.add([ring, icon, nameTag, statusTag]);
+
+    /**
+     * La mappa porta i segni delle decisioni prese. Prima un caso chiuso si
+     * distingueva solo per il colore dell'anello: un'informazione affidata
+     * al solo colore, e per giunta minuscola. Ora c'è il timbro, che si
+     * legge anche in bianco e nero.
+     *
+     * L'inclinazione viene dall'id del caso: sempre la stessa per quel
+     * caso, diversa da quella del caso accanto, così due timbri vicini non
+     * escono paralleli come due adesivi.
+     */
+    if (caseData && quality) {
+      const key = OUTCOME_STAMP_KEYS[quality];
+      if (this.textures.exists(key)) {
+        const inclina = (seeded(`inclinazione:${caseData.id}`)() - 0.5) * 0.34;
+        const timbro = this.add
+          .image(0, -34, key)
+          .setDisplaySize(112, 26)
+          .setRotation(inclina)
+          .setAlpha(0.9);
+        container.add(timbro);
+      }
+    }
 
     // Evidenzia i fascicoli del piano della modalità corrente (non blocca
     // gli altri: la mappa resta tutta aperta, come sempre).
