@@ -12,6 +12,7 @@ import { fadeInScene, fadeOutScene } from '../ui/motion';
 import { addNoiseOverlay } from '../ui/backdrop';
 import { layoutHStack } from '../ui/layout';
 import type { OutcomeQuality } from '../data/types';
+import { AudioSystem } from '../systems/AudioSystem';
 
 /**
  * FINE TURNO.
@@ -45,6 +46,7 @@ export class SessionEndScene extends Phaser.Scene {
 
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
+    AudioSystem.setMusicRole('debrief', 'city');
     addNoiseOverlay(this, 0.4).setDepth(-2);
     AnalyticsSystem.page('session-end');
 

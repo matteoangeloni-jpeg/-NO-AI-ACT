@@ -57,7 +57,7 @@ export class ConsequenceScene extends Phaser.Scene {
     const ui = L().ui.consequence;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
-    AudioSystem.crossfadeToTheme(this.caseData.id);
+    AudioSystem.setMusicRole('debrief', this.caseData.id);
     addNoiseOverlay(this, 0.4);
 
     if (quality === 'wrong' && !StateManager.reducedMotion) {

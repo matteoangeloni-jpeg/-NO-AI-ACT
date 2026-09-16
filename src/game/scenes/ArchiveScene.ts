@@ -10,6 +10,7 @@ import { L, fmt, normText } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
 import { addNoiseOverlay } from '../ui/backdrop';
+import { AudioSystem } from '../systems/AudioSystem';
 
 /** Confini verticali dell'area scrollabile della griglia (fissi: header sopra, nav sotto). */
 const GRID_TOP = 110;
@@ -42,6 +43,8 @@ export class ArchiveScene extends Phaser.Scene {
     const ui = L().ui.archive;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
+    AudioSystem.setMusicRole('archive', 'city');
+    AudioSystem.openLegalArchive();
     addNoiseOverlay(this, 0.4);
 
     const unlockedCount = NormSystem.unlocked().length;

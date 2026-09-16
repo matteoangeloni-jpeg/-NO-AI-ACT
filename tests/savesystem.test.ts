@@ -57,16 +57,24 @@ describe('SaveSystem', () => {
     expect(SaveSystem.load()).toEqual(defaultSave());
   });
 
-  it('salvataggi v1 privi di campi nuovi ricevono i default (crtOverlay, language, musicVolume)', () => {
-    const old = defaultSave() as unknown as Record<string, unknown>;
-    delete old.crtOverlay;
-    delete old.language;
-    delete old.musicVolume;
-    storage.setItem(KEY, JSON.stringify(old));
-    const loaded = SaveSystem.load();
-    expect(loaded.crtOverlay).toBe(true);
-    expect(loaded.language).toBe('it');
-    expect(loaded.musicVolume).toBe(1);
+  it('un salvataggio a cui manca QUALUNQUE campo riceve il default di quel campo', () => {
+    /**
+     * I valori attesi si LEGGONO da defaultSave invece di essere ricopiati:
+     * la versione precedente fissava `musicVolume` a 1 e diventava rossa il
+     * giorno che il default cambiava, pur non essendoci nessun difetto.
+     * E toglieva tre campi scelti a mano, quindi non avrebbe mai visto un
+     * campo nuovo dimenticato dalla migrazione — che è il difetto vero.
+     * Qui si tolgono TUTTI i campi, uno alla volta.
+     */
+    const reference = defaultSave() as unknown as Record<string, unknown>;
+    for (const field of Object.keys(reference)) {
+      if (field === 'version') continue; // senza versione il salvataggio non è più v2
+      const partial = { ...reference };
+      delete partial[field];
+      storage.setItem(KEY, JSON.stringify(partial));
+      const loaded = SaveSystem.load() as unknown as Record<string, unknown>;
+      expect(loaded[field], `il campo "${field}" non riceve il proprio default`).toEqual(reference[field]);
+    }
   });
 
   it('lingua e preferenze audio sopravvivono al roundtrip save/load', () => {

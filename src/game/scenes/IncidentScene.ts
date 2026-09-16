@@ -44,6 +44,10 @@ export class IncidentScene extends Phaser.Scene {
     }
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 200);
+    // L'incidente è il momento di tensione del caso: la musica cambia
+    // registro qui e torna al suo posto quando la scena successiva
+    // dichiara il proprio ruolo.
+    AudioSystem.setMusicRole('tension', this.caseData.id);
     AudioSystem.alert();
     addNoiseOverlay(this, 0.5);
 

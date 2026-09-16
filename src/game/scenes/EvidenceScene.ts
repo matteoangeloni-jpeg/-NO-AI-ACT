@@ -51,7 +51,7 @@ export class EvidenceScene extends Phaser.Scene {
     fadeInScene(this, 250);
     AnalyticsSystem.page('evidence');
     AnalyticsSystem.track('evidence_opened', { caseId: this.caseData.id });
-    AudioSystem.crossfadeToTheme(this.caseData.id);
+    AudioSystem.setMusicRole('archive', this.caseData.id);
     addNoiseOverlay(this, 0.4);
 
     this.add.text(cx, 56, fmt(L().ui.evidence.header, { code: this.caseData.fileCode }), textStyle(14, COLOR_STR.alertText)).setOrigin(0.5);
@@ -176,6 +176,9 @@ export class EvidenceScene extends Phaser.Scene {
     const cited = new Set(this.cards.flatMap((card, i) => (card.isCited ? [i] : [])));
     const hit = this.pairs.find(([s, m]) => cited.has(s) && cited.has(m));
     if (hit) {
+      // una contraddizione documentale accertata: è esattamente l'opacità
+      // del sistema che il gioco racconta, e ora si sente
+      AudioSystem.glitchOpacity();
       const msg = fmt(L().ui.evidence.contradictionFound, { a: texts.clues[hit[0]].title, b: texts.clues[hit[1]].title });
       showToast(this, msg, 'info', 20);
       ReadingLayer.announce(msg);
@@ -271,9 +274,20 @@ export class EvidenceScene extends Phaser.Scene {
       showToast(this, L().ui.evidence.allRevealedToast, 'info', 20);
     }
     // senza almeno MIN_CITED_CLUES reperti citati non si procede
+    const couldProceedBefore = this.proceedEligible;
     this.proceedEligible = allRevealed && citedCount >= MIN_CITED_CLUES;
 
     this.refreshProgressLine();
+
+    /**
+     * IL MOMENTO IN CUI SI PUÒ PROCEDERE HA UN SUONO SUO.
+     *
+     * La riga di avanzamento cambia colore e il pulsante compare, ma
+     * entrambi stanno in fondo allo schermo mentre lo sguardo è sulle
+     * schede: chi sta leggendo il terzo reperto non si accorge di avere
+     * già finito. Suona solo sul PASSAGGIO, non a ogni tocco successivo.
+     */
+    if (this.proceedEligible && !couldProceedBefore) AudioSystem.canProceed();
 
     /**
      * RISCONTRO IMMEDIATO SU UNA CITAZIONE.
@@ -287,6 +301,8 @@ export class EvidenceScene extends Phaser.Scene {
     const justCited = this.cards.findIndex((c, i) => c.isCited && !this.citedBefore.has(i));
     this.citedBefore = new Set(this.cards.flatMap((c, i) => (c.isCited ? [i] : [])));
     if (justCited >= 0) {
+      // il gesto centrale del gioco: finora suonava come un pulsante qualunque
+      AudioSystem.citeEvidence();
       const ui = L().ui.evidence;
       const stance = this.caseData.clueStances?.[justCited];
       const label = stance ? (ui.stances as Record<string, string>)[stance] : null;

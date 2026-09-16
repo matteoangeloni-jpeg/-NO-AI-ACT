@@ -152,7 +152,14 @@ export class Button extends Phaser.GameObjects.Container implements ActionOwner 
     if (this.enabled) {
       this.setAlpha(1);
       this.setInteractive({ useHandCursor: true })
-        .on('pointerover', () => this.setHover(true))
+        .on('pointerover', () => {
+          this.setHover(true);
+          // Nessun AudioSystem.init() qui: passare il mouse sopra un
+          // pulsante NON è il gesto che sblocca l'audio secondo i browser,
+          // e provarci lascerebbe un contesto sospeso invece di suonare.
+          // Finché non c'è stato un clic o un tasto, l'hover è muto.
+          AudioSystem.hover();
+        })
         .on('pointerout', () => this.setHover(false))
         .on('pointerdown', () => {
           AudioSystem.init();

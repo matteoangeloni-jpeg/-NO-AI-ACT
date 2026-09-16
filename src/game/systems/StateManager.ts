@@ -46,6 +46,18 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
     return this.data.musicVolume;
   }
 
+  get sfxVolume(): number {
+    return this.data.sfxVolume;
+  }
+
+  get musicEnabled(): boolean {
+    return this.data.musicEnabled;
+  }
+
+  get sfxEnabled(): boolean {
+    return this.data.sfxEnabled;
+  }
+
   get teacherMode(): boolean {
     return this.data.teacherMode;
   }
@@ -333,10 +345,35 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
     this.persist();
   }
 
+  setSfxVolume(volume: number): void {
+    this.data.sfxVolume = volume;
+    this.persist();
+  }
+
+  /**
+   * Acceso/spento non è volume zero. A zero la traccia continua a girare
+   * muta: spenta non parte, non si scarica e non consuma niente. È la
+   * differenza che serve in aula, dove la musica va tolta del tutto e gli
+   * effetti devono restare.
+   */
+  setMusicEnabled(enabled: boolean): void {
+    this.data.musicEnabled = enabled;
+    this.persist();
+    this.emit('music-enabled-changed', enabled);
+  }
+
+  setSfxEnabled(enabled: boolean): void {
+    this.data.sfxEnabled = enabled;
+    this.persist();
+  }
+
   newGame(): void {
     const prefs = {
       audioMuted: this.data.audioMuted,
       musicVolume: this.data.musicVolume,
+      sfxVolume: this.data.sfxVolume,
+      musicEnabled: this.data.musicEnabled,
+      sfxEnabled: this.data.sfxEnabled,
       reducedMotion: this.data.reducedMotion,
       crtOverlay: this.data.crtOverlay,
       language: this.data.language,

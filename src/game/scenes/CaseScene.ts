@@ -30,7 +30,8 @@ export class CaseScene extends Phaser.Scene {
     fadeInScene(this, 250);
     AnalyticsSystem.page('case');
     AnalyticsSystem.track('case_started', { caseId: this.caseData.id, locationId: this.caseData.locationId });
-    AudioSystem.crossfadeToTheme(this.caseData.id); // tema musicale del livello
+    AudioSystem.setMusicRole('archive', this.caseData.id);
+    AudioSystem.openCase();
     addNoiseOverlay(this, 0.4);
 
     // dossier che "compare" dal basso

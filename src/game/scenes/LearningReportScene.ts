@@ -9,6 +9,7 @@ import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
 import { addNoiseOverlay } from '../ui/backdrop';
 import { ReadingLayer } from '../systems/ReadingLayer';
+import { AudioSystem } from '../systems/AudioSystem';
 
 /**
  * Rapporto di apprendimento finale (v1.1): trasforma gli esiti dei casi in un
@@ -29,6 +30,7 @@ export class LearningReportScene extends Phaser.Scene {
 
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
+    AudioSystem.setMusicRole('classroom');
     addNoiseOverlay(this, 0.4);
 
     this.add.text(cx, 40, ui.header, textStyle(13, COLOR_STR.paperDim)).setOrigin(0.5);

@@ -73,7 +73,7 @@ export class ReportScene extends Phaser.Scene {
 
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
-    AudioSystem.crossfadeToTheme(this.caseData.id);
+    AudioSystem.setMusicRole('debrief', this.caseData.id);
     addNoiseOverlay(this, 0.4);
 
     // documento

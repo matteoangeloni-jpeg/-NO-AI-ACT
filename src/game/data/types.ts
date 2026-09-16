@@ -264,9 +264,16 @@ export interface SaveData {
   indicators: IndicatorState;
   completedCases: Record<string, OutcomeQuality>;
   unlockedNorms: string[];
+  /** Silenzio totale: taglia il master, musica ed effetti insieme. */
   audioMuted: boolean;
-  /** Volume musica 0..1 (gli effetti seguono solo il mute globale). */
+  /** Volume musica 0..1. */
   musicVolume: number;
+  /** Volume effetti 0..1, indipendente dalla musica. */
+  sfxVolume: number;
+  /** Musica accesa. Spento non è volume zero: la traccia non parte proprio. */
+  musicEnabled: boolean;
+  /** Effetti accesi. */
+  sfxEnabled: boolean;
   reducedMotion: boolean;
   crtOverlay: boolean;
   language: LanguageCode;

@@ -120,7 +120,7 @@ export class DecisionScene extends Phaser.Scene {
   create(): void {
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
-    AudioSystem.crossfadeToTheme(this.caseData.id);
+    AudioSystem.setMusicRole('decision', this.caseData.id);
     addNoiseOverlay(this, 0.4);
     this.contextOverlay = new CaseContextOverlay(this, this.caseData.id, 'closeToDecision');
     // read-only "Norma del caso": relevant rule of the current case (no unlock)
@@ -363,7 +363,7 @@ export class DecisionScene extends Phaser.Scene {
       this.classification = cls;
       this.persistDraft('measure');
       AnalyticsSystem.track('classification_selected', { caseId: this.caseData.id, classification: cls });
-      AudioSystem.confirm();
+      AudioSystem.registerDecision();
       this.nextStep(() => this.showMeasureStep());
     };
 
@@ -395,7 +395,7 @@ export class DecisionScene extends Phaser.Scene {
       this.measure = measure;
       this.persistDraft('subject');
       AnalyticsSystem.track('measure_selected', { caseId: this.caseData.id, measure });
-      AudioSystem.confirm();
+      AudioSystem.registerDecision();
       this.nextStep(() => this.showSubjectStep());
     };
 
@@ -420,7 +420,7 @@ export class DecisionScene extends Phaser.Scene {
       if (this.subject !== null) return;
       this.subject = subject;
       this.persistDraft('motivation');
-      AudioSystem.confirm();
+      AudioSystem.registerDecision();
       this.nextStep(() => this.showMotivationStep());
     };
 
@@ -445,7 +445,7 @@ export class DecisionScene extends Phaser.Scene {
       if (this.motivation !== null) return;
       this.motivation = i;
       this.persistDraft('summary');
-      AudioSystem.confirm();
+      AudioSystem.registerDecision();
       this.nextStep(() => this.showSummaryStep());
     };
 
@@ -704,8 +704,8 @@ export class DecisionScene extends Phaser.Scene {
       motivationIndex
     }, StateManager.difficulty);
 
-    if (result.outcome === 'non_conforme') AudioSystem.error();
-    else if (result.outcome === 'conforme') AudioSystem.confirm();
+    if (result.outcome === 'non_conforme') AudioSystem.errorContestable();
+    else if (result.outcome === 'conforme') AudioSystem.stampConforme();
     else AudioSystem.alert();
 
     // commit dell'esito: indicatori, caso completato, rapporto archiviato

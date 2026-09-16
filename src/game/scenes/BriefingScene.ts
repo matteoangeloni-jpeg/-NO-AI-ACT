@@ -10,6 +10,7 @@ import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene, fadeOutScene } from '../ui/motion';
 import { addNoiseOverlay } from '../ui/backdrop';
+import { AudioSystem } from '../systems/AudioSystem';
 
 export class BriefingScene extends Phaser.Scene {
   constructor() {
@@ -20,6 +21,7 @@ export class BriefingScene extends Phaser.Scene {
     const cx = GAME_WIDTH / 2;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 300);
+    AudioSystem.setMusicRole('menu');
     addNoiseOverlay(this, 0.4);
 
     new Panel(this, cx, GAME_HEIGHT / 2, 860, 560);

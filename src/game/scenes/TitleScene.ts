@@ -39,7 +39,9 @@ export class TitleScene extends Phaser.Scene {
     const cx = GAME_WIDTH / 2;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     AnalyticsSystem.page('title');
-    AudioSystem.stopLevelTheme(); // la musica appartiene alla città, non al menu
+    // Il menu ha una musica sua. Senza il campione resta muto come è
+    // sempre stato: il ruolo senza tema di ripiego zittisce e basta.
+    AudioSystem.setMusicRole('menu');
     this.add.image(cx, GAME_HEIGHT / 2, 'citymap').setDisplaySize(GAME_WIDTH, GAME_HEIGHT).setAlpha(0.25);
     addNoiseOverlay(this, 0.5);
 
@@ -167,11 +169,16 @@ export class TitleScene extends Phaser.Scene {
     const m = L().ui.menu;
     const cx = GAME_WIDTH / 2;
     const cy = GAME_HEIGHT / 2;
-    const c = this.openPanel(g.settingsTitle, 500);
+    // L'altezza sta in una costante e le righe si misurano DA LEI: prima
+    // era scritta due volte — 500 nel pannello e 250 nel calcolo delle
+    // righe — e bastava crescere di una riga perché le due smettessero di
+    // corrispondere senza che nulla lo dicesse.
+    const PANEL_H = 560;
+    const c = this.openPanel(g.settingsTitle, PANEL_H);
     const colL = cx - 190;
     const colR = cx + 190;
     const BW = 360;
-    const rowY = (r: number): number => cy - 250 + 78 + r * 52;
+    const rowY = (r: number): number => cy - PANEL_H / 2 + 78 + r * 52;
 
     const audioBtn = new Button(this, colL, rowY(0), StateManager.audioMuted ? m.audioOff : m.audioOn, () => {
       AudioSystem.init();
@@ -179,29 +186,65 @@ export class TitleScene extends Phaser.Scene {
       audioBtn.setLabel(muted ? m.audioOff : m.audioOn);
     }, { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
 
-    const musicLabel = (): string => fmt(m.music, { value: `${Math.round(StateManager.musicVolume * 100)}%` });
-    const musicBtn = new Button(this, colR, rowY(0), musicLabel(), () => {
+    /**
+     * MUSICA ED EFFETTI SONO DUE COSE DIVERSE.
+     *
+     * Prima esisteva un solo cursore e governava la musica; gli effetti
+     * seguivano il muto globale e basta. In aula serve esattamente la
+     * combinazione che non si poteva ottenere — musica via, effetti sì —
+     * perché un tappeto sonoro su casse da proiettore stanca, mentre i
+     * segnali che dicono "hai citato", "puoi procedere" servono a tutti.
+     *
+     * Acceso/spento e volume sono separati di proposito: a volume zero la
+     * traccia girerebbe muta, spenta non parte proprio.
+     */
+    const musicOnBtn = new Button(this, colR, rowY(0), StateManager.musicEnabled ? m.musicOn : m.musicOff, () => {
       AudioSystem.init();
-      // cicla 100% → 50% → 0% → 100%
-      const next = StateManager.musicVolume > 0.75 ? 0.5 : StateManager.musicVolume > 0.25 ? 0 : 1;
+      AudioSystem.setMusicEnabled(!StateManager.musicEnabled);
+      musicOnBtn.setLabel(StateManager.musicEnabled ? m.musicOn : m.musicOff);
+    }, { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
+
+    const musicLabel = (): string => fmt(m.music, { value: `${Math.round(StateManager.musicVolume * 100)}%` });
+    const musicBtn = new Button(this, colL, rowY(1), musicLabel(), () => {
+      AudioSystem.init();
+      // scatti di un quarto, dal basso: il giro parte da dove serve di solito
+      const next = StateManager.musicVolume >= 1 ? 0.25 : Math.min(1, StateManager.musicVolume + 0.25);
       AudioSystem.setMusicVolume(next);
       musicBtn.setLabel(musicLabel());
     }, { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
 
-    const motionBtn = new Button(this, colL, rowY(1), StateManager.reducedMotion ? m.motionReduced : m.motionFull, () => {
+    const sfxOnBtn = new Button(this, colR, rowY(1), StateManager.sfxEnabled ? m.sfxOn : m.sfxOff, () => {
+      AudioSystem.init();
+      AudioSystem.setSfxEnabled(!StateManager.sfxEnabled);
+      sfxOnBtn.setLabel(StateManager.sfxEnabled ? m.sfxOn : m.sfxOff);
+      // un interruttore degli effetti che non fa un effetto quando lo accendi
+      // lascia il dubbio che non abbia funzionato
+      if (StateManager.sfxEnabled) AudioSystem.canProceed();
+    }, { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
+
+    const sfxLabel = (): string => fmt(m.sfx, { value: `${Math.round(StateManager.sfxVolume * 100)}%` });
+    const sfxBtn = new Button(this, colL, rowY(2), sfxLabel(), () => {
+      AudioSystem.init();
+      const next = StateManager.sfxVolume >= 1 ? 0.25 : Math.min(1, StateManager.sfxVolume + 0.25);
+      AudioSystem.setSfxVolume(next);
+      sfxBtn.setLabel(sfxLabel());
+      AudioSystem.click(); // si sente subito a che volume si è finiti
+    }, { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
+
+    const motionBtn = new Button(this, colR, rowY(2), StateManager.reducedMotion ? m.motionReduced : m.motionFull, () => {
       StateManager.setReducedMotion(!StateManager.reducedMotion);
       motionBtn.setLabel(StateManager.reducedMotion ? m.motionReduced : m.motionFull);
       if (StateManager.reducedMotion) this.glitchTimer?.remove();
       else this.glitchTimer = this.time.addEvent({ delay: 2600, loop: true, callback: () => this.glitch() });
     }, { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
 
-    const crtBtn = new Button(this, colR, rowY(1), StateManager.crtOverlay ? m.crtOn : m.crtOff, () => {
+    const crtBtn = new Button(this, colL, rowY(3), StateManager.crtOverlay ? m.crtOn : m.crtOff, () => {
       StateManager.setCrtOverlay(!StateManager.crtOverlay);
       crtBtn.setLabel(StateManager.crtOverlay ? m.crtOn : m.crtOff);
     }, { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
 
     // selettore lingua: cicla le lingue registrate e ricarica la scena
-    const langBtn = new Button(this, colL, rowY(2), m.language, () => {
+    const langBtn = new Button(this, colR, rowY(3), m.language, () => {
       StateManager.setLanguage(nextLanguage());
       AnalyticsSystem.track('language_selected', { language: StateManager.language });
       this.scene.restart();
@@ -210,7 +253,7 @@ export class TitleScene extends Phaser.Scene {
     // selettore difficoltà (base → standard → expert)
     const diffOrder: DifficultyMode[] = ['base', 'standard', 'expert'];
     const diffLabel = (): string => fmt(L().ui.difficulty.label, { value: L().ui.difficulty.modes[StateManager.difficulty].name });
-    const diffBtn = new Button(this, colR, rowY(2), diffLabel(), () => {
+    const diffBtn = new Button(this, colL, rowY(4), diffLabel(), () => {
       const next = diffOrder[(diffOrder.indexOf(StateManager.difficulty) + 1) % diffOrder.length];
       StateManager.setDifficulty(next);
       diffBtn.setLabel(diffLabel());
@@ -221,7 +264,7 @@ export class TitleScene extends Phaser.Scene {
     // animazioni", che spegne il movimento di tutto il gioco.
     const speedOrder: TextSpeed[] = ['slow', 'normal', 'instant'];
     const speedLabel = (): string => fmt(L().ui.textSpeed.label, { value: L().ui.textSpeed.modes[StateManager.textSpeed] });
-    const speedBtn = new Button(this, colL, rowY(3), speedLabel(), () => {
+    const speedBtn = new Button(this, colR, rowY(4), speedLabel(), () => {
       const next = speedOrder[(speedOrder.indexOf(StateManager.textSpeed) + 1) % speedOrder.length];
       StateManager.setTextSpeed(next);
       speedBtn.setLabel(speedLabel());
@@ -236,7 +279,7 @@ export class TitleScene extends Phaser.Scene {
     // RESET SALVATAGGIO: azione distruttiva, MAI di primo livello. Doppio
     // click esplicito: il primo chiede conferma, il secondo azzera.
     let armed = false;
-    const resetBtn = new Button(this, colR, rowY(3), m.reset, () => {
+    const resetBtn = new Button(this, colR, rowY(5), m.reset, () => {
       if (!armed) {
         armed = true;
         resetBtn.setLabel(m.resetConfirm);
@@ -251,16 +294,16 @@ export class TitleScene extends Phaser.Scene {
 
     // Crediti: stanno qui e non fra le risorse, perché riguardano chi firma il
     // progetto, non il materiale didattico a cui il giocatore attinge.
-    const creditsBtn = new Button(this, colL, rowY(4), m.credits, () => this.scene.start('Credits'),
+    const creditsBtn = new Button(this, colL, rowY(5), m.credits, () => this.scene.start('Credits'),
       { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
 
     // nota privacy locale, concisa
-    const note = this.add.text(cx - 380, rowY(4) + 40, g.settingsPrivacy, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
+    const note = this.add.text(cx - 380, rowY(5) + 40, g.settingsPrivacy, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
     this.describePanel([
-      { items: [audioBtn, musicBtn, motionBtn, crtBtn, langBtn, diffBtn, speedBtn, creditsBtn, resetBtn].map((b) => b.labelText) },
+      { items: [audioBtn, musicOnBtn, musicBtn, sfxOnBtn, sfxBtn, motionBtn, crtBtn, langBtn, diffBtn, speedBtn, creditsBtn, resetBtn].map((b) => b.labelText) },
       { text: g.settingsPrivacy }
     ]);
-    c.add([audioBtn, musicBtn, motionBtn, crtBtn, langBtn, diffBtn, speedBtn, resetBtn, creditsBtn, note]);
+    c.add([audioBtn, musicOnBtn, musicBtn, sfxOnBtn, sfxBtn, motionBtn, crtBtn, langBtn, diffBtn, speedBtn, resetBtn, creditsBtn, note]);
   }
 
   /**

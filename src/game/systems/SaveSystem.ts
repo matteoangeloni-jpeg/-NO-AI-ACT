@@ -24,7 +24,14 @@ export function defaultSave(): SaveData {
     completedCases: {},
     unlockedNorms: [],
     audioMuted: false,
-    musicVolume: 1,
+    // Volumi di partenza deliberatamente bassi: la musica è un tappeto, non
+    // un annuncio, e chi apre il gioco in ufficio o in aula non deve
+    // spegnerlo di corsa. Gli effetti stanno più in alto perché sono corti
+    // e devono restare udibili sopra la musica.
+    musicVolume: 0.3,
+    sfxVolume: 0.7,
+    musicEnabled: true,
+    sfxEnabled: true,
     reducedMotion: false,
     crtOverlay: true,
     language: 'it',

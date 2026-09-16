@@ -72,13 +72,13 @@ describe('save schema v2 — key, shape, version', () => {
     expect(storage.getItem(KEY)).not.toBeNull();
   });
 
-  it('SaveData keeps a stable v2 key set (v1 keys + caseMeta, selfCheck, audience, sessionMinutes, caseDrafts, gameMode, textSpeed)', () => {
+  it('SaveData keeps a stable v2 key set (v1 keys + caseMeta, selfCheck, audience, sessionMinutes, caseDrafts, gameMode, textSpeed, audio)', () => {
     const keys = Object.keys(defaultSave()).sort();
     expect(keys).toEqual([
       'audience', 'audioMuted', 'briefingSeen', 'caseDrafts', 'caseMeta', 'caseReports',
       'completedCases', 'crtOverlay', 'difficulty', 'endingId', 'gameMode', 'indicators', 'language',
-      'mission', 'musicVolume', 'reducedMotion', 'selfCheck', 'sessionMinutes', 'startedAt', 'teacherMode',
-      'textSpeed', 'unlockedNorms', 'version'
+      'mission', 'musicEnabled', 'musicVolume', 'reducedMotion', 'selfCheck', 'sessionMinutes',
+      'sfxEnabled', 'sfxVolume', 'startedAt', 'teacherMode', 'textSpeed', 'unlockedNorms', 'version'
     ]);
     expect(defaultSave().version).toBe(2);
     expect(defaultSave().caseMeta).toEqual({});
