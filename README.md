@@ -319,7 +319,7 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 ## Roadmap
 
-**🔜 v2.2.0 — Audio, tastiera, risoluzione** — non ancora taggata
+**✅ v2.2.0 — Audio, tastiera, risoluzione** — [release](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v2.2.0)
 - Sei musiche in loop e dieci effetti (generati dall'autore con ElevenLabs,
   CC BY-SA 4.0 come gli altri contenuti), con ripiego sulla sintesi quando
   un campione manca; controlli separati per musica ed effetti. Ogni pulsante
@@ -380,10 +380,9 @@ Fonte machine-readable: [`release.config.json`](release.config.json)
 Note di rilascio: [`docs/RELEASE_NOTES_v2.2.0.md`](docs/RELEASE_NOTES_v2.2.0.md).
 
 - **Versione**: v2.2.0 (codice su `main`; fonte: `package.json`)
-- **Tag della versione**: `v2.2.0` — **non ancora pubblicato**
-- **Ultima release effettivamente taggata**: `v2.1.0` (2026-08-26)
-- **Nota**: il codice su `main` è avanti rispetto all'ultimo tag. Il tag
-  `v2.2.0` va creato dal titolare del repository
+- **Tag della versione**: `v2.2.0` — **pubblicato** il 2026-09-16
+- **Ultima release effettivamente taggata**: `v2.2.0`
+- **Nota**: release e codice pubblicato coincidono
 - **Casi giocabili**: 13
 - **Lingue**: italiano e inglese
 - **URL pubblici**: 56 (26 IT + 30 EN)

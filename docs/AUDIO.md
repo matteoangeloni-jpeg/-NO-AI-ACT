@@ -133,8 +133,8 @@ download.
 
 E non si scarica tutto insieme. Gli **effetti** sì, subito: dieci file per
 circa 270 KB, servono entro il primo secondo di gioco. Le **musiche** no:
-sono sei loop da un minuto, 1,4 MB l'uno, e una sessione ne attraversa due
-o tre. Ognuna arriva quando la sua fase comincia, e intanto suona il tema
+sono sette loop da un minuto, 1,4 MB l'uno, e una sessione ne attraversa
+due o tre. Ognuna arriva quando la sua fase comincia, e intanto suona il tema
 sintetizzato — l'attesa non è mai silenzio.
 
 Misurato in locale: **1,7 MB al primo clic** invece di 8,7, e 3,1 MB dopo
