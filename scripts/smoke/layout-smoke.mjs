@@ -484,7 +484,9 @@ for (const vp of CANVAS_VIEWPORTS) {
        * tenerli a mente, e i reperti erano a una scena di distanza.
        * I titoli non sono trascritti qui: si chiedono al gioco.
        */
-      const headings = lang === 'en' ? ['CITED EXHIBITS', 'DECISION SO FAR'] : ['REPERTI CITATI', 'DECISIONE FINORA'];
+      const headings = lang === 'en'
+        ? ['CITED EXHIBITS', 'DECISION SO FAR', 'STATE OF THE CITY']
+        : ['REPERTI CITATI', 'DECISIONE FINORA', 'STATO DELLA CITTÀ'];
       for (const h of headings) {
         if (!(step1?.items ?? []).some((i) => String(i.text || '').includes(h))) {
           fail.push(`${ctx} Decision step 1: manca "${h}" nel riepilogo laterale`);

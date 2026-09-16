@@ -2,6 +2,8 @@ import { describe, expect, it as test } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { NORMS } from '../src/game/data/norms';
+import { it as itLocale } from '../src/game/i18n/it';
+import { en as enLocale } from '../src/game/i18n/en';
 
 const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
@@ -139,6 +141,46 @@ describe('visual bug pass — no external forms on the landings (Tally removed)'
       const html = read(p);
       expect(html).not.toContain('tally.so');
       expect(html).not.toMatch(/data-tally/i);
+    }
+  });
+});
+
+/**
+ * LA CITTÀ SI VEDE MENTRE SI DECIDE, MA NON SI PUÒ GIOCARE A OTTIMIZZARLA.
+ *
+ * I quattro indicatori si vedevano sulla mappa e dopo il caso, mai durante:
+ * "voglio sentire che le mie scelte cambiano la città", e non si sentiva
+ * perché la città spariva proprio nel momento in cui si decide di lei.
+ *
+ * Mostrare lo stato attuale è informazione. Mostrare che cosa farebbe
+ * CIASCUNA opzione sarebbe un'altra cosa: trasformerebbe la decisione in un
+ * gioco di cursori da massimizzare, mentre il rapporto si valuta su quanto
+ * regge giuridicamente e non su quanto sale una barra.
+ */
+describe('la decisione mostra lo stato della città, non una previsione', () => {
+  const src = read('src/game/scenes/DecisionScene.ts');
+
+  test('lo stato attuale compare durante i passi di scelta', () => {
+    expect(src).toContain('new IndicatorHud(this');
+    expect(src).toContain('ui.decision.cityState');
+  });
+
+  test('e non nel riepilogo finale, dove la colonna non serve', () => {
+    const summary = src.slice(src.indexOf('private showSummaryStep'), src.indexOf('private sign()'));
+    expect(summary).toContain('this.header(t.step5, t.question5, false)');
+  });
+
+  test('nessuna anteprima di quello che farebbe ciascuna opzione', () => {
+    for (const forbidden of ['previewDelta', 'simulate', 'applyIndicatorDelta', 'INCIDENT_DELTAS']) {
+      expect(src, `${forbidden} in DecisionScene trasformerebbe la scelta in un cursore`).not.toContain(forbidden);
+    }
+  });
+
+  test('e la nota lo dice, in entrambe le lingue', () => {
+    for (const [lang, dict] of [['it', itLocale], ['en', enLocale]] as const) {
+      const note = dict.ui.decision.cityStateNote;
+      expect(note.length, `${lang}`).toBeGreaterThan(30);
+      expect(note.toLowerCase(), `${lang}`).toMatch(/anticipa|preview/);
     }
   });
 });

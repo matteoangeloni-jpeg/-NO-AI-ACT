@@ -247,6 +247,8 @@ export const it = {
       step4: 'DECISIONE 4 DI 5 — MOTIVAZIONE',
       step5: 'DECISIONE 5 DI 5 — RIEPILOGO E FIRMA',
       question5: 'Rivedi il rapporto prima di firmarlo.',
+      cityState: 'STATO DELLA CITTÀ',
+      cityStateNote: 'Com\'è adesso. Il gioco non anticipa che cosa farebbe ciascuna scelta.',
       sidebar: {
         cited: 'REPERTI CITATI',
         soFar: 'DECISIONE FINORA',

@@ -248,6 +248,8 @@ export const en: Locale = {
       step4: 'DECISION 4 OF 5 — REASONING',
       step5: 'DECISION 5 OF 5 — REVIEW AND SIGN',
       question5: 'Review the report before signing it.',
+      cityState: 'STATE OF THE CITY',
+      cityStateNote: 'As it stands now. The game does not preview what each choice would do.',
       sidebar: {
         cited: 'CITED EXHIBITS',
         soFar: 'DECISION SO FAR',

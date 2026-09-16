@@ -17,6 +17,7 @@ import { fadeInScene } from '../ui/motion';
 import type { DraftStep } from '../systems/caseDraft';
 import { CLASSIFICATION_TERMS, SUBJECT_TERMS } from '../data/termHints';
 import { addNoiseOverlay } from '../ui/backdrop';
+import { INDICATOR_KEYS, IndicatorHud } from '../systems/IndicatorSystem';
 
 /**
  * Riga dell'avviso sulla firma. Sta fra il riepilogo e la fila della
@@ -237,7 +238,31 @@ export class DecisionScene extends Phaser.Scene {
       fontSize: 12,
       variant: 'ghost'
     });
-    if (sidebar) this.buildSidebar();
+    if (sidebar) {
+      this.buildSidebar();
+      this.buildCityState();
+    }
+  }
+
+  /**
+   * STATO DELLA CITTÀ, MENTRE SI DECIDE.
+   *
+   * I quattro indicatori si vedevano sulla mappa e dopo il caso, mai
+   * durante: "voglio sentire che le mie scelte cambiano la città", e non si
+   * sentiva perché la città spariva proprio nel momento in cui si decide di
+   * lei.
+   *
+   * Qui c'è lo STATO ATTUALE, e soltanto quello. Nessuna previsione di che
+   * cosa farebbe ciascuna opzione: mostrarla trasformerebbe la decisione in
+   * un gioco di cursori da massimizzare, e il rapporto non si valuta su
+   * quanto sale una barra ma su quanto regge giuridicamente. La città dice
+   * dove si trova, non che cosa conviene.
+   */
+  private buildCityState(): void {
+    const right = GAME_WIDTH - 250;
+    this.add.text(right, 176, L().ui.decision.cityState, textStyle(11, COLOR_STR.accentText, { fontStyle: 'bold' }));
+    new IndicatorHud(this, right, 204, 226);
+    this.add.text(right, 204 + INDICATOR_KEYS.length * 34, L().ui.decision.cityStateNote, textStyle(10.5, COLOR_STR.paperDim, { wordWrap: { width: 226 }, lineSpacing: 2 }));
   }
 
   update(): void {
