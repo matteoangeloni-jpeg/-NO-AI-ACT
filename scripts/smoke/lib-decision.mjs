@@ -3,6 +3,11 @@ export async function completeDecisionWithKeyboard(page, keys = ['1', '1', '2', 
   const properties = ['classification', 'measure', 'subject', 'motivation'];
   if (keys.length !== properties.length) throw new Error('A decision run requires four choices.');
 
+  await page.waitForFunction(() => {
+    const scene = window.game?.scene?.getScene('Decision');
+    return scene?.scene?.isActive?.() && !!scene.lastStep?.label;
+  }, undefined, { timeout: 20000 });
+
   for (let index = 0; index < properties.length; index += 1) {
     const previousStep = await page.evaluate(() => window.game?.scene?.getScene('Decision')?.lastStep?.label ?? '');
     await page.keyboard.press(keys[index]);
@@ -15,7 +20,7 @@ export async function completeDecisionWithKeyboard(page, keys = ['1', '1', '2', 
           && scene.lastStep.label !== oldStep;
       },
       { property: properties[index], oldStep: previousStep },
-      { timeout: 12000 }
+      { timeout: 20000 }
     );
     await page.waitForTimeout(200);
   }

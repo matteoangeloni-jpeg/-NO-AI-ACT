@@ -20,6 +20,7 @@
 import { chromium } from 'playwright';
 import { boundsToPageSrc } from './lib-canvas-coords.mjs';
 import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
+import { completeDecisionWithKeyboard } from './lib-decision.mjs';
 import { mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
@@ -366,11 +367,7 @@ async function gotoDecisionSummary(page) {
 
 /** Avanza di quattro scelte, dal primo passo al riepilogo. */
 async function advanceToSummary(page) {
-  for (const k of ['1', '1', '2', '2']) {
-    await page.keyboard.press(k);
-    await page.waitForTimeout(650);
-  }
-  await page.waitForTimeout(400);
+  await completeDecisionWithKeyboard(page);
 }
 
 /**
