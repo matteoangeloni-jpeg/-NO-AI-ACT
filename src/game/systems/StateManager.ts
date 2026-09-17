@@ -380,10 +380,13 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
       teacherMode: this.data.teacherMode,
       difficulty: this.data.difficulty,
       mission: this.data.mission,
-      // pubblico e durata sono preferenze come le altre: una partita nuova
-      // non deve dimenticare per chi stai giocando e quanto tempo hai
+      // Profilo, durata, modalità e velocità di lettura sono preferenze come
+      // le altre: una partita nuova non deve dimenticare il percorso appena
+      // scelto nel pannello né il ritmo di testo richiesto dal giocatore.
       audience: this.data.audience,
-      sessionMinutes: this.data.sessionMinutes
+      sessionMinutes: this.data.sessionMinutes,
+      gameMode: this.data.gameMode,
+      textSpeed: this.data.textSpeed
     };
     this.data = { ...SaveSystem.reset(), ...prefs };
     this.persist();

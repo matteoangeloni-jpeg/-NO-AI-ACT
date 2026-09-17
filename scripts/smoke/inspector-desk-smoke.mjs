@@ -8,7 +8,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { worldToPageFn } from './lib-canvas-coords.mjs';
 import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
-import { prepareEvidenceWithKeyboard } from './lib-evidence.mjs';
+import { prepareEvidenceVisualState } from './lib-evidence.mjs';
 import { selectMapCaseWithKeyboard } from './lib-map.mjs';
 
 const BASE = process.env.BASE || 'http://localhost:4200';
@@ -139,7 +139,10 @@ await click(640, 400);
 await clickButton('ESAMINA I REPERTI');
 await waitScene('Evidence');
 
-await prepareEvidenceWithKeyboard(page, { citeIndices: [2, 3, 4] });
+// Keyboard-only evidence handling has its own full-flow smoke. This check is
+// about the Inspector Desk itself, so prepare the cards through their real
+// activation method and keep slow software-rendered CI runs deterministic.
+await prepareEvidenceVisualState(page, [2, 3, 4]);
 await page.keyboard.press('x');
 await assertComparison('01-evidence-compare');
 await page.keyboard.press('Escape');

@@ -74,7 +74,13 @@ const DRAWN_SRC = `${boundsToPageSrc}
         if (o.type === 'Container') {
           if (o.getData && o.getData('uiButton') && o.active && visibleInTree(o)) {
             const label = (o.list || []).find((k) => k.type === 'Text');
-            out.push({ label: label ? label.text : '', rect: boundsToPage(o), depth: effectiveDepth(o) });
+            out.push({
+              label: label ? label.text : '', rect: boundsToPage(o), depth: effectiveDepth(o),
+              scene: o.scene?.scene?.key ?? null,
+              actionScene: o.action?.scene?.scene?.key ?? null,
+              zoom: o.scene?.cameras?.main?.zoom ?? null,
+              actionZoom: o.action?.scene?.cameras?.main?.zoom ?? null
+            });
           }
           walk(o.list || []);
         }
@@ -116,10 +122,32 @@ async function checkExposure(where) {
     const dw = Math.abs(match.rect.w - b.rect.w);
     const dh = Math.abs(match.rect.h - b.rect.h);
     if (Math.max(dx, dy, dw, dh) > ALIGN_TOLERANCE_PX) {
-      fail.push(`${where}: "${b.label}" — l'anello di fuoco non sta sul pulsante (scarto ${Math.round(Math.max(dx, dy, dw, dh))}px)`);
+      fail.push(`${where}: "${b.label}" — l'anello di fuoco non sta sul pulsante (scarto ${Math.round(Math.max(dx, dy, dw, dh))}px; disegnato ${JSON.stringify(b.rect)}, DOM ${JSON.stringify(match.rect)}, scena ${b.scene}/${b.actionScene}, zoom ${b.zoom}/${b.actionZoom})`);
     }
   }
   return { drawn: d, exposed: e, front };
+}
+
+async function waitForExposureAlignment(timeout = 10000) {
+  const deadline = Date.now() + timeout;
+  while (Date.now() < deadline) {
+    const [d, e] = [await drawn(), await exposed()];
+    const top = d.length ? Math.max(...d.map((button) => button.depth)) : 0;
+    const front = d.filter((button) => button.depth >= top);
+    const aligned = front.length > 0 && front.every((button) => {
+      const match = e.find((candidate) => candidate.label === button.label);
+      if (!match) return false;
+      return Math.max(
+        Math.abs(match.rect.x - button.rect.x),
+        Math.abs(match.rect.y - button.rect.y),
+        Math.abs(match.rect.w - button.rect.w),
+        Math.abs(match.rect.h - button.rect.h)
+      ) <= ALIGN_TOLERANCE_PX;
+    });
+    if (aligned) return true;
+    await page.waitForTimeout(100);
+  }
+  return false;
 }
 
 await page.addInitScript((seed) => localStorage.setItem('no-ai-act-save-v2', seed), SEED);
@@ -185,16 +213,39 @@ if (after > baseline) {
 }
 
 /** 3. ATTIVAZIONE SINGOLA su una schermata dove pulsante e INVIO globale
- *  fanno cose DIVERSE: la carta norma. Un solo INVIO, una sola transizione. */
+ *  fanno cose DIVERSE: il fascicolo aperto. Un solo INVIO, una transizione. */
 await page.evaluate(() => {
   const g = window.game;
   for (const s of g.scene.scenes) if (s.scene.isActive() && s.scene.key !== 'Boot') s.scene.stop();
-  // un id inesistente qui non passa inosservato: NormSystem solleva
-  g.scene.start('NormCard', { normId: 'norm_social_scoring', quality: 'correct' });
+  g.scene.start('Case', { caseId: 'case_scoring' });
 });
-await waitScene('NormCard');
-await page.waitForTimeout(900);
-await checkExposure('carta norma');
+await waitScene('Case');
+// SPAZIO completa la macchina da scrivere e rende visibile ESAMINA I
+// REPERTI. Aspettare i due lati evita di campionare il fotogramma in cui la
+// scena nuova e lo strato DOM si stanno ancora riallineando su runner lenti.
+const caseReady = await page.waitForFunction(() => [...document.querySelectorAll('#action-layer .action-btn')]
+  .some((button) => !button.hidden && /MAPPA/i.test(button.textContent ?? '')), undefined, { timeout: 10000 })
+  .then(() => true)
+  .catch(() => false);
+if (!caseReady) {
+  const state = await page.evaluate(() => ({
+    active: window.game?.scene.getScenes(true).map((scene) => scene.scene.key) ?? [],
+    actions: [...document.querySelectorAll('#action-layer .action-btn')].map((button) => ({
+      label: button.textContent ?? '', hidden: button.hidden
+    }))
+  }));
+  throw new Error(`Fascicolo non pronto per il controllo azioni: ${JSON.stringify(state)}`);
+}
+await page.keyboard.press('Space');
+await page.waitForFunction(() => {
+  const labels = [...document.querySelectorAll('#action-layer .action-btn')]
+    .filter((button) => !button.hidden)
+    .map((button) => button.textContent ?? '');
+  return labels.some((label) => /ESAMINA I REPERTI/i.test(label))
+    && labels.some((label) => /MAPPA/i.test(label));
+}, undefined, { timeout: 10000 });
+await waitForExposureAlignment();
+await checkExposure('fascicolo');
 
 // conto le transizioni di scena da un unico punto (il piano della scena),
 // così una sola azione conta una sola volta
@@ -212,22 +263,25 @@ await page.evaluate(() => {
     proto.__wrapped = true;
   }
 });
-const normButtons = (await exposed()).map((b) => b.label);
-if (normButtons.length < 2) {
-  fail.push(`carta norma: servono due pulsanti con azioni diverse per provare l'attivazione singola, trovati ${JSON.stringify(normButtons)}`);
+const caseButtons = (await exposed()).map((b) => b.label);
+if (caseButtons.length < 2) {
+  fail.push(`fascicolo: servono due pulsanti con azioni diverse per provare l'attivazione singola, trovati ${JSON.stringify(caseButtons)}`);
 } else {
-  // il secondo pulsante NON è quello dell'INVIO globale: se entrambi partono
-  // si vedono due transizioni
+  // MAPPA non è l'azione dell'INVIO globale (ESAMINA I REPERTI):
+  // se il tasto arriva a entrambi si vedono due transizioni.
   await page.evaluate(() => {
-    const b = [...document.querySelectorAll('#action-layer .action-btn')].filter((x) => !x.hidden)[1];
+    const b = [...document.querySelectorAll('#action-layer .action-btn')]
+      .filter((x) => !x.hidden)
+      .find((x) => /MAPPA/i.test(x.textContent ?? ''));
+    if (!b) throw new Error('MAPPA non esposto nel fascicolo');
     b.focus();
   });
   await page.keyboard.press('Enter');
   await page.waitForTimeout(2500);
   const starts = await page.evaluate(() => window.__starts);
   const active = await page.evaluate(() => window.game.scene.getScenes(true).map((s) => s.scene.key));
-  if (starts.length !== 1) fail.push(`carta norma: un solo INVIO ha avviato ${starts.length} scene (${JSON.stringify(starts)}) — il tasto arriva sia al pulsante sia al gestore globale`);
-  if (active.length !== 1) fail.push(`carta norma: dopo un solo INVIO restano ${active.length} scene vive (${JSON.stringify(active)})`);
+  if (starts.length !== 1) fail.push(`fascicolo: un solo INVIO ha avviato ${starts.length} scene (${JSON.stringify(starts)}) — il tasto arriva sia al pulsante sia al gestore globale`);
+  if (active.length !== 1) fail.push(`fascicolo: dopo un solo INVIO restano ${active.length} scene vive (${JSON.stringify(active)})`);
 }
 
 await browser.close();
