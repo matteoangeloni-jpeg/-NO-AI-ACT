@@ -97,7 +97,19 @@ page.on('request', (r) => hosts.add(new URL(r.url()).host));
  * vive in lib-canvas-coords.mjs, perché non è una formula ma tre
  * trasformazioni in fila e scriverla a mano l'ha già sbagliata una volta.
  */
-const toPage = (lx, ly) => page.evaluate(worldToPageFn, { x: lx, y: ly });
+const toPage = async (lx, ly) => {
+  const deadline = Date.now() + 5000;
+  let lastError;
+  while (Date.now() < deadline) {
+    try {
+      return await page.evaluate(worldToPageFn, { x: lx, y: ly });
+    } catch (error) {
+      lastError = error;
+      await page.waitForTimeout(100);
+    }
+  }
+  throw lastError;
+};
 
 const click = async (lx, ly, w = 400) => {
   const { x, y } = await toPage(lx, ly);
@@ -108,22 +120,28 @@ const click = async (lx, ly, w = 400) => {
 // Click a canvas Button by its label, in logical coordinates (click converts).
 // Robust to title-menu layout changes: reads the live scene via window.game.
 const clickButton = async (labelRe, w = 400) => {
-  const pos = await page.evaluate((reSrc) => {
-    const re = new RegExp(reSrc, 'i');
-    const scenes = window.game.scene.getScenes(true);
-    const s = scenes[scenes.length - 1];
-    let found = null;
-    const visit = (o) => { // recursive: overlay buttons live inside containers
-      if (found || !o || o.visible === false) return;
-      if (o.type === 'Container' && o.input && o.input.enabled) {
-        const t = (o.list || []).find((ch) => typeof ch.text === 'string');
-        if (t && re.test(t.text)) { const b = o.getBounds(); found = { x: b.centerX, y: b.centerY }; return; }
-      }
-      for (const ch of (o.list || [])) visit(ch);
-    };
-    for (const o of s.children.list) visit(o);
-    return found;
-  }, labelRe.source);
+  let pos = null;
+  const deadline = Date.now() + 5000;
+  while (!pos && Date.now() < deadline) {
+    pos = await page.evaluate((reSrc) => {
+      const re = new RegExp(reSrc, 'i');
+      const scenes = window.game?.scene.getScenes(true) ?? [];
+      const s = scenes[scenes.length - 1];
+      if (!s) return null;
+      let found = null;
+      const visit = (o) => { // recursive: overlay buttons live inside containers
+        if (found || !o || o.visible === false) return;
+        if (o.type === 'Container' && o.input && o.input.enabled) {
+          const t = (o.list || []).find((ch) => typeof ch.text === 'string');
+          if (t && re.test(t.text)) { const b = o.getBounds(); found = { x: b.centerX, y: b.centerY }; return; }
+        }
+        for (const ch of (o.list || [])) visit(ch);
+      };
+      for (const o of s.children.list) visit(o);
+      return found;
+    }, labelRe.source);
+    if (!pos) await page.waitForTimeout(100);
+  }
   if (!pos) { fail.push(`button not found: ${labelRe}`); return; }
   await click(Math.round(pos.x), Math.round(pos.y), w);
 };

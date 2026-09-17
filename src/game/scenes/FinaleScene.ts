@@ -11,7 +11,7 @@ import { TypewriterText } from '../ui/TypewriterText';
 import { L } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
-import { fadeInScene } from '../ui/motion';
+import { fadeInScene, reveal } from '../ui/motion';
 import { addNoiseOverlay } from '../ui/backdrop';
 
 /** Rapporto finale: l'esito dipende dagli indicatori accumulati. */
@@ -70,7 +70,7 @@ export class FinaleScene extends Phaser.Scene {
       .text(cx, 510, `“${L().endings.finalMessage}”`, textStyle(16, COLOR_STR.accentText, { wordWrap: { width: 880 }, align: 'center', lineSpacing: 6 }))
       .setOrigin(0.5)
       .setAlpha(0);
-    this.tweens.add({ targets: msg, alpha: 1, duration: 900, delay: StateManager.reducedMotion ? 0 : 1500 });
+    reveal(this, { targets: msg, alpha: 1, duration: 900, delay: 1500 });
 
     new Button(this, cx - 220, GAME_HEIGHT - 60, L().ui.finale.newGame, () => {
       StateManager.newGame();

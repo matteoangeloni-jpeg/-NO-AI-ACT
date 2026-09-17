@@ -33,9 +33,11 @@ if (!existsSync(resolve(root, 'dist/index.html'))) {
   process.exit(1);
 }
 
-// Start the preview server in its own process group so the whole tree
-// (npx → vite → esbuild helpers) can be terminated in one signal.
-const server = spawn('npx', ['vite', 'preview', '--port', String(PORT), '--strictPort'], {
+// Start Vite through its installed JS entry point. Spawning `npx` directly
+// fails on Windows because the executable is `npx.cmd`, while `node` plus
+// the local entry point is identical on every supported platform.
+const viteCli = resolve(root, 'node_modules/vite/bin/vite.js');
+const server = spawn(process.execPath, [viteCli, 'preview', '--port', String(PORT), '--strictPort'], {
   cwd: root, stdio: ['ignore', 'ignore', 'inherit'], detached: process.platform !== 'win32'
 });
 

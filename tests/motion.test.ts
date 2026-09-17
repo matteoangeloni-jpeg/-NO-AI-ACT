@@ -205,9 +205,12 @@ describe('nessuna animazione ignora "riduci movimento"', () => {
          * all'indietro lo dichiarava colpevole.
          */
         const fine = src.indexOf(';', m.index);
-        const finestra =
-          src.slice(Math.max(0, m.index - 400), m.index) + src.slice(m.index, fine === -1 ? m.index : fine);
-        if (!/reducedMotion|\banimate\b/.test(finestra)) {
+        const prima = src.slice(Math.max(0, m.index - 400), m.index);
+        const chiamata = src.slice(m.index, fine === -1 ? m.index : fine);
+        const guardia = /if\s*\([^)]*StateManager\.reducedMotion[^)]*\)/.test(prima);
+        const durataAdattiva = /duration\s*:\s*StateManager\.reducedMotion\s*\?/.test(chiamata);
+        const interruttore = /\banimate\b/.test(prima + chiamata);
+        if (!guardia && !durataAdattiva && !interruttore) {
           const riga = src.slice(0, m.index).split('\n').length;
           colpevoli.push(`${f}:${riga}`);
         }
