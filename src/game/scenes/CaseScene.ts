@@ -34,12 +34,14 @@ export class CaseScene extends Phaser.Scene {
     AudioSystem.openCase();
     addNoiseOverlay(this, 0.4);
 
-    // dossier che "compare" dal basso
-    const dossier = this.add.container(cx, GAME_HEIGHT / 2 + 30);
-    const paper = this.add.image(0, 0, 'dossier_paper').setDisplaySize(900, 560);
+    // Il fascicolo contiene un solo scenario breve: una carta più alta lasciava
+    // oltre metà pagina vuota e spingeva l'azione sul bordo dello schermo.
+    const dossierY = 230;
+    const dossier = this.add.container(cx, dossierY + 30);
+    const paper = this.add.image(0, 0, 'dossier_paper').setDisplaySize(900, 360);
     dossier.add(paper);
     dossier.setAlpha(0);
-    reveal(this, { targets: dossier, alpha: 1, y: GAME_HEIGHT / 2, duration: 350, ease: 'Cubic.easeOut' });
+    reveal(this, { targets: dossier, alpha: 1, y: dossierY, duration: 350, ease: 'Cubic.easeOut' });
 
     const left = cx - 410;
     this.add.text(left, 70, fmt(L().ui.case.fileLabel, { code: this.caseData.fileCode }), textStyle(13, COLOR_STR.alertText));
@@ -48,7 +50,7 @@ export class CaseScene extends Phaser.Scene {
     this.add.rectangle(cx, 165, 820, 1, COLORS.iron).setOrigin(0.5);
 
     const body = new TypewriterText(this, left, 190, 15, COLOR_STR.paper, 820);
-    const proceed = new Button(this, cx, GAME_HEIGHT - 70, L().ui.case.examineButton, () => {
+    const proceed = new Button(this, cx, 455, L().ui.case.examineButton, () => {
       this.scene.start('Evidence', { caseId: this.caseData.id });
     });
     proceed.setVisible(false);
