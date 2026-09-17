@@ -34,7 +34,11 @@ function walk(dir) {
   }
   return out;
 }
-const files = walk(dist).map((p) => ({ p: relative(dist, p), size: statSync(p).size }));
+const files = walk(dist).map((p) => ({
+  // Normalise once so the same checks run on Windows and POSIX CI hosts.
+  p: relative(dist, p).replaceAll('\\', '/'),
+  size: statSync(p).size
+}));
 const total = files.reduce((a, f) => a + f.size, 0);
 const kb = (n) => `${(n / 1024).toFixed(0)} KB`;
 const fails = [];
@@ -56,7 +60,10 @@ console.log(`landing / ........ ${kb(landingGz)} gzipped HTML (budget ${BUDGET.l
 console.log(`game bundle ...... ${gameJs ? `${kb(gameGz)} gzipped (${gameJs.p}, budget ${BUDGET.gameGzipKB} KB)` : 'NOT FOUND'}`);
 
 // content-hashed assets → safe for immutable CDN caching
-const unhashed = files.filter((f) => f.p.startsWith('assets/') && !f.p.startsWith('assets/social/') && !/-[A-Za-z0-9_-]{8}\./.test(f.p));
+const unhashed = files.filter((f) => f.p.startsWith('assets/')
+  && !f.p.startsWith('assets/social/')
+  && !f.p.startsWith('assets/press/')
+  && !/-[A-Za-z0-9_-]{8}\./.test(f.p));
 console.log(`hashed assets .... ${unhashed.length === 0 ? 'all content-hashed ✓' : `UNHASHED: ${unhashed.map((f) => f.p).join(', ')}`}`);
 
 if (total > BUDGET.totalMB * 1024 * 1024) fails.push(`dist total ${(total / 1048576).toFixed(1)} MB > ${BUDGET.totalMB} MB`);

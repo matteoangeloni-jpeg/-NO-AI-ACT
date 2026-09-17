@@ -1,0 +1,10 @@
+tester_id,round,profile,build_commit,language,browser,os,resolution,first_case_minutes,completed_unassisted,classification_measure_motivation,remembered_consequence,inspector_desk_found,compare_used,session_minutes,console_errors,issue_priority,issue_screen_or_case,observation,quote_anonymous,follow_up
+A01,A,,,,,,,,,,,,,,,,,,,
+A02,A,,,,,,,,,,,,,,,,,,,
+A03,A,,,,,,,,,,,,,,,,,,,
+A04,A,,,,,,,,,,,,,,,,,,,
+A05,A,,,,,,,,,,,,,,,,,,,
+B01,B,giornalista videogiochi indie,,,,,,,,,,,,,,,,,
+B02,B,game designer,,,,,,,,,,,,,,,,,
+B03,B,docente o formatore,,,,,,,,,,,,,,,,,
+B04,B,esperto AI Act o PA,,,,,,,,,,,,,,,,,

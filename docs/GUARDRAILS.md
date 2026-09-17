@@ -32,8 +32,8 @@ enforce all of it; run `npm test` before opening any feature PR.
 
 ## `/play/` SEO + privacy policy
 - `/play/` stays `noindex, follow`, keeps its self canonical, has social
-  metadata, and is **excluded from the sitemap** (which stays at **56** public
-  URLs — 26 IT + 30 EN, pinned in `release.config.json`). Enforced by `tests/privacyGuards.test.ts`, `tests/socialMeta.test.ts`,
+  metadata, and is **excluded from the sitemap** (which stays at **62** public
+  URLs — 29 IT + 33 EN, pinned in `release.config.json`). Enforced by `tests/privacyGuards.test.ts`, `tests/socialMeta.test.ts`,
   `tests/navigationAudit.test.ts`.
 
 ## No external forms
@@ -47,12 +47,12 @@ enforce all of it; run `npm test` before opening any feature PR.
 
 ## Search Console / Sitemap readiness
 - Advertised sitemaps (robots.txt): **`/sitemap-it.xml`**, **`/sitemap-en.xml`** · Kept for compatibility (not advertised): **`/sitemap.xml`** (a sitemap index) · Robots: **`https://www.no-ai-act.eu/robots.txt`**
-- **Google Search Console reads the two language sitemaps directly and reliably** (IT → 26 pages, EN → 30 pages, 56 total), so `robots.txt` advertises **those two** and **no longer** the `/sitemap.xml` index. The index file still exists (valid `<sitemapindex>` listing the two children) purely for compatibility — GSC just kept its `/sitemap.xml` row in a stale "Couldn't fetch" state, so we stopped routing crawlers through it.
-- Each child is a `<urlset>`: `sitemap-it.xml` = root `/` + Italian pages (26); `sitemap-en.xml` = `/en/` pages (30). `tests/sitemapGscReadiness.test.ts` enforces (build-independent, from source): valid, well-formed XML with the `0.9` namespace; the **combined children are exactly the 56** absolute-HTTPS canonical public URLs — all on the **`https://www.no-ai-act.eu/` www host**, never `http://`, never the apex `https://no-ai-act.eu/`, no localhost / `github.io` / `.pages.dev`, no query strings, hashes, duplicates (within or across children), assets, or `/play/` — split by language with no overlap, every URL mapping to a real page whose **self-canonical equals the sitemap URL**; `robots.txt` advertises **exactly the two child sitemaps** (absolute https www), never the `/sitemap.xml` index, the stale `http://`, or the apex variant.
+- **Google Search Console reads the two language sitemaps directly and reliably** (IT → 29 pages, EN → 33 pages, 62 total), so `robots.txt` advertises **those two** and **no longer** the `/sitemap.xml` index. The index file still exists (valid `<sitemapindex>` listing the two children) purely for compatibility — GSC just kept its `/sitemap.xml` row in a stale "Couldn't fetch" state, so we stopped routing crawlers through it.
+- Each child is a `<urlset>`: `sitemap-it.xml` = root `/` + Italian pages (29); `sitemap-en.xml` = `/en/` pages (33). `tests/sitemapGscReadiness.test.ts` enforces (build-independent, from source): valid, well-formed XML with the `0.9` namespace; the **combined children are exactly the 62** absolute-HTTPS canonical public URLs — all on the **`https://www.no-ai-act.eu/` www host**, never `http://`, never the apex `https://no-ai-act.eu/`, no localhost / `github.io` / `.pages.dev`, no query strings, hashes, duplicates (within or across children), assets, or `/play/` — split by language with no overlap, every URL mapping to a real page whose **self-canonical equals the sitemap URL**; `robots.txt` advertises **exactly the two child sitemaps** (absolute https www), never the `/sitemap.xml` index, the stale `http://`, or the apex variant.
 - **Live check after deploy** (opt-in — needs external egress, so it is not in CI):
   - `node scripts/seo/check-sitemap-live.mjs`
   - `node scripts/seo/check-sitemap-live.mjs https://www.no-ai-act.eu`
-  It drives off whatever `robots.txt` advertises (accepting the two child sitemaps directly), follows an advertised `sitemapindex` if it ever finds one, and prints per-file counts (**26 IT + 30 EN = 56**), a robots.txt diagnostic block (directive count + values, no `/sitemap.xml`/`http://`/apex), a compatibility check of `/sitemap.xml` (present + root type), **Googlebot-like user-agent parity**, any `http://` / non-www / query / `/play/` URLs, and sampled page canonical/`noindex` checks.
+  It drives off whatever `robots.txt` advertises (accepting the two child sitemaps directly), follows an advertised `sitemapindex` if it ever finds one, and prints per-file counts (**29 IT + 33 EN = 62**), a robots.txt diagnostic block (directive count + values, no `/sitemap.xml`/`http://`/apex), a compatibility check of `/sitemap.xml` (present + root type), **Googlebot-like user-agent parity**, any `http://` / non-www / query / `/play/` URLs, and sampled page canonical/`noindex` checks.
 
 ### Post-deploy owner checklist
 1. GitHub Pages deploy is green.
@@ -67,12 +67,12 @@ The active property is the **Domain property** `sc-domain:no-ai-act.eu`. GSC alr
 > `https://www.no-ai-act.eu/sitemap-it.xml`
 > `https://www.no-ai-act.eu/sitemap-en.xml`
 
-- **Do not resubmit `https://www.no-ai-act.eu/sitemap.xml`** while its GSC row is stuck in a stale/"Couldn't fetch" state — the child sitemaps already cover all 56 URLs.
+- **Do not resubmit `https://www.no-ai-act.eu/sitemap.xml`** while its GSC row is stuck in a stale/"Couldn't fetch" state — the child sitemaps cover all 62 URLs after the v2.3 deploy.
 - If the red `/sitemap.xml` row **cannot be deleted** from GSC, **ignore it** — it does not affect indexing now that the children are accepted.
 - **Do not** submit HTTP (`http://…`), apex (`https://no-ai-act.eu/…`), or duplicate variants.
 
 ### If Search Console still says "Impossibile recuperare" for a child sitemap while it opens as XML
-The files themselves are fine (200, real XML, correct namespace, 26 + 30 = 56 canonical URLs) — the fetch is being blocked or cached upstream. Work the deploy path, not the files:
+The files themselves are fine when they return 200, real XML, the correct namespace and 29 + 33 = 62 canonical URLs. If fetch still fails, work the deploy path rather than rewriting the files:
 - Open `/sitemap-it.xml` and `/sitemap-en.xml` in the browser — both should render as XML.
 - Run `node scripts/seo/check-sitemap-live.mjs https://www.no-ai-act.eu` → **PASS**.
 - **Purge Cloudflare** (Purge Everything) so a stale/error response isn't cached.
@@ -96,6 +96,8 @@ with only committed dependencies:
 | `smoke:layout` | text or controls under the page chrome; a panel that clips its own content; a heading that repeats itself |
 | `smoke:audio` | silence where a theme should play; clipping; every theme collapsing onto the same loudness |
 | `smoke:action-layer` | a drawn button with no real button behind it; a focus ring off its target; the TAB escaping an open panel; one ENTER firing two actions |
+| `smoke:inspector-desk` | the evidence comparison not opening from exhibits or decision; background desk actions remaining focusable behind it; Full-HD comparison screenshots failing |
+| `smoke:press-pages` | a v2.3 guide or press kit missing its primary content; horizontal overflow at desktop/mobile widths; a press screenshot no longer being Full HD |
 | `smoke:visual-language` | a state glyph the font cannot draw (it renders as an empty box, so one of the three signals vanishes); two texts landing on top of each other; text spilling past the bottom edge of the report paper; a canvas rendered at fewer pixels than the screen. Runs the whole flow six times: Italian and English, reduced motion on and off, 1280×720, Full HD and Full HD at 2× device pixel ratio |
 
 

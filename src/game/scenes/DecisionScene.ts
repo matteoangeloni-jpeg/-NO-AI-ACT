@@ -9,6 +9,9 @@ import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
 import { CaseContextOverlay } from '../ui/CaseContextOverlay';
 import { CaseNormOverlay } from '../ui/CaseNormOverlay';
+import { EvidenceCompareOverlay } from '../ui/EvidenceCompareOverlay';
+import { InspectorDesk } from '../ui/InspectorDesk';
+import { NotebookOverlay } from '../ui/NotebookOverlay';
 import { NormCardView } from '../ui/NormCard';
 import { L, caseText, fmt } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
@@ -67,9 +70,14 @@ export class DecisionScene extends Phaser.Scene {
   private overlay?: Phaser.GameObjects.Container;
   private contextOverlay!: CaseContextOverlay;
   private caseNormOverlay!: CaseNormOverlay;
+  private compareOverlay!: EvidenceCompareOverlay;
+  private notebookOverlay!: NotebookOverlay;
+  private inspectorDesk?: InspectorDesk;
   private contextBtn?: Button;
   private normsBtn?: Button;
   private caseNormBtn?: Button;
+  private compareBtn?: Button;
+  private notebookBtn?: Button;
   private backBtn?: Button;
   private termsBtn?: Button;
   private lastStep?: { label: string; question: string };
@@ -139,6 +147,8 @@ export class DecisionScene extends Phaser.Scene {
     this.contextOverlay = new CaseContextOverlay(this, this.caseData.id, 'closeToDecision');
     // read-only "Norma del caso": relevant rule of the current case (no unlock)
     this.caseNormOverlay = new CaseNormOverlay(this, this.caseData.normId);
+    this.compareOverlay = new EvidenceCompareOverlay(this, this.caseData.id, () => this.citedClues, 'compareCloseDecision');
+    this.notebookOverlay = new NotebookOverlay(this);
     const builders: Record<DraftStep, () => void> = {
       evidence: () => this.showClassificationStep(),
       classification: () => this.showClassificationStep(),
@@ -160,8 +170,17 @@ export class DecisionScene extends Phaser.Scene {
     if (!this.lastStep) return;
     ReadingLayer.setScene(fmt(L().a11y.decisionTitle, { step: this.lastStep.label }), [
       { text: this.lastStep.question },
-      { text: L().ui.decision.stepBackHint }
+      { text: L().ui.decision.stepBackHint },
+      this.citedEvidenceReading()
     ]);
+  }
+
+  private citedEvidenceReading(): { heading: string; items: string[] } {
+    const texts = caseText(this.caseData.id);
+    return {
+      heading: L().ui.decision.sidebar.cited,
+      items: this.citedClues.map((index) => texts.clues[index]?.title).filter((title): title is string => !!title)
+    };
   }
 
   /**
@@ -252,36 +271,28 @@ export class DecisionScene extends Phaser.Scene {
     // dall'alto, e deve sapere di poter correggere prima di scegliere.
     ReadingLayer.setScene(fmt(L().a11y.decisionTitle, { step }), [
       { text: question },
-      { text: L().ui.decision.stepBackHint }
+      { text: L().ui.decision.stepBackHint },
+      this.citedEvidenceReading()
     ]);
     const cx = GAME_WIDTH / 2;
     this.add
-      .text(cx, 56, fmt(L().ui.case.fileLabel, { code: this.caseData.fileCode }), textStyle(13, COLOR_STR.alertText))
+      .text(cx, 68, fmt(L().ui.case.fileLabel, { code: this.caseData.fileCode }), textStyle(13, COLOR_STR.alertText))
       .setOrigin(0.5);
-    this.add.text(cx, 82, step, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
-    this.add.text(cx, 122, question, textStyle(19, COLOR_STR.paper)).setOrigin(0.5);
-    this.add.rectangle(cx, 150, 900, 1, COLORS.iron);
-    // archivio norme consultabile in ogni passo della decisione
-    this.normsBtn = new Button(this, GAME_WIDTH - 130, 36, L().ui.decision.normsButton, () => this.toggleNormsOverlay(), {
-      width: 210,
-      height: 36,
-      fontSize: 12,
-      variant: 'ghost'
+    this.add.text(cx, 92, step, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
+    this.add.text(cx, 126, question, textStyle(19, COLOR_STR.paper)).setOrigin(0.5);
+    this.add.rectangle(cx, 154, 900, 1, COLORS.iron);
+
+    const desk = L().ui.inspectorDesk;
+    this.inspectorDesk = new InspectorDesk(this, {
+      caseLabel: fmt(desk.fileLabel, { code: this.caseData.fileCode }),
+      phaseLabel: desk.decisionPhase,
+      status: fmt(desk.citedStatus, { cited: this.citedClues.length })
     });
-    // read-only "Rivedi contesto" — consultabile in ogni passo, non tocca lo stato
-    this.contextBtn = new Button(this, 130, 36, L().ui.context.button, () => this.contextOverlay.toggle(), {
-      width: 210,
-      height: 36,
-      fontSize: 12,
-      variant: 'ghost'
-    });
-    // read-only "Norma del caso" — norma rilevante in sola lettura (no sblocco)
-    this.caseNormBtn = new Button(this, GAME_WIDTH - 130, 76, L().ui.caseNorm.button, () => this.caseNormOverlay.toggle(), {
-      width: 210,
-      height: 36,
-      fontSize: 12,
-      variant: 'ghost'
-    });
+    this.contextBtn = this.inspectorDesk.addAction(desk.context, () => this.contextOverlay.toggle(), { width: 122 });
+    this.compareBtn = this.inspectorDesk.addAction(desk.compare, () => this.compareOverlay.toggle(), { width: 132, disabled: this.citedClues.length < 2 });
+    this.caseNormBtn = this.inspectorDesk.addAction(desk.norm, () => this.caseNormOverlay.toggle(), { width: 112 });
+    this.normsBtn = this.inspectorDesk.addAction(desk.archive, () => this.toggleNormsOverlay(), { width: 122 });
+    this.notebookBtn = this.inspectorDesk.addAction(desk.notebook, () => this.notebookOverlay.toggle(), { width: 116 });
     if (sidebar) {
       this.buildSidebar();
       this.buildCityState();
@@ -313,10 +324,14 @@ export class DecisionScene extends Phaser.Scene {
     // the read-only overlays' full-screen shade doesn't visually dim these
     // root-level buttons (a Phaser depth-sort quirk); hide them outright
     // while any overlay is open instead of leaving them looking clickable.
-    const hideNav = this.contextOverlay.isOpen || this.caseNormOverlay.isOpen || !!this.overlay;
+    const hideNav = this.contextOverlay.isOpen || this.caseNormOverlay.isOpen || !!this.overlay
+      || this.compareOverlay.isOpen || this.notebookOverlay.isOpen;
+    this.inspectorDesk?.setVisible(!hideNav);
     this.contextBtn?.setVisible(!hideNav);
     this.normsBtn?.setVisible(!hideNav);
     this.caseNormBtn?.setVisible(!hideNav);
+    this.compareBtn?.setVisible(!hideNav);
+    this.notebookBtn?.setVisible(!hideNav);
     this.backBtn?.setVisible(!hideNav);
     this.termsBtn?.setVisible(!hideNav);
   }
@@ -332,18 +347,30 @@ export class DecisionScene extends Phaser.Scene {
     NUMBER_KEYS.slice(0, count).forEach((key, i) => {
       this.input.keyboard?.on(`keydown-${key}`, () => {
         // ignore number keys while a read-only overlay (norms / context / rule) is open
-        if (!this.overlay && !this.contextOverlay.isOpen && !this.caseNormOverlay.isOpen) onPick(i);
+        if (!this.overlay && !this.contextOverlay.isOpen && !this.caseNormOverlay.isOpen && !this.compareOverlay.isOpen && !this.notebookOverlay.isOpen) onPick(i);
       });
     });
     if (onBack) {
       this.input.keyboard?.on('keydown-BACKSPACE', () => {
-        if (!this.overlay && !this.contextOverlay.isOpen && !this.caseNormOverlay.isOpen && !this.resolved) onBack();
+        if (!this.overlay && !this.contextOverlay.isOpen && !this.caseNormOverlay.isOpen && !this.compareOverlay.isOpen && !this.notebookOverlay.isOpen && !this.resolved) onBack();
       });
     }
     this.input.keyboard?.on('keydown-ESC', () => {
       if (this.contextOverlay.isOpen) this.contextOverlay.close();
       else if (this.caseNormOverlay.isOpen) this.caseNormOverlay.close();
+      else if (this.compareOverlay.isOpen) this.compareOverlay.close();
+      else if (this.notebookOverlay.isOpen) this.notebookOverlay.close();
       else this.closeNormsOverlay();
+    });
+    this.input.keyboard?.on('keydown-X', () => {
+      if (!this.overlay && !this.contextOverlay.isOpen && !this.caseNormOverlay.isOpen && !this.notebookOverlay.isOpen && this.citedClues.length >= 2) {
+        this.compareOverlay.toggle();
+      }
+    });
+    this.input.keyboard?.on('keydown-N', () => {
+      if (!this.overlay && !this.contextOverlay.isOpen && !this.caseNormOverlay.isOpen && !this.compareOverlay.isOpen) {
+        this.notebookOverlay.toggle();
+      }
     });
   }
 
@@ -592,7 +619,7 @@ export class DecisionScene extends Phaser.Scene {
     // apposta. bindNumberKeys serve comunque per riagganciare il ritorno.
     this.bindNumberKeys(0, () => undefined, back);
     this.input.keyboard?.on('keydown-ENTER', () => {
-      if (!this.overlay && !this.contextOverlay.isOpen && !this.caseNormOverlay.isOpen) this.sign();
+      if (!this.overlay && !this.contextOverlay.isOpen && !this.caseNormOverlay.isOpen && !this.compareOverlay.isOpen && !this.notebookOverlay.isOpen) this.sign();
     });
 
     new Button(this, cx, GAME_HEIGHT - 104, t.sign, () => this.sign(), { width: 460, height: 48, fontSize: 14 });
@@ -648,7 +675,7 @@ export class DecisionScene extends Phaser.Scene {
     });
     (['SEVEN', 'EIGHT', 'NINE'] as const).forEach((key, i) => {
       this.input.keyboard?.on(`keydown-${key}`, () => {
-        if (!this.overlay && !this.contextOverlay.isOpen && !this.caseNormOverlay.isOpen && !this.resolved) {
+        if (!this.overlay && !this.contextOverlay.isOpen && !this.caseNormOverlay.isOpen && !this.compareOverlay.isOpen && !this.notebookOverlay.isOpen && !this.resolved) {
           pick(levels[i].level, levels[i].label);
         }
       });
@@ -719,15 +746,11 @@ export class DecisionScene extends Phaser.Scene {
 
   /** Bottone dell'aiuto contestuale, nella stessa posizione in ogni passo. */
   private addTermsButton(options: Array<{ label: string; glossaryId: string | null }>): void {
-    // Terza riga della colonna in alto a destra: sopra ci sono già
-    // "consulta norme" (centro 36) e "norma del caso" (76). A 76 questo
-    // bottone finiva esattamente sul secondo, in entrambe le lingue.
-    this.termsBtn = new Button(this, GAME_WIDTH - 130, 116, L().ui.decision.termsButton, () => this.toggleTermsOverlay(options), {
-      width: 210,
-      height: 34,
-      fontSize: 11.5,
-      variant: 'ghost'
-    });
+    this.termsBtn = this.inspectorDesk?.addAction(
+      L().ui.inspectorDesk.terms,
+      () => this.toggleTermsOverlay(options),
+      { width: 112 }
+    );
   }
 
   // ----------------------------------------------------- overlay norme

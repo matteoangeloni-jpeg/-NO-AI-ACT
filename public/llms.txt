@@ -10,12 +10,12 @@
 > to be governed, or compliant). It is an educational simulation about
 > algorithmic risk governance — not legal advice.
 
-- Version: v2.2.0
-- Status: public release
+- Version: v2.3.0
+- Status: press candidate; not yet tagged
 - Languages: Italian (default) and English — game and educational hub
 - Audience: teachers and trainers, upper-secondary and university students, researchers, professionals working with AI governance
 - Pricing: free and open source, copyleft (GPL-3.0-or-later code, CC BY-SA 4.0 educational content; up to v2.0.0 it was MIT + CC BY 4.0)
-- 13 playable cases; 56 public educational pages
+- 13 playable cases; 62 public educational pages
 - Every public page shares a global navigation (Play · Education/Resources · Teachers · AI Act guide · Glossary · Privacy · language switch); the game and the education hub are reachable from every page, and the game links back to the site.
 - Best entry points: the two landing pages and the two education hubs, each of which opens with a "Start here" chooser (play now / teachers / students / AI Act guide / glossary / privacy).
 
@@ -72,6 +72,12 @@
 - Obblighi di trasparenza (IT): https://www.no-ai-act.eu/obblighi-trasparenza-ai-act/
 - General-purpose AI and generative AI (EN): https://www.no-ai-act.eu/en/general-purpose-ai/
 - IA generativa e GPAI (IT): https://www.no-ai-act.eu/ai-generativa-e-gpai/
+- Provider vs deployer (EN): https://www.no-ai-act.eu/en/provider-deployer-ai-act/
+- Provider e deployer (IT): https://www.no-ai-act.eu/provider-deployer-ai-act/
+- AI Act and public administration (EN): https://www.no-ai-act.eu/en/ai-act-public-administration/
+- AI Act e pubblica amministrazione (IT): https://www.no-ai-act.eu/ai-act-pubblica-amministrazione/
+- Fundamental rights impact assessment, FRIA (EN): https://www.no-ai-act.eu/en/fria-ai-act-fundamental-rights-impact-assessment/
+- Valutazione d'impatto sui diritti fondamentali, FRIA (IT): https://www.no-ai-act.eu/fria-ai-act-valutazione-diritti-fondamentali/
 
 ## Classroom activities and lesson plans
 

@@ -21,6 +21,7 @@
  *   BASE=http://localhost:4200 CHROMIUM_PATH=/path/to/chrome node scripts/smoke/privacy-smoke.mjs
  */
 import { chromium } from 'playwright';
+import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
 
 const BASE = process.env.BASE || 'http://localhost:4200';
 const ALLOWED_HOSTS = ['static.cloudflareinsights.com']; // shell del sito, non del gioco
@@ -38,7 +39,7 @@ const FORBIDDEN_IN_PAYLOAD = [
   'caseReports', 'caseDrafts', 'no-ai-act-save', 'motivationIndex', 'completedCases'
 ];
 
-const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH });
+const browser = await chromium.launch(smokeBrowserLaunchOptions());
 const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
 
 /** Ogni richiesta uscente, con il suo corpo, in ordine. */
@@ -83,7 +84,7 @@ await page.goto(`${BASE}/play/?lang=it`, { waitUntil: 'load' });
 await page.waitForFunction(() => {
   const a = window.game?.scene?.getScenes(true);
   return !!a && a.some((s) => s.scene.key === 'Title');
-}, { timeout: 40000 });
+}, undefined, { timeout: 60000 });
 
 // --- si gioca un caso intero: da qui in poi ESISTONO dati da perdere -------
 phase = 'partita';

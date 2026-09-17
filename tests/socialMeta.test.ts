@@ -5,9 +5,10 @@ import { describe, expect, it } from 'vitest';
 const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
 const CFG = JSON.parse(read('scripts/social/meta.config.json'));
+const RELEASE = JSON.parse(read('release.config.json'));
 const SITE = 'https://www.no-ai-act.eu/';
 
-/** All 56 public dirs ('' = IT landing) + the /play/ shell key 'play'. */
+/** All configured public dirs ('' = IT landing) + the /play/ shell key. */
 const PUBLIC = Object.keys(CFG.pageCategory).filter((d: string) => d !== 'play');
 const ALL = Object.keys(CFG.pageCategory); // includes 'play'
 const fileOf = (d: string) => (d === 'play' ? 'play/index.html' : d === '' ? 'index.html' : `${d}/index.html`);
@@ -183,11 +184,11 @@ describe('SEO / policy invariants preserved', () => {
     const play = read('play/index.html');
     expect(play).toContain('content="noindex, follow"');
     expect(play).toContain('rel="canonical" href="https://www.no-ai-act.eu/play/"');
-    // /sitemap.xml is a sitemap index; the 56 URLs live in the language children.
+    // /sitemap.xml is a sitemap index; public URLs live in the language children.
     const it = read('public/sitemap-it.xml');
     const en = read('public/sitemap-en.xml');
     for (const sm of [read('public/sitemap.xml'), it, en]) expect(sm).not.toContain('/play/');
-    expect([it, en].reduce((n, sm) => n + (sm.match(/<loc>/g) ?? []).length, 0)).toBe(56);
+    expect([it, en].reduce((n, sm) => n + (sm.match(/<loc>/g) ?? []).length, 0)).toBe(RELEASE.publicUrls.total);
   });
 
   it('no Tally IDs or form hosts remain', () => {
@@ -198,8 +199,8 @@ describe('SEO / policy invariants preserved', () => {
     }
   });
 
-  it('config covers exactly the 56 public pages + the play shell', () => {
-    expect(PUBLIC.length).toBe(56);
-    expect(ALL.length).toBe(57);
+  it('config covers every public page + the play shell', () => {
+    expect(PUBLIC.length).toBe(RELEASE.publicUrls.total);
+    expect(ALL.length).toBe(RELEASE.publicUrls.total + 1);
   });
 });

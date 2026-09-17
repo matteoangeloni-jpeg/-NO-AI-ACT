@@ -6,17 +6,19 @@ const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
 const SITE = 'https://www.no-ai-act.eu/';
 
-/** The 32 education-hub URLs added by the authority hub sprint. */
+/** The 38 education-hub URLs in the bilingual authority hub. */
 const IT_HUB = [
   'educazione', 'ai-act-per-docenti', 'alfabetizzazione-ai', 'guida-ai-act',
   'categorie-rischio-ai-act', 'pratiche-vietate-ai-act', 'sistemi-ai-ad-alto-rischio',
   'obblighi-trasparenza-ai-act', 'ai-generativa-e-gpai', 'apprendimento-privacy-consapevole',
+  'provider-deployer-ai-act', 'ai-act-pubblica-amministrazione', 'fria-ai-act-valutazione-diritti-fondamentali',
   'serious-game-regolazione-ai', 'attivita-didattiche', 'lezione-introduzione-ai-act', 'glossario'
 ] as const;
 const EN_HUB = [
   'en/education', 'en/ai-act-for-teachers', 'en/ai-literacy', 'en/eu-ai-act-guide',
   'en/ai-act-risk-categories', 'en/prohibited-ai-practices', 'en/high-risk-ai-systems',
   'en/transparency-obligations', 'en/general-purpose-ai', 'en/privacy-conscious-learning',
+  'en/provider-deployer-ai-act', 'en/ai-act-public-administration', 'en/fria-ai-act-fundamental-rights-impact-assessment',
   'en/serious-games-for-ai-regulation', 'en/digital-citizenship-ai-regulation',
   'en/classroom-activities', 'en/lesson-plan-introduction-to-the-ai-act',
   'en/lesson-plan-risk-based-approach', 'en/lesson-plan-transparency-and-users',
@@ -35,6 +37,9 @@ const PAIRS: Record<string, string> = {
   'sistemi-ai-ad-alto-rischio': 'en/high-risk-ai-systems',
   'obblighi-trasparenza-ai-act': 'en/transparency-obligations',
   'ai-generativa-e-gpai': 'en/general-purpose-ai',
+  'provider-deployer-ai-act': 'en/provider-deployer-ai-act',
+  'ai-act-pubblica-amministrazione': 'en/ai-act-public-administration',
+  'fria-ai-act-valutazione-diritti-fondamentali': 'en/fria-ai-act-fundamental-rights-impact-assessment',
   'apprendimento-privacy-consapevole': 'en/privacy-conscious-learning',
   'serious-game-regolazione-ai': 'en/serious-games-for-ai-regulation',
   'attivita-didattiche': 'en/classroom-activities',

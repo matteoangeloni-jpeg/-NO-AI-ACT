@@ -27,6 +27,7 @@
  */
 import { chromium } from 'playwright';
 import { boundsToPageSrc } from './lib-canvas-coords.mjs';
+import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
 
 const BASE = process.env.BASE || 'http://localhost:4200';
 /** Tolleranza fra riquadro disegnato ed elemento, in pixel di pagina. */
@@ -42,7 +43,7 @@ const SEED = JSON.stringify({
   difficulty: 'standard', mission: 'full', caseMeta: {}, selfCheck: { pre: null, post: null }
 });
 
-const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
+const browser = await chromium.launch(smokeBrowserLaunchOptions());
 const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 });
 await ctx.route(/cloudflareinsights\.com/, (r) => r.abort());
 const page = await ctx.newPage();
@@ -199,7 +200,12 @@ await checkExposure('carta norma');
 // così una sola azione conta una sola volta
 await page.evaluate(() => {
   window.__starts = [];
-  const proto = Object.getPrototypeOf(window.game.scene.getScenes(true)[0].scene);
+  // The active-scene list can be empty for one frame while Phaser commits a
+  // queued transition. Every registered scene owns the same ScenePlugin
+  // prototype, so use the stable registry for the instrumentation hook.
+  const plugin = window.game.scene.scenes.find((candidate) => candidate?.scene)?.scene;
+  if (!plugin) throw new Error('ScenePlugin non disponibile per il controllo di attivazione');
+  const proto = Object.getPrototypeOf(plugin);
   if (!proto.__wrapped) {
     const orig = proto.start;
     proto.start = function (key, data) { window.__starts.push(key ?? this.key); return orig.call(this, key, data); };

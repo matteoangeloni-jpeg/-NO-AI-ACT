@@ -28,6 +28,10 @@ import { mkdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve as pathResolve } from 'node:path';
 import { worldToPageFn } from './lib-canvas-coords.mjs';
+import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
+import { prepareEvidenceVisualState } from './lib-evidence.mjs';
+import { selectMapCaseWithKeyboard } from './lib-map.mjs';
+import { completeDecisionWithKeyboard } from './lib-decision.mjs';
 
 const BASE = process.env.BASE || 'http://localhost:4200';
 const root = pathResolve(dirname(fileURLToPath(import.meta.url)), '../..');
@@ -57,13 +61,14 @@ const save = (v) => JSON.stringify({
   difficulty: 'standard', mission: 'full'
 });
 
-const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
+const browser = await chromium.launch(smokeBrowserLaunchOptions());
 
 /** Un giro completo: mappa → caso → reperti → decisione → rapporto → conseguenza. */
 async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
   const ctx = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: dpr });
   await ctx.route(/cloudflareinsights\.com/, (r) => r.abort());
   const page = await ctx.newPage();
+  const screenshot = (suffix) => page.screenshot({ path: `${OUT}/${tag}-${suffix}.png`, timeout: 90000 });
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
   // la richiesta al beacon la interrompiamo noi, per non dipendere dalla
@@ -210,25 +215,22 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
   await click(640, 300, 300);
   await clickButton(lang === 'it' ? 'MAPPA CIVICA' : 'CIVIC MAP');
   if (!(await waitScene('CityMap'))) { await ctx.close(); return; }
-  await page.screenshot({ path: `${OUT}/${tag}-01-map.png` });
+  await screenshot('01-map');
 
-  await click(Math.round(1280 * 0.40), Math.round(720 * 0.18), 300);
+  await selectMapCaseWithKeyboard(page, 'case_credito');
   if (!(await waitScene('Case'))) { await ctx.close(); return; }
   await click(640, 400, 300);
-  await page.screenshot({ path: `${OUT}/${tag}-02-case.png` });
+  await screenshot('02-case');
 
   await clickButton(lang === 'it' ? 'ESAMINA I REPERTI' : 'EXAMINE THE EXHIBITS');
   if (!(await waitScene('Evidence'))) { await ctx.close(); return; }
-  const clues = [[250, 236], [640, 236], [1030, 236], [250, 482], [640, 482], [1030, 482]];
-  for (const [x, y] of clues) await click(x, y, 80);
-  await click(clues[3][0], clues[3][1], 80);
-  await click(clues[4][0], clues[4][1], 80);
-  await page.screenshot({ path: `${OUT}/${tag}-03-evidence.png` });
+  await prepareEvidenceVisualState(page, [0, 1]);
+  await screenshot('03-evidence');
 
   await clickButton(lang === 'it' ? 'PASSA ALLA CLASSIFICAZIONE|CLASSIFICA' : 'PROCEED TO CLASSIFICATION');
   if (!(await waitScene('Decision'))) { await ctx.close(); return; }
   await page.waitForTimeout(400);
-  await page.screenshot({ path: `${OUT}/${tag}-04-decision.png` });
+  await screenshot('04-decision');
 
   // --- 3. nella decisione, la nota di contesto non entra nella colonna della città
   const boxes = await textBoxes();
@@ -246,13 +248,13 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
   }
   if (collisioni.length > 0) fail.push(`[${tag}] testi sovrapposti nella decisione:\n    ${collisioni.join('\n    ')}`);
 
-  for (const k of ['1', '1', '2', '2']) { await page.keyboard.press(k); await page.waitForTimeout(500); }
+  await completeDecisionWithKeyboard(page);
   await page.waitForTimeout(300);
-  await page.screenshot({ path: `${OUT}/${tag}-05-summary.png` });
+  await screenshot('05-summary');
   await page.keyboard.press('Enter');
   if (!(await waitScene('Report'))) { await ctx.close(); return; }
   await page.waitForTimeout(900);
-  await page.screenshot({ path: `${OUT}/${tag}-06-report.png` });
+  await screenshot('06-report');
 
   // --- 4. nel rapporto nessun testo esce dal bordo basso della carta
   const PAPER_BOTTOM = 640;
@@ -277,14 +279,14 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
   await clickButton(lang === 'it' ? 'PROSEGUI' : 'CONTINUE');
   if (await waitScene('Consequence')) {
     await page.waitForTimeout(1400);
-    await page.screenshot({ path: `${OUT}/${tag}-07-consequence.png` });
+    await screenshot('07-consequence');
     // la carta norma è l'unico posto in cui si vede l'identità normativa:
     // senza questo passo il distintivo delle categorie non lo guarda nessuno
     await click(640, 300, 200);
     await clickButton(lang === 'it' ? 'NORMA' : 'NORM', 500);
     if (await waitScene('NormCard', 12000)) {
       await page.waitForTimeout(900);
-      await page.screenshot({ path: `${OUT}/${tag}-08-normcard.png` });
+      await screenshot('08-normcard');
       const cartaNorma = await textBoxes();
       const scontri = [];
       for (let i = 0; i < cartaNorma.length; i++) {

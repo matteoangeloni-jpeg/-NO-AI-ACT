@@ -35,13 +35,15 @@ describe('Case context review — wiring in scenes', () => {
 
   test('the review-context button is wired in EvidenceScene', () => {
     expect(evidence).toContain('CaseContextOverlay');
-    expect(evidence).toContain('ui.context.button');
+    expect(evidence).toContain('ui.inspectorDesk');
+    expect(evidence).toContain('ui.context');
     expect(evidence).toContain("'closeToEvidence'");
   });
 
   test('the review-context button is wired in DecisionScene', () => {
     expect(decision).toContain('CaseContextOverlay');
-    expect(decision).toContain('ui.context.button');
+    expect(decision).toContain('ui.inspectorDesk');
+    expect(decision).toContain('desk.context');
     expect(decision).toContain("'closeToDecision'");
   });
 

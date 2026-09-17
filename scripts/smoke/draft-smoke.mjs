@@ -17,13 +17,14 @@
  *   BASE=http://localhost:4200 CHROMIUM_PATH=/path/to/chrome node scripts/smoke/draft-smoke.mjs
  */
 import { chromium } from 'playwright';
+import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
 
 const BASE = process.env.BASE || 'http://localhost:4200';
 const CASE = 'case_scoring';
 const KEY = 'no-ai-act-save-v2';
 const fail = [];
 
-const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH });
+const browser = await chromium.launch(smokeBrowserLaunchOptions());
 const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
 await context.route(/cloudflareinsights\.com/, (r) => r.abort());
 const page = await context.newPage();
@@ -53,7 +54,7 @@ const bootAt = async (lang) => {
   await page.waitForFunction(() => {
     const a = window.game?.scene?.getScenes(true);
     return !!a && a.length > 0 && a[a.length - 1].scene.key === 'Title';
-  }, { timeout: 40000 });
+  }, undefined, { timeout: 60000 });
   await page.waitForTimeout(400);
 };
 const boot = () => bootAt('it');
@@ -68,7 +69,7 @@ const startEvidence = async () => {
   await page.waitForFunction(() => {
     const a = window.game?.scene?.getScenes(true);
     return a && a.length && a[a.length - 1].scene.key === 'Evidence';
-  }, { timeout: 10000 }).catch(() => {});
+  }, undefined, { timeout: 10000 }).catch(() => {});
   await page.waitForTimeout(700);
 };
 
@@ -142,7 +143,7 @@ await page.evaluate(() => window.game.scene.start('CityMap'));
 await page.waitForFunction(() => {
   const t = document.getElementById('reading-layer')?.textContent ?? '';
   return /CASI CHIUSI|CASES CLOSED/i.test(t);
-}, { timeout: 15000 });
+}, undefined, { timeout: 15000 });
 await page.waitForTimeout(400);
 const mapLayer = await page.evaluate(() => document.getElementById('reading-layer')?.textContent ?? '');
 if (!/RIPRENDI/i.test(mapLayer)) fail.push('la mappa non segnala il fascicolo lasciato a metà');

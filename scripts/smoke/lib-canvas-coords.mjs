@@ -27,8 +27,14 @@
  */
 export const worldToPageFn = ({ x, y }) => {
   const g = window.game;
-  const scenes = g.scene.getScenes(true);
-  const cam = scenes[scenes.length - 1].cameras.main;
+  const activeScenes = g.scene.getScenes(true);
+  // Phaser can expose no active scene for the single frame in which a queued
+  // transition is committed. Cameras keep the same logical 1280x720 setup in
+  // every scene, so a booted registry camera is a valid conversion fallback.
+  const scene = activeScenes[activeScenes.length - 1]
+    ?? [...g.scene.scenes].reverse().find((candidate) => candidate?.cameras?.main);
+  const cam = scene?.cameras?.main;
+  if (!cam) throw new Error('camera non disponibile per la conversione del canvas');
 
   // due campioni dell'inversa esposta dal motore → la diretta, per assi
   const p0 = cam.getWorldPoint(0, 0);

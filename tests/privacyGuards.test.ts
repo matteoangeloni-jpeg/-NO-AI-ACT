@@ -166,13 +166,13 @@ describe('/play/ SEO + privacy policy stays intact', () => {
     const external = srcs.filter((s) => /^https?:\/\//.test(s));
     expect(external).toEqual(['https://static.cloudflareinsights.com/beacon.min.js']);
   });
-  it('/play/ is excluded from every sitemap; the child sitemaps total 56 public URLs', () => {
-    // /sitemap.xml is a sitemap index → the 56 URLs live in the language children.
+  it('/play/ is excluded from every sitemap; the child sitemaps total 62 public URLs', () => {
+    // /sitemap.xml is a sitemap index; the 62 URLs live in the language children.
     const index = read('public/sitemap.xml');
     const it = read('public/sitemap-it.xml');
     const en = read('public/sitemap-en.xml');
     for (const sm of [index, it, en]) expect(sm).not.toContain('/play/');
     const locs = [it, en].reduce((n, sm) => n + (sm.match(/<loc>/g) ?? []).length, 0);
-    expect(locs).toBe(56);
+    expect(locs).toBe(62);
   });
 });

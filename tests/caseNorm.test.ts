@@ -37,7 +37,8 @@ describe('PR 1D — wiring in DecisionScene', () => {
 
   test('the case rule of the current case is consultable during the decision', () => {
     expect(decision).toContain('CaseNormOverlay');
-    expect(decision).toContain('ui.caseNorm.button');
+    expect(decision).toContain('ui.inspectorDesk');
+    expect(decision).toContain('desk.norm');
     expect(decision).toContain('this.caseData.normId'); // bound to the current case's rule
   });
 

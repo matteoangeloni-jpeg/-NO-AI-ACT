@@ -7,6 +7,9 @@ import { AudioSystem } from '../systems/AudioSystem';
 import { Button } from '../ui/Button';
 import { CaseContextOverlay } from '../ui/CaseContextOverlay';
 import { DossierCard } from '../ui/DossierCard';
+import { EvidenceCompareOverlay } from '../ui/EvidenceCompareOverlay';
+import { InspectorDesk } from '../ui/InspectorDesk';
+import { NotebookOverlay } from '../ui/NotebookOverlay';
 import { showToast } from '../ui/AlertToast';
 import { L, caseText, fmt } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
@@ -31,6 +34,11 @@ export class EvidenceScene extends Phaser.Scene {
   private revealToastShown = false;
   private contextOverlay!: CaseContextOverlay;
   private contextBtn!: Button;
+  private compareOverlay!: EvidenceCompareOverlay;
+  private compareBtn!: Button;
+  private notebookOverlay!: NotebookOverlay;
+  private notebookBtn!: Button;
+  private inspectorDesk!: InspectorDesk;
   private backBtn!: Button;
   private contradictionBtn: Button | null = null;
 
@@ -55,20 +63,16 @@ export class EvidenceScene extends Phaser.Scene {
     AudioSystem.setMusicRole('archive', this.caseData.id);
     addNoiseOverlay(this, 0.4);
 
-    this.add.text(cx, 56, fmt(L().ui.evidence.header, { code: this.caseData.fileCode }), textStyle(14, COLOR_STR.alertText)).setOrigin(0.5);
-    this.add.text(cx, 78, L().ui.evidence.instruction, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
+    this.add.text(cx, 66, fmt(L().ui.evidence.header, { code: this.caseData.fileCode }), textStyle(14, COLOR_STR.alertText)).setOrigin(0.5);
+    this.add.text(cx, 88, L().ui.evidence.instruction, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
     // microcopy: citare un reperto costruisce il rapporto, non è la classificazione
-    this.add.text(cx, 98, L().ui.evidence.citeNote, textStyle(11, COLOR_STR.accentText, { wordWrap: { width: 900 }, align: 'center' })).setOrigin(0.5);
-    this.add.rectangle(cx, 116, 900, 1, COLORS.iron);
+    this.add.text(cx, 108, L().ui.evidence.citeNote, textStyle(11, COLOR_STR.accentText, { wordWrap: { width: 900 }, align: 'center' })).setOrigin(0.5);
+    this.add.rectangle(cx, 126, 900, 1, COLORS.iron);
 
-    // read-only "Rivedi contesto" — re-read the case without leaving the scene
+    // Gli strumenti condivisi vivono nella stessa postazione in entrambe le fasi.
     this.contextOverlay = new CaseContextOverlay(this, this.caseData.id, 'closeToEvidence');
-    this.contextBtn = new Button(this, GAME_WIDTH - 130, 36, L().ui.context.button, () => this.contextOverlay.toggle(), {
-      width: 210,
-      height: 36,
-      fontSize: 12,
-      variant: 'ghost'
-    });
+    this.compareOverlay = new EvidenceCompareOverlay(this, this.caseData.id, () => this.citedIndices(), 'compareCloseEvidence');
+    this.notebookOverlay = new NotebookOverlay(this);
 
     // layout a griglia: 1 riga per ≤3 reperti, 2 righe per 4–6 (caso credito)
     const n = texts.clues.length;
@@ -124,6 +128,8 @@ export class EvidenceScene extends Phaser.Scene {
       });
       this.revealToastShown = this.cards.every((c) => c.isRevealed);
     }
+    this.citedBefore = new Set(this.citedIndices());
+    this.buildInspectorDesk();
 
     /**
      * QUANTO MANCA PER PROCEDERE, SCRITTO.
@@ -144,14 +150,15 @@ export class EvidenceScene extends Phaser.Scene {
 
     this.proceedBtn = new Button(this, cx, GAME_HEIGHT - 90, L().ui.evidence.proceedButton, () => this.proceed(), { width: 380 });
     this.proceedBtn.setVisible(false);
-    this.citedBefore = new Set(this.cards.flatMap((c, i) => (c.isCited ? [i] : [])));
     this.proceedEligible = this.cards.every((c) => c.isRevealed) && this.citedBefore.size >= MIN_CITED_CLUES;
     this.refreshProgressLine();
 
     this.backBtn = new Button(this, 90, GAME_HEIGHT - 36, L().ui.case.backToMap, () => this.scene.start('CityMap'), { width: 140, height: 36, fontSize: 12, variant: 'ghost' });
-    // ESC closes the context overlay first (if open), otherwise leaves to the map
+    // ESC chiude prima lo strumento aperto, altrimenti lascia il fascicolo.
     this.input.keyboard?.on('keydown-ESC', () => {
       if (this.contextOverlay.isOpen) this.contextOverlay.close();
+      else if (this.compareOverlay.isOpen) this.compareOverlay.close();
+      else if (this.notebookOverlay.isOpen) this.notebookOverlay.close();
       else this.scene.start('CityMap');
     });
 
@@ -159,11 +166,17 @@ export class EvidenceScene extends Phaser.Scene {
     const KEYS = ['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX'] as const;
     KEYS.slice(0, n).forEach((key, i) => {
       this.input.keyboard?.on(`keydown-${key}`, () => {
-        if (!this.contextOverlay.isOpen) this.cards[i]?.activate();
+        if (!this.hasOpenOverlay()) this.cards[i]?.activate();
       });
     });
     this.input.keyboard?.on('keydown-ENTER', () => {
-      if (this.proceedEligible && !this.contextOverlay.isOpen) this.proceed();
+      if (this.proceedEligible && !this.hasOpenOverlay()) this.proceed();
+    });
+    this.input.keyboard?.on('keydown-X', () => {
+      if (!this.hasOpenOverlay() && this.citedIndices().length >= 2) this.compareOverlay.toggle();
+    });
+    this.input.keyboard?.on('keydown-N', () => {
+      if (!this.hasOpenOverlay()) this.notebookOverlay.toggle();
     });
 
     // 2.1 (roadmap §2) — marcatura contraddizioni, NON punteggiata: il
@@ -175,7 +188,7 @@ export class EvidenceScene extends Phaser.Scene {
     if (this.pairs.length > 0) {
       this.contradictionBtn = new Button(this, cx - 400, GAME_HEIGHT - 90, L().ui.evidence.contradictionButton, () => this.markContradiction(), { width: 300, height: 40, fontSize: 12, variant: 'ghost' });
       this.input.keyboard?.on('keydown-C', () => {
-        if (!this.contextOverlay.isOpen) this.markContradiction();
+        if (!this.hasOpenOverlay()) this.markContradiction();
       });
     }
     this.syncReadingLayer();
@@ -185,6 +198,38 @@ export class EvidenceScene extends Phaser.Scene {
 
   /** Reperti già citati all'ultimo aggiornamento: serve a riconoscere l'ultimo. */
   private citedBefore = new Set<number>();
+
+  private citedIndices(): number[] {
+    return this.cards.flatMap((card, i) => (card.isCited ? [i] : []));
+  }
+
+  private hasOpenOverlay(): boolean {
+    return this.contextOverlay.isOpen || this.compareOverlay.isOpen || this.notebookOverlay.isOpen;
+  }
+
+  private buildInspectorDesk(): void {
+    const ui = L().ui.inspectorDesk;
+    this.inspectorDesk = new InspectorDesk(this, {
+      caseLabel: fmt(ui.fileLabel, { code: this.caseData.fileCode }),
+      phaseLabel: ui.evidencePhase
+    });
+    this.contextBtn = this.inspectorDesk.addAction(ui.context, () => this.contextOverlay.toggle(), { width: 126 });
+    this.compareBtn = this.inspectorDesk.addAction(ui.compare, () => this.compareOverlay.toggle(), { width: 142, disabled: true });
+    this.inspectorDesk.addAction(ui.normLocked, () => undefined, { width: 142, disabled: true });
+    this.notebookBtn = this.inspectorDesk.addAction(ui.notebook, () => this.notebookOverlay.toggle(), { width: 126 });
+    this.refreshInspectorDesk();
+  }
+
+  private refreshInspectorDesk(): void {
+    const ui = L().ui.inspectorDesk;
+    const cited = this.citedIndices().length;
+    this.inspectorDesk.setStatus(fmt(ui.evidenceStatus, {
+      opened: this.cards.filter((card) => card.isRevealed).length,
+      total: this.cards.length,
+      cited
+    }));
+    this.compareBtn.setEnabled(cited >= 2);
+  }
 
   /** Verifica la contraddizione dichiarata sui reperti CITATI (mai sul punteggio). */
   private markContradiction(): void {
@@ -251,8 +296,11 @@ export class EvidenceScene extends Phaser.Scene {
     // the context overlay's full-screen shade doesn't visually dim these two
     // root-level buttons (a Phaser depth-sort quirk); hide them outright
     // while it's open instead of leaving them looking clickable but inert.
-    const hideNav = this.contextOverlay.isOpen;
+    const hideNav = this.contextOverlay.isOpen || this.compareOverlay.isOpen || this.notebookOverlay.isOpen;
+    this.inspectorDesk.setVisible(!hideNav);
     this.contextBtn.setVisible(!hideNav);
+    this.compareBtn.setVisible(!hideNav);
+    this.notebookBtn.setVisible(!hideNav);
     this.backBtn.setVisible(!hideNav);
     this.proceedBtn.setVisible(this.proceedEligible && !hideNav);
     this.contradictionBtn?.setVisible(!hideNav);
@@ -304,6 +352,7 @@ export class EvidenceScene extends Phaser.Scene {
     this.proceedEligible = allRevealed && citedCount >= MIN_CITED_CLUES;
 
     this.refreshProgressLine();
+    this.refreshInspectorDesk();
 
     /**
      * IL MOMENTO IN CUI SI PUÒ PROCEDERE HA UN SUONO SUO.

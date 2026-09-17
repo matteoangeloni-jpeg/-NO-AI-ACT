@@ -57,7 +57,7 @@ describe('case-count consistency — source tree', () => {
   const pages = shippedHtml('.');
 
   it('scans a meaningful shipped-page set', () => {
-    expect(pages.length).toBeGreaterThanOrEqual(57); // 56 public pages + play shell
+    expect(pages.length).toBeGreaterThanOrEqual(cfg.publicUrls.total + 1);
   });
 
   it(`no shipped page presents 11 as the current case count (authoritative: ${N})`, () => {

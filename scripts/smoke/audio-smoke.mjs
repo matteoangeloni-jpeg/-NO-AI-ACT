@@ -28,6 +28,7 @@
  *     node scripts/smoke/audio-smoke.mjs
  */
 import { chromium } from 'playwright';
+import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
 
 const BASE = process.env.BASE || 'http://localhost:4200';
 const SECONDS = 4;
@@ -49,7 +50,7 @@ const PEAK_CEILING = 0.85;
 const SPREAD_MAX = 4;
 const fail = [];
 
-const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
+const browser = await chromium.launch(smokeBrowserLaunchOptions());
 const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 } });
 await ctx.route(/cloudflareinsights\.com/, (r) => r.abort());
 const page = await ctx.newPage();
