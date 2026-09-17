@@ -637,6 +637,37 @@ ul.plain li { margin-bottom: 0.4rem; }
   border-top: 1px solid var(--line);
 }
 
+/* ---- press screenshot gallery ---- */
+.press-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.4rem;
+}
+.press-gallery figure {
+  margin: 0;
+  border: 1px solid var(--line);
+  background: var(--carbon-2);
+}
+.press-gallery a { display: block; }
+.press-gallery img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.press-gallery figcaption {
+  min-height: 3.1rem;
+  padding: 0.6rem 0.75rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink-dim);
+  font-family: var(--mono);
+  font-size: 0.76rem;
+}
+@media (max-width: 700px) {
+  .press-gallery { grid-template-columns: 1fr; }
+}
+
 /* ---- subtle grain texture, same idea as the in-game noise overlay ---- */
 body::before {
   content: "";

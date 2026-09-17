@@ -16,6 +16,17 @@ intervallo 20 agosto-14 settembre 2026.
 I dati sono ancora piccoli: servono per scegliere la direzione, non per
 stimare volumi assoluti o promettere traffico.
 
+## Stato di attuazione — 17 settembre 2026
+
+- Pubblicate nella candidata v2.3 le coppie IT/EN su
+  `/provider-deployer-ai-act/`, `/ai-act-pubblica-amministrazione/` e
+  `/fria-ai-act-valutazione-diritti-fondamentali/`.
+- Ogni guida ha canonical, hreflang, breadcrumb, fonti primarie, rimando al
+  gioco e corrispondente pagina inglese.
+- Sitemap e inventario passano a 62 URL pubblici (29 IT + 33 EN).
+- Il prossimo confronto GSC va eseguito non prima di 28 giorni dal deploy,
+  separando query brand, non-brand, lingua e passaggi organici verso `/play/`.
+
 ## Cluster da consolidare subito
 
 ### 1. Alfabetizzazione IA e articolo 4
@@ -72,14 +83,14 @@ rafforzare collegamenti interni e risposte sintetiche nelle URL esistenti.
 
 ### Priorita alta
 
-1. **Provider e deployer nell'AI Act**
+1. **Provider e deployer nell'AI Act — implementato nella candidata v2.3**
    - chi e' il provider nell'AI Act;
    - differenza provider deployer;
    - obblighi deployer AI Act;
    - utilizzatore AI e responsabilita.
    - Pagina proposta: `/provider-deployer-ai-act/`.
 
-2. **AI Act per la pubblica amministrazione**
+2. **AI Act per la pubblica amministrazione — implementato nella candidata v2.3**
    - AI Act pubblica amministrazione;
    - IA nella PA linee guida;
    - procurement IA pubblica amministrazione;
@@ -87,7 +98,7 @@ rafforzare collegamenti interni e risposte sintetiche nelle URL esistenti.
    - valutazione sistemi IA nella PA.
    - Pagina proposta: `/ai-act-pubblica-amministrazione/`.
 
-3. **Valutazione d'impatto sui diritti fondamentali**
+3. **Valutazione d'impatto sui diritti fondamentali — implementato nella candidata v2.3**
    - FRIA AI Act;
    - valutazione impatto diritti fondamentali IA;
    - FRIA e DPIA differenze;
@@ -130,12 +141,15 @@ rafforzare collegamenti interni e risposte sintetiche nelle URL esistenti.
 
 ## Piano di pubblicazione
 
-1. Ottimizzare alfabetizzazione IA e trasparenza articolo 50.
-2. Pubblicare provider/deployer e collegarlo a glossario, casi e rapporti.
-3. Pubblicare AI Act per la PA, valorizzando il caso procurement gia nel gioco.
-4. Pubblicare la guida FRIA con confronto prudente con la DPIA.
-5. Rafforzare supervisione umana nelle pagine alto rischio, lavoro e scuola.
-6. Riesaminare GSC dopo 28 giorni e decidere il cluster successivo sui dati.
+1. **Completato:** ottimizzare alfabetizzazione IA e trasparenza articolo 50.
+2. **Completato:** pubblicare provider/deployer e collegarlo all'hub e alle
+   pagine tematiche.
+3. **Completato:** pubblicare AI Act per la PA valorizzando il caso procurement.
+4. **Completato:** pubblicare la guida FRIA con confronto prudente con la DPIA.
+5. **In corso:** rafforzare supervisione umana nelle pagine alto rischio,
+   lavoro e scuola senza creare una pagina concorrente prematuramente.
+6. **Dopo 28 giorni dal deploy:** riesaminare GSC e scegliere il cluster
+   successivo sui dati, non sulle sole stime.
 
 ## Misurazione
 

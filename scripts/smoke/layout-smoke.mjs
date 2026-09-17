@@ -19,6 +19,8 @@
  */
 import { chromium } from 'playwright';
 import { boundsToPageSrc } from './lib-canvas-coords.mjs';
+import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
+import { completeDecisionWithKeyboard } from './lib-decision.mjs';
 import { mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
@@ -70,7 +72,7 @@ const SEED_WITH_PROGRESS = JSON.stringify({
   difficulty: 'standard', mission: 'full'
 });
 
-const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
+const browser = await chromium.launch(smokeBrowserLaunchOptions());
 const errors = [];
 const hosts = new Set();
 
@@ -358,18 +360,14 @@ async function gotoDecisionSummary(page) {
   await page.waitForFunction(() => {
     const a = window.game?.scene?.getScenes(true);
     return a && a.length && a[a.length - 1].scene.key === 'Decision';
-  }, { timeout: 8000 }).catch(() => {});
+  }, undefined, { timeout: 8000 }).catch(() => {});
   await page.waitForTimeout(500);
   return page;
 }
 
 /** Avanza di quattro scelte, dal primo passo al riepilogo. */
 async function advanceToSummary(page) {
-  for (const k of ['1', '1', '2', '2']) {
-    await page.keyboard.press(k);
-    await page.waitForTimeout(650);
-  }
-  await page.waitForTimeout(400);
+  await completeDecisionWithKeyboard(page);
 }
 
 /**
@@ -390,7 +388,7 @@ async function bootTitle(page, lang, ctx) {
       const g = window.game; if (!g) return false;
       const a = g.scene.getScenes(true);
       return a.some((s) => s.scene.key === 'Title');
-    }, { timeout: 40000 });
+    }, undefined, { timeout: 60000 });
   } catch {
     fail.push(`${ctx}: la schermata del titolo non è mai arrivata`);
     return false;
@@ -409,7 +407,7 @@ async function gotoBriefing(page) {
     const a = g.scene.getScenes(true); const s = a[a.length - 1];
     if (!s || s.scene.key !== 'Briefing') return false;
     return s.children.list.some((o) => o.type === 'Container' && o.input && o.input.enabled && o.visible);
-  }, { timeout: 8000 }).catch(() => {});
+  }, undefined, { timeout: 8000 }).catch(() => {});
   await page.waitForTimeout(200);
 }
 

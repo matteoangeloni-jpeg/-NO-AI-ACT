@@ -7,7 +7,7 @@ import { describe, expect, it } from 'vitest';
  *
  * `/sitemap.xml` is a **sitemap index** pointing to two language child
  * sitemaps (`/sitemap-it.xml`, `/sitemap-en.xml`) — a pragmatic Search Console
- * compatibility structure. The combined children must still be exactly the 56
+ * compatibility structure. The combined children must still match the public
  * canonical, absolute-HTTPS public URLs (no `/play/`, no leaks), each backed by
  * a real page whose canonical matches its sitemap entry; robots.txt must
  * advertise only the index.
@@ -84,13 +84,13 @@ describe('child sitemaps — valid, well-formed urlsets', () => {
   });
 });
 
-describe('child sitemaps — the 56 canonical public URLs, split by language', () => {
-  it('combined child URLs are exactly 56', () => {
-    expect(ALL_LOCS.length).toBe(56);
+describe('child sitemaps — the 62 canonical public URLs, split by language', () => {
+  it('combined child URLs are exactly 62', () => {
+    expect(ALL_LOCS.length).toBe(62);
   });
 
   it('no URL is duplicated within or across the child sitemaps', () => {
-    expect(new Set(ALL_LOCS).size).toBe(56);
+    expect(new Set(ALL_LOCS).size).toBe(62);
     expect(new Set(IT_LOCS).size).toBe(IT_LOCS.length);
     expect(new Set(EN_LOCS).size).toBe(EN_LOCS.length);
   });

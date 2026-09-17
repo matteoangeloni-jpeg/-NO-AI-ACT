@@ -6,10 +6,10 @@
 [![Contenuti: CC BY-SA 4.0](https://img.shields.io/badge/contenuti-CC%20BY--SA%204.0-5d7fb8)](LICENSE)
 [![Stack](https://img.shields.io/badge/stack-TypeScript%20%2B%20Phaser%203%20%2B%20Vite-101a30)](#stack)
 [![Test](https://img.shields.io/badge/test-Vitest-d9a521)](tests/)
-[![Stato](https://img.shields.io/badge/stato-v2.2.0-3fa66a)](#stato-release)
+[![Stato](https://img.shields.io/badge/stato-v2.3.0-3fa66a)](#stato-release)
 [![Lingue](https://img.shields.io/badge/lingue-IT%20%2B%20EN-d8d6cd)](#lingue)
 
-**Serious game investigativo sull'AI Act europeo · browser, zero asset esterni, salvataggio locale**
+**Serious game investigativo sull'AI Act europeo · browser, audio originale, salvataggio locale**
 
 ### ▶ [GIOCA ORA / PLAY NOW](https://www.no-ai-act.eu/play/)
 
@@ -51,7 +51,7 @@ Questo gioco **non costituisce consulenza legale**.
 | **Lingue** | Italiano / English |
 | **Account / dati** | Nessun account, nessun dato personale, nessun backend |
 
-## Stato attuale del codice (v2.2.0, su `main`)
+## Stato attuale del codice (v2.3.0 candidata)
 
 La 2.0 trasforma il progetto in un prodotto educativo e di ricerca più
 solido: modello di apprendimento tipizzato e matrice legale machine-readable,
@@ -60,7 +60,7 @@ metacognitive, schema di salvataggio v2 con migrazione testata, strato di
 lettura semantico + percorso completo da tastiera, 2 nuovi casi (polizia
 predittiva, punteggio antifrode welfare → 13 totali), infrastruttura di
 citazione (CITATION.cff, pagine come citare/ricerca/press kit), sistema SEO
-con audit in CI e 4 nuove coppie di pagine IT/EN (56 URL pubblici). Dettagli:
+con audit in CI e 4 nuove coppie di pagine IT/EN. Dettagli:
 `docs/RELEASE_NOTES_v2.1.0.md`.
 
 La 2.2 aggiunge l'audio registrato (sette musiche in loop, una per fase del
@@ -69,6 +69,12 @@ disegnato un pulsante vero raggiungibile da tastiera e da screen reader, e
 disegna il gioco alla risoluzione dello schermo invece di stirare un
 720p. Dettagli: `docs/RELEASE_NOTES_v2.2.0.md`; metadati correnti:
 `release.config.json`.
+
+La 2.3 riunisce fascicolo, confronto dei reperti, norme, archivio e taccuino
+nella **Postazione ispettiva** persistente. Il confronto affianca tutte le
+coppie di prove citate senza modificare la partita. Il sito arriva a 62 URL
+pubblici con guide IT/EN su provider/deployer, IA nella PA e FRIA; il press kit
+include una galleria Full HD. Dettagli: `docs/RELEASE_NOTES_v2.3.0.md`.
 
 ## Novità in v1.0.0 — Prima release pubblica stabile (storico)
 
@@ -180,7 +186,9 @@ NO AI ACT è pensato per essere usato **in autonomia** o **in aula**:
 
 La **modalità docente** aggiunge un debrief locale a fine partita con domande di
 discussione (vedi sotto e [`docs/TEACHER_MODE.md`](docs/TEACHER_MODE.md)).
-Guida ai playtest: [`docs/PLAYTEST_QUICK_START.md`](docs/PLAYTEST_QUICK_START.md).
+Protocollo press candidate:
+[`docs/PRESS_PLAYTEST_PROTOCOL_v2.3.md`](docs/PRESS_PLAYTEST_PROTOCOL_v2.3.md).
+Guida rapida generale: [`docs/PLAYTEST_QUICK_START.md`](docs/PLAYTEST_QUICK_START.md).
 
 ## Modalità docente
 
@@ -228,16 +236,17 @@ Plausible/Umami via variabili `VITE_*`. Dettagli e nota GDPR:
 
 | Componente | Scelta | Perché |
 |---|---|---|
-| Build | Vite 5 | dev server istantaneo, build statica |
+| Build | Vite 8 | dev server istantaneo, build statica |
 | Linguaggio | TypeScript (strict) | dati di gioco tipati, refactoring sicuro |
 | Engine | Phaser 3 | scene manager, tween, input e particles integrati |
-| Audio | Web Audio API | sintesi procedurale, zero file e zero licenze |
+| Audio | Audio registrato + Web Audio API | loop ed effetti originali con fallback sintetico locale |
 | Grafica | Canvas/SVG procedurale | tutti gli asset generati a runtime |
 | Persistenza | localStorage | salvataggio automatico, solo sul dispositivo |
 | Test | Vitest | suite automatizzata su dati, logica, i18n, report, analytics |
 
-Niente backend, niente account, niente asset esterni: tutto è generato
-proceduralmente (vedi `ASSET_REGISTER.md`).
+Niente backend e niente account. Grafica e variazioni visive sono generate
+proceduralmente; musica ed effetti registrati hanno un fallback sintetico
+locale (vedi `ASSET_REGISTER.md`).
 
 ## Landing pubblica (SEO/GEO)
 
@@ -319,6 +328,13 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 ## Roadmap
 
+**🧪 v2.3.0 — Inspector Desk e press candidate (non ancora taggata)**
+- Postazione ispettiva condivisa fra reperti e decisione, confronto diretto
+  fra prove citate, taccuino sempre disponibile e percorso tastiera verificato.
+- Sei nuove guide SEO IT/EN, 62 URL pubblici e galleria stampa Full HD.
+- Restano necessarie le due tornate di playtest esterni prima di dichiarare la
+  build press-ready. Dettagli: [`docs/RELEASE_NOTES_v2.3.0.md`](docs/RELEASE_NOTES_v2.3.0.md).
+
 **✅ v2.2.0 — Audio, tastiera, risoluzione** — [release](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v2.2.0)
 - Sei musiche in loop e dieci effetti (generati dall'autore con ElevenLabs,
   CC BY-SA 4.0 come gli altri contenuti), con ripiego sulla sintesi quando
@@ -377,15 +393,15 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 Fonte machine-readable: [`release.config.json`](release.config.json)
 (coerenza garantita da test automatici).
-Note di rilascio: [`docs/RELEASE_NOTES_v2.2.0.md`](docs/RELEASE_NOTES_v2.2.0.md).
+Note di rilascio: [`docs/RELEASE_NOTES_v2.3.0.md`](docs/RELEASE_NOTES_v2.3.0.md).
 
-- **Versione**: v2.2.0 (codice su `main`; fonte: `package.json`)
-- **Tag della versione**: `v2.2.0` — **pubblicato** il 2026-09-16
+- **Versione**: v2.3.0 (candidata; fonte: `package.json`)
+- **Tag della versione**: `v2.3.0` — **non ancora pubblicato**
 - **Ultima release effettivamente taggata**: `v2.2.0`
-- **Nota**: release e codice pubblicato coincidono
+- **Nota**: la candidata 2.3 richiede merge, verifica live e playtest esterni prima del tag
 - **Casi giocabili**: 13
 - **Lingue**: italiano e inglese
-- **URL pubblici**: 56 (26 IT + 30 EN)
+- **URL pubblici**: 62 (29 IT + 33 EN)
 - **Salvataggi**: schema v2, con migrazione testata dei salvataggi v1
 - **Backend**: nessuno · **Account**: nessuno · **Raccolta dati personali**:
   nessuna · **Chiamate di rete durante il gameplay**: nessuna
@@ -463,11 +479,11 @@ with aria-live announcements and a keyboard path through a full case) support
 learning and accessibility. Three difficulty modes, mission paths, IT/EN.
 
 No account, no backend, no personal-data collection, no network calls during
-gameplay: every graphic and sound is generated procedurally, saves stay in
-`localStorage`. **Teacher mode** is local debrief support only, with on-device
-`.txt`/`.json` exports. Version **2.0.0** is tagged and published; `main` carries later
-changes not yet in a release. Educational simplification of the AI Act — not legal
-advice. Its educational effectiveness has **not yet been empirically
+gameplay: graphics are procedural and recorded audio has a local synthetic
+fallback; saves stay in `localStorage`. **Teacher mode** is local debrief
+support only, with on-device `.txt`/`.json` exports. Version **2.3.0** is a
+press candidate not yet tagged; the latest tagged release is **2.2.0**.
+Educational simplification of the AI Act, not legal advice. Its educational effectiveness has **not yet been empirically
 validated**. Code: GPL-3.0-or-later · narrative and didactic content: CC BY-SA 4.0.
 
 **Play now:** <https://www.no-ai-act.eu/>

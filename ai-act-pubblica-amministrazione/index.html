@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+
+  <title>AI Act e pubblica amministrazione: adozione e procurement IA</title>
+  <meta name="description" content="Guida operativa all'AI Act nella pubblica amministrazione: ruoli, acquisto di sistemi IA, supervisione, registrazione, FRIA e fonti AgID." />
+  <meta name="author" content="NO AI ACT" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+
+  <link rel="canonical" href="https://www.no-ai-act.eu/ai-act-pubblica-amministrazione/" />
+  <link rel="alternate" hreflang="it" href="https://www.no-ai-act.eu/ai-act-pubblica-amministrazione/" />
+  <link rel="alternate" hreflang="en" href="https://www.no-ai-act.eu/en/ai-act-public-administration/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.no-ai-act.eu/ai-act-pubblica-amministrazione/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="NO AI ACT" />
+  <meta property="og:locale" content="it_IT" />
+  <meta property="og:locale:alternate" content="en_GB" />
+  <meta property="og:title" content="AI Act e pubblica amministrazione" />
+  <meta property="og:description" content="Che cosa controllare prima di acquistare o usare un sistema di IA nella PA: finalità, rischio, dati, supervisione, log e responsabilità." />
+  <meta property="og:url" content="https://www.no-ai-act.eu/ai-act-pubblica-amministrazione/" />
+  <meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
+  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="NO AI ACT: guida in linguaggio semplice all'AI Act europeo." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Act e pubblica amministrazione" />
+  <meta name="twitter:description" content="Che cosa controllare prima di acquistare o usare un sistema di IA nella PA: finalità, rischio, dati, supervisione, log e responsabilità." />
+  <meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
+  <meta name="twitter:image:alt" content="NO AI ACT: guida in linguaggio semplice all'AI Act europeo." />
+  <link rel="stylesheet" href="/src/styles/landing.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "NO AI ACT", "item": "https://www.no-ai-act.eu/" },
+      { "@type": "ListItem", "position": 2, "name": "Guida AI Act", "item": "https://www.no-ai-act.eu/guida-ai-act/" },
+      { "@type": "ListItem", "position": 3, "name": "AI Act e pubblica amministrazione", "item": "https://www.no-ai-act.eu/ai-act-pubblica-amministrazione/" }
+    ]
+  }
+  </script>
+  <script>document.documentElement.classList.add('has-js');</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "NO AI ACT",
+    "url": "https://www.no-ai-act.eu/",
+    "description": "Free educational serious game and resource hub on the EU AI Act",
+    "logo": "https://www.no-ai-act.eu/favicon.svg",
+    "sameAs": ["https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"],
+    "dateModified": "2026-07-18T00:00:00Z"
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Vai al contenuto</a>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="../" aria-label="NO AI ACT — home">NO AI ACT<span class="dot">.</span></a>
+      <nav class="site-nav" aria-label="Navigazione principale">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu di navigazione">Menu</button>
+        <ul class="nav-menu" id="site-menu">
+          <li><a href="../play/?lang=it">Gioca</a></li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-risorse">Risorse</button>
+            <ul class="nav-sub" id="sub-risorse">
+              <li><a href="../educazione/">Hub educativo</a></li>
+              <li><a href="../alfabetizzazione-ai/">Alfabetizzazione AI</a></li>
+              <li><a href="../serious-game-regolazione-ai/">Serious game e regolazione AI</a></li>
+              <li><a href="../#faq-title">FAQ</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-docenti">Docenti</button>
+            <ul class="nav-sub" id="sub-docenti">
+              <li><a href="../ai-act-per-docenti/">AI Act per docenti</a></li>
+              <li><a href="../attivita-didattiche/">Attività didattiche</a></li>
+              <li><a href="../lezione-introduzione-ai-act/">Lezione introduttiva</a></li>
+              <li><a href="../per-docenti/">Modalità docente / gioco</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <button class="nav-sub-btn is-current" type="button" aria-expanded="false" aria-controls="sub-aiact">AI Act</button>
+            <ul class="nav-sub" id="sub-aiact">
+              <li><a href="../guida-ai-act/">Guida AI Act</a></li>
+              <li><a href="../categorie-rischio-ai-act/">Categorie di rischio</a></li>
+              <li><a href="../provider-deployer-ai-act/">Provider e deployer</a></li>
+              <li><a href="../ai-act-pubblica-amministrazione/" aria-current="page">AI Act e PA</a></li>
+              <li><a href="../fria-ai-act-valutazione-diritti-fondamentali/">FRIA</a></li>
+              <li><a href="../sistemi-ai-ad-alto-rischio/">Sistemi ad alto rischio</a></li>
+            </ul>
+          </li>
+          <li><a href="../glossario/">Glossario</a></li>
+          <li><a href="../privacy-by-design/">Privacy</a></li>
+          <li><a class="nav-lang" href="../en/ai-act-public-administration/" hreflang="en">EN</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <div class="wrap"><ol>
+        <li><a href="../">NO AI ACT</a></li>
+        <li><a href="../guida-ai-act/">Guida AI Act</a></li>
+        <li aria-current="page">AI Act e pubblica amministrazione</li>
+      </ol></div>
+    </nav>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div class="wrap">
+        <p class="kicker">Adozione · Appalti · Servizi pubblici · Diritti</p>
+        <h1 id="page-title">AI Act e pubblica amministrazione: adozione e procurement IA</h1>
+        <p class="lead">Una pubblica amministrazione non è soltanto “cliente” di un fornitore. Quando usa un sistema di IA è normalmente deployer e deve governarne finalità, dati, supervisione, monitoraggio e impatto sulle persone. Se sviluppa, rimarchia o modifica il sistema, il suo ruolo può cambiare.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="../play/?lang=it">Gioca “La gara opaca”</a>
+          <a class="btn btn-ghost" href="../provider-deployer-ai-act/">Provider o deployer?</a>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="prima-title">
+      <div class="wrap">
+        <h2 id="prima-title"><span class="num">01</span>Prima domanda: che cosa deve fare il sistema?</h2>
+        <p class="section-intro">“Usare l'IA” è troppo generico per classificare il rischio. Contano la finalità prevista, il procedimento amministrativo in cui entra, le persone interessate e l'effetto dell'output. Un assistente che ordina documenti non equivale a un sistema che influenza sussidi, lavoro, sanità, istruzione o attività di polizia.</p>
+        <ul class="plain">
+          <li>Quale decisione o attività amministrativa viene sostenuta?</li>
+          <li>L'output produce o orienta effetti giuridici o l'accesso a un servizio essenziale?</li>
+          <li>Quali gruppi possono subire falsi positivi, esclusioni o trattamenti diseguali?</li>
+          <li>Esiste un canale umano realmente utilizzabile e con potere di correzione?</li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="ruolo-title">
+      <div class="wrap">
+        <h2 id="ruolo-title"><span class="num">02</span>La PA può essere deployer o provider</h2>
+        <div class="table-wrap">
+          <table>
+            <caption>Il ruolo dipende dall'attività svolta sul sistema</caption>
+            <thead><tr><th scope="col">Situazione</th><th scope="col">Lettura iniziale</th><th scope="col">Che cosa verificare</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">La PA acquista e usa un prodotto con il marchio del fornitore</th><td>Di regola deployer</td><td>Finalità concreta, istruzioni, dati di input, persone incaricate della supervisione, log e monitoraggio.</td></tr>
+              <tr><th scope="row">La PA fa sviluppare un sistema e lo mette in servizio con il proprio nome</th><td>Può essere provider</td><td>Chi determina finalità e specifiche, sotto quale nome è messo in servizio e chi sostiene gli obblighi di conformità.</td></tr>
+              <tr><th scope="row">La PA cambia finalità o modifica sostanzialmente un sistema ad alto rischio</th><td>Può assumere il ruolo di provider</td><td>Portata della modifica, nuova finalità prevista, nuova classificazione e documentazione disponibile.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>La guida su <a href="../provider-deployer-ai-act/">provider e deployer</a> approfondisce il passaggio di ruolo previsto dall'articolo 25.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="procurement-title">
+      <div class="wrap">
+        <h2 id="procurement-title"><span class="num">03</span>Checklist per il procurement di IA</h2>
+        <p class="section-intro">Un capitolato efficace non si limita a chiedere accuratezza. Deve rendere il sistema verificabile durante tutto il contratto e permettere all'amministrazione di esercitare i propri doveri.</p>
+        <div class="table-wrap">
+          <table>
+            <caption>Domande da portare dalla pianificazione all'esecuzione</caption>
+            <tbody>
+              <tr><th scope="row">Finalità e rischio</th><td>Quale problema pubblico risolve? È davvero necessario usare IA? La finalità rientra in una pratica vietata, in un caso ad alto rischio o in un obbligo di trasparenza?</td></tr>
+              <tr><th scope="row">Dati e prestazioni</th><td>Su quali popolazioni è stato validato? Quali errori sono misurati? I dati di input locali sono pertinenti e rappresentativi per l'uso previsto?</td></tr>
+              <tr><th scope="row">Spiegazioni e documenti</th><td>La PA riceve istruzioni, limiti, documentazione, log e informazioni sufficienti per audit, reclami e controllo dell'esecuzione?</td></tr>
+              <tr><th scope="row">Supervisione</th><td>Chi può ignorare, correggere o sospendere l'output? Ha tempo, competenza, autorità e un'interfaccia che rende possibile intervenire?</td></tr>
+              <tr><th scope="row">Aggiornamenti e incidenti</th><td>Come vengono comunicati cambi di modello, prestazioni, dati o finalità? Chi segnala un rischio grave e chi può fermare il sistema?</td></tr>
+              <tr><th scope="row">Uscita dal contratto</th><td>Come si esportano dati e log? Come si assicura continuità del servizio, reversibilità e assenza di dipendenza non governabile dal fornitore?</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="alto-title">
+      <div class="wrap">
+        <h2 id="alto-title"><span class="num">04</span>Se il sistema è ad alto rischio</h2>
+        <p class="section-intro">L'articolo 26 attribuisce obblighi specifici al deployer. Per una PA questo può includere uso conforme alle istruzioni, supervisione affidata a persone competenti e autorizzate, controllo dei dati di input sotto la propria responsabilità, monitoraggio, conservazione dei log controllati dall'ente e segnalazione di rischi o incidenti.</p>
+        <ul class="plain">
+          <li>Una pubblica autorità non deve usare un sistema ad alto rischio soggetto a registrazione se non risulta registrato nella banca dati europea prevista.</li>
+          <li>Quando un sistema dell'Allegato III decide o assiste decisioni su persone, possono applicarsi obblighi di informazione verso gli interessati.</li>
+          <li>Per gli enti di diritto pubblico e altri deployer indicati dall'articolo 27 può servire una <a href="../fria-ai-act-valutazione-diritti-fondamentali/">valutazione d'impatto sui diritti fondamentali</a> prima del primo uso.</li>
+        </ul>
+        <div class="callout"><strong>Non ogni uso di IA nella PA richiede una FRIA.</strong> Prima si verifica se il sistema è ad alto rischio e se il deployer e il caso d'uso rientrano nel perimetro dell'articolo 27.</div>
+      </div>
+    </section>
+
+    <section aria-labelledby="controllo-title">
+      <div class="wrap">
+        <h2 id="controllo-title"><span class="num">05</span>La supervisione umana deve avere potere reale</h2>
+        <p class="section-intro">Inserire una firma umana alla fine del procedimento non basta se la persona vede soltanto un punteggio, non comprende i limiti del sistema, non ha accesso ai dati necessari o non può dissentire. Nel gioco, molti rapporti diventano contestabili proprio quando il controllo umano esiste sulla carta ma non nel processo.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="agid-title">
+      <div class="wrap">
+        <h2 id="agid-title"><span class="num">06</span>AI Act e materiali AgID: livelli diversi</h2>
+        <p class="section-intro">Il Regolamento europeo è la fonte giuridica primaria per questa guida. In Italia, AgID pubblica inoltre materiali e linee guida rivolti alle amministrazioni. La <a href="https://trasparenza.agid.gov.it/page/103/details/5557/determinazione-del-direttore-generale-n-43-del-10-marzo-2026-avvio-delliter-di-consultazione-e-informazione-delle-linee-guida-per-lo-sviluppo-e-il-procurement-dellintelligenza-artificiale-nella-pubblica-amministrazione.html">determinazione n. 43 del 10 marzo 2026</a> documenta l'avvio dell'iter di consultazione e informazione delle linee guida per sviluppo e procurement dell'IA nella PA, con bozze allegate.</p>
+        <div class="callout warn"><strong>Stato dei documenti.</strong> Non presentiamo le bozze di consultazione come se fossero il testo del Regolamento o una regola definitivamente adottata. Prima di usarle in un procedimento reale, controlla lo stato più recente nella sezione <a href="https://www.agid.gov.it/it/ambiti-intervento/intelligenza-artificiale">Intelligenza artificiale di AgID</a>.</div>
+      </div>
+    </section>
+
+    <section aria-labelledby="caso-title">
+      <div class="wrap">
+        <h2 id="caso-title"><span class="num">07</span>Il caso “La gara opaca”</h2>
+        <p class="section-intro">Nel fascicolo del gioco, una piattaforma per l'assegnazione di appalti viene acquistata con documentazione insufficiente. Il problema non è che ogni procurement di IA sia vietato. Il problema è mettere una funzione sensibile dentro un procedimento pubblico senza sapere come è validata, chi la controlla e come contestarne l'output.</p>
+        <div class="cta-row"><a class="btn btn-primary" href="../play/?lang=it">Indaga nel gioco</a></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="fonti-title">
+      <div class="wrap">
+        <h2 id="fonti-title"><span class="num">08</span>Fonti ufficiali e limiti</h2>
+        <p class="section-intro">Consulta il <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/ita" hreflang="it">Regolamento (UE) 2024/1689 su EUR-Lex</a>, in particolare gli articoli 3, 25, 26 e 27, le <a href="https://digital-strategy.ec.europa.eu/en/faqs/navigating-ai-act" hreflang="en">FAQ della Commissione europea</a> e le pagine istituzionali <a href="https://www.agid.gov.it/it/ambiti-intervento/intelligenza-artificiale">AgID dedicate all'IA</a>. Gli obblighi cambiano con sistema, finalità e normativa settoriale.</p>
+        <div class="callout warn"><strong>Versione didattica semplificata.</strong> Non è una procedura di gara, un parere legale o una verifica di conformità.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer aria-labelledby="footer-title">
+    <div class="wrap">
+      <h2 id="footer-title" class="stamp">Simulazione didattica — non consulenza legale</h2>
+      <p>NO AI ACT è uno strumento educativo indipendente e open source. Semplifica volutamente il <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/ita" hreflang="it">Regolamento (UE) 2024/1689</a> e non sostituisce il testo normativo né un parere professionale.</p>
+      <p><a href="../educazione/">Risorse educative</a> · <a href="../guida-ai-act/">Guida AI Act</a> · <a href="../glossario/">Glossario</a> · <a href="../en/ai-act-public-administration/" hreflang="en">English version</a></p>
+      <p class="credit">Ideato e sviluppato da Matteo Angeloni · v2.3.0<br /><span class="credit-affil">Dottorando in <a href="https://www.unitus.it/post-laurea/dottorati-di-ricerca/corsi-di-dottorato-attivi/societa-in-mutamento-politiche-diritti-e-sicurezza/">Società in mutamento: politiche, diritti e sicurezza</a> · <a href="https://www.unitus.it/">Università degli Studi della Tuscia</a> — progetto indipendente, non espressione ufficiale dell'ateneo</span></p>
+    </div>
+  </footer>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7c85578fc8ad4488a54c6bc670a10dcf"}'></script><!-- End Cloudflare Web Analytics -->
+  <script type="module" src="/src/scripts/nav.ts"></script>
+</body>
+</html>

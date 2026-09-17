@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+
+  <title>FRIA nell'AI Act: valutazione dei diritti fondamentali</title>
+  <meta name="description" content="Che cos'è la FRIA dell'articolo 27 AI Act, chi deve farla, quali elementi contiene e come si coordina con la valutazione d'impatto privacy DPIA." />
+  <meta name="author" content="NO AI ACT" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+
+  <link rel="canonical" href="https://www.no-ai-act.eu/fria-ai-act-valutazione-diritti-fondamentali/" />
+  <link rel="alternate" hreflang="it" href="https://www.no-ai-act.eu/fria-ai-act-valutazione-diritti-fondamentali/" />
+  <link rel="alternate" hreflang="en" href="https://www.no-ai-act.eu/en/fria-ai-act-fundamental-rights-impact-assessment/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.no-ai-act.eu/fria-ai-act-valutazione-diritti-fondamentali/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="NO AI ACT" />
+  <meta property="og:locale" content="it_IT" />
+  <meta property="og:locale:alternate" content="en_GB" />
+  <meta property="og:title" content="FRIA: valutazione d'impatto sui diritti fondamentali" />
+  <meta property="og:description" content="Perimetro, contenuti e rapporto con la DPIA della valutazione prevista dall'articolo 27 dell'AI Act per determinati sistemi ad alto rischio." />
+  <meta property="og:url" content="https://www.no-ai-act.eu/fria-ai-act-valutazione-diritti-fondamentali/" />
+  <meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
+  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="NO AI ACT: guida in linguaggio semplice all'AI Act europeo." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FRIA: valutazione d'impatto sui diritti fondamentali" />
+  <meta name="twitter:description" content="Perimetro, contenuti e rapporto con la DPIA della valutazione prevista dall'articolo 27 dell'AI Act per determinati sistemi ad alto rischio." />
+  <meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
+  <meta name="twitter:image:alt" content="NO AI ACT: guida in linguaggio semplice all'AI Act europeo." />
+  <link rel="stylesheet" href="/src/styles/landing.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "NO AI ACT", "item": "https://www.no-ai-act.eu/" },
+      { "@type": "ListItem", "position": 2, "name": "Guida AI Act", "item": "https://www.no-ai-act.eu/guida-ai-act/" },
+      { "@type": "ListItem", "position": 3, "name": "FRIA", "item": "https://www.no-ai-act.eu/fria-ai-act-valutazione-diritti-fondamentali/" }
+    ]
+  }
+  </script>
+  <script>document.documentElement.classList.add('has-js');</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "NO AI ACT",
+    "url": "https://www.no-ai-act.eu/",
+    "description": "Free educational serious game and resource hub on the EU AI Act",
+    "logo": "https://www.no-ai-act.eu/favicon.svg",
+    "sameAs": ["https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"],
+    "dateModified": "2026-07-18T00:00:00Z"
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Vai al contenuto</a>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="../" aria-label="NO AI ACT — home">NO AI ACT<span class="dot">.</span></a>
+      <nav class="site-nav" aria-label="Navigazione principale">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu di navigazione">Menu</button>
+        <ul class="nav-menu" id="site-menu">
+          <li><a href="../play/?lang=it">Gioca</a></li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-risorse">Risorse</button>
+            <ul class="nav-sub" id="sub-risorse">
+              <li><a href="../educazione/">Hub educativo</a></li>
+              <li><a href="../alfabetizzazione-ai/">Alfabetizzazione AI</a></li>
+              <li><a href="../serious-game-regolazione-ai/">Serious game e regolazione AI</a></li>
+              <li><a href="../#faq-title">FAQ</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-docenti">Docenti</button>
+            <ul class="nav-sub" id="sub-docenti">
+              <li><a href="../ai-act-per-docenti/">AI Act per docenti</a></li>
+              <li><a href="../attivita-didattiche/">Attività didattiche</a></li>
+              <li><a href="../lezione-introduzione-ai-act/">Lezione introduttiva</a></li>
+              <li><a href="../per-docenti/">Modalità docente / gioco</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <button class="nav-sub-btn is-current" type="button" aria-expanded="false" aria-controls="sub-aiact">AI Act</button>
+            <ul class="nav-sub" id="sub-aiact">
+              <li><a href="../guida-ai-act/">Guida AI Act</a></li>
+              <li><a href="../categorie-rischio-ai-act/">Categorie di rischio</a></li>
+              <li><a href="../provider-deployer-ai-act/">Provider e deployer</a></li>
+              <li><a href="../ai-act-pubblica-amministrazione/">AI Act e PA</a></li>
+              <li><a href="../fria-ai-act-valutazione-diritti-fondamentali/" aria-current="page">FRIA</a></li>
+              <li><a href="../sistemi-ai-ad-alto-rischio/">Sistemi ad alto rischio</a></li>
+            </ul>
+          </li>
+          <li><a href="../glossario/">Glossario</a></li>
+          <li><a href="../privacy-by-design/">Privacy</a></li>
+          <li><a class="nav-lang" href="../en/fria-ai-act-fundamental-rights-impact-assessment/" hreflang="en">EN</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <div class="wrap"><ol>
+        <li><a href="../">NO AI ACT</a></li>
+        <li><a href="../guida-ai-act/">Guida AI Act</a></li>
+        <li aria-current="page">FRIA</li>
+      </ol></div>
+    </nav>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div class="wrap">
+        <p class="kicker">Articolo 27 · Alto rischio · Diritti · Valutazione</p>
+        <h1 id="page-title">FRIA nell'AI Act: valutazione dei diritti fondamentali</h1>
+        <p class="lead"><strong>FRIA</strong> significa Fundamental Rights Impact Assessment. L'articolo 27 dell'AI Act richiede a determinati deployer di valutare, prima del primo uso, come uno specifico sistema ad alto rischio può incidere sui diritti fondamentali nel suo contesto reale.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="../play/?lang=it">Gioca il caso welfare</a>
+          <a class="btn btn-ghost" href="../ai-act-pubblica-amministrazione/">Guida per la PA</a>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="quando-title">
+      <div class="wrap">
+        <h2 id="quando-title"><span class="num">01</span>Quando serve una FRIA</h2>
+        <p class="section-intro">La FRIA non riguarda qualsiasi software con IA. Il primo filtro è che si tratti di un sistema ad alto rischio nel perimetro dell'articolo 6, paragrafo 2 e dell'Allegato III, tenendo conto delle esclusioni previste dall'articolo 27. Il secondo filtro riguarda chi lo usa.</p>
+        <ul class="plain">
+          <li>deployer che sono organismi di diritto pubblico;</li>
+          <li>soggetti privati che forniscono servizi pubblici;</li>
+          <li>deployer di specifici sistemi ad alto rischio per valutazione del merito creditizio e prezzo o rischio nelle assicurazioni vita e salute.</li>
+        </ul>
+        <div class="callout"><strong>Regola pratica:</strong> prima classifica il sistema, poi identifica il deployer, quindi verifica il perimetro aggiornato dell'articolo 27. “È una PA” da solo non basta, così come “usa dati personali” da solo non rende automaticamente necessaria una FRIA.</div>
+      </div>
+    </section>
+
+    <section aria-labelledby="contenuto-title">
+      <div class="wrap">
+        <h2 id="contenuto-title"><span class="num">02</span>Che cosa deve descrivere</h2>
+        <p class="section-intro">La valutazione riguarda l'uso concreto, non una descrizione astratta della tecnologia. L'articolo 27 indica almeno questi elementi:</p>
+        <div class="table-wrap">
+          <table>
+            <caption>Contenuto minimo della valutazione, in forma semplificata</caption>
+            <tbody>
+              <tr><th scope="row">Processo</th><td>Dove entra il sistema, per quale finalità e in quale procedimento del deployer.</td></tr>
+              <tr><th scope="row">Durata e frequenza</th><td>Per quanto tempo e con quale frequenza sarà usato.</td></tr>
+              <tr><th scope="row">Persone e gruppi</th><td>Quali categorie possono essere interessate nel contesto specifico, incluse quelle in posizione vulnerabile o asimmetrica.</td></tr>
+              <tr><th scope="row">Rischi di danno</th><td>Quali diritti possono essere colpiti e come, tenendo conto delle informazioni fornite dal provider.</td></tr>
+              <tr><th scope="row">Supervisione umana</th><td>Come vengono applicate le misure di supervisione e chi ha il potere di intervenire.</td></tr>
+              <tr><th scope="row">Governance e rimedi</th><td>Misure di mitigazione, responsabilità interne, gestione dei rischi materializzati e meccanismi di reclamo.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="momento-title">
+      <div class="wrap">
+        <h2 id="momento-title"><span class="num">03</span>Quando si fa e quando si aggiorna</h2>
+        <p class="section-intro">La valutazione precede il primo uso. In casi simili il deployer può fare riferimento a valutazioni già svolte o a valutazioni esistenti del provider, ma resta responsabile di verificare il proprio contesto. Se cambiano processo, gruppi interessati, rischi, supervisione o misure, le informazioni devono essere aggiornate.</p>
+        <p>Una FRIA non è quindi un allegato statico chiuso al momento dell'acquisto. Ha senso solo se resta collegata a monitoraggio, reclami, incidenti, aggiornamenti del sistema e cambiamenti nella pratica amministrativa o organizzativa.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="dpia-title">
+      <div class="wrap">
+        <h2 id="dpia-title"><span class="num">04</span>FRIA e DPIA non sono la stessa cosa</h2>
+        <div class="table-wrap">
+          <table>
+            <caption>Confronto orientativo tra FRIA e valutazione d'impatto privacy</caption>
+            <thead><tr><th scope="col">FRIA AI Act</th><th scope="col">DPIA GDPR</th></tr></thead>
+            <tbody>
+              <tr><td>Guarda l'impatto dell'uso del sistema ad alto rischio sui diritti fondamentali nel contesto specifico.</td><td>Guarda i rischi del trattamento di dati personali per i diritti e le libertà delle persone.</td></tr>
+              <tr><td>Si applica ai deployer e ai casi indicati dall'articolo 27.</td><td>Si applica quando un trattamento può presentare un rischio elevato secondo il GDPR.</td></tr>
+              <tr><td>Comprende processo, persone interessate, rischi, supervisione, governance e reclami.</td><td>Comprende necessità, proporzionalità, rischi del trattamento e misure per affrontarli.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>L'articolo 27 prevede che, quando alcuni obblighi sono già soddisfatti tramite una DPIA, la FRIA la completi. Coordinare le analisi riduce duplicazioni; confonderle rischia invece di lasciare fuori diritti non riducibili alla sola protezione dei dati.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="domande-title">
+      <div class="wrap">
+        <h2 id="domande-title"><span class="num">05</span>Domande che rendono la valutazione concreta</h2>
+        <ul class="plain">
+          <li>Chi può essere escluso, classificato erroneamente o scoraggiato dall'accedere a un servizio?</li>
+          <li>Quale diritto è coinvolto: non discriminazione, privacy, dignità, difesa, lavoro, salute, istruzione o accesso a prestazioni?</li>
+          <li>La persona sa che l'IA assiste la decisione e sa a chi chiedere spiegazioni o correzioni?</li>
+          <li>La supervisione umana può vedere elementi diversi dal punteggio e dispone del tempo per valutarli?</li>
+          <li>Come vengono rilevati errori distribuiti in modo diseguale fra gruppi?</li>
+          <li>Che cosa accade quando il rischio si materializza: sospensione, riesame, reclamo, rimedio e comunicazione?</li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="gioco-title">
+      <div class="wrap">
+        <h2 id="gioco-title"><span class="num">06</span>Dal modulo al fascicolo</h2>
+        <p class="section-intro">Nel caso “L'algoritmo del sospetto”, un sistema assegna priorità ai controlli antifrode nel welfare. Una valutazione utile non si fermerebbe a “il modello è accurato”: dovrebbe osservare chi viene segnalato, l'accesso a prestazioni essenziali, gli errori, la possibilità di contestazione e il potere dell'operatore umano.</p>
+        <div class="cta-row"><a class="btn btn-primary" href="../play/?lang=it">Esamina le prove</a></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="fonti-title">
+      <div class="wrap">
+        <h2 id="fonti-title"><span class="num">07</span>Fonti ufficiali e limiti</h2>
+        <p class="section-intro">La fonte vincolante è il <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/ita" hreflang="it">Regolamento (UE) 2024/1689 su EUR-Lex</a>, da consultare nel testo consolidato vigente. Sono utili anche l'<a href="https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-27" hreflang="en">articolo 27 nell'AI Act Service Desk della Commissione</a> e le <a href="https://digital-strategy.ec.europa.eu/en/faqs/navigating-ai-act" hreflang="en">FAQ ufficiali sul funzionamento dell'AI Act</a>.</p>
+        <div class="callout warn"><strong>Versione didattica semplificata.</strong> Questa pagina non stabilisce se una specifica organizzazione debba svolgere una FRIA, non fornisce un modello di conformità e non sostituisce consulenza legale o privacy.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer aria-labelledby="footer-title">
+    <div class="wrap">
+      <h2 id="footer-title" class="stamp">Simulazione didattica — non consulenza legale</h2>
+      <p>NO AI ACT è uno strumento educativo indipendente e open source. Semplifica volutamente il <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/ita" hreflang="it">Regolamento (UE) 2024/1689</a> e non sostituisce il testo normativo né un parere professionale.</p>
+      <p><a href="../educazione/">Risorse educative</a> · <a href="../guida-ai-act/">Guida AI Act</a> · <a href="../glossario/">Glossario</a> · <a href="../en/fria-ai-act-fundamental-rights-impact-assessment/" hreflang="en">English version</a></p>
+      <p class="credit">Ideato e sviluppato da Matteo Angeloni · v2.3.0<br /><span class="credit-affil">Dottorando in <a href="https://www.unitus.it/post-laurea/dottorati-di-ricerca/corsi-di-dottorato-attivi/societa-in-mutamento-politiche-diritti-e-sicurezza/">Società in mutamento: politiche, diritti e sicurezza</a> · <a href="https://www.unitus.it/">Università degli Studi della Tuscia</a> — progetto indipendente, non espressione ufficiale dell'ateneo</span></p>
+    </div>
+  </footer>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7c85578fc8ad4488a54c6bc670a10dcf"}'></script><!-- End Cloudflare Web Analytics -->
+  <script type="module" src="/src/scripts/nav.ts"></script>
+</body>
+</html>

@@ -21,10 +21,12 @@
  * Exits non-zero on any failed check.
  */
 import { chromium } from 'playwright';
-import { worldToPageFn } from './lib-canvas-coords.mjs';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve as pathResolve } from 'node:path';
+import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
+import { prepareEvidenceWithKeyboard } from './lib-evidence.mjs';
+import { selectMapCaseWithKeyboard } from './lib-map.mjs';
 
 const BASE = process.env.BASE || 'http://localhost:4200';
 const OUT_MOBILE = new URL('./out', import.meta.url).pathname;
@@ -77,7 +79,7 @@ const EVIDENCE_STANCES = (() => {
  */
 const TRANSITION_BUDGET_MS = 3500;
 
-const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
+const browser = await chromium.launch(smokeBrowserLaunchOptions());
 const errors = [];
 const hosts = new Set();
 
@@ -92,69 +94,56 @@ page.on('pageerror', (e) => errors.push(String(e)));
 page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
 page.on('request', (r) => hosts.add(new URL(r.url()).host));
 
-/**
- * Dalle coordinate LOGICHE del gioco ai pixel della pagina: la conversione
- * vive in lib-canvas-coords.mjs, perché non è una formula ma tre
- * trasformazioni in fila e scriverla a mano l'ha già sbagliata una volta.
- */
-const toPage = async (lx, ly) => {
-  const deadline = Date.now() + 5000;
-  let lastError;
-  while (Date.now() < deadline) {
-    try {
-      return await page.evaluate(worldToPageFn, { x: lx, y: ly });
-    } catch (error) {
-      lastError = error;
-      await page.waitForTimeout(100);
-    }
-  }
-  throw lastError;
-};
-
-const click = async (lx, ly, w = 400) => {
-  const { x, y } = await toPage(lx, ly);
-  await page.mouse.move(x, y); await page.waitForTimeout(40);
-  await page.mouse.down(); await page.mouse.up(); await page.waitForTimeout(w);
-};
-
-// Click a canvas Button by its label, in logical coordinates (click converts).
-// Robust to title-menu layout changes: reads the live scene via window.game.
+// Activate a real Phaser Button by its live label. The mobile/tablet block
+// below covers physical pointer coordinates; this desktop flow verifies the
+// complete callback path without sampling a camera during scene swaps.
 const clickButton = async (labelRe, w = 400) => {
-  let pos = null;
+  let activated = false;
   const deadline = Date.now() + 5000;
-  while (!pos && Date.now() < deadline) {
-    pos = await page.evaluate((reSrc) => {
+  while (!activated && Date.now() < deadline) {
+    activated = await page.evaluate((reSrc) => {
       const re = new RegExp(reSrc, 'i');
       const scenes = window.game?.scene.getScenes(true) ?? [];
       const s = scenes[scenes.length - 1];
-      if (!s) return null;
+      if (!s) return false;
       let found = null;
       const visit = (o) => { // recursive: overlay buttons live inside containers
         if (found || !o || o.visible === false) return;
         if (o.type === 'Container' && o.input && o.input.enabled) {
           const t = (o.list || []).find((ch) => typeof ch.text === 'string');
-          if (t && re.test(t.text)) { const b = o.getBounds(); found = { x: b.centerX, y: b.centerY }; return; }
+          if (t && re.test(t.text)) { found = o; return; }
         }
         for (const ch of (o.list || [])) visit(ch);
       };
       for (const o of s.children.list) visit(o);
-      return found;
+      if (!found) return false;
+      found.emit('pointerdown');
+      return true;
     }, labelRe.source);
-    if (!pos) await page.waitForTimeout(100);
+    if (!activated) await page.waitForTimeout(100);
   }
-  if (!pos) { fail.push(`button not found: ${labelRe}`); return; }
-  await click(Math.round(pos.x), Math.round(pos.y), w);
+  if (!activated) { fail.push(`button not found: ${labelRe}`); return; }
+  await page.waitForTimeout(w);
 };
 
 // Scene transitions use 300ms camera fades that complete on their own clock;
 // fixed sleeps are timing-fragile on slow/CI machines (a click can land one
 // scene behind). Wait for the actual scene key instead of guessing durations.
 const waitScene = async (key, timeout = 15000) => {
-  const ok = await page.waitForFunction((k) => {
+  const active = () => page.waitForFunction((k) => {
     const g = window.game; if (!g) return false;
     const a = g.scene.getScenes(true);
-    return a.length > 0 && a[a.length - 1].scene.key === k;
+    const scene = a[a.length - 1];
+    return scene?.scene.key === k && Boolean(scene.cameras?.main);
   }, key, { timeout }).then(() => true).catch(() => false);
+  // A Phaser start/stop queue can expose the target for a single frame while
+  // another transition is still being committed. Require it twice, with a
+  // short real-time gap, before the smoke sends input to that scene.
+  let ok = await active();
+  if (ok) {
+    await page.waitForTimeout(250);
+    ok = await active();
+  }
   if (!ok) {
     const now = await page.evaluate(() => window.game?.scene.getScenes(true).map((s) => s.scene.key).join(',') ?? 'no game');
     fail.push(`scene "${key}" never became active (stuck on: ${now})`);
@@ -166,7 +155,9 @@ const waitScene = async (key, timeout = 15000) => {
 await page.addInitScript(() => localStorage.setItem('no-ai-act-save-v1', JSON.stringify({
   version: 1, indicators: { efficienza: 50, controllo: 50, diritti: 50, fiducia: 50 },
   completedCases: {}, unlockedNorms: [], audioMuted: true, musicVolume: 0,
-  reducedMotion: false, crtOverlay: true, language: 'en', endingId: null,
+  // This block verifies the full functional path. Motion timing has its own
+  // high-density budget test below, so keep transitions deterministic here.
+  reducedMotion: true, crtOverlay: true, language: 'en', endingId: null,
   briefingSeen: true, caseReports: {}, teacherMode: false, startedAt: 1,
   difficulty: 'standard', mission: 'full'
 })));
@@ -179,18 +170,16 @@ await waitScene('Title', 30000); // Phaser boot
 await clickButton(/NEW GAME/, 400);
 await clickButton(/^START/, 400);
 await waitScene('Briefing');
-await click(640, 300, 400);              // pointerdown skips the typewriter
 await clickButton(/ACCESS THE CIVIC MAP/, 300);
 await waitScene('CityMap');
-await click(Math.round(1280 * 0.40), Math.round(720 * 0.18), 300); // welfare marker (case_credito)
+// Select welfare through the map's real keyboard navigation. Each move waits
+// for the scene state, avoiding dropped arrows on slower software renderers.
+await selectMapCaseWithKeyboard(page, 'case_credito');
+await page.waitForTimeout(300);
 await waitScene('Case');
-await click(640, 400, 300);              // reveal case context
 await clickButton(/EXAMINE THE EXHIBITS/, 300);
 await waitScene('Evidence');
-const clues = [[250, 236], [640, 236], [1030, 236], [250, 482], [640, 482], [1030, 482]];
-for (const [x, y] of clues) await click(x, y, 100);      // reveal all
-await click(clues[3][0], clues[3][1], 100);               // cite relevant clue
-await click(clues[4][0], clues[4][1], 100);               // cite relevant clue
+await prepareEvidenceWithKeyboard(page, { citeIndices: [0, 1] });
 await clickButton(/PROCEED TO CLASSIFICATION/, 300);
 await waitScene('Decision');
 await page.keyboard.press('1'); await page.waitForTimeout(600); // classification
@@ -239,7 +228,7 @@ for (const vp of [{ w: 390, h: 844, name: 'telefono' }, { w: 768, h: 1024, name:
   await mp.waitForFunction(() => {
     const a = window.game?.scene?.getScenes(true);
     return !!a && a.some((s) => s.scene.key === 'Title');
-  }, { timeout: 40000 }).catch(() => fail.push(`${vp.name}: il gioco non è mai arrivato al titolo`));
+  }, undefined, { timeout: 60000 }).catch(() => fail.push(`${vp.name}: il gioco non è mai arrivato al titolo`));
 
   const overflow = await mp.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
   if (overflow) fail.push(`${vp.name} (${vp.w}px): overflow orizzontale su /play/`);
@@ -254,6 +243,20 @@ for (const vp of [{ w: 390, h: 844, name: 'telefono' }, { w: 768, h: 1024, name:
    * canvas, che Scale.FIT ridimensiona.
    */
   const tap = async (pattern) => {
+    const available = await mp.waitForFunction((re) => {
+      const scenes = window.game?.scene?.getScenes(true) ?? [];
+      const scene = scenes.at(-1);
+      const visit = (list) => {
+        for (const object of list ?? []) {
+          const label = Array.isArray(object.list) ? object.list.find((child) => typeof child.text === 'string') : null;
+          if (label && new RegExp(re, 'i').test(label.text) && object.input?.enabled && object.visible) return true;
+          if (Array.isArray(object.list) && visit(object.list)) return true;
+        }
+        return false;
+      };
+      return !!scene && visit(scene.children.list);
+    }, pattern, { timeout: 12000 }).then(() => true).catch(() => false);
+    if (!available) return false;
     const point = await mp.evaluate((re) => {
       const a = window.game.scene.getScenes(true); const s = a[a.length - 1];
       const cam = s.cameras.main;
@@ -275,13 +278,19 @@ for (const vp of [{ w: 390, h: 844, name: 'telefono' }, { w: 768, h: 1024, name:
     }, pattern);
     if (!point) return false;
     await mp.touchscreen.tap(point.x, point.y);
-    await mp.waitForTimeout(550);
+    await mp.waitForTimeout(250);
     return true;
   };
 
   // un caso intero A TOCCO, dai reperti alla firma
-  await mp.evaluate(() => window.game.scene.start('Evidence', { caseId: 'case_scoring' }));
-  await mp.waitForTimeout(900);
+  await mp.evaluate(() => {
+    const game = window.game;
+    for (const scene of game.scene.getScenes(true)) {
+      if (scene.scene.key !== 'Boot') scene.scene.stop();
+    }
+    game.scene.start('Evidence', { caseId: 'case_scoring' });
+  });
+  await mp.waitForFunction(() => window.game?.scene?.getScene('Evidence')?.scene?.isActive?.(), undefined, { timeout: 20000 });
   // due reperti: un tocco li apre, il secondo li cita
   for (const n of [0, 1]) {
     const opened = await mp.evaluate((i) => {
@@ -302,8 +311,14 @@ for (const vp of [{ w: 390, h: 844, name: 'telefono' }, { w: 768, h: 1024, name:
     await mp.touchscreen.tap(opened.x, opened.y);
     await mp.waitForTimeout(350);
   }
-  await mp.evaluate(() => window.game.scene.start('Decision', { caseId: 'case_scoring', citedClues: [0, 1] }));
-  await mp.waitForTimeout(900);
+  await mp.evaluate(() => {
+    const game = window.game;
+    for (const scene of game.scene.getScenes(true)) {
+      if (scene.scene.key !== 'Boot') scene.scene.stop();
+    }
+    game.scene.start('Decision', { caseId: 'case_scoring', citedClues: [0, 1] });
+  });
+  await mp.waitForFunction(() => window.game?.scene?.getScene('Decision')?.scene?.isActive?.(), undefined, { timeout: 20000 });
   /**
    * Tocca l'ennesimo elemento interattivo alto almeno `minH`.
    *
@@ -314,6 +329,15 @@ for (const vp of [{ w: 390, h: 844, name: 'telefono' }, { w: 768, h: 1024, name:
    * qui si va per geometria invece che per testo.
    */
   const tapNth = async (index, minH) => {
+    const available = await mp.waitForFunction(([i, h]) => {
+      const scenes = window.game?.scene?.getScenes(true) ?? [];
+      const scene = scenes.at(-1);
+      const hits = (scene?.children?.list ?? []).filter(
+        (object) => object.input?.enabled && object.visible && typeof object.getBounds === 'function' && object.getBounds().height >= h
+      );
+      return !!hits[i];
+    }, [index, minH], { timeout: 12000 }).then(() => true).catch(() => false);
+    if (!available) return false;
     const point = await mp.evaluate(([i, h]) => {
       const a = window.game.scene.getScenes(true); const s = a[a.length - 1];
       const cam = s.cameras.main;
@@ -330,15 +354,48 @@ for (const vp of [{ w: 390, h: 844, name: 'telefono' }, { w: 768, h: 1024, name:
     }, [index, minH]);
     if (!point) return false;
     await mp.touchscreen.tap(point.x, point.y);
-    await mp.waitForTimeout(550);
+    await mp.waitForTimeout(250);
     return true;
   };
 
-  for (const label of ['PRATICA VIETATA|1\\.', 'BLOCCARE|1\\.', 'DEPLOYER|2\\.']) {
-    if (!(await tap(label))) fail.push(`${vp.name}: nessun bottone toccabile per "${label}"`);
+  const tapDecisionStep = async (pattern, property) => {
+    const previousStep = await mp.evaluate(() => window.game?.scene?.getScene('Decision')?.lastStep?.label ?? '');
+    if (!(await tap(pattern))) return false;
+    return mp.waitForFunction(
+      ({ field, oldStep }) => {
+        const scene = window.game?.scene?.getScene('Decision');
+        return scene?.scene?.isActive?.()
+          && scene[field] !== null
+          && !!scene.lastStep?.label
+          && scene.lastStep.label !== oldStep;
+      },
+      { field: property, oldStep: previousStep },
+      { timeout: 15000 }
+    ).then(() => true).catch(() => false);
+  };
+
+  for (const [label, property] of [
+    ['PRATICA VIETATA|1\\.', 'classification'],
+    ['BLOCCARE|1\\.', 'measure'],
+    ['DEPLOYER|2\\.', 'subject']
+  ]) {
+    if (!(await tapDecisionStep(label, property))) fail.push(`${vp.name}: nessun bottone toccabile per "${label}"`);
   }
   // motivazione: bottoni senza etichetta, si toccano per posizione
-  if (!(await tapNth(1, 80))) fail.push(`${vp.name}: nessuna motivazione toccabile`);
+  const motivationStep = await mp.evaluate(() => window.game?.scene?.getScene('Decision')?.lastStep?.label ?? '');
+  const motivationTapped = await tapNth(1, 80);
+  const motivationReady = motivationTapped && await mp.waitForFunction(
+    (oldStep) => {
+      const scene = window.game?.scene?.getScene('Decision');
+      return scene?.scene?.isActive?.()
+        && scene.motivation !== null
+        && !!scene.lastStep?.label
+        && scene.lastStep.label !== oldStep;
+    },
+    motivationStep,
+    { timeout: 15000 }
+  ).then(() => true).catch(() => false);
+  if (!motivationReady) fail.push(`${vp.name}: nessuna motivazione toccabile`);
 
   // il riepilogo è la schermata più densa del gioco: se qualcosa non entra
   // nel canvas a questa larghezza, è qui che si vede
@@ -361,8 +418,13 @@ for (const vp of [{ w: 390, h: 844, name: 'telefono' }, { w: 768, h: 1024, name:
     }
   }
 
-  if (!(await tap('FIRMA IL RAPPORTO|SIGN THE REPORT'))) fail.push(`${vp.name}: il bottone di firma non è toccabile`);
-  await mp.waitForTimeout(900);
+  const signTapped = await tap('FIRMA IL RAPPORTO|SIGN THE REPORT');
+  const reportReady = signTapped && await mp.waitForFunction(
+    () => window.game?.scene?.getScene('Report')?.scene?.isActive?.(),
+    undefined,
+    { timeout: 20000 }
+  ).then(() => true).catch(() => false);
+  if (!reportReady) fail.push(`${vp.name}: il bottone di firma non è toccabile`);
   const done = await mp.evaluate(() => {
     const saved = JSON.parse(localStorage.getItem('no-ai-act-save-v2') || '{}');
     return !!(saved.completedCases && saved.completedCases.case_scoring);

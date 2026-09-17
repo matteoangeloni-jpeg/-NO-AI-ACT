@@ -11,6 +11,23 @@ Target di uscita: **v3.0 Press Preview**. La versione da inviare deve offrire
 una sessione autonoma di 20-30 minuti, priva di blocchi, leggibile a schermo
 intero e abbastanza caratterizzata da produrre screenshot riconoscibili.
 
+## Stato al 17 settembre 2026
+
+- **Completato nella candidata v2.3:** Inspector Desk persistente, confronto
+  diretto dei reperti, accesso a fascicolo/norme/appunti, controlli da tastiera,
+  verifica Full HD e 4K, sei guide SEO IT/EN e press kit con dieci screenshot
+  Full HD.
+- **Pronto per la verifica:** protocollo delle due tornate in
+  `docs/PRESS_PLAYTEST_PROTOCOL_v2.3.md`, build automatizzata e soglie
+  misurabili.
+- **Da svolgere con persone esterne:** tornata A, tornata B e revisione dei
+  rilievi emersi. Nessun test automatico può sostituirle.
+- **Da produrre dopo i playtest:** trailer, GIF e tag pubblico v2.3. Il materiale
+  non deve presentare la candidata come release definitiva prima di questi
+  passaggi.
+- **Backlog successivo:** v2.4 Procedural City e v2.5 Consequence Web restano
+  fasi distinte; non sono prerequisiti nascosti per valutare la candidata v2.3.
+
 ## Pilastro 1 — qualita del gioco
 
 ### v2.3: Inspector Desk

@@ -16,7 +16,7 @@
  *   node scripts/seo/check-sitemap-live.mjs https://www.no-ai-act.eu
  *
  * Prints per-file counts (expected totals come from release.config.json's
- * publicUrls — currently 26 IT + 30 EN = 56), a robots.txt diagnostic block,
+ * publicUrls — currently 29 IT + 33 EN = 62), a robots.txt diagnostic block,
  * a compatibility check of /sitemap.xml, Googlebot-UA parity, http/non-www/
  * query/`/play/` violations, and sampled page canonical/noindex checks.
  */

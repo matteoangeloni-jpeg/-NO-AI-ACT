@@ -26,7 +26,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PORT = 4200;
 const PROBE = `http://127.0.0.1:${PORT}/`;
 const BASE = `http://localhost:${PORT}`; // smokes' host allowlists expect "localhost"
-const SMOKES = ['gameplay-smoke.mjs', 'keyboard-smoke.mjs', 'draft-smoke.mjs', 'privacy-smoke.mjs', 'layout-smoke.mjs', 'audio-smoke.mjs', 'action-layer-smoke.mjs', 'visual-language-smoke.mjs'];
+const SMOKES = ['gameplay-smoke.mjs', 'keyboard-smoke.mjs', 'draft-smoke.mjs', 'privacy-smoke.mjs', 'layout-smoke.mjs', 'audio-smoke.mjs', 'action-layer-smoke.mjs', 'inspector-desk-smoke.mjs', 'visual-language-smoke.mjs', 'press-pages-smoke.mjs'];
 
 if (!existsSync(resolve(root, 'dist/index.html'))) {
   console.error('smoke:all: dist/index.html not found — run `npm run build` first.');
@@ -85,6 +85,10 @@ for (const smoke of SMOKES) {
     console.error(`smoke:all: ${smoke} FAILED (exit ${code})`);
     if (firstFailure === 0) firstFailure = code;
   }
+  // Chromium's browser process exits before its GPU helper has necessarily
+  // released every framebuffer on Windows. A short settle prevents the next
+  // independent smoke from inheriting transient graphics pressure.
+  await new Promise((resolveWait) => setTimeout(resolveWait, 1000));
 }
 
 stopServer();

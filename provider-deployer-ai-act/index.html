@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+
+  <title>Provider e deployer nell'AI Act: differenze e obblighi</title>
+  <meta name="description" content="Chi è provider e chi è deployer nell'AI Act, quali obblighi cambiano per i sistemi ad alto rischio e quando chi usa un sistema diventa provider." />
+  <meta name="author" content="NO AI ACT" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+
+  <link rel="canonical" href="https://www.no-ai-act.eu/provider-deployer-ai-act/" />
+  <link rel="alternate" hreflang="it" href="https://www.no-ai-act.eu/provider-deployer-ai-act/" />
+  <link rel="alternate" hreflang="en" href="https://www.no-ai-act.eu/en/provider-deployer-ai-act/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.no-ai-act.eu/provider-deployer-ai-act/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="NO AI ACT" />
+  <meta property="og:locale" content="it_IT" />
+  <meta property="og:locale:alternate" content="en_GB" />
+  <meta property="og:title" content="Provider e deployer nell'AI Act" />
+  <meta property="og:description" content="Una guida operativa per distinguere chi fornisce un sistema di IA da chi lo usa, con obblighi, casi di cambio di ruolo e checklist." />
+  <meta property="og:url" content="https://www.no-ai-act.eu/provider-deployer-ai-act/" />
+  <meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
+  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="NO AI ACT: guida in linguaggio semplice all'AI Act europeo." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Provider e deployer nell'AI Act" />
+  <meta name="twitter:description" content="Una guida operativa per distinguere chi fornisce un sistema di IA da chi lo usa, con obblighi, casi di cambio di ruolo e checklist." />
+  <meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
+  <meta name="twitter:image:alt" content="NO AI ACT: guida in linguaggio semplice all'AI Act europeo." />
+  <link rel="stylesheet" href="/src/styles/landing.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "NO AI ACT", "item": "https://www.no-ai-act.eu/" },
+      { "@type": "ListItem", "position": 2, "name": "Guida AI Act", "item": "https://www.no-ai-act.eu/guida-ai-act/" },
+      { "@type": "ListItem", "position": 3, "name": "Provider e deployer", "item": "https://www.no-ai-act.eu/provider-deployer-ai-act/" }
+    ]
+  }
+  </script>
+  <script>document.documentElement.classList.add('has-js');</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "NO AI ACT",
+    "url": "https://www.no-ai-act.eu/",
+    "description": "Free educational serious game and resource hub on the EU AI Act",
+    "logo": "https://www.no-ai-act.eu/favicon.svg",
+    "sameAs": ["https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"],
+    "dateModified": "2026-07-18T00:00:00Z"
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Vai al contenuto</a>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="../" aria-label="NO AI ACT — home">NO AI ACT<span class="dot">.</span></a>
+      <nav class="site-nav" aria-label="Navigazione principale">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu di navigazione">Menu</button>
+        <ul class="nav-menu" id="site-menu">
+          <li><a href="../play/?lang=it">Gioca</a></li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-risorse">Risorse</button>
+            <ul class="nav-sub" id="sub-risorse">
+              <li><a href="../educazione/">Hub educativo</a></li>
+              <li><a href="../alfabetizzazione-ai/">Alfabetizzazione AI</a></li>
+              <li><a href="../serious-game-regolazione-ai/">Serious game e regolazione AI</a></li>
+              <li><a href="../#faq-title">FAQ</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-docenti">Docenti</button>
+            <ul class="nav-sub" id="sub-docenti">
+              <li><a href="../ai-act-per-docenti/">AI Act per docenti</a></li>
+              <li><a href="../attivita-didattiche/">Attività didattiche</a></li>
+              <li><a href="../lezione-introduzione-ai-act/">Lezione introduttiva</a></li>
+              <li><a href="../per-docenti/">Modalità docente / gioco</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <button class="nav-sub-btn is-current" type="button" aria-expanded="false" aria-controls="sub-aiact">AI Act</button>
+            <ul class="nav-sub" id="sub-aiact">
+              <li><a href="../guida-ai-act/">Guida AI Act</a></li>
+              <li><a href="../categorie-rischio-ai-act/">Categorie di rischio</a></li>
+              <li><a href="../provider-deployer-ai-act/" aria-current="page">Provider e deployer</a></li>
+              <li><a href="../ai-act-pubblica-amministrazione/">AI Act e PA</a></li>
+              <li><a href="../fria-ai-act-valutazione-diritti-fondamentali/">FRIA</a></li>
+              <li><a href="../obblighi-trasparenza-ai-act/">Obblighi di trasparenza</a></li>
+            </ul>
+          </li>
+          <li><a href="../glossario/">Glossario</a></li>
+          <li><a href="../privacy-by-design/">Privacy</a></li>
+          <li><a class="nav-lang" href="../en/provider-deployer-ai-act/" hreflang="en">EN</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <div class="wrap"><ol>
+        <li><a href="../">NO AI ACT</a></li>
+        <li><a href="../guida-ai-act/">Guida AI Act</a></li>
+        <li aria-current="page">Provider e deployer</li>
+      </ol></div>
+    </nav>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div class="wrap">
+        <p class="kicker">Articoli 3, 16, 25 e 26 · Ruoli · Responsabilità</p>
+        <h1 id="page-title">Provider e deployer nell'AI Act: differenze e obblighi</h1>
+        <p class="lead"><strong>Risposta breve:</strong> il provider sviluppa, fa sviluppare e immette sul mercato o mette in servizio un sistema di IA con il proprio nome; il deployer lo usa sotto la propria autorità. Un acquisto non trasferisce automaticamente ogni responsabilità al fornitore, e chi modifica o rimarchia un sistema può diventare provider.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="../play/?lang=it">Gioca il caso procurement</a>
+          <a class="btn btn-ghost" href="../ai-act-pubblica-amministrazione/">Guida per la PA</a>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="definizioni-title">
+      <div class="wrap">
+        <h2 id="definizioni-title"><span class="num">01</span>La differenza in una tabella</h2>
+        <p class="section-intro">I ruoli dell'AI Act descrivono attività concrete, non qualifiche astratte. La stessa organizzazione può avere ruoli diversi per sistemi diversi e, in alcune filiere, può cumulare più ruoli.</p>
+        <div class="table-wrap">
+          <table>
+            <caption>Provider e deployer secondo l'articolo 3 del Regolamento (UE) 2024/1689</caption>
+            <thead><tr><th scope="col">Domanda</th><th scope="col">Provider</th><th scope="col">Deployer</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Che cosa fa?</th><td>Sviluppa o fa sviluppare il sistema e lo immette sul mercato o lo mette in servizio con il proprio nome o marchio, anche gratuitamente.</td><td>Usa il sistema sotto la propria autorità, fuori dall'uso personale non professionale.</td></tr>
+              <tr><th scope="row">Esempio</th><td>Un'impresa offre una piattaforma di selezione automatizzata con il proprio marchio.</td><td>Un datore di lavoro usa la piattaforma per filtrare candidature.</td></tr>
+              <tr><th scope="row">Domanda chiave</th><td>Chi determina il sistema offerto, la finalità prevista e le condizioni dichiarate?</td><td>Chi decide il contesto concreto, i dati in ingresso e come usare l'output?</td></tr>
+              <tr><th scope="row">Errore comune</th><td>Confonderlo sempre con chi ha scritto materialmente il codice.</td><td>Trattarlo come un utente passivo senza doveri propri.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="obblighi-title">
+      <div class="wrap">
+        <h2 id="obblighi-title"><span class="num">02</span>Come cambiano gli obblighi nei sistemi ad alto rischio</h2>
+        <p class="section-intro">Per i sistemi ad alto rischio la distinzione diventa operativa. Il provider deve progettare e documentare la conformità del sistema; il deployer deve governarne l'uso reale. Questa sintesi non sostituisce gli articoli applicabili né gli obblighi settoriali.</p>
+        <div class="table-wrap">
+          <table>
+            <caption>Ripartizione semplificata delle responsabilità principali</caption>
+            <thead><tr><th scope="col">Provider</th><th scope="col">Deployer</th></tr></thead>
+            <tbody>
+              <tr><td>Assicura che il sistema rispetti i requisiti per l'alto rischio, compresi gestione del rischio, dati, documentazione, registrazione, trasparenza, supervisione e robustezza.</td><td>Usa il sistema secondo le istruzioni e adotta misure tecniche e organizzative adeguate.</td></tr>
+              <tr><td>Predispone il sistema di gestione della qualità, conserva la documentazione e attua azioni correttive quando necessario.</td><td>Affida la supervisione a persone con competenza, formazione, autorità e supporto effettivi.</td></tr>
+              <tr><td>Comunica informazioni sufficienti a chi dovrà integrare o usare il sistema.</td><td>Controlla i dati di input quando dipendono da lui, monitora il funzionamento, conserva i log sotto il proprio controllo e segnala rischi o incidenti.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout"><strong>Il contratto non cancella il ruolo legale.</strong> Le parti possono distribuire compiti operativi, ma una clausola che chiama tutti “clienti” o “fornitori” non cambia da sola ciò che ciascuno fa nella filiera.</div>
+      </div>
+    </section>
+
+    <section aria-labelledby="cambio-title">
+      <div class="wrap">
+        <h2 id="cambio-title"><span class="num">03</span>Quando il deployer può diventare provider</h2>
+        <p class="section-intro">L'articolo 25 disciplina tre passaggi importanti per i sistemi ad alto rischio. Un deployer, distributore, importatore o altro soggetto può assumere gli obblighi del provider quando:</p>
+        <ul class="plain">
+          <li>appone il proprio nome o marchio a un sistema ad alto rischio già sul mercato o in servizio;</li>
+          <li>realizza una modifica sostanziale e il sistema resta ad alto rischio;</li>
+          <li>cambia la finalità prevista di un sistema non classificato ad alto rischio in modo da renderlo tale.</li>
+        </ul>
+        <p>Integrare un modello generale in un'applicazione, personalizzare un prodotto o cambiare il contesto d'uso non produce sempre lo stesso esito. Servono finalità prevista, documentazione, modifiche effettuate e rischio effettivo. La domanda corretta non è “lo abbiamo comprato?”, ma “che cosa abbiamo trasformato e sotto quale nome lo mettiamo in servizio?”.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="check-title">
+      <div class="wrap">
+        <h2 id="check-title"><span class="num">04</span>Checklist prima di acquistare o usare un sistema</h2>
+        <ul class="plain">
+          <li><strong>Mappa la filiera:</strong> chi sviluppa, chi integra, chi vende, chi decide la finalità e chi usa l'output.</li>
+          <li><strong>Definisci il contesto:</strong> persone interessate, decisioni influenzate, dati trattati e conseguenze di un errore.</li>
+          <li><strong>Verifica la classificazione:</strong> pratica vietata, alto rischio, obbligo di trasparenza o altro regime.</li>
+          <li><strong>Chiedi prove:</strong> istruzioni, limiti, log, qualità dei dati, prestazioni, supervisione, incidenti e aggiornamenti.</li>
+          <li><strong>Assegna responsabilità interne:</strong> una persona deve poter fermare o correggere l'uso, non soltanto osservare il sistema.</li>
+          <li><strong>Controlla i cambiamenti:</strong> nuove finalità, fine-tuning, integrazioni e rimarchiatura possono cambiare il ruolo.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="trasparenza-title">
+      <div class="wrap">
+        <h2 id="trasparenza-title"><span class="num">05</span>Anche la trasparenza divide i compiti</h2>
+        <p class="section-intro">L'articolo 50 mostra perché i due ruoli non sono sinonimi. In termini semplificati, il provider deve rendere riconoscibili determinate interazioni o output sintetici; in situazioni come la diffusione di deepfake o l'uso di alcuni sistemi biometrici, specifici doveri ricadono invece sul deployer. La guida sugli <a href="../obblighi-trasparenza-ai-act/">obblighi di trasparenza</a> entra nel dettaglio.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="gioco-title">
+      <div class="wrap">
+        <h2 id="gioco-title"><span class="num">06</span>Perché nel gioco devi indicare il responsabile</h2>
+        <p class="section-intro">In NO AI ACT non basta riconoscere il rischio. Nel fascicolo “La gara opaca” un ente compra un sistema senza ottenere documentazione e senza costruire una governance dell'uso. Attribuire ogni problema al venditore produce un rapporto debole: il provider deve rendere il sistema verificabile, ma il deployer decide come introdurlo nel procedimento e come sorvegliarlo.</p>
+        <div class="cta-row"><a class="btn btn-primary" href="../play/?lang=it">Apri i fascicoli</a></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="fonti-title">
+      <div class="wrap">
+        <h2 id="fonti-title"><span class="num">07</span>Fonti ufficiali e limiti</h2>
+        <p class="section-intro">Testo di riferimento: <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/ita" hreflang="it">Regolamento (UE) 2024/1689 su EUR-Lex</a>. Per orientarsi fra le disposizioni: <a href="https://ai-act-service-desk.ec.europa.eu/it/ai-act/article-3" hreflang="it">articolo 3</a>, <a href="https://ai-act-service-desk.ec.europa.eu/it/ai-act/article-25" hreflang="it">articolo 25</a>, <a href="https://ai-act-service-desk.ec.europa.eu/it/ai-act/article-26" hreflang="it">articolo 26</a> e le <a href="https://digital-strategy.ec.europa.eu/en/faqs/navigating-ai-act" hreflang="en">FAQ della Commissione europea</a>. Verifica sempre il testo consolidato vigente e le norme settoriali applicabili.</p>
+        <div class="callout warn"><strong>Versione didattica semplificata.</strong> Questa pagina non determina il ruolo di una singola organizzazione e non è consulenza legale o di conformità.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer aria-labelledby="footer-title">
+    <div class="wrap">
+      <h2 id="footer-title" class="stamp">Simulazione didattica — non consulenza legale</h2>
+      <p>NO AI ACT è uno strumento educativo indipendente e open source. Semplifica volutamente il <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/ita" hreflang="it">Regolamento (UE) 2024/1689</a> e non sostituisce il testo normativo né un parere professionale.</p>
+      <p><a href="../educazione/">Risorse educative</a> · <a href="../guida-ai-act/">Guida AI Act</a> · <a href="../glossario/">Glossario</a> · <a href="../en/provider-deployer-ai-act/" hreflang="en">English version</a></p>
+      <p class="credit">Ideato e sviluppato da Matteo Angeloni · v2.3.0<br /><span class="credit-affil">Dottorando in <a href="https://www.unitus.it/post-laurea/dottorati-di-ricerca/corsi-di-dottorato-attivi/societa-in-mutamento-politiche-diritti-e-sicurezza/">Società in mutamento: politiche, diritti e sicurezza</a> · <a href="https://www.unitus.it/">Università degli Studi della Tuscia</a> — progetto indipendente, non espressione ufficiale dell'ateneo</span></p>
+    </div>
+  </footer>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7c85578fc8ad4488a54c6bc670a10dcf"}'></script><!-- End Cloudflare Web Analytics -->
+  <script type="module" src="/src/scripts/nav.ts"></script>
+</body>
+</html>

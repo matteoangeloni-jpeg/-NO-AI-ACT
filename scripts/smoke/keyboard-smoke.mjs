@@ -18,6 +18,7 @@
  *     node scripts/smoke/keyboard-smoke.mjs
  */
 import { chromium } from 'playwright';
+import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
 
 const BASE = process.env.BASE || 'http://localhost:4200';
 const GAME_HOSTS_ALLOWED = ['static.cloudflareinsights.com'];
@@ -34,7 +35,7 @@ const SEED = JSON.stringify({
   difficulty: 'standard', mission: 'full', caseMeta: {}, selfCheck: { pre: null, post: null }
 });
 
-const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
+const browser = await chromium.launch(smokeBrowserLaunchOptions());
 const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 } });
 // Hermetic run: abort the pre-existing shell beacon (see gameplay-smoke.mjs).
 await ctx.route(/cloudflareinsights\.com/, (r) => r.abort());
@@ -44,13 +45,16 @@ page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
 page.on('request', (r) => { try { hosts.add(new URL(r.url()).host); } catch { /* ignore */ } });
 
 async function waitScene(key, timeout = 20000) {
+  let reached = true;
   await page.waitForFunction((k) => {
     const g = window.game; if (!g) return false;
     return g.scene.getScenes(true).some((s) => s.scene.key === k);
   }, key, { timeout }).catch(async () => {
+    reached = false;
     const active = await page.evaluate(() => window.game ? window.game.scene.getScenes(true).map((s) => s.scene.key) : ['no-game']).catch(() => ['eval-failed']);
     fail.push(`scene "${key}" not reached (active: ${active.join(',')})`);
   });
+  return reached;
 }
 const press = async (key, ms = 350) => { await page.keyboard.press(key); await page.waitForTimeout(ms); };
 async function readingLayerHas(marker, ctxLabel) {
@@ -83,7 +87,7 @@ await page.waitForFunction(() => {
   const s = window.game.scene.getScenes(true).find((x) => x.scene.key === 'Case');
   if (!s) return false;
   return s.children.list.some((o) => o.type === 'Container' && o.input && o.input.enabled && o.visible);
-}, { timeout: 30000 }).catch(() => fail.push('Case: CTA never became visible'));
+}, undefined, { timeout: 30000 }).catch(() => fail.push('Case: CTA never became visible'));
 await press('Enter', 700);
 await waitScene('Evidence');
 await readingLayerHas('exhibit|Keys 1', 'Evidence');
@@ -117,8 +121,12 @@ if (!meta || !Object.values(meta).some((m) => m.confidence === 2)) fail.push('co
 
 await press('Enter', 900);
 await waitScene('Consequence');
+await page.waitForFunction(() => {
+  const s = window.game?.scene?.getScenes(true).find((scene) => scene.scene.key === 'Consequence');
+  return !!s && s.children.list.some((o) => o.type === 'Container' && o.input?.enabled && o.visible);
+}, undefined, { timeout: 30000 }).catch(() => fail.push('Consequence: CTA never became visible'));
 await press('Enter', 900);
-await waitScene('NormCard');
+const reachedNormCard = await waitScene('NormCard');
 
 // Il primo caso sblocca la carta norma. Da qui l'uscita dipende dalla
 // modalità: in una sessione in sequenza ENTER apre il fascicolo successivo
@@ -128,6 +136,7 @@ await waitScene('NormCard');
 // gioco a dirlo.
 const nextPlanned = await page.evaluate(() => {
   const s = window.game.scene.getScene('NormCard');
+  if (!s) return [];
   const btns = [];
   const walk = (l) => { for (const o of l) { if (o.type === 'Container') { const t = o.list?.find((k) => k.type === 'Text'); if (o.input && t) btns.push(t.text); walk(o.list ?? []); } } };
   walk(s.children.list);
@@ -137,8 +146,10 @@ const hasNext = nextPlanned.some((t) => /FASCICOLO|CASE FILE/i.test(t));
 if (!nextPlanned.some((t) => /MAPPA|MAP/i.test(t))) {
   fail.push(`NormCard: la mappa deve restare raggiungibile, trovati ${JSON.stringify(nextPlanned)}`);
 }
-await press('Enter', 900);
-await waitScene(hasNext ? 'Case' : 'CityMap');
+if (reachedNormCard) {
+  await press('Enter', 900);
+  await waitScene(hasNext ? 'Case' : 'CityMap');
+}
 
 if (hasNext) {
   // e da lì si esce: una sequenza da cui non si può uscire è una gabbia

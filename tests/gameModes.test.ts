@@ -187,3 +187,16 @@ describe('il pannello non si apre mai su una modalità che non si può giocare',
     }
   });
 });
+
+describe('una nuova partita conserva il percorso appena scelto', () => {
+  const stateManager = readFileSync(resolve(__dirname, '../src/game/systems/StateManager.ts'), 'utf8');
+  const newGame = stateManager.slice(stateManager.indexOf('newGame(): void'), stateManager.indexOf('applyDomPreferences'));
+
+  it('non riporta la modalità al default durante il reset della partita precedente', () => {
+    expect(newGame).toContain('gameMode: this.data.gameMode');
+  });
+
+  it('conserva anche la velocità di lettura, che è una preferenza di accessibilità', () => {
+    expect(newGame).toContain('textSpeed: this.data.textSpeed');
+  });
+});

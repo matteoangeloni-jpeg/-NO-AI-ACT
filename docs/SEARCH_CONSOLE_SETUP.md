@@ -50,7 +50,9 @@ If unsure, create the **Domain property**.
 2. Submit the two language-specific sitemaps:
    - `https://www.no-ai-act.eu/sitemap-it.xml`
    - `https://www.no-ai-act.eu/sitemap-en.xml`
-3. Confirm GSC reads **56 total URLs** (26 Italian + 30 English pages).
+3. After the v2.3 deployment, confirm GSC reads **62 total URLs** (29 Italian
+   + 33 English pages). The previous live inventory contained 56 URLs, so GSC
+   may take several days to discover the six new guides.
    - **Do not** submit `https://www.no-ai-act.eu/sitemap.xml` (the index file exists
      for backward compatibility, but GSC reads the two language children directly).
 
@@ -65,8 +67,10 @@ Use **URL Inspection** on `https://www.no-ai-act.eu/` and
 
 ## 6. Checks after a few days
 
-- **Pages**: `/` and `/en/` indexed; all 54 education/hub pages indexed; `/play/` excluded by `noindex` (expected).
-- **Sitemaps**: both child sitemaps show status *Success*, 56 total discovered URLs (26 IT + 30 EN).
+- **Pages**: `/` and `/en/` indexed; the public guide inventory is being
+  discovered; `/play/` excluded by `noindex` (expected).
+- **Sitemaps**: both child sitemaps show status *Success*, with a target of 62
+  discovered URLs (29 IT + 33 EN) after the v2.3 deployment.
 - **International targeting / hreflang**: no errors for the `it` / `en` /
   `x-default` alternates.
 - **Manual action / Security**: none.

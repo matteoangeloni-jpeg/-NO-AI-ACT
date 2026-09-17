@@ -1,4 +1,8 @@
-# PLAYTEST GUIDE — 5 PROFILI — NO AI ACT v0.3.1
+# PLAYTEST GUIDE — 5 PROFILI — archivio storico v0.3.1
+
+> Questa guida conserva gli scenari della prima fase del progetto. Per la
+> candidata stampa v2.3 usare il protocollo aggiornato e misurabile in
+> `docs/PRESS_PLAYTEST_PROTOCOL_v2.3.md`.
 
 Guida operativa per playtest guidati con cinque profili di tester.
 **Obiettivo:** capire se il gioco è comprensibile, se il rapporto ispettivo

@@ -188,7 +188,7 @@ describe('public static files', () => {
     expect(children).toEqual([`${SITE}sitemap-it.xml`, `${SITE}sitemap-en.xml`]);
   });
 
-  it('the child sitemaps list exactly the 56 indexable public pages, nothing else', () => {
+  it('the child sitemaps list exactly the 62 indexable public pages, nothing else', () => {
     const it = read('public/sitemap-it.xml');
     const en = read('public/sitemap-en.xml');
     for (const child of [it, en]) {
@@ -204,7 +204,7 @@ describe('public static files', () => {
       expect(child).not.toContain('priority');
     }
     const locs = [it, en].flatMap((child) => [...child.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, l]) => l));
-    // the full 56-URL public inventory, split by language (order may differ).
+    // the full 62-URL public inventory, split by language (order may differ).
     expect(new Set(locs)).toEqual(new Set([
       SITE, `${SITE}en/`, `${SITE}come-funziona/`, `${SITE}per-docenti/`,
       `${SITE}ai-act-serious-game/`, `${SITE}privacy-by-design/`, `${SITE}en/how-it-works/`,
@@ -228,9 +228,13 @@ describe('public static files', () => {
       `${SITE}en/serious-games-for-ai-regulation/`, `${SITE}en/digital-citizenship-ai-regulation/`,
       `${SITE}en/classroom-activities/`, `${SITE}en/lesson-plan-introduction-to-the-ai-act/`,
       `${SITE}en/lesson-plan-risk-based-approach/`, `${SITE}en/lesson-plan-transparency-and-users/`,
-      `${SITE}en/glossary/`, `${SITE}en/faq/`
+      `${SITE}en/glossary/`, `${SITE}en/faq/`,
+      `${SITE}provider-deployer-ai-act/`, `${SITE}ai-act-pubblica-amministrazione/`,
+      `${SITE}fria-ai-act-valutazione-diritti-fondamentali/`,
+      `${SITE}en/provider-deployer-ai-act/`, `${SITE}en/ai-act-public-administration/`,
+      `${SITE}en/fria-ai-act-fundamental-rights-impact-assessment/`
     ]));
-    expect(locs).toHaveLength(56);
+    expect(locs).toHaveLength(62);
     for (const loc of locs) {
       expect(loc.startsWith(SITE)).toBe(true);
       expect(loc).not.toContain('?');
