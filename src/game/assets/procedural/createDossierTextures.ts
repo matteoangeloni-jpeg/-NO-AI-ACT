@@ -1,14 +1,6 @@
 import Phaser from 'phaser';
 import { RENDER_SCALE } from '../../ui/theme';
-import {
-  drawCornerTicks,
-  drawDoubleRule,
-  drawGrain,
-  drawPaper,
-  drawPunchHoles,
-  drawRegistryStrip,
-  seeded
-} from './kit';
+import { drawCornerTicks, drawDoubleRule, drawGrain, drawPaper, drawPunchHoles, seeded } from './kit';
 
 /**
  * LE DUE CARTE: il fascicolo e il rapporto.
@@ -46,8 +38,6 @@ export interface PaperSpec {
   marginX: number;
   /** Altezza della fascia d'intestazione. */
   headerBand: number;
-  /** Striscia di protocollo nella fascia, a destra. */
-  registry: boolean;
   grain: number;
 }
 
@@ -66,8 +56,30 @@ export const PAPER_SPECS: PaperSpec[] = [
     ruleStep: 28,
     marginX: 70,
     headerBand: 56,
-    registry: false,
     grain: 0.45
+  },
+  {
+    /**
+     * ISTRUTTORIA: il foglio su cui si costruisce la decisione.
+     *
+     * Serve una carta SUA e non quella del fascicolo, per una ragione di
+     * misura e non di gusto: la decisione occupa quasi tutto lo schermo —
+     * colonna dei reperti a sinistra, stato della città a destra — e la
+     * carta del fascicolo, larga 900, ci finiva in mezzo come un rettangolo
+     * appoggiato sopra, con i suoi bordi che tagliavano la domanda in alto
+     * e la colonna a destra. Stirarla sarebbe stato peggio: la carta
+     * generata si mostra alla misura in cui è nata.
+     *
+     * Niente righe da modulo: qui non si compila, si sceglie.
+     */
+    key: 'decision_paper',
+    width: 1180,
+    height: 620,
+    fill: '#0d1626',
+    ruleStep: 0,
+    marginX: 0,
+    headerBand: 0,
+    grain: 0.3
   },
   {
     // rapporto ispettivo: atto in uscita, non modulo rigato. Niente righe:
@@ -80,7 +92,6 @@ export const PAPER_SPECS: PaperSpec[] = [
     ruleStep: 0,
     marginX: 0,
     headerBand: 62,
-    registry: true,
     grain: 0.35
   }
 ];
@@ -107,9 +118,11 @@ export function createDossierTextures(scene: Phaser.Scene): void {
 
     // fascia d'intestazione: il posto dove la scena scrive codice e titolo.
     // Più scura della carta, così il testo chiaro ci sta sopra con margine.
-    ctx.fillStyle = 'rgba(7,9,15,0.45)';
-    ctx.fillRect(0, 0, w, spec.headerBand);
-    drawDoubleRule(ctx, 18, spec.headerBand, w - 36, 'rgba(74,82,96,0.55)', 'rgba(74,82,96,0.22)');
+    if (spec.headerBand > 0) {
+      ctx.fillStyle = 'rgba(7,9,15,0.45)';
+      ctx.fillRect(0, 0, w, spec.headerBand);
+      drawDoubleRule(ctx, 18, spec.headerBand, w - 36, 'rgba(74,82,96,0.55)', 'rgba(74,82,96,0.22)');
+    }
 
     // fori da faldone: il dettaglio che fa leggere "archiviato"
     drawPunchHoles(ctx, 20, h, 'rgba(7,9,15,0.85)');
@@ -117,9 +130,13 @@ export function createDossierTextures(scene: Phaser.Scene): void {
     // crocini di taglio: modulo stampato, non pannello dell'interfaccia
     drawCornerTicks(ctx, w, h, 12, 14, 'rgba(74,82,96,0.45)');
 
-    if (spec.registry) {
-      drawRegistryStrip(ctx, rnd, w - 190, 16, 170, 12, 'rgba(93,127,184,0.30)');
-    }
+    /**
+     * NESSUNA STRISCIA GENERICA QUI. La carta ne aveva una, disegnata da un
+     * seme qualunque: un codice a barre che non codificava niente, cioè una
+     * decorazione che su un atto amministrativo promette un dato che non
+     * c'è. La striscia vera la disegna la scena, e porta le cifre del
+     * protocollo di QUELLA pratica.
+     */
 
     // la grana per ultima, sopra ogni tratto, in pixel veri del canvas
     drawGrain(ctx, canvas.width, canvas.height, rnd, spec.grain);

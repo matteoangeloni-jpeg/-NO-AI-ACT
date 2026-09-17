@@ -9,7 +9,9 @@ export const COLORS = {
   alert: 0xd23b3b,
   warning: 0xd9a521,
   ok: 0x3fa66a,
-  accent: 0x5d7fb8
+  accent: 0x5d7fb8,
+  /** Identità dei modelli GPAI. Viola contenuto, non neon: vedi COLOR_STR. */
+  gpai: 0x9b86cf
 } as const;
 
 export const COLOR_STR = {
@@ -34,7 +36,17 @@ export const COLOR_STR = {
    * #6a8cc4 sta a 5,15:1 sul pannello e 5,84:1 sulla scena. Misurato, non
    * stimato: lo verifica tests/contrast.test.ts.
    */
-  accentText: '#6a8cc4'
+  accentText: '#6a8cc4',
+  /**
+   * Viola dei modelli per finalità generali (GPAI). Unica tinta fuori dalla
+   * palette originale, e per un motivo: il GPAI non è un livello di rischio
+   * a sé nei dati — condivide `restrittivo` con la biometria — quindi senza
+   * una sua identità visiva le due categorie erano indistinguibili.
+   * Misurato: 6,36:1 sul fondo scena, 5,53:1 su pannello, 5,55:1 sulla carta
+   * del rapporto. Contenuto di proposito: un viola saturo su fondo notturno
+   * sembra un errore di calibrazione, non una categoria giuridica.
+   */
+  gpai: '#9b86cf'
 } as const;
 
 export const FONT_MONO =

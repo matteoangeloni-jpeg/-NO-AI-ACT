@@ -37,8 +37,32 @@ const fail = [];
  */
 const EVIDENCE_STANCES = (() => {
   const src = readFileSync(pathResolve(dirname(fileURLToPath(import.meta.url)), '../../src/game/i18n/it.ts'), 'utf8');
-  const block = src.slice(src.indexOf('stances: {'), src.indexOf('}', src.indexOf('stances: {')));
-  return Object.fromEntries([...block.matchAll(/(\w+):\s*'([^']+)'/g)].map((m) => [m[1], m[2]]));
+  const blocco = (chiave) => {
+    const i = src.indexOf(`${chiave}: {`);
+    return i < 0 ? '' : src.slice(i, src.indexOf('}', i));
+  };
+  const voci = (chiave) =>
+    Object.fromEntries([...blocco(chiave).matchAll(/(\w+):\s*'([^']+)'/g)].map((m) => [m[1], m[2]]));
+
+  /**
+   * DUE VOCABOLARI, NON UNO.
+   *
+   * «Prova decisiva» non è più una sfumatura come «minimizza» o
+   * «contesto»: è uno STATO del reperto, e la scheda lo dice con il
+   * distintivo del linguaggio comune — glifo, cornice e parola in
+   * maiuscolo. Cercare solo la vecchia dicitura minuscola ha fatto fallire
+   * questo controllo, che è esattamente quello che doveva fare: la parola
+   * a schermo era cambiata.
+   *
+   * Si leggono entrambi gli elenchi dal dizionario e si confronta senza
+   * distinguere maiuscole, così il controllo resta sul SIGNIFICATO
+   * (il micro-tag è nascosto sulla busta chiusa e compare una volta aperta)
+   * e non sulla forma tipografica di una singola etichetta.
+   */
+  const stances = voci('stances');
+  const stati = voci('states');
+  if (stati.prova_decisiva) stances.decisive_state = stati.prova_decisiva;
+  return stances;
 })();
 /**
  * Quanto può durare, a orologio vero, il passaggio da un pulsante alla
@@ -73,7 +97,19 @@ page.on('request', (r) => hosts.add(new URL(r.url()).host));
  * vive in lib-canvas-coords.mjs, perché non è una formula ma tre
  * trasformazioni in fila e scriverla a mano l'ha già sbagliata una volta.
  */
-const toPage = (lx, ly) => page.evaluate(worldToPageFn, { x: lx, y: ly });
+const toPage = async (lx, ly) => {
+  const deadline = Date.now() + 5000;
+  let lastError;
+  while (Date.now() < deadline) {
+    try {
+      return await page.evaluate(worldToPageFn, { x: lx, y: ly });
+    } catch (error) {
+      lastError = error;
+      await page.waitForTimeout(100);
+    }
+  }
+  throw lastError;
+};
 
 const click = async (lx, ly, w = 400) => {
   const { x, y } = await toPage(lx, ly);
@@ -84,22 +120,28 @@ const click = async (lx, ly, w = 400) => {
 // Click a canvas Button by its label, in logical coordinates (click converts).
 // Robust to title-menu layout changes: reads the live scene via window.game.
 const clickButton = async (labelRe, w = 400) => {
-  const pos = await page.evaluate((reSrc) => {
-    const re = new RegExp(reSrc, 'i');
-    const scenes = window.game.scene.getScenes(true);
-    const s = scenes[scenes.length - 1];
-    let found = null;
-    const visit = (o) => { // recursive: overlay buttons live inside containers
-      if (found || !o || o.visible === false) return;
-      if (o.type === 'Container' && o.input && o.input.enabled) {
-        const t = (o.list || []).find((ch) => typeof ch.text === 'string');
-        if (t && re.test(t.text)) { const b = o.getBounds(); found = { x: b.centerX, y: b.centerY }; return; }
-      }
-      for (const ch of (o.list || [])) visit(ch);
-    };
-    for (const o of s.children.list) visit(o);
-    return found;
-  }, labelRe.source);
+  let pos = null;
+  const deadline = Date.now() + 5000;
+  while (!pos && Date.now() < deadline) {
+    pos = await page.evaluate((reSrc) => {
+      const re = new RegExp(reSrc, 'i');
+      const scenes = window.game?.scene.getScenes(true) ?? [];
+      const s = scenes[scenes.length - 1];
+      if (!s) return null;
+      let found = null;
+      const visit = (o) => { // recursive: overlay buttons live inside containers
+        if (found || !o || o.visible === false) return;
+        if (o.type === 'Container' && o.input && o.input.enabled) {
+          const t = (o.list || []).find((ch) => typeof ch.text === 'string');
+          if (t && re.test(t.text)) { const b = o.getBounds(); found = { x: b.centerX, y: b.centerY }; return; }
+        }
+        for (const ch of (o.list || [])) visit(ch);
+      };
+      for (const o of s.children.list) visit(o);
+      return found;
+    }, labelRe.source);
+    if (!pos) await page.waitForTimeout(100);
+  }
   if (!pos) { fail.push(`button not found: ${labelRe}`); return; }
   await click(Math.round(pos.x), Math.round(pos.y), w);
 };
@@ -420,6 +462,15 @@ for (const vp of [{ w: 390, h: 844, name: 'telefono' }, { w: 768, h: 1024, name:
     const g = window.game;
     const s = g.scene.getScenes(true).slice(-1)[0];
     const stances = Object.values(window.gameStances || {});
+    /**
+     * SOLO I TESTI DENTRO LE SCHEDE.
+     *
+     * Guardare tutta la scena sembrava più severo ed era più fragile: il
+     * micro-tag «contesto» è anche dentro il pulsante «RIVEDI CONTESTO», e
+     * il controllo accusava la scheda di aver rivelato una cosa che stava
+     * scritta altrove. La domanda è se la BUSTA CHIUSA anticipa il proprio
+     * contenuto, quindi si guardano le buste.
+     */
     const texts = [];
     const walk = (list, shown) => {
       for (const o of list) {
@@ -428,12 +479,15 @@ for (const vp of [{ w: 390, h: 844, name: 'telefono' }, { w: 768, h: 1024, name:
         if (Array.isArray(o.list)) walk(o.list, vis);
       }
     };
-    walk(s.children.list, true);
-    return { texts, stances };
+    const schede = s.children.list.filter((o) => o.type === 'Container' && typeof o.activate === 'function');
+    walk(schede, true);
+    return { texts, stances, schede: schede.length };
   });
   const stanceLabels = Object.values(EVIDENCE_STANCES);
   if (stanceLabels.length < 3) fail.push('reperti: nessun micro-tag letto dal dizionario, il controllo sarebbe inerte');
-  const leaked = stanceLabels.filter((label) => seen.texts.some((t) => t.includes(label)));
+  if (!seen.schede) fail.push('reperti: nessuna scheda trovata nella scena, il controllo sarebbe inerte');
+  const contiene = (testi, label) => testi.some((t) => t.toLowerCase().includes(label.toLowerCase()));
+  const leaked = stanceLabels.filter((label) => contiene(seen.texts, label));
   if (leaked.length) {
     fail.push(`reperti sigillati: il micro-tag è già visibile (${leaked.join(', ')}) — la risposta è stampata sulla busta`);
   }
@@ -455,10 +509,10 @@ for (const vp of [{ w: 390, h: 844, name: 'telefono' }, { w: 768, h: 1024, name:
         if (Array.isArray(o.list)) walk(o.list, vis);
       }
     };
-    walk(s.children.list, true);
+    walk(s.children.list.filter((o) => o.type === 'Container' && typeof o.activate === 'function'), true);
     return texts;
   });
-  if (!stanceLabels.some((label) => afterOpen.some((t) => t.includes(label)))) {
+  if (!stanceLabels.some((label) => contiene(afterOpen, label))) {
     fail.push('reperti aperti: il micro-tag non compare nemmeno dopo aver esaminato — nascosto, non rivelato');
   }
   await ev.close();

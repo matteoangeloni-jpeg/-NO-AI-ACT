@@ -65,3 +65,49 @@ export function fadeOutScene(scene: Phaser.Scene, duration: number, then: () => 
   scene.cameras.main.fadeOut(ms, 0, 0, 0);
   scene.cameras.main.once('camerafadeoutcomplete', go);
 }
+
+/**
+ * COMPARSE: la stessa decisione delle dissolvenze di scena, per gli oggetti.
+ *
+ * Il gioco rispettava «riduci movimento» nelle transizioni fra scene e nelle
+ * animazioni vistose — timbro, scossone, sblocco della norma — ma non nelle
+ * comparse minute: le schede reperto entravano una dopo l'altra, la nota
+ * della conseguenza sfumava, il fascicolo saliva dal basso. Quattro tween
+ * una tantum, ognuno innocuo da solo, tutti insieme l'esatto contrario di
+ * quello che l'impostazione promette.
+ *
+ * Erano sfuggiti anche al controllo automatico, che cercava `repeat: -1`:
+ * un'animazione che non si ripete è comunque un'animazione per chi ha
+ * chiesto di non vederne.
+ *
+ * `reveal` mette l'oggetto NELLO STATO FINALE e non anima, quando
+ * l'impostazione è attiva. Non salta il risultato: lo raggiunge subito. Chi
+ * passa di qui non può dimenticarsene, ed è questo il punto.
+ */
+export function reveal(
+  scene: Phaser.Scene,
+  config: Phaser.Types.Tweens.TweenBuilderConfig | Record<string, unknown>
+): Phaser.Tweens.Tween | null {
+  const cfg = config as Record<string, unknown>;
+  if (!StateManager.reducedMotion) return scene.tweens.add(cfg as Phaser.Types.Tweens.TweenBuilderConfig);
+
+  const targets = Array.isArray(cfg.targets) ? cfg.targets : [cfg.targets];
+  const saltate = new Set(['targets', 'duration', 'delay', 'ease', 'repeat', 'yoyo', 'hold', 'onUpdate', 'onComplete']);
+  for (const t of targets) {
+    const obj = t as Record<string, unknown>;
+    if (!obj) continue;
+    for (const [chiave, valore] of Object.entries(cfg)) {
+      if (saltate.has(chiave)) continue;
+      // `alpha: { from: 0, to: 1 }` vale quanto `alpha: 1`: conta dove si arriva
+      const finale =
+        typeof valore === 'object' && valore !== null && 'to' in (valore as Record<string, unknown>)
+          ? (valore as Record<string, unknown>).to
+          : valore;
+      if (typeof finale === 'number') obj[chiave] = finale;
+    }
+  }
+  // il seguito va eseguito lo stesso, o la scena resta senza il suo pulsante
+  const poi = cfg.onComplete;
+  if (typeof poi === 'function') (poi as () => void)();
+  return null;
+}

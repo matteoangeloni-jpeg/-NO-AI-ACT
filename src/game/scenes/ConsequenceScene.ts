@@ -13,8 +13,9 @@ import { Panel } from '../ui/Panel';
 import { TypewriterText } from '../ui/TypewriterText';
 import { L, caseText, fmt } from '../i18n';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
-import { fadeInScene } from '../ui/motion';
+import { fadeInScene, reveal } from '../ui/motion';
 import { addNoiseOverlay } from '../ui/backdrop';
+import { STATE_MARKS, createStateFrame, stateBadge } from '../assets/procedural/visualStates';
 
 interface ConsequenceParams {
   caseId: string;
@@ -28,12 +29,17 @@ interface ConsequenceParams {
   after: IndicatorState;
 }
 
-/** Colore dell'intestazione per esito del rapporto. */
+/**
+ * Colore dell'intestazione per esito. Viene dal linguaggio comune degli
+ * stati, non da una tabella locale: la conseguenza deve dire l'esito con
+ * le stesse parole, la stessa forma e lo stesso colore del rapporto da cui
+ * arriva, altrimenti il giocatore vede due esiti dove ce n'è uno.
+ */
 const OUTCOME_HEADER: Record<ReportOutcome, string> = {
-  conforme: COLOR_STR.ok,
-  parziale: COLOR_STR.warning,
-  contestabile: COLOR_STR.warning,
-  non_conforme: COLOR_STR.alertText
+  conforme: STATE_MARKS.conforme.color,
+  parziale: STATE_MARKS.parziale.color,
+  contestabile: STATE_MARKS.contestabile.color,
+  non_conforme: STATE_MARKS.non_conforme.color
 };
 
 /** Esito della decisione: conseguenza narrativa + aggiornamento indicatori. */
@@ -72,7 +78,21 @@ export class ConsequenceScene extends Phaser.Scene {
       ? OUTCOME_HEADER[outcome]
       : quality === 'correct' ? COLOR_STR.ok : quality === 'partial' ? COLOR_STR.warning : COLOR_STR.alertText;
 
-    this.add.text(cx, 60, headerText, textStyle(24, headerColor, { fontStyle: 'bold' })).setOrigin(0.5);
+    /**
+     * L'ESITO COME DISTINTIVO, non come parola colorata.
+     *
+     * L'intestazione era la parola dell'esito scritta nel colore
+     * dell'esito: due segnali che sono lo stesso segnale. Il distintivo
+     * porta glifo, trattamento della cornice e colore — e il trattamento è
+     * lo stesso che il sigillo del rapporto ha appena usato, quindi la
+     * conseguenza si riconosce come il seguito di quell'atto.
+     */
+    if (outcome) {
+      const distintivo = stateBadge(this, cx, 60, outcome, { height: 34, fontSize: 18 });
+      distintivo.setDepth(1);
+    } else {
+      this.add.text(cx, 60, headerText, textStyle(24, headerColor, { fontStyle: 'bold' })).setOrigin(0.5);
+    }
     this.add
       .text(
         cx,
@@ -95,6 +115,22 @@ export class ConsequenceScene extends Phaser.Scene {
     // + tests/consequenceLayout.test.ts). Il feedback tipizzato è già nel rapporto.
     this.add.text(cx - 480, NOTE_BOX.labelY, ui.noteLabel, textStyle(12, COLOR_STR.paperDim));
     new Panel(this, cx - 190, NOTE_BOX.panelCenterY, NOTE_BOX.width, NOTE_BOX.height);
+    /**
+     * Il pannello della nota porta il TRATTAMENTO dell'esito: doppio se
+     * l'atto regge, riempito a metà se regge in parte, interrotto se è
+     * contestabile, barrato se non regge. È la gravità letta dalla forma,
+     * sopra un pannello che altrimenti sarebbe identico in tutti e quattro
+     * i casi.
+     */
+    if (outcome) {
+      const cornice = createStateFrame(this, outcome, NOTE_BOX.width - 6, NOTE_BOX.height - 6);
+      if (cornice) {
+        this.add
+          .image(cx - 190, NOTE_BOX.panelCenterY, cornice)
+          .setDisplaySize(NOTE_BOX.width + 10, NOTE_BOX.height + 10)
+          .setAlpha(0.7);
+      }
+    }
     const noteText = noteFor(texts, quality);
     const note = this.add
       .text(cx - 480, NOTE_BOX.textY, noteText, textStyle(NOTE_BOX.fontSize, quality === 'wrong' ? COLOR_STR.alertText : COLOR_STR.accentText, { wordWrap: { width: NOTE_BOX.wrapWidth }, lineSpacing: NOTE_BOX.lineSpacing }))
@@ -111,7 +147,7 @@ export class ConsequenceScene extends Phaser.Scene {
     const comment = this.add
       .text(cx + 190, 470, `» ${randomComment(quality)}`, textStyle(12.5, headerColor, { wordWrap: { width: 290 }, fontStyle: 'italic', lineSpacing: 4 }))
       .setAlpha(0);
-    this.tweens.add({ targets: comment, alpha: 1, duration: 400, delay: 1400 });
+    reveal(this, { targets: comment, alpha: 1, duration: 400, delay: 1400 });
 
     const nextLabel = quality === 'wrong' ? ui.nextWrong : ui.nextCorrect;
     const goNext = (): void => {
@@ -142,7 +178,7 @@ export class ConsequenceScene extends Phaser.Scene {
     ]);
 
     consequence.write(consequenceFor(texts, quality), () => {
-      this.tweens.add({ targets: note, alpha: 1, duration: 300 });
+      reveal(this, { targets: note, alpha: 1, duration: 300 });
       nextBtn.setVisible(true);
     });
     this.input.on('pointerdown', () => consequence.skip());

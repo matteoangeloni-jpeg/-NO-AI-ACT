@@ -8,7 +8,7 @@ import { TypewriterText } from '../ui/TypewriterText';
 import { L, caseText, fmt, locationName } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
-import { fadeInScene } from '../ui/motion';
+import { fadeInScene, reveal } from '../ui/motion';
 import { addNoiseOverlay } from '../ui/backdrop';
 
 /** Apertura del fascicolo: scenario narrativo del caso. */
@@ -39,7 +39,7 @@ export class CaseScene extends Phaser.Scene {
     const paper = this.add.image(0, 0, 'dossier_paper').setDisplaySize(900, 560);
     dossier.add(paper);
     dossier.setAlpha(0);
-    this.tweens.add({ targets: dossier, alpha: 1, y: GAME_HEIGHT / 2, duration: 350, ease: 'Cubic.easeOut' });
+    reveal(this, { targets: dossier, alpha: 1, y: GAME_HEIGHT / 2, duration: 350, ease: 'Cubic.easeOut' });
 
     const left = cx - 410;
     this.add.text(left, 70, fmt(L().ui.case.fileLabel, { code: this.caseData.fileCode }), textStyle(13, COLOR_STR.alertText));
