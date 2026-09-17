@@ -51,7 +51,7 @@ export const PAPER_SPECS: PaperSpec[] = [
     // fascicolo: modulo rigato da archivio, con margine rosso e faldone
     key: 'dossier_paper',
     width: 900,
-    height: 560,
+    height: 360,
     fill: '#101a30',
     ruleStep: 28,
     marginX: 70,

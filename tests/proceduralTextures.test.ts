@@ -153,6 +153,17 @@ describe('le carte si mostrano alla misura in cui sono state generate', () => {
       ]);
     }
   });
+
+  test('il fascicolo introduttivo non torna a essere una pagina quasi vuota', () => {
+    const dossier = PAPER_SPECS.find((s) => s.key === 'dossier_paper');
+    expect(dossier, 'la carta del fascicolo è sparita').toBeDefined();
+    expect(dossier!.height).toBeLessThanOrEqual(380);
+
+    const scene = read('src/game/scenes/CaseScene.ts');
+    const buttonY = scene.match(/new Button\(this, cx, (\d+), L\(\)\.ui\.case\.examineButton/);
+    expect(buttonY, 'il pulsante per esaminare i reperti non è stato trovato').not.toBeNull();
+    expect(Number(buttonY![1])).toBeLessThanOrEqual(480);
+  });
 });
 
 describe('il testo resta leggibile sulle carte', () => {
