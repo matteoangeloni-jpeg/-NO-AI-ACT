@@ -82,14 +82,49 @@ describe('global navigation — presence and content', () => {
       const html = read(file(d));
       const nav = html.slice(html.indexOf('class="site-nav"'), html.indexOf('</nav>'));
       const top = isEn(d)
-        ? ['>Play<', '>Education<', '>Teachers<', '>AI Act<', '>Glossary<', '>Privacy<']
-        : ['>Gioca<', '>Risorse<', '>Docenti<', '>AI Act<', '>Glossario<', '>Privacy<'];
+        ? ['>Play<', '>Education<', '>Teachers<', '>AI Act<', '>Business and public sector<', '>Glossary<', '>Privacy<']
+        : ['>Gioca<', '>Risorse<', '>Docenti<', '>AI Act<', '>Aziende e PA<', '>Glossario<', '>Privacy<'];
       for (const t of top) expect(nav, `${d}: ${t}`).toContain(t);
       // descriptive submenu items are present too
       const subs = isEn(d)
         ? ['>Education hub<', '>AI Act for teachers<', '>EU AI Act guide<']
         : ['>Hub educativo<', '>AI Act per docenti<', '>Guida AI Act<'];
       for (const s of subs) expect(nav, `${d}: ${s}`).toContain(s);
+    }
+  });
+
+  /**
+   * IL PUBBLICO CHE NON È UNA CLASSE.
+   *
+   * Il menu aveva quattro gruppi e tutti parlavano a chi insegna o a chi
+   * studia. Le pagine per chi un sistema di IA lo compra, lo mette in
+   * servizio o deve risponderne — pubblica amministrazione, ruoli di
+   * fornitore e utilizzatore, valutazione d'impatto, scadenze, IA nella
+   * selezione del personale — esistevano tutte ed erano raggiungibili solo
+   * dai collegamenti dentro il testo. Chi arriva cercando «obblighi AI Act
+   * per le aziende» non le trovava guardando il menu.
+   *
+   * Le destinazioni si LEGGONO dal menu: se una voce cambia pagina, questo
+   * controllo la segue invece di pinnare un elenco che invecchia.
+   */
+  it('chi lavora in azienda o in un ente ha un gruppo suo nel menu, su ogni pagina', () => {
+    const attese = 4;
+    for (const d of ALL_PUBLIC) {
+      const html = read(file(d));
+      const nav = html.slice(html.indexOf('class="site-nav"'), html.indexOf('</nav>'));
+      const i = nav.indexOf('id="sub-organizzazioni"');
+      expect(i, `${d}: gruppo aziende/PA assente dal menu`).toBeGreaterThan(-1);
+      const gruppo = nav.slice(i, nav.indexOf('</ul>', i));
+      const mete = [...gruppo.matchAll(/href="([^"]+)"/g)]
+        .map(([, h]) => resolveToDir(d, h))
+        .filter((t): t is string => t !== null);
+      expect(mete.length, `${d}: il gruppo deve portare ad almeno ${attese} pagine`).toBeGreaterThanOrEqual(attese);
+      for (const meta of mete) {
+        expect(ALL_PUBLIC.includes(meta), `${d}: ${meta} non è una pagina pubblica`).toBe(true);
+      }
+      // e la pubblica amministrazione, che è la metà del pubblico, c'è sempre
+      const pa = isEn(d) ? 'en/ai-act-public-administration' : 'ai-act-pubblica-amministrazione';
+      expect(mete, `${d}: manca la pagina sulla pubblica amministrazione`).toContain(pa);
     }
   });
 

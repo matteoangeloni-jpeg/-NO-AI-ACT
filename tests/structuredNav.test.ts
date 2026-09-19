@@ -61,11 +61,29 @@ describe('structured navigation — markup & a11y', () => {
     }
   });
 
+  /**
+   * IL NUMERO DEI GRUPPI NON SI SCRIVE QUI.
+   *
+   * Era fissato a tre. Aggiungendo il gruppo «Aziende e PA» il controllo è
+   * diventato rosso pur essendo il menu corretto — cioè difendeva un
+   * numero, non una proprietà. Le proprietà vere sono due: ogni pulsante
+   * apre una lista che esiste, e OGNI PAGINA HA LO STESSO MENU. La seconda
+   * si ricava dalle due pagine d'ingresso, non da una costante: è lì che il
+   * menu viene deciso, e una pagina rimasta indietro si vede subito.
+   */
   it('every submenu button has aria-expanded + aria-controls pointing to its list', () => {
+    const gruppi = (html: string): string[] =>
+      [...html.matchAll(/<button class="nav-sub-btn[^"]*" type="button" aria-expanded="false" aria-controls="([^"]+)">/g)].map(([, id]) => id);
+
+    const atteso = { it: gruppi(read(file(''))), en: gruppi(read(file('en'))) };
+    expect(atteso.it.length, 'la pagina d\'ingresso deve avere dei gruppi').toBeGreaterThan(1);
+    expect(atteso.en.length, 'IT ed EN devono avere lo stesso numero di gruppi').toBe(atteso.it.length);
+
     for (const d of ALL_PUBLIC) {
       const html = read(file(d));
-      const btns = [...html.matchAll(/<button class="nav-sub-btn[^"]*" type="button" aria-expanded="false" aria-controls="([^"]+)">/g)].map(([, id]) => id);
-      expect(btns.length, `${d}: three groups`).toBe(3);
+      const btns = gruppi(html);
+      expect(btns, `${d}: il menu deve avere gli stessi gruppi della pagina d'ingresso`)
+        .toEqual(EN.includes(d) ? atteso.en : atteso.it);
       for (const id of btns) {
         expect(html, `${d}: <ul id=${id}>`).toContain(`<ul class="nav-sub" id="${id}">`);
       }
