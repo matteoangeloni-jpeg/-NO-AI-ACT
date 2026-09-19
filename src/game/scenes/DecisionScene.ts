@@ -20,10 +20,8 @@ import { fadeInScene } from '../ui/motion';
 import type { DraftStep } from '../systems/caseDraft';
 import { CLASSIFICATION_TERMS, SUBJECT_TERMS } from '../data/termHints';
 import { addNoiseOverlay } from '../ui/backdrop';
-import { CLASSIFICATION_SEVERITY, MEASURE_SEVERITY, SEVERITY_SIZE, createSeverityGauge } from '../assets/procedural/severity';
 import { protocolDate } from '../assets/procedural/decisionSeal';
 import { stateBadge } from '../assets/procedural/visualStates';
-import { INDICATOR_KEYS, IndicatorHud } from '../systems/IndicatorSystem';
 
 /**
  * Riga dell'avviso sulla firma. Sta fra il riepilogo e la fila della
@@ -31,17 +29,24 @@ import { INDICATOR_KEYS, IndicatorHud } from '../systems/IndicatorSystem';
  * vanno tenute distanti a mano, perché nessuna delle due conosce l'altra.
  */
 const SIGN_NOTE_Y = 470;
+
+/**
+ * Le sette misure: prima riga e passo verticale. Sette righe da 50 partono
+ * da 214 e finiscono a 564, sopra il suggerimento della tastiera (640) e i
+ * pulsanti in fondo.
+ */
+const MEASURE_TOP = 214;
+const MEASURE_STEP = 50;
 const CONFIDENCE_ROW_Y = 566;
 
 /**
- * Larghezza della nota di contesto nel primo passo. La colonna «stato della
- * città» comincia a GAME_WIDTH-250 ed è larga 226: la nota è centrata, quindi
- * può essere larga al massimo il doppio della distanza fra il centro e quel
- * bordo, meno un margine. Scritta come calcolo e non come numero, così
- * spostare la colonna non rimette in piedi la sovrapposizione.
+ * Larghezza della nota di contesto nel primo passo. Il limite non è più la
+ * colonna della città — che non c'è più — ma il riepilogo di sinistra, che
+ * arriva a x=250: la nota è centrata, quindi può essere larga al massimo il
+ * doppio della distanza fra il centro e quel bordo, meno un margine.
  */
-export const CITY_COLUMN_X = GAME_WIDTH - 250;
-export const CONTEXT_NOTE_WRAP = (CITY_COLUMN_X - GAME_WIDTH / 2 - 20) * 2;
+export const SIDEBAR_RIGHT = 250;
+export const CONTEXT_NOTE_WRAP = (GAME_WIDTH / 2 - SIDEBAR_RIGHT - 20) * 2;
 
 const CLASSIFICATIONS: Classification[] = ['vietata', 'alto_rischio', 'trasparenza', 'basso_rischio', 'non_rilevante'];
 const MEASURES: Measure[] = ['blocco', 'oversight', 'audit', 'informare', 'etichettare', 'dati_logging', 'nessuna'];
@@ -143,7 +148,6 @@ export class DecisionScene extends Phaser.Scene {
     fadeInScene(this, 250);
     AudioSystem.setMusicRole('decision', this.caseData.id);
     addNoiseOverlay(this, 0.4);
-    this.buildPaper();
     this.contextOverlay = new CaseContextOverlay(this, this.caseData.id, 'closeToDecision');
     // read-only "Norma del caso": relevant rule of the current case (no unlock)
     this.caseNormOverlay = new CaseNormOverlay(this, this.caseData.normId);
@@ -233,36 +237,6 @@ export class DecisionScene extends Phaser.Scene {
     }
   }
 
-  /**
-   * LA CARTA SOTTO LA DECISIONE.
-   *
-   * La decisione si svolgeva su fondo nero, fra i fascicoli e il rapporto,
-   * che sono carta. Era l'unico momento in cui il gioco smetteva di essere
-   * un ufficio e tornava a essere un menù — e proprio il momento in cui
-   * l'atto si sta scrivendo.
-   *
-   * È la carta dell'istruttoria: qui l'atto non esiste ancora, la pratica
-   * si sta costruendo. Larga quanto la scena, perché la decisione occupa
-   * tutto — reperti a sinistra, città a destra — e un foglio più stretto
-   * sarebbe un rettangolo appoggiato sopra invece di un piano di lavoro.
-   */
-  private buildPaper(): void {
-    if (!this.textures.exists('decision_paper')) return;
-    this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 24, 'decision_paper').setDisplaySize(1180, 620).setAlpha(0.55);
-  }
-
-  /**
-   * La scala di gravità accanto a un'opzione. Dice quanto quella scelta è
-   * invasiva, MAI quanto è giusta: la proporzionalità resta il giudizio che
-   * il gioco chiede, e si può giudicare solo se si sa quanto pesa ciò che
-   * si ha in mano.
-   */
-  private addSeverity(x: number, y: number, livello: number): void {
-    const key = createSeverityGauge(this, livello);
-    if (!key) return;
-    this.add.image(x, y, key).setDisplaySize(SEVERITY_SIZE.width, SEVERITY_SIZE.height).setAlpha(0.9);
-  }
-
   private header(step: string, question: string, sidebar = true): void {
     this.lastStep = { label: step, question };
     // strato di lettura (§11.1): passo corrente e domanda, a ogni transizione
@@ -275,12 +249,15 @@ export class DecisionScene extends Phaser.Scene {
       this.citedEvidenceReading()
     ]);
     const cx = GAME_WIDTH / 2;
-    this.add
-      .text(cx, 68, fmt(L().ui.case.fileLabel, { code: this.caseData.fileCode }), textStyle(13, COLOR_STR.alertText))
-      .setOrigin(0.5);
-    this.add.text(cx, 92, step, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
-    this.add.text(cx, 126, question, textStyle(19, COLOR_STR.paper)).setOrigin(0.5);
-    this.add.rectangle(cx, 154, 900, 1, COLORS.iron);
+    /**
+     * Il codice del fascicolo lo dice già la barra della pratica, venti
+     * pixel più su: qui c'era una seconda volta, identica. Il passo in
+     * corso («DECISIONE 1 DI 5 — CLASSIFICAZIONE») resta, perché quello la
+     * barra non lo dice: lei dichiara la fase, non a che punto si è.
+     */
+    this.add.text(cx, 80, step, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
+    this.add.text(cx, 114, question, textStyle(19, COLOR_STR.paper)).setOrigin(0.5);
+    this.add.rectangle(cx, 142, 900, 1, COLORS.iron);
 
     const desk = L().ui.inspectorDesk;
     this.inspectorDesk = new InspectorDesk(this, {
@@ -293,32 +270,22 @@ export class DecisionScene extends Phaser.Scene {
     this.caseNormBtn = this.inspectorDesk.addAction(desk.norm, () => this.caseNormOverlay.toggle(), { width: 112 });
     this.normsBtn = this.inspectorDesk.addAction(desk.archive, () => this.toggleNormsOverlay(), { width: 122 });
     this.notebookBtn = this.inspectorDesk.addAction(desk.notebook, () => this.notebookOverlay.toggle(), { width: 116 });
-    if (sidebar) {
-      this.buildSidebar();
-      this.buildCityState();
-    }
+    if (sidebar) this.buildSidebar();
   }
 
   /**
-   * STATO DELLA CITTÀ, MENTRE SI DECIDE.
+   * LO STATO DELLA CITTÀ NON STA PIÙ QUI.
    *
-   * I quattro indicatori si vedevano sulla mappa e dopo il caso, mai
-   * durante: "voglio sentire che le mie scelte cambiano la città", e non si
-   * sentiva perché la città spariva proprio nel momento in cui si decide di
-   * lei.
+   * C'era una colonna con i quattro indicatori, a destra, mentre si
+   * decideva. L'ha chiesta il proprietario e l'ha fatta togliere lui: in
+   * 1280 di larghezza non ci stava insieme al riepilogo di sinistra e ai
+   * pulsanti, e al passo della misura — sette opzioni su due colonne — le
+   * barre finivano proprio sotto i pulsanti, tagliate a metà.
    *
-   * Qui c'è lo STATO ATTUALE, e soltanto quello. Nessuna previsione di che
-   * cosa farebbe ciascuna opzione: mostrarla trasformerebbe la decisione in
-   * un gioco di cursori da massimizzare, e il rapporto non si valuta su
-   * quanto sale una barra ma su quanto regge giuridicamente. La città dice
-   * dove si trova, non che cosa conviene.
+   * Gli indicatori restano dove si leggono senza contendere spazio a
+   * nessuno: sulla mappa civica e nella schermata della conseguenza, dove
+   * si vede anche di quanto sono cambiati.
    */
-  private buildCityState(): void {
-    const right = CITY_COLUMN_X;
-    this.add.text(right, 176, L().ui.decision.cityState, textStyle(11, COLOR_STR.accentText, { fontStyle: 'bold' }));
-    new IndicatorHud(this, right, 204, 226);
-    this.add.text(right, 204 + INDICATOR_KEYS.length * 34, L().ui.decision.cityStateNote, textStyle(10.5, COLOR_STR.paperDim, { wordWrap: { width: 226 }, lineSpacing: 2 }));
-  }
 
   update(): void {
     // the read-only overlays' full-screen shade doesn't visually dim these
@@ -413,7 +380,6 @@ export class DecisionScene extends Phaser.Scene {
       this.closeNormsOverlay();
       this.children.list.slice().forEach((child) => child.destroy());
       addNoiseOverlay(this, 0.4);
-      this.buildPaper();
       builder();
     });
   }
@@ -449,7 +415,6 @@ export class DecisionScene extends Phaser.Scene {
     CLASSIFICATIONS.forEach((cls, i) => {
       const y = 228 + i * 62;
       new Button(this, cx, y, `${i + 1}. ${L().classifications[cls].toUpperCase()}`, () => pick(cls), { width: 460 });
-      this.addSeverity(cx + 268, y, CLASSIFICATION_SEVERITY[cls]);
     });
     this.addTermsButton(
       CLASSIFICATIONS.map((c) => ({ label: L().classifications[c], glossaryId: CLASSIFICATION_TERMS[c] }))
@@ -480,14 +445,25 @@ export class DecisionScene extends Phaser.Scene {
       this.nextStep(() => this.showSubjectStep());
     };
 
+    /**
+     * UNA COLONNA SOLA, come in tutti gli altri passi.
+     *
+     * Le sette misure stavano su due colonne da 440, cioè 880 di larghezza
+     * su uno schermo da 1280 che ha già il riepilogo a sinistra e — allora —
+     * la città a destra. Il risultato: la colonna di sinistra copriva i
+     * titoli dei reperti citati e quella di destra tagliava a metà le barre
+     * degli indicatori. Era anche l'unico passo con una disposizione sua,
+     * e la differenza non diceva niente.
+     *
+     * Sette righe più strette ci stanno per intero, e il passo resta
+     * riconoscibile come gli altri quattro.
+     */
     MEASURES.forEach((measure, i) => {
-      const col = i % 2;
-      const row = Math.floor(i / 2);
-      const x = col === 0 ? cx - 240 : cx + 240;
-      const bx = i === MEASURES.length - 1 ? cx : x;
-      const by = 224 + row * 62;
-      new Button(this, bx, by, `${i + 1}. ${L().measures[measure].toUpperCase()}`, () => pick(measure), { width: 440, fontSize: 14 });
-      this.addSeverity(bx + 258, by, MEASURE_SEVERITY[measure]);
+      new Button(this, cx, MEASURE_TOP + i * MEASURE_STEP, `${i + 1}. ${L().measures[measure].toUpperCase()}`, () => pick(measure), {
+        width: 460,
+        height: 44,
+        fontSize: 13.5
+      });
     });
     const back = (): void => this.stepBack(() => { this.classification = null; }, () => this.showClassificationStep());
     this.bindNumberKeys(MEASURES.length, (i) => pick(MEASURES[i]), back);

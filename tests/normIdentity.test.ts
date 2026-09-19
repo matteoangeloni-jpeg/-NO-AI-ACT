@@ -7,7 +7,6 @@ import {
   normIdentity,
   type NormIdentity
 } from '../src/game/assets/procedural/normIdentity';
-import { CLASSIFICATION_SEVERITY, MEASURE_SEVERITY, SEVERITY_STEPS } from '../src/game/assets/procedural/severity';
 import { NORMS } from '../src/game/data/norms';
 import { it as itDict } from '../src/game/i18n/it';
 import { en as enDict } from '../src/game/i18n/en';
@@ -160,50 +159,6 @@ describe('la deduzione vive in un posto solo', () => {
       colpevoli,
       `tabella per livello fuori dal modulo dell'identità: ${colpevoli.join(', ')}`
     ).toEqual([]);
-  });
-});
-
-describe('la scala di gravità copre tutto ciò che si può scegliere', () => {
-  /**
-   * Le opzioni si leggono da i18n, dove il gioco le dichiara: una
-   * classificazione o una misura nuova arriva qui senza che nessuno debba
-   * ricordarsi di aggiungerla, e senza scala uscirebbe con zero tacche
-   * invece che con un errore.
-   */
-  it('ogni classificazione ha un peso, e sta nella scala', () => {
-    const chiavi = Object.keys(itDict.classifications);
-    expect(chiavi.length).toBeGreaterThan(3);
-    for (const k of chiavi) {
-      const v = (CLASSIFICATION_SEVERITY as Record<string, number>)[k];
-      expect(v, `la classificazione "${k}" non ha un peso dichiarato`).toBeDefined();
-      expect(v).toBeGreaterThanOrEqual(0);
-      expect(v).toBeLessThanOrEqual(SEVERITY_STEPS);
-    }
-  });
-
-  it('ogni misura ha un peso, e sta nella scala', () => {
-    const chiavi = Object.keys(itDict.measures);
-    expect(chiavi.length).toBeGreaterThan(5);
-    for (const k of chiavi) {
-      const v = (MEASURE_SEVERITY as Record<string, number>)[k];
-      expect(v, `la misura "${k}" non ha un peso dichiarato`).toBeDefined();
-      expect(v).toBeGreaterThanOrEqual(0);
-      expect(v).toBeLessThanOrEqual(SEVERITY_STEPS);
-    }
-  });
-
-  it('la scala distingue davvero: non tutte le opzioni pesano uguale', () => {
-    const pesi = new Set(Object.values(MEASURE_SEVERITY));
-    expect(pesi.size, 'una scala con un valore solo non dice niente').toBeGreaterThan(3);
-    expect(Math.max(...Object.values(MEASURE_SEVERITY))).toBe(SEVERITY_STEPS);
-  });
-
-  it('le due tinte della scala non sono lo stesso segnale: pieno contro vuoto', () => {
-    // la tacca piena è riempita, la vuota è solo contornata: si contano
-    // anche in bianco e nero, che è il punto
-    const src = read('src/game/assets/procedural/severity.ts');
-    expect(src).toContain('fillRect');
-    expect(src).toContain('strokeRect');
   });
 });
 

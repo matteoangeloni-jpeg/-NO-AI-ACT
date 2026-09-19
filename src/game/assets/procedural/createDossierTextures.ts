@@ -59,29 +59,6 @@ export const PAPER_SPECS: PaperSpec[] = [
     grain: 0.45
   },
   {
-    /**
-     * ISTRUTTORIA: il foglio su cui si costruisce la decisione.
-     *
-     * Serve una carta SUA e non quella del fascicolo, per una ragione di
-     * misura e non di gusto: la decisione occupa quasi tutto lo schermo —
-     * colonna dei reperti a sinistra, stato della città a destra — e la
-     * carta del fascicolo, larga 900, ci finiva in mezzo come un rettangolo
-     * appoggiato sopra, con i suoi bordi che tagliavano la domanda in alto
-     * e la colonna a destra. Stirarla sarebbe stato peggio: la carta
-     * generata si mostra alla misura in cui è nata.
-     *
-     * Niente righe da modulo: qui non si compila, si sceglie.
-     */
-    key: 'decision_paper',
-    width: 1180,
-    height: 620,
-    fill: '#0d1626',
-    ruleStep: 0,
-    marginX: 0,
-    headerBand: 0,
-    grain: 0.3
-  },
-  {
     // rapporto ispettivo: atto in uscita, non modulo rigato. Niente righe:
     // il corpo del rapporto è una colonna di coppie etichetta/valore ad
     // altezze variabili, e delle righe fisse sotto ci passerebbero in mezzo.
