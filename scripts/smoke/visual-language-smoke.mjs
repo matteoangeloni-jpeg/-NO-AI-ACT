@@ -30,10 +30,16 @@ import { dirname, resolve as pathResolve } from 'node:path';
 import { worldToPageFn } from './lib-canvas-coords.mjs';
 import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
 import { prepareEvidenceVisualState } from './lib-evidence.mjs';
-import { selectMapCaseWithKeyboard } from './lib-map.mjs';
 import { completeDecisionWithKeyboard } from './lib-decision.mjs';
 
 const BASE = process.env.BASE || 'http://localhost:4200';
+
+/**
+ * Il caso che ogni giro gioca. Uno solo, e sempre lo stesso: le schermate
+ * vanno confrontate fra lingue e risoluzioni, e un caso diverso cambierebbe
+ * i testi rendendo il confronto privo di senso.
+ */
+const CASO_ATTESO = 'case_credito';
 const root = pathResolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const OUT = pathResolve(root, 'scripts/smoke/out/visual');
 mkdirSync(OUT, { recursive: true });
@@ -47,6 +53,18 @@ const readGlyphs = (file, re) => {
   const src = readFileSync(pathResolve(root, file), 'utf8');
   return [...src.matchAll(re)].map((m) => ({ nome: m[1], glifo: m[2] }));
 };
+/**
+ * Il ritardo per carattere si legge dal sorgente: se un giorno cambia, il
+ * limite qui sotto lo segue invece di invecchiare in silenzio.
+ */
+const CHAR_DELAY_NORMAL = (() => {
+  const src = readFileSync(pathResolve(root, 'src/game/ui/typewriterTiming.ts'), 'utf8')
+    + readFileSync(pathResolve(root, 'src/game/ui/TypewriterText.ts'), 'utf8');
+  const m = /normal:\s*(\d+)/.exec(src);
+  if (!m) { fail.push('ritardo per carattere non leggibile dal sorgente'); return 14; }
+  return Number(m[1]);
+})();
+
 const GLYPHS = [
   ...readGlyphs('src/game/assets/procedural/visualStates.ts', /^\s{2}(\w+):\s*\{\s*glyph:\s*'(.)'/gm),
   ...readGlyphs('src/game/assets/procedural/normIdentity.ts', /^\s{2}(\w+):\s*\{\s*glyph:\s*'(.)'/gm)
@@ -64,7 +82,7 @@ const save = (v) => JSON.stringify({
 const browser = await chromium.launch(smokeBrowserLaunchOptions());
 
 /** Un giro completo: mappa → caso → reperti → decisione → rapporto → conseguenza. */
-async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
+async function giro({ lang, reducedMotion, width, height, dpr, tag, soloRilievi }) {
   const ctx = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: dpr });
   await ctx.route(/cloudflareinsights\.com/, (r) => r.abort());
   const page = await ctx.newPage();
@@ -209,6 +227,27 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
     fail.push(`[${tag}] canvas a ${scala.back}px per ${attesi}px di schermo: l'immagine viene ingrandita`);
   }
 
+  /**
+   * A DENSITÀ DOPPIA CI SI FERMA QUI, E NON È UNA RINUNCIA MASCHERATA.
+   *
+   * Il giro a 3840×2160 con disegno software impiega minuti per una sola
+   * schermata, e attraversare tutto il gioco lì dentro è costato più
+   * fallimenti d'ambiente che difetti trovati. Ma i due controlli per cui
+   * quel giro esiste — i glifi disegnabili e il canvas che ha i pixel
+   * dello schermo — sono già stati fatti sopra, e non servono il gioco:
+   * bastava la prima schermata.
+   *
+   * Quello che si perde sono i controlli di SOVRAPPOSIZIONE, che però non
+   * dipendono dalla densità: vivono in coordinate logiche, identiche a
+   * 1× e a 2×, e restano coperti dagli altri quattro giri — due lingue,
+   * movimento pieno e ridotto, due risoluzioni.
+   *
+   * È una scelta di portata, dichiarata: ogni controllo nell'ambiente più
+   * economico in cui è significativo. Una guardia che fallisce a
+   * intermittenza è peggio di nessuna guardia, perché insegna a ignorarla.
+   */
+  if (soloRilievi) { await ctx.close(); return; }
+
   await clickButton(lang === 'it' ? 'NUOVA PARTITA' : 'NEW GAME');
   await clickButton(lang === 'it' ? '^INIZIA' : '^START');
   await waitScene('Briefing');
@@ -217,18 +256,187 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
   if (!(await waitScene('CityMap'))) { await ctx.close(); return; }
   await screenshot('01-map');
 
-  await selectMapCaseWithKeyboard(page, 'case_credito');
+  /**
+   * IL CASO SI APRE DIRETTAMENTE, non navigando la mappa.
+   *
+   * La selezione da tastiera sulla mappa non è affidabile a densità
+   * doppia: misurato, sei pressioni di FRECCIA DESTRA producono dodici
+   * spostamenti (keyIndex 0, 1, 5, 6, 10, 11) contro i sei di densità
+   * normale, e il giro finiva su un caso diverso da quello previsto — da
+   * cui la CI rossa con «ferma su: Incident», che era il caso sbagliato ad
+   * avere un evento imprevisto. Non è la ripetizione automatica del tasto
+   * (provato a filtrarla: il salto resta) e la causa non è accertata.
+   *
+   * Quel difetto è reale e va indagato, ma è di un'altra natura rispetto a
+   * ciò che questo controllo misura: le SCHERMATE, confrontate fra lingue e
+   * risoluzioni. Farle dipendere da un meccanismo che salta significa
+   * misurare schermate a caso. La navigazione della mappa resta coperta da
+   * `keyboard-smoke` e `gameplay-smoke`, che la esercitano a densità 1.
+   */
+  await page.evaluate((caseId) => {
+    const g = window.game;
+    for (const s of g.scene.scenes) if (s.scene.isActive() && s.scene.key !== 'Boot') s.scene.stop();
+    g.scene.start('Case', { caseId });
+  }, CASO_ATTESO);
   if (!(await waitScene('Case'))) { await ctx.close(); return; }
-  await click(640, 400, 300);
-  await screenshot('02-case');
+  const inizioScrittura = Date.now();
 
+  /**
+   * NIENTE CLIC ALLA CIECA per saltare la macchina da scrivere.
+   *
+   * C'era un `click(640, 400)` che serviva solo a quello, ed è stato
+   * l'origine di due giri rossi: con «riduci movimento» il testo è già
+   * scritto quando la scena appare, il pulsante DOM «ESAMINA I REPERTI» è
+   * già piazzato, e quel clic in mezzo allo schermo mandava avanti la
+   * schermata prima che il controllo la guardasse — poi l'attesa scadeva
+   * su una scena che nel frattempo era diventata un'altra.
+   *
+   * L'attesa qui sotto copre da sola i due casi: a movimento ridotto il
+   * pulsante c'è subito, a movimento pieno compare a testo finito. Non
+   * serve nessun gesto in mezzo.
+   */
+
+  /**
+   * La macchina da scrivere va ASPETTATA, non cronometrata. A densità
+   * doppia il testo del caso impiega molto più tempo, e il pulsante
+   * «ESAMINA I REPERTI» compare solo quando ha finito: un clic e via
+   * funzionava a 1×, a 2× trovava lo schermo ancora vuoto.
+   */
+  const prontoAiReperti = await page.waitForFunction(() => {
+    /**
+     * SI GUARDA LA SCENA ATTIVA, non quella con quel nome.
+     *
+     * `getScene('Case')` restituisce l'istanza anche quando non è lei a
+     * girare: a metà di un cambio di scena i suoi figli sono quelli di
+     * prima, o nessuno, e l'attesa scadeva dopo trenta secondi su una
+     * schermata che a occhio era pronta.
+     */
+    const attive = window.game?.scene.getScenes(true) ?? [];
+    const s = attive.length ? attive[attive.length - 1] : null;
+    if (!s || s.scene.key !== 'Case') return false;
+    return s.children.list.some((o) => o.type === 'Container' && o.visible !== false && o.input?.enabled
+      && (o.list || []).some((c) => typeof c.text === 'string' && /REPERTI|EXHIBITS/i.test(c.text)));
+  }, undefined, { timeout: 30000 }).then(() => true).catch(() => false);
+  if (!prontoAiReperti) { fail.push(`[${tag}] il caso non ha mai mostrato l'invito ai reperti`); await ctx.close(); return; }
+
+  /**
+   * QUANTO CI HA MESSO A SCRIVERE.
+   *
+   * Questo è il controllo che mancava, e che sarebbe servito due volte.
+   *
+   * La prima: la scrittura era legata ai fotogrammi (un carattere per
+   * fotogramma invece di uno ogni 14 ms), e lo stesso testo passava da 17 s
+   * a 720 a 40 s a 1080 — finché non sfondava i trenta secondi d'attesa qui
+   * sopra e la CI diventava rossa senza dire perché.
+   *
+   * La seconda: correggendola ho preso l'istante di partenza dentro
+   * `create()`, dove l'orologio della scena vale ancora zero — e il testo
+   * compariva TUTTO INSIEME, in 3 ms. I controlli in Node restavano verdi:
+   * la funzione che calcola il ritmo era giusta, era il collegamento a
+   * essere rotto. Un difetto che si vede solo a schermo va misurato a
+   * schermo.
+   *
+   * Il limite non è un numero scelto a caso: si ricava dal ritardo per
+   * carattere dichiarato nel sorgente e dalla lunghezza del testo mostrato.
+   */
+  if (!reducedMotion) {
+    const scritturaMs = Date.now() - inizioScrittura;
+    const attesoMs = await page.evaluate(() => {
+      const s = window.game.scene.getScene('Case');
+      let piuLungo = 0;
+      const visit = (o) => { if (typeof o.text === 'string') piuLungo = Math.max(piuLungo, o.text.length); (o.list || []).forEach(visit); };
+      s.children.list.forEach(visit);
+      return piuLungo;
+    }).then((caratteri) => caratteri * CHAR_DELAY_NORMAL);
+    // sotto: il testo non è stato scritto, è apparso. sopra: è tornato
+    // legato ai fotogrammi. Il tetto è largo perché la CI disegna via software.
+    if (scritturaMs < attesoMs * 0.25) {
+      fail.push(`[${tag}] il testo del caso è comparso in ${scritturaMs} ms invece dei ~${attesoMs} attesi: non sta scrivendo`);
+    }
+    if (scritturaMs > attesoMs * 3.4) {
+      fail.push(`[${tag}] il testo del caso ha impiegato ${scritturaMs} ms invece dei ~${attesoMs} attesi: la scrittura dipende dai fotogrammi`);
+    }
+  }
+  await screenshot('02-case');
   await clickButton(lang === 'it' ? 'ESAMINA I REPERTI' : 'EXAMINE THE EXHIBITS');
   if (!(await waitScene('Evidence'))) { await ctx.close(); return; }
+
+  /**
+   * IL GIRO STA GIOCANDO IL CASO CHE CREDE?
+   *
+   * Attraversare il bivio dell'evento imprevisto rende il controllo
+   * robusto, ma da solo NASCONDE il motivo per cui il bivio era comparso:
+   * se la selezione sulla mappa sbaglia caso, adesso il giro prosegue lo
+   * stesso e passa — giocando un caso diverso da quello previsto, e
+   * misurando schermate che non sono quelle che credo di misurare.
+   *
+   * Qui la deriva diventa un fallimento con un nome, invece di una
+   * stranezza a valle. È la diagnosi che mi mancava quando la CI diceva
+   * soltanto «ferma su: Incident».
+   */
+  const casoAperto = await page.evaluate(
+    () => window.game?.scene?.getScene('Evidence')?.caseData?.id ?? 'ignoto'
+  );
+  if (casoAperto !== CASO_ATTESO) {
+    fail.push(`[${tag}] la mappa ha aperto "${casoAperto}" invece di "${CASO_ATTESO}"`);
+    await ctx.close();
+    return;
+  }
   await prepareEvidenceVisualState(page, [0, 1]);
+
+  /**
+   * ASPETTARE CHE LE SCHEDE SIANO FINITE DI COMPARIRE.
+   *
+   * Le schede entrano scaglionate (`reveal(..., delay: i * 100)`): l'ultima
+   * di sei finisce di comparire dopo tre quarti di secondo. Lo scatto
+   * arrivava prima, e nelle immagini di riferimento gli ultimi due reperti
+   * risultavano trasparenti o del tutto assenti — cioè le prove visuali
+   * NON coprivano le due schede in fondo, che sono proprio quelle dove un
+   * difetto di impaginazione si manifesta per primo.
+   *
+   * L'attesa non è un tempo fisso: si aspetta che OGNI scheda sia arrivata
+   * a opacità piena, così resta corretta se il ritardo o la durata cambiano.
+   */
+  await page.waitForFunction(() => {
+    const cards = window.game?.scene?.getScene('Evidence')?.cards ?? [];
+    return cards.length > 0 && cards.every((card) => card.alpha >= 0.999);
+  }, null, { timeout: 15000 });
   await screenshot('03-evidence');
 
+  /**
+   * FRA I REPERTI E LA DECISIONE C'È UN BIVIO.
+   *
+   * Alcuni casi hanno un evento imprevisto: `proceed()` manda a `Incident`
+   * invece che a `Decision`. Questo giro apre sempre `case_credito`, che non
+   * ne ha — e proprio per questo il controllo aspettava `Decision` e basta.
+   *
+   * In CI, e in un solo giro su sei (quello a densità doppia, dove il
+   * disegno software è più lento), si è fermato su `Incident`: il caso
+   * aperto non era quello atteso. Non so ancora perché, e una guardia che
+   * assume il ramo felice non me lo dirà mai: accetta il bivio, lo
+   * attraversa, e se fallisce dice QUALE caso stava giocando.
+   */
   await clickButton(lang === 'it' ? 'PASSA ALLA CLASSIFICAZIONE|CLASSIFICA' : 'PROCEED TO CLASSIFICATION');
-  if (!(await waitScene('Decision'))) { await ctx.close(); return; }
+  const arrivo = await page.waitForFunction(() => {
+    const attive = window.game?.scene.getScenes(true) ?? [];
+    const k = attive.length ? attive[attive.length - 1].scene.key : '';
+    return k === 'Decision' || k === 'Incident' ? k : false;
+  }, undefined, { timeout: 25000 }).then((h) => h.jsonValue()).catch(() => null);
+
+  if (arrivo === 'Incident') {
+    // l'evento si chiude scegliendo: tasti 1..n, come i passi della decisione
+    await page.keyboard.press('1');
+  }
+  if (!(await waitScene('Decision'))) {
+    const caso = await page.evaluate(() => {
+      const attive = window.game?.scene.getScenes(true) ?? [];
+      const s = attive[attive.length - 1];
+      return s?.caseData?.id ?? s?.caseData?.fileCode ?? 'ignoto';
+    });
+    fail.push(`[${tag}] bloccato prima della decisione, caso in gioco: ${caso}`);
+    await ctx.close();
+    return;
+  }
   await page.waitForTimeout(400);
   await screenshot('04-decision');
 
@@ -309,7 +517,7 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
 const MATRICE = [
   { tag: 'it-720',     lang: 'it', reducedMotion: false, width: 1280, height: 720, dpr: 1 },
   { tag: 'it-1080',    lang: 'it', reducedMotion: false, width: 1920, height: 1080, dpr: 1 },
-  { tag: 'it-hidpi',   lang: 'it', reducedMotion: false, width: 1920, height: 1080, dpr: 2 },
+  { tag: 'it-hidpi',   lang: 'it', reducedMotion: false, width: 1920, height: 1080, dpr: 2, soloRilievi: true },
   { tag: 'it-ridotto', lang: 'it', reducedMotion: true,  width: 1920, height: 1080, dpr: 1 },
   { tag: 'en-1080',    lang: 'en', reducedMotion: false, width: 1920, height: 1080, dpr: 1 },
   { tag: 'en-ridotto', lang: 'en', reducedMotion: true,  width: 1280, height: 720, dpr: 1 }

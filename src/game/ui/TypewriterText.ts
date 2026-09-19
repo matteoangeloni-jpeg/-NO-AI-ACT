@@ -4,6 +4,14 @@ import { StateManager } from '../systems/StateManager';
 import type { TextSpeed } from '../data/types';
 import { textStyle, COLOR_STR } from './theme';
 import { L } from '../i18n';
+import { charsShownAt } from './typewriterTiming';
+
+/**
+ * Ri-esportata perché è parte del comportamento della scrittura, ma VIVE in
+ * un modulo senza Phaser: i controlli girano in Node, e importare questa
+ * classe vi tirerebbe dentro il motore, che senza `window` non si carica.
+ */
+export { charsShownAt };
 
 /**
  * Testo a macchina da scrivere con suono da terminale.
@@ -36,6 +44,7 @@ export class TypewriterText extends Phaser.GameObjects.Text {
   private timer?: Phaser.Time.TimerEvent;
   private onDone?: () => void;
   private hint?: Phaser.GameObjects.Text;
+  private writing = false;
   private readonly skipHandler = (): void => this.skip();
 
   constructor(
@@ -54,9 +63,12 @@ export class TypewriterText extends Phaser.GameObjects.Text {
   }
 
   write(text: string, onDone?: () => void): void {
+    // una scrittura nuova cancella quella in corso senza farne scattare il
+    // seguito: altrimenti restano appesi alla scena il suggerimento e i due
+    // gestori di salto della scrittura precedente.
+    this.teardown();
     this.fullText = text;
     this.onDone = onDone;
-    this.timer?.remove();
 
     /**
      * "Riduci animazioni" e velocità istantanea arrivano allo stesso punto
@@ -85,38 +97,68 @@ export class TypewriterText extends Phaser.GameObjects.Text {
     this.scene.input.on('pointerdown', this.skipHandler);
     for (const key of ['keydown-SPACE', 'keydown-ENTER']) this.scene.input.keyboard?.on(key, this.skipHandler);
 
-    let i = 0;
+    /**
+     * Il timer serve solo a far ricontrollare l'orologio: quanti caratteri
+     * mostrare lo decide il tempo trascorso, non il numero di scatti.
+     *
+     * L'ISTANTE DI PARTENZA SI PRENDE AL PRIMO SCATTO, non qui.
+     *
+     * `time.now` dell'orologio della scena vale ZERO finché la scena non ha
+     * fatto il suo primo aggiornamento, e write() viene chiamata dentro
+     * create(), cioè prima. Prendendolo qui, il primo scatto calcolava
+     * «sono passati 1650 ms» e sputava fuori tutto il testo in un colpo:
+     * misurato a schermo, l'invito ai reperti compariva dopo 3 ms invece
+     * che dopo sei secondi. Al primo scatto è passato un `delay`, e da lì
+     * il conto torna.
+     */
+    this.writing = true;
+    let inizio = -1;
+    let mostrati = 0;
     this.timer = this.scene.time.addEvent({
       delay,
-      repeat: text.length - 1,
+      loop: true,
       callback: () => {
-        i += 1;
-        this.setText(text.slice(0, i));
-        if (i % 3 === 0) AudioSystem.terminal();
-        if (i >= text.length) this.finish();
+        if (inizio < 0) inizio = this.scene.time.now - delay;
+        const quanti = charsShownAt(this.scene.time.now - inizio, delay, text.length);
+        if (quanti === mostrati) return;
+        // il suono segna blocchi di tre caratteri, non fotogrammi: se la
+        // macchina ne recupera dieci in un colpo, resta un ticchettio solo
+        if (Math.floor(quanti / 3) > Math.floor(mostrati / 3)) AudioSystem.terminal();
+        mostrati = quanti;
+        this.setText(text.slice(0, quanti));
+        if (quanti >= text.length) this.finish();
       }
     });
   }
 
   /** Completa subito la scrittura (skip). */
   skip(): void {
-    if (!this.timer || this.timer.getOverallProgress() >= 1) return;
-    this.timer.remove();
+    if (!this.writing) return;
     this.setText(this.fullText);
     this.finish();
   }
 
   get isWriting(): boolean {
-    return !!this.timer && this.timer.getOverallProgress() < 1 && this.text !== this.fullText;
+    return this.writing;
   }
 
-  private finish(): void {
+  /**
+   * Smonta la scrittura in corso: timer, suggerimento e gestori di salto.
+   * NON chiama il seguito — quello è compito di finish(), cioè di chi
+   * arriva in fondo davvero.
+   */
+  private teardown(): void {
+    this.writing = false;
     this.timer?.remove();
     this.timer = undefined;
     this.hint?.destroy();
     this.hint = undefined;
     this.scene.input.off('pointerdown', this.skipHandler);
     for (const key of ['keydown-SPACE', 'keydown-ENTER']) this.scene.input.keyboard?.off(key, this.skipHandler);
+  }
+
+  private finish(): void {
+    this.teardown();
     const cb = this.onDone;
     this.onDone = undefined;
     cb?.();
