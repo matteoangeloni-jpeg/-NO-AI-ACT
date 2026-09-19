@@ -255,15 +255,19 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
    * «ESAMINA I REPERTI» compare solo quando ha finito: un clic e via
    * funzionava a 1×, a 2× trovava lo schermo ancora vuoto.
    */
-  await page.evaluate(() => {
-    const s = window.game.scene.getScene('Case');
-    s?.input?.emit?.('pointerdown');
-  });
   const prontoAiReperti = await page.waitForFunction(() => {
-    const s = window.game?.scene?.getScene('Case');
-    if (!s?.scene?.isActive?.()) return false;
-    const visibile = (o) => o?.visible !== false;
-    return s.children.list.some((o) => o.type === 'Container' && visibile(o) && o.input?.enabled
+    /**
+     * SI GUARDA LA SCENA ATTIVA, non quella con quel nome.
+     *
+     * `getScene('Case')` restituisce l'istanza anche quando non è lei a
+     * girare: a metà di un cambio di scena i suoi figli sono quelli di
+     * prima, o nessuno, e l'attesa scadeva dopo trenta secondi su una
+     * schermata che a occhio era pronta.
+     */
+    const attive = window.game?.scene.getScenes(true) ?? [];
+    const s = attive.length ? attive[attive.length - 1] : null;
+    if (!s || s.scene.key !== 'Case') return false;
+    return s.children.list.some((o) => o.type === 'Container' && o.visible !== false && o.input?.enabled
       && (o.list || []).some((c) => typeof c.text === 'string' && /REPERTI|EXHIBITS/i.test(c.text)));
   }, undefined, { timeout: 30000 }).then(() => true).catch(() => false);
   if (!prontoAiReperti) { fail.push(`[${tag}] il caso non ha mai mostrato l'invito ai reperti`); await ctx.close(); return; }
