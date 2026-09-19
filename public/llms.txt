@@ -76,6 +76,8 @@
 - Provider e deployer (IT): https://www.no-ai-act.eu/provider-deployer-ai-act/
 - AI Act and public administration (EN): https://www.no-ai-act.eu/en/ai-act-public-administration/
 - AI Act e pubblica amministrazione (IT): https://www.no-ai-act.eu/ai-act-pubblica-amministrazione/
+- AI Act for business (EN): https://www.no-ai-act.eu/en/ai-act-for-business/
+- AI Act per le aziende (IT): https://www.no-ai-act.eu/ai-act-per-le-aziende/
 - Fundamental rights impact assessment, FRIA (EN): https://www.no-ai-act.eu/en/fria-ai-act-fundamental-rights-impact-assessment/
 - Valutazione d'impatto sui diritti fondamentali, FRIA (IT): https://www.no-ai-act.eu/fria-ai-act-valutazione-diritti-fondamentali/
 

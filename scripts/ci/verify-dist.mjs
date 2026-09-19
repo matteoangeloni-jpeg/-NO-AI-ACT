@@ -4,7 +4,8 @@
  * can be run locally with `npm run verify:dist`.
  *
  * Fails loudly (exit 1) if a deploy-critical file is missing, the sitemap
- * children don't total 62, or any shipped HTML contains mojibake — so a broken
+ * children don't total the declared public inventory, or any shipped HTML
+ * contains mojibake — so a broken
  * build never reaches production.
  */
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
@@ -55,13 +56,23 @@ for (const rel of required) {
   if (!ok) fail.push(`missing dist/${rel}`);
 }
 
-// --- sitemap children total exactly 62 ---
+// --- sitemap children total exactly the declared public inventory ---
+/**
+ * QUANTE DEBBANO ESSERE SI LEGGE, NON SI SCRIVE QUI.
+ *
+ * Era fissato a 62. Aggiungendo una pagina questo cancello diventava rosso
+ * pur essendo il `dist` corretto: difendeva un numero ricopiato, non una
+ * proprietà. La sorgente unica è scripts/seo/routes.config.json — la
+ * stessa che usa l'audit per decidere quali rotte devono esistere.
+ */
 try {
+  const rotte = JSON.parse(readFileSync(resolve(root, 'scripts/seo/routes.config.json'), 'utf8'));
+  const attese = rotte.pairs.length * 2 + rotte.enOnly.length;
   const count = (p) => (readFileSync(join(dist, p), 'utf8').match(/<loc>/g) ?? []).length;
   const it = count('sitemap-it.xml');
   const en = count('sitemap-en.xml');
   console.log(`  sitemap children: ${it} IT + ${en} EN = ${it + en}`);
-  if (it + en !== 62) fail.push(`sitemap children total ${it + en} (want 62)`);
+  if (it + en !== attese) fail.push(`sitemap children total ${it + en} (want ${attese})`);
 } catch (e) {
   fail.push(`sitemap child read failed: ${e.message}`);
 }

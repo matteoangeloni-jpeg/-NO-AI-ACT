@@ -1,6 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { PUBLIC_COUNT } from './helpers/publicRoutes';
 
 /**
  * SITEMAP / GOOGLE SEARCH CONSOLE READINESS GUARD.
@@ -84,13 +85,14 @@ describe('child sitemaps — valid, well-formed urlsets', () => {
   });
 });
 
-describe('child sitemaps — the 62 canonical public URLs, split by language', () => {
-  it('combined child URLs are exactly 62', () => {
-    expect(ALL_LOCS.length).toBe(62);
+describe('child sitemaps — the canonical public URLs, split by language', () => {
+  it('combined child URLs are exactly the public inventory', () => {
+    // il numero viene da scripts/seo/routes.config.json, non da qui
+    expect(ALL_LOCS.length).toBe(PUBLIC_COUNT);
   });
 
   it('no URL is duplicated within or across the child sitemaps', () => {
-    expect(new Set(ALL_LOCS).size).toBe(62);
+    expect(new Set(ALL_LOCS).size).toBe(PUBLIC_COUNT);
     expect(new Set(IT_LOCS).size).toBe(IT_LOCS.length);
     expect(new Set(EN_LOCS).size).toBe(EN_LOCS.length);
   });
