@@ -1,5 +1,5 @@
 import { describe, expect, it as test } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { NORMS } from '../src/game/data/norms';
 import { it as itLocale } from '../src/game/i18n/it';
@@ -59,8 +59,72 @@ describe('visual bug pass — background buttons hidden while a read-only overla
   });
 });
 
+/**
+ * LA BARRA DELLA PRATICA E LA SCENA NON DICONO LA STESSA COSA.
+ *
+ * La postazione è arrivata dopo le scene e dichiara il fascicolo in alto a
+ * sinistra. Le scene, però, continuavano a scriverlo anche per conto
+ * proprio venti pixel più sotto: «FASCICOLO AX-102/2032» due volte, una
+ * sull'altra, sui reperti e sulla decisione. Nessuno l'ha tolto perché
+ * ognuna delle due righe, presa da sola, è giusta.
+ *
+ * Il codice del fascicolo resta nello strato di lettura come titolo della
+ * scena: lì non occupa spazio e serve a chi non vede la barra.
+ */
+describe('il codice del fascicolo si scrive una volta sola', () => {
+  const scene = (f: string): string => stripComments(read(`src/game/scenes/${f}`));
+  const conPostazione = readdirSync(resolve(root, 'src/game/scenes'))
+    .filter((f) => f.endsWith('.ts'))
+    .filter((f) => /new InspectorDesk\(/.test(read(`src/game/scenes/${f}`)));
+
+  test('le scene con la postazione si leggono dal disco', () => {
+    expect(conPostazione.length, 'nessuna scena con postazione: il controllo sarebbe inerte').toBeGreaterThan(1);
+  });
+
+  /**
+   * LA REGOLA È SULLA FASCIA, NON SULLA STRINGA.
+   *
+   * Il primo tentativo vietava il codice del fascicolo in QUALUNQUE testo
+   * della scena, e ha dichiarato colpevole l'intestazione dell'atto in
+   * bozza nel riepilogo — «CODICE PRATICA: AX-102/2032», che è un metadato
+   * dell'atto, sta a destra, e ci deve stare.
+   *
+   * Il difetto vero è un altro: ripetere quello che la barra dice, subito
+   * SOTTO la barra. La postazione finisce a y=51; la fascia da difendere
+   * arriva a 160, dove cominciano i contenuti veri della scena.
+   */
+  const FASCIA_INTESTAZIONE = 160;
+
+  test('nessuna scena ripete il codice nella fascia subito sotto la barra', () => {
+    const colpevoli: string[] = [];
+    for (const f of conPostazione) {
+      const src = scene(f);
+      // la barra lo riceve come opzione, e lo strato di lettura come titolo:
+      // quelli sono i due posti legittimi. Qui si cercano i DISEGNI.
+      for (const [, args] of src.matchAll(/\.add\s*\n?\s*\.text\(([\s\S]*?)\);/g)) {
+        if (!/fileCode/.test(args)) continue;
+        const y = /^\s*[\w.]+\s*,\s*(\d+(?:\.\d+)?)\s*,/.exec(args);
+        if (!y) continue; // posizione calcolata: non è un'intestazione fissa
+        if (Number(y[1]) < FASCIA_INTESTAZIONE) {
+          colpevoli.push(`${f}: y=${y[1]} — ${args.replace(/\s+/g, ' ').slice(0, 70)}`);
+        }
+      }
+    }
+    expect(
+      colpevoli,
+      `il fascicolo è scritto due volte, una sotto l'altra:\n${colpevoli.join('\n')}`
+    ).toEqual([]);
+  });
+
+  test('ma la barra lo dice davvero, e lo strato di lettura anche', () => {
+    for (const f of conPostazione) {
+      const src = scene(f);
+      expect(src, `${f}: la postazione non dichiara il fascicolo`).toMatch(/caseLabel:[\s\S]{0,80}fileCode/);
+    }
+  });
+});
+
 describe('visual bug pass — EvidenceScene toast no longer covers the header', () => {
-  const scene = read('src/game/scenes/EvidenceScene.ts');
   const toast = read('src/game/ui/AlertToast.ts');
 
   test('showToast accepts an optional topOffset, defaulting to the original position (36)', () => {
@@ -68,8 +132,76 @@ describe('visual bug pass — EvidenceScene toast no longer covers the header', 
     expect(toast).toContain('const targetY = topOffset;');
   });
 
-  test('EvidenceScene passes a topOffset that clears its header (not the default)', () => {
-    expect(scene).toContain("showToast(this, L().ui.evidence.allRevealedToast, 'info', 20);");
+  /**
+   * QUESTA REGOLA ERA UNA TRASCRIZIONE, ED È INVECCHIATA IN SILENZIO.
+   *
+   * Cercava la riga esatta `showToast(..., 'info', 20)`. Il 20 liberava
+   * l'intestazione della scena quando è stato scritto; poi è arrivata la
+   * barra della pratica, che occupa da y=9 a y=51, e quel 20 è diventato
+   * il centro della barra — il toast atterrava sui pulsanti della
+   * postazione e ne copriva due. Il controllo restava verde, perché la
+   * riga era ancora quella scritta.
+   *
+   * Ora la regola è la proprietà: in una scena che monta la postazione,
+   * ogni avviso riposa SOTTO la barra. Le misure si leggono dalla barra e
+   * dall'avviso, non si ripetono qui.
+   *
+   * SI CONFRONTA IL BORDO, NON IL CENTRO. La prima versione di questa
+   * regola guardava solo dove cade la coordinata di riposo, e ha accettato
+   * un avviso che sbordava di otto pixel sulla barra: il container è
+   * CENTRATO su quella coordinata, quindi metà dell'avviso sta più in alto.
+   * Una guardia che misura il punto sbagliato è verde sul difetto.
+   */
+  test('in una scena con la postazione, i toast riposano sotto la barra', () => {
+    const desk = read('src/game/ui/InspectorDesk.ts');
+    const my = /export const DESK_Y = (\d+);/.exec(desk);
+    const mh = /export const DESK_HEIGHT = (\d+);/.exec(desk);
+    expect(my, 'DESK_Y deve restare una costante dichiarata').not.toBeNull();
+    expect(mh, 'DESK_HEIGHT deve restare una costante dichiarata').not.toBeNull();
+    const fondoBarra = Number(my![1]) + Number(mh![1]) / 2;
+
+    const toast = read('src/game/ui/AlertToast.ts');
+    const mt = /export const TOAST_HEIGHT = (\d+);/.exec(toast);
+    expect(mt, 'TOAST_HEIGHT deve restare una costante dichiarata').not.toBeNull();
+    const mezzoAvviso = Number(mt![1]) / 2;
+    // il container è centrato sulla coordinata di riposo: lo dimostra il
+    // rettangolo di fondo, disegnato a y=0 dentro il container
+    expect(toast, "l'avviso non è più centrato: la regola qui sotto va rifatta").toMatch(
+      /rectangle\(0, 0, width, TOAST_HEIGHT/
+    );
+
+    // le scene con la postazione si leggono dal disco
+    const conPostazione = readdirSync(resolve(root, 'src/game/scenes'))
+      .filter((f) => f.endsWith('.ts'))
+      .filter((f) => /new InspectorDesk\(/.test(read(`src/game/scenes/${f}`)));
+    expect(conPostazione.length, 'nessuna scena con postazione: il controllo sarebbe inerte').toBeGreaterThan(0);
+
+    const colpevoli: string[] = [];
+    for (const f of conPostazione) {
+      const src = stripComments(read(`src/game/scenes/${f}`));
+      // la costante che la scena usa come altezza di riposo
+      const costante = /const (\w+) = DESK_BOTTOM \+ (?:TOAST_HEIGHT \/ 2|(\d+));/.exec(src);
+      // fino al `);` dell'istruzione: `[^)]*` si fermava dentro `L()`, e
+      // ogni chiamata risultava senza altezza dichiarata
+      for (const [, args] of src.matchAll(/showToast\(([\s\S]*?)\);/g)) {
+        const parti = args.split(',').map((x) => x.trim());
+        if (parti.length < 4) { colpevoli.push(`${f}: avviso senza altezza dichiarata (${args.trim()})`); continue; }
+        const quarto = parti[3];
+        const valore = /^\d+$/.test(quarto)
+          ? Number(quarto)
+          : costante && quarto === costante[1]
+            ? fondoBarra + (costante[2] === undefined ? mezzoAvviso : Number(costante[2]))
+            : NaN;
+        if (Number.isNaN(valore)) { colpevoli.push(`${f}: altezza dell'avviso illeggibile (${quarto})`); continue; }
+        const bordoAlto = valore - mezzoAvviso;
+        if (bordoAlto < fondoBarra) {
+          colpevoli.push(
+            `${f}: avviso centrato a y=${valore}, bordo alto a ${bordoAlto}, dentro la barra che finisce a ${fondoBarra}`
+          );
+        }
+      }
+    }
+    expect(colpevoli, colpevoli.join('\n')).toEqual([]);
   });
 
   test('other showToast call sites are unchanged (no new positional argument)', () => {
@@ -146,28 +278,27 @@ describe('visual bug pass — no external forms on the landings (Tally removed)'
 });
 
 /**
- * LA CITTÀ SI VEDE MENTRE SI DECIDE, MA NON SI PUÒ GIOCARE A OTTIMIZZARLA.
+ * LA CITTÀ NON SI VEDE PIÙ MENTRE SI DECIDE.
  *
- * I quattro indicatori si vedevano sulla mappa e dopo il caso, mai durante:
- * "voglio sentire che le mie scelte cambiano la città", e non si sentiva
- * perché la città spariva proprio nel momento in cui si decide di lei.
+ * C'era una colonna con i quattro indicatori a destra, chiesta dal
+ * proprietario («voglio sentire che le mie scelte cambiano la città») e
+ * poi fatta togliere da lui, dopo averci rigiocato: su 1280 di larghezza
+ * non ci stava insieme al riepilogo di sinistra e ai pulsanti, e al passo
+ * della misura le barre finivano tagliate a metà sotto le opzioni.
  *
- * Mostrare lo stato attuale è informazione. Mostrare che cosa farebbe
- * CIASCUNA opzione sarebbe un'altra cosa: trasformerebbe la decisione in un
- * gioco di cursori da massimizzare, mentre il rapporto si valuta su quanto
- * regge giuridicamente e non su quanto sale una barra.
+ * Gli indicatori restano sulla mappa e nella conseguenza. Questo controllo
+ * ora difende il verso opposto, e una cosa che non è mai cambiata:
+ * nessuna ANTEPRIMA di quello che farebbe ciascuna opzione, perché
+ * trasformerebbe la decisione in un gioco di cursori da massimizzare
+ * mentre il rapporto si valuta su quanto regge giuridicamente.
  */
-describe('la decisione mostra lo stato della città, non una previsione', () => {
+describe('la decisione non mostra la città, e non ne prevede il futuro', () => {
   const src = read('src/game/scenes/DecisionScene.ts');
 
-  test('lo stato attuale compare durante i passi di scelta', () => {
-    expect(src).toContain('new IndicatorHud(this');
-    expect(src).toContain('ui.decision.cityState');
-  });
-
-  test('e non nel riepilogo finale, dove la colonna non serve', () => {
-    const summary = src.slice(src.indexOf('private showSummaryStep'), src.indexOf('private sign()'));
-    expect(summary).toContain('this.header(t.step5, t.question5, false)');
+  test('nessuna colonna di indicatori durante i passi di scelta', () => {
+    const pulito = stripComments(src);
+    expect(pulito, 'la colonna degli indicatori è tornata nella decisione').not.toContain('new IndicatorHud(this');
+    expect(pulito).not.toContain('ui.decision.cityState');
   });
 
   test('nessuna anteprima di quello che farebbe ciascuna opzione', () => {

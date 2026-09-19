@@ -2,6 +2,17 @@ import Phaser from 'phaser';
 import { Button } from './Button';
 import { COLORS, COLOR_STR, GAME_WIDTH, textStyle } from './theme';
 
+/**
+ * Geometria della barra, dichiarata invece che ripetuta.
+ *
+ * Serve fuori di qui: un avviso che compare in alto deve sapere dove
+ * finisce la barra, o ci atterra sopra — ed è successo, con il toast dei
+ * reperti che copriva due pulsanti della postazione.
+ */
+export const DESK_Y = 30;
+export const DESK_HEIGHT = 42;
+export const DESK_BOTTOM = DESK_Y + DESK_HEIGHT / 2;
+
 export interface InspectorDeskOptions {
   caseLabel: string;
   phaseLabel: string;
@@ -24,9 +35,9 @@ export class InspectorDesk extends Phaser.GameObjects.Container {
   constructor(scene: Phaser.Scene, options: InspectorDeskOptions) {
     super(scene, 0, 0);
 
-    const y = 30;
+    const y = DESK_Y;
     const shell = scene.add
-      .rectangle(GAME_WIDTH / 2, y, GAME_WIDTH - 28, 42, COLORS.carbon, 0.96)
+      .rectangle(GAME_WIDTH / 2, y, GAME_WIDTH - 28, DESK_HEIGHT, COLORS.carbon, 0.96)
       .setStrokeStyle(1, COLORS.iron);
     const signal = scene.add.rectangle(22, y, 3, 28, COLORS.alert, 0.9);
     const title = scene.add
@@ -50,7 +61,7 @@ export class InspectorDesk extends Phaser.GameObjects.Container {
     options: InspectorDeskActionOptions = {}
   ): Button {
     const width = options.width ?? 128;
-    const button = new Button(this.scene, 0, 30, label, onClick, {
+    const button = new Button(this.scene, 0, DESK_Y, label, onClick, {
       width,
       height: 30,
       fontSize: 10.5,
@@ -71,7 +82,7 @@ export class InspectorDesk extends Phaser.GameObjects.Container {
     let right = GAME_WIDTH - 22;
     for (let i = this.actions.length - 1; i >= 0; i -= 1) {
       const action = this.actions[i];
-      action.button.setPosition(right - action.width / 2, 30);
+      action.button.setPosition(right - action.width / 2, DESK_Y);
       right -= action.width + 6;
     }
   }

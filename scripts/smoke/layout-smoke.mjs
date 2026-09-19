@@ -483,12 +483,29 @@ for (const vp of CANVAS_VIEWPORTS) {
        * I titoli non sono trascritti qui: si chiedono al gioco.
        */
       const headings = lang === 'en'
-        ? ['CITED EXHIBITS', 'DECISION SO FAR', 'STATE OF THE CITY']
-        : ['REPERTI CITATI', 'DECISIONE FINORA', 'STATO DELLA CITTÀ'];
+        ? ['CITED EXHIBITS', 'DECISION SO FAR']
+        : ['REPERTI CITATI', 'DECISIONE FINORA'];
       for (const h of headings) {
         if (!(step1?.items ?? []).some((i) => String(i.text || '').includes(h))) {
           fail.push(`${ctx} Decision step 1: manca "${h}" nel riepilogo laterale`);
         }
+      }
+
+      /**
+       * LO STATO DELLA CITTÀ NON DEVE ESSERCI, e prima era preteso.
+       *
+       * La colonna dei quattro indicatori l'aveva chiesta il proprietario e
+       * l'ha fatta togliere lui, dopo averci rigiocato: su 1280 di larghezza
+       * non ci stava insieme al riepilogo di sinistra e ai pulsanti, e al
+       * passo della misura le barre finivano tagliate sotto le opzioni.
+       *
+       * Questo controllo chiedeva che ci fosse. Ora chiede il contrario: è
+       * lo stesso controllo, girato, e serve perché reintrodurla di nascosto
+       * rimetterebbe in piedi proprio quella sovrapposizione.
+       */
+      const citta = lang === 'en' ? 'STATE OF THE CITY' : 'STATO DELLA CITTÀ';
+      if ((step1?.items ?? []).some((i) => String(i.text || '').includes(citta))) {
+        fail.push(`${ctx} Decision step 1: "${citta}" è tornato nella decisione`);
       }
 
       // riepilogo e firma: unica schermata che esiste solo dopo quattro scelte

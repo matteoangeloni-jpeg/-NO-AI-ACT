@@ -8,13 +8,13 @@ import { Button } from '../ui/Button';
 import { CaseContextOverlay } from '../ui/CaseContextOverlay';
 import { DossierCard } from '../ui/DossierCard';
 import { EvidenceCompareOverlay } from '../ui/EvidenceCompareOverlay';
-import { InspectorDesk } from '../ui/InspectorDesk';
+import { DESK_BOTTOM, InspectorDesk } from '../ui/InspectorDesk';
 import { NotebookOverlay } from '../ui/NotebookOverlay';
-import { showToast } from '../ui/AlertToast';
+import { TOAST_HEIGHT, showToast } from '../ui/AlertToast';
 import { L, caseText, fmt } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { evidenceReadingLine } from '../systems/evidenceReading';
-import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
+import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene, reveal } from '../ui/motion';
 import { StateManager } from '../systems/StateManager';
 import { addNoiseOverlay } from '../ui/backdrop';
@@ -25,6 +25,21 @@ import { createDocumentTextures } from '../assets/procedural/documentStyles';
  * almeno MIN_CITED_CLUES reperti. La scelta dei reperti citati entra nella
  * valutazione finale del caso.
  */
+/**
+ * Altezza di riposo degli avvisi.
+ *
+ * Era 20, cioè dentro la barra della pratica: il toast atterrava sopra la
+ * postazione e ne copriva due pulsanti. Il primo rimedio — `DESK_BOTTOM + 14`
+ * — non bastava, ed è un errore istruttivo: il container dell'avviso è
+ * CENTRATO su questa coordinata, non appoggiato, quindi a 65 il suo bordo
+ * superiore cadeva a 43 e la barra finisce a 51. Otto pixel di
+ * sovrapposizione, e la guardia li accettava perché confrontava il centro.
+ *
+ * Qui si somma mezza altezza dell'avviso: è il BORDO a dover stare sotto
+ * la barra, non il centro.
+ */
+const TOAST_Y = DESK_BOTTOM + TOAST_HEIGHT / 2;
+
 export class EvidenceScene extends Phaser.Scene {
   private caseData!: CaseData;
   private cards: DossierCard[] = [];
@@ -63,11 +78,23 @@ export class EvidenceScene extends Phaser.Scene {
     AudioSystem.setMusicRole('archive', this.caseData.id);
     addNoiseOverlay(this, 0.4);
 
-    this.add.text(cx, 66, fmt(L().ui.evidence.header, { code: this.caseData.fileCode }), textStyle(14, COLOR_STR.alertText)).setOrigin(0.5);
-    this.add.text(cx, 88, L().ui.evidence.instruction, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
+    /**
+     * IL CODICE DEL FASCICOLO NON SI SCRIVE DUE VOLTE.
+     *
+     * Qui c'era «FASCICOLO AX-102/2032 — REPERTI», e venti pixel più su la
+     * barra della pratica dice già «FASCICOLO AX-102/2032 · ESAME REPERTI».
+     * La stessa informazione due volte, una sotto l'altra: la barra è
+     * arrivata dopo e questa riga non è stata tolta.
+     *
+     * Resta nello STRATO DI LETTURA come titolo della scena (più sotto),
+     * dove serve e dove non occupa spazio: chi legge con uno strumento
+     * assistivo continua a sapere quale fascicolo sta esaminando.
+     *
+     * La fascia liberata è quella in cui atterrano gli avvisi.
+     */
+    this.add.text(cx, 100, L().ui.evidence.instruction, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
     // microcopy: citare un reperto costruisce il rapporto, non è la classificazione
-    this.add.text(cx, 108, L().ui.evidence.citeNote, textStyle(11, COLOR_STR.accentText, { wordWrap: { width: 900 }, align: 'center' })).setOrigin(0.5);
-    this.add.rectangle(cx, 126, 900, 1, COLORS.iron);
+    this.add.text(cx, 118, L().ui.evidence.citeNote, textStyle(11, COLOR_STR.accentText, { wordWrap: { width: 900 }, align: 'center' })).setOrigin(0.5);
 
     // Gli strumenti condivisi vivono nella stessa postazione in entrambe le fasi.
     this.contextOverlay = new CaseContextOverlay(this, this.caseData.id, 'closeToEvidence');
@@ -241,7 +268,7 @@ export class EvidenceScene extends Phaser.Scene {
       // del sistema che il gioco racconta, e ora si sente
       AudioSystem.glitchOpacity();
       const msg = fmt(L().ui.evidence.contradictionFound, { a: texts.clues[hit[0]].title, b: texts.clues[hit[1]].title });
-      showToast(this, msg, 'info', 20);
+      showToast(this, msg, 'info', TOAST_Y);
       ReadingLayer.announce(msg);
       /**
        * Le due schede restano marcate. Il toast passa dopo qualche secondo
@@ -254,7 +281,7 @@ export class EvidenceScene extends Phaser.Scene {
       this.cards[hit[0]]?.markContradiction();
       this.cards[hit[1]]?.markContradiction();
     } else {
-      showToast(this, L().ui.evidence.contradictionNone, 'info', 20);
+      showToast(this, L().ui.evidence.contradictionNone, 'info', TOAST_Y);
       ReadingLayer.announce(L().ui.evidence.contradictionNone);
     }
   }
@@ -343,9 +370,7 @@ export class EvidenceScene extends Phaser.Scene {
     });
     if (allRevealed && !this.revealToastShown) {
       this.revealToastShown = true;
-      // topOffset 20 (vs default 36): the file-code header sits at y=56 here,
-      // the default toast position would cover it for ~2.5s.
-      showToast(this, L().ui.evidence.allRevealedToast, 'info', 20);
+      showToast(this, L().ui.evidence.allRevealedToast, 'info', TOAST_Y);
     }
     // senza almeno MIN_CITED_CLUES reperti citati non si procede
     const couldProceedBefore = this.proceedEligible;
@@ -383,7 +408,7 @@ export class EvidenceScene extends Phaser.Scene {
       const label = stance ? (ui.stances as Record<string, string>)[stance] : null;
       if (label) {
         const msg = fmt(ui.citedBecause, { title: caseText(this.caseData.id).clues[justCited].title, stance: label });
-        showToast(this, msg, 'info', 20);
+        showToast(this, msg, 'info', TOAST_Y);
         ReadingLayer.announce(msg);
       }
     }
