@@ -67,24 +67,10 @@ const save = (v) => JSON.stringify({
   difficulty: 'standard', mission: 'full'
 });
 
-/**
- * UN BROWSER PER GIRO, non uno per tutta la matrice.
- *
- * Sei contesti in fila dentro un unico processo Chromium accumulano
- * memoria e superfici di disegno, e i giri TARDIVI cominciano a scadere
- * dove i primi passano: si è visto qui — prima il quarto, poi il terzo e
- * il quarto — e in CI, dove lo stesso codice è passato una volta e
- * fallito un'altra su giri diversi.
- *
- * Non è una correzione di tempistica in più: quelle le ho già provate, e
- * ognuna spostava il guasto su un altro giro invece di toglierlo. Qui si
- * toglie ciò che i giri CONDIVIDONO, che è l'unica cosa che lega un
- * fallimento tardivo ai successi che lo precedono.
- */
+const browser = await chromium.launch(smokeBrowserLaunchOptions());
 
 /** Un giro completo: mappa → caso → reperti → decisione → rapporto → conseguenza. */
 async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
-  const browser = await chromium.launch(smokeBrowserLaunchOptions());
   const ctx = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: dpr });
   await ctx.route(/cloudflareinsights\.com/, (r) => r.abort());
   const page = await ctx.newPage();
@@ -159,7 +145,7 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
     return out;
   });
 
-  if (!(await waitScene('Title', 40000))) { await ctx.close(); await browser.close(); return; }
+  if (!(await waitScene('Title', 40000))) { await ctx.close(); return; }
 
   // --- 1. i glifi esistono davvero nel font del gioco
   /**
@@ -234,7 +220,7 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
   await waitScene('Briefing');
   await click(640, 300, 300);
   await clickButton(lang === 'it' ? 'MAPPA CIVICA' : 'CIVIC MAP');
-  if (!(await waitScene('CityMap'))) { await ctx.close(); await browser.close(); return; }
+  if (!(await waitScene('CityMap'))) { await ctx.close(); return; }
   await screenshot('01-map');
 
   /**
@@ -259,7 +245,7 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
     for (const s of g.scene.scenes) if (s.scene.isActive() && s.scene.key !== 'Boot') s.scene.stop();
     g.scene.start('Case', { caseId });
   }, CASO_ATTESO);
-  if (!(await waitScene('Case'))) { await ctx.close(); await browser.close(); return; }
+  if (!(await waitScene('Case'))) { await ctx.close(); return; }
   await click(640, 400, 300);
   await screenshot('02-case');
 
@@ -284,9 +270,9 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
     return s.children.list.some((o) => o.type === 'Container' && o.visible !== false && o.input?.enabled
       && (o.list || []).some((c) => typeof c.text === 'string' && /REPERTI|EXHIBITS/i.test(c.text)));
   }, undefined, { timeout: 30000 }).then(() => true).catch(() => false);
-  if (!prontoAiReperti) { fail.push(`[${tag}] il caso non ha mai mostrato l'invito ai reperti`); await ctx.close(); await browser.close(); return; }
+  if (!prontoAiReperti) { fail.push(`[${tag}] il caso non ha mai mostrato l'invito ai reperti`); await ctx.close(); return; }
   await clickButton(lang === 'it' ? 'ESAMINA I REPERTI' : 'EXAMINE THE EXHIBITS');
-  if (!(await waitScene('Evidence'))) { await ctx.close(); await browser.close(); return; }
+  if (!(await waitScene('Evidence'))) { await ctx.close(); return; }
 
   /**
    * IL GIRO STA GIOCANDO IL CASO CHE CREDE?
@@ -306,7 +292,7 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
   );
   if (casoAperto !== CASO_ATTESO) {
     fail.push(`[${tag}] la mappa ha aperto "${casoAperto}" invece di "${CASO_ATTESO}"`);
-    await ctx.close(); await browser.close();
+    await ctx.close();
     return;
   }
   await prepareEvidenceVisualState(page, [0, 1]);
@@ -343,7 +329,7 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
       return s?.caseData?.id ?? s?.caseData?.fileCode ?? 'ignoto';
     });
     fail.push(`[${tag}] bloccato prima della decisione, caso in gioco: ${caso}`);
-    await ctx.close(); await browser.close();
+    await ctx.close();
     return;
   }
   await page.waitForTimeout(400);
@@ -369,7 +355,7 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
   await page.waitForTimeout(300);
   await screenshot('05-summary');
   await page.keyboard.press('Enter');
-  if (!(await waitScene('Report'))) { await ctx.close(); await browser.close(); return; }
+  if (!(await waitScene('Report'))) { await ctx.close(); return; }
   await page.waitForTimeout(900);
   await screenshot('06-report');
 
@@ -421,7 +407,6 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
 
   if (errors.length > 0) fail.push(`[${tag}] errori in console: ${errors.slice(0, 3).join(' | ')}`);
   await ctx.close();
-  await browser.close();
 }
 
 const MATRICE = [
@@ -440,6 +425,7 @@ for (const v of MATRICE.filter((m) => !solo || solo.includes(m.tag))) {
   await giro(v);
 }
 
+await browser.close();
 
 if (fail.length > 0) {
   console.error('\nvisual language smoke — FAIL');
