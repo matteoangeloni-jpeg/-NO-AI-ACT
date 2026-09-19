@@ -227,8 +227,40 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
   await prepareEvidenceVisualState(page, [0, 1]);
   await screenshot('03-evidence');
 
+  /**
+   * FRA I REPERTI E LA DECISIONE C'È UN BIVIO.
+   *
+   * Alcuni casi hanno un evento imprevisto: `proceed()` manda a `Incident`
+   * invece che a `Decision`. Questo giro apre sempre `case_credito`, che non
+   * ne ha — e proprio per questo il controllo aspettava `Decision` e basta.
+   *
+   * In CI, e in un solo giro su sei (quello a densità doppia, dove il
+   * disegno software è più lento), si è fermato su `Incident`: il caso
+   * aperto non era quello atteso. Non so ancora perché, e una guardia che
+   * assume il ramo felice non me lo dirà mai: accetta il bivio, lo
+   * attraversa, e se fallisce dice QUALE caso stava giocando.
+   */
   await clickButton(lang === 'it' ? 'PASSA ALLA CLASSIFICAZIONE|CLASSIFICA' : 'PROCEED TO CLASSIFICATION');
-  if (!(await waitScene('Decision'))) { await ctx.close(); return; }
+  const arrivo = await page.waitForFunction(() => {
+    const attive = window.game?.scene.getScenes(true) ?? [];
+    const k = attive.length ? attive[attive.length - 1].scene.key : '';
+    return k === 'Decision' || k === 'Incident' ? k : false;
+  }, undefined, { timeout: 25000 }).then((h) => h.jsonValue()).catch(() => null);
+
+  if (arrivo === 'Incident') {
+    // l'evento si chiude scegliendo: tasti 1..n, come i passi della decisione
+    await page.keyboard.press('1');
+  }
+  if (!(await waitScene('Decision'))) {
+    const caso = await page.evaluate(() => {
+      const attive = window.game?.scene.getScenes(true) ?? [];
+      const s = attive[attive.length - 1];
+      return s?.caseData?.id ?? s?.caseData?.fileCode ?? 'ignoto';
+    });
+    fail.push(`[${tag}] bloccato prima della decisione, caso in gioco: ${caso}`);
+    await ctx.close();
+    return;
+  }
   await page.waitForTimeout(400);
   await screenshot('04-decision');
 
