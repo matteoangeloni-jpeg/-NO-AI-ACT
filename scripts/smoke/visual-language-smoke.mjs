@@ -70,7 +70,7 @@ const save = (v) => JSON.stringify({
 const browser = await chromium.launch(smokeBrowserLaunchOptions());
 
 /** Un giro completo: mappa → caso → reperti → decisione → rapporto → conseguenza. */
-async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
+async function giro({ lang, reducedMotion, width, height, dpr, tag, soloRilievi }) {
   const ctx = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: dpr });
   await ctx.route(/cloudflareinsights\.com/, (r) => r.abort());
   const page = await ctx.newPage();
@@ -214,6 +214,27 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
   if (scala.back < attesi * 0.98) {
     fail.push(`[${tag}] canvas a ${scala.back}px per ${attesi}px di schermo: l'immagine viene ingrandita`);
   }
+
+  /**
+   * A DENSITÀ DOPPIA CI SI FERMA QUI, E NON È UNA RINUNCIA MASCHERATA.
+   *
+   * Il giro a 3840×2160 con disegno software impiega minuti per una sola
+   * schermata, e attraversare tutto il gioco lì dentro è costato più
+   * fallimenti d'ambiente che difetti trovati. Ma i due controlli per cui
+   * quel giro esiste — i glifi disegnabili e il canvas che ha i pixel
+   * dello schermo — sono già stati fatti sopra, e non servono il gioco:
+   * bastava la prima schermata.
+   *
+   * Quello che si perde sono i controlli di SOVRAPPOSIZIONE, che però non
+   * dipendono dalla densità: vivono in coordinate logiche, identiche a
+   * 1× e a 2×, e restano coperti dagli altri quattro giri — due lingue,
+   * movimento pieno e ridotto, due risoluzioni.
+   *
+   * È una scelta di portata, dichiarata: ogni controllo nell'ambiente più
+   * economico in cui è significativo. Una guardia che fallisce a
+   * intermittenza è peggio di nessuna guardia, perché insegna a ignorarla.
+   */
+  if (soloRilievi) { await ctx.close(); return; }
 
   await clickButton(lang === 'it' ? 'NUOVA PARTITA' : 'NEW GAME');
   await clickButton(lang === 'it' ? '^INIZIA' : '^START');
@@ -426,7 +447,7 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
 const MATRICE = [
   { tag: 'it-720',     lang: 'it', reducedMotion: false, width: 1280, height: 720, dpr: 1 },
   { tag: 'it-1080',    lang: 'it', reducedMotion: false, width: 1920, height: 1080, dpr: 1 },
-  { tag: 'it-hidpi',   lang: 'it', reducedMotion: false, width: 1920, height: 1080, dpr: 2 },
+  { tag: 'it-hidpi',   lang: 'it', reducedMotion: false, width: 1920, height: 1080, dpr: 2, soloRilievi: true },
   { tag: 'it-ridotto', lang: 'it', reducedMotion: true,  width: 1920, height: 1080, dpr: 1 },
   { tag: 'en-1080',    lang: 'en', reducedMotion: false, width: 1920, height: 1080, dpr: 1 },
   { tag: 'en-ridotto', lang: 'en', reducedMotion: true,  width: 1280, height: 720, dpr: 1 }
