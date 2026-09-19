@@ -143,8 +143,14 @@ describe('visual bug pass — EvidenceScene toast no longer covers the header', 
    * riga era ancora quella scritta.
    *
    * Ora la regola è la proprietà: in una scena che monta la postazione,
-   * ogni avviso riposa SOTTO la barra. La misura si legge dalla barra
-   * stessa, non si ripete qui.
+   * ogni avviso riposa SOTTO la barra. Le misure si leggono dalla barra e
+   * dall'avviso, non si ripetono qui.
+   *
+   * SI CONFRONTA IL BORDO, NON IL CENTRO. La prima versione di questa
+   * regola guardava solo dove cade la coordinata di riposo, e ha accettato
+   * un avviso che sbordava di otto pixel sulla barra: il container è
+   * CENTRATO su quella coordinata, quindi metà dell'avviso sta più in alto.
+   * Una guardia che misura il punto sbagliato è verde sul difetto.
    */
   test('in una scena con la postazione, i toast riposano sotto la barra', () => {
     const desk = read('src/game/ui/InspectorDesk.ts');
@@ -153,6 +159,16 @@ describe('visual bug pass — EvidenceScene toast no longer covers the header', 
     expect(my, 'DESK_Y deve restare una costante dichiarata').not.toBeNull();
     expect(mh, 'DESK_HEIGHT deve restare una costante dichiarata').not.toBeNull();
     const fondoBarra = Number(my![1]) + Number(mh![1]) / 2;
+
+    const toast = read('src/game/ui/AlertToast.ts');
+    const mt = /export const TOAST_HEIGHT = (\d+);/.exec(toast);
+    expect(mt, 'TOAST_HEIGHT deve restare una costante dichiarata').not.toBeNull();
+    const mezzoAvviso = Number(mt![1]) / 2;
+    // il container è centrato sulla coordinata di riposo: lo dimostra il
+    // rettangolo di fondo, disegnato a y=0 dentro il container
+    expect(toast, "l'avviso non è più centrato: la regola qui sotto va rifatta").toMatch(
+      /rectangle\(0, 0, width, TOAST_HEIGHT/
+    );
 
     // le scene con la postazione si leggono dal disco
     const conPostazione = readdirSync(resolve(root, 'src/game/scenes'))
@@ -164,7 +180,7 @@ describe('visual bug pass — EvidenceScene toast no longer covers the header', 
     for (const f of conPostazione) {
       const src = stripComments(read(`src/game/scenes/${f}`));
       // la costante che la scena usa come altezza di riposo
-      const costante = /const (\w+) = DESK_BOTTOM \+ (\d+);/.exec(src);
+      const costante = /const (\w+) = DESK_BOTTOM \+ (?:TOAST_HEIGHT \/ 2|(\d+));/.exec(src);
       // fino al `);` dell'istruzione: `[^)]*` si fermava dentro `L()`, e
       // ogni chiamata risultava senza altezza dichiarata
       for (const [, args] of src.matchAll(/showToast\(([\s\S]*?)\);/g)) {
@@ -174,10 +190,15 @@ describe('visual bug pass — EvidenceScene toast no longer covers the header', 
         const valore = /^\d+$/.test(quarto)
           ? Number(quarto)
           : costante && quarto === costante[1]
-            ? fondoBarra + Number(costante[2])
+            ? fondoBarra + (costante[2] === undefined ? mezzoAvviso : Number(costante[2]))
             : NaN;
         if (Number.isNaN(valore)) { colpevoli.push(`${f}: altezza dell'avviso illeggibile (${quarto})`); continue; }
-        if (valore < fondoBarra) colpevoli.push(`${f}: avviso a y=${valore}, dentro la barra che finisce a ${fondoBarra}`);
+        const bordoAlto = valore - mezzoAvviso;
+        if (bordoAlto < fondoBarra) {
+          colpevoli.push(
+            `${f}: avviso centrato a y=${valore}, bordo alto a ${bordoAlto}, dentro la barra che finisce a ${fondoBarra}`
+          );
+        }
       }
     }
     expect(colpevoli, colpevoli.join('\n')).toEqual([]);

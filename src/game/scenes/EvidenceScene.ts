@@ -10,7 +10,7 @@ import { DossierCard } from '../ui/DossierCard';
 import { EvidenceCompareOverlay } from '../ui/EvidenceCompareOverlay';
 import { DESK_BOTTOM, InspectorDesk } from '../ui/InspectorDesk';
 import { NotebookOverlay } from '../ui/NotebookOverlay';
-import { showToast } from '../ui/AlertToast';
+import { TOAST_HEIGHT, showToast } from '../ui/AlertToast';
 import { L, caseText, fmt } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { evidenceReadingLine } from '../systems/evidenceReading';
@@ -26,11 +26,19 @@ import { createDocumentTextures } from '../assets/procedural/documentStyles';
  * valutazione finale del caso.
  */
 /**
- * Altezza di riposo degli avvisi. Era 20, cioè dentro la barra della
- * pratica: il toast atterrava sopra la postazione e ne copriva due
- * pulsanti. Si ricava dalla barra, non si riscrive.
+ * Altezza di riposo degli avvisi.
+ *
+ * Era 20, cioè dentro la barra della pratica: il toast atterrava sopra la
+ * postazione e ne copriva due pulsanti. Il primo rimedio — `DESK_BOTTOM + 14`
+ * — non bastava, ed è un errore istruttivo: il container dell'avviso è
+ * CENTRATO su questa coordinata, non appoggiato, quindi a 65 il suo bordo
+ * superiore cadeva a 43 e la barra finisce a 51. Otto pixel di
+ * sovrapposizione, e la guardia li accettava perché confrontava il centro.
+ *
+ * Qui si somma mezza altezza dell'avviso: è il BORDO a dover stare sotto
+ * la barra, non il centro.
  */
-const TOAST_Y = DESK_BOTTOM + 14;
+const TOAST_Y = DESK_BOTTOM + TOAST_HEIGHT / 2;
 
 export class EvidenceScene extends Phaser.Scene {
   private caseData!: CaseData;
@@ -84,9 +92,9 @@ export class EvidenceScene extends Phaser.Scene {
      *
      * La fascia liberata è quella in cui atterrano gli avvisi.
      */
-    this.add.text(cx, 96, L().ui.evidence.instruction, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
+    this.add.text(cx, 100, L().ui.evidence.instruction, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
     // microcopy: citare un reperto costruisce il rapporto, non è la classificazione
-    this.add.text(cx, 116, L().ui.evidence.citeNote, textStyle(11, COLOR_STR.accentText, { wordWrap: { width: 900 }, align: 'center' })).setOrigin(0.5);
+    this.add.text(cx, 118, L().ui.evidence.citeNote, textStyle(11, COLOR_STR.accentText, { wordWrap: { width: 900 }, align: 'center' })).setOrigin(0.5);
 
     // Gli strumenti condivisi vivono nella stessa postazione in entrambe le fasi.
     this.contextOverlay = new CaseContextOverlay(this, this.caseData.id, 'closeToEvidence');

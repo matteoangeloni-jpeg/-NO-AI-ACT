@@ -23,6 +23,13 @@ const current = new WeakMap<Phaser.Scene, Phaser.GameObjects.Container>();
  * `topOffset` sposta il punto di riposo (default 36) per le scene il cui
  * header occupa già quella fascia verticale.
  */
+/**
+ * Altezza dell'avviso. Serve fuori di qui: chi lo posiziona deve sapere
+ * quanto è alto, perché il container è centrato su `topOffset` e non
+ * appoggiato — un numero preso a occhio lo fa sbordare verso l'alto.
+ */
+export const TOAST_HEIGHT = 44;
+
 export function showToast(scene: Phaser.Scene, message: string, kind: ToastKind = 'info', topOffset = 36): void {
   const previous = current.get(scene);
   if (previous?.active) {
@@ -38,8 +45,8 @@ export function showToast(scene: Phaser.Scene, message: string, kind: ToastKind 
   const c = { ...colors[kind], prefix: L().ui.toastPrefixes[kind] };
   const width = Math.min(640, GAME_WIDTH - 80);
   const container = scene.add.container(GAME_WIDTH / 2, -40).setDepth(1000);
-  const bg = scene.add.rectangle(0, 0, width, 44, COLORS.carbon, 0.96).setStrokeStyle(1, c.stroke);
-  const stripe = scene.add.rectangle(-width / 2 + 3, 0, 6, 44, c.stroke);
+  const bg = scene.add.rectangle(0, 0, width, TOAST_HEIGHT, COLORS.carbon, 0.96).setStrokeStyle(1, c.stroke);
+  const stripe = scene.add.rectangle(-width / 2 + 3, 0, 6, TOAST_HEIGHT, c.stroke);
   const label = scene.add
     .text(0, 0, `[${c.prefix}] ${message}`, textStyle(13, c.text))
     .setOrigin(0.5);
