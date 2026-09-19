@@ -246,8 +246,21 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
     g.scene.start('Case', { caseId });
   }, CASO_ATTESO);
   if (!(await waitScene('Case'))) { await ctx.close(); return; }
-  await click(640, 400, 300);
-  await screenshot('02-case');
+
+  /**
+   * NIENTE CLIC ALLA CIECA per saltare la macchina da scrivere.
+   *
+   * C'era un `click(640, 400)` che serviva solo a quello, ed è stato
+   * l'origine di due giri rossi: con «riduci movimento» il testo è già
+   * scritto quando la scena appare, il pulsante DOM «ESAMINA I REPERTI» è
+   * già piazzato, e quel clic in mezzo allo schermo mandava avanti la
+   * schermata prima che il controllo la guardasse — poi l'attesa scadeva
+   * su una scena che nel frattempo era diventata un'altra.
+   *
+   * L'attesa qui sotto copre da sola i due casi: a movimento ridotto il
+   * pulsante c'è subito, a movimento pieno compare a testo finito. Non
+   * serve nessun gesto in mezzo.
+   */
 
   /**
    * La macchina da scrivere va ASPETTATA, non cronometrata. A densità
@@ -271,6 +284,7 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
       && (o.list || []).some((c) => typeof c.text === 'string' && /REPERTI|EXHIBITS/i.test(c.text)));
   }, undefined, { timeout: 30000 }).then(() => true).catch(() => false);
   if (!prontoAiReperti) { fail.push(`[${tag}] il caso non ha mai mostrato l'invito ai reperti`); await ctx.close(); return; }
+  await screenshot('02-case');
   await clickButton(lang === 'it' ? 'ESAMINA I REPERTI' : 'EXAMINE THE EXHIBITS');
   if (!(await waitScene('Evidence'))) { await ctx.close(); return; }
 
