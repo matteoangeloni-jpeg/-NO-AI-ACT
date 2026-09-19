@@ -53,6 +53,18 @@ const readGlyphs = (file, re) => {
   const src = readFileSync(pathResolve(root, file), 'utf8');
   return [...src.matchAll(re)].map((m) => ({ nome: m[1], glifo: m[2] }));
 };
+/**
+ * Il ritardo per carattere si legge dal sorgente: se un giorno cambia, il
+ * limite qui sotto lo segue invece di invecchiare in silenzio.
+ */
+const CHAR_DELAY_NORMAL = (() => {
+  const src = readFileSync(pathResolve(root, 'src/game/ui/typewriterTiming.ts'), 'utf8')
+    + readFileSync(pathResolve(root, 'src/game/ui/TypewriterText.ts'), 'utf8');
+  const m = /normal:\s*(\d+)/.exec(src);
+  if (!m) { fail.push('ritardo per carattere non leggibile dal sorgente'); return 14; }
+  return Number(m[1]);
+})();
+
 const GLYPHS = [
   ...readGlyphs('src/game/assets/procedural/visualStates.ts', /^\s{2}(\w+):\s*\{\s*glyph:\s*'(.)'/gm),
   ...readGlyphs('src/game/assets/procedural/normIdentity.ts', /^\s{2}(\w+):\s*\{\s*glyph:\s*'(.)'/gm)
@@ -267,6 +279,7 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag, soloRilievi 
     g.scene.start('Case', { caseId });
   }, CASO_ATTESO);
   if (!(await waitScene('Case'))) { await ctx.close(); return; }
+  const inizioScrittura = Date.now();
 
   /**
    * NIENTE CLIC ALLA CIECA per saltare la macchina da scrivere.
@@ -305,6 +318,45 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag, soloRilievi 
       && (o.list || []).some((c) => typeof c.text === 'string' && /REPERTI|EXHIBITS/i.test(c.text)));
   }, undefined, { timeout: 30000 }).then(() => true).catch(() => false);
   if (!prontoAiReperti) { fail.push(`[${tag}] il caso non ha mai mostrato l'invito ai reperti`); await ctx.close(); return; }
+
+  /**
+   * QUANTO CI HA MESSO A SCRIVERE.
+   *
+   * Questo è il controllo che mancava, e che sarebbe servito due volte.
+   *
+   * La prima: la scrittura era legata ai fotogrammi (un carattere per
+   * fotogramma invece di uno ogni 14 ms), e lo stesso testo passava da 17 s
+   * a 720 a 40 s a 1080 — finché non sfondava i trenta secondi d'attesa qui
+   * sopra e la CI diventava rossa senza dire perché.
+   *
+   * La seconda: correggendola ho preso l'istante di partenza dentro
+   * `create()`, dove l'orologio della scena vale ancora zero — e il testo
+   * compariva TUTTO INSIEME, in 3 ms. I controlli in Node restavano verdi:
+   * la funzione che calcola il ritmo era giusta, era il collegamento a
+   * essere rotto. Un difetto che si vede solo a schermo va misurato a
+   * schermo.
+   *
+   * Il limite non è un numero scelto a caso: si ricava dal ritardo per
+   * carattere dichiarato nel sorgente e dalla lunghezza del testo mostrato.
+   */
+  if (!reducedMotion) {
+    const scritturaMs = Date.now() - inizioScrittura;
+    const attesoMs = await page.evaluate(() => {
+      const s = window.game.scene.getScene('Case');
+      let piuLungo = 0;
+      const visit = (o) => { if (typeof o.text === 'string') piuLungo = Math.max(piuLungo, o.text.length); (o.list || []).forEach(visit); };
+      s.children.list.forEach(visit);
+      return piuLungo;
+    }).then((caratteri) => caratteri * CHAR_DELAY_NORMAL);
+    // sotto: il testo non è stato scritto, è apparso. sopra: è tornato
+    // legato ai fotogrammi. Il tetto è largo perché la CI disegna via software.
+    if (scritturaMs < attesoMs * 0.25) {
+      fail.push(`[${tag}] il testo del caso è comparso in ${scritturaMs} ms invece dei ~${attesoMs} attesi: non sta scrivendo`);
+    }
+    if (scritturaMs > attesoMs * 3.4) {
+      fail.push(`[${tag}] il testo del caso ha impiegato ${scritturaMs} ms invece dei ~${attesoMs} attesi: la scrittura dipende dai fotogrammi`);
+    }
+  }
   await screenshot('02-case');
   await clickButton(lang === 'it' ? 'ESAMINA I REPERTI' : 'EXAMINE THE EXHIBITS');
   if (!(await waitScene('Evidence'))) { await ctx.close(); return; }

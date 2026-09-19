@@ -100,14 +100,25 @@ export class TypewriterText extends Phaser.GameObjects.Text {
     /**
      * Il timer serve solo a far ricontrollare l'orologio: quanti caratteri
      * mostrare lo decide il tempo trascorso, non il numero di scatti.
+     *
+     * L'ISTANTE DI PARTENZA SI PRENDE AL PRIMO SCATTO, non qui.
+     *
+     * `time.now` dell'orologio della scena vale ZERO finché la scena non ha
+     * fatto il suo primo aggiornamento, e write() viene chiamata dentro
+     * create(), cioè prima. Prendendolo qui, il primo scatto calcolava
+     * «sono passati 1650 ms» e sputava fuori tutto il testo in un colpo:
+     * misurato a schermo, l'invito ai reperti compariva dopo 3 ms invece
+     * che dopo sei secondi. Al primo scatto è passato un `delay`, e da lì
+     * il conto torna.
      */
     this.writing = true;
-    const inizio = this.scene.time.now;
+    let inizio = -1;
     let mostrati = 0;
     this.timer = this.scene.time.addEvent({
       delay,
       loop: true,
       callback: () => {
+        if (inizio < 0) inizio = this.scene.time.now - delay;
         const quanti = charsShownAt(this.scene.time.now - inizio, delay, text.length);
         if (quanti === mostrati) return;
         // il suono segna blocchi di tre caratteri, non fotogrammi: se la
