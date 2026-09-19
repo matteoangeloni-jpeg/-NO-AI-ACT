@@ -331,6 +331,24 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag, soloRilievi 
     return;
   }
   await prepareEvidenceVisualState(page, [0, 1]);
+
+  /**
+   * ASPETTARE CHE LE SCHEDE SIANO FINITE DI COMPARIRE.
+   *
+   * Le schede entrano scaglionate (`reveal(..., delay: i * 100)`): l'ultima
+   * di sei finisce di comparire dopo tre quarti di secondo. Lo scatto
+   * arrivava prima, e nelle immagini di riferimento gli ultimi due reperti
+   * risultavano trasparenti o del tutto assenti — cioè le prove visuali
+   * NON coprivano le due schede in fondo, che sono proprio quelle dove un
+   * difetto di impaginazione si manifesta per primo.
+   *
+   * L'attesa non è un tempo fisso: si aspetta che OGNI scheda sia arrivata
+   * a opacità piena, così resta corretta se il ritardo o la durata cambiano.
+   */
+  await page.waitForFunction(() => {
+    const cards = window.game?.scene?.getScene('Evidence')?.cards ?? [];
+    return cards.length > 0 && cards.every((card) => card.alpha >= 0.999);
+  }, null, { timeout: 15000 });
   await screenshot('03-evidence');
 
   /**
