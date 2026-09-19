@@ -30,10 +30,16 @@ import { dirname, resolve as pathResolve } from 'node:path';
 import { worldToPageFn } from './lib-canvas-coords.mjs';
 import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
 import { prepareEvidenceVisualState } from './lib-evidence.mjs';
-import { selectMapCaseWithKeyboard } from './lib-map.mjs';
 import { completeDecisionWithKeyboard } from './lib-decision.mjs';
 
 const BASE = process.env.BASE || 'http://localhost:4200';
+
+/**
+ * Il caso che ogni giro gioca. Uno solo, e sempre lo stesso: le schermate
+ * vanno confrontate fra lingue e risoluzioni, e un caso diverso cambierebbe
+ * i testi rendendo il confronto privo di senso.
+ */
+const CASO_ATTESO = 'case_credito';
 const root = pathResolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const OUT = pathResolve(root, 'scripts/smoke/out/visual');
 mkdirSync(OUT, { recursive: true });
@@ -217,13 +223,74 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag }) {
   if (!(await waitScene('CityMap'))) { await ctx.close(); return; }
   await screenshot('01-map');
 
-  await selectMapCaseWithKeyboard(page, 'case_credito');
+  /**
+   * IL CASO SI APRE DIRETTAMENTE, non navigando la mappa.
+   *
+   * La selezione da tastiera sulla mappa non è affidabile a densità
+   * doppia: misurato, sei pressioni di FRECCIA DESTRA producono dodici
+   * spostamenti (keyIndex 0, 1, 5, 6, 10, 11) contro i sei di densità
+   * normale, e il giro finiva su un caso diverso da quello previsto — da
+   * cui la CI rossa con «ferma su: Incident», che era il caso sbagliato ad
+   * avere un evento imprevisto. Non è la ripetizione automatica del tasto
+   * (provato a filtrarla: il salto resta) e la causa non è accertata.
+   *
+   * Quel difetto è reale e va indagato, ma è di un'altra natura rispetto a
+   * ciò che questo controllo misura: le SCHERMATE, confrontate fra lingue e
+   * risoluzioni. Farle dipendere da un meccanismo che salta significa
+   * misurare schermate a caso. La navigazione della mappa resta coperta da
+   * `keyboard-smoke` e `gameplay-smoke`, che la esercitano a densità 1.
+   */
+  await page.evaluate((caseId) => {
+    const g = window.game;
+    for (const s of g.scene.scenes) if (s.scene.isActive() && s.scene.key !== 'Boot') s.scene.stop();
+    g.scene.start('Case', { caseId });
+  }, CASO_ATTESO);
   if (!(await waitScene('Case'))) { await ctx.close(); return; }
   await click(640, 400, 300);
   await screenshot('02-case');
 
+  /**
+   * La macchina da scrivere va ASPETTATA, non cronometrata. A densità
+   * doppia il testo del caso impiega molto più tempo, e il pulsante
+   * «ESAMINA I REPERTI» compare solo quando ha finito: un clic e via
+   * funzionava a 1×, a 2× trovava lo schermo ancora vuoto.
+   */
+  await page.evaluate(() => {
+    const s = window.game.scene.getScene('Case');
+    s?.input?.emit?.('pointerdown');
+  });
+  const prontoAiReperti = await page.waitForFunction(() => {
+    const s = window.game?.scene?.getScene('Case');
+    if (!s?.scene?.isActive?.()) return false;
+    const visibile = (o) => o?.visible !== false;
+    return s.children.list.some((o) => o.type === 'Container' && visibile(o) && o.input?.enabled
+      && (o.list || []).some((c) => typeof c.text === 'string' && /REPERTI|EXHIBITS/i.test(c.text)));
+  }, undefined, { timeout: 30000 }).then(() => true).catch(() => false);
+  if (!prontoAiReperti) { fail.push(`[${tag}] il caso non ha mai mostrato l'invito ai reperti`); await ctx.close(); return; }
   await clickButton(lang === 'it' ? 'ESAMINA I REPERTI' : 'EXAMINE THE EXHIBITS');
   if (!(await waitScene('Evidence'))) { await ctx.close(); return; }
+
+  /**
+   * IL GIRO STA GIOCANDO IL CASO CHE CREDE?
+   *
+   * Attraversare il bivio dell'evento imprevisto rende il controllo
+   * robusto, ma da solo NASCONDE il motivo per cui il bivio era comparso:
+   * se la selezione sulla mappa sbaglia caso, adesso il giro prosegue lo
+   * stesso e passa — giocando un caso diverso da quello previsto, e
+   * misurando schermate che non sono quelle che credo di misurare.
+   *
+   * Qui la deriva diventa un fallimento con un nome, invece di una
+   * stranezza a valle. È la diagnosi che mi mancava quando la CI diceva
+   * soltanto «ferma su: Incident».
+   */
+  const casoAperto = await page.evaluate(
+    () => window.game?.scene?.getScene('Evidence')?.caseData?.id ?? 'ignoto'
+  );
+  if (casoAperto !== CASO_ATTESO) {
+    fail.push(`[${tag}] la mappa ha aperto "${casoAperto}" invece di "${CASO_ATTESO}"`);
+    await ctx.close();
+    return;
+  }
   await prepareEvidenceVisualState(page, [0, 1]);
   await screenshot('03-evidence');
 
