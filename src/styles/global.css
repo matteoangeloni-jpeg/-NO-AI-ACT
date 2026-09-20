@@ -37,24 +37,41 @@ html, body {
 }
 
 /*
-  FASCE RISERVATE AL CONTORNO DELLA PAGINA.
+  FASCIA RISERVATA AL CONTORNO DELLA PAGINA.
 
   Il link di ritorno al sito e il pulsante del testo schermata sono elementi
-  del documento, fissi agli angoli e disegnati SOPRA il canvas. Il canvas,
-  invece, è centrato e scalato: dove cade il suo angolo dipende dalla
-  finestra. Quando le proporzioni coincidono i due si toccano, e i pulsanti
-  che alcune scene mettono negli angoli finiscono sotto il link — succedeva
-  nella scena della decisione, dove "Rivedi contesto" e "↩ no-ai-act.eu" si
-  sovrapponevano davvero.
+  del documento, fissi e disegnati SOPRA il canvas. Il canvas, invece, è
+  centrato e scalato: dove cade il suo angolo dipende dalla finestra. Quando
+  le proporzioni coincidono i due si toccano, e i pulsanti che alcune scene
+  mettono negli angoli finiscono sotto il link — succedeva nella scena della
+  decisione, dove "Rivedi contesto" e "↩ no-ai-act.eu" si sovrapponevano
+  davvero.
 
   Nessuna coordinata di gioco può risolverlo, perché il rapporto fra pixel
-  logici e pixel della pagina cambia con la finestra. Si risolve qui:
-  queste due fasce tolgono spazio al canvas, che rimpicciolisce di
-  altrettanto, e gli angoli restano liberi a ogni dimensione.
+  logici e pixel della pagina cambia con la finestra. Si risolve qui: la
+  fascia toglie spazio al canvas, che rimpicciolisce di altrettanto, e gli
+  angoli restano liberi a ogni dimensione. È l'inset a garantirlo, non la
+  posizione dei controlli: il canvas non arriva mai dove stanno.
+
+  PERCHÉ UNA SOLA, E IN BASSO. Erano due, 32 px sopra e 38 sotto. Settanta
+  pixel su un 16:9 si pagano due volte, perché il canvas scala in modo
+  uniforme: togli altezza e perdi anche larghezza. Misurato su una finestra
+  1920×1080, canvas a video:
+
+    due fasce (32+38)   1796×1010   87,5% dello schermo
+    una fascia (32)     1863×1048   94,2%
+    nessuna fascia      1920×1080   100%
+
+  Entrambi i controlli stanno in una fascia sola, quindi si tiene quella e
+  si recuperano quasi sette punti ovunque. Lo zero non è un'opzione finché i
+  controlli sono nel documento: senza fascia tornerebbero sopra il canvas,
+  cioè il difetto che questa regola esiste per evitare. I numeri restano
+  qui perché la prossima persona che vorrà lo schermo intero sappia che la
+  strada è nascondere i controlli, non assottigliare la fascia.
 */
 :root {
-  --play-chrome-top: 32px;
-  --play-chrome-bottom: 38px;
+  --play-chrome-top: 0px;
+  --play-chrome-bottom: 32px;
 }
 
 #app {
@@ -80,7 +97,8 @@ html, body {
 /* ---- Persistent "back to site" link: the player is never trapped ---- */
 #site-return {
   position: fixed;
-  top: 8px;
+  top: auto;
+  bottom: 5px;
   left: 10px;
   z-index: 30;
   font-family: var(--font-mono);
@@ -221,7 +239,7 @@ body:not(.reduced-motion) #crt-overlay { animation: crt-flicker 7s infinite; }
 #reading-toggle {
   position: fixed;
   right: 12px;
-  bottom: 10px;
+  bottom: 4px;
   z-index: 40;
   padding: 6px 12px;
   font-family: var(--font-mono);
@@ -235,18 +253,17 @@ body:not(.reduced-motion) #crt-overlay { animation: crt-flicker 7s infinite; }
 #reading-toggle:hover { border-color: var(--c-accent); }
 
 /*
-  TELEFONO IN ORIZZONTALE: UNA FASCIA SOLA, E SOTTILE.
+  TELEFONO IN ORIZZONTALE: LA FASCIA SI ASSOTTIGLIA ANCORA.
 
-  Le due fasce dichiarate in cima valgono 70 px. Su un desktop non si
-  notano; su un telefono girato, dove l'altezza utile è 390 px, sono il 18%
-  dello schermo — e siccome il canvas scala in modo uniforme, quel 18% si
-  perde su ENTRAMBI i lati. Misurato su iPhone 14 in orizzontale: canvas
-  569×320 invece dei 694×390 che ci starebbero, con un testo da 13 px
-  logici reso a 5,8 px sullo schermo.
+  La fascia dichiarata in cima vale 32 px. Su un desktop non si nota; su un
+  telefono girato, dove l'altezza utile è 390 px, è l'8% dello schermo — e
+  siccome il canvas scala in modo uniforme, quell'8% si perde su ENTRAMBI i
+  lati. Qui scende a 24, con i controlli rimpiccioliti per starci dentro.
 
-  Qui resta una fascia sola, in basso, da 24 px, e i due controlli del
-  contorno ci stanno dentro entrambi: il collegamento al sito a sinistra,
-  il pulsante del testo schermata a destra.
+  Storicamente le fasce erano due, 32 sopra e 38 sotto, e questo blocco
+  nacque per evitarle entrambe sul telefono: valevano il 18% dello schermo,
+  canvas 569×320 su iPhone 14 invece dei 694×390 che ci starebbero. Ora la
+  fascia unica è la regola generale e qui resta solo la misura più stretta.
 
   PERCHÉ NON ZERO. Un primo tentativo le azzerava e spostava i controlli
   nelle bande laterali, quelle che nascono perché un telefono girato è più
@@ -257,9 +274,11 @@ body:not(.reduced-motion) #crt-overlay { animation: crt-flicker 7s infinite; }
 
   IL PUNTO IN CUI STA QUESTO BLOCCO CONTA. Una media query non alza la
   specificità: messo prima delle regole base dei due controlli, quelle
-  vincevano per ordine. Il collegamento si ritrovava `top: 8px` dalla
-  regola base e `bottom: 3px` da qui, e un elemento fisso con entrambi si
-  stira: misurato alto 379 px invece di 19.
+  vincevano per ordine. Quando la regola base portava ancora `top: 8px`, il
+  collegamento si ritrovava quel top e il `bottom` di qui, e un elemento
+  fisso con entrambi si stira: misurato alto 379 px invece di 19. Ora la
+  base dice già `top: auto`, ma il blocco resta in fondo: è l'ordine a
+  reggere l'override, non la specificità.
 
   La soglia guarda l'altezza, non la larghezza: è l'altezza che manca.
 */

@@ -638,6 +638,59 @@ for (const vp of [{ w: 1792, h: 930 }, { w: 1280, h: 720 }]) {
   }
 }
 
+/**
+ * UNA FASCIA SOLA, NON DUE.
+ *
+ * Il contorno della pagina (collegamento al sito, testo schermata) vive in
+ * una fascia che toglie altezza al canvas. Siccome il canvas scala in modo
+ * uniforme, ogni pixel tolto in altezza si paga anche in larghezza: su una
+ * finestra 16:9 settanta pixel di fascia costavano il 12,5% dello schermo.
+ *
+ * Qui non si controlla il valore della variabile CSS — sarebbe ricopiarla —
+ * ma la conseguenza visibile: su una finestra 16:9, dove la larghezza non è
+ * mai il vincolo, tutta l'altezza che il canvas non prende è fascia. Se
+ * qualcuno rimette una fascia in cima, questo diventa rosso.
+ *
+ * Provato rosso contro le due fasce di prima (32+38): 70 > 40.
+ */
+const FASCIA_MAX = 40; // px di altezza che il contorno può sottrarre, in tutto
+for (const vp of [{ w: 1920, h: 1080 }, { w: 1280, h: 720 }]) {
+  const ctx = `${vp.w}x${vp.h} fascia del contorno`;
+  const context = await browser.newContext({ viewport: { width: vp.w, height: vp.h } });
+  await context.route(/cloudflareinsights\.com/, (r) => r.abort());
+  const page = await context.newPage();
+  await page.goto(`${BASE}/play/`, { waitUntil: 'load' });
+  try {
+    await page.waitForFunction(
+      () => window.game?.scene?.getScenes(true).some((s) => s.scene.key === 'Title'),
+      null, { timeout: 40000 }
+    );
+  } catch {
+    fail.push(`${ctx}: la schermata del titolo non è mai arrivata`);
+    await context.close();
+    continue;
+  }
+  const misura = await page.evaluate(() => {
+    const c = document.querySelector('#game-container canvas');
+    if (!c) return null;
+    const r = c.getBoundingClientRect();
+    return { h: r.height, w: r.width, vh: window.innerHeight, vw: window.innerWidth };
+  });
+  if (!misura) {
+    fail.push(`${ctx}: canvas non trovato, il controllo sarebbe inerte`);
+  } else {
+    const tolta = misura.vh - misura.h;
+    if (tolta > FASCIA_MAX) {
+      fail.push(
+        `${ctx}: il contorno sottrae ${tolta.toFixed(0)} px di altezza (max ${FASCIA_MAX}). ` +
+        `Canvas ${misura.w.toFixed(0)}x${misura.h.toFixed(0)} su ${misura.vw}x${misura.vh}: ` +
+        `sembra tornata una seconda fascia.`
+      );
+    }
+  }
+  await context.close();
+}
+
 await browser.close();
 
 // ---- privacy / stability assertions (shared with gameplay smoke) ----
