@@ -638,6 +638,93 @@ for (const vp of [{ w: 1792, h: 930 }, { w: 1280, h: 720 }]) {
   }
 }
 
+/**
+ * UNA FASCIA SOLA, NON DUE.
+ *
+ * Il contorno della pagina (collegamento al sito, testo schermata) vive in
+ * una fascia che toglie altezza al canvas. Siccome il canvas scala in modo
+ * uniforme, ogni pixel tolto in altezza si paga anche in larghezza: su una
+ * finestra 16:9 settanta pixel di fascia costavano il 12,5% dello schermo.
+ *
+ * Qui non si controlla il valore della variabile CSS — sarebbe ricopiarla —
+ * ma la conseguenza visibile: su una finestra 16:9, dove la larghezza non è
+ * mai il vincolo, tutta l'altezza che il canvas non prende è fascia. Se
+ * qualcuno rimette una fascia in cima, questo diventa rosso.
+ *
+ * Provato rosso contro le due fasce di prima (32+38): 70 > 40.
+ */
+const FASCIA_MAX = 40; // px di altezza che il contorno può sottrarre, in tutto
+for (const vp of [{ w: 1920, h: 1080 }, { w: 1280, h: 720 }]) {
+  const ctx = `${vp.w}x${vp.h} fascia del contorno`;
+  const context = await browser.newContext({ viewport: { width: vp.w, height: vp.h } });
+  await context.route(/cloudflareinsights\.com/, (r) => r.abort());
+  const page = await context.newPage();
+  await page.goto(`${BASE}/play/`, { waitUntil: 'load' });
+  try {
+    await page.waitForFunction(
+      () => window.game?.scene?.getScenes(true).some((s) => s.scene.key === 'Title'),
+      null, { timeout: 40000 }
+    );
+  } catch {
+    fail.push(`${ctx}: la schermata del titolo non è mai arrivata`);
+    await context.close();
+    continue;
+  }
+  const misura = await page.evaluate(() => {
+    const c = document.querySelector('#game-container canvas');
+    if (!c) return null;
+    const r = c.getBoundingClientRect();
+    const contorno = [];
+    for (const sel of ['#site-return', '#reading-toggle']) {
+      const e = document.querySelector(sel);
+      if (!e) continue;
+      const b = e.getBoundingClientRect();
+      if (getComputedStyle(e).display === 'none' || b.width === 0) continue;
+      contorno.push({ sel, l: b.left, t: b.top, r: b.right, b: b.bottom });
+    }
+    return {
+      h: r.height, w: r.width, l: r.left, t: r.top, r: r.right, b: r.bottom,
+      vh: window.innerHeight, vw: window.innerWidth, contorno
+    };
+  });
+  if (!misura) {
+    fail.push(`${ctx}: canvas non trovato, il controllo sarebbe inerte`);
+  } else {
+    const tolta = misura.vh - misura.h;
+    if (tolta > FASCIA_MAX) {
+      fail.push(
+        `${ctx}: il contorno sottrae ${tolta.toFixed(0)} px di altezza (max ${FASCIA_MAX}). ` +
+        `Canvas ${misura.w.toFixed(0)}x${misura.h.toFixed(0)} su ${misura.vw}x${misura.vh}: ` +
+        `sembra tornata una seconda fascia.`
+      );
+    }
+    /**
+     * E il canvas non deve ARRIVARE al contorno. Le due cose non si
+     * implicano: con 20 px sopra e 20 sotto il totale sottratto resta 40 e
+     * il controllo qui sopra passa, ma la fascia inferiore non contiene più
+     * i 28 px dei controlli e il canvas ci finisce sotto — cioè il difetto
+     * che la fascia esiste per evitare. Rilievo di Sourcery su questa
+     * stessa PR, verificato iniettando 20+20: il totale passava, la
+     * sovrapposizione c'era.
+     */
+    if (misura.contorno.length === 0) {
+      fail.push(`${ctx}: contorno della pagina non trovato, il controllo sarebbe inerte`);
+    }
+    for (const z of misura.contorno) {
+      const tocca = !(z.r <= misura.l || z.l >= misura.r || z.b <= misura.t || z.t >= misura.b);
+      if (tocca) {
+        fail.push(
+          `${ctx}: ${z.sel} sta SOPRA il canvas ` +
+          `(controllo ${z.l.toFixed(0)},${z.t.toFixed(0)}-${z.r.toFixed(0)},${z.b.toFixed(0)} ` +
+          `contro canvas ${misura.l.toFixed(0)},${misura.t.toFixed(0)}-${misura.r.toFixed(0)},${misura.b.toFixed(0)}): ` +
+          `la fascia non lo contiene più.`
+        );
+      }
+    }
+  }
+  await context.close();
+}
+
 await browser.close();
 
 // ---- privacy / stability assertions (shared with gameplay smoke) ----
