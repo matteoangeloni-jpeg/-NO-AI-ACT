@@ -6,6 +6,7 @@ import { languageFromQuery } from './game/i18n';
 import { StateManager } from './game/systems/StateManager';
 import { THEME_IDS, buildTheme } from './game/systems/musicThemes';
 import { MASTER_VOLUME, THEME_VOLUME } from './game/systems/AudioSystem';
+import { installKeyEventDedupe } from './game/ui/keyInput';
 
 /**
  * Public landing handoff: the IT landing links to /play/?lang=it and the EN
@@ -15,6 +16,14 @@ import { MASTER_VOLUME, THEME_VOLUME } from './game/systems/AudioSystem';
  */
 const requestedLang = languageFromQuery(window.location.search);
 if (requestedLang) StateManager.setLanguage(requestedLang);
+
+/**
+ * Prima di creare il gioco: una pressione di tasto deve valere un'azione
+ * anche quando i fotogrammi crollano. Il perché è in keyInput.ts, con le
+ * misure. Va installata qui perché vale per ogni scena, comprese quelle
+ * che non esistono ancora.
+ */
+installKeyEventDedupe();
 
 const game = new Phaser.Game(gameConfig);
 // Debug/test handle only — no data leaves the browser. Used by the opt-in
