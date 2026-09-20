@@ -401,7 +401,7 @@ Note di rilascio: [`docs/RELEASE_NOTES_v2.3.0.md`](docs/RELEASE_NOTES_v2.3.0.md)
 - **Nota**: la candidata 2.3 richiede merge, verifica live e playtest esterni prima del tag
 - **Casi giocabili**: 13
 - **Lingue**: italiano e inglese
-- **URL pubblici**: 64 (30 IT + 34 EN)
+- **URL pubblici**: 68 (32 IT + 36 EN)
 - **Salvataggi**: schema v2, con migrazione testata dei salvataggi v1
 - **Backend**: nessuno · **Account**: nessuno · **Raccolta dati personali**:
   nessuna · **Chiamate di rete durante il gameplay**: nessuna
