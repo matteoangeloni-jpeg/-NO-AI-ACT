@@ -78,10 +78,47 @@ const draft = () => page.evaluate((key) => JSON.parse(localStorage.getItem(key) 
 // --- 1. apre il fascicolo, scopre e cita due reperti -------------------------
 await boot();
 await startEvidence();
-for (const k of ['1', '1', '2', '2']) { // apri+cita reperto 1, apri+cita reperto 2
-  await page.keyboard.press(k);
-  await page.waitForTimeout(350);
+/**
+ * FRA DUE PRESSIONI CI VUOLE UN FOTOGRAMMA, NON 350 MILLISECONDI.
+ *
+ * Erano quattro pressioni con un'attesa fissa in mezzo, e in CI il
+ * controllo è fallito con «reperti citati non salvati: [0]»: il secondo
+ * reperto non era mai stato citato.
+ *
+ * Misurato qui: se la seconda pressione dello STESSO tasto arriva prima
+ * che il gioco abbia disegnato un fotogramma, non ha alcun effetto. Con
+ * quattro pressioni di fila e niente in mezzo, la prima apre e la seconda
+ * si perde — stato finale «A-» invece di «AC», riproducibile al 100%.
+ * Aspettare che il tasto risulti rilasciato non basta; aspettare due
+ * requestAnimationFrame risolve, sempre.
+ *
+ * I 350 ms funzionavano per coincidenza: a 60 fotogrammi al secondo ne
+ * contengono venti. Su un runner che disegna via software a 2–5 fotogrammi
+ * al secondo, un fotogramma dura 200–500 ms e quei 350 non ne garantiscono
+ * nemmeno uno. Ecco perché falliva in CI e non qui.
+ *
+ * Un fotogramma è la misura giusta perché è l'unità in cui il gioco
+ * elabora l'input: non dipende da quanto è carica la macchina.
+ */
+const unFotogramma = () => page.evaluate(
+  () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)))
+);
+const attendiScheda = (indice, proprieta) => page.waitForFunction(
+  ({ i, p }) => {
+    const s = window.game?.scene?.getScene('Evidence');
+    return s?.scene?.isActive?.() && s.cards?.[i]?.[p] === true;
+  },
+  { i: indice, p: proprieta },
+  { timeout: 20000 }
+);
+
+for (const [tasto, indice, proprieta] of [['1', 0, 'isRevealed'], ['1', 0, 'isCited'],
+                                          ['2', 1, 'isRevealed'], ['2', 1, 'isCited']]) {
+  await page.keyboard.press(tasto);
+  await attendiScheda(indice, proprieta);
+  await unFotogramma();
 }
+
 const afterEvidence = await draft();
 const d1 = afterEvidence?.[CASE];
 if (!d1) fail.push('nessuna bozza salvata dopo aver citato i reperti');
@@ -93,8 +130,19 @@ else {
 // --- 2. due decisioni su cinque ---------------------------------------------
 await page.evaluate((id) => window.game.scene.start('Decision', { caseId: id, citedClues: [0, 1] }), CASE);
 await page.waitForTimeout(900);
-await page.keyboard.press('1'); await page.waitForTimeout(700); // classificazione
-await page.keyboard.press('1'); await page.waitForTimeout(700); // misura
+// Stessa cosa nella decisione, e per lo stesso motivo: sono due pressioni
+// dello stesso tasto una dopo l'altra. Si aspetta l'effetto — la scelta
+// registrata nella bozza — e poi un fotogramma prima della successiva.
+const attendiScelta = (campo) => page.waitForFunction(
+  ({ k, c, f }) => {
+    const d = JSON.parse(localStorage.getItem(k) || '{}').caseDrafts?.[c];
+    return !!d && d[f] !== null && d[f] !== undefined;
+  },
+  { k: KEY, c: CASE, f: campo },
+  { timeout: 20000 }
+);
+await page.keyboard.press('1'); await attendiScelta('classification'); await unFotogramma();
+await page.keyboard.press('1'); await attendiScelta('measure'); await unFotogramma();
 const d2 = (await draft())?.[CASE];
 if (!d2 || d2.classification === null || d2.measure === null) fail.push(`scelte non salvate: ${JSON.stringify(d2)}`);
 if (d2 && d2.subject !== null) fail.push('salvata una scelta mai presa');

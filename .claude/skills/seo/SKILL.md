@@ -1,14 +1,19 @@
 ---
 name: seo
-description: SEO analysis and improvement for the NO AI ACT site (56 bilingual pages, IT+EN). Use this whenever the work touches search visibility, keyword positioning, titles or meta descriptions, structured data, sitemaps, hreflang, internal linking, Search Console, thin content, or "why isn't this page ranking" — and whenever someone pastes an SEO audit from another tool asking you to act on it. Also use before publishing new pages or renaming URLs, because the URL inventory is test-pinned and changing it breaks the build. Carries the site's real constraints (privacy posture, verification gates) and the traps that have already produced false findings here.
+description: SEO analysis and improvement for the NO AI ACT site (bilingual IT+EN, dozens of public pages). Use this whenever the work touches search visibility, keyword positioning, titles or meta descriptions, structured data, sitemaps, hreflang, internal linking, Search Console, thin content, or "why isn't this page ranking" — and whenever someone pastes an SEO audit from another tool asking you to act on it. Also use before publishing new pages or renaming URLs, because the URL inventory has one source of truth and several files must move with it. Carries the site's real constraints (privacy posture, verification gates) and the traps that have already produced false findings here.
 ---
 
 # SEO for NO AI ACT
 
-This site is 56 public pages — 26 Italian, 30 English — teaching the EU AI Act
-around a browser serious game. Its SEO is already in good shape and heavily
-test-enforced. That changes the job: you are rarely fixing something broken,
-usually you are either **verifying a claim** or **finding the one real gap**.
+This site is a few dozen public pages, Italian and English, teaching the EU AI
+Act around a browser serious game. **The exact count is deliberately not
+written here**: it lived in eight places at once and went stale in all of them.
+Read it from the one source that decides it, `scripts/seo/routes.config.json`,
+or from the header line of `npm run audit:seo`.
+
+Its SEO is already in good shape and heavily test-enforced. That changes the
+job: you are rarely fixing something broken, usually you are either
+**verifying a claim** or **finding the one real gap**.
 
 ## Verify before you act. Always.
 
@@ -58,7 +63,7 @@ parser bug until proven otherwise.
 **`insight`** surfaces what the audit computes and then discards: which pages
 the editorial links actually support, which are fragile (≤1 editorial inbound
 link), which are thin, dead ends, single-language pages. It counts links
-inside `<main>` only, because nav and footer links appear on all 56 pages and
+inside `<main>` only, because nav and footer links appear on every page and
 would drown the signal. `--json` for further processing.
 
 ## Constraints that are not negotiable without the owner
@@ -71,12 +76,18 @@ site's public privacy posture and its EU consent exposure — it needs the
 owner's explicit decision, plus rewriting both privacy pages, the allowlist
 and the guard tests in the same PR. Never slip it in as a technical addition.
 
-**The URL inventory is pinned.** 56 URLs (26 IT + 30 EN) appear in
-`release.config.json`, both sitemaps, and several test files. Adding or
-renaming a page means updating all of them together. Prefer strengthening an
-existing indexed page over creating a new one — especially under time
-pressure, since a new URL needs weeks to rank while an indexed page responds
-to a retitle almost immediately.
+**The URL inventory has one source.** `scripts/seo/routes.config.json` decides
+which routes exist; `tests/helpers/publicRoutes.ts` reads it, and the guards
+read that. Adding or renaming a page means editing the config, both sitemaps,
+`vite.config.ts`, `public/llms.txt`, `scripts/social/meta.config.json` and the
+declared totals in `release.config.json` and the README — the tests will name
+each one you forget. Do **not** re-introduce a hand-written page count or page
+list in a test: that is the defect this arrangement replaced.
+
+Prefer strengthening an existing indexed page over creating a new one —
+especially under time pressure, since a new URL needs weeks to rank while an
+indexed page responds to a retitle almost immediately. Create one only when a
+verified query has an intent no existing page serves, and say which query.
 
 **Educational framing.** Every legal statement is a simplified educational
 reading, never legal advice. Pages carry that disclaimer and new content must

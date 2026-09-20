@@ -14,9 +14,9 @@
   ],
   "playableCases": 13,
   "publicUrls": {
-    "it": 29,
-    "en": 33,
-    "total": 62
+    "it": 32,
+    "en": 36,
+    "total": 68
   },
   "saveSchema": {
     "storageKey": "no-ai-act-save-v2",

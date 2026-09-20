@@ -1,31 +1,11 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { EN, ALL_PUBLIC } from './helpers/publicRoutes';
 
 const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
 
-const IT = ['', 'come-funziona', 'per-docenti', 'ai-act-serious-game', 'privacy-by-design',
-  'educazione', 'ai-act-per-docenti', 'alfabetizzazione-ai', 'guida-ai-act',
-  'categorie-rischio-ai-act', 'pratiche-vietate-ai-act', 'sistemi-ai-ad-alto-rischio',
-  'obblighi-trasparenza-ai-act', 'ai-generativa-e-gpai', 'apprendimento-privacy-consapevole',
-  'provider-deployer-ai-act', 'ai-act-pubblica-amministrazione', 'fria-ai-act-valutazione-diritti-fondamentali',
-  'serious-game-regolazione-ai', 'attivita-didattiche', 'lezione-introduzione-ai-act', 'glossario',
-  'come-citare', 'ricerca-e-metodologia', 'press-kit',
-  'tempi-applicazione-ai-act', 'deepfake-e-trasparenza', 'ai-nel-lavoro-e-selezione',
-  'laboratorio-ai-act-in-classe'];
-const EN = ['en', 'en/how-it-works', 'en/for-educators', 'en/ai-act-serious-game', 'en/privacy-by-design',
-  'en/education', 'en/ai-act-for-teachers', 'en/ai-literacy', 'en/eu-ai-act-guide',
-  'en/ai-act-risk-categories', 'en/prohibited-ai-practices', 'en/high-risk-ai-systems',
-  'en/transparency-obligations', 'en/general-purpose-ai', 'en/privacy-conscious-learning',
-  'en/provider-deployer-ai-act', 'en/ai-act-public-administration', 'en/fria-ai-act-fundamental-rights-impact-assessment',
-  'en/serious-games-for-ai-regulation', 'en/digital-citizenship-ai-regulation',
-  'en/classroom-activities', 'en/lesson-plan-introduction-to-the-ai-act',
-  'en/lesson-plan-risk-based-approach', 'en/lesson-plan-transparency-and-users',
-  'en/glossary', 'en/faq', 'en/how-to-cite', 'en/research-and-methodology', 'en/press-kit',
-  'en/ai-act-application-timeline', 'en/deepfakes-and-transparency',
-  'en/ai-in-recruitment-and-employment', 'en/ai-act-classroom-lab'];
-const ALL_PUBLIC = [...IT, ...EN];
 const file = (d: string) => (d === '' ? 'index.html' : `${d}/index.html`);
 
 function resolveHref(dir: string, hrefRaw: string): string | null {
@@ -61,11 +41,29 @@ describe('structured navigation — markup & a11y', () => {
     }
   });
 
+  /**
+   * IL NUMERO DEI GRUPPI NON SI SCRIVE QUI.
+   *
+   * Era fissato a tre. Aggiungendo il gruppo «Aziende e PA» il controllo è
+   * diventato rosso pur essendo il menu corretto — cioè difendeva un
+   * numero, non una proprietà. Le proprietà vere sono due: ogni pulsante
+   * apre una lista che esiste, e OGNI PAGINA HA LO STESSO MENU. La seconda
+   * si ricava dalle due pagine d'ingresso, non da una costante: è lì che il
+   * menu viene deciso, e una pagina rimasta indietro si vede subito.
+   */
   it('every submenu button has aria-expanded + aria-controls pointing to its list', () => {
+    const gruppi = (html: string): string[] =>
+      [...html.matchAll(/<button class="nav-sub-btn[^"]*" type="button" aria-expanded="false" aria-controls="([^"]+)">/g)].map(([, id]) => id);
+
+    const atteso = { it: gruppi(read(file(''))), en: gruppi(read(file('en'))) };
+    expect(atteso.it.length, 'la pagina d\'ingresso deve avere dei gruppi').toBeGreaterThan(1);
+    expect(atteso.en.length, 'IT ed EN devono avere lo stesso numero di gruppi').toBe(atteso.it.length);
+
     for (const d of ALL_PUBLIC) {
       const html = read(file(d));
-      const btns = [...html.matchAll(/<button class="nav-sub-btn[^"]*" type="button" aria-expanded="false" aria-controls="([^"]+)">/g)].map(([, id]) => id);
-      expect(btns.length, `${d}: three groups`).toBe(3);
+      const btns = gruppi(html);
+      expect(btns, `${d}: il menu deve avere gli stessi gruppi della pagina d'ingresso`)
+        .toEqual(EN.includes(d) ? atteso.en : atteso.it);
       for (const id of btns) {
         expect(html, `${d}: <ul id=${id}>`).toContain(`<ul class="nav-sub" id="${id}">`);
       }

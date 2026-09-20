@@ -1,6 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { ALL_PUBLIC } from './helpers/publicRoutes';
 
 const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
@@ -48,15 +49,6 @@ const PAIRS: Record<string, string> = {
 };
 
 /** All indexable public pages (dirs relative to root; '' = IT landing). */
-const ALL_PUBLIC = ['', 'en',
-  'come-funziona', 'per-docenti', 'ai-act-serious-game', 'privacy-by-design',
-  'en/how-it-works', 'en/for-educators', 'en/ai-act-serious-game', 'en/privacy-by-design',
-  'come-citare', 'ricerca-e-metodologia', 'press-kit',
-  'en/how-to-cite', 'en/research-and-methodology', 'en/press-kit',
-  'tempi-applicazione-ai-act', 'deepfake-e-trasparenza', 'ai-nel-lavoro-e-selezione',
-  'laboratorio-ai-act-in-classe', 'en/ai-act-application-timeline', 'en/deepfakes-and-transparency',
-  'en/ai-in-recruitment-and-employment', 'en/ai-act-classroom-lab',
-  ...HUB];
 
 const file = (dir: string) => (dir === '' ? 'index.html' : `${dir}/index.html`);
 const url = (dir: string) => (dir === '' ? SITE : `${SITE}${dir}/`);

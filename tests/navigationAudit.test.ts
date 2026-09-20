@@ -1,32 +1,11 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { IT, EN, ALL_PUBLIC } from './helpers/publicRoutes';
 
 const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
 
-/** All 62 indexable public pages (dirs relative to root; '' = IT landing). */
-const IT = ['', 'come-funziona', 'per-docenti', 'ai-act-serious-game', 'privacy-by-design',
-  'educazione', 'ai-act-per-docenti', 'alfabetizzazione-ai', 'guida-ai-act',
-  'categorie-rischio-ai-act', 'pratiche-vietate-ai-act', 'sistemi-ai-ad-alto-rischio',
-  'obblighi-trasparenza-ai-act', 'ai-generativa-e-gpai', 'apprendimento-privacy-consapevole',
-  'provider-deployer-ai-act', 'ai-act-pubblica-amministrazione', 'fria-ai-act-valutazione-diritti-fondamentali',
-  'serious-game-regolazione-ai', 'attivita-didattiche', 'lezione-introduzione-ai-act', 'glossario',
-  'come-citare', 'ricerca-e-metodologia', 'press-kit',
-  'tempi-applicazione-ai-act', 'deepfake-e-trasparenza', 'ai-nel-lavoro-e-selezione',
-  'laboratorio-ai-act-in-classe'];
-const EN = ['en', 'en/how-it-works', 'en/for-educators', 'en/ai-act-serious-game', 'en/privacy-by-design',
-  'en/education', 'en/ai-act-for-teachers', 'en/ai-literacy', 'en/eu-ai-act-guide',
-  'en/ai-act-risk-categories', 'en/prohibited-ai-practices', 'en/high-risk-ai-systems',
-  'en/transparency-obligations', 'en/general-purpose-ai', 'en/privacy-conscious-learning',
-  'en/provider-deployer-ai-act', 'en/ai-act-public-administration', 'en/fria-ai-act-fundamental-rights-impact-assessment',
-  'en/serious-games-for-ai-regulation', 'en/digital-citizenship-ai-regulation',
-  'en/classroom-activities', 'en/lesson-plan-introduction-to-the-ai-act',
-  'en/lesson-plan-risk-based-approach', 'en/lesson-plan-transparency-and-users',
-  'en/glossary', 'en/faq', 'en/how-to-cite', 'en/research-and-methodology', 'en/press-kit',
-  'en/ai-act-application-timeline', 'en/deepfakes-and-transparency',
-  'en/ai-in-recruitment-and-employment', 'en/ai-act-classroom-lab'];
-const ALL_PUBLIC = [...IT, ...EN];
 
 const file = (dir: string) => (dir === '' ? 'index.html' : `${dir}/index.html`);
 const isEn = (dir: string) => dir === 'en' || dir.startsWith('en/');
@@ -82,14 +61,49 @@ describe('global navigation — presence and content', () => {
       const html = read(file(d));
       const nav = html.slice(html.indexOf('class="site-nav"'), html.indexOf('</nav>'));
       const top = isEn(d)
-        ? ['>Play<', '>Education<', '>Teachers<', '>AI Act<', '>Glossary<', '>Privacy<']
-        : ['>Gioca<', '>Risorse<', '>Docenti<', '>AI Act<', '>Glossario<', '>Privacy<'];
+        ? ['>Play<', '>Education<', '>Teachers<', '>AI Act<', '>Business and public sector<', '>Glossary<', '>Privacy<']
+        : ['>Gioca<', '>Risorse<', '>Docenti<', '>AI Act<', '>Aziende e PA<', '>Glossario<', '>Privacy<'];
       for (const t of top) expect(nav, `${d}: ${t}`).toContain(t);
       // descriptive submenu items are present too
       const subs = isEn(d)
         ? ['>Education hub<', '>AI Act for teachers<', '>EU AI Act guide<']
         : ['>Hub educativo<', '>AI Act per docenti<', '>Guida AI Act<'];
       for (const s of subs) expect(nav, `${d}: ${s}`).toContain(s);
+    }
+  });
+
+  /**
+   * IL PUBBLICO CHE NON È UNA CLASSE.
+   *
+   * Il menu aveva quattro gruppi e tutti parlavano a chi insegna o a chi
+   * studia. Le pagine per chi un sistema di IA lo compra, lo mette in
+   * servizio o deve risponderne — pubblica amministrazione, ruoli di
+   * fornitore e utilizzatore, valutazione d'impatto, scadenze, IA nella
+   * selezione del personale — esistevano tutte ed erano raggiungibili solo
+   * dai collegamenti dentro il testo. Chi arriva cercando «obblighi AI Act
+   * per le aziende» non le trovava guardando il menu.
+   *
+   * Le destinazioni si LEGGONO dal menu: se una voce cambia pagina, questo
+   * controllo la segue invece di pinnare un elenco che invecchia.
+   */
+  it('chi lavora in azienda o in un ente ha un gruppo suo nel menu, su ogni pagina', () => {
+    const attese = 4;
+    for (const d of ALL_PUBLIC) {
+      const html = read(file(d));
+      const nav = html.slice(html.indexOf('class="site-nav"'), html.indexOf('</nav>'));
+      const i = nav.indexOf('id="sub-organizzazioni"');
+      expect(i, `${d}: gruppo aziende/PA assente dal menu`).toBeGreaterThan(-1);
+      const gruppo = nav.slice(i, nav.indexOf('</ul>', i));
+      const mete = [...gruppo.matchAll(/href="([^"]+)"/g)]
+        .map(([, h]) => resolveToDir(d, h))
+        .filter((t): t is string => t !== null);
+      expect(mete.length, `${d}: il gruppo deve portare ad almeno ${attese} pagine`).toBeGreaterThanOrEqual(attese);
+      for (const meta of mete) {
+        expect(ALL_PUBLIC.includes(meta), `${d}: ${meta} non è una pagina pubblica`).toBe(true);
+      }
+      // e la pubblica amministrazione, che è la metà del pubblico, c'è sempre
+      const pa = isEn(d) ? 'en/ai-act-public-administration' : 'ai-act-pubblica-amministrazione';
+      expect(mete, `${d}: manca la pagina sulla pubblica amministrazione`).toContain(pa);
     }
   });
 

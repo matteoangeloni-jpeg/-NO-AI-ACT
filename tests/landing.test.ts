@@ -1,6 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { ALL_PUBLIC, PUBLIC_COUNT, publicUrl } from './helpers/publicRoutes';
 import { CASES as PLAYABLE_CASE_LIST } from '../src/game/data/cases';
 
 const PLAYABLE_CASES = PLAYABLE_CASE_LIST.length;
@@ -188,7 +189,7 @@ describe('public static files', () => {
     expect(children).toEqual([`${SITE}sitemap-it.xml`, `${SITE}sitemap-en.xml`]);
   });
 
-  it('the child sitemaps list exactly the 62 indexable public pages, nothing else', () => {
+  it('the child sitemaps list exactly the indexable public pages, nothing else', () => {
     const it = read('public/sitemap-it.xml');
     const en = read('public/sitemap-en.xml');
     for (const child of [it, en]) {
@@ -204,37 +205,16 @@ describe('public static files', () => {
       expect(child).not.toContain('priority');
     }
     const locs = [it, en].flatMap((child) => [...child.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, l]) => l));
-    // the full 62-URL public inventory, split by language (order may differ).
-    expect(new Set(locs)).toEqual(new Set([
-      SITE, `${SITE}en/`, `${SITE}come-funziona/`, `${SITE}per-docenti/`,
-      `${SITE}ai-act-serious-game/`, `${SITE}privacy-by-design/`, `${SITE}en/how-it-works/`,
-      `${SITE}en/for-educators/`, `${SITE}en/ai-act-serious-game/`, `${SITE}en/privacy-by-design/`,
-      `${SITE}come-citare/`, `${SITE}ricerca-e-metodologia/`, `${SITE}press-kit/`,
-      `${SITE}tempi-applicazione-ai-act/`, `${SITE}deepfake-e-trasparenza/`,
-      `${SITE}ai-nel-lavoro-e-selezione/`, `${SITE}laboratorio-ai-act-in-classe/`,
-      `${SITE}en/ai-act-application-timeline/`, `${SITE}en/deepfakes-and-transparency/`,
-      `${SITE}en/ai-in-recruitment-and-employment/`, `${SITE}en/ai-act-classroom-lab/`,
-      `${SITE}en/how-to-cite/`, `${SITE}en/research-and-methodology/`, `${SITE}en/press-kit/`,
-      `${SITE}educazione/`, `${SITE}ai-act-per-docenti/`, `${SITE}alfabetizzazione-ai/`,
-      `${SITE}guida-ai-act/`, `${SITE}categorie-rischio-ai-act/`, `${SITE}pratiche-vietate-ai-act/`,
-      `${SITE}sistemi-ai-ad-alto-rischio/`, `${SITE}obblighi-trasparenza-ai-act/`,
-      `${SITE}ai-generativa-e-gpai/`, `${SITE}apprendimento-privacy-consapevole/`,
-      `${SITE}serious-game-regolazione-ai/`, `${SITE}attivita-didattiche/`,
-      `${SITE}lezione-introduzione-ai-act/`, `${SITE}glossario/`, `${SITE}en/education/`,
-      `${SITE}en/ai-act-for-teachers/`, `${SITE}en/ai-literacy/`, `${SITE}en/eu-ai-act-guide/`,
-      `${SITE}en/ai-act-risk-categories/`, `${SITE}en/prohibited-ai-practices/`,
-      `${SITE}en/high-risk-ai-systems/`, `${SITE}en/transparency-obligations/`,
-      `${SITE}en/general-purpose-ai/`, `${SITE}en/privacy-conscious-learning/`,
-      `${SITE}en/serious-games-for-ai-regulation/`, `${SITE}en/digital-citizenship-ai-regulation/`,
-      `${SITE}en/classroom-activities/`, `${SITE}en/lesson-plan-introduction-to-the-ai-act/`,
-      `${SITE}en/lesson-plan-risk-based-approach/`, `${SITE}en/lesson-plan-transparency-and-users/`,
-      `${SITE}en/glossary/`, `${SITE}en/faq/`,
-      `${SITE}provider-deployer-ai-act/`, `${SITE}ai-act-pubblica-amministrazione/`,
-      `${SITE}fria-ai-act-valutazione-diritti-fondamentali/`,
-      `${SITE}en/provider-deployer-ai-act/`, `${SITE}en/ai-act-public-administration/`,
-      `${SITE}en/fria-ai-act-fundamental-rights-impact-assessment/`
-    ]));
-    expect(locs).toHaveLength(62);
+    /**
+     * L'INVENTARIO SI LEGGE, NON SI RICOPIA.
+     *
+     * Qui c'erano sessantadue indirizzi scritti a mano. Aggiungere una
+     * pagina li faceva diventare rossi senza dire niente di vero sul sito:
+     * dicevano che un elenco era invecchiato. La sorgente unica è
+     * scripts/seo/routes.config.json, la stessa che usa l'audit.
+     */
+    expect(new Set(locs)).toEqual(new Set(ALL_PUBLIC.map(publicUrl)));
+    expect(locs).toHaveLength(PUBLIC_COUNT);
     for (const loc of locs) {
       expect(loc.startsWith(SITE)).toBe(true);
       expect(loc).not.toContain('?');
