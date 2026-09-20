@@ -233,6 +233,65 @@ body:not(.reduced-motion) #crt-overlay { animation: crt-flicker 7s infinite; }
   cursor: pointer;
 }
 #reading-toggle:hover { border-color: var(--c-accent); }
+
+/*
+  TELEFONO IN ORIZZONTALE: UNA FASCIA SOLA, E SOTTILE.
+
+  Le due fasce dichiarate in cima valgono 70 px. Su un desktop non si
+  notano; su un telefono girato, dove l'altezza utile è 390 px, sono il 18%
+  dello schermo — e siccome il canvas scala in modo uniforme, quel 18% si
+  perde su ENTRAMBI i lati. Misurato su iPhone 14 in orizzontale: canvas
+  569×320 invece dei 694×390 che ci starebbero, con un testo da 13 px
+  logici reso a 5,8 px sullo schermo.
+
+  Qui resta una fascia sola, in basso, da 24 px, e i due controlli del
+  contorno ci stanno dentro entrambi: il collegamento al sito a sinistra,
+  il pulsante del testo schermata a destra.
+
+  PERCHÉ NON ZERO. Un primo tentativo le azzerava e spostava i controlli
+  nelle bande laterali, quelle che nascono perché un telefono girato è più
+  largo del mondo del gioco. Misurato: su iPhone SE quelle bande NON
+  esistono — 568×320 ha quasi esattamente le proporzioni del gioco — e i
+  controlli finivano sopra il canvas, proprio dove le scene mettono i
+  pulsanti d'angolo. Una fascia sottile funziona a ogni proporzione.
+
+  IL PUNTO IN CUI STA QUESTO BLOCCO CONTA. Una media query non alza la
+  specificità: messo prima delle regole base dei due controlli, quelle
+  vincevano per ordine. Il collegamento si ritrovava `top: 8px` dalla
+  regola base e `bottom: 3px` da qui, e un elemento fisso con entrambi si
+  stira: misurato alto 379 px invece di 19.
+
+  La soglia guarda l'altezza, non la larghezza: è l'altezza che manca.
+*/
+@media (max-height: 520px) and (orientation: landscape) {
+  :root {
+    --play-chrome-top: 0px;
+    --play-chrome-bottom: 24px;
+  }
+  #site-return {
+    top: auto;
+    bottom: 3px;
+    left: 4px;
+    box-sizing: border-box;
+    max-width: 44vw;
+    font-size: 11px;
+    padding: 2px 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  #reading-toggle {
+    right: 4px;
+    bottom: 3px;
+    box-sizing: border-box;
+    max-width: 44vw;
+    font-size: 11px;
+    padding: 2px 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
 body.reading-visible #reading-layer {
   position: fixed;
   top: 12px;
