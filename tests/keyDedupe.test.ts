@@ -105,6 +105,39 @@ describe('la regola è installata una volta sola, per tutto il gioco', () => {
     expect(chiamata, "l'installazione deve precedere new Phaser.Game").toBeLessThan(creazione);
   });
 
+  /**
+   * Segnalato in revisione, e verificato: `once()` e `addListener()` sono
+   * porte separate sullo stesso emettitore, e quattro registrazioni reali
+   * usano `once('keydown-ENTER', ...)` — NormCardScene e SessionEndScene.
+   * Lasciarne fuori una contraddice il motivo per cui la regola sta sul
+   * motore: che nessuno debba ricordarsene.
+   */
+  it('copre tutte le vie di registrazione, non solo on()', () => {
+    const src = read('src/game/ui/keyInput.ts');
+    for (const via of ['on', 'once', 'addListener']) {
+      expect(src, `${via}() deve passare dalla deduplicazione`).toMatch(
+        new RegExp(`'${via}'`)
+      );
+    }
+    const scene = read('src/game/scenes/NormCardScene.ts') + read('src/game/scenes/SessionEndScene.ts');
+    expect(scene, 'se queste scene smettono di usare once(), questo controllo va rivisto')
+      .toMatch(/keyboard\?\.once\('keydown/);
+  });
+
+  /**
+   * Segnalato in revisione: una mappa FORTE avrebbe trattenuto per sempre
+   * ogni gestore registrato, e con lui la scena catturata dalla chiusura.
+   * Qui le scene si riavviano a ogni cambio lingua.
+   */
+  it('non trattiene i gestori tolti: la mappa interna è debole', () => {
+    const src = read('src/game/ui/keyInput.ts');
+    const installa = src.slice(src.indexOf('export function installKeyEventDedupe'));
+    expect(installa, 'la mappa da gestore a funzione avvolta deve essere debole')
+      .toMatch(/WeakMap<object, WeakMap<object, KeyHandler>>/);
+    expect(installa, 'nessuna Map forte per i gestori')
+      .not.toMatch(/new Map\(/);
+  });
+
   it("l'installazione copre anche la rimozione dei gestori", () => {
     const src = read('src/game/ui/keyInput.ts');
     expect(src, 'senza avvolgere anche off() un overlay non riesce più a togliersi il proprio ESC')
