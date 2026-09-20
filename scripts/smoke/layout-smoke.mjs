@@ -674,7 +674,18 @@ for (const vp of [{ w: 1920, h: 1080 }, { w: 1280, h: 720 }]) {
     const c = document.querySelector('#game-container canvas');
     if (!c) return null;
     const r = c.getBoundingClientRect();
-    return { h: r.height, w: r.width, vh: window.innerHeight, vw: window.innerWidth };
+    const contorno = [];
+    for (const sel of ['#site-return', '#reading-toggle']) {
+      const e = document.querySelector(sel);
+      if (!e) continue;
+      const b = e.getBoundingClientRect();
+      if (getComputedStyle(e).display === 'none' || b.width === 0) continue;
+      contorno.push({ sel, l: b.left, t: b.top, r: b.right, b: b.bottom });
+    }
+    return {
+      h: r.height, w: r.width, l: r.left, t: r.top, r: r.right, b: r.bottom,
+      vh: window.innerHeight, vw: window.innerWidth, contorno
+    };
   });
   if (!misura) {
     fail.push(`${ctx}: canvas non trovato, il controllo sarebbe inerte`);
@@ -686,6 +697,29 @@ for (const vp of [{ w: 1920, h: 1080 }, { w: 1280, h: 720 }]) {
         `Canvas ${misura.w.toFixed(0)}x${misura.h.toFixed(0)} su ${misura.vw}x${misura.vh}: ` +
         `sembra tornata una seconda fascia.`
       );
+    }
+    /**
+     * E il canvas non deve ARRIVARE al contorno. Le due cose non si
+     * implicano: con 20 px sopra e 20 sotto il totale sottratto resta 40 e
+     * il controllo qui sopra passa, ma la fascia inferiore non contiene più
+     * i 28 px dei controlli e il canvas ci finisce sotto — cioè il difetto
+     * che la fascia esiste per evitare. Rilievo di Sourcery su questa
+     * stessa PR, verificato iniettando 20+20: il totale passava, la
+     * sovrapposizione c'era.
+     */
+    if (misura.contorno.length === 0) {
+      fail.push(`${ctx}: contorno della pagina non trovato, il controllo sarebbe inerte`);
+    }
+    for (const z of misura.contorno) {
+      const tocca = !(z.r <= misura.l || z.l >= misura.r || z.b <= misura.t || z.t >= misura.b);
+      if (tocca) {
+        fail.push(
+          `${ctx}: ${z.sel} sta SOPRA il canvas ` +
+          `(controllo ${z.l.toFixed(0)},${z.t.toFixed(0)}-${z.r.toFixed(0)},${z.b.toFixed(0)} ` +
+          `contro canvas ${misura.l.toFixed(0)},${misura.t.toFixed(0)}-${misura.r.toFixed(0)},${misura.b.toFixed(0)}): ` +
+          `la fascia non lo contiene più.`
+        );
+      }
     }
   }
   await context.close();
