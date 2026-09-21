@@ -23,6 +23,28 @@ import { addNoiseOverlay } from '../ui/backdrop';
 import { protocolDate } from '../assets/procedural/decisionSeal';
 import { stateBadge } from '../assets/procedural/visualStates';
 
+
+/**
+ * IL RIEPILOGO LATERALE È SPENTO, NON CANCELLATO.
+ *
+ * Nasceva da una richiesta di chi giocava — «voglio poter tornare
+ * facilmente alle prove mentre scelgo» — e i dati che mostrava sono veri.
+ * Ma occupava la colonna di sinistra per tutta la decisione, e su un mondo
+ * da 1280 quella colonna non è libera: le risposte sono centrate su 640 e
+ * al passo della motivazione la scheda è larga 880, cioè comincia a x=200.
+ * Il riepilogo scrive da x=24 con ritorno a capo a 226: cinquanta pixel
+ * finiscono sotto la scheda, e a schermo si vede.
+ *
+ * Il proprietario ha chiesto di toglierlo, «magari solo nascondendolo per
+ * ora». Quindi resta il codice e si spegne di qui: rimetterlo è cambiare
+ * false in true, senza ricostruire niente.
+ *
+ * Quello che il riepilogo diceva NON si perde per chi usa strumenti
+ * assistivi: i reperti citati e il passo corrente restano nello strato di
+ * lettura, che è dove quella informazione è sempre stata leggibile.
+ */
+const MOSTRA_RIEPILOGO_LATERALE = false;
+
 /**
  * Riga dell'avviso sulla firma. Sta fra il riepilogo e la fila della
  * fiducia dichiarata, che buildConfidenceRow disegna a y=566: le due cose
@@ -203,6 +225,7 @@ export class DecisionScene extends Phaser.Scene {
    * volte sulla stessa schermata.
    */
   private buildSidebar(): void {
+    if (!MOSTRA_RIEPILOGO_LATERALE) return;
     const t = L().ui.decision;
     const texts = caseText(this.caseData.id);
     const left = 24;

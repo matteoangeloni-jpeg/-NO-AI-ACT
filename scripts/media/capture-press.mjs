@@ -24,9 +24,10 @@
  *     node scripts/media/capture-press.mjs
  */
 import { chromium } from 'playwright';
-import { mkdirSync, renameSync, rmSync, copyFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, renameSync, rmSync, copyFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { creaZip } from './lib-zip.mjs';
 import { smokeBrowserLaunchOptions } from '../smoke/lib-browser.mjs';
 import { prepareEvidenceWithKeyboard } from '../smoke/lib-evidence.mjs';
 import { completeDecisionWithKeyboard } from '../smoke/lib-decision.mjs';
@@ -292,17 +293,56 @@ if (mancanti.length || veri.length) {
  * Il press kit non deve mai poter contenere un misto di vecchio e nuovo:
  * è il difetto che ha reso necessario questo script.
  */
-for (const nome of attesi) {
-  const da = resolve(tmpDir, `${nome}.jpg`);
-  const a = resolve(outDir, `${nome}.jpg`);
+/**
+ * L'ARCHIVIO SCARICABILE È IL FILE CHE FINISCE NEGLI ARTICOLI.
+ *
+ * Il press kit offre uno ZIP con le dieci immagini, ed è quello che un
+ * giornalista scarica per pubblicare. Rigenerando solo i JPEG l'archivio era
+ * rimasto al 17 settembre: le pagine mostravano il gioco nuovo e il download
+ * consegnava quello vecchio, colonna della città e puntini di gravità
+ * compresi. Succedeva perché erano due gesti separati; qui è uno solo.
+ *
+ * Il nome NON è scritto qui: si legge dal collegamento nel press kit, così
+ * non può divergere da ciò che la pagina promette.
+ *
+ * L'ARCHIVIO SI COSTRUISCE PRIMA DI PUBBLICARE LE IMMAGINI. Undici file non
+ * si sostituiscono in modo atomico su un filesystem normale, e prometterlo
+ * sarebbe falso. Quello che si può fare è togliere dalla finestra il lavoro
+ * che può fallire — comprimere un megabyte, con il disco che potrebbe essere
+ * pieno — e lasciarci solo i rinomini, che sono immediati. Così la finestra
+ * in cui galleria e archivio possono divergere passa da «tutta la
+ * compressione» a «undici rinomini di fila». Rilievo di Sourcery su questa
+ * PR: aveva ragione, la finestra c'era ed era quella grande.
+ */
+const zipDaPressKit = (file) => {
+  const html = readFileSync(resolve(root, file), 'utf8');
+  const m = html.match(/href="(\/assets\/press\/[^"]+\.zip)"/);
+  if (!m) morte(`nessun collegamento allo ZIP in ${file}: il press kit non lo offre più?`);
+  return m[1];
+};
+const zipIt = zipDaPressKit('press-kit/index.html');
+const zipEn = zipDaPressKit('en/press-kit/index.html');
+if (zipIt !== zipEn) morte(`i due press kit offrono archivi diversi: ${zipIt} contro ${zipEn}`);
+
+const zipTmp = resolve(tmpDir, 'archivio.zip');
+writeFileSync(zipTmp, creaZip(
+  attesi.map((nome) => ({ nome: `${nome}.jpg`, dati: readFileSync(resolve(tmpDir, `${nome}.jpg`)) }))
+));
+
+/** Da qui in poi solo rinomini: niente che possa richiedere spazio o tempo. */
+const promuovi = (da, a) => {
   try {
     renameSync(da, a);
   } catch {
     // tmp e destinazione possono stare su filesystem diversi
     copyFileSync(da, a);
   }
-}
+};
+for (const nome of attesi) promuovi(resolve(tmpDir, `${nome}.jpg`), resolve(outDir, `${nome}.jpg`));
+promuovi(zipTmp, resolve(root, 'public', zipIt.replace(/^\//, '')));
+
 rmSync(tmpDir, { recursive: true, force: true });
 
 console.log(`\n${attesi.length}/${attesi.length} immagini in ${outDir}`);
+console.log(`archivio rigenerato: ${zipIt}`);
 console.log('press screenshots — OK');
