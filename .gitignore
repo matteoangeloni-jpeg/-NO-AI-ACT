@@ -5,3 +5,4 @@ dist/
 
 # Opt-in layout-smoke screenshots (local artifacts, not committed)
 scripts/smoke/out/
+.press-capture-tmp/

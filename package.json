@@ -24,6 +24,7 @@
     "smoke:audio": "node scripts/smoke/audio-smoke.mjs",
     "smoke:action-layer": "node scripts/smoke/action-layer-smoke.mjs",
     "smoke:inspector-desk": "node scripts/smoke/inspector-desk-smoke.mjs",
+    "media:press": "node scripts/media/capture-press.mjs",
     "smoke:press-pages": "node scripts/smoke/press-pages-smoke.mjs",
     "smoke:all": "node scripts/smoke/run-all.mjs",
     "smoke:visual-language": "node scripts/smoke/visual-language-smoke.mjs"
