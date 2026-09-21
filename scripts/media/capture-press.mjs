@@ -24,9 +24,10 @@
  *     node scripts/media/capture-press.mjs
  */
 import { chromium } from 'playwright';
-import { mkdirSync, renameSync, rmSync, copyFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, renameSync, rmSync, copyFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { creaZip } from './lib-zip.mjs';
 import { smokeBrowserLaunchOptions } from '../smoke/lib-browser.mjs';
 import { prepareEvidenceWithKeyboard } from '../smoke/lib-evidence.mjs';
 import { completeDecisionWithKeyboard } from '../smoke/lib-decision.mjs';
@@ -302,7 +303,35 @@ for (const nome of attesi) {
     copyFileSync(da, a);
   }
 }
+
+/**
+ * L'ARCHIVIO SCARICABILE È IL FILE CHE FINISCE NEGLI ARTICOLI.
+ *
+ * Il press kit offre uno ZIP con le dieci immagini, ed è quello che un
+ * giornalista scarica per pubblicare. Rigenerando solo i JPEG l'archivio era
+ * rimasto al 17 settembre: le pagine mostravano il gioco nuovo e il download
+ * consegnava quello vecchio, colonna della città e puntini di gravità
+ * compresi. Succedeva perché erano due gesti separati; qui è uno solo.
+ *
+ * Il nome NON è scritto qui: si legge dal collegamento nel press kit, così
+ * non può divergere da ciò che la pagina promette.
+ */
+const zipDaPressKit = (file) => {
+  const html = readFileSync(resolve(root, file), 'utf8');
+  const m = html.match(/href="(\/assets\/press\/[^"]+\.zip)"/);
+  if (!m) morte(`nessun collegamento allo ZIP in ${file}: il press kit non lo offre più?`);
+  return m[1];
+};
+const zipIt = zipDaPressKit('press-kit/index.html');
+const zipEn = zipDaPressKit('en/press-kit/index.html');
+if (zipIt !== zipEn) morte(`i due press kit offrono archivi diversi: ${zipIt} contro ${zipEn}`);
+writeFileSync(
+  resolve(root, 'public', zipIt.replace(/^\//, '')),
+  creaZip(attesi.map((nome) => ({ nome: `${nome}.jpg`, dati: readFileSync(resolve(outDir, `${nome}.jpg`)) })))
+);
+
 rmSync(tmpDir, { recursive: true, force: true });
 
 console.log(`\n${attesi.length}/${attesi.length} immagini in ${outDir}`);
+console.log(`archivio rigenerato: ${zipIt}`);
 console.log('press screenshots — OK');

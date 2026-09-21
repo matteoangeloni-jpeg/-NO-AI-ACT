@@ -477,17 +477,26 @@ for (const vp of CANVAS_VIEWPORTS) {
       assertSceneLayout(step1, `${ctx} Decision step 1`, 'Decision');
 
       /**
-       * Riepilogo laterale: i reperti citati e le scelte già prese devono
-       * essere leggibili SENZA lasciare la decisione. Prima bisognava
-       * tenerli a mente, e i reperti erano a una scena di distanza.
-       * I titoli non sono trascritti qui: si chiedono al gioco.
+       * IL RIEPILOGO LATERALE NON DEVE ESSERCI, e prima era preteso.
+       *
+       * È la stessa storia della colonna della città, qui sotto: l'aveva
+       * chiesto chi giocava, e l'ha fatto togliere il proprietario dopo
+       * averci rigiocato. Il motivo è misurabile — le risposte sono centrate
+       * su 640 e al passo della motivazione la scheda è larga 880, cioè
+       * comincia a x=200, mentre il riepilogo scrive da x=24 con ritorno a
+       * capo a 226: cinquanta pixel finivano sotto la scheda.
+       *
+       * Questo controllo chiedeva che ci fosse. Ora chiede il contrario, ed
+       * è lo stesso controllo girato. Se un giorno si decide di rimetterlo,
+       * va cambiato anche questo: è il punto: la decisione di prodotto sta
+       * scritta qui, non solo in una costante.
        */
-      const headings = lang === 'en'
+      const laterale = lang === 'en'
         ? ['CITED EXHIBITS', 'DECISION SO FAR']
         : ['REPERTI CITATI', 'DECISIONE FINORA'];
-      for (const h of headings) {
-        if (!(step1?.items ?? []).some((i) => String(i.text || '').includes(h))) {
-          fail.push(`${ctx} Decision step 1: manca "${h}" nel riepilogo laterale`);
+      for (const h of laterale) {
+        if ((step1?.items ?? []).some((i) => String(i.text || '').includes(h))) {
+          fail.push(`${ctx} Decision step 1: "${h}" è tornato nella colonna di sinistra`);
         }
       }
 
@@ -517,18 +526,15 @@ for (const vp of CANVAS_VIEWPORTS) {
       } else {
         assertSceneLayout(summary, `${ctx} Decision summary`, 'Decision');
         /**
-         * Nel riepilogo finale la colonna laterale NON si ripete: sarebbe la
-         * stessa cosa scritta due volte sulla stessa schermata.
-         *
-         * Il termine da cercare è "DECISIONE FINORA", non "REPERTI CITATI":
-         * quest'ultimo è anche l'etichetta di una riga del riepilogo finale
-         * stesso, e cercarlo faceva scattare il controllo su una schermata
-         * corretta. Una guardia che grida sul comportamento giusto è peggio
-         * di nessuna guardia.
+         * E non compare nemmeno qui. Il termine da cercare è "DECISIONE
+         * FINORA", non "REPERTI CITATI": quest'ultimo è anche l'etichetta di
+         * una riga del riepilogo finale stesso, e cercarlo faceva scattare il
+         * controllo su una schermata corretta. Una guardia che grida sul
+         * comportamento giusto è peggio di nessuna guardia.
          */
         const sidebarOnly = lang === 'en' ? 'DECISION SO FAR' : 'DECISIONE FINORA';
         if (summary.items.some((i) => String(i.text || '').includes(sidebarOnly))) {
-          fail.push(`${ctx} Decision summary: il riepilogo laterale è ripetuto sopra il riepilogo finale`);
+          fail.push(`${ctx} Decision summary: la colonna di sinistra è ricomparsa nel riepilogo`);
         }
         await page.screenshot({ path: `${OUT}/decision-summary-${vp.w}x${vp.h}-${lang}.png` });
       }
