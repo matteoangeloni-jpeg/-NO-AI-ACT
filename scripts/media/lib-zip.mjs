@@ -13,6 +13,13 @@
  * sporcherebbe la storia con un file binario diverso senza motivo. Così
  * l'archivio cambia quando cambiano le immagini, e solo allora.
  *
+ * Attenzione però a non leggerci più di quanto c'è: le immagini CAMBIANO
+ * quasi sempre, perché vengono ridisegnate da una partita vera e la grafica
+ * è procedurale — i segnalini della mappa pulsano, e lo scatto li coglie in
+ * una fase qualunque. Misurato: due esecuzioni di fila, a codice immobile,
+ * danno archivi con md5 diverso. La data fissa toglie UNA causa di rumore,
+ * non tutte: rilanciare la cattura produce comunque un diff.
+ *
  * Nessun ZIP64, nessun descrittore differito: dieci JPEG da poche centinaia
  * di KB stanno comodamente nei limiti del formato classico.
  */

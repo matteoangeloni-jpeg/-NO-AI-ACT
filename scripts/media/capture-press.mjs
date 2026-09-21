@@ -293,17 +293,6 @@ if (mancanti.length || veri.length) {
  * Il press kit non deve mai poter contenere un misto di vecchio e nuovo:
  * è il difetto che ha reso necessario questo script.
  */
-for (const nome of attesi) {
-  const da = resolve(tmpDir, `${nome}.jpg`);
-  const a = resolve(outDir, `${nome}.jpg`);
-  try {
-    renameSync(da, a);
-  } catch {
-    // tmp e destinazione possono stare su filesystem diversi
-    copyFileSync(da, a);
-  }
-}
-
 /**
  * L'ARCHIVIO SCARICABILE È IL FILE CHE FINISCE NEGLI ARTICOLI.
  *
@@ -315,6 +304,15 @@ for (const nome of attesi) {
  *
  * Il nome NON è scritto qui: si legge dal collegamento nel press kit, così
  * non può divergere da ciò che la pagina promette.
+ *
+ * L'ARCHIVIO SI COSTRUISCE PRIMA DI PUBBLICARE LE IMMAGINI. Undici file non
+ * si sostituiscono in modo atomico su un filesystem normale, e prometterlo
+ * sarebbe falso. Quello che si può fare è togliere dalla finestra il lavoro
+ * che può fallire — comprimere un megabyte, con il disco che potrebbe essere
+ * pieno — e lasciarci solo i rinomini, che sono immediati. Così la finestra
+ * in cui galleria e archivio possono divergere passa da «tutta la
+ * compressione» a «undici rinomini di fila». Rilievo di Sourcery su questa
+ * PR: aveva ragione, la finestra c'era ed era quella grande.
  */
 const zipDaPressKit = (file) => {
   const html = readFileSync(resolve(root, file), 'utf8');
@@ -325,10 +323,23 @@ const zipDaPressKit = (file) => {
 const zipIt = zipDaPressKit('press-kit/index.html');
 const zipEn = zipDaPressKit('en/press-kit/index.html');
 if (zipIt !== zipEn) morte(`i due press kit offrono archivi diversi: ${zipIt} contro ${zipEn}`);
-writeFileSync(
-  resolve(root, 'public', zipIt.replace(/^\//, '')),
-  creaZip(attesi.map((nome) => ({ nome: `${nome}.jpg`, dati: readFileSync(resolve(outDir, `${nome}.jpg`)) })))
-);
+
+const zipTmp = resolve(tmpDir, 'archivio.zip');
+writeFileSync(zipTmp, creaZip(
+  attesi.map((nome) => ({ nome: `${nome}.jpg`, dati: readFileSync(resolve(tmpDir, `${nome}.jpg`)) }))
+));
+
+/** Da qui in poi solo rinomini: niente che possa richiedere spazio o tempo. */
+const promuovi = (da, a) => {
+  try {
+    renameSync(da, a);
+  } catch {
+    // tmp e destinazione possono stare su filesystem diversi
+    copyFileSync(da, a);
+  }
+};
+for (const nome of attesi) promuovi(resolve(tmpDir, `${nome}.jpg`), resolve(outDir, `${nome}.jpg`));
+promuovi(zipTmp, resolve(root, 'public', zipIt.replace(/^\//, '')));
 
 rmSync(tmpDir, { recursive: true, force: true });
 
