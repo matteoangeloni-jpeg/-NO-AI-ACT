@@ -40,11 +40,25 @@ import { createDocumentTextures } from '../assets/procedural/documentStyles';
  */
 const TOAST_Y = DESK_BOTTOM + TOAST_HEIGHT / 2;
 
+/**
+ * Interruttore delle due istruzioni che si ritirano a compito svolto.
+ *
+ * `false` le rimette a video per sempre, come erano prima. Sta qui e non
+ * altrove perché è una decisione di prodotto, non un dettaglio di
+ * implementazione: chi vuole tornare indietro cambia una parola, e la guardia
+ * in `inspector-desk-smoke.mjs` diventa rossa, che è il comportamento voluto —
+ * la decisione è scritta anche nel controllo, non solo qui.
+ */
+const RITIRA_ISTRUZIONI_A_COMPITO_SVOLTO = true;
+
 export class EvidenceScene extends Phaser.Scene {
   private caseData!: CaseData;
   private cards: DossierCard[] = [];
   private proceedBtn!: Button;
   private progressText!: Phaser.GameObjects.Text;
+  private istruzione!: Phaser.GameObjects.Text;
+  private notaCitazione!: Phaser.GameObjects.Text;
+  private istruzioniRitirate = false;
   private proceedEligible = false;
   private revealToastShown = false;
   private contextOverlay!: CaseContextOverlay;
@@ -92,9 +106,27 @@ export class EvidenceScene extends Phaser.Scene {
      *
      * La fascia liberata è quella in cui atterrano gli avvisi.
      */
-    this.add.text(cx, 100, L().ui.evidence.instruction, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
+    /**
+     * LE DUE ISTRUZIONI SI RITIRANO A COMPITO SVOLTO.
+     *
+     * Misurato: nello stato «reperti aperti e citati» questa schermata porta
+     * SETTE blocchi di prosa per 1119 caratteri, il massimo del giro — e due
+     * dei sette sono queste righe, che spiegano come fare una cosa già fatta.
+     * Competono con i reperti che il giocatore sta leggendo nel momento in cui
+     * deve pesarli. La diagnosi completa è in docs/UI_DENSITY_DIAGNOSIS.md.
+     *
+     * Si ritirano solo quando l'istruzione è ESAURITA, cioè quando tutti i
+     * reperti sono aperti e ne sono citati almeno due: non si può più «non
+     * sapere come citare» dopo aver citato due volte. Prima di quel momento
+     * restano, perché all'ingresso la schermata dev'essere ancora spiegata.
+     *
+     * Nessuno perde nulla: entrambe restano nello strato di lettura, come già
+     * si è fatto per la colonna della città e per il riepilogo laterale.
+     * Spente, non cancellate — la costante qui sotto le riaccende.
+     */
+    this.istruzione = this.add.text(cx, 100, L().ui.evidence.instruction, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
     // microcopy: citare un reperto costruisce il rapporto, non è la classificazione
-    this.add.text(cx, 118, L().ui.evidence.citeNote, textStyle(11, COLOR_STR.accentText, { wordWrap: { width: 900 }, align: 'center' })).setOrigin(0.5);
+    this.notaCitazione = this.add.text(cx, 118, L().ui.evidence.citeNote, textStyle(11, COLOR_STR.accentText, { wordWrap: { width: 900 }, align: 'center' })).setOrigin(0.5);
 
     // Gli strumenti condivisi vivono nella stessa postazione in entrambe le fasi.
     this.contextOverlay = new CaseContextOverlay(this, this.caseData.id, 'closeToEvidence');
@@ -305,6 +337,9 @@ export class EvidenceScene extends Phaser.Scene {
     const texts = caseText(this.caseData.id);
     ReadingLayer.setScene(fmt(L().ui.evidence.header, { code: this.caseData.fileCode }), [
       { text: L().ui.evidence.instruction },
+      // Prima non c'era: ora che la riga a video si ritira, se non stesse qui
+      // chi legge con uno strumento assistivo la perderebbe del tutto.
+      { text: L().ui.evidence.citeNote },
       { text: fmt(L().a11y.evidenceHint, { n: Math.min(texts.clues.length, 6) }) },
       {
         items: texts.clues.map((clue, i) => {
@@ -388,6 +423,32 @@ export class EvidenceScene extends Phaser.Scene {
      * già finito. Suona solo sul PASSAGGIO, non a ogni tocco successivo.
      */
     if (this.proceedEligible && !couldProceedBefore) AudioSystem.canProceed();
+
+    /**
+     * E allo stesso passaggio le due istruzioni si ritirano.
+     *
+     * In dissolvenza e non di scatto: una riga che sparisce di colpo attira
+     * l'occhio proprio mentre lo si vuole libero per i reperti. `setVisible`
+     * a dissolvenza finita, così la riga non resta un oggetto invisibile che
+     * intercetta niente ma che le misure contano ancora.
+     */
+    if (RITIRA_ISTRUZIONI_A_COMPITO_SVOLTO && this.proceedEligible && !this.istruzioniRitirate) {
+      this.istruzioniRitirate = true;
+      for (const riga of [this.istruzione, this.notaCitazione]) {
+        // Passa per reveal() e non per l'aggiunta diretta di un tween: con
+        // «riduci movimento» attivo applica subito lo stato finale ed esegue
+        // onComplete invece di animare. Lo pretende tests/motion.test.ts, che
+        // ha fatto bene a fermarmi — la prima stesura animava e quella
+        // impostazione la ignorava.
+        reveal(this, {
+          targets: riga,
+          alpha: 0,
+          duration: 260,
+          ease: 'Quad.easeOut',
+          onComplete: () => riga.setVisible(false)
+        });
+      }
+    }
 
     /**
      * RISCONTRO IMMEDIATO SU UNA CITAZIONE.
