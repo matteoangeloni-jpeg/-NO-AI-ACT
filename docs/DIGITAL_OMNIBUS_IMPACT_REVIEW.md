@@ -245,13 +245,15 @@ per una:
 |---|---|---|
 | `tempi-applicazione-ai-act` / `en/ai-act-application-timeline` | dichiara l'alto rischio Allegato III applicabile dal 2 ago 2026 e «una tappa sola» rimasta | **P0** |
 | `sanzioni-ai-act` / `en/ai-act-penalties` | «dal 2 agosto 2026 è scattata l'applicazione generale, che porta con sé la maggior parte degli obblighi» | **P0** |
-| `obblighi-trasparenza-ai-act` / `en/transparency-obligations` | «Dal 2 agosto 2026 l'articolo 50 impone…» — da verificare: l'art. 50 non è rinviato, ma l'art. 111(4) introduce il 2 dicembre 2026 per i sistemi già sul mercato | **P1** |
+| `obblighi-trasparenza-ai-act` / `en/transparency-obligations` | ✅ corretto: l'art. 50 non è rinviato; l'art. 111(4) rinvia al 2 dicembre 2026 **solo l'art. 50(2)** e solo per i fornitori di sistemi già sul mercato | **P1** |
 | `pratiche-vietate` | non nomina le lettere (ba) e (bb) | **P1** |
 | `ai-act-per-docenti` / `en/ai-act-for-teachers` | cita date di applicazione | **P1** |
 | `alfabetizzazione-ai` | poggia sull'articolo 4, riscritto | **P1** |
-| `ai-act-e-gdpr` / `en/ai-act-and-gdpr` | non menziona l'art. 4a né il coordinamento FRIA-DPIA dell'art. 27(4) | **P2** |
-| `sistemi-ai-ad-alto-rischio` | da verificare per affermazioni sull'esigibilità | **P1** |
-| `provider-deployer-ai-act` | art. 25 modificato: chiarimento, non ribaltamento | **P2** |
+| `ai-act-e-gdpr` / `en/ai-act-and-gdpr` | ✅ integrati art. 4a (sei condizioni cumulative) e art. 27(4) riscritto | **P2** |
+| `sistemi-ai-ad-alto-rischio` / `en/high-risk-ai-systems` | ✅ verificato: nessuna data, quindi nessuna affermazione falsa — ma nemmeno il *quando*. Aggiunte le date di esigibilità (2 dic 2027 / 2 ago 2028) | **P1** |
+| `provider-deployer-ai-act` / `en/provider-deployer-ai-act` | ✅ aggiunto l'art. 25(2) riscritto: il fornitore iniziale cessa di essere fornitore ma deve cooperare, salvo che avesse escluso la trasformazione | **P2** |
+| `fria-ai-act-valutazione-diritti-fondamentali` / `en/fria-…` | ✅ ripeteva l'art. 27(4) nella versione superata («la FRIA completa la DPIA»). Trovata verificando la coerenza, non era in questo elenco | **P1** |
+| `ai-act-per-le-aziende` / `en/ai-act-for-business` | ✅ portavano ancora l'articolo 4 nella formulazione superata, in una costruzione che la mia prima scansione non cercava. Trovate dalla guardia di `verify:dist` | **P1** |
 
 **Contenuto mancante, non errato**: nessuna pagina parla del Regolamento
 2026/1744. È un vuoto editoriale reale e una domanda che il pubblico si farà.
@@ -295,19 +297,55 @@ pagine non divergano fra loro.
 
 ## 11. Azioni necessarie
 
-1. **P0** — Correggere le date su `tempi-applicazione-ai-act` e `sanzioni-ai-act`,
-   IT ed EN, usando §2.1 come fonte unica.
-2. **P0** — Verificare i testi dei 13 casi per affermazioni di esigibilità
-   immediata degli obblighi di alto rischio.
-3. **P1** — Aggiungere le lettere (ba) e (bb) alla pagina pratiche vietate, con
-   i limiti dei paragrafi 1a e 1b, altrimenti il divieto risulta più ampio del
-   vero.
-4. **P1** — Aggiornare la pagina sull'articolo 4 con il nuovo testo.
-5. **P1** — Verificare trasparenza, alto rischio e pagine docenti.
-6. **P2** — Integrare art. 4a e coordinamento FRIA-DPIA nella pagina AI Act e
-   GDPR.
-7. **P2** — Valutare una pagina dedicata al Digital Omnibus (decisione SEO, da
-   prendere con la skill `seo`, non per riflesso).
+1. ✅ **P0** — Correggere le date su `tempi-applicazione-ai-act` e
+   `sanzioni-ai-act`, IT ed EN, usando §2.1 come fonte unica.
+2. ✅ **P0** — Verificare i testi dei 13 casi per affermazioni di esigibilità
+   immediata degli obblighi di alto rischio. **Verificato, nessun intervento
+   dovuto**: in `src/game/` non compare nessuna data di applicazione (cercate
+   tutte le forme «2 <mese> 20XX» e le date ISO) e nessun marcatore temporale di
+   esigibilità («già oggi», «attualmente», «è obbligatorio», «already today»,
+   «currently required»). I testi dei casi insegnano *quali* obblighi esistono,
+   non *da quando* si possono pretendere: è per questo che il gioco sopravvive
+   intatto a una riscrittura del calendario.
+3. ✅ **P1** — Aggiungere le lettere (ba) e (bb) alla pagina pratiche vietate,
+   con i limiti dei paragrafi 1a e 1b.
+4. ✅ **P1** — Aggiornare la pagina sull'articolo 4 con il nuovo testo.
+5. ✅ **P1** — Verificare trasparenza, alto rischio e pagine docenti. Esito:
+   le pagine trasparenza portano ora l'eccezione dell'art. 111(4) *circoscritta
+   al solo art. 50(2)*; le pagine alto rischio non contenevano date — mancanza,
+   non errore — e ora dicono da quando gli obblighi sono esigibili; le pagine
+   docenti erano state corrette nella tornata precedente.
+6. ✅ **P2** — Integrare art. 4a e coordinamento FRIA-DPIA nella pagina AI Act e
+   GDPR. Aggiunto anche l'art. 25(2) riscritto su `provider-deployer-ai-act` e
+   l'art. 27(4) sulla pagina FRIA, che ripeteva la formulazione superata («la
+   FRIA completa la DPIA»).
+7. ⏳ **P2** — Valutare una pagina dedicata al Digital Omnibus (decisione SEO, da
+   prendere con la skill `seo`, non per riflesso). **Aperta.** Nel frattempo le
+   pagine nominano il regolamento senza collegarlo, per non introdurre un
+   collegamento interno rotto.
+
+### 11.1 Due cose scoperte correggendo, che valgono più delle correzioni
+
+**L'eccezione dell'articolo 111(4) l'avevo scritta più larga del vero.** La
+prima stesura del calendario diceva che i sistemi generativi già sul mercato
+«hanno tempo fino al 2 dicembre 2026» per gli obblighi di trasparenza
+dell'articolo 50. Il testo dice altro: l'articolo 111(4) rinvia **solo**
+l'articolo 50(2), la marcatura dei contenuti sintetici, e solo per i *fornitori*
+di quei sistemi. L'avviso sui deepfake e la dichiarazione del chatbot valgono
+per tutti dal 2 agosto 2026. È lo stesso difetto che Sourcery aveva segnalato
+sui paragrafi 1a e 1b — insegnare una norma più larga del vero — ripetuto da me
+due commit dopo averlo riconosciuto.
+
+**La guardia ha trovato un residuo che la scansione a mano aveva mancato.**
+Aggiungendo al controllo di `verify:dist` le frasi superate, la prima stesura ha
+bocciato la pagina `alfabetizzazione-ai` — falso positivo: non distingueva
+«impone di garantire» da «**non** impone di garantire». Riscrivendola sulle sole
+forme affermative è emerso il vero residuo: `ai-act-per-le-aziende` e
+`en/ai-act-for-business` dicevano ancora «adoperarsi perché il personale abbia
+un livello sufficiente» / «take measures so that the staff have a sufficient
+level». Le avevo mancate perché avevo cercato «garantire» e «ensure», e quelle
+due pagine usavano un'altra costruzione. Una guardia scritta sul difetto trova
+più di una ricerca scritta sulle parole del difetto.
 
 ## 12. Azioni NON necessarie
 

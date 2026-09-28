@@ -80,13 +80,36 @@ try {
 // --- no obsolete current-state claims may ship (release-integrity guard) ---
 // 11-case claims (any spelling), Tally remnants and playtest CTAs must never
 // reach production again; historical docs are not part of dist.
+//
+// Il secondo gruppo riguarda il Digital Omnibus (Reg. UE 2026/1744). Sono
+// guardie di REGRESSIONE su formulazioni precise, non controlli semantici:
+// riconoscono le frasi che il sito diceva prima della correzione, non
+// qualunque modo di sbagliare quelle date. Servono perché quelle frasi sono
+// tornate una volta già — correggendo il calendario avevo lasciato indietro le
+// pagine docenti — e perché una data sbagliata su una pagina normativa non si
+// vede a occhio rileggendo il diff. Ognuna è stata provata rossa contro il
+// testo che il sito portava davvero, non contro un esempio inventato.
 {
   const FORBIDDEN = [
     /\b(11|undici|eleven)\b[^<.\n]{0,40}\b(cases|casi|case files|systems|sistemi|fascicoli)\b/i,
     /Partecipa al playtest/i,
     /Join the playtest/i,
     /linkedin\.com\/company/i,
-    /"datePublished"/
+    /"datePublished"/,
+    // «Resta davanti una tappa sola: il 2 agosto 2027» — le tappe sono almeno quattro.
+    /(una tappa sola|una sola tappa|(only|just) one milestone|a single milestone)/i,
+    // Alto rischio legato al 2026: art. 113 riscritto dice 2 dicembre 2027 (Allegato III).
+    /alto rischio[\s\S]{0,140}?(applicazione generale dal |dal |a partire dal )2 agosto 2026/i,
+    /high[- ]risk[\s\S]{0,140}?(general application from |from )2 August 2026/i,
+    // L'articolo 4 non chiede più un livello: chiede misure che ne sostengano
+    // lo sviluppo. Le tre forme affermative che il sito portava davvero; la
+    // forma NEGATA («non impone di garantire un livello specifico») è quella
+    // corretta e non deve essere intercettata — la prima stesura di questa
+    // guardia la bocciava, ed è così che si è scoperto il residuo sulle pagine
+    // aziende, che la scansione a mano aveva mancato.
+    /misure per garantire un livello sufficiente/i,
+    /adoperarsi perché[\s\S]{0,80}?livello sufficiente/i,
+    /measures so that[\s\S]{0,80}?a sufficient level of AI literacy/i
   ];
   const walkHtml = (dir) => readdirSync(dir).flatMap((e) => {
     const p = join(dir, e);
