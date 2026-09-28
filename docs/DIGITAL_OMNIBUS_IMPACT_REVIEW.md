@@ -10,8 +10,16 @@ ELI: http://data.europa.eu/eli/reg/2026/1744/oj
 **Revisione:** 28 settembre 2026 · **Stato della lettura:** 41 pagine, 43 voci di
 modifica mappate. Lette integralmente le voci che toccano contenuti insegnati dal
 progetto (articoli 1, 2, 3, 4, 4a, 5, 6, 10, 11, 25, 27, 50, 57, 60a, 63, 99,
-111, 113, Allegato I, Allegato XIV). Lette in forma sintetica le voci su
-governance ed enforcement (articoli 28-30, 40-43, 56, 64-77, 95-97).
+111, 113, Allegato I, Allegato XIV) **più, in una seconda passata, gli articoli
+75, 75a-75d, 77 e 95-97**, che la prima stesura aveva letto in sintesi.
+
+**E quella sintesi era costata un errore di classificazione.** Il §2.10 dava
+l'enforcement come «impatto indiretto». Rileggendolo per esteso è risultato che
+l'articolo 75(1) riscritto cambia *chi vigila e chi sanziona* per una fascia di
+sistemi — un fatto che le pagine sanzioni non riportano. Da cui una regola per
+chi aggiorna questo documento: una voce letta in sintesi non è una voce
+classificata, e finché non è letta per esteso la sua gravità è una congettura.
+Restano lette in sintesi gli articoli 28-30, 40-43, 56 e 64-72.
 
 > Questo documento è una lettura didattica e operativa, non un parere legale.
 > Serve a decidere che cosa correggere in NO AI ACT, non a interpretare la norma
@@ -178,14 +186,82 @@ Nuove definizioni di PMI e **SMC** (art. 3(14a), (14b)); documentazione tecnica
 in forma semplificata (art. 11(1)); sistema di gestione della qualità
 semplificato (art. 63(1)); attenzione alle PMI nell'art. 1(2)(g).
 
-### 2.10 Enforcement e governance — **NUOVO**, impatto indiretto
+### 2.10 Enforcement e governance — **NUOVO**, e l'impatto NON è indiretto
 
-Nuovi articoli 75a-75d: procedimenti dell'AI Office, impegni dell'operatore,
-**inosservanza, multe e penalità di mora**, garanzie. Nuovo articolo 60a: test
-in condizioni reali fuori dalle sandbox per i prodotti dell'Allegato I sezione B.
-Nuovo Allegato XIV: codici e categorie per l'ambito di designazione degli
-organismi notificati. Allegato I sezione A punto 1 soppresso; il regolamento
-macchine (UE) 2023/1230 passa alla sezione B.
+**Correzione a questa stessa revisione.** La prima stesura classificava questa
+voce «impatto indiretto» e liquidava gli articoli 75a-75d in due righe. Era una
+conseguenza dichiarata dei limiti del §1 — «lette in forma sintetica le voci su
+enforcement» — e rileggendole per esteso la classificazione si è rivelata
+sbagliata: l'articolo 75(1) riscritto cambia **chi vigila e chi sanziona** per
+una fascia di sistemi, ed è un fatto che le pagine sanzioni non riportano.
+
+**L'enforcement diventa a due corsie.** Voce (31), articolo 75(1) riscritto:
+l'**AI Office è esclusivamente competente** per la vigilanza e l'applicazione
+degli obblighi su
+
+- i **sistemi** di IA basati su modelli per finalità generali, quando modello e
+  sistema sono sviluppati dallo **stesso fornitore** o da fornitori della stessa
+  impresa — con quattro eccezioni: prodotti coperti dall'Allegato I, sistemi del
+  punto 2 dell'Allegato III, sistemi forniti da autorità di contrasto, autorità
+  di frontiera e istituti finanziari nei limiti dell'art. 74(6), e sistemi del
+  punto 8 dell'Allegato III quanto all'amministrazione della giustizia;
+- i sistemi che **costituiscono o sono integrati in** una piattaforma o un
+  motore di ricerca di dimensioni molto grandi designati ai sensi del DSA
+  (Reg. UE 2022/2065).
+
+La competenza esclusiva vale per i **fornitori** di quei sistemi; per gli
+utilizzatori solo se sono anche fornitori o parte della stessa impresa.
+
+**Con poteri veri, non di coordinamento.** Articoli 75a-75d: tutti i poteri di
+un'autorità di vigilanza del mercato, ispezioni remote e **in loco** con facoltà
+di entrare nei locali, esaminare e copiare dati, chiedere spiegazioni orali e
+**apporre sigilli**; impegni resi vincolanti per decisione (art. 75b) e
+riapribili; decisioni di inosservanza con sanzioni dell'art. 99(3)-(7) e
+**penalità di mora**; recupero integrale dei costi di vigilanza dall'operatore
+inadempiente; e **pubblicazione** delle decisioni con i nomi delle parti. Le
+autorità nazionali possono chiedere all'AI Office di occuparsene, e l'Office
+deve rispondere **entro quattro mesi**.
+
+**Impatto**: `sanzioni-ai-act` e `en/ai-act-penalties` elencano tre soggetti che
+sanzionano e si fermano ai **modelli** GPAI — «la Commissione, tramite l'Ufficio
+per l'IA, può sanzionare direttamente i fornitori di modelli di IA per finalità
+generali». Non è falso, è **incompleto in un punto che cambia la risposta
+pratica**: un'impresa che costruisce un'applicazione sul proprio modello
+leggerebbe quella pagina e concluderebbe che la vigila l'autorità nazionale,
+mentre la vigila in via esclusiva l'AI Office. Stessa classe della pagina alto
+rischio: non sbagliata, muta.
+
+### 2.11 Articolo 77 — autorità dei diritti fondamentali — **MODIFICATO**
+
+Voce (34). Le autorità nazionali che vigilano sul rispetto dei diritti
+fondamentali possono chiedere e ottenere qualunque informazione o documentazione
+creata o detenuta dall'autorità di vigilanza del mercato **in linguaggio
+accessibile e in formato leggibile dalla macchina**, per via elettronica. La
+nuova rubrica dell'articolo aggiunge «e cooperazione con le autorità di
+vigilanza del mercato», e i paragrafi 1a e 1b impongono all'autorità di vigilanza
+di **procurarsi quella documentazione dal fornitore o dall'utilizzatore** se non
+la ha, senza indebito ritardo, più un dovere di assistenza reciproca.
+
+**Impatto**: nessuna affermazione del sito diventa falsa. È però materiale utile
+all'angolo del progetto — i diritti, non solo la conformità — e finora il sito
+non dice che un'autorità antidiscriminazione ha un canale di accesso a quei
+documenti.
+
+### 2.12 Altre voci di governance, verificate e senza impatto
+
+Nuovo articolo 60a: test in condizioni reali fuori dalle sandbox per i prodotti
+dell'Allegato I sezione B. Nuovo Allegato XIV: codici e categorie per l'ambito di
+designazione degli organismi notificati. Allegato I sezione A punto 1 soppresso;
+il regolamento macchine (UE) 2023/1230 passa alla sezione B. Articolo 95(4) e
+articolo 96(1): PMI, start-up e *small mid-cap* fra gli interessi da considerare
+nei codici di condotta e nelle linee guida. Articolo 97: durata e revoca delle
+deleghe, procedurale.
+
+**Una data nuova da §2.1**: le linee guida della Commissione sull'attuazione
+pratica degli articoli 8(2), 9(10) e 17(3) — complementarità e proporzionalità
+rispetto alla legislazione dell'Allegato I sezione A — vanno pubblicate **entro
+il 1º agosto 2027** (art. 96(1)(g)). È una scadenza per la Commissione, non per
+gli operatori, e per questo sta qui e non nel calendario pubblico.
 
 ---
 
@@ -244,7 +320,8 @@ per una:
 | Pagina (IT + gemella EN) | Problema | Gravità |
 |---|---|---|
 | `tempi-applicazione-ai-act` / `en/ai-act-application-timeline` | dichiara l'alto rischio Allegato III applicabile dal 2 ago 2026 e «una tappa sola» rimasta | **P0** |
-| `sanzioni-ai-act` / `en/ai-act-penalties` | «dal 2 agosto 2026 è scattata l'applicazione generale, che porta con sé la maggior parte degli obblighi» | **P0** |
+| `sanzioni-ai-act` / `en/ai-act-penalties` | «dal 2 agosto 2026 è scattata l'applicazione generale, che porta con sé la maggior parte degli obblighi» | **P0** ✅ |
+| `sanzioni-ai-act` / `en/ai-act-penalties` | «chi applica le sanzioni» elenca tre soggetti e si ferma ai **modelli** GPAI: manca la competenza **esclusiva** dell'AI Office sui **sistemi** basati sul proprio modello e su quelli integrati in VLOP/VLOSE (§2.10) | **P1** aperto |
 | `obblighi-trasparenza-ai-act` / `en/transparency-obligations` | ✅ corretto: l'art. 50 non è rinviato; l'art. 111(4) rinvia al 2 dicembre 2026 **solo l'art. 50(2)** e solo per i fornitori di sistemi già sul mercato | **P1** |
 | `pratiche-vietate` | non nomina le lettere (ba) e (bb) | **P1** |
 | `ai-act-per-docenti` / `en/ai-act-for-teachers` | cita date di applicazione | **P1** |
@@ -256,7 +333,66 @@ per una:
 | `ai-act-per-le-aziende` / `en/ai-act-for-business` | ✅ portavano ancora l'articolo 4 nella formulazione superata, in una costruzione che la mia prima scansione non cercava. Trovate dalla guardia di `verify:dist` | **P1** |
 
 **Contenuto mancante, non errato**: nessuna pagina parla del Regolamento
-2026/1744. È un vuoto editoriale reale e una domanda che il pubblico si farà.
+2026/1744 *come oggetto*. È un vuoto editoriale reale e una domanda che il
+pubblico si farà. Su come colmarlo, §6.1.
+
+### 6.1 Pagina dedicata al Digital Omnibus: decisa, e la decisione è no
+
+La skill `seo` impone di preferire il rafforzamento di una pagina già
+indicizzata alla creazione di una nuova, e l'inventario di 68 rotte è vincolato
+in `release.config.json`, nelle due sitemap e in più file di test. Quindi la
+domanda non è «serve una pagina sull'Omnibus», ma «esiste già la pagina che
+risponde a quella domanda». Esiste.
+
+**Che cosa mostra la ricerca.** Interrogato il motore su entrambe le lingue. Va
+detto che cosa sto riportando: la ricerca disponibile qui è geolocalizzata negli
+Stati Uniti, quindi dice **chi compete e con quale angolo**, non le posizioni
+che il proprietario vede dall'Italia.
+
+| Lingua | Chi occupa la prima pagina | Angolo dominante |
+|---|---|---|
+| IT | studi legali (avvocatospera, avvocatosangermano, effediligence), consulenze (aipolicy, deepelse), portali professionali (fiscoetasse), stampa tech (Digitalic, CityNext) | «cosa è slittato», «nuove scadenze», «cosa cambia per PMI e PA» |
+| EN | studi internazionali (DLA Piper, Gibson Dunn, Winston Taylor), fornitori di compliance (verifywise, alpacax, regulation-ai.eu), ricerca (Cloud Security Alliance) | «deferred, not cancelled», «what still applies» |
+
+**L'intento dominante è già l'intento delle pagine calendario.** «Cosa è
+slittato e cosa resta» è esattamente ciò che `tempi-applicazione-ai-act` e
+`en/ai-act-application-timeline` fanno, e sono indicizzate. Una pagina nuova
+competerebbe con loro sulla stessa query — cannibalizzazione — partendo da zero
+di autorità, contro studi legali internazionali.
+
+**Una convergenza che vale più di un posizionamento.** Il titolo di una nota
+della Cloud Security Alliance è «EU AI Act's High-Risk Deadline: Deferred, Not
+Cancelled». È la stessa distinzione che ho messo sulle pagine — «rinviati non
+vuol dire aboliti» — arrivata per strada indipendente. Non prova niente sul
+ranking; dice che l'inquadramento editoriale è quello giusto.
+
+**E una verifica incrociata utile.** Le fonti indipendenti confermano tutte le
+date derivate dal testo: Allegato III al 2 dicembre 2027, Allegato I al 2 agosto
+2028, sandbox al 2 agosto 2027, marcatura dei contenuti al 2 dicembre 2026,
+entrata in vigore il 27 luglio 2026. Confermano anche la restrizione
+dell'articolo 111(4) al **solo articolo 50(2)** per i sistemi legacy, cioè la
+correzione fatta oggi. La data dell'atto — **8 luglio 2026**, pubblicazione in
+GU il 24 luglio — è verificata sull'intestazione del regolamento.
+
+**Azione al posto della pagina nuova.** I titoli delle due pagine calendario non
+contengono né «Digital Omnibus» né i termini con cui i concorrenti si presentano
+(*scadenze*, *rinvio*, *deadlines*); le descrizioni sì, da questa tornata. Il
+titolo è il segnale più forte, e una pagina già indicizzata risponde a un
+cambio di titolo quasi subito, mentre un URL nuovo ha bisogno di settimane.
+Proposta, da applicare con parità IT/EN nella stessa PR:
+
+| | ora | proposto | car |
+|---|---|---|---|
+| IT | Tempi di applicazione dell'AI Act: le date che contano | **AI Act: scadenze e tempi dopo il Digital Omnibus** | 47 |
+| EN | AI Act application timeline: the dates that matter | **AI Act deadlines and timeline after the Digital Omnibus** | 54 |
+
+Entrambi sotto i 65 caratteri del cancello e sotto i 60 della troncatura. Gli
+URL **non** cambiano: nessun redirect, nessuna rotta nuova, l'inventario resta 68.
+
+**Quello che non affermo.** Che questo faccia salire le pagine. Da qui non si
+osservano le posizioni italiane, e senza i dati di Search Console un effetto sul
+ranking è una congettura. Quello che si osserva è un disallineamento fra il
+titolo e il modo in cui la domanda viene posta.
 
 ## 7. Impatto sulle pagine education
 
@@ -319,10 +455,15 @@ pagine non divergano fra loro.
    GDPR. Aggiunto anche l'art. 25(2) riscritto su `provider-deployer-ai-act` e
    l'art. 27(4) sulla pagina FRIA, che ripeteva la formulazione superata («la
    FRIA completa la DPIA»).
-7. ⏳ **P2** — Valutare una pagina dedicata al Digital Omnibus (decisione SEO, da
-   prendere con la skill `seo`, non per riflesso). **Aperta.** Nel frattempo le
-   pagine nominano il regolamento senza collegarlo, per non introdurre un
-   collegamento interno rotto.
+7. ✅ **P2** — Valutare una pagina dedicata al Digital Omnibus. **Decisa: NO
+   pagina nuova.** Motivazione e prove in §6.1. Nel frattempo le pagine nominano
+   il regolamento senza collegarlo, per non introdurre un collegamento interno
+   rotto.
+8. ⏳ **P1** — Aggiungere alle pagine sanzioni la **seconda corsia di
+   enforcement**: competenza esclusiva dell'AI Office sui sistemi basati sul
+   proprio modello GPAI e su quelli integrati in VLOP/VLOSE, con i poteri degli
+   articoli 75a-75d. **Aperta**, ed è emersa solo rileggendo per esteso gli
+   articoli che la prima stesura aveva letto in sintesi (§2.10).
 
 ### 11.1 Due cose scoperte correggendo, che valgono più delle correzioni
 
