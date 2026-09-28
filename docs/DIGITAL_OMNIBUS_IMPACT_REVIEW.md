@@ -383,11 +383,19 @@ Proposta, da applicare con parità IT/EN nella stessa PR:
 
 | | ora | proposto | car |
 |---|---|---|---|
-| IT | Tempi di applicazione dell'AI Act: le date che contano | **AI Act: scadenze e tempi dopo il Digital Omnibus** | 47 |
-| EN | AI Act application timeline: the dates that matter | **AI Act deadlines and timeline after the Digital Omnibus** | 54 |
+| IT | Tempi di applicazione dell'AI Act: le date che contano | **AI Act: scadenze e tempi dopo il Digital Omnibus** | 48 |
+| EN | AI Act application timeline: the dates that matter | **AI Act deadlines and timeline after the Digital Omnibus** | 55 |
 
-Entrambi sotto i 65 caratteri del cancello e sotto i 60 della troncatura. Gli
-URL **non** cambiano: nessun redirect, nessuna rotta nuova, l'inventario resta 68.
+Entrambi sotto i 65 caratteri del cancello e sotto i 60 della troncatura — le
+lunghezze sono contate sul `<title>` servito, non stimate. Gli URL **non**
+cambiano: nessun redirect, nessuna rotta nuova, l'inventario resta 68.
+
+> Nota, perché l'errore è istruttivo. La prima stesura di questa tabella diceva
+> 47 e 54: numeri scritti *prima* di applicare i titoli e mai riconciliati con la
+> misura, che era già stata stampata e diceva 48 e 55. Rilievo di Sourcery,
+> verificato contando i `<title>` serviti. È la stessa classe di difetto che
+> questo documento rimprovera altrove — un valore trascritto invece che derivato —
+> comparsa proprio nella tabella su cui poggia la decisione.
 
 **Quello che non affermo.** Che questo faccia salire le pagine. Da qui non si
 osservano le posizioni italiane, e senza i dati di Search Console un effetto sul
