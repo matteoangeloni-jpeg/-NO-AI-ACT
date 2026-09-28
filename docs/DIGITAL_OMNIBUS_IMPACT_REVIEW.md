@@ -321,7 +321,7 @@ per una:
 |---|---|---|
 | `tempi-applicazione-ai-act` / `en/ai-act-application-timeline` | dichiara l'alto rischio Allegato III applicabile dal 2 ago 2026 e «una tappa sola» rimasta | **P0** |
 | `sanzioni-ai-act` / `en/ai-act-penalties` | «dal 2 agosto 2026 è scattata l'applicazione generale, che porta con sé la maggior parte degli obblighi» | **P0** ✅ |
-| `sanzioni-ai-act` / `en/ai-act-penalties` | «chi applica le sanzioni» elenca tre soggetti e si ferma ai **modelli** GPAI: manca la competenza **esclusiva** dell'AI Office sui **sistemi** basati sul proprio modello e su quelli integrati in VLOP/VLOSE (§2.10) | **P1** aperto |
+| `sanzioni-ai-act` / `en/ai-act-penalties` | ✅ «chi applica le sanzioni» elencava tre soggetti e si fermava ai **modelli** GPAI. Aggiunta la quarta voce: competenza **esclusiva** dell'AI Office sui **sistemi** basati sul proprio modello e su quelli integrati in VLOP/VLOSE, con le quattro eccezioni (§2.10) | **P1** |
 | `obblighi-trasparenza-ai-act` / `en/transparency-obligations` | ✅ corretto: l'art. 50 non è rinviato; l'art. 111(4) rinvia al 2 dicembre 2026 **solo l'art. 50(2)** e solo per i fornitori di sistemi già sul mercato | **P1** |
 | `pratiche-vietate` | non nomina le lettere (ba) e (bb) | **P1** |
 | `ai-act-per-docenti` / `en/ai-act-for-teachers` | cita date di applicazione | **P1** |
@@ -459,11 +459,16 @@ pagine non divergano fra loro.
    pagina nuova.** Motivazione e prove in §6.1. Nel frattempo le pagine nominano
    il regolamento senza collegarlo, per non introdurre un collegamento interno
    rotto.
-8. ⏳ **P1** — Aggiungere alle pagine sanzioni la **seconda corsia di
+8. ✅ **P1** — Aggiunta alle pagine sanzioni la **seconda corsia di
    enforcement**: competenza esclusiva dell'AI Office sui sistemi basati sul
-   proprio modello GPAI e su quelli integrati in VLOP/VLOSE, con i poteri degli
-   articoli 75a-75d. **Aperta**, ed è emersa solo rileggendo per esteso gli
-   articoli che la prima stesura aveva letto in sintesi (§2.10).
+   proprio modello GPAI e su quelli integrati in VLOP/VLOSE, con le quattro
+   eccezioni nominate e i poteri degli articoli 75a-75d. Era emersa solo
+   rileggendo per esteso gli articoli che la prima stesura aveva letto in
+   sintesi (§2.10). Aggiornata anche l'introduzione della sezione: chi sanziona
+   dipende ora anche da *che tipo di sistema* è in causa.
+9. ✅ **P2** — Applicata la proposta di §6.1: rititolate le due pagine calendario
+   con «Digital Omnibus» e i termini con cui la domanda viene posta. URL
+   invariati, inventario 68 invariato, `audit:seo` PASS.
 
 ### 11.1 Due cose scoperte correggendo, che valgono più delle correzioni
 
