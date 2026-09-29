@@ -75,6 +75,15 @@ describe('case-count consistency — source tree', () => {
     expect(llms).not.toMatch(FORBIDDEN);
   });
 
+  it('social-card sources state the authoritative count and no superseded claim', () => {
+    const generator = read('scripts/social/generate-og-images.mjs');
+    const metadata = read('scripts/social/meta.config.json');
+    expect(generator).toContain(`${N} cases`);
+    expect(metadata).toContain(`${N} sistemi`);
+    expect(generator).not.toMatch(FORBIDDEN);
+    expect(metadata).not.toMatch(FORBIDDEN);
+  });
+
   it('both landings state the authoritative count in body, meta and JSON-LD', () => {
     for (const [p, words] of [['index.html', [`${N} casi`, 'Quattordici casi']], ['en/index.html', [`${N} cases`, 'Fourteen cases']]] as const) {
       const html = read(p);
