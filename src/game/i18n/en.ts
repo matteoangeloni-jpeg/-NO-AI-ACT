@@ -392,7 +392,7 @@ export const en: Locale = {
       vietata: 'PROHIBITED PRACTICE',
       alto: 'HIGH RISK',
       trasparenza: 'TRANSPARENCY',
-      biometria: 'CONDITIONAL BIOMETRICS',
+      biometria: 'ALLOWED ON CONDITIONS',
       gpai: 'GPAI MODEL'
     },
     outcomes: {
@@ -698,6 +698,8 @@ export const en: Locale = {
   locations: {
     commissariato: 'District police station',
     sussidi: 'Benefits office',
+    osservatorio: 'Labour observatory',
+
     municipio: 'Central Town Hall',
     lavoro: 'Employment Agency',
     media: 'Civic Media Center',
@@ -737,6 +739,32 @@ export const en: Locale = {
         "What would distinguish a lawful investigative-support system from the one in this case?"
       ],
       epilogue: "The command dismantles the ranking and publishes the criteria for checks. Some officers protest: \"it worked\". The point, the inspectorate explains, is not whether it worked — it is what made it work."
+    },
+    case_bias: {
+      title: "The bias they fixed",
+      scenario: "The regional employment agency screens applications with an automated system. Its provider announces it has found and corrected a bias against applicants of foreign origin: to find it, it had to process the very data that revealed it — ethnic origin and health. Article 4a of the AI Act allows this exceptionally, on six conditions. All of them at once.",
+      clues: [
+        { title: "Records of processing", text: "The records note the special-category processing, but give no reason why those data were strictly necessary, nor why other data — synthetic or anonymised — would not do. The two reasons Article 4a requires in writing are absent." },
+        { title: "Contract with the external analyst", text: "The analysis was outsourced to a consultancy, and the sample carrying ethnic origin and health data was sent over in the clear. Article 4a forbids those data being transmitted to, or accessed by, other parties: here both happened." },
+        { title: "Correction report", text: "The bias was real and it is gone: the gap in rejection rates between groups fell from fourteen points to two, and the figure survives an independent recount. The work was done, and done well." }
+      ],
+      clueSources: ['interna', 'amministrativa', 'tecnica'],
+      noteCorrect: "Article 4a's six conditions are cumulative: two missing is enough to leave the processing without a legal basis. The system is high-risk and keeps running; it is the way it was corrected that must fit the conditions.",
+      notePartial: "You found the right area but not the deciding point: while special-category data leave for a third party and the records are silent on necessity, completing the paperwork cures nothing.",
+      noteWrong: "The report does not hold: Article 4a expressly allows this processing, and its second paragraph makes clear nobody is obliged to look for bias. Blocking punishes precisely the provider who looked.",
+      consequenceCorrect: "The sample comes back inside the provider's perimeter and is deleted once the bias is corrected; the records explain why those data were needed. The correction stands, now with a legal basis under it.",
+      consequenceWrong: "The provider learns the wrong lesson: next time it will not look for the bias at all. The gap returns to fourteen points, and this time nobody measures it.",
+      motivations: [
+        "Article 4a allows special-category data to be processed to find bias, but on six cumulative conditions: the transfer to a third party and the records' silence on necessity knock out two. The processing is unlawful even though the correction worked.",
+        "The provider processed applicants' ethnic origin and health data: the system must be blocked until methods that touch no sensitive data are used instead.",
+        "The bias was corrected and the gap closed: the result shows the processing was proportionate, so completing the records is enough."
+      ],
+      debriefQuestions: [
+        "If the six conditions were alternatives rather than cumulative, this provider would be compliant. Why did the legislator want all of them together?",
+        "The correction genuinely worked. Where else do we accept that a good result does not cure how it was obtained — and why should the same hold here?",
+        "Article 4a says nobody is obliged to look for bias. A provider who never looks is safer than one who looks badly: is that an intended effect or a flaw in the rule?"
+      ],
+      epilogue: "The agency keeps the corrected system and rewrites the consultancy contract: the analysis runs on the provider's servers, the data stay put. The missing sentence appears in the records. The data protection officer notes: \"you found the bias yourselves — it is the one part nobody was disputing\"."
     },
     case_frodi: {
       title: "The suspicion algorithm",
@@ -1294,6 +1322,14 @@ export const en: Locale = {
   },
 
   norms: {
+    norm_bias_detection: {
+      title: "Special-category data to find bias",
+      reference: "AI Act — Reg. (EU) 2024/1689 (as amended by Reg. EU 2026/1744), Art. 4a",
+      explanation: "To notice that a system discriminates by ethnic origin, religion or health you have to process exactly those data, which the GDPR protects as special categories. Article 4a resolves the contradiction: providers of high-risk systems may process them exceptionally to detect and correct bias, to the extent strictly necessary and on six CUMULATIVE conditions — no other data would do, technical limits on re-use plus pseudonymisation, documented access controls, no transmission to third parties, deletion once the bias is corrected, and the reasons written into the records of processing.",
+      notMeaning: "This does not mean that sensitive data may be collected \"for fairness\": it is a narrow exception with six locks, and opening five leaves you processing special-category data with no legal basis. Nor does it mean the opposite — the second paragraph says expressly that nobody is obliged to look for bias.",
+      democraticFunction: "It makes discrimination findable without the search for discrimination becoming a register of its own.",
+      tags: ["special-category data", "bias", "high risk", "GDPR"]
+    },
     norm_predpol: {
       title: "Ban on individual predictive policing",
       reference: "AI Act — Reg. (EU) 2024/1689 (as amended by Reg. EU 2026/1744), Art. 5(1)(d)",
@@ -1471,6 +1507,16 @@ export const en: Locale = {
   // Per-case learning cards (v0.5). Shown in the teacher debrief; they do not
   // change the case solutions. One card per playable case.
   caseLearning: {
+    case_bias: {
+      takeaway: "Article 4a's six conditions are cumulative: a bias genuinely corrected does not cure processing with no legal basis.",
+      teaches: "The line between what the rule permits and how it is done, and how to read evidence: a true exhibit — the correction worked — can be the one that leads you astray.",
+      typicalMistake: "Answering \"prohibited\" out of excess caution, or taking the result as proof of lawfulness and settling for \"let's complete the records\".",
+      discussionQuestion: "A provider who never looks for bias is safer than one who looks badly. Is that an intended effect of the rule, or a flaw in it?",
+      aiActConcepts: ["Data governance", "High risk", "Privacy by design"],
+      understandingSignal: "The student cites the transfer to a third party or the silent records as decisive, not the successful correction report.",
+      classroomUse: "Pair it with \"the AI Act and the GDPR\": this is the case where the two regulations actually touch, instead of sitting side by side.",
+      estimatedDebriefMinutes: 12
+    },
     case_predpol: {
       takeaway: "Accuracy does not legalise a prohibited practice: individual crime prediction based on profiling is ruled out at the root.",
       teaches: "The Article 5 boundary in policing: profiling vs objective facts, and why \"support for human decisions\" can be just a label.",

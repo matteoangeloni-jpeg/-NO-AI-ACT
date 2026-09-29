@@ -21,7 +21,11 @@ export const NORMS: NormCardData[] = [
   { id: 'norm_edtech', level: 'alto', iconKey: 'icon_grad' },
   { id: 'norm_gpai', level: 'restrittivo', iconKey: 'icon_model' },
   { id: 'norm_predpol', level: 'vietata', iconKey: 'icon_lock' },
-  { id: 'norm_frodi_welfare', level: 'alto', iconKey: 'icon_doc' }
+  { id: 'norm_frodi_welfare', level: 'alto', iconKey: 'icon_doc' },
+  // 2.4 — articolo 4a, inserito dal Digital Omnibus. Livello `restrittivo` e
+  // non `alto`: non classifica un sistema, autorizza un trattamento a
+  // condizioni strette. Stesso registro di norm_biometria e norm_gpai.
+  { id: 'norm_bias_detection', level: 'restrittivo', iconKey: 'icon_eye' }
 ];
 
 export function getNorm(id: string): NormCardData {

@@ -47,10 +47,27 @@ manipolati con IA — applicabili dal **2 dicembre 2026**. La pagina «pratiche
 vietate» non le nomina, perché quando è stata scritta non esistevano.
 
 **La terza è una buona notizia, e va detta perché limita il lavoro.** Il gioco
-è quasi indenne. Le tredici carte norma citano art. 5, art. 50 e Allegato III e
-**non contengono nessuna data**; le categorie su cui il giocatore classifica
+è quasi indenne. Le carte norma citano art. 5, art. 50 e Allegato III e **non
+contengono nessuna data**; le categorie su cui il giocatore classifica
 (vietata / alto rischio / trasparenza / rischio minimo) non sono toccate nella
-sostanza. Nessuno dei tredici casi diventa sbagliato.
+sostanza. Nessuno dei casi diventa sbagliato.
+
+**Aggiornamento del 29 settembre — la distinzione fra correggere e aggiungere.**
+Quanto sopra resta vero e non è stato smentito da niente: nessuna carta è stata
+riscritta, nessun caso è diventato falso. Due cose sono però successe, ed è
+utile tenerle separate.
+
+*Correzione.* Le citazioni nominavano lo strumento originario, e chi le seguiva
+sul testo consolidato trovava un articolo diverso da quello descritto —
+l'articolo 5 è passato da otto a dieci lettere. Ora nominano anche il
+regolamento modificativo, con una guardia che attraversa i dizionari.
+
+*Aggiunta.* L'articolo 4a ha meritato un caso suo, il **quattordicesimo**:
+«Il pregiudizio corretto», con la carta `norm_bias_detection`. Non era una
+correzione — niente era sbagliato senza di esso — ma il dilemma è il più
+giocabile dell'intero Omnibus, e il gioco esiste per quelli: per accorgersi che
+un sistema discrimina bisogna trattare i dati che il GDPR protegge, e le sei
+condizioni che lo consentono sono cumulative.
 
 ---
 
@@ -506,7 +523,11 @@ più di una ricerca scritta sulle parole del difetto.
 Elencate perché non farle è una decisione, e va motivata.
 
 - **Non** riscrivere le carte norma: non contengono date e i riferimenti citati
-  reggono.
+  reggono. *Aggiornamento del 29 settembre*: resta vero come **correzione** —
+  nessuna carta è stata riscritta — ma le citazioni sono state completate, e al
+  gioco è stata AGGIUNTA una carta che prima non c'era, sull'articolo 4a, col
+  suo caso. Aggiungere non è riscrivere, e la distinzione conta: le tredici
+  carte esistenti dicono ancora quello che dicevano.
 - **Non** migrare i salvataggi: nessuna struttura dati cambia.
 - **Non** cambiare le categorie di classificazione del gioco.
 - **Non** dichiarare che gli obblighi di alto rischio «non si applicano»: sono

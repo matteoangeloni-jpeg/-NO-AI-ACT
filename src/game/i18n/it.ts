@@ -408,7 +408,7 @@ export const it = {
       vietata: 'PRATICA VIETATA',
       alto: 'ALTO RISCHIO',
       trasparenza: 'TRASPARENZA',
-      biometria: 'BIOMETRIA A CONDIZIONI',
+      biometria: 'CONSENTITA A CONDIZIONI',
       gpai: 'MODELLO GPAI'
     },
     outcomes: {
@@ -713,6 +713,7 @@ export const it = {
   locations: {
     commissariato: 'Commissariato di zona',
     sussidi: 'Ufficio sussidi',
+    osservatorio: 'Osservatorio sul lavoro',
     municipio: 'Municipio Centrale',
     lavoro: 'Agenzia del Lavoro',
     media: 'Media Center Civico',
@@ -752,6 +753,32 @@ export const it = {
         "Che cosa distinguerebbe un sistema lecito di supporto alle indagini da quello del caso?"
       ],
       epilogue: "Il comando smantella la classifica e pubblica i criteri dei controlli. Alcuni agenti protestano: \"funzionava\". Il punto, spiega l'ispettorato, non è se funzionava: è che cosa faceva funzionare."
+    },
+    case_bias: {
+      title: "Il pregiudizio corretto",
+      scenario: "L'agenzia regionale per il lavoro filtra le candidature con un sistema automatico. Il fornitore annuncia di aver individuato e corretto un pregiudizio che penalizzava i candidati di origine straniera: per trovarlo ha dovuto trattare proprio i dati che lo rivelavano — origine etnica e stato di salute. L'articolo 4a dell'AI Act lo consente in via eccezionale, a sei condizioni. Tutte insieme.",
+      clues: [
+        { title: "Registro dei trattamenti", text: "Il registro annota il trattamento delle categorie particolari, ma non dice perché quei dati fossero strettamente necessari né perché altri — sintetici o anonimizzati — non bastassero. Le due motivazioni che l'articolo 4a pretende per iscritto non ci sono." },
+        { title: "Contratto con l'analista esterno", text: "L'analisi è stata affidata a una società di consulenza, e il campione con origine etnica e dati sanitari le è stato trasmesso in chiaro. L'articolo 4a vieta che quei dati siano trasmessi o resi accessibili ad altri soggetti: qui è avvenuto entrambi." },
+        { title: "Relazione sulla correzione", text: "Il pregiudizio c'era ed è sparito: il divario nei tassi di scarto fra i gruppi è passato da quattordici punti a due, e la misura regge a un ricalcolo indipendente. Il lavoro è stato fatto, e fatto bene." }
+      ],
+      clueSources: ['interna', 'amministrativa', 'tecnica'],
+      noteCorrect: "Le sei condizioni dell'articolo 4a sono cumulative: ne bastano due mancanti perché il trattamento resti senza base giuridica. Il sistema è alto rischio e continua a funzionare; è il modo in cui è stato corretto a dover rientrare nelle condizioni.",
+      notePartial: "Hai visto l'area giusta, ma non il punto che decide: finché i dati particolari escono verso un terzo e il registro tace sulla necessità, completare la documentazione non sana niente.",
+      noteWrong: "Il rapporto non regge: l'articolo 4a consente espressamente questo trattamento, e il paragrafo 2 chiarisce che nessuno è obbligato a cercare i bias. Bloccare punisce proprio chi li ha cercati.",
+      consequenceCorrect: "Il campione torna dentro il perimetro del fornitore e viene cancellato a correzione avvenuta; il registro spiega perché quei dati servivano. La correzione del pregiudizio resta, con una base giuridica sotto.",
+      consequenceWrong: "Il fornitore impara la lezione sbagliata: la prossima volta il pregiudizio non lo cerca. Il divario torna a quattordici punti, e stavolta nessuno lo misura.",
+      motivations: [
+        "L'articolo 4a consente il trattamento di categorie particolari per scoprire i bias, ma a sei condizioni cumulative: la trasmissione a un terzo e il registro privo di motivazione ne fanno cadere due. Il trattamento è illecito anche se la correzione ha funzionato.",
+        "Il fornitore ha trattato origine etnica e dati sanitari dei candidati: il sistema va bloccato finché non si passa a metodi che non toccano dati sensibili.",
+        "Il pregiudizio è stato corretto e il divario si è chiuso: il risultato dimostra che il trattamento era proporzionato, basta completare il registro."
+      ],
+      debriefQuestions: [
+        "Se le sei condizioni fossero alternative invece che cumulative, questo fornitore sarebbe in regola. Perché il legislatore le ha volute tutte insieme?",
+        "La correzione ha funzionato davvero. In quali altri campi accettiamo che un buon risultato non sani il modo in cui è stato ottenuto — e perché qui dovrebbe valere lo stesso?",
+        "L'articolo 4a dice che nessuno è obbligato a cercare i bias. Un fornitore che non li cerca è più al sicuro di uno che li cerca male: è un effetto voluto o un difetto della norma?"
+      ],
+      epilogue: "L'agenzia mantiene il sistema corretto e riscrive il contratto con il consulente: l'analisi si fa nei server del fornitore, i dati non escono. Nel registro compare la frase che mancava. Il responsabile della protezione dei dati commenta: \"il pregiudizio l'avevate trovato voi — è l'unica parte che nessuno vi contestava\"."
     },
     case_frodi: {
       title: "L'algoritmo del sospetto",
@@ -1306,6 +1333,14 @@ export const it = {
   },
 
   norms: {
+    norm_bias_detection: {
+      title: "Dati particolari per scoprire i pregiudizi",
+      reference: "AI Act — Reg. (UE) 2024/1689 (mod. Reg. UE 2026/1744), art. 4a",
+      explanation: "Per accorgersi che un sistema discrimina per origine etnica, religione o salute bisogna trattare proprio quei dati, che il GDPR protegge come categorie particolari. L'articolo 4a scioglie la contraddizione: i fornitori di sistemi ad alto rischio possono trattarli in via eccezionale per rilevare e correggere i pregiudizi, nella misura strettamente necessaria e a sei condizioni CUMULATIVE — nessun altro dato utilizzabile, limiti tecnici al riutilizzo e pseudonimizzazione, controlli d'accesso documentati, nessuna trasmissione a terzi, cancellazione a correzione avvenuta, motivazione scritta nel registro dei trattamenti.",
+      notMeaning: "Non significa che si possano raccogliere dati sensibili «per l'equità»: è un'eccezione stretta con sei lucchetti, e chi ne apre cinque tratta dati particolari senza base giuridica. Non significa nemmeno l'opposto: il secondo paragrafo dice espressamente che nessuno è obbligato a cercare i pregiudizi.",
+      democraticFunction: "Rende possibile scoprire la discriminazione senza che la ricerca della discriminazione diventi essa stessa una schedatura.",
+      tags: ["dati particolari", "bias", "alto rischio", "GDPR"]
+    },
     norm_predpol: {
       title: "Divieto di polizia predittiva individuale",
       reference: "AI Act — Reg. (UE) 2024/1689 (mod. Reg. UE 2026/1744), art. 5, par. 1, lett. d",
@@ -1484,6 +1519,16 @@ export const it = {
   // Schede didattiche per caso (v0.5). Visibili nel debrief docente; non
   // cambiano la soluzione dei casi. Una scheda per ciascun caso giocabile.
   caseLearning: {
+    case_bias: {
+      takeaway: "Le sei condizioni dell'articolo 4a sono cumulative: un pregiudizio corretto davvero non sana un trattamento senza base giuridica.",
+      teaches: "Il confine fra ciò che la norma permette e il modo in cui lo si fa, e la lettura delle prove: un reperto vero — la correzione è riuscita — può essere quello che porta fuori strada.",
+      typicalMistake: "Rispondere «vietata» per eccesso di cautela, oppure accettare il risultato come prova della legittimità e fermarsi a «completiamo il registro».",
+      discussionQuestion: "Un fornitore che non cerca i pregiudizi è più al sicuro di uno che li cerca male. È un effetto voluto della norma o un suo difetto?",
+      aiActConcepts: ["Governo dei dati", "Alto rischio", "Privacy by design"],
+      understandingSignal: "Lo studente cita la trasmissione a terzi o il registro muto come prova decisiva, e non la relazione sulla correzione riuscita.",
+      classroomUse: "Da abbinare a «AI Act e GDPR»: è il caso in cui i due regolamenti si toccano davvero, invece di stare uno accanto all'altro.",
+      estimatedDebriefMinutes: 12
+    },
     case_predpol: {
       takeaway: "L'accuratezza non rende lecita una pratica vietata: la previsione individuale di reato basata sulla profilazione è esclusa in radice.",
       teaches: "Il confine dell'articolo 5 in ambito polizia: profilazione vs fatti oggettivi, e perché il \"supporto alla decisione umana\" può essere solo un'etichetta.",

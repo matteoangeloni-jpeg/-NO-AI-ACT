@@ -32,13 +32,16 @@ const SOLUTIONS: Record<string, [string, string[], string, number, number[]]> = 
   case_gpai: ['alto_rischio', ['oversight', 'audit', 'dati_logging'], 'deployer', 1, [2, 4]],
   // 2.0 case pack (design dossiers: docs/CASE_DOSSIERS_2_0.md)
   case_predpol: ['vietata', ['blocco'], 'autorita', 1, [0, 1]],
-  case_frodi: ['alto_rischio', ['oversight', 'audit', 'dati_logging'], 'deployer', 1, [0, 1]]
+  case_frodi: ['alto_rischio', ['oversight', 'audit', 'dati_logging'], 'deployer', 1, [0, 1]],
+  // 2.4 — articolo 4a: alto rischio e non vietata, perché l'articolo CONSENTE
+  // il trattamento; il fornitore risponde anche se l'analisi l'ha delegata.
+  case_bias: ['alto_rischio', ['audit', 'dati_logging'], 'provider', 0, [0, 1]]
 };
 
 describe('case solutions are pinned', () => {
-  it('exactly the 13 known cases exist and are playable', () => {
+  it('exactly the 14 known cases exist and are playable', () => {
     expect(CASES.map((c) => c.id).sort()).toEqual(Object.keys(SOLUTIONS).sort());
-    expect(PLAYABLE_CASES.length).toBe(13);
+    expect(PLAYABLE_CASES.length).toBe(14);
   });
 
   it('each case keeps its exact solution (classification, measures, subject, motivation, clues)', () => {

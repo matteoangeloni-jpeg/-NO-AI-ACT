@@ -75,7 +75,7 @@ export const MISCONCEPTIONS: MisconceptionId[] = [
 ];
 
 /** Aree del Regolamento (UE) 2024/1689, come modificato dal Reg. (UE) 2026/1744, usate come ancore didattiche. */
-export type ProvisionId = 'art5' | 'annex3' | 'art50' | 'chapter5' | 'art14' | 'art26';
+export type ProvisionId = 'art5' | 'art4a' | 'annex3' | 'art50' | 'chapter5' | 'art14' | 'art26';
 
 export interface LegalMatrixRow {
   provision: ProvisionId;
@@ -97,10 +97,18 @@ export const LEGAL_MATRIX: LegalMatrixRow[] = [
     caseIds: ['case_scoring', 'case_scuola', 'case_biometria', 'case_credito', 'case_predpol']
   },
   {
+    // Inserito nell'AI Act dal Digital Omnibus: non classifica un sistema,
+    // autorizza un trattamento a sei condizioni cumulative.
+    provision: 'art4a',
+    articleRef: 'Reg. (UE) 2024/1689 (mod. Reg. UE 2026/1744), art. 4a',
+    normIds: ['norm_bias_detection'],
+    caseIds: ['case_bias']
+  },
+  {
     provision: 'annex3',
     articleRef: 'Reg. (UE) 2024/1689 (mod. Reg. UE 2026/1744), capo III e allegato III',
     normIds: ['norm_lavoro_alto_rischio', 'norm_alto_rischio_obblighi', 'norm_procurement', 'norm_edtech', 'norm_frodi_welfare'],
-    caseIds: ['case_lavoro', 'case_ospedale', 'case_procurement', 'case_edtech', 'case_frodi']
+    caseIds: ['case_lavoro', 'case_ospedale', 'case_procurement', 'case_edtech', 'case_frodi', 'case_bias']
   },
   {
     provision: 'art50',
@@ -231,6 +239,23 @@ export const CASE_OBJECTIVES: CaseObjectiveMap[] = [
     secondaryObjectives: ['obj_human_oversight', 'obj_risk_classification'],
     provisions: ['annex3', 'art14'],
     misconceptions: ['mis_formal_oversight_enough', 'mis_high_risk_means_banned']
+  },
+  {
+    /**
+     * `mis_accuracy_equals_lawful` non è scelta per riempire il campo: è
+     * ESATTAMENTE la trappola del caso. La correzione del bias ha funzionato —
+     * il divario si è chiuso davvero — e chi cita quel reperto invece della
+     * trasmissione a terzi sta concludendo che un buon risultato sani una base
+     * giuridica mancante.
+     *
+     * `mis_high_risk_means_banned` copre l'altro errore, speculare: rispondere
+     * «vietata» a un trattamento che l'articolo 4a espressamente consente.
+     */
+    caseId: 'case_bias',
+    primaryObjective: 'obj_decisive_evidence',
+    secondaryObjectives: ['obj_risk_classification', 'obj_actor_responsibility'],
+    provisions: ['art4a', 'annex3'],
+    misconceptions: ['mis_accuracy_equals_lawful', 'mis_high_risk_means_banned']
   }
 ];
 

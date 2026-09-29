@@ -15,7 +15,7 @@
 - Languages: Italian (default) and English — game and educational hub
 - Audience: teachers and trainers, upper-secondary and university students, researchers, professionals working with AI governance
 - Pricing: free and open source, copyleft (GPL-3.0-or-later code, CC BY-SA 4.0 educational content; up to v2.0.0 it was MIT + CC BY 4.0)
-- 13 playable cases; 62 public educational pages
+- 14 playable cases; 62 public educational pages
 - Every public page shares a global navigation (Play · Education/Resources · Teachers · AI Act guide · Glossary · Privacy · language switch); the game and the education hub are reachable from every page, and the game links back to the site.
 - Best entry points: the two landing pages and the two education hubs, each of which opens with a "Start here" chooser (play now / teachers / students / AI Act guide / glossary / privacy).
 
@@ -145,7 +145,7 @@
 - How the context of use changes the risk of the same system.
 - Contestability: arguing a decision with evidence.
 
-## The 13 cases (Italian title — topic)
+## The 14 cases (Italian title — topic)
 
 1. La città dei punteggi — social scoring and the boundary of prohibited practices.
 2. Il colloquio che non esiste — automated recruitment, risks in employment.
@@ -160,6 +160,7 @@
 11. Il modello tuttofare — generative model (GPAI) used downstream in internal decisions.
 12. Il quartiere segnato — individual predictive policing based on profiling (prohibited).
 13. L'algoritmo del sospetto — welfare fraud scoring without effective human oversight (high risk).
+14. Il pregiudizio corretto — special-category data processed to detect bias under Art. 4a, five of six cumulative conditions met (high risk).
 
 ## Notes
 
