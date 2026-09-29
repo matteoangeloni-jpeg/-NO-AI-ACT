@@ -184,10 +184,25 @@ Tutte provate **rosse** contro il difetto vero, non contro uno inventato:
 
 ## Azioni del proprietario
 
-1. Verificare il deploy su `main` (già pubblicato).
-2. Tagliare **`v3.0.0`** e scrivere la release, seguendo
+Due, non cinque.
+
+1. **Verifica live** in un browser reale: la versione a schermo, i 14 casi, la
+   console pulita, un caso giocato fra quelli nuovi. Non è delegabile a una
+   sessione di sviluppo agentico — l'egress proxy nega il sito pubblico, quindi
+   da lì il deploy si attesta solo indirettamente.
+2. **Tagliare `v3.0.0`** e scrivere la release, seguendo
    [`RELEASE_CHECKLIST.md`](RELEASE_CHECKLIST.md).
-3. Decidere sulla newsletter — raccomandato un feed Atom, motivazione in
-   [`NEWSLETTER_PRIVACY_ASSESSMENT.md`](NEWSLETTER_PRIVACY_ASSESSMENT.md).
-4. Confermare o annullare l'etichetta `CONSENTITA A CONDIZIONI`, che si cambia
-   in due stringhe.
+
+### Tre cose messe da parte, il 29 settembre 2026
+
+Non sono rimaste indietro: sono state decise, e la decisione è **sospendere**.
+Sono scritte qui perché una voce tolta senza motivo torna a essere proposta.
+
+| | |
+|---|---|
+| **newsletter** | nessuna, per ora — né Tally né il feed Atom raccomandato. Niente da implementare: il sito resta com'è. Motivi e misure restano in [`NEWSLETTER_PRIVACY_ASSESSMENT.md`](NEWSLETTER_PRIVACY_ASSESSMENT.md) per quando si riapre |
+| **etichetta `CONSENTITA A CONDIZIONI`** | **resta come è stata rilasciata.** Sospendere la decisione significa non toccare niente, non tornare indietro: la 3.0.0 è già pubblicata con questa etichetta. Si cambia in due stringhe (`src/game/i18n/it.ts` e `en.ts`) il giorno che si vuole |
+| **playtest esterni** | non programmati. **Con una conseguenza che non cambia:** il progetto resta didatticamente non validato, le soglie del protocollo restano non misurate e i riscontri d'uso esterni restano **uno**. Sospendere la misura non sposta il risultato, e nessun documento dirà il contrario |
+
+Il ticker era già stato messo da parte prima, e poi escluso del tutto: niente
+ticker e nessun flusso di informazioni da terze parti.

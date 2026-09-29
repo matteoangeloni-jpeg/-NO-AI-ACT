@@ -1,11 +1,28 @@
 # Newsletter: valutazione tecnica prima della decisione
 
+> ## DECISO IL 29 SETTEMBRE 2026: NESSUNA NEWSLETTER, PER ORA
+>
+> Il proprietario ha messo da parte la questione. **Non si fa né Tally né il
+> feed Atom raccomandato qui sotto**, e non c'è niente da implementare: il sito
+> resta com'è, con le quattro promesse pubbliche intatte e le tre guardie che le
+> difendono al loro posto.
+>
+> La valutazione resta perché la decisione è *sospesa, non chiusa*, e il giorno
+> in cui si riapre le misure non vanno rifatte. Due cose da ricordare allora:
+> il costo di Tally è quello dei §4 e §6, non un `<script>`; e il feed Atom
+> costa zero della postura privacy ma **non dà una lista da possedere**, quindi
+> non permette di contattare nessuno di propria iniziativa (§5).
+>
+> Fino a quel giorno l'unico canale in ingresso resta quello che il sito già
+> pubblica. Nessun file va toccato per attuare questa decisione, ed è il motivo
+> per cui attuarla non ha richiesto un commit di codice.
+
 Lo sprint chiede di valutare una newsletter con Tally. Questo documento non la
 implementa e non la esclude: misura che cosa costerebbe, perché il costo non è
 un modulo da incorporare — è una promessa pubblica da riscrivere e tre guardie
 da indebolire, e nessuna delle tre è stata scritta per caso.
 
-**Nessun file è stato toccato.** La decisione è del proprietario.
+**Nessun file è stato toccato.** La decisione era del proprietario, e ora c'è.
 
 ## 1. Che cosa il sito promette oggi, alla lettera
 

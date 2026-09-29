@@ -369,8 +369,10 @@ struttura fra i dizionari (predisposto per FR/ES).
 - **I salvataggi restano compatibili**: nessuna struttura dati cambia.
 - Incorpora il lavoro preparato come 2.3.0 e **mai taggato** — postazione
   ispettiva, confronto fra prove citate, taccuino, percorso tastiera.
-- 68 URL pubblici. Restano necessarie le due tornate di playtest esterni prima
-  di dichiarare la build press-ready.
+- 68 URL pubblici. Le due tornate di playtest esterni restano **necessarie** per
+  dichiarare la build press-ready, e dal 29 set 2026 **non sono in programma**
+  (decisione del proprietario): press-ready quindi non è dichiarabile, ed è la
+  conseguenza della decisione, non un ritardo.
 - Dettagli: [`docs/RELEASE_NOTES_v3.0.0.md`](docs/RELEASE_NOTES_v3.0.0.md) ·
   [`docs/RELEASE_NOTES_v2.3.0.md`](docs/RELEASE_NOTES_v2.3.0.md).
 
@@ -438,8 +440,8 @@ Note di rilascio: [`docs/RELEASE_NOTES_v3.0.0.md`](docs/RELEASE_NOTES_v3.0.0.md)
 - **Tag della versione**: `v3.0.0` — **non ancora pubblicato**
 - **Ultima release effettivamente taggata**: `v2.2.0`
 - **Nota**: la v3.0.0 è su `main` (commit `7061213`, deploy verde) ma **non
-  ancora** taggata: restano la verifica live in un browser reale e i playtest
-  esterni
+  ancora** taggata: resta la verifica live in un browser reale, che da una
+  sessione di sviluppo agentico non è eseguibile
 - **Casi giocabili**: 14
 - **Lingue**: italiano e inglese
 - **URL pubblici**: 68 (32 IT + 36 EN)

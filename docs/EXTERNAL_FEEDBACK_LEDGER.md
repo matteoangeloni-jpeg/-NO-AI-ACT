@@ -40,8 +40,8 @@ recensione attesa non è un requisito.
 | **Tipologia** | UX / carico cognitivo |
 | **Area** | interfaccia di gioco, tutte le schermate |
 | **Gravità** | **alta** |
-| **Stato** | **in corso** — diagnosi fatta, due correzioni fatte, validazione mancante |
-| **Versione** | prossima release |
+| **Stato** | **in corso, e fermo qui** — diagnosi fatta, due correzioni fatte, validazione **sospesa per decisione del proprietario** (29 set 2026) |
+| **Versione** | correzioni in v3.0.0; validazione senza data |
 
 **Sintesi fedele.** Ha provato il gioco. Il contenuto è buono. L'interfaccia può
 risultare *crowded*; alcune schermate non sono sempre immediatamente leggibili;
@@ -212,6 +212,18 @@ playtest — quattro tester su cinque completano il primo caso senza aiuto, quat
 su cinque distinguono classificazione, misura e motivazione — restano **non
 misurate**. Non «mancate»: mai misurate. È il dato più importante di questo
 registro.
+
+**E dal 29 settembre 2026 non sono in programma.** Il proprietario ha messo da
+parte le due tornate di playtest esterni. Lo si scrive qui perché questo registro
+pretende che una voce senza azione dica perché — altrimenti è indistinguibile da
+una dimenticata.
+
+Quello che la decisione **non** cambia, e va detto con precisione perché è la
+tentazione di ogni rinvio: il numero sopra resta **uno**, le soglie restano non
+misurate, e il progetto resta **didatticamente non validato**. Sospendere una
+misura non sposta il risultato — lo lascia sconosciuto. Nessun documento del
+progetto affermerà il contrario, e se un giorno uno lo afferma è quel documento
+a essere sbagliato, non questo.
 
 ---
 

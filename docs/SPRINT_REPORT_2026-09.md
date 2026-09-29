@@ -52,7 +52,12 @@ il valore del gioco.
 
 ## Fase 4 — AI intelligence ticker
 
-**Rinviato, su decisione del proprietario.** Gli ho presentato il bivio prima di
+**Prima rinviato, poi escluso, su decisione del proprietario.** Non è una voce di
+backlog: la regola è che il progetto non avrà **né ticker né flussi di
+informazioni da terze parti**. Il resto di questa sezione racconta come ci si è
+arrivati, e le ragioni valgono anche per proposte future della stessa forma.
+
+Gli ho presentato il bivio prima di
 scrivere codice, perché un ticker che pesca da fonti esterne pubblicherebbe sotto
 il nome del sito affermazioni sulla norma che nessuno ha verificato — e
 l'accuratezza sulla norma è il valore del sito. Aggiungeva anche una dipendenza da
@@ -168,12 +173,22 @@ mai pubblicato una release a suo nome e non devo.
 
 Cosa resta a lui, in ordine:
 
-1. verificare il deploy su `main` (le due PR di questo sprint sono già pubblicate
-   o in corso di pubblicazione);
-2. decidere sulla newsletter, leggendo il §5 della valutazione;
-3. decidere se il ticker torna in gioco, e in quale forma;
-4. tagliare `v3.0.0` e scrivere la release, seguendo
+1. la **verifica live** in un browser reale: da una sessione di sviluppo
+   agentico il sito pubblico non è raggiungibile, quindi il deploy si attesta
+   solo dal workflow verde e dal `dist` costruito sullo stesso commit — prove
+   che il deploy *è girato*, non che la pagina servita sia quella giusta;
+2. tagliare `v3.0.0` e scrivere la release, seguendo
    [`RELEASE_CHECKLIST.md`](RELEASE_CHECKLIST.md).
+
+**Le altre tre voci non gli restano più: le ha decise il 29 settembre 2026, e la
+decisione è sospendere.** Newsletter: nessuna, per ora, né Tally né il feed Atom
+del §5. Etichetta `CONSENTITA A CONDIZIONI`: resta come rilasciata, perché
+sospendere vuol dire non toccare. Playtest esterni: non programmati — e la
+conseguenza scritta più sotto **non cambia di una riga**, perché rinviare la
+misura non sposta il risultato.
+
+Il ticker non è più un bivio aperto: oltre al rinvio della Fase 4 è arrivata la
+decisione di non introdurre né ticker né flussi di informazioni da terze parti.
 
 ## Quello che questo sprint NON ha dimostrato
 
