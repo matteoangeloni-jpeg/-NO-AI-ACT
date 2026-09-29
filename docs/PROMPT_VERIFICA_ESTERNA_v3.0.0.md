@@ -117,7 +117,7 @@ costruito dal commit di release, non ricordati:
 
 | | italiano | inglese |
 |---|---|---|
-| `<title>` | 60 caratteri | 63 caratteri |
+| `<title>` | **58** caratteri | **61** caratteri |
 | `<meta description>` | 148 caratteri | 147 caratteri |
 | casi dichiarati | 14 | 14 |
 | schede di caso enumerate | 14 | 14 |
@@ -125,10 +125,34 @@ costruito dal commit di release, non ricordati:
 | `hreflang` | `it`, `en`, `x-default` (reciproci) | idem |
 | blocchi JSON-LD | 5, tutti ben formati | 5, tutti ben formati |
 
-Se i suoi numeri differiscono da questi, ci sono solo due spiegazioni: o il
-deploy non ha pubblicato ciò che è stato costruito, oppure ha letto male. La
-prima è esattamente ciò che questa verifica serve a scoprire; la seconda si
-riconosce chiedendogli la frase esatta, che il prompt gli impone di riportare.
+Se i suoi numeri differiscono da questi, le spiegazioni sono **tre**, e la
+prima stesura di questo documento ne elencava due, omettendo la più probabile:
+
+1. **la correzione non è ancora su `main`.** È il caso normale, non un guasto: le
+   sessioni di sviluppo lavorano su un branch, e finché quel branch non è
+   mergiato il sito pubblicato resta indietro. Va controllato **prima** di
+   sospettare qualunque altra cosa, con `git log --oneline origin/main -1`;
+2. il deploy non ha pubblicato ciò che è stato costruito — questo sarebbe un
+   guasto vero;
+3. il verificatore ha letto male: si riconosce chiedendogli la frase esatta, che
+   il prompt gli impone di riportare.
+
+**Questa omissione è già costata un giro.** Il 29 settembre il verificatore ha
+riferito residui di «13» sul sito live; la risposta immediata è stata che il
+deploy non aveva pubblicato il `dist` costruito. Falso: la correzione era su un
+branch non mergiato, e il sito live era perfettamente coerente con il commit che
+serviva. La spiegazione più semplice non era nell'elenco.
+
+### Un errore di misura da non ripetere: caratteri, non byte
+
+I valori di questa tabella sono stati corretti dopo la prima verifica esterna.
+Dicevano 60 e 63 caratteri, e il verificatore riferì 58 e 61: **aveva ragione
+lui**. I 60 e 63 venivano da `${#stringa}` di bash, che conta i **byte**, e il
+titolo contiene una lineetta lunga (`—`) che in UTF-8 pesa 3 byte: due in più
+per titolo. Il cancello `audit:seo` usa `title.length` di JavaScript, cioè i
+caratteri — quindi **58 e 61 sono i numeri che contano**, e i miei gonfiavano il
+margine rispetto al limite di 65. Per misurare un titolo qui si usa
+`[...stringa].length` in node, non bash.
 
 **Una trappola nota dei lettori automatici, perché non ti faccia perdere tempo.**
 Se riferisce meta description lunghe pochissimi caratteri sulle pagine italiane,
@@ -145,7 +169,35 @@ pubblicato** coincide con ciò che è stato costruito — l'unico controllo che 
 una sessione di sviluppo agentico non si può fare, perché l'egress proxy nega il
 sito pubblico.
 
-Se segnala un residuo di «13», passalo a me con l'URL: è un difetto vero e si
-corregge in un commit. Se segnala una data, verifica con il punto 10 prima di
-crederci — quella distinzione ha già prodotto un falso allarme in passato, e la
-regola vale anche per un assistente diverso.
+Se segnala un residuo di «13», la prima cosa da guardare è se la correzione è su
+`main` (vedi il punto 1 qui sopra), non il deploy. Se segnala una data, verifica
+con il punto 10 prima di crederci — quella distinzione ha già prodotto un falso
+allarme in passato, e la regola vale anche per un assistente diverso.
+
+## Esito della prima verifica esterna — 29 settembre 2026
+
+Utile tenerlo, perché dice che cosa questo prompt riesce e non riesce a fare.
+
+**Ha funzionato.** Ha confermato `v3.0.0` in entrambi i footer, le quattro date
+della timeline una per una, robots.txt aperto, 32 + 36 `<loc>`, hreflang
+reciproci, 5 blocchi JSON-LD ben formati per lingua, 14 schede di caso enumerate
+su entrambe le home, e **un solo host di terze parti**:
+`static.cloudflareinsights.com`, che è quello dichiarato. Nessun form, iframe,
+Analytics, pixel o Tally.
+
+**Non è caduto nella trappola delle date**, che era il rischio principale: ha
+riconosciuto che il «2 agosto 2026» presente sulle pagine riguarda applicazione
+generale, trasparenza e GPAI, e non l'alto rischio. Chiedere la frase intera al
+punto 10 ha fatto il suo lavoro.
+
+**Ha corretto una mia misura**, come sopra: 58 e 61 caratteri contro i 60 e 63
+che questo documento dichiarava.
+
+**Ha trovato i residui di «13» sul sito live** — veri, ma perché la correzione
+era su un branch non mergiato, non per un difetto del deploy.
+
+**Quello che non ha potuto fare, e lo ha detto:** giocare il canvas. Ha scritto
+che ha verificato sorgente, metadati, sitemap e contenuto pubblicato, «non una
+partita reale». È esattamente il confine che il prompt gli chiede di rispettare,
+e il fatto che lo abbia dichiarato invece di inventare è ciò che rende il resto
+del referto credibile.
