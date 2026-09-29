@@ -67,7 +67,7 @@ The active property is the **Domain property** `sc-domain:no-ai-act.eu`. GSC alr
 > `https://www.no-ai-act.eu/sitemap-it.xml`
 > `https://www.no-ai-act.eu/sitemap-en.xml`
 
-- **Do not resubmit `https://www.no-ai-act.eu/sitemap.xml`** while its GSC row is stuck in a stale/"Couldn't fetch" state — the child sitemaps cover all 62 URLs after the v2.3 deploy.
+- **Do not resubmit `https://www.no-ai-act.eu/sitemap.xml`** while its GSC row is stuck in a stale/"Couldn't fetch" state — the child sitemaps cover all 68 URLs (32 IT + 36 EN) as of the v3.0 deploy.
 - If the red `/sitemap.xml` row **cannot be deleted** from GSC, **ignore it** — it does not affect indexing now that the children are accepted.
 - **Do not** submit HTTP (`http://…`), apex (`https://no-ai-act.eu/…`), or duplicate variants.
 

@@ -6,7 +6,7 @@
 [![Contenuti: CC BY-SA 4.0](https://img.shields.io/badge/contenuti-CC%20BY--SA%204.0-5d7fb8)](LICENSE)
 [![Stack](https://img.shields.io/badge/stack-TypeScript%20%2B%20Phaser%203%20%2B%20Vite-101a30)](#stack)
 [![Test](https://img.shields.io/badge/test-Vitest-d9a521)](tests/)
-[![Stato](https://img.shields.io/badge/stato-v2.3.0-3fa66a)](#stato-release)
+[![Stato](https://img.shields.io/badge/stato-v3.0.0-3fa66a)](#stato-release)
 [![Lingue](https://img.shields.io/badge/lingue-IT%20%2B%20EN-d8d6cd)](#lingue)
 
 **Serious game investigativo sull'AI Act europeo · browser, audio originale, salvataggio locale**
@@ -51,7 +51,7 @@ Questo gioco **non costituisce consulenza legale**.
 | **Lingue** | Italiano / English |
 | **Account / dati** | Nessun account, nessun dato personale, nessun backend |
 
-## Stato attuale del codice (v2.3.0 candidata)
+## Stato attuale del codice (v3.0.0 candidata)
 
 La 2.0 trasforma il progetto in un prodotto educativo e di ricerca più
 solido: modello di apprendimento tipizzato e matrice legale machine-readable,
@@ -70,11 +70,17 @@ disegna il gioco alla risoluzione dello schermo invece di stirare un
 720p. Dettagli: `docs/RELEASE_NOTES_v2.2.0.md`; metadati correnti:
 `release.config.json`.
 
-La 2.3 riunisce fascicolo, confronto dei reperti, norme, archivio e taccuino
-nella **Postazione ispettiva** persistente. Il confronto affianca tutte le
-coppie di prove citate senza modificare la partita. Il sito arriva a 62 URL
-pubblici con guide IT/EN su provider/deployer, IA nella PA e FRIA; il press kit
-include una galleria Full HD. Dettagli: `docs/RELEASE_NOTES_v2.3.0.md`.
+La 3.0 è la prima versione che insegna il Reg. (UE) 2024/1689 **come
+modificato** dal Digital Omnibus (Reg. UE 2026/1744), e porta il
+**quattordicesimo caso** — «Il pregiudizio corretto», sull'articolo 4a: per
+scoprire che un sistema discrimina bisogna trattare i dati che il GDPR
+protegge, e le sei condizioni che lo consentono sono cumulative. I salvataggi
+restano compatibili.
+
+Incorpora il lavoro preparato come 2.3.0 e mai taggato: la **Postazione
+ispettiva** persistente che riunisce fascicolo, confronto dei reperti, norme,
+archivio e taccuino. Il sito è a **68 URL pubblici**; il press kit include una
+galleria Full HD. Dettagli: `docs/RELEASE_NOTES_v3.0.0.md`.
 
 ## Novità in v1.0.0 — Prima release pubblica stabile (storico)
 
@@ -352,12 +358,21 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 ## Roadmap
 
-**🧪 v2.3.0 — Inspector Desk e press candidate (non ancora taggata)**
-- Postazione ispettiva condivisa fra reperti e decisione, confronto diretto
-  fra prove citate, taccuino sempre disponibile e percorso tastiera verificato.
-- Sei nuove guide SEO IT/EN, 62 URL pubblici e galleria stampa Full HD.
-- Restano necessarie le due tornate di playtest esterni prima di dichiarare la
-  build press-ready. Dettagli: [`docs/RELEASE_NOTES_v2.3.0.md`](docs/RELEASE_NOTES_v2.3.0.md).
+**🧪 v3.0.0 — L'AI Act come modificato, e il quattordicesimo caso (non ancora taggata)**
+- Prima versione che insegna il Reg. (UE) 2024/1689 **come modificato** dal
+  Digital Omnibus (Reg. UE 2026/1744): calendario, pratiche vietate, articolo 4,
+  enforcement a due corsie, articoli 4a, 25(2) e 27(4).
+- Quattordicesimo caso, «Il pregiudizio corretto», sull'articolo 4a: dati
+  particolari per scoprire i bias, sei condizioni cumulative, cinque aperte.
+- Interfaccia: «crowded» misurato con `npm run diag:density`, due correzioni con
+  effetto misurato. Tre delle quattro ipotesi di partenza sono cadute.
+- **I salvataggi restano compatibili**: nessuna struttura dati cambia.
+- Incorpora il lavoro preparato come 2.3.0 e **mai taggato** — postazione
+  ispettiva, confronto fra prove citate, taccuino, percorso tastiera.
+- 68 URL pubblici. Restano necessarie le due tornate di playtest esterni prima
+  di dichiarare la build press-ready.
+- Dettagli: [`docs/RELEASE_NOTES_v3.0.0.md`](docs/RELEASE_NOTES_v3.0.0.md) ·
+  [`docs/RELEASE_NOTES_v2.3.0.md`](docs/RELEASE_NOTES_v2.3.0.md).
 
 **✅ v2.2.0 — Audio, tastiera, risoluzione** — [release](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v2.2.0)
 - Sei musiche in loop e dieci effetti (generati dall'autore con ElevenLabs,
@@ -417,10 +432,10 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 Fonte machine-readable: [`release.config.json`](release.config.json)
 (coerenza garantita da test automatici).
-Note di rilascio: [`docs/RELEASE_NOTES_v2.3.0.md`](docs/RELEASE_NOTES_v2.3.0.md).
+Note di rilascio: [`docs/RELEASE_NOTES_v3.0.0.md`](docs/RELEASE_NOTES_v3.0.0.md).
 
-- **Versione**: v2.3.0 (candidata; fonte: `package.json`)
-- **Tag della versione**: `v2.3.0` — **non ancora pubblicato**
+- **Versione**: v3.0.0 (candidata; fonte: `package.json`)
+- **Tag della versione**: `v3.0.0` — **non ancora pubblicato**
 - **Ultima release effettivamente taggata**: `v2.2.0`
 - **Nota**: la candidata 2.3 richiede merge, verifica live e playtest esterni prima del tag
 - **Casi giocabili**: 14
@@ -505,7 +520,7 @@ learning and accessibility. Three difficulty modes, mission paths, IT/EN.
 No account, no backend, no personal-data collection, no network calls during
 gameplay: graphics are procedural and recorded audio has a local synthetic
 fallback; saves stay in `localStorage`. **Teacher mode** is local debrief
-support only, with on-device `.txt`/`.json` exports. Version **2.3.0** is a
+support only, with on-device `.txt`/`.json` exports. Version **3.0.0** is a
 press candidate not yet tagged; the latest tagged release is **2.2.0**.
 Educational simplification of the AI Act, not legal advice. Its educational effectiveness has **not yet been empirically
 validated**. Code: GPL-3.0-or-later · narrative and didactic content: CC BY-SA 4.0.
