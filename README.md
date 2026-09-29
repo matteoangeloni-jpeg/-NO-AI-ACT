@@ -277,6 +277,22 @@ npm test           # suite automatizzata (Vitest)
 npm run typecheck  # controllo dei tipi
 ```
 
+Strumenti di misura, non cancelli — girano a richiesta e non fanno parte della CI:
+
+```bash
+npm run diag:density              # densità e gerarchia dell'interfaccia di gioco
+LANG_CODE=en npm run diag:density # la stessa misura in inglese
+npm run insight                   # struttura e collegamenti del sito editoriale
+```
+
+`diag:density` gioca una partita vera e misura undici schermate: blocchi di
+prosa che competono, caratteri a video, azioni disponibili, superficie
+occupata, testi sovrapposti e corpo dei testi. Serve a rispondere con numeri a
+un feedback come «l'interfaccia è *crowded*», invece che con un'impressione. La
+diagnosi e le correzioni che ne sono seguite stanno in
+[`docs/UI_DENSITY_DIAGNOSIS.md`](docs/UI_DENSITY_DIAGNOSIS.md), incluse le tre
+ipotesi che le misure hanno **smentito**.
+
 ## <a name="lingue"></a>Lingue
 
 Localizzazione **IT/EN** completa: sistema i18n tipato (`src/game/i18n/`),
@@ -323,6 +339,14 @@ struttura fra i dizionari (predisposto per FR/ES).
 - Dimensioni build: fonte autorevole `npm run report:dist` (ultimo report di
   release verificato: dist ~6,52 MB; bundle di gioco ~423 KB gzip; landing
   ~9 KB gzip).
+- **Il carico cognitivo dell'interfaccia è misurato, non validato.**
+  `npm run diag:density` dice *dove* si concentra — e ha già portato a due
+  correzioni — ma se quel carico sia tollerabile lo dicono le persone. Le
+  soglie del protocollo di playtest
+  ([`docs/PRESS_PLAYTEST_PROTOCOL_v2.3.md`](docs/PRESS_PLAYTEST_PROTOCOL_v2.3.md))
+  non sono **mai state misurate**: il riscontro d'uso da persone esterne al
+  progetto è **uno**
+  ([`docs/EXTERNAL_FEEDBACK_LEDGER.md`](docs/EXTERNAL_FEEDBACK_LEDGER.md)).
 - **Efficacia didattica non ancora validata empiricamente**: il quadro
   metodologico per studiarla è in `docs/RESEARCH_VALIDATION_FRAMEWORK.md`.
 

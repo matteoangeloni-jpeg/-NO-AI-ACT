@@ -226,9 +226,30 @@ export class ReportScene extends Phaser.Scene {
      * pulsanti. Il limite superiore è quel 600 meno lo spazio che la frase
      * occupa davvero, misurato e non stimato.
      */
+    /**
+     * 14px E NON 12, PERCHÉ ERA IL BLOCCO PIÙ PICCOLO DELLA SCHERMATA.
+     *
+     * Trovato misurando, non a occhio. Mettendo in colonna il corpo di tutti i
+     * blocchi di prosa del rapporto (docs/UI_DENSITY_DIAGNOSIS.md) veniva fuori
+     * questo:
+     *
+     *   13 px     errore dominante
+     *   12,5 px   valori dei campi, cinque blocchi
+     *   12 px     LEZIONE DEL CASO      <-- il più piccolo, timbri a parte
+     *
+     * Cioè la frase che il giocatore dovrebbe portarsi via era la meno
+     * evidente. Una gerarchia rovesciata: il commento sopra racconta che questa
+     * riga è stata tirata fuori da dietro un pulsante facoltativo proprio per
+     * renderla visibile, e poi le si è dato il corpo più piccolo.
+     *
+     * 14 px la mette sopra i suoi pari senza farne un titolo. Non tocca la
+     * scala del gioco: un blocco, quello primario. La riga più alta cresce in
+     * altezza, e il vincolo qui sotto la misura invece di stimarla — verificato
+     * col sondaggio di densità che dopo la modifica nessun testo si sovrappone.
+     */
     const lesson = this.add
       .text(left, 0, `${t.ui.report.lessonLabel}: ${caseLearning(this.caseData.id).takeaway}`,
-        textStyle(12, COLOR_STR.accentText, { wordWrap: { width: 620 }, lineSpacing: 3 }))
+        textStyle(14, COLOR_STR.accentText, { wordWrap: { width: 620 }, lineSpacing: 3 }))
       .setOrigin(0, 0);
     lesson.setY(Math.min(y + 24, ANALYSIS_Y - lesson.height - 16));
 

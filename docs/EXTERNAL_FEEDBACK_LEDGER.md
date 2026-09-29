@@ -40,8 +40,8 @@ recensione attesa non è un requisito.
 | **Tipologia** | UX / carico cognitivo |
 | **Area** | interfaccia di gioco, tutte le schermate |
 | **Gravità** | **alta** |
-| **Stato** | aperto |
-| **Versione** | da affrontare nella prossima release |
+| **Stato** | **in corso** — diagnosi fatta, due correzioni fatte, validazione mancante |
+| **Versione** | prossima release |
 
 **Sintesi fedele.** Ha provato il gioco. Il contenuto è buono. L'interfaccia può
 risultare *crowded*; alcune schermate non sono sempre immediatamente leggibili;
@@ -57,11 +57,35 @@ città» (PR #95) e poi il riepilogo laterale (PR #101), il proprietario aveva g
 identificato densità e ridondanza sulla schermata della decisione. Due
 osservazioni indipendenti sullo stesso difetto.
 
-**Azione proposta.** Diagnosi misurabile prima delle correzioni: per ogni
-schermata, elementi simultanei, testi concorrenti, azioni disponibili, densità a
-1920×1080 e 4K. Poi progressive disclosure, una decisione primaria per volta,
-informazioni secondarie a richiesta. **Vincolo esplicito del proprietario:
-nessun redesign radicale, l'identità gaming resta.**
+**Azione svolta.** Diagnosi misurabile prima delle correzioni —
+`npm run diag:density`, undici schermate di una partita vera, referto in
+[`UI_DENSITY_DIAGNOSIS.md`](UI_DENSITY_DIAGNOSIS.md). **Vincolo del proprietario
+rispettato: nessun redesign radicale, l'identità gaming resta.**
+
+Tre delle quattro spiegazioni possibili di «crowded» sono cadute sui numeri, e
+questo vale più della quarta: erano tre correzioni facili che avrebbero cambiato
+il gioco senza toccare il difetto.
+
+| Ipotesi | Esito |
+|---|---|
+| sovrapposizioni fra testi | **zero**, su undici schermate |
+| corpo troppo piccolo | i testi a 9,5 px sono i **timbri** della scrivania, atmosfera |
+| troppe azioni insieme | 17 solo sulla mappa, che ha **un** blocco di prosa |
+| **assenza di gerarchia** | ✅ sette blocchi di prosa entro **1,18×** |
+
+Due correzioni, con effetto misurato:
+
+1. **Le istruzioni si ritirano a compito svolto** sulla schermata dei reperti —
+   da 7 blocchi a 5, da 1119 a 927 caratteri, nessuna funzione tolta, entrambe
+   conservate nello strato di lettura.
+2. **`LEZIONE DEL CASO` non è più il blocco più piccolo del rapporto** (era
+   12 px contro i 12,5 dei valori e i 13 dell'errore dominante). La frase che il
+   giocatore dovrebbe portarsi via era la meno evidente.
+
+**Perché lo stato è «in corso» e non «risolto».** Le misure dicono *dove* si
+concentra il carico, non che sia tollerabile. Chiudere questa voce richiede che
+qualcuno riprovi il gioco: fino ad allora è una correzione plausibile, non una
+verificata. Vedi MLA-02, che è la via per ottenerlo.
 
 **Da non fare.** Tradurre «crowded» in «togliamo funzioni». Il feedback riguarda
 la *presentazione*, non la profondità investigativa, che è il valore del gioco.
@@ -176,7 +200,7 @@ Non è feedback esterno, ma vincola come si trattano quelli che lo sono.
 
 | Codice | Fonte | Tipo | Gravità | Stato |
 |---|---|---|---|---|
-| MLA-01 | Media & Learning Association | prodotto / UX | **alta** | aperto |
+| MLA-01 | Media & Learning Association | prodotto / UX | **alta** | **in corso** |
 | MLA-02 | Media & Learning Association | opportunità | n/a | aperto |
 | FIX-01 | Fix Gaming Channel | posizionamento | n/a | aperto |
 | TIG-01 | theindiegames | editoriale | n/a | in attesa |

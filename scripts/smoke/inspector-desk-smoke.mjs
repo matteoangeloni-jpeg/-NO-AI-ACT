@@ -142,7 +142,48 @@ await waitScene('Evidence');
 // Keyboard-only evidence handling has its own full-flow smoke. This check is
 // about the Inspector Desk itself, so prepare the cards through their real
 // activation method and keep slow software-rendered CI runs deterministic.
+/**
+ * LE DUE ISTRUZIONI PRIMA E DOPO IL COMPITO.
+ *
+ * La schermata dei reperti è la più carica del giro — sette blocchi di prosa
+ * per 1119 caratteri, misurati in docs/UI_DENSITY_DIAGNOSIS.md — e due dei
+ * sette sono istruzioni su un compito già svolto. Ora si ritirano quando tutti
+ * i reperti sono aperti e ne sono citati almeno due.
+ *
+ * Il controllo pretende ENTRAMBE le facce, perché una sola non basterebbe:
+ * pretendere solo l'assenza dopo sarebbe verde anche se le righe non fossero
+ * mai esistite, e pretendere solo la presenza prima non direbbe niente sul
+ * ritiro. Provato rosso a `RITIRA_ISTRUZIONI_A_COMPITO_SVOLTO = false`.
+ */
+const righeIstruzione = () => page.evaluate(() => {
+  const s = window.game?.scene?.getScene('Evidence');
+  if (!s?.scene?.isActive?.()) return null;
+  const vive = [];
+  const visita = (o) => {
+    if (!o || o.visible === false) return;
+    if (typeof o.text === 'string' && o.text.trim() !== '' && (o.alpha ?? 1) > 0.05) vive.push(o.text.replace(/\s+/g, ' ').trim());
+    for (const c of (o.list || [])) visita(c);
+  };
+  for (const o of s.children.list) visita(o);
+  return vive;
+});
+const contiene = (righe, frammento) => (righe ?? []).some((r) => r.includes(frammento));
+// Frammenti presi dalle traduzioni: se una cambia, qui si fallisce invece di
+// approvare una schermata che non è più quella.
+const FRAMMENTO_ISTRUZIONE = 'Esaminare tutti i reperti';
+const FRAMMENTO_NOTA = 'Citare un reperto lo aggiunge al rapporto';
+
+const primaDelCompito = await righeIstruzione();
+if (!contiene(primaDelCompito, FRAMMENTO_ISTRUZIONE)) fail.push("all'ingresso manca l'istruzione sui reperti: la schermata si apre muta");
+if (!contiene(primaDelCompito, FRAMMENTO_NOTA)) fail.push("all'ingresso manca la nota sulla citazione");
+
 await prepareEvidenceVisualState(page, [2, 3, 4]);
+// La dissolvenza dura 260ms: si aspetta che finisca, non si indovina.
+await page.waitForTimeout(600);
+const dopoIlCompito = await righeIstruzione();
+if (contiene(dopoIlCompito, FRAMMENTO_ISTRUZIONE)) fail.push("a compito svolto l'istruzione sui reperti è ancora a video");
+if (contiene(dopoIlCompito, FRAMMENTO_NOTA)) fail.push('a compito svolto la nota sulla citazione è ancora a video');
+
 await page.keyboard.press('x');
 await assertComparison('01-evidence-compare');
 await page.keyboard.press('Escape');

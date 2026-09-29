@@ -149,7 +149,8 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag, soloRilievi 
       if (!o || o.visible === false) return;
       if (typeof o.text === 'string' && o.text.trim() !== '' && typeof o.getBounds === 'function') {
         const b = o.getBounds();
-        out.push({ text: o.text.slice(0, 60), x: b.x, y: b.y, w: b.width, h: b.height, depth });
+        const corpo = Number(String(o.style?.fontSize ?? '0').replace(/[^0-9.]/g, '')) || 0;
+        out.push({ text: o.text.slice(0, 60), x: b.x, y: b.y, w: b.width, h: b.height, depth, corpo });
       }
       for (const ch of (o.list || [])) visit(ch, depth + 1);
     };
@@ -483,6 +484,49 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag, soloRilievi 
     }
   }
   if (coll2.length > 0) fail.push(`[${tag}] testi sovrapposti nel rapporto:\n    ${coll2.join('\n    ')}`);
+
+  /**
+   * LA LEZIONE DEL CASO NON PUÒ ESSERE IL BLOCCO PIÙ PICCOLO.
+   *
+   * È la frase che il giocatore dovrebbe portarsi via, e per un po' è stata il
+   * testo più piccolo della schermata a parte i timbri: 12 px contro i 12,5 dei
+   * valori dei campi e i 13 dell'errore dominante. Una gerarchia rovesciata, che
+   * si vede solo mettendo in colonna i corpi — l'ha trovata il sondaggio di
+   * densità, non l'occhio.
+   *
+   * Il controllo è sul RAPPORTO fra i corpi, non su un numero fisso: pretendere
+   * «14 px» sarebbe verde anche se tutto il resto crescesse a 16, cioè proprio
+   * mentre il difetto torna. Pretende invece che nessun altro blocco di prosa
+   * del rapporto sia grande quanto lei o più. Il sigillo dell'esito resta fuori
+   * perché è deliberatamente il più grande della pagina.
+   *
+   * ESCLUSI I BLOCCHI TUTTI MAIUSCOLI, E NON PER PRUDENZA. Titoli e timbri sono
+   * in maiuscolo e devono poter essere più grandi: il titolo del caso è a 19 px
+   * di proposito. Due titoli superano i 40 caratteri — «ALTO RISCHIO: ACCESSO
+   * ALLE PRESTAZIONI ESSENZIALI» ne ha 49 — quindi senza questo filtro il
+   * controllo sarebbe rosso su due casi su tredici, per un difetto che non c'è.
+   * La lezione passa il filtro perché ha il corpo in minuscolo dopo l'etichetta.
+   */
+  const tuttoMaiuscolo = (s) => s === s.toUpperCase();
+  const prosaRapporto = rapporto.filter((b) => {
+    const testo = b.text.replace(/\s+/g, ' ').trim();
+    return testo.length >= 40 && b.corpo > 0 && !tuttoMaiuscolo(testo);
+  });
+  const etichettaLezione = lang === 'it' ? 'LEZIONE DEL CASO' : 'LESSON OF THE CASE';
+  const lezione = prosaRapporto.find((b) => b.text.includes(etichettaLezione));
+  if (!lezione) {
+    fail.push(`[${tag}] nel rapporto non si trova il blocco «${etichettaLezione}»: il controllo sulla gerarchia non sta misurando niente`);
+  } else {
+    const piuGrandi = prosaRapporto
+      .filter((b) => b !== lezione && b.corpo >= lezione.corpo)
+      .map((b) => `«${b.text.slice(0, 34)}» a ${b.corpo}px`);
+    if (piuGrandi.length > 0) {
+      fail.push(
+        `[${tag}] la lezione del caso (${lezione.corpo}px) non è il blocco più evidente del rapporto:\n    ` +
+        piuGrandi.join('\n    ')
+      );
+    }
+  }
 
   await clickButton(lang === 'it' ? 'PROSEGUI' : 'CONTINUE');
   if (await waitScene('Consequence')) {
