@@ -192,9 +192,14 @@ describe('meta agreement — description, og:description, twitter:description', 
 });
 
 describe('structured-data integrity — sameAs allowlist and evidenced dates', () => {
-  const SAME_AS_ALLOWED = [cfg.repository];
+  const SAME_AS_ALLOWED = [
+    cfg.repository,
+    'https://github.com/matteoangeloni-jpeg',
+    'https://it.linkedin.com/in/matteo-angeloni',
+    'https://www.unitus.it/post-laurea/dottorati-di-ricerca/corsi-di-dottorato-attivi/societa-in-mutamento-politiche-diritti-e-sicurezza/'
+  ];
 
-  it('every sameAs entry on every shipped page is allowlisted (repository only)', () => {
+  it('every sameAs entry on every shipped page is explicitly allowlisted', () => {
     const offenders: string[] = [];
     for (const p of shippedHtml('.')) {
       const html = read(p);
@@ -213,7 +218,8 @@ describe('structured-data integrity — sameAs allowlist and evidenced dates', (
 
   it('no unverified social profiles anywhere in shipped HTML', () => {
     for (const p of shippedHtml('.')) {
-      expect(read(p), p).not.toMatch(/linkedin\.com|twitter\.com\/[a-z]|facebook\.com\/(?!tr)[a-z]|instagram\.com/i);
+      const html = read(p).split('https://it.linkedin.com/in/matteo-angeloni').join('');
+      expect(html, p).not.toMatch(/linkedin\.com|twitter\.com\/[a-z]|facebook\.com\/(?!tr)[a-z]|instagram\.com/i);
     }
   });
 
@@ -222,7 +228,8 @@ describe('structured-data integrity — sameAs allowlist and evidenced dates', (
       const html = read(p);
       expect(html, `${p}: datePublished must not be claimed without evidence`).not.toContain('datePublished');
       for (const [, d] of html.matchAll(/"dateModified": "([^"]+)"/g)) {
-        expect(d.startsWith(cfg.contentLastReviewed), `${p}: dateModified ${d} != contentLastReviewed ${cfg.contentLastReviewed}`).toBe(true);
+        const expected = p.includes('matteo-angeloni') ? '2026-09-29' : cfg.contentLastReviewed;
+        expect(d.startsWith(expected), `${p}: dateModified ${d} != expected ${expected}`).toBe(true);
       }
     }
   });

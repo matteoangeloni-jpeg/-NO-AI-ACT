@@ -70,7 +70,7 @@ Use **URL Inspection** on `https://www.no-ai-act.eu/` and
 - **Pages**: `/` and `/en/` indexed; the public guide inventory is being
   discovered; `/play/` excluded by `noindex` (expected).
 - **Sitemaps**: both child sitemaps show status *Success*, with a target of 68
-  discovered URLs (32 IT + 36 EN) after the v3.0 deployment.
+  discovered URLs (33 IT + 37 EN) after the author-profile deployment.
 - **International targeting / hreflang**: no errors for the `it` / `en` /
   `x-default` alternates.
 - **Manual action / Security**: none.

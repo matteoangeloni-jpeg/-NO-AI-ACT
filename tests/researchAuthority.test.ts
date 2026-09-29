@@ -23,6 +23,7 @@ const SITE = 'https://www.no-ai-act.eu/';
 const PAIRS: Array<[string, string]> = [
   ['come-citare', 'en/how-to-cite'],
   ['ricerca-e-metodologia', 'en/research-and-methodology'],
+  ['matteo-angeloni', 'en/matteo-angeloni'],
   ['press-kit', 'en/press-kit']
 ];
 const ALL_NEW = PAIRS.flat();
@@ -130,6 +131,30 @@ describe('research pages — honest validation status and required content', () 
     for (const html of [it_, en]) {
       expect(html).toContain('docs/RESEARCH_VALIDATION_FRAMEWORK.md');
     }
+  });
+});
+
+describe('author pages — verifiable identity and editorial accountability', () => {
+  const it_ = read('matteo-angeloni/index.html');
+  const en = read('en/matteo-angeloni/index.html');
+
+  it('publish a bilingual ProfilePage and one stable Person entity', () => {
+    for (const html of [it_, en]) {
+      expect(html).toContain('"@type": "ProfilePage"');
+      expect(html).toContain('"@type": "Person"');
+      expect(html).toContain('https://www.no-ai-act.eu/matteo-angeloni/#person');
+      expect(html).toContain('https://it.linkedin.com/in/matteo-angeloni');
+      expect(html).toContain('https://github.com/matteoangeloni-jpeg');
+    }
+  });
+
+  it('states the author role, institutional independence and legal limits', () => {
+    expect(it_).toContain('Ideatore, autore e sviluppatore');
+    expect(it_).toContain('non rappresenta una pubblicazione ufficiale');
+    expect(it_).toContain('<strong>Non equivale a una qualifica professionale legale</strong>');
+    expect(en).toContain('Creator, author and developer');
+    expect(en).toContain('not an official publication');
+    expect(en).toContain('<strong>does not amount to a professional legal qualification</strong>');
   });
 });
 

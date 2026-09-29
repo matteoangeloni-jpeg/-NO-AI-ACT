@@ -79,7 +79,7 @@ restano compatibili.
 
 Incorpora il lavoro preparato come 2.3.0 e mai taggato: la **Postazione
 ispettiva** persistente che riunisce fascicolo, confronto dei reperti, norme,
-archivio e taccuino. Il sito è a **68 URL pubblici**; il press kit include una
+archivio e taccuino. Il sito è a **70 URL pubblici**; il press kit include una
 galleria Full HD. Dettagli: `docs/RELEASE_NOTES_v3.0.0.md`.
 
 ## Novità in v1.0.0 — Prima release pubblica stabile (storico)
@@ -369,7 +369,7 @@ struttura fra i dizionari (predisposto per FR/ES).
 - **I salvataggi restano compatibili**: nessuna struttura dati cambia.
 - Incorpora il lavoro preparato come 2.3.0 e **mai taggato** — postazione
   ispettiva, confronto fra prove citate, taccuino, percorso tastiera.
-- 68 URL pubblici. Restano necessarie le due tornate di playtest esterni prima
+- 70 URL pubblici. Restano necessarie le due tornate di playtest esterni prima
   di dichiarare la build press-ready.
 - Dettagli: [`docs/RELEASE_NOTES_v3.0.0.md`](docs/RELEASE_NOTES_v3.0.0.md) ·
   [`docs/RELEASE_NOTES_v2.3.0.md`](docs/RELEASE_NOTES_v2.3.0.md).
@@ -440,7 +440,7 @@ Note di rilascio: [`docs/RELEASE_NOTES_v3.0.0.md`](docs/RELEASE_NOTES_v3.0.0.md)
 - **Nota**: la candidata 2.3 richiede merge, verifica live e playtest esterni prima del tag
 - **Casi giocabili**: 14
 - **Lingue**: italiano e inglese
-- **URL pubblici**: 68 (32 IT + 36 EN)
+- **URL pubblici**: 70 (33 IT + 37 EN)
 - **Salvataggi**: schema v2, con migrazione testata dei salvataggi v1
 - **Backend**: nessuno · **Account**: nessuno · **Raccolta dati personali**:
   nessuna · **Chiamate di rete durante il gameplay**: nessuna
