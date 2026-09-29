@@ -113,8 +113,16 @@ Poi creare la release GitHub usando `docs/RELEASE_NOTES_v<versione>.md`.
 
 ## Parte 2 — Stato della release corrente: **v3.0.0**
 
-Commit di release `7061213` su `main` (PR #105). Se stai leggendo questa tabella
-per una versione diversa dalla 3.0.0, è storia.
+Il contenuto della 3.0.0 è entrato in `main` con `7061213` (PR #105). Se stai
+leggendo questa tabella per una versione diversa dalla 3.0.0, è storia.
+
+**Su quale commit va il tag.** Su `main`, non su `7061213`. I commit arrivati
+dopo sono documentazione — questa checklist compresa — e non cambiano né il
+codice né i contenuti pubblicati: verificato che né il README né `docs/` entrino
+nel `dist`, e che nessuna stringa di quelle modifiche vi compaia. `7061213`
+serve a sapere *da dove* arriva la 3.0.0, non a essere il bersaglio del tag. I
+cancelli della riga 3 sono stati eseguiti prima su `7061213` e poi di nuovo dopo
+le correzioni ai documenti, con gli stessi esiti.
 
 | # | Voce | Stato | Come lo so |
 |---|---|---|---|
