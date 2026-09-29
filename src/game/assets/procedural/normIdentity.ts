@@ -45,7 +45,16 @@ export const NORM_IDENTITIES: Record<NormIdentity, NormIdentityStyle> = {
   alto: { glyph: '▲', color: COLOR_STR.warning, pattern: 'spunte' },
   // trasparenza: il riquadro si apre, l'informazione esce
   trasparenza: { glyph: '▭', color: COLOR_STR.accentText, pattern: 'righe_aperte' },
-  // biometria a condizioni: tratti letti e misurati
+  /**
+   * Consentita a condizioni: il permesso che esiste solo finché le condizioni
+   * reggono. La chiave si chiama ancora `biometria` perché è il nome nei dati
+   * e nei salvataggi, ma l'ETICHETTA no: fino alla 2.3 diceva «BIOMETRIA A
+   * CONDIZIONI», cioè il nome del suo unico membro. Con l'articolo 4a — dati
+   * particolari per scoprire i pregiudizi — il regime ha un secondo membro che
+   * con la biometria non c'entra, e il distintivo gli avrebbe messo addosso
+   * l'etichetta sbagliata. Il glifo, il colore e il trattamento del fondo non
+   * cambiano: cambia solo la parola, e dice il regime invece del soggetto.
+   */
   biometria: { glyph: '◉', color: COLOR_STR.paper, pattern: 'scansione' },
   // GPAI: un modello addestrato su una massa di dati
   gpai: { glyph: '▦', color: COLOR_STR.gpai, pattern: 'reticolo' }

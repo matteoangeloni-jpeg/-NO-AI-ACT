@@ -34,9 +34,9 @@ export const CHAPTERS: ChapterData[] = [
   {
     id: 'high_risk',
     order: 2,
-    caseIds: ['case_lavoro', 'case_ospedale', 'case_edtech', 'case_frodi'],
+    caseIds: ['case_lavoro', 'case_ospedale', 'case_edtech', 'case_frodi', 'case_bias'],
     objectives: ['obj_risk_classification', 'obj_human_oversight', 'obj_proportionate_measures'],
-    estimatedMinutes: 65
+    estimatedMinutes: 80
   },
   {
     id: 'transparency',

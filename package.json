@@ -26,6 +26,7 @@
     "smoke:inspector-desk": "node scripts/smoke/inspector-desk-smoke.mjs",
     "media:press": "node scripts/media/capture-press.mjs",
     "diag:density": "node scripts/diag/ui-density.mjs",
+    "diag:case": "node scripts/diag/play-case.mjs",
     "smoke:press-pages": "node scripts/smoke/press-pages-smoke.mjs",
     "smoke:all": "node scripts/smoke/run-all.mjs",
     "smoke:visual-language": "node scripts/smoke/visual-language-smoke.mjs"

@@ -102,6 +102,10 @@ export const AUDIENCES: AudienceData[] = [
     id: 'hr',
     orderedCaseIds: [
       'case_lavoro',
+      // Subito dopo la selezione automatica, perché è lo stesso sistema visto
+      // dall'altro lato: prima il danno del pregiudizio, poi il prezzo di
+      // cercarlo male.
+      'case_bias',
       'case_gpai',
       'case_scoring',
       'case_credito',

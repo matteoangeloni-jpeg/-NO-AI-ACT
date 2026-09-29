@@ -26,7 +26,17 @@ export const LOCATIONS: LocationData[] = [
   { id: 'modelli', x: 0.12, y: 0.74, iconKey: 'icon_model', caseId: 'case_gpai' },
   // 2.0 case pack — due nuovi luoghi (sussidi riusa il glifo icon_doc)
   { id: 'commissariato', x: 0.50, y: 0.56, iconKey: 'icon_lock', caseId: 'case_predpol' },
-  { id: 'sussidi', x: 0.28, y: 0.42, iconKey: 'icon_doc', caseId: 'case_frodi' }
+  { id: 'sussidi', x: 0.28, y: 0.42, iconKey: 'icon_doc', caseId: 'case_frodi' },
+  /**
+   * 2.4 — il caso dell'articolo 4a. Coordinate scelte misurando le distanze
+   * dalle tredici sedi esistenti, non a occhio: (0,62 · 0,44) dista 0,16 dalla
+   * più vicina (municipio a 0,46 · 0,36), cioè più del minimo già presente
+   * sulla mappa (0,12 fra municipio e commissariato). Riusa icon_eye — il
+   * caso parla di guardare dentro i dati per scoprire un pregiudizio, e la
+   * sorveglianza biometrica ha lo stesso glifo per una ragione diversa: se
+   * diventasse confusivo, è il glifo a cambiare, non la posizione.
+   */
+  { id: 'osservatorio', x: 0.62, y: 0.44, iconKey: 'icon_eye', caseId: 'case_bias' }
 ];
 
 /**
@@ -353,6 +363,62 @@ export const CASES: CaseData[] = [
     weakMotivation: 0,
     possibleDominantErrors: ['classificazione', 'prove', 'misura_insufficiente', 'soggetto', 'motivazione', 'eccesso_cautela'],
     concepts: ['high_risk', 'human_oversight', 'data_governance'],
+    hasIncident: false,
+    playable: true,
+    estimatedMinutes: 15
+  },
+  /**
+   * 2.4 — ARTICOLO 4a: LA CORREZIONE CHE HA FUNZIONATO ED ERA ILLECITA.
+   *
+   * Il Digital Omnibus ha inserito nell'AI Act l'articolo 4a, che affronta una
+   * contraddizione pratica: per accorgersi che un sistema discrimina per
+   * origine etnica, religione o salute bisogna trattare proprio quei dati, che
+   * per il GDPR sono categorie particolari. L'articolo lo consente in via
+   * eccezionale ai fornitori di sistemi ad alto rischio — ma alle SEI
+   * condizioni del paragrafo 1, che sono CUMULATIVE.
+   *
+   * IL CASO È COSTRUITO SU QUELLA CUMULATIVITÀ. Il fornitore ne apre cinque su
+   * sei: il bias c'era, l'ha trovato, l'ha corretto, e il divario si è chiuso.
+   * Ma i dati sono passati a un consulente esterno — condizione (d) — e il
+   * registro dei trattamenti non dice perché quei dati fossero strettamente
+   * necessari né perché altri non bastassero — condizione (f).
+   *
+   * LA TRAPPOLA È IL TERZO REPERTO, ed è la ragione per cui questo caso vale.
+   * La relazione sulla correzione è VERA: il divario nei tassi di scarto si è
+   * chiuso davvero. Citarla al posto di un reperto rilevante degrada l'esito,
+   * perché un buon risultato non sana una base giuridica che manca. È
+   * `minimizes_risk` non perché menta, ma perché sposta lo sguardo dal come al
+   * quanto — l'errore che un ispettore vero fa più spesso.
+   *
+   * CLASSIFICAZIONE: alto rischio, non vietata. L'articolo 4a non cambia la
+   * classe del sistema: è un permesso condizionato su un trattamento fatto
+   * PER quel sistema. Chi risponde «vietata» commette eccesso di cautela, ed è
+   * l'errore che il paragrafo 2 dell'articolo previene espressamente dicendo
+   * che non esiste alcun obbligo di cercare i bias.
+   *
+   * SOGGETTO: il fornitore. Parziale il fornitore esterno, che è difendibile —
+   * i dati li ha trattati lui — ma incompleto: l'obbligo dell'articolo 4a sta
+   * sul fornitore del sistema ad alto rischio, e delegare l'analisi non
+   * delega la condizione.
+   */
+  {
+    id: 'case_bias',
+    locationId: 'osservatorio',
+    fileCode: 'AX-163/2032',
+    correctClassification: 'alto_rischio',
+    correctMeasures: ['audit', 'dati_logging'],
+    partialMeasures: ['oversight'],
+    // decisive: trasmissione a terzi (1) + registro senza motivazione (0);
+    // la relazione sulla correzione (2) è vera e minimizza
+    relevantClues: [0, 1],
+    clueStances: ['decisive', 'decisive', 'minimizes_risk'],
+    normId: 'norm_bias_detection',
+    responsibleSubjectCorrect: 'provider',
+    responsibleSubjectPartial: 'fornitore_esterno',
+    correctMotivation: 0,
+    weakMotivation: 2,
+    possibleDominantErrors: ['classificazione', 'prove', 'eccesso_cautela', 'soggetto', 'motivazione'],
+    concepts: ['data_governance', 'high_risk', 'privacy_by_design'],
     hasIncident: false,
     playable: true,
     estimatedMinutes: 15

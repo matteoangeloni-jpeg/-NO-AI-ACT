@@ -428,6 +428,64 @@ const frodi: ThemeBuilder = (ctx, out) =>
   });
 
 /**
+ * OSSERVATORIO SUL LAVORO — il divario che si chiude sopra una base che manca.
+ *
+ * Il caso ha due verità sovrapposte, e il tema le tiene separate perché sono
+ * separate: il pregiudizio è stato corretto DAVVERO, e il trattamento era
+ * illecito lo stesso.
+ *
+ * Il divario è due sinusoidi vicine, 330 e 331,2 Hz: 1,2 battimenti al
+ * secondo, cioè il divario di quattordici punti che si sente come pulsazione.
+ * Un oscillatore lentissimo stringe la distanza, e la pulsazione rallenta fino
+ * quasi a fermarsi — la correzione che funziona. Non arriva mai all'unisono,
+ * perché il divario è sceso a due punti, non a zero.
+ *
+ * Sotto, una quinta vuota a 55 e 82,5 Hz che non si risolve mai: nessuna terza,
+ * nessuna cadenza. È la base giuridica che manca, e resta lì mentre sopra
+ * tutto sembra andare a posto.
+ */
+const bias: ThemeBuilder = (ctx, out) =>
+  makeHandle(ctx, out, (gain, parts) => {
+    // la quinta vuota: non si risolve, e non deve
+    const bassi = filter(ctx, parts, 'lowpass', 180);
+    bassi.connect(gain);
+    const g1 = gainNode(ctx, parts, 0.32);
+    const g2 = gainNode(ctx, parts, 0.22);
+    osc(ctx, parts, 'sine', 55).connect(g1);
+    osc(ctx, parts, 'sine', 82.5).connect(g2);
+    g1.connect(bassi);
+    g2.connect(bassi);
+
+    // il divario: due voci che battono, e la distanza si stringe
+    const voci = gainNode(ctx, parts, 0.055);
+    voci.connect(gain);
+    osc(ctx, parts, 'sine', 330).connect(voci);
+    const seconda = osc(ctx, parts, 'sine', 331.2);
+    seconda.connect(voci);
+    // 0,012 Hz = un ciclo ogni ~83 secondi: la correzione non è un interruttore
+    const stretta = osc(ctx, parts, 'sine', 0.012);
+    const profondita = gainNode(ctx, parts, 0.85);
+    stretta.connect(profondita);
+    profondita.connect(seconda.frequency);
+
+    // la stanza: rumore molto filtrato, appena percepibile
+    const src = ctx.createBufferSource();
+    src.buffer = noiseBuffer(ctx);
+    src.loop = true;
+    src.start();
+    parts.sources.push(src);
+    parts.nodes.push(src);
+    const stanza = filter(ctx, parts, 'lowpass', 420);
+    const stanzaGain = gainNode(ctx, parts, 0.045);
+    src.connect(stanza);
+    stanza.connect(stanzaGain);
+    stanzaGain.connect(gain);
+
+    // il momento in cui si trova: una nota che sale e non torna indietro
+    parts.timers.push(setInterval(() => blip(ctx, gain, 'triangle', 392, 0.7, 0.045, 494), 11300));
+  });
+
+/**
  * Un timbro per fascicolo. Sei casi ne prendevano in prestito uno di un
  * altro — l'ufficio appalti suonava identico al punteggio sui sussidi, la
  * polizia predittiva identica alla biometria — e chi giocava due casi di
@@ -448,7 +506,8 @@ export const THEME_BUILDERS: Record<string, ThemeBuilder> = {
   case_edtech: edtech,
   case_gpai: gpai,
   case_predpol: predpol,
-  case_frodi: frodi
+  case_frodi: frodi,
+  case_bias: bias
 };
 
 export const THEME_IDS = Object.keys(THEME_BUILDERS);
@@ -486,7 +545,10 @@ const THEME_TRIM: Record<string, number> = {
   case_edtech: 2.7,
   case_gpai: 3,
   case_predpol: 0.6,
-  case_frodi: 0.75
+  case_frodi: 0.75,
+  // Misurato, non stimato: a fattore 1 il letto stava a 0,1358 di RMS contro
+  // lo 0,165-0,180 degli altri temi livellati. 1,25 lo porta nella fascia.
+  case_bias: 1.25
 };
 
 export function buildTheme(ctx: AudioContext, out: AudioNode, themeId: string): ThemeHandle {

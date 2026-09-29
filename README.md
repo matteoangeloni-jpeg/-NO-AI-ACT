@@ -147,7 +147,7 @@ casi chiusi si genera il rapporto finale: *Città opaca*, *Governance fragile* o
 | 12 | Commissariato di zona | Il quartiere segnato | art. 5 — polizia predittiva individuale | ✅ giocabile (2.0) |
 | 13 | Ufficio Sussidi | L'algoritmo del sospetto | Allegato III — prestazioni essenziali, supervisione | ✅ giocabile (2.0) |
 
-**13 casi giocabili** (7 base + 4 avanzati della v0.6 + 2 del pack 2.0). Il caso 7 ("Il credito
+**14 casi giocabili** (7 base + 4 avanzati della v0.6 + 2 del pack 2.0 + 1 sull'articolo 4a, inserito nell'AI Act dal Digital Omnibus). Il caso 7 ("Il credito
 civico") è un *caso-specchio* sul confine social scoring vietato / alto rischio;
 i casi 8–11 (chatbot pubblico, procurement, EdTech, GPAI) sono **casi avanzati**:
 non necessariamente vietati, ma da governare in base al contesto d'uso e
@@ -423,7 +423,7 @@ Note di rilascio: [`docs/RELEASE_NOTES_v2.3.0.md`](docs/RELEASE_NOTES_v2.3.0.md)
 - **Tag della versione**: `v2.3.0` — **non ancora pubblicato**
 - **Ultima release effettivamente taggata**: `v2.2.0`
 - **Nota**: la candidata 2.3 richiede merge, verifica live e playtest esterni prima del tag
-- **Casi giocabili**: 13
+- **Casi giocabili**: 14
 - **Lingue**: italiano e inglese
 - **URL pubblici**: 68 (32 IT + 36 EN)
 - **Salvataggi**: schema v2, con migrazione testata dei salvataggi v1
@@ -490,7 +490,7 @@ semplificata". La rilevanza del rischio dipende sempre dal contesto d'uso.
 investigative serious game about the EU AI Act (Regulation (EU) 2024/1689).
 It is 2032 in an alternate European city where the AI Act never entered into
 force: you are the Inspector for Algorithmic Incidents. Each of the
-**13 playable cases** — organized in **four thematic chapters** — is a
+**14 playable cases** — organized in **four thematic chapters** — is a
 plausible algorithmic disaster (social scoring, opaque AI recruiting,
 unlabeled synthetic government media, emotion recognition in schools,
 predictive triage, public biometrics, civic credit/welfare scoring, public

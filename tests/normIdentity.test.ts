@@ -67,7 +67,42 @@ describe('ogni norma ha un’identità, e ogni identità ha almeno una norma', (
     expect(restrittive.length, 'nessuna norma `restrittivo`: il controllo sarebbe inerte').toBeGreaterThan(1);
     const identita = new Set(restrittive.map((n) => normIdentity(n)));
     expect(identita.has('gpai'), 'nessun GPAI riconosciuto fra le norme restrittive').toBe(true);
-    expect(identita.has('biometria'), 'nessuna biometria riconosciuta fra le norme restrittive').toBe(true);
+    expect(identita.has('biometria'), 'nessuna norma «a condizioni» fra le restrittive').toBe(true);
+  });
+
+  /**
+   * IL CONTROLLO SOPRA NON BASTAVA, E SE N'È ACCORTO UN CASO NUOVO.
+   *
+   * Dichiarava di esistere perché «due regimi molto diversi non tornino a
+   * essere la stessa cosa a schermo», ma pretendeva solo che le due identità
+   * FOSSERO PRESENTI. Aggiungendo la carta dell'articolo 4a — `restrittivo`
+   * come la biometria — il test è rimasto verde mentre a schermo la carta
+   * nuova portava il distintivo «BIOMETRIA A CONDIZIONI»: proprio il difetto
+   * che diceva di sorvegliare. L'ho visto giocando il caso, non eseguendo i
+   * test.
+   *
+   * PERCHÉ NON UNA REGOLA GENERALE. La prima stesura pretendeva, per ogni
+   * identità con più di una norma, che l'etichetta non contenesse il soggetto
+   * di nessuna di esse. Sbagliava su `trasparenza`: lì l'etichetta nomina il
+   * REGIME, e uno dei due id — `norm_trasparenza_sintetici` — contiene la
+   * stessa parola per coincidenza. Un criterio lessicale non distingue «questa
+   * etichetta nomina il regime» da «questa etichetta nomina un soggetto», e
+   * continuerebbe a sbagliare a ogni norma nuova.
+   *
+   * Quindi: guardia di REGRESSIONE sull'invariante vero, dichiarata come tale.
+   * Finché più di una norma condivide l'identità «a condizioni», la sua
+   * etichetta non può nominare la biometria.
+   */
+  it('l’identità «a condizioni» non porta più il nome della sola biometria', () => {
+    const aCondizioni = NORMS.filter((n) => normIdentity(n) === 'biometria');
+    expect(aCondizioni.length, 'una sola norma «a condizioni»: il controllo sarebbe inerte').toBeGreaterThan(1);
+    for (const lingua of [itDict, enDict]) {
+      const etichetta = lingua.ui.normIdentities.biometria.toLowerCase();
+      expect(
+        /biometri/.test(etichetta),
+        `«${etichetta}» nomina la biometria, ma l'identità è condivisa da ${aCondizioni.map((n) => n.id).join(', ')}`
+      ).toBe(false);
+    }
   });
 
   it('il GPAI si riconosce dall’icona, che è il dato che esiste davvero', () => {

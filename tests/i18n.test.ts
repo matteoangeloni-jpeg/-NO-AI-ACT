@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { L, LANGUAGE_CODES, LOCALES, fmt, getLanguage, nextLanguage, setLanguage } from '../src/game/i18n';
 import { it } from '../src/game/i18n/it';
 import { en } from '../src/game/i18n/en';
+import { LOCATIONS } from '../src/game/data/cases';
 
 /** Raccoglie ricorsivamente i percorsi-chiave di un oggetto locale. */
 function keyPaths(obj: unknown, prefix = ''): string[] {
@@ -55,11 +56,39 @@ describe('i18n — completezza dei dizionari', () => {
   test('ogni caso e ogni norma esistono in entrambe le lingue con 3 indizi', () => {
     for (const lang of LANGUAGE_CODES) {
       const locale = LOCALES[lang];
-      expect(Object.keys(locale.cases)).toHaveLength(13);
-      expect(Object.keys(locale.norms)).toHaveLength(13);
+      expect(Object.keys(locale.cases)).toHaveLength(14);
+      expect(Object.keys(locale.norms)).toHaveLength(14);
       for (const c of Object.values(locale.cases)) {
         expect(c.clues.length).toBeGreaterThanOrEqual(3);
       }
+    }
+  });
+
+  /**
+   * OGNI LUOGO DELLA MAPPA HA UN NOME, IN ENTRAMBE LE LINGUE.
+   *
+   * Aggiungendo il quattordicesimo caso il nome del suo luogo è stato
+   * dimenticato, e i 1216 test unitari sono passati tutti: `locationName()`
+   * solleva solo quando la mappa DISEGNA il segnalino, quindi il difetto è
+   * uscito dal browser, a metà della suite smoke, come «Nome mancante per il
+   * luogo: osservatorio». Un errore che rendeva il gioco inavviabile e che
+   * nessun controllo statico vedeva.
+   *
+   * Qui si chiude la classe: un luogo senza nome, in una qualsiasi delle due
+   * lingue, fallisce in un secondo invece che in venti minuti di browser.
+   */
+  test('ogni luogo della mappa ha un nome in entrambe le lingue', () => {
+    for (const lang of LANGUAGE_CODES) {
+      const nomi = LOCALES[lang].locations as Record<string, string>;
+      for (const l of LOCATIONS) {
+        expect(nomi[l.id], `${lang}: manca il nome del luogo "${l.id}"`).toBeTruthy();
+        expect(nomi[l.id].trim().length, `${lang}/${l.id}`).toBeGreaterThan(2);
+      }
+      // E nessun nome orfano: un luogo tolto dai dati non deve lasciare la sua
+      // etichetta nel dizionario, dove il prossimo la crederebbe viva.
+      const idsVeri = new Set(LOCATIONS.map((l) => l.id));
+      const orfani = Object.keys(nomi).filter((k) => !idsVeri.has(k));
+      expect(orfani, `${lang}: nomi di luoghi che non esistono più`).toEqual([]);
     }
   });
 
@@ -70,7 +99,7 @@ describe('i18n — completezza dei dizionari', () => {
 
   test('ogni carta ha la riga "Non significa che" / "This does not mean that", non vuota', () => {
     const ids = Object.keys(it.norms) as (keyof typeof it.norms)[];
-    expect(ids).toHaveLength(13);
+    expect(ids).toHaveLength(14);
     for (const id of ids) {
       expect(it.norms[id].notMeaning.trim().length).toBeGreaterThan(20);
       expect(it.norms[id].notMeaning).toMatch(/Non significa che/i);
