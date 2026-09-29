@@ -1,5 +1,5 @@
 NO AI ACT v3.0.0 press candidate - screenshot pack
-Generated from the playable build on 2026-09-17.
+Generated from the playable build on 2026-09-29.
 
 10 JPEG screenshots, 1920x1080 pixels:
 01 city map

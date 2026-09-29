@@ -183,6 +183,14 @@ describe('press kit — accurate, versioned, no inflated claims', () => {
     expect(it_).toContain('non è ancora stata validata empiricamente');
     expect(en).toContain('has not yet been empirically validated');
   });
+
+  it('press kit includes the verified author profile, reusable bio and current screenshot archive', () => {
+    expect(it_).toContain('../matteo-angeloni/');
+    expect(it_).toContain("Biografia breve dell'autore");
+    expect(en).toContain('../matteo-angeloni/');
+    expect(en).toContain('Short author biography');
+    for (const html of [it_, en]) expect(html).toContain('no-ai-act-v3.0-press-screenshots.zip');
+  });
 });
 
 describe('all six authority pages — wiring and safeguards', () => {
