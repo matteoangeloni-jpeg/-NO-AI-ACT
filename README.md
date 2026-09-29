@@ -437,7 +437,9 @@ Note di rilascio: [`docs/RELEASE_NOTES_v3.0.0.md`](docs/RELEASE_NOTES_v3.0.0.md)
 - **Versione**: v3.0.0 (candidata; fonte: `package.json`)
 - **Tag della versione**: `v3.0.0` — **non ancora pubblicato**
 - **Ultima release effettivamente taggata**: `v2.2.0`
-- **Nota**: la candidata 2.3 richiede merge, verifica live e playtest esterni prima del tag
+- **Nota**: la v3.0.0 è su `main` (commit `7061213`, deploy verde) ma **non
+  ancora** taggata: restano la verifica live in un browser reale e i playtest
+  esterni
 - **Casi giocabili**: 14
 - **Lingue**: italiano e inglese
 - **URL pubblici**: 68 (32 IT + 36 EN)
@@ -450,8 +452,7 @@ Note di rilascio: [`docs/RELEASE_NOTES_v3.0.0.md`](docs/RELEASE_NOTES_v3.0.0.md)
   (il numero esatto di test evolve con il progetto: fonte di verità `npm test`)
 
 Riferimenti correnti:
-[`docs/RELEASE_NOTES_v2.0.0.md`](docs/RELEASE_NOTES_v2.0.0.md) ·
-[`docs/OWNER_ACTIONS_2_0.md`](docs/OWNER_ACTIONS_2_0.md) ·
+[`docs/RELEASE_NOTES_v3.0.0.md`](docs/RELEASE_NOTES_v3.0.0.md) ·
 [`release.config.json`](release.config.json) ·
 [`CITATION.cff`](CITATION.cff) ·
 [`docs/RESEARCH_VALIDATION_FRAMEWORK.md`](docs/RESEARCH_VALIDATION_FRAMEWORK.md) ·

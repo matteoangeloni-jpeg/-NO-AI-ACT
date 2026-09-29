@@ -254,12 +254,32 @@ describe('README current-state truthfulness (release closure)', () => {
     expect(readme).not.toMatch(/ultima release taggata[^\n]*v1\.0\.0/i);
   });
 
-  it('the Stato release section references the current release notes, not v1.0.0', () => {
+  it('the Stato release section references THIS release notes and no superseded ones', () => {
+    // GENERALIZZATO IL 2026-09-29, E VALE LA PENA DIRE PERCHÉ.
+    // Questo controllo si chiama «references the current release notes» e
+    // pretendeva due cose che non sono quella: che la sezione NON citasse le
+    // note della v1.0.0 — una sola versione superata, nominata a mano — e che
+    // citasse `OWNER_ACTIONS_2_0.md`, cioè un pacchetto di azioni scritto per
+    // la v2.0.0, che asserisce 13 casi e 56 URL. Con la 3.0.0 quel documento è
+    // storia: seguirlo oggi produce fallimenti che non sono fallimenti. La
+    // guardia quindi INCHIODAVA il README a un riferimento superato, nel test
+    // il cui scopo dichiarato è impedire i riferimenti superati.
+    //
+    // Ora la proprietà è quella vera e non invecchia: la sezione cita le note
+    // di QUESTA versione, e nessuna nota di un'altra. Vietare «v1.0.0» per
+    // nome sarebbe tornato verde su «v2.0.0» al primo rilascio successivo.
     const m = readme.match(/## <a name="stato-release"><\/a>Stato release([\s\S]*?)(?=\n## |$)/);
     expect(m, 'Stato release section present').toBeTruthy();
-    expect(m![1]).toContain(`RELEASE_NOTES_${cfg.versionTag}.md`);
-    expect(m![1]).not.toContain('RELEASE_NOTES_v1.0.0.md');
-    expect(m![1]).toContain('OWNER_ACTIONS_2_0.md');
+    const sezione = m![1];
+    expect(sezione).toContain(`RELEASE_NOTES_${cfg.versionTag}.md`);
+
+    const altreNote = [...sezione.matchAll(/RELEASE_NOTES_(v[\d.]+)\.md/g)]
+      .map((x) => x[1])
+      .filter((v) => v !== cfg.versionTag);
+    expect(
+      altreNote,
+      `la sezione «Stato release» cita note di release superate: ${altreNote.join(', ')}`
+    ).toEqual([]);
   });
 
   it('the README never contradicts the real release state', () => {

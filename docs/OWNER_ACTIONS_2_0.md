@@ -1,5 +1,13 @@
 # v2.0.0 — owner action package
 
+> **HISTORICAL — do not follow this for a current release.** This package was
+> written for v2.0.0 and its checks assert figures that are no longer true: 13
+> cases (now 14), 26 + 30 = 56 URLs (now 32 + 36 = 68), and a footer reading
+> v2.0.0. Following the spot-checks below against the live site today would
+> report failures that are not failures. For the release procedure that does
+> stay current, see [`RELEASE_CHECKLIST.md`](RELEASE_CHECKLIST.md); for the
+> current release, [`RELEASE_NOTES_v3.0.0.md`](RELEASE_NOTES_v3.0.0.md).
+
 Everything below is a **manual owner action**: the build sandbox has no access
 to production, Cloudflare, Search Console, Zenodo or third-party platforms.
 Work top-to-bottom; each block is independent.
