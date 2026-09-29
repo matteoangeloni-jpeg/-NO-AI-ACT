@@ -74,7 +74,7 @@ export const MISCONCEPTIONS: MisconceptionId[] = [
   'mis_gpai_unregulated'
 ];
 
-/** Aree del Regolamento (UE) 2024/1689 usate come ancore didattiche. */
+/** Aree del Regolamento (UE) 2024/1689, come modificato dal Reg. (UE) 2026/1744, usate come ancore didattiche. */
 export type ProvisionId = 'art5' | 'annex3' | 'art50' | 'chapter5' | 'art14' | 'art26';
 
 export interface LegalMatrixRow {
@@ -92,37 +92,37 @@ export interface LegalMatrixRow {
 export const LEGAL_MATRIX: LegalMatrixRow[] = [
   {
     provision: 'art5',
-    articleRef: 'Reg. (UE) 2024/1689, art. 5',
+    articleRef: 'Reg. (UE) 2024/1689 (mod. Reg. UE 2026/1744), art. 5',
     normIds: ['norm_social_scoring', 'norm_emotion_recognition', 'norm_biometria', 'norm_credito', 'norm_predpol'],
     caseIds: ['case_scoring', 'case_scuola', 'case_biometria', 'case_credito', 'case_predpol']
   },
   {
     provision: 'annex3',
-    articleRef: 'Reg. (UE) 2024/1689, capo III e allegato III',
+    articleRef: 'Reg. (UE) 2024/1689 (mod. Reg. UE 2026/1744), capo III e allegato III',
     normIds: ['norm_lavoro_alto_rischio', 'norm_alto_rischio_obblighi', 'norm_procurement', 'norm_edtech', 'norm_frodi_welfare'],
     caseIds: ['case_lavoro', 'case_ospedale', 'case_procurement', 'case_edtech', 'case_frodi']
   },
   {
     provision: 'art50',
-    articleRef: 'Reg. (UE) 2024/1689, art. 50',
+    articleRef: 'Reg. (UE) 2024/1689 (mod. Reg. UE 2026/1744), art. 50',
     normIds: ['norm_trasparenza_sintetici', 'norm_chatbot'],
     caseIds: ['case_media', 'case_chatbot']
   },
   {
     provision: 'chapter5',
-    articleRef: 'Reg. (UE) 2024/1689, capo V',
+    articleRef: 'Reg. (UE) 2024/1689 (mod. Reg. UE 2026/1744), capo V',
     normIds: ['norm_gpai'],
     caseIds: ['case_gpai']
   },
   {
     provision: 'art14',
-    articleRef: 'Reg. (UE) 2024/1689, art. 14',
+    articleRef: 'Reg. (UE) 2024/1689 (mod. Reg. UE 2026/1744), art. 14',
     normIds: ['norm_lavoro_alto_rischio', 'norm_alto_rischio_obblighi', 'norm_frodi_welfare'],
     caseIds: ['case_lavoro', 'case_ospedale', 'case_frodi']
   },
   {
     provision: 'art26',
-    articleRef: 'Reg. (UE) 2024/1689, art. 26',
+    articleRef: 'Reg. (UE) 2024/1689 (mod. Reg. UE 2026/1744), art. 26',
     normIds: ['norm_procurement', 'norm_edtech', 'norm_gpai'],
     caseIds: ['case_procurement', 'case_edtech', 'case_gpai']
   }

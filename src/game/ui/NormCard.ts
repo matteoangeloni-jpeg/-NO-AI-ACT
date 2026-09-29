@@ -55,11 +55,23 @@ export class NormCardView extends Phaser.GameObjects.Container {
     this.add([bg, header, icon, levelTag, title, reference]);
 
     if (!compact) {
-      // flusso verticale misurato: spiegazione → "Non significa che…" →
-      // funzione democratica, così la riga anti-frainteso non collide mai
+      /**
+       * Flusso verticale misurato: spiegazione → "Non significa che…" →
+       * funzione democratica, così la riga anti-frainteso non collide mai.
+       *
+       * IL PRIMO OFFSET NON ERA MISURATO, E IL COMMENTO PROMETTEVA CHE LO FOSSE.
+       * Era la costante -height/2 + 96, mentre il riferimento sta a +64 e a
+       * 12,5px occupa una riga sola: sedici pixel di margine, che bastano
+       * finché la citazione sta su una riga. A due righe il riferimento arriva
+       * esattamente dove comincia la spiegazione; a tre la scavalca. Nessuno
+       * l'avrebbe visto finché le citazioni restavano corte — e stanno per
+       * allungarsi, perché devono nominare il regolamento che ha modificato
+       * l'AI Act. Ora parte dal fondo misurato del riferimento, come tutto il
+       * resto della colonna.
+       */
       const innerW = width - 40;
       const leftX = -width / 2 + 20;
-      let by = -height / 2 + 96;
+      let by = Math.max(-height / 2 + 96, reference.y + reference.height + 14);
 
       const explanation = scene.add.text(leftX, by, norm.explanation, textStyle(13, COLOR_STR.paper, { wordWrap: { width: innerW }, lineSpacing: 6 }));
       by += explanation.height + 10;

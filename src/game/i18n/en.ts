@@ -2,7 +2,8 @@ import type { Locale } from './index';
 
 /**
  * ENGLISH dictionary. Must mirror every key of the Italian source of truth.
- * Legal content: simplified educational version of Regulation (EU) 2024/1689.
+ * Legal content: simplified educational version of Regulation (EU) 2024/1689,
+ * as amended by Regulation (EU) 2026/1744.
  * Not legal advice.
  */
 export const en: Locale = {
@@ -17,7 +18,7 @@ export const en: Locale = {
     },
     typewriterHint: '▸ click, SPACE or ENTER to show the whole text at once',
     footerDisclaimer:
-      'Simplified educational version of the AI Act (Reg. EU 2024/1689). This is not legal advice.',
+      'Simplified educational version of the AI Act (Reg. EU 2024/1689, as amended by Reg. EU 2026/1744). This is not legal advice.',
     menu: {
       continue: 'CONTINUE INVESTIGATION',
       newGame: 'NEW GAME',
@@ -165,7 +166,7 @@ export const en: Locale = {
       // labels parallel to the language's FALLBACK_LINKS (same order)
       generalLinkLabels: ['Education hub ▸', 'EU AI Act guide ▸', 'Glossary ▸'],
       performance: { strong: 'solid', mixed: 'to consolidate', weak: 'to review' },
-      disclaimer: 'NO AI ACT is an educational simulation and simplifies Regulation (EU) 2024/1689: this report describes your path in the game, not a certified competence, and it is not legal advice.',
+      disclaimer: 'NO AI ACT is an educational simulation and simplifies Regulation (EU) 2024/1689, as amended by Regulation (EU) 2026/1744: this report describes your path in the game, not a certified competence, and it is not legal advice.',
       back: 'BACK TO FINAL REPORT'
     },
     // In-game teacher guide (v1.1): before/during/after structure + resources.
@@ -1295,7 +1296,7 @@ export const en: Locale = {
   norms: {
     norm_predpol: {
       title: "Ban on individual predictive policing",
-      reference: "AI Act — Reg. (EU) 2024/1689, Art. 5(1)(d)",
+      reference: "AI Act — Reg. (EU) 2024/1689 (as amended by Reg. EU 2026/1744), Art. 5(1)(d)",
       explanation: "Using AI systems to predict a person's risk of committing an offence based solely on profiling or personality traits is prohibited.",
       notMeaning: "This does not mean that AI is banned from investigations: support for human assessment grounded in objective facts linked to criminal activity stays outside the ban.",
       democraticFunction: "It prevents people from being treated as suspects for what they are — where they live, whom they know — instead of what they do.",
@@ -1303,7 +1304,7 @@ export const en: Locale = {
     },
     norm_frodi_welfare: {
       title: "High risk: access to essential benefits",
-      reference: "AI Act — Reg. (EU) 2024/1689, Annex III(5); Arts. 14 and 26",
+      reference: "AI Act — Reg. (EU) 2024/1689 (as amended by Reg. EU 2026/1744), Annex III(5); Arts. 14 and 26",
       explanation: "Systems that assess access to essential public benefits are high-risk: they require quality data, traceability and effective human oversight before effects reach people.",
       notMeaning: "This does not mean that agencies cannot fight fraud: it means a score cannot suspend a right before a person verifies the file.",
       democraticFunction: "It protects those who depend on welfare from automated error: the burden of verification sits with the administration, not with the citizen who appeals.",

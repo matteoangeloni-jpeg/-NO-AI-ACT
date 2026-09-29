@@ -2,7 +2,8 @@
  * Dizionario ITALIANO — fonte di verità della forma `Locale`.
  * Ogni altra lingua deve fornire esattamente le stesse chiavi.
  * Contenuti normativi: versione didattica semplificata del
- * Regolamento (UE) 2024/1689. Non costituiscono consulenza legale.
+ * Regolamento (UE) 2024/1689, come modificato dal Reg. (UE) 2026/1744.
+ * Non costituiscono consulenza legale.
  */
 export const it = {
   ui: {
@@ -16,7 +17,7 @@ export const it = {
     },
     typewriterHint: '▸ clic, SPAZIO o INVIO per mostrare subito tutto il testo',
     footerDisclaimer:
-      "Versione didattica semplificata dell'AI Act (Reg. UE 2024/1689). Non costituisce consulenza legale.",
+      "Versione didattica semplificata dell'AI Act (Reg. UE 2024/1689, come modificato dal Reg. UE 2026/1744). Non costituisce consulenza legale.",
     menu: {
       continue: 'CONTINUA INDAGINE',
       newGame: 'NUOVA PARTITA',
@@ -164,7 +165,7 @@ export const it = {
       // etichette parallele a FALLBACK_LINKS della lingua (stesso ordine)
       generalLinkLabels: ['Risorse educative ▸', "Guida all'AI Act ▸", 'Glossario ▸'],
       performance: { strong: 'solido', mixed: 'da consolidare', weak: 'da rivedere' },
-      disclaimer: 'NO AI ACT è una simulazione didattica e semplifica il Regolamento (UE) 2024/1689: questo rapporto descrive il tuo percorso nel gioco, non una competenza certificata né una consulenza legale.',
+      disclaimer: 'NO AI ACT è una simulazione didattica e semplifica il Regolamento (UE) 2024/1689, come modificato dal Regolamento (UE) 2026/1744: questo rapporto descrive il tuo percorso nel gioco, non una competenza certificata né una consulenza legale.',
       back: 'TORNA AL RAPPORTO FINALE'
     },
     // Guida docente in gioco (v1.1): struttura prima/durante/dopo + risorse.
@@ -1307,7 +1308,7 @@ export const it = {
   norms: {
     norm_predpol: {
       title: "Divieto di polizia predittiva individuale",
-      reference: "AI Act — Reg. (UE) 2024/1689, art. 5, par. 1, lett. d",
+      reference: "AI Act — Reg. (UE) 2024/1689 (mod. Reg. UE 2026/1744), art. 5, par. 1, lett. d",
       explanation: "È vietato usare sistemi di IA per prevedere il rischio che una persona commetta un reato sulla sola base della profilazione o dei tratti della personalità.",
       notMeaning: "Non significa che l'IA sia bandita dalle indagini: il supporto alla valutazione umana fondata su fatti oggettivi legati a un'attività criminosa resta fuori dal divieto.",
       democraticFunction: "Impedisce che le persone vengano trattate da sospette per ciò che sono — dove vivono, chi conoscono — invece che per ciò che fanno.",
@@ -1315,7 +1316,7 @@ export const it = {
     },
     norm_frodi_welfare: {
       title: "Alto rischio: accesso alle prestazioni essenziali",
-      reference: "AI Act — Reg. (UE) 2024/1689, allegato III, punto 5; artt. 14 e 26",
+      reference: "AI Act — Reg. (UE) 2024/1689 (mod. Reg. UE 2026/1744), allegato III, punto 5; artt. 14 e 26",
       explanation: "I sistemi che valutano l'accesso a prestazioni pubbliche essenziali sono ad alto rischio: richiedono dati di qualità, tracciabilità e supervisione umana effettiva prima che gli effetti ricadano sulle persone.",
       notMeaning: "Non significa che gli enti non possano contrastare le frodi: significa che un punteggio non può sospendere un diritto senza che una persona verifichi.",
       democraticFunction: "Protegge chi dipende dal welfare dagli errori automatizzati: l'onere della verifica sta sull'amministrazione, non sul cittadino che fa ricorso.",

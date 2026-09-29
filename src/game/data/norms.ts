@@ -3,7 +3,8 @@ import type { NormCardData } from './types';
 /**
  * Struttura delle carte norma. Tutti i testi (titolo, riferimento,
  * spiegazione, funzione democratica, tag) vivono in src/game/i18n/<lingua>.ts
- * sotto norms[id]. VERSIONE DIDATTICA SEMPLIFICATA del Reg. (UE) 2024/1689:
+ * sotto norms[id]. VERSIONE DIDATTICA SEMPLIFICATA del Reg. (UE) 2024/1689,
+ * come modificato dal Reg. (UE) 2026/1744 (Digital Omnibus sull'IA):
  * non costituisce consulenza legale.
  */
 export const NORMS: NormCardData[] = [
