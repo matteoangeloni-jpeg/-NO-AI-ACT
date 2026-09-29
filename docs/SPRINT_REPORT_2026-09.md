@@ -130,9 +130,21 @@ Vedi sotto.
 
 ---
 
-## Proposta di versione: 2.4.0
+## Versione: 3.0.0
 
-Versione corrente **2.3.0**. Proposta **2.4.0** — minore, non patch e non major.
+Versione di partenza **2.3.0**. Avevo proposto **2.4.0**; il proprietario ha
+deciso **3.0.0**, e aveva ragione.
+
+**La mia proposta era tarata sul criterio sbagliato.** Ragionavo in semver da
+libreria: nessuna rottura, nessuna migrazione, inventario delle rotte invariato,
+quindi minore. Ma qui non c'è un'API con consumatori: c'è un prodotto che
+insegna una norma, e **quella norma è cambiata**. La 3.0 è la prima versione che
+insegna l'AI Act *come modificato* dal Reg. (UE) 2026/1744, e porta il primo
+caso nuovo dal pack 2.0. Cambio di edizione, non incremento.
+
+**Da dire nelle note, perché «3.0» fa temere il contrario:** i salvataggi
+restano compatibili. Nessuna struttura dati cambia, nessuna chiave viene
+rinominata, nessuna migrazione è necessaria.
 
 | Criterio | Esito |
 |---|---|
@@ -160,7 +172,7 @@ Cosa resta a lui, in ordine:
    o in corso di pubblicazione);
 2. decidere sulla newsletter, leggendo il §5 della valutazione;
 3. decidere se il ticker torna in gioco, e in quale forma;
-4. tagliare `v2.4.0` e scrivere la release, seguendo
+4. tagliare `v3.0.0` e scrivere la release, seguendo
    [`RELEASE_CHECKLIST.md`](RELEASE_CHECKLIST.md).
 
 ## Quello che questo sprint NON ha dimostrato
