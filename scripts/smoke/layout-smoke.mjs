@@ -269,10 +269,22 @@ async function switchScene(page, key, data) {
     for (const s of g.scene.scenes) if (s.scene.isActive() && s.scene.key !== 'Boot') s.scene.stop();
     g.scene.start(key, data);
   }, { key, data });
-  await page.waitForFunction((key) => {
+  const arrivata = await page.waitForFunction((key) => {
     const a = window.game?.scene?.getScenes(true) ?? [];
     return a.length > 0 && a[a.length - 1].scene.key === key;
-  }, key, { timeout: 8000 });
+  }, key, { timeout: 8000 }).then(() => true).catch(() => false);
+  if (!arrivata) {
+    // UN TIMEOUT CHE NON DICE COSA C'ERA COSTA UN GIRO INTERO.
+    // Questo controllo pretende che `key` sia l'ULTIMA scena attiva, quindi
+    // fallisce in due modi molto diversi: la scena non è partita, o è partita
+    // e un'altra le si è messa sopra. Senza l'elenco delle scene vive i due
+    // casi sono indistinguibili, e si finisce a sospettare il codice del gioco
+    // quando il problema è l'ordine. Già succeduto con i pulsanti nella sonda
+    // del press kit: l'errore che elenca ciò che ha trovato si diagnostica da sé.
+    const vive = await page.evaluate(() =>
+      (window.game?.scene?.getScenes(true) ?? []).map((s) => s.scene.key));
+    throw new Error(`scena "${key}" non è l'ultima attiva entro 8s — vive: ${JSON.stringify(vive)}`);
+  }
   await page.waitForTimeout(400);
 }
 
