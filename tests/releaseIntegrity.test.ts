@@ -50,8 +50,8 @@ function shippedHtml(base: string): string[] {
   return out;
 }
 
-/** Current-state 11-claims (any language/spelling) near a case/system noun. */
-const FORBIDDEN = /\b(11|undici|eleven)\b[^<.\n]{0,40}\b(cases|casi|case files|systems|sistemi|fascicoli)\b/i;
+/** Superseded case counts (any language/spelling) near a case/system noun. */
+const FORBIDDEN = /\b(11|13|undici|tredici|eleven|thirteen)\b[^<.\n]{0,40}\b(cases|casi|case files|systems|sistemi|fascicoli)\b/i;
 
 describe('case-count consistency — source tree', () => {
   const pages = shippedHtml('.');
@@ -60,7 +60,7 @@ describe('case-count consistency — source tree', () => {
     expect(pages.length).toBeGreaterThanOrEqual(cfg.publicUrls.total + 1);
   });
 
-  it(`no shipped page presents 11 as the current case count (authoritative: ${N})`, () => {
+  it(`no shipped page presents a superseded current case count (authoritative: ${N})`, () => {
     const offenders: string[] = [];
     for (const p of pages) {
       const m = read(p).match(FORBIDDEN);
@@ -69,14 +69,23 @@ describe('case-count consistency — source tree', () => {
     expect(offenders, offenders.join('\n')).toEqual([]);
   });
 
-  it('llms.txt states the authoritative count and no 11-claim', () => {
+  it('llms.txt states the authoritative count and no superseded claim', () => {
     const llms = read('public/llms.txt');
     expect(llms).toContain(`${N} playable cases`);
     expect(llms).not.toMatch(FORBIDDEN);
   });
 
+  it('social-card sources state the authoritative count and no superseded claim', () => {
+    const generator = read('scripts/social/generate-og-images.mjs');
+    const metadata = read('scripts/social/meta.config.json');
+    expect(generator).toContain(`${N} cases`);
+    expect(metadata).toContain(`${N} sistemi`);
+    expect(generator).not.toMatch(FORBIDDEN);
+    expect(metadata).not.toMatch(FORBIDDEN);
+  });
+
   it('both landings state the authoritative count in body, meta and JSON-LD', () => {
-    for (const [p, words] of [['index.html', [`${N} casi`, 'Tredici casi']], ['en/index.html', [`${N} cases`, 'Thirteen cases']]] as const) {
+    for (const [p, words] of [['index.html', [`${N} casi`, 'Quattordici casi']], ['en/index.html', [`${N} cases`, 'Fourteen cases']]] as const) {
       const html = read(p);
       for (const w of words) expect(html, `${p}: ${w}`).toContain(w);
     }
@@ -99,10 +108,10 @@ describe('the dist scan cannot drift away from the source scan', () => {
   // davvero — in scripts/ci/verify-dist.mjs, che gira dopo la build — quindi
   // qui resta l'unica cosa che quel test non garantiva: che le due scansioni
   // continuino a cercare lo stesso schema invece di divergere in silenzio.
-  it('verify-dist.mjs vieta esattamente lo stesso schema "11 casi" dei test', () => {
+  it('verify-dist.mjs vieta esattamente lo stesso schema dei conteggi superati', () => {
     const script = read('scripts/ci/verify-dist.mjs');
-    const declared = script.match(/\/\\b\(11\|undici\|eleven\)[^\n]*?\/i(?=,|\n)/);
-    expect(declared, 'verify-dist.mjs non dichiara più un pattern "11 casi"').not.toBeNull();
+    const declared = script.match(/\/\\b\(11\|13\|undici\|tredici\|eleven\|thirteen\)[^\n]*?\/i(?=,|\n)/);
+    expect(declared, 'verify-dist.mjs non dichiara più il pattern dei conteggi superati').not.toBeNull();
     expect(String(declared?.[0])).toBe(String(FORBIDDEN));
   });
 });
@@ -183,9 +192,14 @@ describe('meta agreement — description, og:description, twitter:description', 
 });
 
 describe('structured-data integrity — sameAs allowlist and evidenced dates', () => {
-  const SAME_AS_ALLOWED = [cfg.repository];
+  const SAME_AS_ALLOWED = [
+    cfg.repository,
+    'https://github.com/matteoangeloni-jpeg',
+    'https://it.linkedin.com/in/matteo-angeloni',
+    'https://www.unitus.it/post-laurea/dottorati-di-ricerca/corsi-di-dottorato-attivi/societa-in-mutamento-politiche-diritti-e-sicurezza/'
+  ];
 
-  it('every sameAs entry on every shipped page is allowlisted (repository only)', () => {
+  it('every sameAs entry on every shipped page is explicitly allowlisted', () => {
     const offenders: string[] = [];
     for (const p of shippedHtml('.')) {
       const html = read(p);
@@ -204,7 +218,8 @@ describe('structured-data integrity — sameAs allowlist and evidenced dates', (
 
   it('no unverified social profiles anywhere in shipped HTML', () => {
     for (const p of shippedHtml('.')) {
-      expect(read(p), p).not.toMatch(/linkedin\.com|twitter\.com\/[a-z]|facebook\.com\/(?!tr)[a-z]|instagram\.com/i);
+      const html = read(p).split('https://it.linkedin.com/in/matteo-angeloni').join('');
+      expect(html, p).not.toMatch(/linkedin\.com|twitter\.com\/[a-z]|facebook\.com\/(?!tr)[a-z]|instagram\.com/i);
     }
   });
 
@@ -213,7 +228,8 @@ describe('structured-data integrity — sameAs allowlist and evidenced dates', (
       const html = read(p);
       expect(html, `${p}: datePublished must not be claimed without evidence`).not.toContain('datePublished');
       for (const [, d] of html.matchAll(/"dateModified": "([^"]+)"/g)) {
-        expect(d.startsWith(cfg.contentLastReviewed), `${p}: dateModified ${d} != contentLastReviewed ${cfg.contentLastReviewed}`).toBe(true);
+        const expected = p.includes('matteo-angeloni') ? '2026-09-29' : cfg.contentLastReviewed;
+        expect(d.startsWith(expected), `${p}: dateModified ${d} != expected ${expected}`).toBe(true);
       }
     }
   });

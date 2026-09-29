@@ -34,7 +34,7 @@ const CARDS = [
     footer: 'Educational · not legal advice' },
   { file: 'no-ai-act-play-og.png', badge: 'PLAY · SERIOUS GAME',
     title: 'Play the investigation',
-    tagline: '11 cases · examine the evidence · classify AI risk under the EU AI Act.',
+    tagline: '14 cases · examine the evidence · classify AI risk under the EU AI Act.',
     footer: 'Free · no account · runs in your browser' },
   { file: 'no-ai-act-education-og.png', badge: 'EDUCATION HUB',
     title: 'Teach the EU AI Act',

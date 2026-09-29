@@ -20,6 +20,7 @@ Landing pubblica (IT/EN): `https://www.no-ai-act.eu/`
 [Uso didattico](#uso-didattico) ·
 [Modalità docente](#modalità-docente) ·
 [Dati e privacy](#dati-e-privacy) ·
+[Autore](#autore-e-responsabilità-editoriale) ·
 [Game Design Document](docs/GDD.md) ·
 [Licenze](#licenze)
 
@@ -50,6 +51,7 @@ Questo gioco **non costituisce consulenza legale**.
 | **Durata** | Da ~10–15 min (demo) a ~60–75 min (percorso avanzato) |
 | **Lingue** | Italiano / English |
 | **Account / dati** | Nessun account, nessun dato personale, nessun backend |
+| **Autore** | [Matteo Angeloni](https://www.no-ai-act.eu/matteo-angeloni/) — ideazione, game design, sviluppo e contenuti educativi |
 
 ## Stato attuale del codice (v3.0.0 candidata)
 
@@ -79,7 +81,7 @@ restano compatibili.
 
 Incorpora il lavoro preparato come 2.3.0 e mai taggato: la **Postazione
 ispettiva** persistente che riunisce fascicolo, confronto dei reperti, norme,
-archivio e taccuino. Il sito è a **68 URL pubblici**; il press kit include una
+archivio e taccuino. Il sito è a **70 URL pubblici**; il press kit include una
 galleria Full HD. Dettagli: `docs/RELEASE_NOTES_v3.0.0.md`.
 
 ## Novità in v1.0.0 — Prima release pubblica stabile (storico)
@@ -152,6 +154,7 @@ casi chiusi si genera il rapporto finale: *Città opaca*, *Governance fragile* o
 | 11 | Centro Modelli | Il modello tuttofare | GPAI / uso a valle del modello generale | ✅ giocabile (v0.6) |
 | 12 | Commissariato di zona | Il quartiere segnato | art. 5 — polizia predittiva individuale | ✅ giocabile (2.0) |
 | 13 | Ufficio Sussidi | L'algoritmo del sospetto | Allegato III — prestazioni essenziali, supervisione | ✅ giocabile (2.0) |
+| 14 | Agenzia regionale per il lavoro | Il pregiudizio corretto | art. 4a — rilevazione e correzione dei bias con categorie particolari di dati | ✅ giocabile (3.0) |
 
 **14 casi giocabili** (7 base + 4 avanzati della v0.6 + 2 del pack 2.0 + 1 sull'articolo 4a, inserito nell'AI Act dal Digital Omnibus). Il caso 7 ("Il credito
 civico") è un *caso-specchio* sul confine social scoring vietato / alto rischio;
@@ -369,7 +372,7 @@ struttura fra i dizionari (predisposto per FR/ES).
 - **I salvataggi restano compatibili**: nessuna struttura dati cambia.
 - Incorpora il lavoro preparato come 2.3.0 e **mai taggato** — postazione
   ispettiva, confronto fra prove citate, taccuino, percorso tastiera.
-- 68 URL pubblici. Restano necessarie le due tornate di playtest esterni prima
+- 70 URL pubblici. Restano necessarie le due tornate di playtest esterni prima
   di dichiarare la build press-ready.
 - Dettagli: [`docs/RELEASE_NOTES_v3.0.0.md`](docs/RELEASE_NOTES_v3.0.0.md) ·
   [`docs/RELEASE_NOTES_v2.3.0.md`](docs/RELEASE_NOTES_v2.3.0.md).
@@ -440,7 +443,7 @@ Note di rilascio: [`docs/RELEASE_NOTES_v3.0.0.md`](docs/RELEASE_NOTES_v3.0.0.md)
 - **Nota**: la candidata 2.3 richiede merge, verifica live e playtest esterni prima del tag
 - **Casi giocabili**: 14
 - **Lingue**: italiano e inglese
-- **URL pubblici**: 68 (32 IT + 36 EN)
+- **URL pubblici**: 70 (33 IT + 37 EN)
 - **Salvataggi**: schema v2, con migrazione testata dei salvataggi v1
 - **Backend**: nessuno · **Account**: nessuno · **Raccolta dati personali**:
   nessuna · **Chiamate di rete durante il gameplay**: nessuna
@@ -456,6 +459,12 @@ Riferimenti correnti:
 [`CITATION.cff`](CITATION.cff) ·
 [`docs/RESEARCH_VALIDATION_FRAMEWORK.md`](docs/RESEARCH_VALIDATION_FRAMEWORK.md) ·
 checklist di rilascio: [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md).
+
+## Autore e responsabilità editoriale
+
+**NO AI ACT è ideato, scritto e sviluppato da [Matteo Angeloni](https://www.no-ai-act.eu/matteo-angeloni/)**, dottorando presso l'Università degli Studi della Tuscia. La sua ricerca riguarda l'impatto dell'intelligenza artificiale sui processi formativi e decisionali, sul reskilling e sulla governance del cambiamento.
+
+Nel progetto cura game design, sviluppo software, contenuti educativi, ricerca delle fonti, versionamento e revisione editoriale interna. NO AI ACT è un progetto indipendente, non una pubblicazione ufficiale dell'ateneo; non costituisce consulenza legale e non ha ancora ricevuto una revisione giuridica indipendente. Profilo accademico, attività scientifiche, metodo editoriale e collegamenti verificabili sono disponibili nella [pagina autore IT](https://www.no-ai-act.eu/matteo-angeloni/) e nella [author page EN](https://www.no-ai-act.eu/en/matteo-angeloni/).
 
 ## Contribuire / testare
 

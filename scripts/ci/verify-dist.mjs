@@ -91,7 +91,7 @@ try {
 // testo che il sito portava davvero, non contro un esempio inventato.
 {
   const FORBIDDEN = [
-    /\b(11|undici|eleven)\b[^<.\n]{0,40}\b(cases|casi|case files|systems|sistemi|fascicoli)\b/i,
+    /\b(11|13|undici|tredici|eleven|thirteen)\b[^<.\n]{0,40}\b(cases|casi|case files|systems|sistemi|fascicoli)\b/i,
     /Partecipa al playtest/i,
     /Join the playtest/i,
     /linkedin\.com\/company/i,

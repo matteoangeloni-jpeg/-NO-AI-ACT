@@ -271,12 +271,12 @@ describe('public landing — language handoff to the game', () => {
 describe('public landing — footer author credit', () => {
   it('the IT footer credits Matteo Angeloni', () => {
     expect(itHtml).toContain('Matteo Angeloni');
-    expect(itHtml).toContain('Ideato e sviluppato da Matteo Angeloni');
+    expect(itHtml).toContain('Ideato e sviluppato da <a href="/matteo-angeloni/">Matteo Angeloni</a>');
   });
 
   it('the EN footer credits Matteo Angeloni', () => {
     expect(enHtml).toContain('Matteo Angeloni');
-    expect(enHtml).toContain('Designed and developed by Matteo Angeloni');
+    expect(enHtml).toContain('Designed and developed by <a href="/en/matteo-angeloni/">Matteo Angeloni</a>');
   });
 });
 

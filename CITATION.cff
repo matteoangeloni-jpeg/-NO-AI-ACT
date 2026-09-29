@@ -10,7 +10,7 @@ abstract: >-
   NO AI ACT is a free, open-source, browser-based investigative serious game
   about the European AI Act (Regulation (EU) 2024/1689). Players act as an
   inspector in a fictional 2032 city where the AI Act never entered into
-  force: they open case files on AI systems, examine evidence, classify risk
+  force: across 14 playable cases they open files on AI systems, examine evidence, classify risk
   and file inspection reports, while city indicators respond to their
   decisions. The game is bilingual (Italian/English), requires no account,
   runs entirely in the browser, performs no gameplay network requests and
@@ -24,6 +24,7 @@ authors:
     affiliation: >-
       Università degli Studi della Tuscia — PhD programme
       "Società in mutamento: politiche, diritti e sicurezza"
+    website: "https://www.no-ai-act.eu/en/matteo-angeloni/"
 version: 3.0.0
 date-released: "2026-09-17"
 repository-code: "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"
@@ -40,3 +41,4 @@ keywords:
   - risk classification
   - privacy by design
   - open educational resource
+  - Digital Omnibus
