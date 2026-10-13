@@ -357,17 +357,18 @@ export class EvidenceScene extends Phaser.Scene {
       // Prima non c'era: ora che la riga a video si ritira, se non stesse qui
       // chi legge con uno strumento assistivo la perderebbe del tutto.
       { text: L().ui.evidence.citeNote },
-      { text: fmt(L().a11y.evidenceHint, { n: Math.min(texts.clues.length, 6) }) },
-      {
-        items: texts.clues.map((clue, i) => {
+      { text: fmt(L().a11y.evidenceHint, { n: Math.min(texts.clues.length, 6) }), desktopOnly: true },
+      ...texts.clues.map((clue, i) => {
           const card = this.cards[i];
-          return evidenceReadingLine(
+          const source = texts.clueSources?.[i];
+          return { actionSlot: `evidence-${i}`, heading: `${fmt(L().ui.evidence.exhibit, { num: i + 1 })} - ${clue.title}`,
+            text: (source ? `${L().ui.evidence.sourceLabel}: ${L().ui.evidence.sources[source]}. ` : '') + evidenceReadingLine(
             clue,
             card ? { revealed: card.isRevealed, cited: card.isCited } : undefined,
             { sealed: L().ui.evidence.sealed, cited: L().a11y.evidenceCited }
-          );
-        })
-      }
+          ) };
+        }),
+      { text: this.progressText.text }
     ]);
   }
 

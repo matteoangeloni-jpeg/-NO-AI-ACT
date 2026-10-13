@@ -9,6 +9,7 @@ import { gameplayEn } from './gameplay';
  */
 export const en: Locale = {
   gameplay: gameplayEn,
+  mobile: { open: 'OPEN DOCUMENT', uncite: 'REMOVE CITATION', search: 'Search the archive', close: 'Close' },
   ui: {
     gameTitle: 'NO AI ACT',
     gameSubtitle: 'Simulator of an unregulated society',
@@ -316,7 +317,7 @@ export const en: Locale = {
       normsEmpty: 'No norm acquired yet.',
       termsButton: 'WHAT DO THESE MEAN?',
       termsTitle: 'THE TERMS IN THIS CHOICE',
-      termsHint: 'read-only — click outside or ESC to close. It does not hint at the answer.',
+      termsHint: 'Read-only. Close to return to your decision. It does not hint at the answer.',
       termsNoEntry: 'Not a category defined by the regulation: it is what falls outside the others.'
     },
     subjects: {

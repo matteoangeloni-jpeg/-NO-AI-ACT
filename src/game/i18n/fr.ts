@@ -17,6 +17,7 @@
 import { gameplayFr } from './gameplay';
 export const fr = {
   gameplay: gameplayFr,
+  mobile: { open: 'OUVRIR LE DOCUMENT', uncite: 'RETIRER LA CITATION', search: 'Rechercher dans les archives', close: 'Fermer' },
   ui: {
     gameTitle: 'NO AI ACT',
     gameSubtitle: "Simulateur d'une société non régulée",
@@ -368,7 +369,7 @@ export const fr = {
       termsButton: "QU'EST-CE QUE CELA VEUT DIRE ?",
       termsTitle: 'LES TERMES DE CE CHOIX',
       termsHint:
-        "consultation seule — clic à l'extérieur ou ÉCHAP pour fermer. Ne suggère pas la réponse.",
+        'Consultation seule. Fermez pour revenir à la décision. Ne suggère pas la réponse.',
       termsNoEntry:
         "Ce n'est pas une catégorie définie par le règlement : c'est ce qui reste en dehors des autres."
     },

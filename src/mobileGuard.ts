@@ -1,5 +1,6 @@
 import { LOCALES, isLanguageCode } from './game/i18n';
 import type { LanguageCode } from './game/data/types';
+import { mobilePresentationActive } from './game/ui/mobilePresentation';
 
 /**
  * Mobile guard: overlay puramente DOM/CSS (nessun canvas, nessun backend,
@@ -46,7 +47,7 @@ export function initMobileGuard(): void {
     const t = LOCALES[savedLanguage()].a11y;
     if (msg) msg.textContent = LOCALES[savedLanguage()].ui.mobileGuard.message;
     if (continueBtn) continueBtn.textContent = t.mobileContinue;
-    const show = !dismissed && shouldShowMobileGuard(window.innerWidth, window.innerHeight);
+    const show = !mobilePresentationActive() && !dismissed && shouldShowMobileGuard(window.innerWidth, window.innerHeight);
     el.style.display = show ? 'flex' : 'none';
   };
 

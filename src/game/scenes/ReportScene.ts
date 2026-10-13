@@ -369,7 +369,13 @@ export class ReportScene extends Phaser.Scene {
       { heading: t.ui.outcomes[result.outcome], text: analysis },
       { heading: t.ui.report.dominantLabel, text: result.dominantError ? t.ui.errors[result.dominantError] : texts.noteCorrect },
       { heading: t.ui.report.decisiveEvidenceLabel, text: relevant },
+      { heading: t.ui.report.evidenceLabel, text: citedTitles },
       { text: `${t.ui.report.decisionLabel} ${t.classifications[this.params.classification]} → ${t.measures[this.params.measure]}` },
+      { heading: t.ui.report.subjectLabel, text: t.ui.subjects[this.params.subject] },
+      { heading: t.ui.report.motivationLabel, text: texts.motivations[this.params.motivationIndex] },
+      ...(this.params.incidentChoice && texts.incident ? [{ heading: t.ui.report.incidentLabel, text: texts.incident.options[this.params.incidentChoice] }] : []),
+      ...(showsSecondaryErrors(StateManager.difficulty) ? [{ heading: t.ui.report.secondaryLabel, items: result.secondaryErrors.map(e => t.ui.errors[e]) }] : []),
+      { heading: t.ui.report.lessonLabel, text: caseLearning(this.caseData.id).takeaway },
       { text: `${t.ui.decisionDebrief.axes.label}: ${axesLine}` }
     ]);
     ReadingLayer.announce(fmt(t.a11y.outcomeAnnounced, { outcome: t.ui.outcomes[result.outcome] }));

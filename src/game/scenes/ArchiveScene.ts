@@ -5,6 +5,7 @@ import { ReadingLayer } from '../systems/ReadingLayer';
 import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { NormSystem } from '../systems/NormSystem';
 import { Button } from '../ui/Button';
+import { registerCanvasAction } from '../ui/ActionLayer';
 import { LockedNormCard, NormCardView } from '../ui/NormCard';
 import { L, fmt, normText } from '../i18n';
 import { COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
@@ -73,6 +74,7 @@ export class ArchiveScene extends Phaser.Scene {
           .on('pointerout', () => card.setScale(1))
           .on('pointerdown', () => this.showDetail(norm.id));
         this.gridContainer.add(card);
+        registerCanvasAction(card, () => normText(norm.id).title, () => this.showDetail(norm.id));
         this.unlockedCards.push({ id: norm.id, card });
       } else {
         const locked = new LockedNormCard(this, x, y, cardW, cardH);
@@ -89,6 +91,8 @@ export class ArchiveScene extends Phaser.Scene {
      */
     ReadingLayer.setScene(ui.title, [
       { text: fmt(ui.subtitle, { done: unlockedCount, total: NORMS.length }) },
+      { input: { label: L().mobile.search, value: this.query, onInput: value => { this.query = value; this.applySearch(); } } },
+      { statusKey: 'archive-search' },
       {
         items: NORMS.map((norm) =>
           NormSystem.isUnlocked(norm.id)
@@ -147,6 +151,8 @@ export class ArchiveScene extends Phaser.Scene {
     for (const locked of this.lockedCards) locked.setAlpha(active ? 0.2 : 1);
     if (!active) {
       this.searchText.setText(fmt(ui.searchIdle, { query: this.query }));
+      const status = document.querySelector('[data-reading-status="archive-search"]');
+      if (status) status.textContent = this.searchText.text;
       return;
     }
     const g = hits.filter((h) => h.kind === 'glossary').length;
@@ -156,6 +162,8 @@ export class ArchiveScene extends Phaser.Scene {
       ? fmt(ui.searchNone, { query: this.query })
       : fmt(ui.searchResults, { query: this.query, n: found, g, c });
     this.searchText.setText(line);
+    const status = document.querySelector('[data-reading-status="archive-search"]');
+    if (status) status.textContent = line;
     ReadingLayer.announce(line);
   }
 
@@ -183,9 +191,17 @@ export class ArchiveScene extends Phaser.Scene {
       .setDepth(51);
     this.detail = this.add.container(0, 0, []).setDepth(51);
     this.detail.add([card, hint]);
+    this.detail.setDepth(90);
+    this.detail.add(new Button(this, cx, GAME_HEIGHT - 36, L().ui.decisionDebrief.close, () => this.hideDetail(), { width: 260, height: 40 }));
+    const text = NormSystem.view(normId);
+    ReadingLayer.openOverlay(text.title, [{ text: text.reference }, { text: text.explanation }, { text: text.notMeaning }, { heading: L().ui.normCard.democraticFunctionLabel, text: text.democraticFunction }]);
   }
 
   private hideDetail(): void {
+    if (this.detail) {
+      ReadingLayer.closeOverlay();
+      this.applySearch();
+    }
     this.detail?.destroy();
     this.detailShade?.destroy();
     this.detail = undefined;

@@ -5,19 +5,20 @@ export async function completeDecisionWithKeyboard(page, keys = ['1', '1', '2', 
 
   await page.waitForFunction(() => {
     const scene = window.game?.scene?.getScene('Decision');
-    return scene?.scene?.isActive?.() && !!scene.lastStep?.label;
+    return scene?.scene?.isActive?.() && !!document.querySelector('#reading-layer h2')?.textContent;
   }, undefined, { timeout: 20000 });
 
   for (let index = 0; index < properties.length; index += 1) {
-    const previousStep = await page.evaluate(() => window.game?.scene?.getScene('Decision')?.lastStep?.label ?? '');
+    const previousStep = await page.evaluate(() => document.querySelector('#reading-layer h2')?.textContent ?? '');
     await page.keyboard.press(keys[index]);
     await page.waitForFunction(
       ({ property, oldStep }) => {
         const scene = window.game?.scene?.getScene('Decision');
+        const step = document.querySelector('#reading-layer h2')?.textContent;
         return scene?.scene?.isActive?.()
           && scene[property] !== null
-          && !!scene.lastStep?.label
-          && scene.lastStep.label !== oldStep;
+          && !!step
+          && step !== oldStep;
       },
       { property: properties[index], oldStep: previousStep },
       { timeout: 20000 }

@@ -99,6 +99,7 @@ export class EvidenceCompareOverlay {
     );
     container.add(this.scene.add.rectangle(cx, cy + 8, 1, 330, COLORS.iron, 0.8));
 
+    const sections = [{ heading: ui.compareTitle, text: ui.compareIntro }];
     const drawDocument = (index: number, x: number): void => {
       const clue = texts.clues[index];
       const source = texts.clueSources?.[index] as EvidenceSource | undefined;
@@ -109,6 +110,8 @@ export class EvidenceCompareOverlay {
       const stanceText = stance
         ? (L().ui.evidence.stances as Record<string, string>)[stance]
         : ui.compareUnknownFunction;
+      sections.push({ heading: `${fmt(L().ui.evidence.exhibit, { num: index + 1 })} — ${clue.title}`,
+        text: `${ui.compareSource}: ${sourceText}\n${clue.text}\n${ui.compareFunction}: ${stanceText}` });
 
       const paperY = cy + 8;
       const paperW = 520;
@@ -155,10 +158,6 @@ export class EvidenceCompareOverlay {
     container.add(new Button(this.scene, cx, cy + panelH / 2 - 34, ui[this.closeKey], () => this.close(), { width: 250, height: 38, fontSize: 12.5 }));
     this.container = container;
 
-    const sections = [leftIndex, rightIndex].map((index) => ({
-      heading: `${fmt(L().ui.evidence.exhibit, { num: index + 1 })} — ${texts.clues[index].title}`,
-      text: texts.clues[index].text
-    }));
     if (replacing) ReadingLayer.replaceOverlay(ui.compareTitle, sections);
     else ReadingLayer.openOverlay(ui.compareTitle, sections);
   }

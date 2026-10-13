@@ -30,8 +30,11 @@ async function activate(page, name, touch = false) {
   const button = page.getByRole('button', { name });
   await button.waitFor({ state: 'visible' });
   if (touch) {
-    const b = await button.boundingBox();
-    await page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2);
+    if (await page.locator('body').evaluate(b => b.classList.contains('mobile-presentation'))) await button.tap();
+    else {
+      const b = await button.boundingBox();
+      await page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2);
+    }
   } else {
     await button.focus();
     await page.keyboard.press('Enter');
@@ -79,7 +82,7 @@ async function makePage(language, width, height, touch = false) {
   page.on('pageerror', e => errors.push(String(e)));
   await page.goto(`${base}/play/?lang=${language}`);
   await scene(page, 'Title');
-  if (width < 560) await page.locator('.mg-continue').click();
+  if (await page.locator('.mg-continue').isVisible()) await page.locator('.mg-continue').click();
   return { context, page };
 }
 async function decide(page, data, correct = true) {

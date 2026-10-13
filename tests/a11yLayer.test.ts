@@ -148,11 +148,12 @@ describe('mobile guard — v2-aware language and declared fallback (§11.4)', ()
     expect(src).toContain('dismissed = true');
   });
 
-  it('the layout smoke tests the fallback at 360×800 and 390×844', () => {
+  it('the layout smoke tests adaptive presentation at 360×800 and 390×844', () => {
     const smoke = read('scripts/smoke/layout-smoke.mjs');
     expect(smoke).toContain('{ w: 390, h: 844 }');
     expect(smoke).toContain('{ w: 360, h: 800 }');
-    expect(smoke).toContain('continue-anyway');
+    expect(smoke).toContain('mobile-presentation');
+    expect(smoke).toContain('legacy guard blocks mobile presentation');
     expect(smoke).toContain('{ w: 1920, h: 1080 }');
   });
 });

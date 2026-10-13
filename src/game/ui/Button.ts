@@ -4,6 +4,7 @@ import { COLORS, COLOR_STR, textStyle } from './theme';
 import { ActionLayer, type ActionOwner, type ActionSource } from './ActionLayer';
 
 export interface ButtonOptions {
+  accessibleLabel?: string;
   width?: number;
   height?: number;
   variant?: 'default' | 'danger' | 'ok' | 'ghost';
@@ -33,6 +34,7 @@ export class Button extends Phaser.GameObjects.Container implements ActionOwner 
   ) {
     super(scene, x, y);
     this.opts = {
+      accessibleLabel: options.accessibleLabel ?? '',
       width: options.width ?? 280,
       height: options.height ?? 48,
       variant: options.variant ?? 'default',
@@ -99,7 +101,7 @@ export class Button extends Phaser.GameObjects.Container implements ActionOwner 
    * esattamente il genere di cosa che si dimentica.
    */
   refreshAction(): void {
-    this.action.label = this.label.text;
+    this.action.label = this.opts.accessibleLabel || this.label.text;
     this.action.isVisible = this.active && this.visibleInTree();
     this.action.isEnabled = this.enabled;
     this.action.depth = this.effectiveDepth();
@@ -147,6 +149,8 @@ export class Button extends Phaser.GameObjects.Container implements ActionOwner 
     this.enabled = value;
     this.applyEnabled();
   }
+
+  setPressed(value: boolean): void { this.action.pressed = value; }
 
   private applyEnabled(): void {
     if (this.enabled) {

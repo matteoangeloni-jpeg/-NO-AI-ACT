@@ -137,3 +137,9 @@ uploaded — a smoke failure fails the workflow and blocks deployment.
 4. `npm run smoke:all` — every browser smoke green (see above).
 5. Confirm: no new external host, no console errors, `/play/` noindex, no
    external forms, no gameplay/scoring/case/ending/save changes.
+# Mobile Gameplay 4.0
+
+`npm run smoke:mobile-ux` verifica il percorso a tocco nelle tre lingue,
+le dimensioni dei target, il reflow, il testo al 200%, la rotazione e il ripasso.
+Fa parte di `smoke:all`; sostituisce il vecchio percorso mobile basato sulle
+coordinate del canvas in `gameplay-smoke.mjs`.

@@ -5,6 +5,7 @@ import type { TextSpeed } from '../data/types';
 import { textStyle, COLOR_STR } from './theme';
 import { L } from '../i18n';
 import { charsShownAt } from './typewriterTiming';
+import { mobilePresentationActive } from './mobilePresentation';
 
 /**
  * Ri-esportata perché è parte del comportamento della scrittura, ma VIVE in
@@ -78,7 +79,7 @@ export class TypewriterText extends Phaser.GameObjects.Text {
      * dissolvenze e alla parallasse.
      */
     const delay = CHAR_DELAY_MS[StateManager.textSpeed] ?? CHAR_DELAY_MS.normal;
-    if (StateManager.reducedMotion || delay === 0) {
+    if (StateManager.reducedMotion || delay === 0 || mobilePresentationActive()) {
       // niente da saltare, quindi niente da suggerire
       this.setText(text);
       onDone?.();

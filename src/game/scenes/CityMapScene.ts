@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { CASES_REQUIRED_FOR_FINALE, LOCATIONS, PLAYABLE_CASES, getCase } from '../data/cases';
 import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
-import { IndicatorHud } from '../systems/IndicatorSystem';
+import { INDICATOR_KEYS, IndicatorHud } from '../systems/IndicatorSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
 import { ChaptersOverlay } from '../ui/ChaptersOverlay';
@@ -10,6 +10,7 @@ import { NotebookOverlay } from '../ui/NotebookOverlay';
 import { showToast } from '../ui/AlertToast';
 import { L, fmt, locationName } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
+import { registerCanvasAction } from '../ui/ActionLayer';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, RENDER_SCALE, textStyle } from '../ui/theme';
 import { fadeInScene, fadeOutScene } from '../ui/motion';
 import { layoutHStack } from '../ui/layout';
@@ -217,8 +218,13 @@ export class CityMapScene extends Phaser.Scene {
     const t = L();
     ReadingLayer.setScene(t.a11y.mapTitle, [
       { text: fmt(t.ui.map.progress, { done: StateManager.completedCount(), total: PLAYABLE_CASES.length }) },
-      { text: t.a11y.mapHint },
+      { text: t.a11y.mapHint, desktopOnly: true },
       {
+        heading: t.ui.decision.cityState,
+        items: INDICATOR_KEYS.map(key => `${t.indicators.labels[key]}: ${StateManager.indicators[key]}`)
+      },
+      {
+        desktopOnly: true,
         items: LOCATIONS.filter((l) => l.caseId).map((l) => {
           const c = getCase(l.caseId!);
           // stesso stato che si vede sul canvas, derivato dalla stessa funzione:
@@ -320,6 +326,9 @@ export class CityMapScene extends Phaser.Scene {
         AudioSystem.confirm();
         fadeOutScene(this, 250, () => this.scene.start('Case', { caseId: caseData.id }));
       });
+    if (caseData) registerCanvasAction(container,
+      () => `${locationName(loc.id)} - ${statusLabel}`,
+      () => container.emit('pointerdown'), { enabled: () => playable });
   }
 
   /**

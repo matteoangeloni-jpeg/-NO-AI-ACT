@@ -2,6 +2,17 @@
 
 ## [Non rilasciato]
 
+### Sprint Mobile UX 4.0 (revisione locale)
+- Presentazione adattiva HTML per schermi compatti: testo leggibile, scorrimento
+  verticale e target touch da 48px; desktop Phaser conservato.
+- Documenti, citazioni, mappa e motivazioni collegati alle stesse azioni del
+  gioco. Guida, confronto, rapporto, debrief e ripasso disponibili a tocco.
+- Focus dei pannelli, nomi accessibili, contenuti delle norme e ricerca archivio
+  completati; metadati probatori e avvisi disponibili anche nella vista mobile.
+- IT/EN/FR, verifiche di rotazione e testo al 200%, nuovi smoke nel gate.
+  Nessuna modifica a casi, valutazione, schema dei salvataggi o analytics.
+- Diagnosi, confronti, verifiche e limiti in `docs/MOBILE_UX_4_0_REVIEW.md`.
+
 ### Sprint Gameplay 4.0 (revisione locale)
 - Guida contestuale del primo fascicolo del Turno, ignorabile e richiamabile,
   nelle tre lingue. Riusa apertura, citazione, confronto e firma esistenti.

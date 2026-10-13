@@ -110,7 +110,6 @@ export class DecisionScene extends Phaser.Scene {
   private backBtn?: Button;
   private termsBtn?: Button;
   private guideBtn?: Button;
-  private lastStep?: { label: string; question: string };
 
   constructor() {
     super('Decision');
@@ -189,21 +188,6 @@ export class DecisionScene extends Phaser.Scene {
     builders[this.resumeStep()]();
   }
 
-  /**
-   * Riporta lo strato di lettura al passo corrente. Serve dopo la chiusura
-   * di un overlay che lo ha sostituito: senza, chi legge con uno strumento
-   * assistivo resterebbe sui termini del glossario mentre sullo schermo è
-   * tornata la domanda.
-   */
-  private syncStepReading(): void {
-    if (!this.lastStep) return;
-    ReadingLayer.setScene(fmt(L().a11y.decisionTitle, { step: this.lastStep.label }), [
-      { text: this.lastStep.question },
-      { text: L().ui.decision.stepBackHint },
-      this.citedEvidenceReading()
-    ]);
-  }
-
   private citedEvidenceReading(): { heading: string; items: string[] } {
     const texts = caseText(this.caseData.id);
     return {
@@ -264,7 +248,6 @@ export class DecisionScene extends Phaser.Scene {
   }
 
   private header(step: string, question: string, sidebar = true): void {
-    this.lastStep = { label: step, question };
     this.guideBtn = new Button(this, GAME_WIDTH - 190, GAME_HEIGHT - 36, L().gameplay.guide,
       () => openInvestigationGuide(this, this.caseData.id, this.motivation === null ? 3 : 4),
       { width: 340, height: 36, fontSize: 12, variant: 'ghost' });
@@ -541,7 +524,7 @@ export class DecisionScene extends Phaser.Scene {
 
     texts.motivations.forEach((motivation, i) => {
       // bottone largo con etichetta vuota: il testo multilinea è sovrapposto
-      new Button(this, cx, 230 + i * 110, '', () => pick(i), { width: 880, height: 92, fontSize: 13 });
+      new Button(this, cx, 230 + i * 110, '', () => pick(i), { width: 880, height: 92, fontSize: 13, accessibleLabel: `${i + 1}. ${motivation}` });
       this.add
         .text(cx - 410, 230 + i * 110, `${i + 1}. ${motivation}`, textStyle(13.5, COLOR_STR.paper, { wordWrap: { width: 800 }, lineSpacing: 5 }))
         .setOrigin(0, 0.5);
@@ -638,7 +621,8 @@ export class DecisionScene extends Phaser.Scene {
       ...rows.map(([heading, text]) => ({ heading, text })),
       this.citedEvidenceReading(),
       { text: L().gameplay.evidenceLink },
-      { text: L().gameplay.steps[4] }
+      { text: L().gameplay.steps[4] },
+      { text: `${L().learningLayer.confidence.label} ${L().learningLayer.confidence.optionalTag}` }
     ]);
   }
 
@@ -673,10 +657,13 @@ export class DecisionScene extends Phaser.Scene {
       { level: 2, label: t.levels.mid },
       { level: 3, label: t.levels.high }
     ];
+    const confidenceButtons: Button[] = [];
     const pick = (level: ConfidenceLevel, label: string): void => {
       this.confidence = level;
       this.persistDraft('summary');
       status.setText(fmt(t.recorded, { level: label }));
+      confidenceButtons.forEach((button, i) => button.setPressed(levels[i].level === level));
+      ReadingLayer.announce(status.text);
     };
     // Una fiducia già dichiarata e poi ripresa da una bozza deve rileggersi:
     // senza questo il giocatore la ritroverebbe salvata ma invisibile, e la
@@ -685,7 +672,9 @@ export class DecisionScene extends Phaser.Scene {
     if (restored) status.setText(fmt(t.recorded, { level: restored.label }));
 
     levels.forEach(({ level, label }, i) => {
-      new Button(this, cx + 150 + i * 130, y, `${7 + i}. ${label}`, () => pick(level, label), { width: 118, height: 32, fontSize: 11, variant: 'ghost' });
+      const button = new Button(this, cx + 150 + i * 130, y, `${7 + i}. ${label}`, () => pick(level, label), { width: 118, height: 32, fontSize: 11, variant: 'ghost' });
+      button.setPressed(this.confidence === level);
+      confidenceButtons.push(button);
     });
     (['SEVEN', 'EIGHT', 'NINE'] as const).forEach((key, i) => {
       this.input.keyboard?.on(`keydown-${key}`, () => {
@@ -754,7 +743,8 @@ export class DecisionScene extends Phaser.Scene {
     container.add(hint);
     const bottom = hint.y + hint.height / 2 + 24;
     sheet.setSize(960, bottom - (TOP - 28)).setPosition(cx, (TOP - 28 + bottom) / 2);
-    ReadingLayer.setScene(t.termsTitle, read);
+    container.add(new Button(this, cx, GAME_HEIGHT - 40, L().mobile.close, () => this.closeNormsOverlay(), { width: 280, height: 40 }));
+    ReadingLayer.openOverlay(t.termsTitle, read);
     this.overlay = container;
   }
 
@@ -803,13 +793,19 @@ export class DecisionScene extends Phaser.Scene {
       .text(cx, GAME_HEIGHT - 110, L().ui.decision.normsHint, textStyle(12, COLOR_STR.paperDim))
       .setOrigin(0.5);
     container.add(hint);
+    container.add(new Button(this, cx, GAME_HEIGHT - 40, L().mobile.close, () => this.closeNormsOverlay(), { width: 280, height: 40 }));
+    ReadingLayer.openOverlay(L().ui.menu.archive, unlocked.length ? unlocked.slice(0, 6).map(norm => {
+      const text = NormSystem.view(norm.id);
+      return { heading: text.title, text: `${text.reference}\n${text.explanation}` };
+    }) : [{ text: L().ui.decision.normsEmpty }]);
     this.overlay = container;
   }
 
   private closeNormsOverlay(): void {
+    if (!this.overlay) return;
     this.overlay?.destroy();
     this.overlay = undefined;
-    this.syncStepReading();
+    ReadingLayer.closeOverlay();
   }
 
   // ------------------------------------------------------------ esito

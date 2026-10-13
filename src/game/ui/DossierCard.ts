@@ -9,6 +9,7 @@ import { STATE_MARKS, createStateFrame, stateBadge } from '../assets/procedural/
 /** Corpo dell'invito a citare e del distintivo che lo sostituisce. */
 const CITE_FONT = 12.5;
 import { reveal } from './motion';
+import { registerCanvasAction } from './ActionLayer';
 
 /**
  * Scheda reperto del fascicolo. Tre stati:
@@ -174,6 +175,8 @@ export class DossierCard extends Phaser.GameObjects.Container {
       .on('pointerout', () => this.refreshBorder())
       .on('pointerdown', () => this.activate());
     this.revealElements = { sealed, title, body, stance: stanceText };
+    registerCanvasAction(this, () => `${fmt(L().ui.evidence.exhibit, { num: index + 1 })}: ${!this.revealed ? L().mobile.open : this.cited ? L().mobile.uncite : L().ui.evidence.cite}`,
+      () => this.activate(), { slot: `evidence-${index}`, pressed: () => this.cited });
   }
 
   private revealElements!: {

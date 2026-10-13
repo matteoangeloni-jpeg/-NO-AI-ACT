@@ -8,6 +8,7 @@
 import { gameplayIt } from './gameplay';
 export const it = {
   gameplay: gameplayIt,
+  mobile: { open: 'APRI DOCUMENTO', uncite: 'RIMUOVI CITAZIONE', search: 'Cerca nell’archivio', close: 'Chiudi' },
   ui: {
     gameTitle: 'NO AI ACT',
     gameSubtitle: 'Simulatore di una società non regolata',
@@ -315,7 +316,7 @@ export const it = {
       normsEmpty: 'Nessuna norma ancora acquisita.',
       termsButton: 'CHE COSA VUOL DIRE?',
       termsTitle: 'I TERMINI DI QUESTA SCELTA',
-      termsHint: 'solo consultazione — clic fuori o ESC per chiudere. Non suggerisce la risposta.',
+      termsHint: 'Sola consultazione. Chiudi per tornare alla decisione. Non suggerisce la risposta.',
       termsNoEntry: 'Non è una categoria definita dal regolamento: è ciò che resta fuori dalle altre.'
     },
     subjects: {

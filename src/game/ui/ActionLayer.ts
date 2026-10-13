@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { mobilePresentationActive } from './mobilePresentation';
 
 /**
  * STRATO DELLE AZIONI: i pulsanti del gioco come veri elementi del documento.
@@ -36,6 +37,8 @@ import Phaser from 'phaser';
  */
 
 export interface ActionSource {
+  slot?: string;
+  pressed?: boolean;
   /** Riquadro nel mondo di gioco, o null se l'oggetto non è più valido. */
   worldBounds(): Phaser.Geom.Rectangle | null;
   scene: Phaser.Scene;
@@ -62,6 +65,33 @@ interface Entry {
 
 const entries = new Set<Entry>();
 let root: HTMLElement | null = null;
+let lastFocus: HTMLButtonElement | null = null;
+let modalReturn: HTMLButtonElement | null = null;
+let lastTitle = '';
+let lastOverlay = false;
+let pendingFocus = false;
+if (typeof document !== 'undefined') document.addEventListener('reading-layer-rendered', ((event: CustomEvent<{title: string; overlay: boolean}>) => {
+  if (!mobilePresentationActive()) return;
+  const { title, overlay } = event.detail;
+  if (overlay && !lastOverlay) modalReturn = lastFocus;
+  pendingFocus ||= title !== lastTitle || overlay !== lastOverlay;
+  lastTitle = title;
+  lastOverlay = overlay;
+  const app = document.getElementById('app');
+  if (overlay) { app?.setAttribute('role', 'dialog'); app?.setAttribute('aria-modal', 'true'); app?.setAttribute('aria-label', title); }
+  else { app?.removeAttribute('role'); app?.removeAttribute('aria-modal'); app?.removeAttribute('aria-label'); }
+  const back = document.getElementById('site-return');
+  if (back) back.inert = overlay;
+}) as EventListener);
+if (typeof document !== 'undefined') document.addEventListener('keydown', e => {
+  if (!mobilePresentationActive() || !lastOverlay || e.key !== 'Tab') return;
+  const buttons = [...entries].map(entry => entry.el).filter(el => el.isConnected && !el.hidden && !el.disabled);
+  const first = buttons[0], last = buttons[buttons.length - 1];
+  if (!first || !last) return;
+  if (e.shiftKey && (document.activeElement === first || !buttons.includes(document.activeElement as HTMLButtonElement))) {
+    e.preventDefault(); last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});
 
 function layer(): HTMLElement | null {
   if (typeof document === 'undefined') return null;
@@ -78,6 +108,7 @@ export const ActionLayer = {
     el.type = 'button';
     el.className = 'action-btn';
     el.textContent = source.label;
+    el.addEventListener('focus', () => { lastFocus = el; });
     // Attivazione da tastiera e da strumento assistivo: stessa azione del
     // pulsante disegnato, non una copia della sua logica.
     el.addEventListener('click', () => {
@@ -134,6 +165,9 @@ export const ActionLayer = {
     for (const { source } of entries) {
       if (source.isVisible && source.depth > top) top = source.depth;
     }
+    // The inspector toolbar lives at depth 20, but does not cover the scene.
+    // Existing modal panels start at depth 80 (Title), through 100 (guide).
+    if (top < 80) top = -Infinity;
 
     for (const entry of entries) {
       const { source, el } = entry;
@@ -148,19 +182,57 @@ export const ActionLayer = {
       }
       const rect = toPage(source.scene, b);
       if (!rect) continue;
-      const state = `${Math.round(rect.x)},${Math.round(rect.y)},${Math.round(rect.w)},${Math.round(rect.h)},${source.label},${source.isEnabled}`;
+      const mobile = mobilePresentationActive();
+      const slot = mobile && source.slot ? document.querySelector<HTMLElement>(`[data-action-slot="${source.slot}"]`) : null;
+      const parent = slot ?? host;
+      if (el.parentElement !== parent) parent.appendChild(el);
+      const state = `${mobile},${Math.round(rect.x)},${Math.round(rect.y)},${Math.round(rect.w)},${Math.round(rect.h)},${source.label},${source.isEnabled},${source.pressed}`;
       if (state === entry.last) continue;
       entry.last = state;
       el.hidden = false;
       el.disabled = !source.isEnabled;
       if (el.textContent !== source.label) el.textContent = source.label;
+      if (source.pressed !== undefined) el.setAttribute('aria-pressed', String(source.pressed));
       el.style.left = `${rect.x}px`;
       el.style.top = `${rect.y}px`;
       el.style.width = `${rect.w}px`;
       el.style.height = `${rect.h}px`;
     }
+    if (mobilePresentationActive()) {
+      const reading = document.getElementById('reading-layer');
+      if (pendingFocus) {
+        pendingFocus = false;
+        if (!lastOverlay && modalReturn?.isConnected && !modalReturn.hidden) {
+          modalReturn.focus();
+          modalReturn = null;
+        } else {
+          document.getElementById('app')?.scrollTo(0, 0);
+          reading?.focus({ preventScroll: true });
+        }
+      } else if (lastFocus?.isConnected && document.activeElement === document.body && !lastFocus.hidden) {
+        lastFocus.focus({ preventScroll: true });
+      }
+    }
   }
 };
+
+/** Expose existing canvas-only controls; activation stays owned by the scene. */
+export function registerCanvasAction(object: Phaser.GameObjects.Container, label: () => string, activate: () => void, options: { slot?: string; pressed?: () => boolean; enabled?: () => boolean } = {}): void {
+  const source: ActionSource = {
+    scene: object.scene, worldBounds: () => object.active ? object.getBounds() : null,
+    label: '', isVisible: false, isEnabled: true, depth: 0, slot: options.slot, activate
+  };
+  ActionLayer.register(source, { refreshAction: () => {
+    source.label = label();
+    source.isVisible = object.active && object.visible;
+    source.depth = object.depth;
+    let parent = object.parentContainer;
+    while (parent) { source.isVisible &&= parent.visible; source.depth = Math.max(source.depth, parent.depth); parent = parent.parentContainer; }
+    source.isEnabled = options.enabled?.() ?? true;
+    source.pressed = options.pressed?.();
+  } });
+  object.once(Phaser.GameObjects.Events.DESTROY, () => ActionLayer.unregister(source));
+}
 
 /**
  * Dal riquadro nel mondo ai pixel della pagina. La trasformazione non è

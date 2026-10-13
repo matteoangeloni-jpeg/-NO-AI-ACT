@@ -20,6 +20,7 @@ import { SessionEndScene } from './scenes/SessionEndScene';
 import { CreditsScene } from './scenes/CreditsScene';
 import { GAME_HEIGHT, GAME_WIDTH, RENDER_SCALE } from './ui/theme';
 import { ActionLayer } from './ui/ActionLayer';
+import { mobilePresentationActive } from './ui/mobilePresentation';
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -60,7 +61,11 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
        * confronti, e nel DOM si scrive solo quando qualcosa è cambiato
        * davvero.
        */
-      game.events.on(Phaser.Core.Events.POST_STEP, () => ActionLayer.sync());
+      game.events.on(Phaser.Core.Events.POST_STEP, () => {
+        const mobile = mobilePresentationActive();
+        for (const scene of game.scene.getScenes(true)) scene.cameras.main.visible = !mobile;
+        ActionLayer.sync();
+      });
     }
   },
   render: {
