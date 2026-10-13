@@ -131,6 +131,10 @@ describe('mobile guard — v2-aware language and declared fallback (§11.4)', ()
       store.set('no-ai-act-save-v1', JSON.stringify({ language: 'it' }));
       store.set('no-ai-act-save-v2', JSON.stringify({ language: 'en' }));
       expect(savedLanguage()).toBe('en');
+      store.set('no-ai-act-save-v2', JSON.stringify({ language: 'fr' }));
+      expect(savedLanguage()).toBe('fr');
+      store.set('no-ai-act-save-v2', JSON.stringify({ language: 'invalid' }));
+      expect(savedLanguage()).toBe('it');
       store.delete('no-ai-act-save-v2');
       expect(savedLanguage()).toBe('it');
     } finally {

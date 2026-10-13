@@ -18,7 +18,7 @@
  */
 import { chromium } from 'playwright';
 import { spawn } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { existsSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { smokeBrowserLaunchOptions } from '../smoke/lib-browser.mjs';
@@ -31,6 +31,8 @@ const PORT = Number(process.env.PORT || 4209);
 const BASE = `http://localhost:${PORT}`;
 const LANG = ['en', 'fr'].includes(process.env.LANG_CODE) ? process.env.LANG_CODE : 'it';
 const CASO = process.env.CASO || 'case_bias';
+const screenshots = process.env.SCREENSHOTS === '1' ? resolve(root, '.diag', `${LANG}-${CASO}`) : null;
+if (screenshots) mkdirSync(screenshots, { recursive: true });
 
 if (!existsSync(resolve(root, 'dist/index.html'))) {
   console.error('play-case: manca dist/index.html — lancia prima `npm run build`.');
@@ -142,6 +144,7 @@ async function scena(chiave, timeout = 30000) {
     morte(`scena "${chiave}" mai raggiunta (ferma su: ${ora})`);
   }
   await page.waitForTimeout(300);
+  if (screenshots) await page.screenshot({ path: resolve(screenshots, `${chiave}.png`) });
 }
 
 const esiti = [];

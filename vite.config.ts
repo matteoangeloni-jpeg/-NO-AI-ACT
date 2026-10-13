@@ -5,10 +5,11 @@ import { defineConfig } from 'vitest/config';
 /** L'inventario pubblico, letto dalla sua unica fonte di verità. */
 const rotte = JSON.parse(
   readFileSync(resolve(import.meta.dirname, 'scripts/seo/routes.config.json'), 'utf8')
-) as { pairs: { it: string; en: string; fr?: string }[]; enOnly: string[] };
+) as { pairs: { it: string; en: string; fr?: string }[]; enOnly: string[]; frForEn?: Record<string, string> };
 const ROTTE: string[] = [
   ...rotte.pairs.flatMap((p) => [p.it, p.en, ...(p.fr ? [p.fr] : [])]),
-  ...rotte.enOnly
+  ...rotte.enOnly,
+  ...Object.values(rotte.frForEn ?? {})
 ];
 
 export default defineConfig({

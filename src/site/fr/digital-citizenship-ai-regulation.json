@@ -1,0 +1,24 @@
+{
+ "en":"en/digital-citizenship-ai-regulation", "slug":"citoyennete-numerique-reglementation-ia", "sourceHash":"e155625ad162ffbfa78b819385f982a967b9c1cc90f7cdabe554a10f6d0129c9",
+ "title":"Citoyenneté numérique et réglementation de l'IA | NO AI ACT",
+ "description":"Droits, responsabilité et décisions automatisées : relier la citoyenneté numérique à l'AI Act par des questions critiques, des enquêtes et des débats.",
+ "blocks":[
+ "Citoyenneté · Droits · Responsabilité", "Citoyenneté numérique et réglementation de l'IA",
+ "Être citoyen implique de connaître ses droits et de demander des comptes aux institutions. Lorsque celles-ci décident à l'aide de systèmes automatisés, ces compétences doivent évoluer : c'est la dimension civique de la maîtrise de l'IA.",
+ "S'exercer comme inspecteur", "Maîtrise de l'IA",
+ "<span class=\"num\">01</span>La réglementation comme infrastructure civique",
+ "L'AI Act ne régit pas seulement le marché : il inscrit des garanties civiques. Certaines pratiques sont interdites, les systèmes à forts enjeux doivent pouvoir être contrôlés et contestés, et les personnes informées lorsqu'elles interagissent avec des machines. Demander qui est protégé, contre quoi et avec quels recours transforme un texte technique en support d'éducation civique.",
+ "<span class=\"num\">02</span>Droits et responsabilités de part et d'autre",
+ "<strong>Citoyens</strong> : pouvoir savoir, contester et être protégés contre la notation sociale interdite ; exercer leur jugement plutôt que le déléguer.",
+ "<strong>Institutions</strong> : utiliser des systèmes qu'elles comprennent, documentent et contrôlent réellement. C'est le thème récurrent du déployeur qui se contente de suivre le score.",
+ "<span class=\"num\">03</span>Les questions d'un élève critique",
+ "Un système automatisé intervient-il dans cette décision ? Comment le savoir ?",
+ "Quelles données l'alimentent, et mesurent-elles ce qui est pertinent ?",
+ "Qui répond d'une erreur, et peut-on joindre cette personne ?",
+ "La décision peut-elle être expliquée et contestée ?",
+ "Cet usage serait-il acceptable ailleurs ? Pourquoi dans ce contexte ?",
+ "Ces questions correspondent au cycle d'inspection du jeu : preuves, classification, responsabilité, contestabilité. Elles en font un exercice de citoyenneté autant qu'une initiation technologique.",
+ "<span class=\"num\">04</span>En classe",
+ "L'approche civique se prête au débat : les <a href=\"../classroom-activities/\">activités</a> comprennent une cartographie des droits, et la <a href=\"../lesson-plan-transparency-and-users/\">séance sur la transparence</a> organise une discussion sur le droit de savoir. Les notions de référence figurent dans le <a href=\"../eu-ai-act-guide/\">guide en langage clair</a> et le <a href=\"../glossary/\">glossaire</a>."
+ ]
+}

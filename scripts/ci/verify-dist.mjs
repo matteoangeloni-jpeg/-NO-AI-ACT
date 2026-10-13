@@ -70,7 +70,8 @@ try {
   const rotte = JSON.parse(readFileSync(resolve(root, 'scripts/seo/routes.config.json'), 'utf8'));
   const dirs = [
     ...rotte.pairs.flatMap((p) => [p.it, p.en, ...(p.fr ? [p.fr] : [])]),
-    ...rotte.enOnly
+    ...rotte.enOnly,
+    ...Object.values(rotte.frForEn ?? {})
   ];
   const attese = dirs.length;
   const count = (p) => (readFileSync(join(dist, p), 'utf8').match(/<loc>/g) ?? []).length;

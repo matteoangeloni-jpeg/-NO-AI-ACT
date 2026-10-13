@@ -42,6 +42,7 @@ const stamp = (sitemapPath) => {
 
 const maxIt = stamp('public/sitemap-it.xml');
 const maxEn = stamp('public/sitemap-en.xml');
+const maxFr = stamp('public/sitemap-fr.xml');
 
 // keep the index's child lastmod in sync with the freshest page of each child
 let index = readFileSync(resolve(root, 'public/sitemap.xml'), 'utf8');
@@ -52,6 +53,7 @@ index = index.replace(
   /(<loc>https:\/\/www\.no-ai-act\.eu\/sitemap-en\.xml<\/loc>\s*<lastmod>)[^<]*(<\/lastmod>)/,
   `$1${maxEn}$2`
 );
+index = index.replace(/(<loc>https:\/\/www\.no-ai-act\.eu\/sitemap-fr\.xml<\/loc>\s*<lastmod>)[^<]*(<\/lastmod>)/, `$1${maxFr}$2`);
 writeFileSync(resolve(root, 'public/sitemap.xml'), index);
 
-console.log(`sitemap lastmod stamped — it: max ${maxIt}, en: max ${maxEn}`);
+console.log(`sitemap lastmod stamped — it: max ${maxIt}, en: max ${maxEn}, fr: max ${maxFr}`);

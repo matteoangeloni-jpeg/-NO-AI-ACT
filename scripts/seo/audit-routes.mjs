@@ -44,7 +44,9 @@ for (const { it, en, fr } of cfg.pairs) {
   if (fr) routes.push({ dir: fr, lang: 'fr', alt: it, xDefault: it, it, en, fr });
 }
 for (const dir of cfg.enOnly) {
-  routes.push({ dir, lang: 'en', alt: null, xDefault: dir });
+  const fr = cfg.frForEn?.[dir];
+  routes.push({ dir, lang: 'en', alt: null, xDefault: dir, en: dir, fr });
+  if (fr) routes.push({ dir: fr, lang: 'fr', alt: null, xDefault: dir, en: dir, fr });
 }
 
 const fileOf = (dir) => (dir === '' ? 'index.html' : `${dir}/index.html`);
@@ -65,7 +67,7 @@ function resolveHref(dir, hrefRaw) {
   const href = hrefRaw.split('#')[0].split('?')[0];
   if (href === '') return null;
   let path;
-  if (href.startsWith('/')) path = href.slice(1);
+  if (href.startsWith('/')) path = href.slice(1).replace(/\/$/, '');
   else {
     const parts = dir === '' ? [] : dir.split('/');
     for (const seg of href.split('/')) {
@@ -94,7 +96,7 @@ const warnings = [];
 
 // every sitemap URL must carry a plausible lastmod (Google uses it for crawl
 // scheduling only when consistently accurate — see update-sitemap-lastmod.mjs)
-for (const [name, xml, locs] of [['sitemap-it', smIt, locsIt], ['sitemap-en', smEn, locsEn]]) {
+for (const [name, xml, locs] of [['sitemap-it', smIt, locsIt], ['sitemap-en', smEn, locsEn], ['sitemap-fr', smFr, locsFr]]) {
   const stamped = (xml.match(/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/g) ?? []).length;
   if (stamped !== locs.size) {
     critical.push(`${name}.xml: ${stamped}/${locs.size} URLs have a valid <lastmod> (run scripts/seo/update-sitemap-lastmod.mjs)`);
@@ -140,7 +142,7 @@ for (const r of routes) {
   // lingua corrente: la deduzione funzionava con due lingue e dava l'URL
   // italiano come «inglese» per ogni pagina francese.
   const itUrl = r.alt === null ? url : urlOf(r.it);
-  const enUrl = r.alt === null ? url : urlOf(r.en);
+  const enUrl = urlOf(r.en);
   const xUrl = urlOf(r.xDefault);
   const hasIt = r.alt === null ? true : html.includes(`hreflang="it" href="${itUrl}"`);
   const hasEn = html.includes(`hreflang="en" href="${enUrl}"`);
@@ -241,7 +243,7 @@ for (const r of routes) {
 // --- global guards ----------------------------------------------------------
 const play = read('play/index.html');
 if (!play.includes('content="noindex, follow"')) critical.push('/play/: lost its noindex, follow');
-for (const [name, sm] of [['sitemap.xml', read('public/sitemap.xml')], ['sitemap-it.xml', smIt], ['sitemap-en.xml', smEn]]) {
+for (const [name, sm] of [['sitemap.xml', read('public/sitemap.xml')], ['sitemap-it.xml', smIt], ['sitemap-en.xml', smEn], ['sitemap-fr.xml', smFr]]) {
   if (sm.includes('/play/')) critical.push(`${name}: contains /play/`);
 }
 const expected = new Set(routes.map((r) => urlOf(r.dir)));

@@ -102,6 +102,8 @@ export const ReadingLayer = {
 };
 
 function render(title: string, sections: ReadingSection[]): void {
+  updateToggleLabel();
+  if (typeof document !== 'undefined') document.documentElement.lang = StateManager.language;
   const layer = el('reading-layer');
   if (!layer) return;
   layer.setAttribute('lang', StateManager.language);
@@ -121,18 +123,21 @@ function render(title: string, sections: ReadingSection[]): void {
 }
 
 /** Collega il toggle della modalità di lettura visibile (una volta, dal boot). */
+function updateToggleLabel(): void {
+  const toggle = el('reading-toggle') as HTMLButtonElement | null;
+  if (!toggle) return;
+  const t = L().a11y;
+  const visible = document.body.classList.contains('reading-visible');
+  toggle.textContent = visible ? t.readingHide : t.readingShow;
+  toggle.setAttribute('aria-pressed', String(visible));
+}
+
 export function initReadingLayer(): void {
   const toggle = el('reading-toggle') as HTMLButtonElement | null;
   if (!toggle) return;
-  const label = (): void => {
-    const t = L().a11y;
-    const visible = document.body.classList.contains('reading-visible');
-    toggle.textContent = visible ? t.readingHide : t.readingShow;
-    toggle.setAttribute('aria-pressed', String(visible));
-  };
   toggle.addEventListener('click', () => {
     document.body.classList.toggle('reading-visible');
-    label();
+    updateToggleLabel();
   });
-  label();
+  updateToggleLabel();
 }

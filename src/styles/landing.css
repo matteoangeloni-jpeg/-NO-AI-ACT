@@ -653,6 +653,7 @@ ul.plain li { margin-bottom: 0.4rem; }
 .press-gallery img {
   display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 16 / 9;
   object-fit: cover;
 }

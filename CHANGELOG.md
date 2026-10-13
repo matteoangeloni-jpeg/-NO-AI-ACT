@@ -6,14 +6,26 @@
 - **Lingua francese.** Il gioco è giocabile integralmente in français : dizionario
   completo (1 408 stringhe), quattordici dossiers verificati uno per uno dalla
   carte civique alla fiche normative, selezione della lingua a tre pulsanti.
-  Tredici pagine pubbliche francesi, generate da `src/site/fr-content.mjs` con
-  `node scripts/site/build-fr-pages.mjs`.
+  Le prime tredici pagine sintetiche sono in `src/site/fr-content.mjs`;
+  altre 24 traduzioni integrali dei blocchi principali sono in `src/site/fr/`.
+  Generazione: `npm run site:fr`. Totale: 37 pagine FR, ancora senza deploy.
 - **`docs/GLOSSAIRE_FR.md`** — terminologia dalla versione ufficiale francese del
   regolamento, separata dal vocabolario della finzione, con quattro passaggi
   **segnalati e non tradotti** là dove una traduzione autorevole andava inventata.
-- **Inventario pubblico: 70 → 83 rotte** (33 IT + 37 EN + 13 FR), con
-  `sitemap-fr.xml`, il terzo `hreflang` su 26 pagine italiane e inglesi, e
-  `audit:seo` esteso alla terza lingua.
+- **Inventario pubblico: 70 → 83 → 107 rotte** (33 IT + 37 EN + 37 FR), con
+  sitemap francese e hreflang reciproci. Le quattro coppie EN/FR senza pagina
+  italiana mantengono EN come x-default.
+- Controlli sulle traduzioni integrali (copertura, hash fonte, struttura,
+  riferimenti e navigazione), smoke delle 37 pagine FR desktop/mobile e
+  persistenza linguistica; due percorsi FR nello smoke del linguaggio visivo.
+- `docs/FR_LOCALIZATION_REVIEW.md`, piani operativi Gameplay/Analytics e
+  riscontro circoscritto dei quattro punti normativi in `GLOSSAIRE_FR.md`.
+
+### Fixed
+- Pulsante del reading layer e lingua del documento aggiornati dopo caricamento
+  o cambio della lingua; avviso mobile capace di riconoscere il francese salvato.
+- Inventari di build/verifica estesi anche alle quattro coppie EN/FR; collegamenti
+  assoluti conteggiati correttamente nell'audit e in site-insight.
 - `tests/localizationParity.test.ts` — chiavi rimaste nella lingua di partenza,
   stringhe vuote, e collegamenti che portano fuori dalla propria lingua.
 
@@ -30,10 +42,10 @@
   `og:locale` e alternates. Erano diventati rossi su un cambiamento voluto.
 
 ### Known limitations
-- **Le tredici pagine francesi non sono la traduzione integrale del sito.** Le
-  pagine italiane e inglesi contano ~28 000 parole su 70 rotte; le francesi
-  coprono i percorsi che il gioco apre. Il divario è dichiarato in
-  `docs/PROGRAMMA_4_0_AUDIT.md`.
+- **Le prime tredici pagine francesi restano sintetiche.** Tutte le 37 rotte EN
+  hanno ora un equivalente FR, ma la parita editoriale integrale delle prime
+  tredici non e dichiarata. Le 24 nuove pagine mantengono il contenuto principale
+  completo; stato e limiti in `docs/FR_LOCALIZATION_REVIEW.md`.
 - **Non esiste un'immagine social francese**: le pagine riusano quelle per
   categoria, che non contengono testo di lingua. Una copertina francese va
   disegnata.

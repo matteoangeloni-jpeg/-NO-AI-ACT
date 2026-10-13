@@ -37,7 +37,11 @@ for (const { it, en, fr } of cfg.pairs) {
   // francesi non comparivano fra le fragili né fra le sottili.
   if (fr) routes.push({ dir: fr, lang: 'fr', alt: it });
 }
-for (const dir of cfg.enOnly) routes.push({ dir, lang: 'en', alt: null });
+for (const dir of cfg.enOnly) {
+  const fr = cfg.frForEn?.[dir];
+  routes.push({ dir, lang: 'en', alt: fr ?? null });
+  if (fr) routes.push({ dir: fr, lang: 'fr', alt: dir });
+}
 
 const fileOf = (dir) => (dir === '' ? 'index.html' : `${dir}/index.html`);
 const dirSet = new Set(routes.map((r) => r.dir));
@@ -47,7 +51,7 @@ function resolveHref(dir, hrefRaw) {
   const href = hrefRaw.split('#')[0].split('?')[0];
   if (href === '') return null;
   let path;
-  if (href.startsWith('/')) path = href.slice(1);
+  if (href.startsWith('/')) path = href.slice(1).replace(/\/$/, '');
   else {
     const parts = dir === '' ? [] : dir.split('/');
     for (const seg of href.split('/')) {

@@ -88,7 +88,7 @@ export const PAGINE = [
           },
           {
             testo:
-              "Vous ouvrez un dossier à la fois. Chacun contient un signal décisif, un compte rendu qui minimise le risque et un élément de contexte. Votre travail n'est pas de devinei la bonne réponse : c'est de <strong>fonder une décision sur des preuves</strong> et de l'assumer."
+              "Vous ouvrez un dossier à la fois. Chacun contient un signal décisif, un compte rendu qui minimise le risque et un élément de contexte. Votre travail n'est pas de deviner la bonne réponse : c'est de <strong>fonder une décision sur des preuves</strong> et de l'assumer."
           }
         ]
       },

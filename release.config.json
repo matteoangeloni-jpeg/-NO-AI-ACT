@@ -10,14 +10,15 @@
   "contentLastReviewed": "2026-07-18",
   "languages": [
     "it",
-    "en"
+    "en",
+    "fr"
   ],
   "playableCases": 14,
   "publicUrls": {
     "it": 33,
     "en": 37,
-    "fr": 13,
-    "total": 83
+    "fr": 37,
+    "total": 107
   },
   "saveSchema": {
     "storageKey": "no-ai-act-save-v2",

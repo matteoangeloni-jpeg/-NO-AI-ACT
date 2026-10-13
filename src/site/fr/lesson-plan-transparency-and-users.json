@@ -1,0 +1,26 @@
+{
+ "en":"en/lesson-plan-transparency-and-users", "slug":"seance-transparence-utilisateurs", "sourceHash":"d04c0ee68520393125f413e8a959c02b06fe8598b0d5a1a18b055ff9702e3f0e",
+ "title":"Séance : transparence et utilisateurs de l'IA | NO AI ACT",
+ "description":"Un débat de 50 à 60 minutes sur le droit de savoir : agents conversationnels, contenus de synthèse, portée et limites d'une étiquette indiquant l'IA.",
+ "attributes":{"Breadcrumb":"Fil d'Ariane"},
+ "blocks":[
+ "<a href=\"../../en/\">NO AI ACT</a>", "<a href=\"../../en/education/\">Ressources éducatives</a>", "Séance sur la transparence",
+ "Plan de séance · 50 à 60 minutes", "Séance : transparence et utilisateurs",
+ "Une séance centrée sur le débat et le droit de savoir : quand l'information est due, ce qu'elle résout et, surtout, ce qu'elle ne résout pas.",
+ "Ouvrir le jeu", "Obligations de transparence",
+ "<span class=\"num\">01</span>Public, durée et objectifs",
+ "<strong>Public</strong> : secondaire (14 ans et plus) ; convient aussi à des groupes plus jeunes que les autres séances proposées.",
+ "<strong>Durée</strong> : 50 à 60 minutes.",
+ "<strong>Objectifs</strong> : expliquer quand une interaction avec l'IA doit être signalée, discuter la valeur et les limites de cette information et relier la transparence à ses propres habitudes numériques.",
+ "<strong>Préparation</strong> : revoir les <a href=\"../transparency-obligations/\">obligations de transparence</a> ; préparer le cas de l'agent conversationnel du jeu.",
+ "<span class=\"num\">02</span>Déroulement",
+ "<strong>Provocation (10 min)</strong> : « Vous avez discuté 20 minutes avec le guichet de votre ville. C'était un robot. Est-ce important ? » Vote rapide et trois arguments de chaque côté au tableau.",
+ "<strong>La règle (10 min)</strong> : expliquer quand l'AI Act exige une information (agents conversationnels, contenus de synthèse) et pourquoi la réponse repose ici sur la transparence envers l'utilisateur.",
+ "<strong>Débat (20 min)</strong> : proposition : <em>« Une étiquette claire “ceci est de l'IA” résout le problème. »</em> Deux équipes, tours de parole structurés. L'enseignant introduit les cas difficiles : utilisateurs vulnérables, hypertrucages viraux, confiance accordée aux réponses.",
+ "<strong>Vérification dans le jeu (10 min)</strong> : jouer ensemble « Le guichet qui répond toujours ». Les positions défendues pendant le débat résistent-elles aux preuves du dossier ?",
+ "<span class=\"num\">03</span>Évaluation et réflexion",
+ "Rédiger un paragraphe : « Une étiquette suffit lorsque… et ne suffit pas lorsque… ». Les réponses évoquant la confiance accordée au système ou la vulnérabilité montrent l'appropriation du sujet.",
+ "<span class=\"num\">04</span>Prolongement",
+ "Donner comme travail personnel la chasse à la transparence de la <a href=\"../classroom-activities/\">page des activités</a>, puis partager les observations. Pour approfondir : <a href=\"../digital-citizenship-ai-regulation/\">citoyenneté numérique et réglementation de l'IA</a>."
+ ]
+}

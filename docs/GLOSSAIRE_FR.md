@@ -115,3 +115,32 @@ chose que l'italienne et l'anglaise, sans rien ajouter. Là où le jeu italien
 désigne un contenu par son objet plutôt que par une citation littérale, le
 français fait de même — ce n'est pas une perte, c'est la raison pour laquelle le
 jeu a survécu intact à une réécriture du calendrier réglementaire.
+
+## 4. Contrôle ciblé du 13 octobre 2026
+
+Ce contrôle ne constitue pas une validation juridique indépendante. Les passages
+ci-dessous ont été retrouvés dans les résultats indexés d'EUR-Lex. L'ouverture
+directe des PDF a renvoyé une vérification JavaScript : aucune lecture intégrale
+du consolidé n'est revendiquée.
+
+| Point | Résultat et limite |
+| --- | --- |
+| FR-01 | Titres des annexes I et III confirmés dans le texte français de 2024. Le point 2 de l'annexe III concerne les infrastructures critiques, pas la biométrie (point 1). La page sanctions française corrige cette qualification erronée de sa source anglaise, en conservant le renvoi au point 2 de l'article 75 modifié. Les autres renvois détaillés ne font pas l'objet d'une validation exhaustive. |
+| FR-02 | Les points b bis) et b ter) sont effectivement présents dans l'article 1, point 7, du règlement modificatif français. La numérotation est confirmée, sans changement nécessaire dans le jeu. |
+| FR-03 | L'article 27 emploie la formule complète relative à l'analyse d'impact sur les droits fondamentaux. Conserver cette formulation ; FRIA dans les ressources pédagogiques est explicitement présenté comme sigle anglais, sans inventer de sigle officiel français. |
+| FR-04 | Terminologie et plafonds de l'article 99 confirmés dans les passages français retrouvés : 35 millions/7 %, 15 millions/3 %, 7,5 millions/1 %. Aucun montant ajouté au jeu. Les avertissements existaient déjà dans le texte de 2024 : la traduction ne les présente pas comme une invention de 2026. Le détail des exceptions et des acteurs reste soumis à la révision juridique. |
+
+Sources consultées :
+- [Texte français de 2024, annexes et article 27](https://eur-lex.europa.eu/legal-content/FR/TXT/PDF/?uri=CELEX%3A32024R1689).
+- [Texte modificatif français, article 1 points 7 et 38](https://eur-lex.europa.eu/legal-content/FR/TXT/PDF/?uri=CELEX%3A32026R1744).
+- [Consolidé au 27 juillet 2026, à relire avant publication](https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A02024R1689-20260727).
+- [Article 75 modifié, point 31, version anglaise de contrôle](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ%3AL_202601744).
+
+Les mêmes formulations dans les pages IT/EN existantes sont signalées à la
+révision éditoriale, sans changement silencieux de leur contenu dans ce sprint.
+
+Les pages nouvelles conservent la date de révision de leur source et distinguent
+la date de traduction. L'absence annoncée d'un modèle FRIA en septembre n'est
+pas présentée comme vérifiée en octobre. La déclaration méthodologique sur
+l'article 50(4) reste une position éditoriale sous conditions, pas une exemption
+certifiée. Faire relire ces points avant diffusion publique.

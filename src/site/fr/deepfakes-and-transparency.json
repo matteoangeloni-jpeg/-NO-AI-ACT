@@ -1,0 +1,29 @@
+{
+ "en":"en/deepfakes-and-transparency", "slug":"hypertrucages-transparence", "sourceHash":"67b90d25bc6e0e6b27771d42780752c6e8cafb51bf1a85b02d01d26ade83149a",
+ "title":"Hypertrucages et transparence : article 50 | NO AI ACT",
+ "description":"Hypertrucages, contenus de synthèse et article 50 de l'AI Act : responsabilités du fournisseur et du déployeur, information du public et confiance.",
+ "blocks":[
+ "AI Act · Hypertrucages · Article 50", "Hypertrucages et transparence",
+ "Une fausse vidéo convaincante coûte peu et circule vite. L'AI Act répond par une règle simple à énoncer et exigeante à appliquer : rendre les contenus générés par IA reconnaissables. Cette page explique qui doit faire quoi et pourquoi l'enjeu dépasse la vidéo pour toucher la confiance.",
+ "<span class=\"num\">01</span>En bref",
+ "L'AI Act <strong>n'interdit pas les hypertrucages en tant que tels</strong> : il exige de la <strong>transparence</strong>. Les systèmes générant des contenus de synthèse doivent permettre leur détection automatisée ; les déployeurs concernés doivent signaler qu'un hypertrucage a été généré ou manipulé artificiellement (article 50). La règle vise la tromperie, pas la technologie en elle-même.",
+ "<span class=\"num\">02</span>Ce qu'exige l'article 50",
+ "<strong>Fournisseurs :</strong> les systèmes générant du son, des images, des vidéos ou des textes de synthèse doivent marquer les sorties dans un format lisible par machine pour permettre leur détection comme artificielles.",
+ "<strong>Déployeurs :</strong> l'utilisation d'un système pour créer ou manipuler un hypertrucage exige de signaler son caractère artificiel. Pour les œuvres manifestement artistiques, satiriques ou créatives, l'information est adaptée : c'est un domaine d'<em>interprétation</em>, pas une exemption générale.",
+ "<strong>Agents conversationnels :</strong> les personnes doivent savoir qu'elles parlent à une machine. Même logique, autre canal : voir les <a href=\"../transparency-obligations/\">obligations de transparence</a>.",
+ "<span class=\"num\">03</span>Pourquoi l'étiquette compte",
+ "Un hypertrucage non signalé nuit à la personne imitée et à la confiance dans <em>tout</em> ce que nous voyons. Si toute vidéo peut être fausse, même les vidéos authentiques deviennent contestables : c'est le « dividende du menteur ». La transparence protège l'écosystème de l'information ; dans le jeu, sa violation affecte donc la confiance de toute la ville.",
+ "<span class=\"num\">04</span>Dans le jeu : « La ville synthétique »",
+ "Dans <em>La ville synthétique</em>, vous inspectez une plateforme générant des contenus sans marquage. Le problème tient-il au modèle, à son usage ou aux deux ? Qui en répond ? Le cas rend concrète la distinction fournisseur/déployeur de l'article 50. <a href=\"../../play/?lang=en\">Jouez le cas</a>, puis comparez votre décision à la règle réelle.",
+ "Jouer", "Obligations de transparence",
+ "<span class=\"num\">05</span>Ce que cette page ne couvre pas",
+ "Diffamation, droit d'auteur, droit à l'image et infractions nationales relèvent d'autres cadres. Un hypertrucage signalé peut rester illicite pour d'autres raisons. Un cas concret exige l'avis d'un professionnel.",
+ "<span class=\"num\">06</span>Sources officielles et transparence",
+ "<strong>Responsabilité des contenus :</strong> projet NO AI ACT (Matteo Angeloni) ; révision éditoriale interne, sans révision juridique externe.",
+ "<strong>Page source publiée :</strong> juillet 2026 · <strong>Révision de la source :</strong> juillet 2026 (site v3.0.0) · Traduction française : octobre 2026.",
+ "<strong>Sources officielles :</strong> <a href=\"https://eur-lex.europa.eu/eli/reg/2024/1689/oj\">règlement (UE) 2024/1689 sur EUR-Lex</a> (article 50) ; <a href=\"https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai\">cadre européen de réglementation de l'IA</a> ; <a href=\"https://digital-strategy.ec.europa.eu/en/policies/ai-office\">Bureau européen de l'IA</a>.",
+ "<strong>Cas associés :</strong> « La ville synthétique » (contenus générés), « Le guichet qui répond toujours » (agent conversationnel).",
+ "<strong>Ressources enseignantes :</strong> <a href=\"../classroom-activities/\">activités</a> (chasse à la transparence), <a href=\"../ai-act-classroom-lab/\">guide de l'atelier en classe</a>.",
+ "<strong>Avertissement :</strong> simplification pédagogique, pas un conseil juridique."
+ ]
+}

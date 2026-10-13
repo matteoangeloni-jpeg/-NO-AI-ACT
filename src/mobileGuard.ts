@@ -1,4 +1,4 @@
-import { LOCALES } from './game/i18n';
+import { LOCALES, isLanguageCode } from './game/i18n';
 import type { LanguageCode } from './game/data/types';
 
 /**
@@ -15,13 +15,14 @@ export function savedLanguage(): LanguageCode {
       const raw = localStorage.getItem(key);
       if (raw) {
         const parsed = JSON.parse(raw) as { language?: string };
-        if (parsed.language === 'en' || parsed.language === 'it') return parsed.language;
+        if (isLanguageCode(parsed.language)) return parsed.language;
       }
     }
   } catch {
     /* localStorage non disponibile */
   }
-  if (typeof navigator !== 'undefined' && navigator.language && navigator.language.startsWith('en')) return 'en';
+  const browserLanguage = typeof navigator === 'undefined' ? '' : navigator.language?.split('-')[0];
+  if (isLanguageCode(browserLanguage)) return browserLanguage;
   return 'it';
 }
 

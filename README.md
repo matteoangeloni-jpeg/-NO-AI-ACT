@@ -81,7 +81,7 @@ restano compatibili.
 
 Incorpora il lavoro preparato come 2.3.0 e mai taggato: la **Postazione
 ispettiva** persistente che riunisce fascicolo, confronto dei reperti, norme,
-archivio e taccuino. Il sito è a **83 URL pubblici** (italiano, inglese e francese); il press kit include una
+archivio e taccuino. Il ramo di revisione include **107 URL pubblici** (italiano, inglese e francese), non ancora pubblicati; il press kit include una
 galleria Full HD. Dettagli: `docs/RELEASE_NOTES_v3.0.0.md`.
 
 ## Novità in v1.0.0 — Prima release pubblica stabile (storico)
@@ -372,7 +372,7 @@ struttura fra i dizionari (predisposto per FR/ES).
 - **I salvataggi restano compatibili**: nessuna struttura dati cambia.
 - Incorpora il lavoro preparato come 2.3.0 e **mai taggato** — postazione
   ispettiva, confronto fra prove citate, taccuino, percorso tastiera.
-- 83 URL pubblici, su tre lingue. Restano necessarie le due tornate di playtest esterni prima
+- 107 URL pubblici nel ramo di revisione, su tre lingue. Restano necessarie le due tornate di playtest esterni prima
   di dichiarare la build press-ready.
 - Dettagli: [`docs/RELEASE_NOTES_v3.0.0.md`](docs/RELEASE_NOTES_v3.0.0.md) ·
   [`docs/RELEASE_NOTES_v2.3.0.md`](docs/RELEASE_NOTES_v2.3.0.md).
@@ -442,8 +442,8 @@ Note di rilascio: [`docs/RELEASE_NOTES_v3.0.0.md`](docs/RELEASE_NOTES_v3.0.0.md)
 - **Ultima release effettivamente taggata**: `v2.2.0`
 - **Nota**: la candidata 2.3 richiede merge, verifica live e playtest esterni prima del tag
 - **Casi giocabili**: 14
-- **Lingue**: italiano e inglese
-- **URL pubblici**: 83 (33 IT + 37 EN + 13 FR)
+- **Lingue**: italiano, inglese e francese (ramo di revisione, senza deploy)
+- **URL pubblici**: 107 (33 IT + 37 EN + 37 FR)
 - **Salvataggi**: schema v2, con migrazione testata dei salvataggi v1
 - **Backend**: nessuno · **Account**: nessuno · **Raccolta dati personali**:
   nessuna · **Chiamate di rete durante il gameplay**: nessuna

@@ -52,7 +52,8 @@ describe('routes.config.json — the pair source of truth stays coherent', () =>
     const dirs = [
       ...cfg.pairs.flatMap((p: { it: string; en: string; fr?: string }) =>
         [p.it, p.en, ...(p.fr ? [p.fr] : [])]),
-      ...cfg.enOnly
+      ...cfg.enOnly,
+      ...Object.values(cfg.frForEn ?? {})
     ];
     expect(new Set(dirs).size).toBe(dirs.length);
     for (const d of dirs) {

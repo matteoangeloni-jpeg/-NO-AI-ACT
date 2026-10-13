@@ -99,10 +99,10 @@ export function nextLanguage(): LanguageCode {
  * Used for the public landing → game handoff (/play/?lang=it|en). Returns
  * null for missing or unknown values, so the caller keeps the saved language.
  */
-function isLanguageCode(value: string | null): value is LanguageCode {
+export function isLanguageCode(value: unknown): value is LanguageCode {
   // Chiede a LOCALES, che è la fonte di verità, invece di riscriverne le
   // chiavi: è questa riga che prima conteneva la coppia 'it' | 'en' a mano.
-  return value !== null && Object.prototype.hasOwnProperty.call(LOCALES, value);
+  return typeof value === 'string' && Object.prototype.hasOwnProperty.call(LOCALES, value);
 }
 
 export function languageFromQuery(search: string): LanguageCode | null {

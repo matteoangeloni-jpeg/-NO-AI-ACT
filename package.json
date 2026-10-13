@@ -6,6 +6,8 @@
   "author": "Matteo Angeloni",
   "type": "module",
   "scripts": {
+    "site:fr": "node scripts/site/sync-fr-inventory.mjs && node scripts/site/build-fr-pages.mjs",
+    "smoke:fr": "node scripts/smoke/french-localization-smoke.mjs",
     "dev": "vite",
     "typecheck": "tsc --noEmit",
     "build": "tsc --noEmit && vite build && node scripts/copy-notices.mjs",
@@ -37,6 +39,7 @@
   },
   "devDependencies": {
     "@types/node": "^25.9.3",
+    "parse5": "^8.0.1",
     "playwright": "^1.61.1",
     "typescript": "^5.6.3",
     "vite": "^8.2.2",

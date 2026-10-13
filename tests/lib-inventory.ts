@@ -21,6 +21,7 @@ const root = resolve(__dirname, '..');
 type Config = {
   pairs: { it: string; en: string; fr?: string }[];
   enOnly: string[];
+  frForEn?: Record<string, string>;
 };
 
 const cfg: Config = JSON.parse(
@@ -30,7 +31,8 @@ const cfg: Config = JSON.parse(
 /** Le cartelle di ogni rotta pubblicata, in tutte le lingue. */
 export const INVENTORY_DIRS: string[] = [
   ...cfg.pairs.flatMap((p) => [p.it, p.en, ...(p.fr ? [p.fr] : [])]),
-  ...cfg.enOnly
+  ...cfg.enOnly,
+  ...Object.values(cfg.frForEn ?? {})
 ];
 
 /** I file `index.html` corrispondenti, nella forma usata dai test. */

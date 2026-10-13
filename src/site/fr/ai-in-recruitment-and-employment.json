@@ -1,0 +1,30 @@
+{
+ "en":"en/ai-in-recruitment-and-employment", "slug":"ia-recrutement-emploi", "sourceHash":"5ab406484ca15259f3981c271745c70eb6c5bdb0526f754855f2f6169c682c56",
+ "title":"IA, recrutement et emploi : risques et règles | NO AI ACT",
+ "description":"Distinguer pratiques interdites et haut risque dans le recrutement et l'emploi : émotions, tri des candidatures, contrôle humain et responsabilités.",
+ "blocks":[
+ "AI Act · Emploi · Haut risque", "L'IA dans le recrutement et l'emploi",
+ "Un algorithme rejette votre CV, un logiciel note votre productivité, une caméra prétend lire votre humeur en entretien : l'AI Act traite ces scénarios différemment. Cette page distingue interdiction, haut risque et usages permis, ainsi que leurs responsables.",
+ "<span class=\"num\">01</span>En bref",
+ "Au travail, l'AI Act trace deux lignes. <strong>Interdit :</strong> inférer les émotions des travailleurs ou élèves à partir de données biométriques, sauf pour des raisons médicales ou de sécurité (article 5). <strong>Haut risque :</strong> filtrer des candidats, attribuer des tâches, évaluer des performances ou décider des promotions et licenciements (annexe III, point 4), avec des obligations de contrôle humain, transparence et gouvernance des données.",
+ "<span class=\"num\">02</span>Ce qui est interdit au travail",
+ "La reconnaissance des émotions au travail est une pratique interdite, sous réserve des exceptions légales : prétendre mesurer l'enthousiasme ou la fiabilité à partir du visage lors d'un entretien vidéo n'est pas simplement un haut risque mal documenté. La relation de travail est asymétrique : une personne dépendant d'un jugement ne peut pas librement refuser cette observation. Voir les <a href=\"../prohibited-ai-practices/\">pratiques interdites</a>.",
+ "<span class=\"num\">03</span>Ce qui est à haut risque, sans être interdit",
+ "<strong>Recrutement et embauche :</strong> tri de CV, filtrage des candidatures, classement des candidats.",
+ "<strong>Gestion de la relation de travail :</strong> attribution des tâches, suivi et évaluation des performances, décisions de promotion ou de licenciement.",
+ "Le haut risque exige qualité des données, documentation, information des travailleurs et <strong>contrôle humain effectif</strong> : une personne capable de comprendre le système et d'écarter sa sortie, pas une signature automatique. Voir <a href=\"../high-risk-ai-systems/\">systèmes d'IA à haut risque</a>.",
+ "Le RGPD continue de s'appliquer, notamment aux décisions automatisées et à l'information des travailleurs. Voir <a href=\"../../en/ai-act-and-gdpr/\">l'AI Act et le RGPD</a>.",
+ "<span class=\"num\">04</span>Qui est responsable ?",
+ "Le <strong>fournisseur</strong> répond de la conception, des données et de la documentation ; le <strong>déployeur</strong>, ici l'employeur, de l'usage concret : suivre les instructions, assurer le contrôle et informer les travailleurs. « L'algorithme a décidé » ne transfère aucune responsabilité : cela l'attribue mal.",
+ "<span class=\"num\">05</span>Dans le jeu : « L'entretien qui n'a jamais eu lieu »",
+ "Dans <em>L'entretien qui n'a jamais eu lieu</em>, vous inspectez un recrutement automatisé : distinguez ce qui est interdit (analyse des émotions) du haut risque mal encadré, puis répartissez les responsabilités entre concepteur et déployeur. Le contraste avec <em>La classe observée</em>, sur la surveillance des mineurs à l'école, montre le poids du contexte.",
+ "Jouer le cas", "Systèmes d'IA à haut risque",
+ "<span class=\"num\">06</span>Sources officielles et transparence",
+ "<strong>Responsabilité des contenus :</strong> projet NO AI ACT (Matteo Angeloni) ; révision éditoriale interne, sans révision juridique externe.",
+ "<strong>Publication de la source :</strong> juillet 2026 · <strong>Révision de la source :</strong> juillet 2026 (site v3.0.0) · Traduction française : octobre 2026.",
+ "<strong>Sources officielles :</strong> <a href=\"https://eur-lex.europa.eu/eli/reg/2024/1689/oj\">règlement (UE) 2024/1689 sur EUR-Lex</a> (article 5, paragraphe 1, point f ; annexe III, point 4 ; chapitre III) ; <a href=\"https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai\">cadre européen de réglementation de l'IA</a> ; <a href=\"https://digital-strategy.ec.europa.eu/en/policies/ai-office\">Bureau européen de l'IA</a>.",
+ "<strong>Cas associés :</strong> « L'entretien qui n'a jamais eu lieu » (recrutement), « La classe observée » (surveillance), « Le crédit civique » (notation).",
+ "<strong>Ressources enseignantes :</strong> <a href=\"../ai-act-for-teachers/\">AI Act pour les enseignants</a>, <a href=\"../classroom-activities/\">activités</a>, <a href=\"../ai-act-classroom-lab/\">atelier en classe</a>.",
+ "<strong>Avertissement :</strong> simplification pédagogique, pas un conseil juridique."
+ ]
+}
