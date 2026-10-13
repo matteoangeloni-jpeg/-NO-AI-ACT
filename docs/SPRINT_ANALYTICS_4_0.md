@@ -1,6 +1,10 @@
 # Sprint Analytics: misure utili senza profilare i giocatori
 
-Stato: proposta, 13 ottobre 2026. Nessuna telemetria attivata.
+Stato: Sprint A implementato localmente il 14 ottobre 2026, senza trasporto
+attivato. Catalogo, schema, metriche, verifiche e rischi:
+[PLAYER_TELEMETRY_4_0.md](PLAYER_TELEMETRY_4_0.md).
+Il testo seguente conserva la proposta del 13 ottobre e la sua baseline;
+dashboard, backend e attivazione restano lavori successivi.
 
 ## Base esistente
 

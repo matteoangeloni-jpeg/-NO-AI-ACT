@@ -31,9 +31,9 @@ describe('play shell — semantic layer markup', () => {
     expect(shell).toContain('class="mg-continue"');
   });
 
-  it('adds no scripts beyond main.ts and the pre-existing beacon', () => {
+  it('loads only main.ts and no automatic telemetry script', () => {
     const srcs = [...shell.matchAll(/<script[^>]*src=['"]([^'"]+)['"]/g)].map(([, s]) => s);
-    expect(srcs.sort()).toEqual(['/src/main.ts', 'https://static.cloudflareinsights.com/beacon.min.js']);
+    expect(srcs).toEqual(['/src/main.ts']);
   });
 });
 

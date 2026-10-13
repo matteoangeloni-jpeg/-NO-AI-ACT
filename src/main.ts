@@ -8,6 +8,8 @@ import { THEME_IDS, buildTheme } from './game/systems/musicThemes';
 import { MASTER_VOLUME, THEME_VOLUME } from './game/systems/AudioSystem';
 import { installKeyEventDedupe } from './game/ui/keyInput';
 import { initMobilePresentation } from './game/ui/mobilePresentation';
+import { AnalyticsSystem } from './game/systems/AnalyticsSystem';
+import { installAnalyticsInstrumentation } from './game/systems/analyticsInstrumentation';
 
 /**
  * Public landing handoff: the IT landing links to /play/?lang=it and the EN
@@ -26,6 +28,13 @@ if (requestedLang) StateManager.setLanguage(requestedLang);
  */
 installKeyEventDedupe();
 initMobilePresentation();
+installAnalyticsInstrumentation(StateManager, AnalyticsSystem,
+  () => ({ language: StateManager.language, mode: StateManager.gameMode }), window);
+if (import.meta.env.DEV) {
+  (window as unknown as { playerTelemetry?: unknown }).playerTelemetry = {
+    snapshot: () => AnalyticsSystem.snapshot(), diagnostics: () => ({ ...AnalyticsSystem.diagnostics })
+  };
+}
 
 const game = new Phaser.Game(gameConfig);
 // Debug/test handle only — no data leaves the browser. Used by the opt-in

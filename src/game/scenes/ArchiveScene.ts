@@ -49,7 +49,8 @@ export class ArchiveScene extends Phaser.Scene {
     addNoiseOverlay(this, 0.4);
 
     const unlockedCount = NormSystem.unlocked().length;
-    AnalyticsSystem.track('archive_opened', { unlockedNormsCount: unlockedCount });
+    AnalyticsSystem.page('archive');
+    AnalyticsSystem.track('archive_opened');
     this.add.text(cx, 50, ui.title, textStyle(20, COLOR_STR.paper, { fontStyle: 'bold' })).setOrigin(0.5);
     this.add
       .text(cx, 78, fmt(ui.subtitle, { done: unlockedCount, total: NORMS.length }), textStyle(12, COLOR_STR.paperDim))

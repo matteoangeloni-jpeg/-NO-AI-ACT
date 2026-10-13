@@ -132,7 +132,8 @@ describe('no replacement data-collection mechanism was added', () => {
     // optionalAnalyticsEndpoints restano codice morto finche' nessuno li
     // configura, e il workflow di deploy non imposta alcuna VITE_.
     const src = read('src/game/systems/AnalyticsSystem.ts');
-    expect(src).toContain("return config.dev ? 'console' : 'off';");
+    expect(src).toContain("return config.provider === undefined && config.dev ? 'console' : 'off';");
+    expect(src).toContain('remoteApproved: false, approvedEndpoints: []');
     const wf = walk('.github/workflows').map(read).join('\n');
     expect(wf, 'il deploy non deve configurare provider di analytics').not.toMatch(/VITE_ANALYTICS_PROVIDER|VITE_PLAUSIBLE|VITE_UMAMI/);
   });

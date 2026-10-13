@@ -3,7 +3,7 @@ import { StateManager } from './StateManager';
 export type GameplayUxEvent = 'tutorial_started' | 'tutorial_skipped' | 'tutorial_completed'
   | 'first_case_completed' | 'help_requested' | 'citation_error' | 'debrief_opened' | 'review_started';
 
-/** Internal bus only. No AnalyticsSystem subscription or remote transport. */
+/** Internal bus; the optional analytics subscriber validates closed signals. */
 export function emitGameplayUx(event: GameplayUxEvent, caseId?: string): void {
   StateManager.emit('gameplay-ux', { event, ...(caseId ? { caseId } : {}) });
 }

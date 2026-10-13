@@ -19,7 +19,7 @@ import { fadeInScene, reveal } from '../ui/motion';
 import { StateManager } from '../systems/StateManager';
 import { addNoiseOverlay } from '../ui/backdrop';
 import { createDocumentTextures } from '../assets/procedural/documentStyles';
-import { InvestigationGuide } from '../systems/InvestigationGuide';
+import { InvestigationGuide, emitGameplayUx } from '../systems/InvestigationGuide';
 import { openInvestigationGuide } from '../ui/InvestigationGuideOverlay';
 
 /**
@@ -92,7 +92,6 @@ export class EvidenceScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
     AnalyticsSystem.page('evidence');
-    AnalyticsSystem.track('evidence_opened', { caseId: this.caseData.id });
     AudioSystem.setMusicRole('archive', this.caseData.id);
     addNoiseOverlay(this, 0.4);
 
@@ -173,7 +172,11 @@ export class EvidenceScene extends Phaser.Scene {
       // è lei a sapere che «prova decisiva» è uno stato e merita il
       // distintivo, mentre le altre funzioni restano una riga di testo.
       const stance = this.caseData.clueStances?.[i];
-      const card = new DossierCard(this, x, y, cardW, cardH, clue, i, () => this.refreshState(), sourceLabel, stance, src);
+      const card = new DossierCard(this, x, y, cardW, cardH, clue, i, () => {
+        const current = this.cards[i];
+        AnalyticsSystem.evidenceAction(this.caseData.id, i, current.isRevealed, current.isCited);
+        this.refreshState();
+      }, sourceLabel, stance, src);
       card.setAlpha(0);
       reveal(this, { targets: card, alpha: 1, duration: 250, delay: i * 100 });
       this.cards.push(card);
@@ -185,6 +188,7 @@ export class EvidenceScene extends Phaser.Scene {
     // comparirebbero vuote e poi si riempirebbero.
     const draft = StateManager.draftFor(this.caseData.id);
     if (draft) {
+      AnalyticsSystem.restoreEvidence(this.caseData.id, draft.revealedClues, draft.citedClues);
       this.cards.forEach((card, i) => {
         card.setAlpha(1);
         card.restore(draft.revealedClues.includes(i), draft.citedClues.includes(i));
@@ -282,7 +286,10 @@ export class EvidenceScene extends Phaser.Scene {
       caseLabel: fmt(ui.fileLabel, { code: this.caseData.fileCode }),
       phaseLabel: ui.evidencePhase
     });
-    this.contextBtn = this.inspectorDesk.addAction(ui.context, () => this.contextOverlay.toggle(), { width: 126 });
+    this.contextBtn = this.inspectorDesk.addAction(ui.context, () => {
+      if (!this.contextOverlay.isOpen) emitGameplayUx('help_requested', this.caseData.id);
+      this.contextOverlay.toggle();
+    }, { width: 126 });
     this.compareBtn = this.inspectorDesk.addAction(ui.compare, () => this.compareOverlay.toggle(), { width: 142, disabled: true });
     this.inspectorDesk.addAction(ui.normLocked, () => undefined, { width: 142, disabled: true });
     this.notebookBtn = this.inspectorDesk.addAction(ui.notebook, () => this.notebookOverlay.toggle(), { width: 126 });
@@ -335,8 +342,6 @@ export class EvidenceScene extends Phaser.Scene {
       .filter((i) => i >= 0);
     AnalyticsSystem.track('clues_selected', {
       caseId: this.caseData.id,
-      selectedClueCount: cited.length,
-      relevantClueCount: this.caseData.relevantClues.length
     });
     const next = this.caseData.hasIncident ? 'Incident' : 'Decision';
     this.scene.start(next, { caseId: this.caseData.id, citedClues: cited });

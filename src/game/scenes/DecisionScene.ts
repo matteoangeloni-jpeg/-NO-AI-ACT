@@ -277,9 +277,15 @@ export class DecisionScene extends Phaser.Scene {
       phaseLabel: desk.decisionPhase,
       status: fmt(desk.citedStatus, { cited: this.citedClues.length })
     });
-    this.contextBtn = this.inspectorDesk.addAction(desk.context, () => this.contextOverlay.toggle(), { width: 122 });
+    this.contextBtn = this.inspectorDesk.addAction(desk.context, () => {
+      if (!this.contextOverlay.isOpen) emitGameplayUx('help_requested', this.caseData.id);
+      this.contextOverlay.toggle();
+    }, { width: 122 });
     this.compareBtn = this.inspectorDesk.addAction(desk.compare, () => this.compareOverlay.toggle(), { width: 132, disabled: this.citedClues.length < 2 });
-    this.caseNormBtn = this.inspectorDesk.addAction(desk.norm, () => this.caseNormOverlay.toggle(), { width: 112 });
+    this.caseNormBtn = this.inspectorDesk.addAction(desk.norm, () => {
+      if (!this.caseNormOverlay.isOpen) emitGameplayUx('help_requested', this.caseData.id);
+      this.caseNormOverlay.toggle();
+    }, { width: 112 });
     this.normsBtn = this.inspectorDesk.addAction(desk.archive, () => this.toggleNormsOverlay(), { width: 122 });
     this.notebookBtn = this.inspectorDesk.addAction(desk.notebook, () => this.notebookOverlay.toggle(), { width: 116 });
     if (sidebar) this.buildSidebar();
@@ -420,7 +426,7 @@ export class DecisionScene extends Phaser.Scene {
       if (this.classification !== null) return;
       this.classification = cls;
       this.persistDraft('measure');
-      AnalyticsSystem.track('classification_selected', { caseId: this.caseData.id, classification: cls });
+      AnalyticsSystem.track('classification_selected', { caseId: this.caseData.id });
       AudioSystem.registerDecision();
       this.nextStep(() => this.showMeasureStep());
     };
@@ -453,7 +459,7 @@ export class DecisionScene extends Phaser.Scene {
       if (this.measure !== null) return;
       this.measure = measure;
       this.persistDraft('subject');
-      AnalyticsSystem.track('measure_selected', { caseId: this.caseData.id, measure });
+      AnalyticsSystem.track('measure_selected', { caseId: this.caseData.id });
       AudioSystem.registerDecision();
       this.nextStep(() => this.showSubjectStep());
     };
@@ -703,6 +709,7 @@ export class DecisionScene extends Phaser.Scene {
       this.closeNormsOverlay();
       return;
     }
+    emitGameplayUx('help_requested', this.caseData.id);
     const cx = GAME_WIDTH / 2;
     const cy = GAME_HEIGHT / 2;
     const t = L().ui.decision;
@@ -763,6 +770,7 @@ export class DecisionScene extends Phaser.Scene {
       this.closeNormsOverlay();
       return;
     }
+    emitGameplayUx('help_requested', this.caseData.id);
     const cx = GAME_WIDTH / 2;
     const cy = GAME_HEIGHT / 2;
     const container = this.add.container(0, 0).setDepth(80);
@@ -824,6 +832,7 @@ export class DecisionScene extends Phaser.Scene {
     }, StateManager.difficulty);
 
     if (!result.cluesOk) emitGameplayUx('citation_error', this.caseData.id);
+    AnalyticsSystem.track('decision_submitted', { caseId: this.caseData.id });
     if (result.outcome === 'non_conforme') AudioSystem.errorContestable();
     else if (result.outcome === 'conforme') AudioSystem.stampConforme();
     else AudioSystem.alert();
@@ -845,16 +854,10 @@ export class DecisionScene extends Phaser.Scene {
       citedClues: this.citedClues,
       incidentChoice: this.incidentChoice
     });
+    AnalyticsSystem.track('report_signed', { caseId: this.caseData.id, result: result.quality });
     AnalyticsSystem.track('case_completed', {
       caseId: this.caseData.id,
-      completedCasesCount: StateManager.completedCount()
-    });
-    AnalyticsSystem.track('case_result', {
-      caseId: this.caseData.id,
-      result: result.quality,
-      classification: this.classification!,
-      measure: this.measure!,
-      selectedClueCount: this.citedClues.length
+      result: result.quality
     });
 
     this.scene.start('Report', {

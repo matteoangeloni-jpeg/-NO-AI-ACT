@@ -11,10 +11,8 @@
  * Qui si gioca un caso intero — così esistono davvero dati di gioco da
  * poter perdere — poi si esce dalla pagina e si guarda.
  *
- * Il beacon di Cloudflare viene ABORTITO come negli altri smoke, ma il suo
- * contenuto viene comunque ispezionato: l'oggetto richiesta espone corpo e
- * URL prima dell'abort, quindi si può verificare che cosa avrebbe spedito
- * senza spedirlo.
+ * /play/ non carica beacon. Ogni tentativo di richiesta esterna o raccolta
+ * di pari origine viene osservato e abortito prima di trasmettere fixture.
  *
  * Usage:
  *   npm run build && npx vite preview --port 4200
@@ -24,7 +22,7 @@ import { chromium } from 'playwright';
 import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
 
 const BASE = process.env.BASE || 'http://localhost:4200';
-const ALLOWED_HOSTS = ['static.cloudflareinsights.com']; // shell del sito, non del gioco
+const ALLOWED_HOSTS = []; // /play/ has no automatic remote telemetry, including its shell.
 const CASE = 'case_scoring';
 const fail = [];
 
@@ -60,8 +58,12 @@ context.on('request', (r) => {
   if (local && !beaconish) return;
   sent.push({ host: url.host, method: r.method(), url: r.url(), body: r.postData() ?? '', phase, local });
 });
-// il beacon esiste già nella shell del sito: si abortisce, ma lo si guarda
-await context.route(/cloudflareinsights\.com/, (r) => r.abort());
+// Observe attempted egress, but never send fixture data to an unexpected endpoint.
+await context.route('**/*', r => {
+  const url = new URL(r.request().url());
+  if (url.origin !== new URL(BASE).origin || BEACON_PATHS.some(p => url.pathname.includes(p))) return r.abort();
+  return r.continue();
+});
 
 let phase = 'avvio';
 const page = await context.newPage();
@@ -85,6 +87,7 @@ await page.waitForFunction(() => {
   const a = window.game?.scene?.getScenes(true);
   return !!a && a.some((s) => s.scene.key === 'Title');
 }, undefined, { timeout: 60000 });
+if (await page.evaluate(() => 'playerTelemetry' in window)) fail.push('dev telemetry handle exposed in production');
 
 // --- si gioca un caso intero: da qui in poi ESISTONO dati da perdere -------
 phase = 'partita';
@@ -109,9 +112,8 @@ await page.evaluate(() => {
   window.dispatchEvent(new Event('unload'));
 });
 await page.waitForTimeout(800);
-// e una navigazione vera, che è il modo in cui la pagina si lascia davvero:
-// verso il sito, come fa il collegamento di ritorno nella shell del gioco
-await page.goto(`${BASE}/`, { waitUntil: 'load' });
+// Real exit to an inert page: public-site analytics must not contaminate this game check.
+await page.goto('about:blank', { waitUntil: 'load' });
 await page.waitForTimeout(800);
 
 await browser.close();

@@ -319,7 +319,7 @@ const CF_SRC = 'https://static.cloudflareinsights.com/beacon.min.js';
 const CF_TOKEN = '7c85578fc8ad4488a54c6bc670a10dcf';
 
 describe('public pages — Cloudflare Web Analytics', () => {
-  for (const [name, html] of [['IT', itHtml], ['EN', enHtml], ['play', playHtml]] as const) {
+  for (const [name, html] of [['IT', itHtml], ['EN', enHtml]] as const) {
     it(`${name} loads the Cloudflare beacon with the configured token, before </body>`, () => {
       expect(html).toContain(CF_SRC);
       expect(html).toContain(CF_TOKEN);
@@ -334,11 +334,9 @@ describe('public pages — Cloudflare Web Analytics', () => {
     });
   }
 
-  it('the play page beacon is a plain page view, outside the Phaser module', () => {
-    expect(playHtml).toContain(CF_SRC);
-    // standalone tag, not imported by the game entrypoint, and no custom events
-    expect(playHtml).not.toMatch(/import[^;]*cloudflareinsights/);
-    expect(playHtml).not.toMatch(/trackEvent|"event"\s*:/);
+  it('the play page loads no Cloudflare beacon or remote analytics script', () => {
+    expect(playHtml).not.toContain(CF_SRC);
+    expect(playHtml).not.toMatch(/data-cf-beacon|<script[^>]*src=['"]https?:/i);
   });
 });
 

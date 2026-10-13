@@ -9,6 +9,9 @@ enforce all of it; run `npm test` before opening any feature PR.
   gated transport inside `AnalyticsSystem` — which resolves to **`off`** in
   production (`resolveProvider({ dev: false })` → `off`, and Do-Not-Track always
   forces `off`). No analytics provider env is set in the build.
+  Analytics A also hard-gates remote approval independently of provider env,
+  validates a closed versioned schema, and removes the CF beacon from /play/.
+  Local dev counters never flush automatically and never enter the save schema.
 - Enforced by `tests/privacyGuards.test.ts`.
 
 ## Save compatibility
@@ -93,6 +96,7 @@ with only committed dependencies:
 | `smoke:keyboard` | a core action reachable only with a pointer; the reading layer out of step with the scene; the outcome never announced |
 | `smoke:draft` | a case draft that does not survive leaving and re-entering the file |
 | `smoke:privacy` | a request to a host outside the allowlist; an external form; `/play/` losing its `noindex` |
+| `smoke:analytics` | invalid or duplicate counters, mismatched UI events in IT/EN/FR, offline or DNT breaking play, any telemetry request in the isolated dev fixture |
 | `smoke:layout` | text or controls under the page chrome; a panel that clips its own content; a heading that repeats itself |
 | `smoke:audio` | silence where a theme should play; clipping; every theme collapsing onto the same loudness |
 | `smoke:action-layer` | a drawn button with no real button behind it; a focus ring off its target; the TAB escaping an open panel; one ENTER firing two actions |

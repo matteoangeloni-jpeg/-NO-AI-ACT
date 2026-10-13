@@ -1,237 +1,260 @@
-/**
- * AnalyticsSystem — telemetria privacy-by-design.
- *
- * Principi:
- *  - allowlist rigida: solo eventi e proprietà elencati qui possono partire;
- *  - nessun identificativo del giocatore, nessun cookie, nessun fingerprinting,
- *    nessun session replay, nessun free text;
- *  - default: console in sviluppo, OFF in produzione salvo configurazione
- *    esplicita via variabili d'ambiente VITE_*;
- *  - rispetto del segnale Do Not Track del browser;
- *  - config e transport iniettabili → testabile in Node senza rete.
- *
- * Documentazione completa: docs/ANALYTICS.md
- */
-
-export const ANALYTICS_EVENTS = [
-  'game_opened',
-  'game_started',
-  'language_selected',
-  'case_started',
-  'evidence_opened',
-  'clues_selected',
-  'classification_selected',
-  'measure_selected',
-  'case_completed',
-  'case_result',
-  'norm_unlocked',
-  'archive_opened',
-  'ending_reached',
-  'game_completed',
-  'credits_opened',
-  'reset_game'
-] as const;
-
-export type AnalyticsEvent = (typeof ANALYTICS_EVENTS)[number];
-
-export const ALLOWED_PROPERTIES = [
-  'language',
-  'caseId',
-  'locationId',
-  'normId',
-  'result',
-  'classification',
-  'measure',
-  'selectedClueCount',
-  'relevantClueCount',
-  'ending',
-  'completedCasesCount',
-  'unlockedNormsCount',
-  'musicEnabled',
-  'reducedMotion'
-] as const;
-
-export type AllowedProperty = (typeof ALLOWED_PROPERTIES)[number];
-export type AnalyticsProperties = Partial<Record<AllowedProperty, string | number | boolean>>;
+import { ANALYTICS_SCHEMA_VERSION, ANALYTICS_GAME_VERSION, ANALYTICS_LIMITS, EVENT_CATALOG, TUTORIAL_VERSION,
+  sanitizeProperties, validatePayload, durationBucket, isCaseId, isEvidenceIndex,
+  type AnalyticsContext, type AnalyticsPhase, type AnalyticsPayload, type AnalyticsAggregate,
+  type AnalyticsProperties, type AnalyticsEvent, type AnalyticsResult } from './analyticsSchema';
+export { ANALYTICS_EVENTS, ALLOWED_PROPERTIES, sanitizeProperties } from './analyticsSchema';
+export type { AnalyticsEvent, AnalyticsProperties, AllowedProperty } from './analyticsSchema';
 
 export type AnalyticsProvider = 'off' | 'console' | 'plausible' | 'umami';
-
 export interface AnalyticsConfig {
-  /** Valore di VITE_ANALYTICS_PROVIDER (o assente). */
   provider?: string;
-  /** true in `npm run dev`, false nelle build di produzione. */
   dev: boolean;
   plausibleDomain?: string;
   umamiWebsiteId?: string;
   umamiScriptUrl?: string;
-  /** Segnale Do Not Track del browser: se attivo, tutto resta spento. */
   doNotTrack?: boolean;
+  /** Separate infrastructure approval, never inferred from provider environment variables. */
+  remoteApproved?: boolean;
+  approvedEndpoints?: readonly string[];
 }
-
-/** Trasporto di rete iniettabile (fetch keepalive di default, mock nei test). */
-export type AnalyticsTransport = (url: string, body: Record<string, unknown>) => void;
-
-/** Lunghezza massima dei valori stringa: blocca free text per costruzione. */
-const MAX_STRING_LENGTH = 64;
-
-/**
- * Filtra le proprietà: scarta chiavi fuori allowlist e valori sospetti
- * (stringhe lunghe da free text, presenza di '@' da possibili email).
- */
-export function sanitizeProperties(props: Record<string, unknown> | undefined): AnalyticsProperties {
-  const clean: Record<string, string | number | boolean> = {};
-  if (!props) return clean;
-  for (const key of ALLOWED_PROPERTIES) {
-    const value = props[key];
-    if (value === undefined || value === null) continue;
-    if (typeof value === 'number' || typeof value === 'boolean') {
-      clean[key] = value;
-      continue;
-    }
-    if (typeof value === 'string') {
-      if (value.length > MAX_STRING_LENGTH) continue; // free text non ammesso
-      if (value.includes('@')) continue; // possibile email
-      clean[key] = value;
-    }
-    // oggetti/array: mai ammessi
-  }
-  return clean;
+export type AnalyticsTransport = (url: string, body: Record<string, unknown>) => void | Promise<void>;
+const { cells: MAX_CELLS, count: MAX_COUNT } = ANALYTICS_LIMITS;
+function endpoint(config: AnalyticsConfig): string | undefined {
+  if (config.provider === 'plausible') return 'https://plausible.io/api/event';
+  if (config.provider !== 'umami' || !config.umamiScriptUrl) return;
+  try {
+    const url = new URL(config.umamiScriptUrl);
+    if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash || !url.pathname.endsWith('/script.js')) return;
+    url.pathname = url.pathname.slice(0, -10) + '/api/send';
+    return url.href;
+  } catch { return; }
 }
-
-/**
- * Determina il provider effettivo.
- *  - DNT attivo → off, sempre;
- *  - provider esplicito valido e configurato → quello;
- *  - provider remoto senza configurazione → off (mai inviare per sbaglio);
- *  - nessuna configurazione → console in dev, off in produzione.
- */
 export function resolveProvider(config: AnalyticsConfig): AnalyticsProvider {
   if (config.doNotTrack) return 'off';
-  switch (config.provider) {
-    case 'off':
-      return 'off';
-    case 'console':
-      return 'console';
-    case 'plausible':
-      return config.plausibleDomain ? 'plausible' : 'off';
-    case 'umami':
-      return config.umamiWebsiteId && config.umamiScriptUrl ? 'umami' : 'off';
-    default:
-      return config.dev ? 'console' : 'off';
+  if (config.provider === 'off' || config.provider === 'console') return config.provider;
+  if (config.provider === 'plausible' || config.provider === 'umami') {
+    const url = endpoint(config);
+    const configured = config.provider === 'plausible'
+      ? !!config.plausibleDomain && config.plausibleDomain.length <= 253 && /^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}$/i.test(config.plausibleDomain)
+      : !!config.umamiWebsiteId && /^[a-z0-9_-]{1,64}$/i.test(config.umamiWebsiteId);
+    return config.remoteApproved === true && url && configured && config.approvedEndpoints?.includes(url) ? config.provider : 'off';
   }
+  return config.provider === undefined && config.dev ? 'console' : 'off';
+}
+const fetchTransport: AnalyticsTransport = async (url, body) => {
+  const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body), credentials: 'omit', referrerPolicy: 'no-referrer', cache: 'no-store' });
+  if (!response.ok || response.headers.get('x-plausible-dropped') === '1') throw new Error('Analytics transport failed');
+};
+interface Attempt {
+  id: string;
+  context: AnalyticsContext;
+  started: number;
+  completed: boolean;
+  hintUsed: boolean;
+  result?: AnalyticsResult;
+  once: Set<AnalyticsEvent>;
+  opened: Set<number>;
+  cited: Set<number>;
 }
 
-const fetchTransport: AnalyticsTransport = (url, body) => {
-  try {
-    void fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-      keepalive: true
-    });
-  } catch {
-    // l'analytics non deve mai rompere il gioco
-  }
-};
-
+/** Closed, bounded counters. No raw timeline, persistent identifiers or automatic flush. */
 export class Analytics {
   readonly provider: AnalyticsProvider;
   private enabled: boolean;
+  private readonly cells = new Map<string, AnalyticsAggregate>();
+  private readonly documentOnce = new Set<AnalyticsEvent>();
+  private readonly sessionOnce = new Set<AnalyticsEvent>();
+  private session: { started: number; context: AnalyticsContext } | null = null;
+  private attempt: Attempt | null = null;
+  private phase: AnalyticsPhase = 'menu';
+  private hasPage = false;
+  private contextProvider: () => AnalyticsContext = () => ({ language: 'it', mode: 'turno' });
+  private lastSelection = new Map<string, string>();
+  private flushing = false;
+  private generation = 0;
   private readonly config: AnalyticsConfig;
-  private readonly transport: AnalyticsTransport;
-  /** Conteggio eventi inviati (per test e debug; nessun contenuto ritenuto). */
   sentCount = 0;
+  readonly diagnostics = { accepted: 0, rejected: 0, duplicates: 0, droppedCells: 0, droppedCounts: 0, transportErrors: 0 };
 
-  constructor(config: AnalyticsConfig, transport: AnalyticsTransport = fetchTransport) {
-    this.config = config;
-    this.provider = resolveProvider(config);
+  constructor(config: AnalyticsConfig, private readonly transport: AnalyticsTransport = fetchTransport,
+    private readonly clock: () => number = () => performance.now()) {
+    this.config = Object.freeze({ ...config, approvedEndpoints: Object.freeze([...(config.approvedEndpoints ?? [])]) });
+    this.provider = resolveProvider(this.config);
     this.enabled = this.provider !== 'off';
-    this.transport = transport;
   }
-
-  isEnabled(): boolean {
-    return this.enabled && this.provider !== 'off';
+  private now(): number { try { const n = this.clock(); return Number.isFinite(n) ? n : 0; } catch { return 0; } }
+  private context(): AnalyticsContext {
+    try {
+      const c = sanitizeProperties(this.contextProvider() as unknown as Record<string, unknown>);
+      return { language: c.language ?? 'it', mode: c.mode ?? 'turno' };
+    } catch { return { language: 'it', mode: 'turno' }; }
   }
-
-  enable(): void {
-    if (this.provider !== 'off') this.enabled = true;
-  }
-
+  setContextProvider(provider: () => AnalyticsContext): void { this.contextProvider = provider; }
+  isEnabled(): boolean { return this.enabled && this.provider !== 'off'; }
+  enable(): void { if (this.provider !== 'off') this.enabled = true; }
   disable(): void {
     this.enabled = false;
+    this.generation++;
+    this.cells.clear(); this.documentOnce.clear(); this.sessionOnce.clear(); this.lastSelection.clear();
+    this.session = null; this.attempt = null;
   }
+  snapshot(): AnalyticsAggregate[] { return [...this.cells.values()].map(c => ({ ...c, properties: { ...c.properties } })); }
 
-  /** Traccia un evento dell'allowlist con proprietà sanitizzate. */
-  track(eventName: string, properties?: Record<string, unknown>): void {
+  startSession(kind: 'new' | 'resume'): void {
     if (!this.isEnabled()) return;
-    if (!(ANALYTICS_EVENTS as readonly string[]).includes(eventName)) return; // evento sconosciuto: scartato
-    const props = sanitizeProperties(properties);
-    this.dispatch(eventName, props);
+    const event = kind === 'new' ? 'game_started' : 'game_resumed';
+    if (this.session && this.phase === 'menu' && this.sessionOnce.has(event)) {
+      this.diagnostics.duplicates++;
+      return;
+    }
+    this.endSession(true);
+    this.sessionOnce.clear(); this.lastSelection.clear(); this.attempt = null;
+    this.session = { started: this.now(), context: this.context() };
+    this.track(event);
   }
-
-  /** Registra la visualizzazione di una schermata (nome scena, nessun dato utente). */
+  endSession(observedNavigation = false): void {
+    if (!this.isEnabled() || !this.session) return;
+    if (observedNavigation) this.abandonCase();
+    this.track('game_session_ended', { ...this.session.context, durationBucket: durationBucket(this.now() - this.session.started) });
+    this.session = null; this.attempt = null;
+  }
+  startCase(caseId: string): void {
+    if (!this.isEnabled() || !isCaseId(caseId)) return;
+    if (this.attempt?.id === caseId && !this.attempt.completed) return;
+    if (!this.session) this.startSession('resume');
+    this.abandonCase();
+    this.attempt = { id: caseId, context: this.context(), started: this.now(), completed: false,
+      hintUsed: false, once: new Set(), opened: new Set(), cited: new Set() };
+    this.track('case_started', { caseId });
+  }
+  restoreEvidence(caseId: string, opened: readonly number[], cited: readonly number[]): void {
+    if (!this.isEnabled() || this.attempt?.id !== caseId) return;
+    for (const index of opened) if (isEvidenceIndex(caseId, index)) this.attempt.opened.add(index);
+    for (const index of cited) if (isEvidenceIndex(caseId, index)) this.attempt.cited.add(index);
+  }
+  evidenceAction(caseId: string, index: number, opened: boolean, cited: boolean): void {
+    if (!this.isEnabled() || this.attempt?.id !== caseId || this.attempt.completed || !isEvidenceIndex(caseId, index)) return;
+    for (const [yes, seen, event] of [[opened, this.attempt.opened, 'evidence_opened'], [cited, this.attempt.cited, 'evidence_cited']] as const) {
+      if (!yes || seen.has(index)) continue;
+      seen.add(index);
+      this.track(event, { caseId });
+    }
+  }
+  completeSession(): void {
+    if (this.session) this.track('session_completed', { durationBucket: durationBucket(this.now() - this.session.started) });
+  }
+  startReview(): void {
+    if (!this.isEnabled()) return;
+    if (!this.session) this.startSession('resume');
+    this.track('review_started');
+  }
   page(screenName: string): void {
     if (!this.isEnabled()) return;
-    if (screenName.length > MAX_STRING_LENGTH) return;
-    this.dispatch('pageview', {}, screenName);
+    const names: Record<string, AnalyticsPhase> = { title: 'menu', briefing: 'briefing', map: 'map', case: 'case',
+      evidence: 'evidence', incident: 'incident', decision: 'decision', report: 'report', consequence: 'consequence',
+      norm: 'norm', archive: 'archive', glossary: 'glossary', 'session-end': 'session_end', finale: 'finale', learning: 'learning', credits: 'credits' };
+    const next = names[screenName];
+    if (!Object.prototype.hasOwnProperty.call(names, screenName)) { this.diagnostics.rejected++; return; }
+    if (!['case', 'evidence', 'incident', 'decision', 'report', 'consequence', 'norm'].includes(next)) this.abandonCase();
+    if (next === 'menu') this.endSession();
+    if (next === this.phase && this.hasPage) return;
+    this.hasPage = true;
+    this.phase = next;
+    this.track('pageview');
+  }
+  private abandonCase(): void {
+    if (!this.attempt || this.attempt.completed) return;
+    this.track('case_abandoned', { caseId: this.attempt.id, ...this.attempt.context });
+    this.attempt = null;
   }
 
-  private dispatch(name: string, props: AnalyticsProperties, screen?: string): void {
-    this.sentCount += 1;
+  track(eventName: AnalyticsEvent, properties?: Partial<AnalyticsProperties>): void {
+    if (!this.isEnabled()) return;
+    try { this.record(eventName, properties); }
+    catch { this.diagnostics.rejected++; }
+  }
+  private record(eventName: string, properties?: Record<string, unknown>): void {
+    if (!Object.prototype.hasOwnProperty.call(EVENT_CATALOG, eventName)) { this.diagnostics.rejected++; return; }
+    const event = (eventName === 'case_result' ? 'case_completed' : eventName) as AnalyticsEvent;
+    const r = EVENT_CATALOG[event];
+    const clean = sanitizeProperties(properties);
+    const caseId = clean.caseId ?? (r.optional.includes('caseId') ? this.attempt?.id : undefined);
+    const a = caseId === this.attempt?.id ? this.attempt : null;
+    if (r.required.includes('caseId') && !a) { this.diagnostics.rejected++; return; }
+    const props: Record<string, unknown> = { ...this.context(), phase: this.phase };
+    for (const key of ['language', 'mode', 'phase', ...r.required, ...r.optional] as const) {
+      if (clean[key] !== undefined) props[key] = clean[key];
+    }
+    if (caseId) props.caseId = caseId;
+    if (r.required.includes('tutorialVersion')) props.tutorialVersion = TUTORIAL_VERSION;
+    if (a && r.required.includes('durationBucket')) props.durationBucket = durationBucket(this.now() - a.started);
+    if (a && (r.required.includes('hintUsed') || r.optional.includes('hintUsed'))) props.hintUsed = a.hintUsed;
+    if (a && event === 'debrief_opened') props.result = a.result;
+    const payload: AnalyticsPayload = { schemaVersion: ANALYTICS_SCHEMA_VERSION, gameVersion: ANALYTICS_GAME_VERSION,
+      event, properties: props as unknown as AnalyticsProperties };
+    if (!validatePayload(payload)) { this.diagnostics.rejected++; return; }
+    const seen = r.once === 'document' ? this.documentOnce : r.once === 'session' ? this.sessionOnce : r.once === 'case' ? a?.once : undefined;
+    if (seen?.has(event)) { this.diagnostics.duplicates++; return; }
+    if (event === 'language_selected' || event === 'mode_selected') {
+      const selected = event === 'language_selected' ? payload.properties.language : payload.properties.mode;
+      if (this.lastSelection.get(event) === selected) { this.diagnostics.duplicates++; return; }
+      this.lastSelection.set(event, selected);
+    }
+    const key = JSON.stringify(payload);
+    const cell = this.cells.get(key);
+    seen?.add(event);
+    if (a && event === 'hint_requested') a.hintUsed = true;
+    if (a && event === 'case_completed') { a.completed = true; a.result = payload.properties.result; }
+    if (!cell && this.cells.size >= MAX_CELLS) { this.diagnostics.droppedCells++; return; }
+    if (cell && cell.count >= MAX_COUNT) { this.diagnostics.droppedCounts++; return; }
+    if (cell) cell.count = Math.min(MAX_COUNT, cell.count + 1);
+    else this.cells.set(key, { ...payload, count: 1 });
+    this.diagnostics.accepted++;
     if (this.provider === 'console') {
-      console.info(`[analytics] ${name}${screen ? ` screen=${screen}` : ''}`, props);
-      return;
-    }
-    const path = screen ? `/${screen}` : currentPath();
-    if (this.provider === 'plausible') {
-      this.transport('https://plausible.io/api/event', {
-        domain: this.config.plausibleDomain,
-        name,
-        url: `https://${this.config.plausibleDomain}${path}`,
-        props
-      });
-      return;
-    }
-    if (this.provider === 'umami') {
-      const base = (this.config.umamiScriptUrl ?? '').replace(/\/[^/]*\.js$/, '').replace(/\/$/, '');
-      this.transport(`${base}/api/send`, {
-        type: 'event',
-        payload: {
-          website: this.config.umamiWebsiteId,
-          hostname: currentHostname(),
-          url: path,
-          name,
-          data: props
-        }
-      });
+      try { console.info('[analytics]', { cells: this.cells.size, accepted: this.diagnostics.accepted }); this.sentCount++; } catch { /* diagnostics cannot block play */ }
     }
   }
-}
 
-/** Path corrente senza query string né hash (evita PII accidentale negli URL). */
-function currentPath(): string {
-  if (typeof location === 'undefined') return '/';
-  return location.pathname;
-}
-
-function currentHostname(): string {
-  return typeof location === 'undefined' ? 'localhost' : location.hostname;
+  /** Explicit aggregate delivery only. Failed cells remain bounded in memory. */
+  async flush(): Promise<boolean> {
+    if (!this.isEnabled() || this.flushing || this.provider === 'console') return false;
+    const url = endpoint(this.config);
+    if (!url || !this.config.remoteApproved || !this.config.approvedEndpoints?.includes(url)) return false;
+    this.flushing = true;
+    const generation = this.generation;
+    let ok = true;
+    try {
+      for (const cell of this.snapshot()) {
+        if (!this.isEnabled() || this.generation !== generation) break;
+        const { properties, event, schemaVersion, gameVersion, count } = cell;
+        const data = { schemaVersion, gameVersion, ...properties, count };
+        const body = this.provider === 'plausible'
+          ? { domain: this.config.plausibleDomain, name: event, url: `https://${this.config.plausibleDomain}/play/`, props: data }
+          : { type: 'event', payload: { website: this.config.umamiWebsiteId, hostname: 'www.no-ai-act.eu', url: '/play/', name: event, data } };
+        try {
+          await this.transport(url, body);
+          this.sentCount++;
+          if (this.generation !== generation) continue;
+          const key = JSON.stringify({ schemaVersion, gameVersion, event, properties });
+          const current = this.cells.get(key);
+          if (current && current.count <= count) this.cells.delete(key);
+          else if (current) current.count -= count;
+        } catch { this.diagnostics.transportErrors++; ok = false; }
+      }
+    } finally { this.flushing = false; }
+    return ok;
+  }
 }
 
 function envConfig(): AnalyticsConfig {
   const env = import.meta.env ?? {};
-  const dnt =
-    typeof navigator !== 'undefined' &&
+  const doNotTrack = typeof navigator !== 'undefined' &&
     (navigator.doNotTrack === '1' || (navigator as { msDoNotTrack?: string }).msDoNotTrack === '1');
-  return {
-    provider: env.VITE_ANALYTICS_PROVIDER as string | undefined,
-    dev: Boolean(env.DEV),
+  return { provider: env.VITE_ANALYTICS_PROVIDER as string | undefined, dev: Boolean(env.DEV), doNotTrack,
     plausibleDomain: env.VITE_PLAUSIBLE_DOMAIN as string | undefined,
     umamiWebsiteId: env.VITE_UMAMI_WEBSITE_ID as string | undefined,
     umamiScriptUrl: env.VITE_UMAMI_SCRIPT_URL as string | undefined,
-    doNotTrack: dnt
-  };
+    remoteApproved: false, approvedEndpoints: [] };
 }
-
-/** Istanza globale usata dalle scene. */
 export const AnalyticsSystem = new Analytics(envConfig());

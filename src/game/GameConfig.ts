@@ -21,6 +21,7 @@ import { CreditsScene } from './scenes/CreditsScene';
 import { GAME_HEIGHT, GAME_WIDTH, RENDER_SCALE } from './ui/theme';
 import { ActionLayer } from './ui/ActionLayer';
 import { mobilePresentationActive } from './ui/mobilePresentation';
+import { AnalyticsSystem } from './systems/AnalyticsSystem';
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -49,6 +50,12 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     postBoot: (game): void => {
       for (const scene of game.scene.scenes) {
         scene.sys.events.on(Phaser.Scenes.Events.CREATE, () => {
+          const screens: Record<string, string> = { Title: 'title', Briefing: 'briefing', CityMap: 'map',
+            Case: 'case', Evidence: 'evidence', Incident: 'incident', Decision: 'decision', Report: 'report',
+            Consequence: 'consequence', NormCard: 'norm', Archive: 'archive', Glossary: 'glossary',
+            SessionEnd: 'session-end', Finale: 'finale', LearningReport: 'learning', Credits: 'credits' };
+          const screen = screens[scene.sys.settings.key];
+          if (screen) AnalyticsSystem.page(screen);
           scene.cameras.main.setZoom(RENDER_SCALE);
           scene.cameras.main.centerOn(GAME_WIDTH / 2, GAME_HEIGHT / 2);
         });

@@ -387,6 +387,7 @@ export class TitleScene extends Phaser.Scene {
     const modeBtn = new Button(this, cx, top + 112, '', () => {
       const next = GAME_MODE_IDS[(GAME_MODE_IDS.indexOf(StateManager.gameMode) + 1) % GAME_MODE_IDS.length];
       StateManager.setGameMode(next);
+      AnalyticsSystem.track('mode_selected', { mode: next });
       refresh();
     }, { width: W, height: 46, fontSize: 13, variant: 'ghost' });
 
@@ -499,7 +500,7 @@ export class TitleScene extends Phaser.Scene {
     this.closeGroup();
     AudioSystem.init();
     AudioSystem.confirm();
-    AnalyticsSystem.track('game_started', { language: StateManager.language });
+    AnalyticsSystem.startSession('new');
     StateManager.markStarted();
     fadeOutScene(this, 300, () => {
       if (!StateManager.briefingSeen) this.scene.start('Briefing');
@@ -587,7 +588,7 @@ export class TitleScene extends Phaser.Scene {
   private startGame(isNew: boolean): void {
     AudioSystem.init();
     AudioSystem.confirm();
-    AnalyticsSystem.track('game_started', { language: StateManager.language });
+    AnalyticsSystem.startSession(isNew ? 'new' : 'resume');
     StateManager.markStarted();
     fadeOutScene(this, 300, () => {
       if (isNew || !StateManager.briefingSeen) this.scene.start('Briefing');

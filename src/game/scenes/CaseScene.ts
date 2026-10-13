@@ -32,7 +32,7 @@ export class CaseScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
     AnalyticsSystem.page('case');
-    AnalyticsSystem.track('case_started', { caseId: this.caseData.id, locationId: this.caseData.locationId });
+    AnalyticsSystem.startCase(this.caseData.id);
     AudioSystem.setMusicRole('archive', this.caseData.id);
     AudioSystem.openCase();
     addNoiseOverlay(this, 0.4);

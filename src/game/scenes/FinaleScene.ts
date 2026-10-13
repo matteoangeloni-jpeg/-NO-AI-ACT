@@ -30,15 +30,9 @@ export class FinaleScene extends Phaser.Scene {
     const endingId = computeEnding(StateManager.indicators);
     const ending = L().endings[endingId];
     StateManager.setEnding(endingId);
-    AnalyticsSystem.track('ending_reached', { ending: endingId, completedCasesCount: StateManager.completedCount() });
-    AnalyticsSystem.track('game_completed', {
-      ending: endingId,
-      completedCasesCount: StateManager.completedCount(),
-      unlockedNormsCount: StateManager.unlockedNorms.length,
-      musicEnabled: StateManager.musicVolume > 0,
-      reducedMotion: StateManager.reducedMotion,
-      language: StateManager.language
-    });
+    AnalyticsSystem.page('finale');
+    AnalyticsSystem.track('ending_reached');
+    AnalyticsSystem.track('game_completed');
     AudioSystem.stopLevelTheme();
     if (endingId === 'ending_opaca') AudioSystem.error();
     else if (endingId === 'ending_governata') AudioSystem.unlock();

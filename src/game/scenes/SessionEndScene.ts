@@ -49,6 +49,7 @@ export class SessionEndScene extends Phaser.Scene {
     AudioSystem.setMusicRole('debrief', 'city');
     addNoiseOverlay(this, 0.4).setDepth(-2);
     AnalyticsSystem.page('session-end');
+    if (summary.complete && !plan.freeMap) AnalyticsSystem.completeSession();
 
     this.add.text(cx, 44, ui.title, textStyle(22, COLOR_STR.paper, { fontStyle: 'bold' })).setOrigin(0.5);
     const one = plan.caseIds.length === 1;

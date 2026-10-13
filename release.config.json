@@ -53,7 +53,7 @@
     "https://www.unitus.it/"
   ],
   "optionalAnalyticsEndpoints": {
-    "note": "Endpoint di provider opzionali presenti nel codice ma DISATTIVATI: il provider di default in produzione e' off e il workflow di deploy non imposta alcuna variabile VITE_. Attivarli richiederebbe di riscrivere le pagine privacy e runtimeHostAllowlist.",
+    "note": "Adapter opzionali DISATTIVATI. Analytics A imposta remoteApproved=false e approvedEndpoints=[] nel singleton: le variabili VITE_ non autorizzano invii. /play/ non carica beacon. Attivazione futura dopo verifica privacy, endpoint autorizzati, retention/accessi e aggiornamento dell'informativa e runtimeHostAllowlist.",
     "plausible": "https://plausible.io/api/event"
   }
 }

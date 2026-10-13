@@ -359,7 +359,7 @@ export class ReportScene extends Phaser.Scene {
     // non è una decorazione: è dove sta il confronto per assi, i concetti e la
     // lettura consigliata. Variante primaria, non fantasma.
     new Button(this, 240, GAME_HEIGHT - 46, t.ui.decisionDebrief.button, () => {
-      emitGameplayUx('debrief_opened', this.caseData.id);
+      if (!debrief.isOpen) emitGameplayUx('debrief_opened', this.caseData.id);
       debrief.toggle();
     }, { width: 320, height: 40, fontSize: 13 });
 

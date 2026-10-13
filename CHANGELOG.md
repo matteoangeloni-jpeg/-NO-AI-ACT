@@ -2,6 +2,16 @@
 
 ## [Non rilasciato]
 
+### Sprint Analytics A 4.0 (revisione locale)
+- AnalyticsSystem riutilizzato con schema versionato, vocabolari chiusi,
+  contatori aggregati limitati in memoria e nessun identificatore persistente.
+- Avvii/riprese, tentativi, reperti, firma, aiuti, tutorial, debrief e ripasso
+  strumentati; alias case_result deduplicato nel completamento canonico.
+- Provider remoto bloccato anche con le vecchie variabili di configurazione;
+  nessun flush automatico. /play/ non carica piu il beacon Cloudflare.
+- Test su privacy, duplicazioni, offline, DNT e flussi UI IT/EN/FR;
+  catalogo, metriche e rischi in docs/PLAYER_TELEMETRY_4_0.md.
+
 ### Sprint Mobile UX 4.0 (revisione locale)
 - Presentazione adattiva HTML per schermi compatti: testo leggibile, scorrimento
   verticale e target touch da 48px; desktop Phaser conservato.

@@ -1,97 +1,77 @@
-# ANALYTICS — privacy by design
+# Analytics A: contatori locali e trasporto disattivato
 
-NO AI ACT misura **come viene usato il gioco**, mai **chi lo usa**.
-Implementazione: `src/game/systems/AnalyticsSystem.ts` (allowlist rigida,
-config iniettabile, test in `tests/analytics.test.ts`).
+Stato: implementazione locale, 14 ottobre 2026. Nessun backend collegato.
 
-## Modalità
+Il contratto completo, il catalogo eventi, le metriche, i test e i rischi sono
+in [PLAYER_TELEMETRY_4_0.md](PLAYER_TELEMETRY_4_0.md).
+La fonte eseguibile degli schemi e `src/game/systems/analyticsSchema.ts`;
+il sistema riutilizzato e `src/game/systems/AnalyticsSystem.ts`.
 
-| Modalità | Quando | Comportamento |
-|---|---|---|
-| `off` | **default in produzione** | nessun evento lascia il browser |
-| `console` | default in `npm run dev` | eventi stampati in console, zero rete |
-| `plausible` | solo con configurazione esplicita | invio a Plausible (event API) |
-| `umami` | solo con configurazione esplicita | invio a Umami (`/api/send`) |
+## Configurazione effettiva
 
-Il segnale **Do Not Track** del browser forza `off` in ogni caso.
-`AnalyticsSystem.disable()` spegne tutto a runtime.
+| Provider | Comportamento |
+| --- | --- |
+| `off` | Default produzione. Nessun contatore, log o invio analytics. |
+| `console` | Default sviluppo senza variabili. Contatori aggregati in memoria; la console mostra solo quantita diagnostiche. Zero trasporto. |
+| `plausible`, `umami` | Adapter preesistenti, bloccati nel singleton distribuito. Testati con trasporti finti. |
 
-## Eventi tracciati
+`envConfig()` imposta esplicitamente `remoteApproved: false` e una lista vuota
+di endpoint autorizzati. Impostare le vecchie variabili `VITE_ANALYTICS_PROVIDER`,
+`VITE_PLAUSIBLE_DOMAIN` o `VITE_UMAMI_*` non attiva il trasporto remoto.
+Un provider sconosciuto resta spento. DNT forza `off`, anche in sviluppo.
+`enable()` non puo riaccendere un provider risolto a `off`.
 
-`game_opened`, `game_started`, `language_selected`, `case_started`,
-`evidence_opened`, `clues_selected`, `classification_selected`,
-`measure_selected`, `case_completed`, `case_result`, `norm_unlocked`,
-`archive_opened`, `ending_reached`, `game_completed`, `credits_opened`,
-`reset_game` — più la pageview delle schermate (solo nome scena).
+Non c'e un nuovo banner, un interruttore di consenso o una raccolta pubblica.
+Questa implementazione non stabilisce esenzioni dal consenso: informativa,
+base giuridica, destinazione e infrastruttura richiedono la verifica successiva.
 
-Qualsiasi altro nome evento viene **scartato dal codice**.
+## Memoria e rete
 
-## Proprietà ammesse (allowlist)
+- I contatori contengono solo combinazioni di valori del vocabolario chiuso.
+- Nessuna sequenza di eventi grezzi, identificatore personale o timestamp viene
+  memorizzato nel buffer o incluso nei payload.
+- Due clock monotoni e gli indici dei reperti dell'attuale tentativo servono
+  localmente per durate per intervalli e deduplicazione. Non vengono esportati.
+- Massimo 512 celle; massimo 1.000.000 osservazioni per cella. Scarti, duplicati
+  e saturazioni hanno contatori diagnostici, senza conservare il dato scartato.
+- Nessun tracking in localStorage, sessionStorage, cookie o nel salvataggio.
+- Il buffer viene eliminato con `disable()` o distruzione del documento.
+- Nessun flush automatico, timer di invio, beacon o invio alla chiusura.
+- `flush()` e un'operazione asincrona esplicita: richiede approvazione separata
+  dell'infrastruttura e corrispondenza esatta dell'endpoint. Non e chiamata dal gioco.
+- Gli errori sincroni/asincroni vengono gestiti; il gameplay continua e le celle
+  non confermate restano nel buffer limitato. Una risposta Plausible marcata
+  `x-plausible-dropped: 1` non viene considerata una conferma.
 
-`language`, `caseId`, `locationId`, `normId`, `result`, `classification`,
-`measure`, `selectedClueCount`, `relevantClueCount`, `ending`,
-`completedCasesCount`, `unlockedNormsCount`, `musicEnabled`, `reducedMotion`.
+`/play/` non carica piu il beacon Cloudflare. Le statistiche delle pagine
+pubbliche del sito mantengono la propria configurazione, distinta dal gioco.
 
-Qualsiasi altra chiave viene scartata. I valori stringa vengono scartati se
-superano 64 caratteri (free text) o contengono `@` (possibili email).
+## Verifica locale
 
-## Che cosa NON viene raccolto — garanzie
-
-- ❌ nome, email, dati scolastici (scuola/classe) o qualsiasi dato personale;
-- ❌ free text: non esiste alcun campo di testo libero nel gioco, e il
-  sanitizzatore scarta comunque stringhe lunghe;
-- ❌ identificativi persistenti del giocatore: nessun ID utente, nessun cookie,
-  nessun localStorage usato per il tracking;
-- ❌ fingerprinting, session replay, heatmap;
-- ❌ IP e user agent **nel payload**: il gioco non li invia mai. Nota di
-  onestà: ogni richiesta HTTP espone IP e user agent a livello di trasporto;
-  Plausible e Umami sono scelti proprio perché dichiarano di non conservare
-  l'IP e di usarlo solo transitoriamente in forma aggregata/anonimizzata.
-  Verificare la configurazione della propria istanza.
-
-## Abilitare Plausible
-
-```bash
-# .env.production (o variabili della pipeline di build)
-VITE_ANALYTICS_PROVIDER=plausible
-VITE_PLAUSIBLE_DOMAIN=tuodominio.example
+```text
+npm run typecheck
+npm test
+npm run build
+npm run smoke:analytics
+BASE=http://localhost:4212 npm run smoke:privacy
 ```
-Registrare il dominio su https://plausible.io (o istanza self-hosted: cambiare
-l'endpoint in AnalyticsSystem se non si usa plausible.io). Le proprietà degli
-eventi appaiono come "custom properties".
 
-## Abilitare Umami
+Su PowerShell usare `$env:BASE='http://localhost:4212'` prima dello smoke privacy.
+Serve il preview della build sulla porta scelta.
+Lo smoke analytics avvia e chiude autonomamente un server di sviluppo locale
+sulla 4213, con provider console, e usa esclusivamente fixture sintetiche.
+`ANALYTICS_TEST_PORT` permette di scegliere un'altra porta libera.
+Il server 4212 del gioco non viene arrestato dallo smoke.
 
-```bash
-VITE_ANALYTICS_PROVIDER=umami
-VITE_UMAMI_WEBSITE_ID=<website-id>
-VITE_UMAMI_SCRIPT_URL=https://tua-istanza.example/script.js
-```
-L'endpoint `/api/send` viene derivato dallo script URL. Consigliata istanza
-self-hosted UE.
+Solo nelle build di sviluppo `window.playerTelemetry` espone letture di
+`snapshot()` e `diagnostics()`, senza comandi di attivazione o invio.
+La build di produzione non espone questo handle.
 
-## Disattivare tutto
+## Collegamento futuro
 
-Non impostare alcuna variabile (default produzione = `off`), oppure
-`VITE_ANALYTICS_PROVIDER=off`. A runtime: `AnalyticsSystem.disable()`.
-
-## Nota GDPR / privacy
-
-Il sistema è progettato per non trattare dati personali: eventi aggregati di
-gameplay, nessun identificativo, nessun cookie → nessun banner necessario.
-Se si attiva un provider remoto resta responsabilità del titolare verificare:
-(1) che l'istanza non conservi IP/UA; (2) la base giuridica e l'informativa
-del sito che ospita il gioco; (3) l'eventuale trasferimento extra-UE
-(preferire Plausible EU o Umami self-hosted UE). Questo documento non è un
-parere legale.
-
-## Dashboard utili (esempi)
-
-- **Funnel di abbandono**: `game_opened → game_started → case_started →
-  case_completed → ending_reached` — dove si perdono i giocatori;
-- **Errori per caso**: `case_result` filtrato per `result=wrong`, raggruppato
-  per `caseId` — quali casi confondono di più (utile per il bilanciamento);
-- **Qualità delle citazioni**: `clues_selected` con `selectedClueCount` vs
-  `relevantClueCount`;
-- **Distribuzione finali**: `ending_reached` per `ending`;
-- **Lingue**: `language_selected` / `game_started` per `language`.
+Il collegamento a un backend autorizzato dovra ricevere celle validate tramite
+`validateAggregate()` e sommare `count`, non contare richieste HTTP. La versione
+del provider e le sue configurazioni privacy dovranno essere verificate.
+Non usare metriche native di "visitatori unici" come sinonimo di giocatori.
+Retenzione lato server, accessi, log HTTP, soglie di pubblicazione e idempotenza
+non sono implementati in questo sprint e non si possono dedurre dal codice client.

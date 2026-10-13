@@ -10,6 +10,7 @@
     "smoke:fr": "node scripts/smoke/french-localization-smoke.mjs",
     "smoke:gameplay-ux": "node scripts/smoke/gameplay-ux-smoke.mjs",
     "smoke:mobile-ux": "node scripts/smoke/mobile-ux-smoke.mjs",
+    "smoke:analytics": "node scripts/smoke/analytics-smoke.mjs",
     "dev": "vite",
     "typecheck": "tsc --noEmit",
     "build": "tsc --noEmit && vite build && node scripts/copy-notices.mjs",
