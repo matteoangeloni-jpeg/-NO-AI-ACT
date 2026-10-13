@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { exportJWK, generateKeyPair, SignJWT } from 'jose';
 import { readFileSync } from 'node:fs';
 import { LocalDatabase } from '../analytics/local-db';
-import { csv, ingest, LIMITS, parseQuery, project, purge, readCells, validateBatch, type Batch } from '../analytics/aggregation';
+import { csv, ingest, LIMITS, parseQuery, project, purge, readCells, retentionWindow, validateBatch, type Batch } from '../analytics/aggregation';
 import { authorized } from '../analytics/auth';
 import { handle } from '../analytics/worker';
 import type { Env } from '../analytics/types';
@@ -66,6 +66,11 @@ describe('Sprint B closed ingestion envelope', () => {
   });
 });
 describe('transactional aggregation without individual histories', () => {
+  it('reports when a nominal fourteen-day baseline retains only three days', () => {
+    const window=retentionWindow({from:'2026-07-06',to:'2026-07-19',dimension:'all'},Date.parse('2026-10-14T12:00:00Z'));
+    expect(window).toEqual({retainedFrom:'2026-07-17',clipped:true,availableDays:3});
+    expect(retentionWindow({from:'2026-07-01',to:'2026-07-10',dimension:'all'},Date.parse('2026-10-14T12:00:00Z')).availableDays).toBe(0);
+  });
   it('projects independent dimensions, not a cross product', () => {
     const rows=project(batch(), '2026-10-14');
     expect(rows.map(r=>r.dimension)).toEqual(['all','language','mode','phase']);
@@ -106,7 +111,7 @@ describe('transactional aggregation without individual histories', () => {
     const rows=await readCells(d,{from:day,to:day,dimension:'language',version:ANALYTICS_GAME_VERSION});
     expect(rows[0].count).toBe(10);expect(rows[0].value).toBe('it');
     expect(csv([{...rows[0],value:'=formula'}],'synthetic')).toContain("'=formula");
-    expect(csv(rows,'synthetic').split('\r\n')[0]).toBe('classification,day_utc,game_version,event,dimension,value,event_count');
+    expect(csv(rows,'synthetic').split('\r\n')[0]).toBe('classification,day_utc,game_version,event,dimension,value,event_count,requested_from_utc,requested_to_utc,retained_from_utc,retention_clipped');
   });
 });
 describe('private endpoints, fail-closed configuration, bounded public ingestion', () => {

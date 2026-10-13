@@ -199,7 +199,10 @@ definizioni rimangono in [PLAYER_TELEMETRY_4_0.md](PLAYER_TELEMETRY_4_0.md).
 Non inferire abbandono dall'assenza di eventi; l'evento observed case_abandoned
 e disponibile nell'export, con la semantica dello Sprint A.
 
-CSV: `classification,day_utc,game_version,event,dimension,value,event_count`.
+CSV: `classification,day_utc,game_version,event,dimension,value,event_count,requested_from_utc,requested_to_utc,retained_from_utc,retention_clipped`.
+Le ultime quattro colonne, aggiunte nello Sprint C, conservano finestra richiesta
+e limite di retention anche dopo il download. Header HTTP equivalenti rimangono
+disponibili anche per CSV senza righe; non interpretare un CSV vuoto come zero.
 `classification` e synthetic nella preview, observed nel backend configurato.
 Date = ricezione UTC, non data personale di gioco. Versione/evento/dimensione
 sono vocabolari dello schema. value e un valore chiuso o `*` per totale.
@@ -267,7 +270,13 @@ Nessuna modifica al gioco, catalogo Sprint A, casi, punteggi, salvataggi o lingu
 Prima di intervenire sull'account servono autorizzazioni esplicite per:
 1. Verificare account/piano, creare D1 e selezionare localita/requisiti applicabili.
 2. Creare un Worker, binding limiter, dominio/custom route e policy DNS/TLS.
-3. Configurare Access sul **dominio intero**, con allowlist nominativa e MFA.
+3. Configurare Access su dashboard/API/asset, con allowlist nominativa e MFA.
+   Preferire hostname separati per raccolta e amministrazione; se sullo stesso
+   hostname, serve una policy piu specifica SOLO per `/collect` (POST/OPTIONS),
+   che non richieda identita amministrativa. Tutte le altre route rimangono
+   protette da Access e dalla verifica JWT nel Worker. Verificare la precedenza
+   delle policy sul vero account prima di attivare: un Access indiscriminato su
+   tutto il dominio impedirebbe la consegna pubblica con credentials omit.
 4. Salvare ACCESS_TEAM, ACCESS_AUD, ADMIN_EMAILS e ALLOWED_ORIGIN fuori dal repo;
    usare token di deploy con soli permessi necessari al Worker/D1, non chiavi globali.
 5. Applicare migrazioni, cron e allarmi; confermare retention/log/backup provider.

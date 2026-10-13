@@ -135,6 +135,7 @@ function render(title: string, sections: ReadingSection[]): void {
       const input = document.createElement('input');
       input.type = 'search';
       input.value = s.input.value;
+      input.addEventListener('focus', revealFocusedInput);
       input.addEventListener('input', () => {
         if (!s.input) return;
         s.input.value = input.value;
@@ -170,6 +171,14 @@ function updateToggleLabel(): void {
   toggle.setAttribute('aria-pressed', String(visible));
 }
 
+function revealFocusedInput(): void {
+  if (document.body.classList.contains('mobile-presentation')) return;
+  const layer = el('reading-layer');
+  if (!(document.activeElement instanceof HTMLInputElement) || !layer?.contains(document.activeElement)) return;
+  document.body.classList.add('reading-visible');
+  updateToggleLabel();
+}
+
 export function initReadingLayer(): void {
   const toggle = el('reading-toggle') as HTMLButtonElement | null;
   if (!toggle) return;
@@ -178,4 +187,5 @@ export function initReadingLayer(): void {
     updateToggleLabel();
   });
   updateToggleLabel();
+  window.addEventListener('resize', revealFocusedInput);
 }

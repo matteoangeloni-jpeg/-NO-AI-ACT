@@ -75,15 +75,15 @@ try {
     await page.getByRole('link', { name: /Dossier de presse/ }).first().click();
     assert.match(page.url(), /\/fr\/dossier-de-presse\//);
   }
-  for (const viewport of [{ width: 1920, height: 1080 }, { width: 3840, height: 2160 }, { width: 390, height: 844 }]) {
+  for (const viewport of process.env.FR_SITE_ONLY ? [] : [{ width: 1920, height: 1080 }, { width: 3840, height: 2160 }, { width: 390, height: 844 }]) {
     await page.setViewportSize(viewport);
     await page.goto(`${base}/play/?lang=fr`);
-    await page.waitForFunction(() => window.game?.scene?.getScenes(true).some(s => s.scene.key === 'Title'));
+    await page.waitForFunction(() => window.game?.scene?.getScenes(true).some(s => s.scene.key === 'Title'),undefined,{timeout:60000});
     await page.waitForTimeout(600);
     const language = await page.evaluate(() => JSON.parse(localStorage.getItem('no-ai-act-save-v2')).language);
     assert.equal(language, 'fr');
     await page.goto(`${base}/play/`);
-    await page.waitForFunction(() => window.game?.scene?.getScenes(true).some(s => s.scene.key === 'Title'));
+    await page.waitForFunction(() => window.game?.scene?.getScenes(true).some(s => s.scene.key === 'Title'),undefined,{timeout:60000});
     const state = await page.evaluate(() => {
       const scene = window.game.scene.getScene('Title');
       const texts = [];
@@ -108,8 +108,10 @@ try {
     results.push({ game: 'Title', viewport, ...state });
   }
   assert.deepEqual(failures, []);
-  writeFileSync(`${out}/results.json`, JSON.stringify({ results, failures }, null, 2));
-  console.log(`PASS: ${routes.length} French routes at desktop/mobile, keyboard navigation, FR persistence and 3 game resolutions.`);
+  writeFileSync(`${out}/results.json`, JSON.stringify({ results, failures, siteOnly: Boolean(process.env.FR_SITE_ONLY) }, null, 2));
+  console.log(process.env.FR_SITE_ONLY
+    ? `PASS: ${routes.length} French routes at desktop/mobile and keyboard site navigation; game resolution/persistence profiles not run.`
+    : `PASS: ${routes.length} French routes at desktop/mobile, keyboard navigation, FR persistence and 3 game resolutions.`);
 } finally {
   await browser?.close();
   server.kill();

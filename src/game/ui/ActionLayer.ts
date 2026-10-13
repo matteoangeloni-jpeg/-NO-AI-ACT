@@ -70,6 +70,13 @@ let modalReturn: HTMLButtonElement | null = null;
 let lastTitle = '';
 let lastOverlay = false;
 let pendingFocus = false;
+if (typeof document !== 'undefined') document.addEventListener('mobile-presentation-changed', () => {
+  if (!mobilePresentationActive()) return;
+  const reading = document.getElementById('reading-layer');
+  lastTitle = reading?.querySelector('h2')?.textContent ?? '';
+  lastOverlay = reading?.dataset.overlay === 'true';
+  pendingFocus = true;
+});
 if (typeof document !== 'undefined') document.addEventListener('reading-layer-rendered', ((event: CustomEvent<{title: string; overlay: boolean}>) => {
   if (!mobilePresentationActive()) return;
   const { title, overlay } = event.detail;

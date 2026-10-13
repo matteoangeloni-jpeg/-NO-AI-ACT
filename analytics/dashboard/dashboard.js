@@ -5,7 +5,7 @@ const today = new Date();
 const iso = date => date.toISOString().slice(0, 10);
 form.elements.to.value = iso(today);
 form.elements.from.value = iso(new Date(today.valueOf() - 13 * 86400000));
-let data = {}; let prior = []; let provenance; let loading = false;
+let data = {}; let prior = []; let provenance; let previousProvenance; let applied; let loading = false; let failed = false;
 const labels = { it:'Italiano', en:'Inglese', fr:'Francese', turno:'Turno', libera:'Libera', sorpresa:'Sorpresa', ripasso:'Ripasso', correct:'Corretti', partial:'Parziali', wrong:'Errati', under_1m:'Meno di 1 min', '1_to_5m':'1–5 min', '5_to_15m':'5–15 min', '15_to_30m':'15–30 min', '30m_plus':'30 min o più' };
 function node(tag, text, className) { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (className) n.className = className; return n; }
 function sum(rows, event, value) { return rows.filter(r => r.event === event && (value === undefined || r.value === value)).reduce((n,r) => n + r.count, 0); }
@@ -29,11 +29,13 @@ function bars(target, rows, event) {
   values.forEach(([value,count]) => { const row = node('div', undefined, 'bar-row'); const track = node('div', undefined, 'bar-track'); const bar = node('div', undefined, 'bar'); bar.style.width = `${100*count/maximum}%`; track.append(bar); row.append(node('span', labels[value] ?? value), track, node('strong', format(count))); target.append(row); });
   if (!values.length) target.append(node('p', 'Dati non disponibili.'));
 }
-function query(dimension, from=form.elements.from.value, to=form.elements.to.value) {
-  const q = new URLSearchParams({ from, to, dimension }); if (form.elements.version.value) q.set('version', form.elements.version.value); return q;
+function scope() { return {from:form.elements.from.value,to:form.elements.to.value,version:form.elements.version.value}; }
+function dirty() { const draft=scope();return !applied || ['from','to','version'].some(key=>draft[key]!==applied[key]); }
+function query(dimension, filters=applied) {
+  const q = new URLSearchParams({ from:filters.from, to:filters.to, dimension }); if (filters.version) q.set('version', filters.version); return q;
 }
-async function fetchStats(dimension, from, to) {
-  const response = await fetch(`/api/stats?${query(dimension,from,to)}`, { cache:'no-store' });
+async function fetchStats(dimension, filters) {
+  const response = await fetch(`/api/stats?${query(dimension,filters)}`, { cache:'no-store' });
   if (!response.ok) throw new Error(response.status === 401 ? 'Accesso scaduto o non autorizzato.' : 'Statistiche non disponibili. Riprova tra poco.');
   return response.json();
 }
@@ -45,7 +47,7 @@ function render() {
   metric($('kpis'),'Completamenti del piano',observed(totals,'session_completed'),'Primo termine naturale del piano');
   metric($('kpis'),'Rapporto di completamento',completed ? rate(completed,sessions) : 'n.d.',`${observed(totals,'session_completed')} completamenti / ${sessions ? format(sessions) : 'n.d.'} avvii e riprese`);
   const dates = [];
-  for (let date=Date.parse(form.elements.from.value); date<=Date.parse(form.elements.to.value); date+=86400000) dates.push(iso(new Date(date)));
+  for (let date=Date.parse(applied.from); date<=Date.parse(applied.to); date+=86400000) dates.push(iso(new Date(date)));
   table($('trend'), ['Giorno UTC','Avvii','Riprese','Completamenti'], dates.map(day => {
     const rows = totals.filter(r => r.day===day);
     const count = event => rows.some(r => r.event===event) ? format(sum(rows,event)) : 'n.d.';
@@ -62,7 +64,10 @@ function render() {
   [['tutorial_started','Tutorial avviati'],['tutorial_completed','Tutorial completati'],['tutorial_skipped','Tutorial saltati'],['review_started','Ripassi avviati'],['debrief_opened','Debrief consultati']].forEach(([event,title])=>metric($('learning'),title,observed(totals,event),'Eventi osservati, non persone o apprendimento'));
   renderComparison(); updateExport();
   const previousSessions = sum(prior,'game_started')+sum(prior,'game_resumed');
-  table($('period'),['Periodo','Avvii + riprese','Completamenti','Complet. / sessioni'], [['Selezionato',sessions ? format(sessions) : 'n.d.',observed(totals,'session_completed'),completed ? rate(completed,sessions) : 'n.d.'],['Precedente',previousSessions ? format(previousSessions) : 'n.d.',observed(prior,'session_completed'),sum(prior,'session_completed') ? rate(sum(prior,'session_completed'),previousSessions) : 'n.d.']], 'Stessa durata nominale. Un periodo precedente senza celle è indisponibile, non una baseline pari a zero.');
+  const clipped=provenance.retentionWindow.clipped || previousProvenance.retentionWindow.clipped;
+  table($('period'),['Periodo','Avvii + riprese','Completamenti','Complet. / sessioni'], [['Selezionato',sessions ? format(sessions) : 'n.d.',observed(totals,'session_completed'),completed ? rate(completed,sessions) : 'n.d.'],
+    clipped ? ['Precedente — non comparabile','n.d.','n.d.','n.d.'] : ['Precedente',previousSessions ? format(previousSessions) : 'n.d.',observed(prior,'session_completed'),sum(prior,'session_completed') ? rate(sum(prior,'session_completed'),previousSessions) : 'n.d.']],
+    clipped ? `Confronto non disponibile: conservazione dal ${provenance.retentionWindow.retainedFrom}; ${previousProvenance.retentionWindow.availableDays} giorni conservati nel periodo precedente. La presenza di celle non prova copertura completa.` : 'Stessa durata nominale. Un periodo precedente senza celle è indisponibile, non una baseline pari a zero.');
   $('provenance').replaceChildren();
   [['Classificazione',provenance.classification === 'synthetic' ? 'Dati sintetici di test, non giocatori reali' : 'Eventi osservati'],['Intervallo',`${provenance.query.from} — ${provenance.query.to}`],['Origine','Contatori aggregati del backend; catalogo Sprint A, schema 1'],['Aggiornamento',provenance.generatedAt],['Soglia',`${provenance.threshold} eventi / cella giornaliera`],['Versioni disponibili',[...new Set(totals.map(r=>r.version))].join(', ') || 'Nessuna']].forEach(([k,v])=>$('provenance').append(node('dt',k),node('dd',v)));
 }
@@ -77,24 +82,32 @@ function renderComparison() {
 }
 function updateExport() {
   const dimension = $('export-dimension').value;
-  $('export').href = `/api/export.csv?${query(dimension)}`;
+  if(loading || failed || dirty()) $('export').removeAttribute('href');
+  else $('export').href = `/api/export.csv?${query(dimension)}`;
   table($('source-rows'),['Giorno UTC','Versione','Evento','Dimensione','Valore','Conteggio'],(data[dimension]??[]).map(r=>[r.day,r.version,r.event,r.dimension,r.value,format(r.count)]),'CSV e tabella: stesso periodo, versione, dimensione e soglia.');
 }
 async function refresh() {
-  if (loading) return; loading=true; form.querySelector('button').disabled=true; $('export').removeAttribute('href'); $('status').className=''; $('status').textContent='Aggiornamento…';
+  if (loading) return; const filters=Object.freeze(scope()); loading=true; failed=false;
+  for(const control of form.elements)control.disabled=true;
+  $('export').removeAttribute('href'); $('status').className=''; $('status').textContent='Aggiornamento…';
   try {
-    const dimensions=['all','language','mode','caseId','phase','result','durationBucket','hintUsed','tutorialVersion']; const next = {};
-    for (const dimension of dimensions) { const result = await fetchStats(dimension); next[dimension]=result.rows; if(dimension==='all') provenance=result; }
-    const days = (Date.parse(form.elements.to.value)-Date.parse(form.elements.from.value))/86400000+1;
-    const previousTo = Date.parse(form.elements.from.value)-86400000; const previousFrom=previousTo-(days-1)*86400000;
-    prior=(await fetchStats('all',iso(new Date(previousFrom)),iso(new Date(previousTo)))).rows;
-    data=next; const versions = [...new Set(data.all.map(r=>r.version))]; const selected=form.elements.version.value;
+    const dimensions=['all','language','mode','caseId','phase','result','durationBucket','hintUsed','tutorialVersion']; const next = {}; let nextProvenance;
+    for (const dimension of dimensions) { const result = await fetchStats(dimension,filters); next[dimension]=result.rows; if(dimension==='all') nextProvenance=result; }
+    const days = (Date.parse(filters.to)-Date.parse(filters.from))/86400000+1;
+    const previousTo = Date.parse(filters.from)-86400000; const previousFrom=previousTo-(days-1)*86400000;
+    const previous=await fetchStats('all',{...filters,from:iso(new Date(previousFrom)),to:iso(new Date(previousTo))});
+    data=next;provenance=nextProvenance;previousProvenance=previous;prior=previous.rows;applied=filters;
+    const versions = [...new Set(data.all.map(r=>r.version))]; const selected=filters.version;
     form.elements.version.replaceChildren(new Option('Tutte',''),...versions.map(v=>new Option(v,v))); form.elements.version.value=selected;
     $('classification').textContent=provenance.classification==='synthetic'?'DATI SINTETICI · TEST':'DATI OSSERVATI';
-    render(); $('status').textContent=`Aggiornato · ${provenance.query.from} / ${provenance.query.to} · UTC`;
-  } catch(error) { $('status').className='error'; $('status').textContent=error.message; }
-  finally { loading=false;form.querySelector('button').disabled=false; }
+    render(); $('status').textContent=`Aggiornato · ${provenance.query.from} / ${provenance.query.to} · UTC${provenance.retentionWindow.clipped?' · Intervallo parzialmente conservato':''}`;
+  } catch(error) { failed=true;$('status').className='error'; $('status').textContent=error.message; }
+  finally { loading=false;for(const control of form.elements)control.disabled=false;if(provenance)updateExport(); }
 }
+for(const control of form.elements)if(control.name)control.addEventListener('input',()=>{
+  if(dirty()){ $('export').removeAttribute('href');$('status').textContent='Modifiche non applicate: i dati mostrati restano quelli dell’ultimo aggiornamento.'; }
+  else if(provenance)updateExport();
+});
 form.addEventListener('submit',event=>{event.preventDefault();refresh();});
 $('compare-dimension').addEventListener('change',()=>{if(provenance)renderComparison();});
 $('export-dimension').addEventListener('change',()=>{if(provenance)updateExport();});

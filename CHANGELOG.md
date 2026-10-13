@@ -2,6 +2,16 @@
 
 ## [Non rilasciato]
 
+### Sprint C - candidata locale e validazione
+- Nuova matrice 14 casi x IT/EN/FR con firma, debrief, conseguenze e ripristino,
+  pipeline contro D1 locale e verifiche mirate di focus/breakpoint.
+- Corretti snapshot filtri/CSV, segnalazione retention parziale, ricerca desktop
+  e semantica delle finestre modali al cambio di presentazione.
+- Report con stato delle componenti e limiti, release notes, pre-deploy, rollback,
+  protocollo e sei schede umane vuote. Nessuna attestazione di conformita o
+  efficacia; gate complessivo e playtest umano ancora da completare.
+- Raccolta remota disattivata, nessun deploy o attivazione Cloudflare.
+
 ### Sprint Analytics B 4.0 (solo ambiente di test)
 - Backend Workers/D1 separato dal gioco; schema Sprint A riutilizzato, quote,
   deduplicazione transazionale dei batch, contatori marginali e retention 90 giorni.

@@ -6,6 +6,10 @@
   "author": "Matteo Angeloni",
   "type": "module",
   "scripts": {
+    "smoke:release-cases": "node scripts/smoke/release-cases-smoke.mjs",
+    "smoke:release-pipeline": "node --import tsx scripts/smoke/release-analytics-pipeline.mjs",
+    "smoke:release-a11y": "node scripts/smoke/release-a11y-smoke.mjs",
+    "smoke:release-surprise": "node scripts/smoke/release-surprise-smoke.mjs",
     "insights:dev": "tsx analytics/local-server.ts",
     "insights:typecheck": "tsc --noEmit -p analytics/tsconfig.json",
     "insights:check": "node scripts/ci/check-insights-worker.mjs",

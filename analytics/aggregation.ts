@@ -66,6 +66,12 @@ export async function purge(db: Database, now = Date.now()): Promise<void> {
   ]);
 }
 export interface Query { from: string; to: string; dimension: Dimension; version?: string }
+export function retentionWindow(query: Query, now = Date.now()): { retainedFrom: string; clipped: boolean; availableDays: number } {
+  const retainedFrom = new Date(now - (LIMITS.retentionDays - 1) * 86400000).toISOString().slice(0, 10);
+  const effectiveFrom = query.from > retainedFrom ? query.from : retainedFrom;
+  return { retainedFrom, clipped: query.from < retainedFrom,
+    availableDays: Math.max(0, Math.floor((Date.parse(query.to) - Date.parse(effectiveFrom)) / 86400000) + 1) };
+}
 export function parseQuery(url: URL, now = Date.now()): Query | null {
   if ([...url.searchParams.keys()].some(k => !['from', 'to', 'dimension', 'version'].includes(k))) return null;
   if (['from','to','dimension','version'].some(k => url.searchParams.getAll(k).length > 1)) return null;
@@ -84,10 +90,12 @@ export async function readCells(db: Database, query: Query, now = Date.now()): P
   const result = await db.prepare(`SELECT day,version,event,dimension,value,count FROM counters
     WHERE day >= ? AND day <= ? AND dimension=? AND count>=? AND (? IS NULL OR version=?) AND day >= ? ORDER BY day,version,event,value`)
     .bind(query.from, query.to, query.dimension, LIMITS.threshold, query.version ?? null, query.version ?? null,
-      new Date(now - (LIMITS.retentionDays - 1) * 86400000).toISOString().slice(0,10)).all<Cell>();
+      retentionWindow(query, now).retainedFrom).all<Cell>();
   return result.results;
 }
-export function csv(cells: Cell[], classification: string): string {
+export function csv(cells: Cell[], classification: string, query?: Query, now = Date.now()): string {
   const escape = (v: unknown) => '"' + String(v).replace(/^[=+\-@\t\r]/, "'$&").replace(/"/g, '""') + '"';
-  return 'classification,day_utc,game_version,event,dimension,value,event_count\r\n' + cells.map(c => [classification, c.day, c.version, c.event, c.dimension, c.value, c.count].map(escape).join(',')).join('\r\n');
+  const coverage = query ? retentionWindow(query, now) : undefined;
+  return 'classification,day_utc,game_version,event,dimension,value,event_count,requested_from_utc,requested_to_utc,retained_from_utc,retention_clipped\r\n' +
+    cells.map(c => [classification, c.day, c.version, c.event, c.dimension, c.value, c.count, query?.from ?? '', query?.to ?? '', coverage?.retainedFrom ?? '', coverage?.clipped ?? ''].map(escape).join(',')).join('\r\n');
 }

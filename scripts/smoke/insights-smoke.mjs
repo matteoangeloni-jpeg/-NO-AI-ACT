@@ -46,6 +46,21 @@ try {
   const csvURL=await page.locator('#export').getAttribute('href');
   const exported=await fetch(url+csvURL,{headers:auth});assert.equal(exported.status,200);const text=await exported.text();assert.match(text,/classification,day_utc,game_version/);assert.match(text,/'?"synthetic"/);
   const sourceRows=await page.locator('#source-rows tbody tr').count();assert.equal(text.trim().split('\r\n').length-1,sourceRows);
+  const appliedFrom=await page.locator('input[name=from]').inputValue();
+  const appliedTo=await page.locator('input[name=to]').inputValue();
+  const alternate=new Date(Date.parse(appliedFrom)+86400000).toISOString().slice(0,10);
+  await page.locator('input[name=from]').fill(alternate);await page.locator('#export-dimension').selectOption('mode');
+  assert.equal(await page.locator('#export').getAttribute('href'),null,'unapplied dates must not export different rows');
+  await page.locator('input[name=from]').fill(appliedFrom);await page.locator('#export-dimension').selectOption('language');
+  assert.match(await page.locator('#export').getAttribute('href'),new RegExp(`from=${appliedFrom}`));
+  // Retention clipping must not present a partial baseline as an equal-duration comparison.
+  const boundary=new Date(Date.now()-89*86400000).toISOString().slice(0,10);
+  await page.locator('input[name=from]').fill(new Date(Date.parse(boundary)+3*86400000).toISOString().slice(0,10));
+  await page.locator('input[name=to]').fill(new Date(Date.parse(boundary)+16*86400000).toISOString().slice(0,10));
+  await page.locator('button[type=submit]').click();await page.locator('#status').filter({hasText:'Aggiornato'}).waitFor();
+  await page.locator('[data-view="compare"]').click();assert.match(await page.locator('#period').innerText(),/non comparabile/);
+  assert.match(await page.locator('#period caption').innerText(),/3 giorni conservati/);
+  await page.locator('input[name=from]').fill(appliedFrom);await page.locator('input[name=to]').fill(appliedTo);
   // Empty historical periods must be unavailable, not zero-player observations.
   await page.locator('input[name=from]').fill('2025-01-01');await page.locator('input[name=to]').fill('2025-01-14');await page.locator('button[type=submit]').click();
   await page.locator('#status').filter({hasText:'2025-01-01'}).waitFor();
