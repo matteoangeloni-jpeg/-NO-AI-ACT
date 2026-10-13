@@ -1,6 +1,17 @@
 import { beforeEach, describe, expect, it as test } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { L, LANGUAGE_CODES, LOCALES, fmt, getLanguage, nextLanguage, setLanguage } from '../src/game/i18n';
+import {
+  DRAFT_LANGUAGES,
+  L,
+  LANGUAGE_CODES,
+  LOCALES,
+  MAX_LINGUE_PER_COMMUTATORE_A_CICLO,
+  fmt,
+  getLanguage,
+  languageFromQuery,
+  nextLanguage,
+  setLanguage
+} from '../src/game/i18n';
 import { it } from '../src/game/i18n/it';
 import { en } from '../src/game/i18n/en';
 import { LOCATIONS } from '../src/game/data/cases';
@@ -193,6 +204,67 @@ describe('i18n — runtime', () => {
       seen.add(getLanguage());
     }
     expect(seen.size).toBe(LANGUAGE_CODES.length);
+  });
+});
+
+/**
+ * LA FONDAZIONE PER N LINGUE (programma 4.0, intervento I1).
+ *
+ * Questi controlli non verificano una traduzione: verificano che il MECCANISMO
+ * delle lingue non contenga la stessa informazione in due posti. È la classe di
+ * difetto che su questo repository ha già prodotto 31 conteggi divergenti su 21
+ * pagine, e che nel modulo i18n era presente in tre copie: l'elenco delle
+ * lingue, le chiavi di LOCALES e il predicato `isLanguageCode`.
+ */
+describe('i18n — estensibilità a N lingue', () => {
+  test("l'elenco delle lingue è derivato da LOCALES, non trascritto", () => {
+    // Se qualcuno riscrivesse LANGUAGE_CODES a mano, questo resterebbe verde
+    // solo finché le due liste coincidono: è l'istante in cui divergono che
+    // conta, ed è quello che questa asserzione sorveglia.
+    expect(LANGUAGE_CODES).toEqual(Object.keys(LOCALES));
+    expect(LANGUAGE_CODES.length).toBeGreaterThanOrEqual(2);
+  });
+
+  test('ogni lingua pubblicata è raggiungibile da ?lang=, nessuna esclusa', () => {
+    // IL DIFETTO CHE QUESTO CONTROLLO ESISTE PER PRENDERE.
+    // `isLanguageCode` riscriveva a mano `value === 'it' || value === 'en'`.
+    // Pubblicare il francese senza aggiornare quella riga non avrebbe rotto
+    // niente: avrebbe fatto rifiutare `?lang=fr` in SILENZIO, mandando il
+    // giocatore francese in italiano senza alcun messaggio. Un difetto che non
+    // rompe niente è quello che resta in produzione.
+    for (const lang of LANGUAGE_CODES) {
+      expect(languageFromQuery(`?lang=${lang}`), `?lang=${lang} ignorato`).toBe(lang);
+    }
+  });
+
+  test('una lingua non pubblicata non è raggiungibile, e non finge di esserlo', () => {
+    for (const bozza of DRAFT_LANGUAGES) {
+      expect(LANGUAGE_CODES, `${bozza} è in DRAFT_LANGUAGES ma anche pubblicata`)
+        .not.toContain(bozza);
+      expect(languageFromQuery(`?lang=${bozza}`), `?lang=${bozza} accettato`).toBeNull();
+    }
+    expect(languageFromQuery('?lang=klingon')).toBeNull();
+    expect(languageFromQuery('')).toBeNull();
+  });
+
+  test('le due liste non si sovrappongono: pubblicata o bozza, mai entrambe', () => {
+    const doppie = LANGUAGE_CODES.filter((l) => (DRAFT_LANGUAGES as readonly string[]).includes(l));
+    expect(doppie, `lingue dichiarate pubblicate E in lavorazione: ${doppie.join(', ')}`).toEqual([]);
+  });
+
+  test('il commutatore a ciclo non sopravvive alla terza lingua', () => {
+    // TRIPWIRE, NON INVARIANTE. Finché le lingue pubblicate sono due,
+    // `nextLanguage` è un interruttore e va bene. Alla terza diventa «premi
+    // finché non indovini»: TitleScene usa nextLanguage su un solo pulsante.
+    // Questo test FALLISCE nel momento in cui una terza lingua viene
+    // pubblicata, perché quella è la decisione di interfaccia che non deve
+    // passare inosservata — non un errore da aggirare alzando la soglia.
+    expect(
+      LANGUAGE_CODES.length,
+      `pubblicate ${LANGUAGE_CODES.length} lingue: il pulsante a ciclo di TitleScene ` +
+        'non basta più, serve una selezione esplicita (menù o elenco). ' +
+        'Vedi docs/PROGRAMMA_4_0_AUDIT.md §1.2.'
+    ).toBeLessThanOrEqual(MAX_LINGUE_PER_COMMUTATORE_A_CICLO);
   });
 
   test('fmt sostituisce i segnaposto', () => {
