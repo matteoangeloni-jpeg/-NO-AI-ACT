@@ -2,6 +2,16 @@
 
 ## [Non rilasciato]
 
+### Sprint Analytics B 4.0 (solo ambiente di test)
+- Backend Workers/D1 separato dal gioco; schema Sprint A riutilizzato, quote,
+  deduplicazione transazionale dei batch, contatori marginali e retention 90 giorni.
+- Dashboard privata Player Insights con autenticazione, dati sintetici locali,
+  confronti descrittivi, denominatori espliciti e CSV aggregato protetto.
+- Configurazione fail-closed: raccolta disattivata, asset autenticati, nessun
+  account Cloudflare modificato. Ponte client non importato dal gioco.
+- Test unitari, smoke browser responsive e smoke reali workerd/D1 locali;
+  documentazione sicurezza, privacy e autorizzazioni in docs/PLAYER_INSIGHTS_4_0.md.
+
 ### Sprint Analytics A 4.0 (revisione locale)
 - AnalyticsSystem riutilizzato con schema versionato, vocabolari chiusi,
   contatori aggregati limitati in memoria e nessun identificatore persistente.

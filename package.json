@@ -6,6 +6,11 @@
   "author": "Matteo Angeloni",
   "type": "module",
   "scripts": {
+    "insights:dev": "tsx analytics/local-server.ts",
+    "insights:typecheck": "tsc --noEmit -p analytics/tsconfig.json",
+    "insights:check": "node scripts/ci/check-insights-worker.mjs",
+    "smoke:insights": "node scripts/smoke/insights-smoke.mjs",
+    "smoke:insights-worker": "node scripts/smoke/insights-worker-smoke.mjs",
     "site:fr": "node scripts/site/sync-fr-inventory.mjs && node scripts/site/build-fr-pages.mjs",
     "smoke:fr": "node scripts/smoke/french-localization-smoke.mjs",
     "smoke:gameplay-ux": "node scripts/smoke/gameplay-ux-smoke.mjs",
@@ -42,10 +47,15 @@
   },
   "devDependencies": {
     "@types/node": "^25.9.3",
+    "esbuild": "^0.28.2",
+    "jose": "^6.2.12",
+    "miniflare": "^5.20261006.2-beta",
     "parse5": "^8.0.1",
     "playwright": "^1.61.1",
+    "tsx": "^4.23.15",
     "typescript": "^5.6.3",
     "vite": "^8.2.2",
-    "vitest": "^5.0.0"
+    "vitest": "^5.0.0",
+    "wrangler": "^4.150.0"
   }
 }

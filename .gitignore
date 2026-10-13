@@ -1,4 +1,9 @@
 node_modules/
+.player-insights/
+.wrangler/
+analytics/.wrangler/
+analytics/.dev.vars
+analytics/.dev.vars.*
 dist/
 *.local
 .DS_Store

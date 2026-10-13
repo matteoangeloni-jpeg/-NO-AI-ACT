@@ -4,7 +4,9 @@ Stato: Sprint A implementato localmente il 14 ottobre 2026, senza trasporto
 attivato. Catalogo, schema, metriche, verifiche e rischi:
 [PLAYER_TELEMETRY_4_0.md](PLAYER_TELEMETRY_4_0.md).
 Il testo seguente conserva la proposta del 13 ottobre e la sua baseline;
-dashboard, backend e attivazione restano lavori successivi.
+Backend e dashboard dello Sprint B sono ora implementati in ambiente di test:
+[PLAYER_INSIGHTS_4_0.md](PLAYER_INSIGHTS_4_0.md). Attivazione e deploy restano
+successivi e non autorizzati; la proposta sotto non e una policy in produzione.
 
 ## Base esistente
 

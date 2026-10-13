@@ -1,0 +1,17 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "no-ai-act-player-insights",
+  "main": "worker.ts",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": { "directory": "./dashboard", "binding": "ASSETS", "run_worker_first": true },
+  "observability": { "enabled": false },
+  "vars": { "COLLECTION_ENABLED": "false", "DATA_CLASSIFICATION": "observed" },
+  "d1_databases": [{ "binding": "DB", "database_name": "no-ai-act-player-insights", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations" }],
+  "ratelimits": [
+    { "name": "INGEST_LIMITER", "namespace_id": "41001", "simple": { "limit": 60, "period": 60 } },
+    { "name": "ADMIN_LIMITER", "namespace_id": "41002", "simple": { "limit": 120, "period": 60 } }
+  ],
+  "triggers": { "crons": ["15 3 * * *"] }
+}

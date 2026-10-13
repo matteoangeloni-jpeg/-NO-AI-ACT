@@ -73,5 +73,11 @@ Il collegamento a un backend autorizzato dovra ricevere celle validate tramite
 `validateAggregate()` e sommare `count`, non contare richieste HTTP. La versione
 del provider e le sue configurazioni privacy dovranno essere verificate.
 Non usare metriche native di "visitatori unici" come sinonimo di giocatori.
-Retenzione lato server, accessi, log HTTP, soglie di pubblicazione e idempotenza
-non sono implementati in questo sprint e non si possono dedurre dal codice client.
+Retenzione e accessi non si possono dedurre dal codice client dello Sprint A.
+Il successivo Sprint B implementa i controlli server descritti nel documento sotto.
+
+## Backend e dashboard dello Sprint B
+
+Implementazione locale disattivata e separata dalla build pubblica:
+[PLAYER_INSIGHTS_4_0.md](PLAYER_INSIGHTS_4_0.md). Non implica attivazione dei
+provider descritti sopra, accesso a Cloudflare o disponibilita di dati reali.
