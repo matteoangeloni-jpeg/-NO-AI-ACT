@@ -609,9 +609,9 @@ export const en: Locale = {
       author: 'Matteo Angeloni',
       affiliation: 'PhD Student — University of Tuscia',
       note:
-        'Vertical slice developed with AI support.\n' +
-        'Procedural graphics and audio assets.\n' +
-        'Full licenses and attributions available in the project files.',
+        'MADE WITH AI, NOT BY AI — voluntary disclosure: developed with AI\n' +
+        'assistants, under the editorial and scientific responsibility of one person.\n' +
+        'Procedural graphics and audio assets. Full licenses in the project files.',
       phdProgramme: 'Society in change: policies, rights and security',
       phdLink: 'PhD programme page ▸',
       universityLink: 'University of Tuscia ▸',

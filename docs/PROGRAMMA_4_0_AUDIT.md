@@ -22,7 +22,7 @@ Le incongruenze giuridiche sono **segnalate e non corrette**, come richiesto.
 | versione dichiarata | 3.0.0 |
 | **ultimo tag esistente** | **`v2.2.0`** |
 | test | 1218 su 72 file, verdi |
-| rotte pubbliche | 68 (32 IT + 36 EN) |
+| rotte pubbliche | **70** (33 IT + 37 EN) — erano 68, la PR #106 ha aggiunto un profilo autore per lingua |
 | deploy | GitHub Pages via `.github/workflows/deploy.yml` |
 
 **La 3.0.0 non è mai stata taggata, e nemmeno la 2.3.0.** Il codice dichiara
@@ -95,13 +95,13 @@ Misurato, non stimato:
 | | |
 |---|---|
 | dizionario del gioco | 830 stringhe lunghe, **~9.700 parole** (`it.ts`, 1.951 righe) |
-| pagine del sito (`<main>`) | 36 pagine EN, **~28.000 parole** |
+| pagine del sito (`<main>`) | 37 pagine EN, **~28.000 parole** |
 | **totale per lingua** | **~37.700 parole** di prosa giuridico-didattica |
 
 ### 1.4 Architettura del sito — **qui la duplicazione è reale**
 
 Le 69 pagine sono **HTML scritto a mano**, una per lingua: non esiste alcun
-generatore di pagine in `scripts/`. Il francese significherebbe ~36 file HTML
+generatore di pagine in `scripts/`. Il francese significherebbe ~37 file HTML
 nuovi scritti a mano, con metadati, hreflang, JSON-LD e collegamenti interni
 replicati a mano in ciascuno.
 
@@ -179,8 +179,8 @@ registro stesso, «il dato più importante» che contiene.
 | # | Rischio | Perché | Gravità |
 |---|---|---|---|
 | R1 | **Traduzione automatica mascherata da localizzazione.** 37.700 parole di prosa giuridica in cui una parola sbagliata cambia il contenuto normativo insegnato | il valore del progetto è l'accuratezza sulla norma, non la copertura linguistica | **alta** |
-| R2 | **Trentasei pagine HTML nuove a mano.** Ogni pagina porta canonical, hreflang, JSON-LD, collegamenti interni e piè di pagina versionato | è la stessa classe di difetto che ha prodotto 31 conteggi divergenti su 21 pagine: informazione ripetuta a mano in molti posti | **alta** |
-| R3 | **Il terzo hreflang rompe la reciprocità a due.** Oggi 68 pagine si puntano a coppie; con FR le pagine senza controparte francese devono dichiarare solo le lingue che esistono | `audit:seo` fallisce su hreflang incoerente, ed è giusto che lo faccia | media |
+| R2 | **Trentasette pagine HTML nuove a mano.** Ogni pagina porta canonical, hreflang, JSON-LD, collegamenti interni e piè di pagina versionato | è la stessa classe di difetto che ha prodotto 31 conteggi divergenti su 21 pagine: informazione ripetuta a mano in molti posti | **alta** |
+| R3 | **Il terzo hreflang rompe la reciprocità a due.** Oggi 70 pagine si puntano a coppie; con FR le pagine senza controparte francese devono dichiarare solo le lingue che esistono | `audit:seo` fallisce su hreflang incoerente, ed è giusto che lo faccia | media |
 | R4 | **Gli analytics attraversano un confine giuridico, non tecnico.** Anche senza identificatori, l'invio di eventi da un browser europeo verso un endpoint va valutato | il brief stesso avverte di non considerare anonimo un dato solo perché pseudonimizzato | **alta** |
 | R5 | **La dashboard amministrativa è un bersaglio.** Un endpoint di scrittura pubblico è un bersaglio di avvelenamento dei dati: senza limite di frequenza e validazione, le aggregazioni diventano inattendibili | un dato falso è peggio di nessun dato, perché orienta decisioni | media |
 | R6 | **La modalità Formazione può diventare un quiz.** È l'esito che il brief vieta e la deriva naturale di ogni «spiegare meglio» | il valore è la profondità investigativa | media |
@@ -196,8 +196,8 @@ Tre strade, col loro costo reale:
 
 | | costo | rischio SEO |
 |---|---|---|
-| **A. 36 pagine FR a mano** | ~28.000 parole + 36 file da mantenere a ogni modifica futura | nessuno a breve; alto a lungo, perché ogni modifica va replicata tre volte |
-| **B. Generatore di pagine**: contenuti in dati strutturati + un template per tipo di pagina | riscrittura di 69 pagine esistenti | **alto nel breve**: le 68 rotte sono fissate in `release.config.json`, nei due sitemap e in più file di test, e l'inventario è un bene SEO acquisito |
+| **A. 37 pagine FR a mano** | ~28.000 parole + 37 file da mantenere a ogni modifica futura | nessuno a breve; alto a lungo, perché ogni modifica va replicata tre volte |
+| **B. Generatore di pagine**: contenuti in dati strutturati + un template per tipo di pagina | riscrittura di 69 pagine esistenti | **alto nel breve**: le 70 rotte sono fissate in `release.config.json`, nei due sitemap e in più file di test, e l'inventario è un bene SEO acquisito |
 | **C. Ibrido**: generatore per le pagine FR nuove, pagine esistenti intatte | basso | medio: due architetture convivono, e la seconda può derivare dalla prima |
 
 **Raccomandazione: C, con A come ripiego.** La B è l'architettura giusta e la
@@ -286,12 +286,65 @@ negoziabile dove una dipendenza è reale.
 | I9 | **Provider `first-party` + Worker + aggregazione + dashboard** | nessuna chiamata di rete con provider `off`; `privacyGuards` e `runtimeHostAllowlist` aggiornati nella stessa PR delle informative | I8, §3.3, §3.4 |
 | I10 | **Verifica e rilascio 4.0** | tutti i cancelli, più parità delle traduzioni e migrazione dei salvataggi | tutti |
 
+---
+
+## 5. Dichiarazione volontaria sull'uso dell'IA — fuori dal programma, su richiesta
+
+Chiesta durante il giro: un motto tipo «made with AI, not by AI», **per
+compliance legale dell'AI Act**. La seconda metà della richiesta va corretta,
+perché riguarda proprio la materia che il sito insegna.
+
+**Non è una misura di conformità, ed è meglio non presentarla così.**
+L'articolo 50 vive in due paragrafi distinti:
+
+| | a chi si applica | NO AI ACT |
+|---|---|---|
+| **art. 50(2)** | **fornitori** di sistemi di IA generativa: marcatura dei contenuti sintetici in formato leggibile dalla macchina | non si applica: il progetto non fornisce un sistema generativo |
+| **art. 50(4)** | **deployer** che pubblicano testi generati o manipolati per informare il pubblico su temi di interesse pubblico | **è il paragrafo vicino** — il sito informa il pubblico sull'AI Act, che è interesse pubblico |
+
+Il §4 porta però un'eccezione espressa: non si applica quando il contenuto è
+stato sottoposto a **revisione umana o controllo editoriale** e una persona
+fisica o giuridica ne detiene la **responsabilità editoriale**. Questo progetto
+si trova in quell'eccezione.
+
+Quindi la dichiarazione è **volontaria**, e lì sta la sua forza: un sito che
+insegna la trasparenza e non la pratica sarebbe la contraddizione peggiore, e
+chi cita il lavoro in sede accademica ha diritto di sapere come è stato
+prodotto. Dichiarare *conformità*, invece, violerebbe una delle regole che il
+progetto si è dato — e un'affermazione di conformità su un sito che insegna la
+norma è la classe di errore più dannosa per la sua credibilità.
+
+**Tre posti, tre registri:**
+
+| dove | che cosa |
+|---|---|
+| piè di pagina, **70 rotte** | il motto: «Fatto con l'IA, non dall'IA» / «Made with AI, not by AI» |
+| crediti del gioco, IT ed EN | il motto più una riga: dichiarazione volontaria, responsabilità editoriale di una persona. Sostituisce il generico «vertical slice sviluppata con supporto AI», che c'era già |
+| §06 di `ricerca-e-metodologia` e `en/research-and-methodology` | la motivazione completa: estensione dell'uso, verifica sulle fonti primarie, i due paragrafi dell'articolo 50 e l'eccezione in cui il progetto si trova |
+
+La sezione 06 è «che cosa è dimostrato e che cosa no»: è il posto dove una
+dichiarazione sul *come è stato fatto* appartiene, e inserirla là non ha
+richiesto di rinumerare le sezioni successive né di toccare i collegamenti.
+
+**Una guardia**, `tests/aiDisclosure.test.ts`, con le pagine derivate dai
+sitemap: pretende presenza su ogni rotta nella lingua giusta, una sola forma del
+motto, la motivazione bilingue, e **vieta che si trasformi in un'affermazione di
+conformità**. Provata rossa in quattro forme.
+
+> **Una cosa che devi confermare tu.** Il testo dichiara un «uso estensivo di
+> assistenti IA: codice, test, documentazione e parte dei testi editoriali», con
+> responsabilità editoriale e scientifica di una persona. È scritto per essere
+> vero, non generoso — una dichiarazione di trasparenza falsa è peggio di
+> nessuna dichiarazione. Se la proporzione non corrisponde a come hai lavorato,
+> va corretta: sta in due paragrafi su due pagine.
+
 ### Che cosa è stato fatto in questo giro, e che cosa no
 
 Scritto qui perché il brief vieta di dichiarare completate attività non
 verificate, e perché un piano senza questa riga è una promessa.
 
-- **Fatto**: questo audit; **I1**; **I2**.
+- **Fatto**: questo audit; **I1**; **I2**; la dichiarazione volontaria sull'uso
+  dell'IA del §5, che non era nel programma ed è arrivata in corsa.
 - **Non fatto**: I3–I10. In particolare le ~37.700 parole di francese non sono
   state scritte, e non lo saranno in un giro: il rischio R1 è il primo del
   programma, e produrre quel volume in una sessione sarebbe precisamente il modo

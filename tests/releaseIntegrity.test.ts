@@ -84,10 +84,40 @@ describe('case-count consistency — source tree', () => {
     expect(metadata).not.toMatch(FORBIDDEN);
   });
 
+  /** Il numero a parola DERIVATO da N, non trascritto. Il perché sta sotto. */
+  const aParole = (n: number, lingua: 'it' | 'en'): string => {
+    const it = ['', 'Un', 'Due', 'Tre', 'Quattro', 'Cinque', 'Sei', 'Sette', 'Otto', 'Nove',
+      'Dieci', 'Undici', 'Dodici', 'Tredici', 'Quattordici', 'Quindici', 'Sedici',
+      'Diciassette', 'Diciotto', 'Diciannove', 'Venti'];
+    const en = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine',
+      'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen',
+      'Seventeen', 'Eighteen', 'Nineteen', 'Twenty'];
+    const parola = (lingua === 'it' ? it : en)[n];
+    if (!parola) throw new Error(`conteggio ${n} fuori dalla tabella: aggiungerlo`);
+    return parola;
+  };
+
   it('both landings state the authoritative count in body, meta and JSON-LD', () => {
-    for (const [p, words] of [['index.html', [`${N} casi`, 'Quattordici casi']], ['en/index.html', [`${N} cases`, 'Fourteen cases']]] as const) {
+    // QUESTO TEST HA GIÀ RESO OBBLIGATORIO IL DIFETTO UNA VOLTA.
+    // Si chiama «the AUTHORITATIVE count» e pretendeva, insieme, `${N} casi` —
+    // che a N=14 è soddisfatto dalla meta description — e il LETTERALE
+    // 'Tredici casi'. Risultato: con quattordici casi il corpo della home era
+    // TENUTO a dire tredici, e il test restava verde mentre la pagina
+    // contraddiceva la propria meta description.
+    //
+    // La correzione delle copie ha aggiornato il letterale da 'Tredici' a
+    // 'Quattordici': ha chiuso l'istanza e lasciato la CLASSE. Al passaggio a
+    // quindici casi la trappola riscatta identica, perché un numero trascritto
+    // invecchia per costruzione.
+    //
+    // Ora entrambe le forme vengono da N. Se la tabella non copre il
+    // conteggio, il test SOLLEVA invece di tacere: un controllo che passa su un
+    // numero che non conosce è il difetto di partenza.
+    for (const [p, lingua, nome] of [['index.html', 'it', 'casi'], ['en/index.html', 'en', 'cases']] as const) {
       const html = read(p);
-      for (const w of words) expect(html, `${p}: ${w}`).toContain(w);
+      for (const atteso of [`${N} ${nome}`, `${aParole(N, lingua)} ${nome}`]) {
+        expect(html, `${p}: ${atteso}`).toContain(atteso);
+      }
     }
   });
 

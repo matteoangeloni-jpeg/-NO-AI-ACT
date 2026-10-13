@@ -625,9 +625,9 @@ export const it = {
       author: 'Matteo Angeloni',
       affiliation: 'PhD Student — Università degli Studi della Tuscia',
       note:
-        'Vertical slice sviluppata con supporto AI.\n' +
-        'Asset grafici e audio procedurali.\n' +
-        'Licenze e attribuzioni complete disponibili nei file del progetto.',
+        "FATTO CON L'IA, NON DALL'IA — dichiarazione volontaria: sviluppato con\n" +
+        'assistenti IA, sotto responsabilità editoriale e scientifica di una persona.\n' +
+        'Asset grafici e audio procedurali. Licenze complete nei file del progetto.',
       phdProgramme: 'Società in mutamento: politiche, diritti e sicurezza',
       phdLink: 'Pagina del dottorato ▸',
       universityLink: 'Università degli Studi della Tuscia ▸',

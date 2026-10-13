@@ -138,9 +138,9 @@ describe('i18n — credits', () => {
     expect(c.author).toBe('Matteo Angeloni');
     expect(c.affiliation).toBe('PhD Student — Università degli Studi della Tuscia');
     expect(c.note).toBe(
-      'Vertical slice sviluppata con supporto AI.\n' +
-        'Asset grafici e audio procedurali.\n' +
-        'Licenze e attribuzioni complete disponibili nei file del progetto.'
+      "FATTO CON L'IA, NON DALL'IA \u2014 dichiarazione volontaria: sviluppato con\n" +
+        'assistenti IA, sotto responsabilit\u00e0 editoriale e scientifica di una persona.\n' +
+        'Asset grafici e audio procedurali. Licenze complete nei file del progetto.'
     );
   });
 
@@ -151,9 +151,9 @@ describe('i18n — credits', () => {
     expect(c.author).toBe('Matteo Angeloni');
     expect(c.affiliation).toBe('PhD Student — University of Tuscia');
     expect(c.note).toBe(
-      'Vertical slice developed with AI support.\n' +
-        'Procedural graphics and audio assets.\n' +
-        'Full licenses and attributions available in the project files.'
+      'MADE WITH AI, NOT BY AI \u2014 voluntary disclosure: developed with AI\n' +
+        'assistants, under the editorial and scientific responsibility of one person.\n' +
+        'Procedural graphics and audio assets. Full licenses in the project files.'
     );
   });
 
