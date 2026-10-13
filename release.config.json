@@ -16,7 +16,8 @@
   "publicUrls": {
     "it": 33,
     "en": 37,
-    "total": 70
+    "fr": 13,
+    "total": 83
   },
   "saveSchema": {
     "storageKey": "no-ai-act-save-v2",

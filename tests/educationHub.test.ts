@@ -1,6 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { isBuildInput } from './lib-inventory';
 import { ALL_PUBLIC } from './helpers/publicRoutes';
 
 const root = resolve(__dirname, '..');
@@ -60,8 +61,7 @@ describe('education hub — architecture', () => {
   });
 
   it('every hub page is a vite build input', () => {
-    const cfg = read('vite.config.ts');
-    for (const d of HUB) expect(cfg, d).toContain(`'${d}/index.html'`);
+        for (const d of HUB) expect(isBuildInput(d), d).toBe(true);
   });
 
   it('child sitemaps contain exactly the public pages, /play/ and query strings excluded', () => {

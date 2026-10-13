@@ -1,6 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { isBuildInput } from './lib-inventory';
 import { ALL_PUBLIC, PUBLIC_COUNT, publicUrl } from './helpers/publicRoutes';
 import { CASES as PLAYABLE_CASE_LIST } from '../src/game/data/cases';
 
@@ -24,11 +25,13 @@ describe('public landing — page structure', () => {
     expect(existsSync(resolve(root, 'play/index.html'))).toBe(true);
   });
 
-  it('vite is configured for the three entry points', () => {
-    const cfg = read('vite.config.ts');
-    expect(cfg).toContain("'index.html'");
-    expect(cfg).toContain("'en/index.html'");
-    expect(cfg).toContain("'play/index.html'");
+  it('vite builds the three entry points', () => {
+    // Verificato sull'INVENTARIO: vite.config.ts deriva i suoi input da
+    // routes.config.json, quindi cercare percorsi letterali nel suo testo non
+    // dimostrerebbe più niente.
+    for (const p of ['index.html', 'en/index.html', 'play/index.html']) {
+      expect(isBuildInput(p), p).toBe(true);
+    }
   });
 
   it('the landings declare the correct lang', () => {
@@ -176,7 +179,7 @@ describe('public static files', () => {
     expect(robots).not.toContain('<loc>');
   });
 
-  it('sitemap.xml is a valid sitemap index pointing at the two language child sitemaps', () => {
+  it('sitemap.xml is a valid sitemap index with one child per published language', () => {
     const sitemap = read('public/sitemap.xml');
     expect(sitemap).toContain('<?xml version="1.0" encoding="UTF-8"?>');
     expect(sitemap).toContain('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"');
@@ -186,7 +189,10 @@ describe('public static files', () => {
     expect(sitemap).not.toContain('<urlset');
     expect(sitemap).not.toContain('/play/');
     const children = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, l]) => l);
-    expect(children).toEqual([`${SITE}sitemap-it.xml`, `${SITE}sitemap-en.xml`]);
+    // DERIVATO dalle lingue pubblicate, non elencato a mano: l'asserzione
+    // fissava due figli e e' diventata rossa il giorno in cui il francese e'
+    // stato pubblicato, segnalando un difetto che non c'era.
+    expect(children).toEqual(LANGUAGE_CODES.map((l) => `${SITE}sitemap-${l}.xml`));
   });
 
   it('the child sitemaps list exactly the indexable public pages, nothing else', () => {

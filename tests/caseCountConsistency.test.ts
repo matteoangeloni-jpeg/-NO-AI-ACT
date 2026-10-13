@@ -46,7 +46,7 @@ const SITE = 'https://www.no-ai-act.eu/';
 /** Le pagine pubblicate, derivate dai sitemap: mai un elenco scritto a mano. */
 function paginePubblicate(): string[] {
   const out: string[] = [];
-  for (const sitemap of ['public/sitemap-it.xml', 'public/sitemap-en.xml']) {
+  for (const sitemap of ['public/sitemap-it.xml', 'public/sitemap-en.xml', 'public/sitemap-fr.xml']) {
     for (const m of read(sitemap).matchAll(/<loc>([^<]+)<\/loc>/g)) {
       out.push(`${m[1].slice(SITE.length)}index.html`);
     }

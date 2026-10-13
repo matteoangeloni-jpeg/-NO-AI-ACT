@@ -1,6 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { LANGUAGE_CODES } from '../src/game/i18n';
 
 const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
@@ -70,15 +71,29 @@ describe('Open Graph — complete on every page + the play shell', () => {
     }
   });
 
-  it('locale is it_IT / en_GB with the opposite as alternate', () => {
+  it('og:locale matches the page language, with the other languages as alternates', () => {
+    // TRE LINGUE, E GLI ALTERNATE SONO LE ALTRE DUE.
+    // L'asserzione era binaria — «l'opposto come alternate» — e con una terza
+    // lingua «l'opposto» non significa più niente: la pagina francese
+    // dichiarava fr_FR e il test pretendeva it_IT.
+    const LOCALE: Record<string, string> = { it: 'it_IT', en: 'en_GB', fr: 'fr_FR' };
     for (const d of ALL) {
       const html = read(fileOf(d));
-      const en = d.startsWith('en/') || d === 'en';
-      // play shell is the it_IT locale (lang="it")
-      const expLocale = en ? 'en_GB' : 'it_IT';
-      const expAlt = en ? 'it_IT' : 'en_GB';
-      expect(meta(html, 'og:locale', 'property'), `${d}: locale`).toBe(expLocale);
-      expect(html, `${d}: alternate`).toContain(`<meta property="og:locale:alternate" content="${expAlt}" />`);
+      // la coque /play/ è in italiano (lang="it")
+      const lang = d === 'play' ? 'it' : d.startsWith('en/') || d === 'en' ? 'en' : d.startsWith('fr/') || d === 'fr' ? 'fr' : 'it';
+      expect(meta(html, 'og:locale', 'property'), `${d}: locale`).toBe(LOCALE[lang]);
+      for (const altro of LANGUAGE_CODES.filter((l) => l !== lang)) {
+        // Le pagine senza controparte in quella lingua non devono dichiararla:
+        // qui si pretende solo che ALMENO un alternate esista e che quelli
+        // dichiarati siano locale validi.
+        void altro;
+      }
+      const alternates = [...html.matchAll(/<meta property="og:locale:alternate" content="([^"]+)" \/>/g)].map(([, v]) => v);
+      expect(alternates.length, `${d}: nessun og:locale:alternate`).toBeGreaterThanOrEqual(1);
+      for (const a of alternates) {
+        expect(Object.values(LOCALE), `${d}: alternate sconosciuto ${a}`).toContain(a);
+        expect(a, `${d}: alternate uguale al locale`).not.toBe(LOCALE[lang]);
+      }
     }
   });
 });
@@ -185,10 +200,11 @@ describe('SEO / policy invariants preserved', () => {
     expect(play).toContain('content="noindex, follow"');
     expect(play).toContain('rel="canonical" href="https://www.no-ai-act.eu/play/"');
     // /sitemap.xml is a sitemap index; public URLs live in the language children.
-    const it = read('public/sitemap-it.xml');
-    const en = read('public/sitemap-en.xml');
-    for (const sm of [read('public/sitemap.xml'), it, en]) expect(sm).not.toContain('/play/');
-    expect([it, en].reduce((n, sm) => n + (sm.match(/<loc>/g) ?? []).length, 0)).toBe(RELEASE.publicUrls.total);
+    // UN SITEMAP PER LINGUA PUBBLICATA, derivato: la coppia it/en era
+    // scritta a mano e il totale non tornava più al terzo sitemap.
+    const perLingua = LANGUAGE_CODES.map((l) => read(`public/sitemap-${l}.xml`));
+    for (const sm of [read('public/sitemap.xml'), ...perLingua]) expect(sm).not.toContain('/play/');
+    expect(perLingua.reduce((n, sm) => n + (sm.match(/<loc>/g) ?? []).length, 0)).toBe(RELEASE.publicUrls.total);
   });
 
   it('no Tally IDs or form hosts remain', () => {

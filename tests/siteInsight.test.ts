@@ -2,6 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { LANGUAGE_CODES } from '../src/game/i18n';
 
 /**
  * SITE-INSIGHT GUARD.
@@ -37,7 +38,14 @@ describe('the report runs and answers the structural questions', () => {
   it('covers the full public inventory', () => {
     const cfg = JSON.parse(readFileSync(resolve(root, 'release.config.json'), 'utf8'));
     expect(out).toContain(`Pages analysed: ${cfg.publicUrls.total}`);
-    expect(out).toContain(`${cfg.publicUrls.it} IT + ${cfg.publicUrls.en} EN`);
+    // DERIVATO: l'asserzione nominava solo IT ed EN.
+    // Una voce per lingua, verificate UNA PER UNA: il referto ordina le
+    // lingue alfabeticamente e pretendere la stringa unita legava il test a
+    // un ordine che non significa niente.
+    for (const l of LANGUAGE_CODES) {
+      const n = (cfg.publicUrls as Record<string, number>)[l];
+      expect(out, `il referto non conta ${n} pagine ${l.toUpperCase()}`).toContain(`${n} ${l.toUpperCase()}`);
+    }
   });
 
   it('reports every section a weekly review needs', () => {

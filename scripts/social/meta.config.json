@@ -116,6 +116,20 @@
     "en/deepfakes-and-transparency": "guide",
     "en/ai-in-recruitment-and-employment": "guide",
     "en/ai-act-classroom-lab": "education",
-    "play": "play"
-  }
+    "play": "play",
+    "fr": "default",
+    "fr/comment-ca-marche": "default",
+    "fr/education": "education",
+    "fr/ai-act-pour-enseignants": "education",
+    "fr/guide-ai-act": "guide",
+    "fr/glossaire": "glossary",
+    "fr/protection-des-donnees-des-la-conception": "default",
+    "fr/categories-de-risque-ai-act": "guide",
+    "fr/pratiques-interdites-ai-act": "guide",
+    "fr/systemes-ia-a-haut-risque": "guide",
+    "fr/obligations-de-transparence": "guide",
+    "fr/ia-a-usage-general": "guide",
+    "fr/maitrise-de-l-ia": "education"
+  },
+  "localeFr": "fr_FR"
 }

@@ -1,6 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { LANGUAGE_CODES } from '../src/game/i18n';
 // Importing the audit module runs the full route analysis at collection time.
 // @ts-expect-error — plain ESM script without type declarations
 import { result, toCsv } from '../scripts/seo/audit-routes.mjs';
@@ -25,8 +26,11 @@ describe('route audit — no critical indexability defects', () => {
     expect(result.critical, result.critical.join('\n')).toEqual([]);
   });
 
-  it('audits the full public universe (matches both sitemaps exactly)', () => {
-    const locs = [read('public/sitemap-it.xml'), read('public/sitemap-en.xml')]
+  it('audits the full public universe (matches every language sitemap exactly)', () => {
+    // I SITEMAP SI DERIVANO DALLE LINGUE PUBBLICATE. Nominarne due a mano
+    // faceva fallire questo controllo il giorno della terza lingua, su una
+    // pagina che era stata aggiunta correttamente.
+    const locs = LANGUAGE_CODES.map((l) => read(`public/sitemap-${l}.xml`))
       .flatMap((sm) => [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, l]) => l));
     const audited = result.rows.map((r: { route: string }) => r.route);
     expect(new Set(audited)).toEqual(new Set(locs));
@@ -37,7 +41,7 @@ describe('route audit — no critical indexability defects', () => {
     for (const r of result.rows) {
       expect(r.indexable, r.route).toBe('yes');
       expect(r.canonical, r.route).toBe('self');
-      expect(r.sitemap, r.route).toMatch(/^sitemap-(it|en)$/);
+      expect(r.sitemap, r.route).toMatch(new RegExp(`^sitemap-(${LANGUAGE_CODES.join('|')})$`));
       expect(r.brokenLinks, r.route).toBe(0);
     }
   });
@@ -45,7 +49,11 @@ describe('route audit — no critical indexability defects', () => {
 
 describe('routes.config.json — the pair source of truth stays coherent', () => {
   it('every pair member exists and pair dirs are unique', () => {
-    const dirs = [...cfg.pairs.flatMap((p: { it: string; en: string }) => [p.it, p.en]), ...cfg.enOnly];
+    const dirs = [
+      ...cfg.pairs.flatMap((p: { it: string; en: string; fr?: string }) =>
+        [p.it, p.en, ...(p.fr ? [p.fr] : [])]),
+      ...cfg.enOnly
+    ];
     expect(new Set(dirs).size).toBe(dirs.length);
     for (const d of dirs) {
       const f = d === '' ? 'index.html' : `${d}/index.html`;

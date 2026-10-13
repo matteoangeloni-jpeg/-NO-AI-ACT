@@ -1,6 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { LANGUAGE_CODES } from '../src/game/i18n';
 import { PUBLIC_COUNT } from './helpers/publicRoutes';
 
 /**
@@ -38,11 +39,15 @@ describe('sitemap.xml — a valid sitemap index', () => {
     expect(INDEX).not.toContain('<url>');
   });
 
-  it('lists exactly the two language child sitemaps, each with a lastmod', () => {
+  it('lists exactly one child sitemap per published language, each with a lastmod', () => {
+    // UN FIGLIO PER LINGUA PUBBLICATA, derivato. L'asserzione pretendeva
+    // esattamente due figli: al terzo sitemap e' diventata rossa su un
+    // cambiamento voluto, che e' il modo in cui un valore trascritto invecchia.
+    const attesi = LANGUAGE_CODES.length;
     const entries = [...INDEX.matchAll(/<sitemap>/g)];
-    expect(entries).toHaveLength(2);
-    expect(CHILD_LOCS).toEqual([`${SITE}sitemap-it.xml`, `${SITE}sitemap-en.xml`]);
-    expect([...INDEX.matchAll(/<lastmod>[^<]+<\/lastmod>/g)]).toHaveLength(2);
+    expect(entries).toHaveLength(attesi);
+    expect(CHILD_LOCS).toEqual(LANGUAGE_CODES.map((l) => `${SITE}sitemap-${l}.xml`));
+    expect([...INDEX.matchAll(/<lastmod>[^<]+<\/lastmod>/g)]).toHaveLength(attesi);
   });
 
   it('child sitemap URLs are absolute https on the www host — no http:// or apex', () => {
@@ -158,12 +163,9 @@ describe('child sitemaps — URL ↔ file ↔ canonical consistency', () => {
 
 describe('robots.txt advertises the two language sitemaps directly', () => {
   const robots = read('public/robots.txt');
-  it('advertises exactly the two child sitemaps (GSC reads these reliably)', () => {
+  it('advertises exactly one child sitemap per published language', () => {
     const directives = [...robots.matchAll(/^Sitemap:\s*(\S+)\s*$/gim)].map(([, v]) => v);
-    expect(directives).toEqual([
-      'https://www.no-ai-act.eu/sitemap-it.xml',
-      'https://www.no-ai-act.eu/sitemap-en.xml'
-    ]);
+    expect(directives).toEqual(LANGUAGE_CODES.map((l) => `${SITE}sitemap-${l}.xml`));
   });
   it('no longer advertises the /sitemap.xml index, nor any http:// or apex variant', () => {
     // the index file may still exist, but robots must not point at it.

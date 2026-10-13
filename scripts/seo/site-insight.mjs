@@ -29,9 +29,13 @@ const cfg = JSON.parse(read('scripts/seo/routes.config.json'));
 const asJson = process.argv.includes('--json');
 
 const routes = [];
-for (const { it, en } of cfg.pairs) {
+for (const { it, en, fr } of cfg.pairs) {
   routes.push({ dir: it, lang: 'it', alt: en });
   routes.push({ dir: en, lang: 'en', alt: it });
+  // La terza lingua entra dove la coppia la dichiara: senza questa riga il
+  // referto diceva «70 pagine» su un sito che ne pubblica 83, e le pagine
+  // francesi non comparivano fra le fragili né fra le sottili.
+  if (fr) routes.push({ dir: fr, lang: 'fr', alt: it });
 }
 for (const dir of cfg.enOnly) routes.push({ dir, lang: 'en', alt: null });
 
@@ -115,7 +119,13 @@ const row = (s) => `  ${String(s.editorialIn).padStart(2)} in · ${String(s.edit
 const LANDINGS = new Set(['', 'en']);
 
 console.log('\n=== SITE INSIGHT — structural, no visitor tracking involved ===\n');
-console.log(`Pages analysed: ${stats.length} (${stats.filter((s) => s.lang === 'it').length} IT + ${stats.filter((s) => s.lang === 'en').length} EN)`);
+// UNA VOCE PER LINGUA PRESENTE, derivata dalle pagine analizzate: la riga
+// nominava IT ed EN a mano e taceva sul francese il giorno in cui e' arrivato.
+const lingueViste = [...new Set(stats.map((s) => s.lang))].sort();
+const perLingua = lingueViste
+  .map((l) => `${stats.filter((s) => s.lang === l).length} ${l.toUpperCase()}`)
+  .join(' + ');
+console.log(`Pages analysed: ${stats.length} (${perLingua})`);
 console.log('"in/out" counts EDITORIAL links only — those inside <main>, excluding the global nav and footer.\n');
 
 const supported = [...stats].sort((a, b) => b.editorialIn - a.editorialIn);

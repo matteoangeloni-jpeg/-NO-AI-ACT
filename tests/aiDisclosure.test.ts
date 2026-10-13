@@ -31,10 +31,11 @@ const SITE = 'https://www.no-ai-act.eu/';
 /** Il motto, nella sola forma ammessa. Qualunque variante è una deriva. */
 const MOTTO_IT = "Fatto con l'IA, non dall'IA";
 const MOTTO_EN = 'Made with AI, not by AI';
+const MOTTO_FR = "Fait avec l'IA, non par l'IA";
 
 function paginePubblicate(): string[] {
   const out: string[] = [];
-  for (const sitemap of ['public/sitemap-it.xml', 'public/sitemap-en.xml']) {
+  for (const sitemap of ['public/sitemap-it.xml', 'public/sitemap-en.xml', 'public/sitemap-fr.xml']) {
     for (const m of read(sitemap).matchAll(/<loc>([^<]+)<\/loc>/g)) {
       out.push(`${m[1].slice(SITE.length)}index.html`);
     }
@@ -47,7 +48,7 @@ describe("dichiarazione sull'uso dell'IA", () => {
     const senza: string[] = [];
     for (const pagina of paginePubblicate()) {
       const html = read(pagina);
-      const atteso = pagina.startsWith('en/') ? MOTTO_EN : MOTTO_IT;
+      const atteso = pagina.startsWith('en/') ? MOTTO_EN : pagina.startsWith('fr/') ? MOTTO_FR : MOTTO_IT;
       if (!html.includes(atteso)) senza.push(`${pagina}: manca «${atteso}»`);
     }
     expect(
@@ -62,11 +63,11 @@ describe("dichiarazione sull'uso dell'IA", () => {
     // assente: suggerisce che il testo sia approssimativo, e su una pagina che
     // parla di trasparenza l'approssimazione è il difetto.
     const varianti: string[] = [];
-    const quasi = /(Fatto|Realizzato|Creato) con (l'|l’)?(IA|AI)[^<]{0,40}|(Made|Built|Created) with AI[^<]{0,40}/g;
+    const quasi = /(Fatto|Realizzato|Creato) con (l'|l’)?(IA|AI)[^<]{0,40}|(Fait|Réalisé|Créé) avec (l'|l’)?(IA|AI)[^<]{0,40}|(Made|Built|Created) with AI[^<]{0,40}/g;
     for (const pagina of paginePubblicate()) {
       for (const m of read(pagina).matchAll(quasi)) {
         const trovato = m[0].trim();
-        if (trovato !== MOTTO_IT && trovato !== MOTTO_EN) varianti.push(`${pagina}: «${trovato}»`);
+        if (trovato !== MOTTO_IT && trovato !== MOTTO_EN && trovato !== MOTTO_FR) varianti.push(`${pagina}: «${trovato}»`);
       }
     }
     expect(varianti, `varianti del motto:\n  ${varianti.join('\n  ')}`).toEqual([]);

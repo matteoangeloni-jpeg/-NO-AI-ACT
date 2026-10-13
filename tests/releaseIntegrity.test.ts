@@ -330,7 +330,13 @@ describe('README current-state truthfulness (release closure)', () => {
       `**Tag della versione**: \`${cfg.versionTag}\` — **${published ? 'pubblicato' : 'non ancora pubblicato'}**`
     );
     expect(readme).toContain(`**Casi giocabili**: ${N}`);
-    expect(readme).toContain(`**URL pubblici**: ${cfg.publicUrls.total} (${cfg.publicUrls.it} IT + ${cfg.publicUrls.en} EN)`);
+    // UNA VOCE PER LINGUA, derivata: l'asserzione nominava IT ed EN e
+    // pretendeva dal README una frase che il terzo sitemap rendeva falsa.
+    const perLingua = Object.keys(cfg.publicUrls)
+      .filter((k) => k !== 'total')
+      .map((k) => `${(cfg.publicUrls as Record<string, number>)[k]} ${k.toUpperCase()}`)
+      .join(' + ');
+    expect(readme).toContain(`**URL pubblici**: ${cfg.publicUrls.total} (${perLingua})`);
     expect(readme).toContain('**DOI**: non ancora disponibile');
     expect(readme).toContain('**Efficacia didattica**: non ancora validata empiricamente');
     expect(readme).toContain(`${N} playable cases`); // English summary

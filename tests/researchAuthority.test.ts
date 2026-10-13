@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { isBuildInput } from './lib-inventory';
 import { CASES } from '../src/game/data/cases';
 
 /**
@@ -195,11 +196,10 @@ describe('press kit — accurate, versioned, no inflated claims', () => {
 
 describe('all six authority pages — wiring and safeguards', () => {
   it('exist, are vite build inputs and sitemap members', () => {
-    const cfg = read('vite.config.ts');
-    const sitemaps = read('public/sitemap-it.xml') + read('public/sitemap-en.xml');
+        const sitemaps = read('public/sitemap-it.xml') + read('public/sitemap-en.xml');
     for (const d of ALL_NEW) {
       expect(existsSync(resolve(root, `${d}/index.html`)), d).toBe(true);
-      expect(cfg, `vite input ${d}`).toContain(`'${d}/index.html'`);
+      expect(isBuildInput(d), `vite input ${d}`).toBe(true);
       expect(sitemaps, `sitemap ${d}`).toContain(`<loc>${SITE}${d}/</loc>`);
     }
   });

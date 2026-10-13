@@ -2,6 +2,44 @@
 
 ## [Non rilasciato]
 
+### Added
+- **Lingua francese.** Il gioco è giocabile integralmente in français : dizionario
+  completo (1 408 stringhe), quattordici dossiers verificati uno per uno dalla
+  carte civique alla fiche normative, selezione della lingua a tre pulsanti.
+  Tredici pagine pubbliche francesi, generate da `src/site/fr-content.mjs` con
+  `node scripts/site/build-fr-pages.mjs`.
+- **`docs/GLOSSAIRE_FR.md`** — terminologia dalla versione ufficiale francese del
+  regolamento, separata dal vocabolario della finzione, con quattro passaggi
+  **segnalati e non tradotti** là dove una traduzione autorevole andava inventata.
+- **Inventario pubblico: 70 → 83 rotte** (33 IT + 37 EN + 13 FR), con
+  `sitemap-fr.xml`, il terzo `hreflang` su 26 pagine italiane e inglesi, e
+  `audit:seo` esteso alla terza lingua.
+- `tests/localizationParity.test.ts` — chiavi rimaste nella lingua di partenza,
+  stringhe vuote, e collegamenti che portano fuori dalla propria lingua.
+
+### Changed
+- **Il cambio lingua non è più un ciclo.** Con due lingue `nextLanguage` era un
+  interruttore; alla terza diventava «premi finché non indovini». Ora è una
+  selezione: un pulsante per lingua, una pressione, etichetta propria
+  (endonimo) leggibile da uno screen reader.
+- `scripts/diag/play-case.mjs` legge il numero di reperti invece di pretenderne
+  tre, e sa rispondere alla scena incidente. Senza questo, sei dossiers su
+  quattordici risultavano rotti — in italiano come in francese.
+- Nove test che fissavano due lingue sono stati **derivati**: elenco delle
+  lingue, figli del sitemap index, direttive di robots.txt, conteggi per lingua,
+  `og:locale` e alternates. Erano diventati rossi su un cambiamento voluto.
+
+### Known limitations
+- **Le tredici pagine francesi non sono la traduzione integrale del sito.** Le
+  pagine italiane e inglesi contano ~28 000 parole su 70 rotte; le francesi
+  coprono i percorsi che il gioco apre. Il divario è dichiarato in
+  `docs/PROGRAMMA_4_0_AUDIT.md`.
+- **Non esiste un'immagine social francese**: le pagine riusano quelle per
+  categoria, che non contengono testo di lingua. Una copertina francese va
+  disegnata.
+- Il rimando al dottorato resta alla pagina **inglese** dell'ateneo, che non
+  pubblica una versione francese.
+
 ### Changed
 - **Licenze, dalla versione successiva a v2.0.0**: il codice passa da MIT a
   **GPL-3.0-or-later**, i contenuti narrativi e didattici da CC BY 4.0 a
