@@ -29,7 +29,7 @@ import { selectMapCaseWithKeyboard } from '../smoke/lib-map.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const PORT = Number(process.env.PORT || 4209);
 const BASE = `http://localhost:${PORT}`;
-const LANG = process.env.LANG_CODE === 'en' ? 'en' : 'it';
+const LANG = ['en', 'fr'].includes(process.env.LANG_CODE) ? process.env.LANG_CODE : 'it';
 const CASO = process.env.CASO || 'case_bias';
 
 if (!existsSync(resolve(root, 'dist/index.html'))) {
@@ -63,9 +63,12 @@ for (const s of ['SIGINT', 'SIGTERM', 'SIGHUP']) process.on(s, () => { spegni();
   if (!vivo) { console.error('play-case: il server di anteprima non ha risposto.'); process.exit(1); }
 }
 
-const L = LANG === 'en'
-  ? { newGame: /NEW GAME/, start: /^START/, toMap: /CIVIC MAP/, examine: /EXAMINE/, classify: /CLASSIF/, sign: /SIGN THE REPORT/, onward: [/CONTINUE/, /NEXT/], toNorm: [/NORM ACQUIRED/, /CONSULT THE NORM/i, /NORM/] }
-  : { newGame: /NUOVA PARTITA/, start: /^INIZIA/, toMap: /ACCEDI ALLA MAPPA CIVICA/, examine: /ESAMINA I REPERTI/, classify: /PROCEDI ALLA CLASSIFICAZIONE/, sign: /FIRMA IL RAPPORTO/, onward: [/PROSEGUI/, /AVANTI/, /CONTINUA/], toNorm: [/NORMA ACQUISITA/, /CONSULTA COMUNQUE LA NORMA/, /NORMA/] };
+const ETICHETTE = {
+  en: { newGame: /NEW GAME/, start: /^START/, toMap: /CIVIC MAP/, examine: /EXAMINE/, classify: /CLASSIF/, sign: /SIGN THE REPORT/, onward: [/CONTINUE/, /NEXT/], toNorm: [/NORM ACQUIRED/, /CONSULT THE NORM/i, /NORM/], incident: [/Record and notify/i, /Communicate and hand over/i, /Document the risk/i, /^Suspend/i] },
+  it: { newGame: /NUOVA PARTITA/, start: /^INIZIA/, toMap: /ACCEDI ALLA MAPPA CIVICA/, examine: /ESAMINA I REPERTI/, classify: /PROCEDI ALLA CLASSIFICAZIONE/, sign: /FIRMA IL RAPPORTO/, onward: [/PROSEGUI/, /AVANTI/, /CONTINUA/], toNorm: [/NORMA ACQUISITA/, /CONSULTA COMUNQUE LA NORMA/, /NORMA/], incident: [/Verbalizzare/i, /Comunicare e consegnare/i, /Documentare il rischio/i, /^Sospendere/i] },
+  fr: { newGame: /NOUVELLE PARTIE/, start: /^COMMENCER/, toMap: /CARTE CIVIQUE/, examine: /EXAMINER LES PI/, classify: /PASSER \u00c0 LA CLASSIFICATION/, sign: /SIGNER LE RAPPORT/, onward: [/POURSUIVRE/, /SUIVANT/], toNorm: [/NORME ACQUISE/, /CONSULTER QUAND M/, /NORME/], incident: [/Dresser proc/i, /Communiquer et remettre/i, /Documenter le risque/i, /^Suspendre/i] }
+};
+const L = ETICHETTE[LANG];
 
 const browser = await chromium.launch(smokeBrowserLaunchOptions());
 const ctx = await browser.newContext({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
@@ -198,12 +201,35 @@ try {
 
   await premi(L.examine);
   await scena('Evidence');
+  // IL NUMERO DI REPERTI SI LEGGE, NON SI PRETENDE.
+  // La prima stesura pretendeva esattamente 3 perché era stata scritta per
+  // case_bias. Sei dossiers su quattordici ne hanno sei, e la sonda li
+  // dichiarava rotti — in italiano come in francese. Un numero atteso scritto
+  // a mano trasforma una variante legittima in un falso allarme.
   const carte = await page.evaluate(() => window.game?.scene?.getScene('Evidence')?.cards?.length ?? 0);
-  if (carte !== 3) morte(`attesi 3 reperti, trovati ${carte}`);
-  esiti.push('3 reperti');
+  if (carte < 2) morte(`attesi almeno 2 reperti, trovati ${carte}`);
+  esiti.push(`${carte} reperti`);
   await prepareEvidenceWithKeyboard(page);
 
   await premi(L.classify);
+
+  /**
+   * LA SCENA INCIDENTE SI INTERPONE, E LA SONDA NON LA CONOSCEVA.
+   * Tre dossiers (lavoro, media, ospedale) interpongono un telex urgente fra
+   * i reperti e la decisione: tre opzioni di risposta, nessuna delle quali la
+   * sonda premeva. Risultato: «scena Decision mai raggiunta», che sembrava un
+   * difetto della traduzione e invece era la sonda a non sapere giocare quei
+   * dossiers. Verificato in italiano prima di accusare il francese.
+   */
+  const scenaViva = async () => page.evaluate(() => {
+    const a = window.game?.scene.getScenes(true) ?? [];
+    return a[a.length - 1]?.scene.key ?? '';
+  });
+  if (await scenaViva() === 'Incident') {
+    esiti.push('incidente interposto: risposta protocollata');
+    await premi(L.incident);
+  }
+
   await scena('Decision');
   await completeDecisionWithKeyboard(page);
   esiti.push('decisione completata');

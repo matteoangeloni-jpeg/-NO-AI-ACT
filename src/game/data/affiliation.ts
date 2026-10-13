@@ -14,7 +14,15 @@
 export const AFFILIATION_LINKS = {
   phd: {
     it: 'https://www.unitus.it/post-laurea/dottorati-di-ricerca/corsi-di-dottorato-attivi/societa-in-mutamento-politiche-diritti-e-sicurezza/',
-    en: 'https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/'
+    en: 'https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/',
+    /**
+     * IL FRANCESE RIMANDA ALLA PAGINA INGLESE, E NON è una lacuna di
+     * traduzione: l'ateneo pubblica la scheda del dottorato in italiano e in
+     * inglese, non in francese. Inventare un indirizzo `/fr/` plausibile
+     * produrrebbe un collegamento rotto verso un sito che non controlliamo.
+     * Quando l'ateneo pubblicherà una versione francese, questa riga cambia.
+     */
+    fr: 'https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/'
   },
   university: 'https://www.unitus.it/'
 } as const;

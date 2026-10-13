@@ -1,6 +1,7 @@
 import type { CaseTexts, LanguageCode, NormTexts } from '../data/types';
 import { it } from './it';
 import { en } from './en';
+import { fr } from './fr';
 
 /**
  * Sistema i18n minimale e tipato.
@@ -32,7 +33,7 @@ export type Locale = typeof it;
  * DRAFT_LANGUAGES): registrarla a metà non produrrebbe una traduzione
  * parziale pubblicata, produrrebbe una build rotta.
  */
-export const LOCALES: Record<LanguageCode, Locale> = { it, en };
+export const LOCALES: Record<LanguageCode, Locale> = { it, en, fr };
 
 /**
  * DERIVATO da LOCALES, non trascritto. La versione precedente lo scriveva a
@@ -53,7 +54,7 @@ export const LANGUAGE_CODES: LanguageCode[] = Object.keys(LOCALES) as LanguageCo
  * in LOCALES, non appare nell'interfaccia e non è raggiungibile da `?lang=`.
  * Il controllo è in tests/i18n.test.ts e vale in entrambe le direzioni.
  */
-export const DRAFT_LANGUAGES = ['fr', 'es', 'de'] as const;
+export const DRAFT_LANGUAGES = ['es', 'de'] as const;
 
 /**
  * Oltre questo numero di lingue pubblicate il commutatore a ciclo
@@ -63,6 +64,20 @@ export const DRAFT_LANGUAGES = ['fr', 'es', 'de'] as const;
  * viene pubblicata, così la scelta dell'interfaccia non può essere dimenticata.
  */
 export const MAX_LINGUE_PER_COMMUTATORE_A_CICLO = 2;
+
+/**
+ * IL NOME DI OGNI LINGUA NELLA LINGUA STESSA, e non nei dizionari.
+ *
+ * Un francofono che cerca il francese deve vedere « FRANÇAIS » anche mentre
+ * l'interfaccia è in italiano: mettere questi nomi nei dizionari li
+ * tradurrebbe, e li renderebbe irriconoscibili proprio a chi ne ha bisogno.
+ * Sono endonimi, quindi stanno qui, una volta sola, uguali in tutte le lingue.
+ */
+export const LANGUAGE_LABELS: Record<LanguageCode, string> = {
+  it: 'ITALIANO',
+  en: 'ENGLISH',
+  fr: 'FRANÇAIS'
+};
 
 let current: LanguageCode = 'it';
 

@@ -1,11 +1,12 @@
 import { beforeEach, describe, expect, it as test } from 'vitest';
 import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import {
   DRAFT_LANGUAGES,
   L,
   LANGUAGE_CODES,
   LOCALES,
-  MAX_LINGUE_PER_COMMUTATORE_A_CICLO,
+  LANGUAGE_LABELS,
   fmt,
   getLanguage,
   languageFromQuery,
@@ -252,19 +253,33 @@ describe('i18n — estensibilità a N lingue', () => {
     expect(doppie, `lingue dichiarate pubblicate E in lavorazione: ${doppie.join(', ')}`).toEqual([]);
   });
 
-  test('il commutatore a ciclo non sopravvive alla terza lingua', () => {
-    // TRIPWIRE, NON INVARIANTE. Finché le lingue pubblicate sono due,
-    // `nextLanguage` è un interruttore e va bene. Alla terza diventa «premi
-    // finché non indovini»: TitleScene usa nextLanguage su un solo pulsante.
-    // Questo test FALLISCE nel momento in cui una terza lingua viene
-    // pubblicata, perché quella è la decisione di interfaccia che non deve
-    // passare inosservata — non un errore da aggirare alzando la soglia.
-    expect(
-      LANGUAGE_CODES.length,
-      `pubblicate ${LANGUAGE_CODES.length} lingue: il pulsante a ciclo di TitleScene ` +
-        'non basta più, serve una selezione esplicita (menù o elenco). ' +
-        'Vedi docs/PROGRAMMA_4_0_AUDIT.md §1.2.'
-    ).toBeLessThanOrEqual(MAX_LINGUE_PER_COMMUTATORE_A_CICLO);
+  test('ogni lingua pubblicata ha un nome proprio, e nella propria lingua', () => {
+    // IL TRIPWIRE HA FATTO IL SUO LAVORO, E QUESTO LO SOSTITUISCE.
+    // Fino al 13 ottobre 2026 qui c'era un controllo che FALLIVA alla terza
+    // lingua pubblicata, perché TitleScene cambiava lingua con un solo
+    // pulsante a ciclo: con tre lingue sarebbe diventato «premi finché non
+    // indovini». Il francese l'ha fatto scattare, la selezione \u00e8 stata
+    // implementata, e il vincolo cambia natura: non più «non superare due
+    // lingue», ma «ogni lingua deve essere nominabile».
+    //
+    // Non ho alzato la soglia: l'ho sostituita con la proprietà che la
+    // selezione richiede per funzionare. Alzare una soglia è il modo di
+    // zittire un tripwire invece di ascoltarlo.
+    for (const lang of LANGUAGE_CODES) {
+      const nome = LANGUAGE_LABELS[lang];
+      expect(nome, `nessuna etichetta per ${lang}`).toBeTruthy();
+      expect(nome.length, `etichetta troppo corta per ${lang}: ${nome}`).toBeGreaterThan(2);
+    }
+    // Endonimi: i nomi NON si traducono, quindi sono identici in ogni lingua.
+    // Se finissero nei dizionari, un francofono vedrebbe «Francese» mentre
+    // l'interfaccia è in italiano, e non riconoscerebbe la propria lingua.
+    const itSource = readFileSync(resolve(__dirname, '..', 'src/game/i18n/it.ts'), 'utf8');
+    for (const nome of Object.values(LANGUAGE_LABELS)) {
+      expect(
+        itSource.includes(`: '${nome}'`),
+        `l'endonimo ${nome} è finito nel dizionario italiano: va tenuto in i18n/index.ts`
+      ).toBe(false);
+    }
   });
 
   test('fmt sostituisce i segnaposto', () => {

@@ -8,7 +8,7 @@ import { Panel } from '../ui/Panel';
 import { TeacherGuideOverlay } from '../ui/TeacherGuideOverlay';
 import { SiteResourcesOverlay } from '../ui/SiteResourcesOverlay';
 import { showToast } from '../ui/AlertToast';
-import { L, fmt, nextLanguage } from '../i18n';
+import { L, LANGUAGE_CODES, LANGUAGE_LABELS, fmt } from '../i18n';
 import { AUDIENCE_IDS, SESSION_DURATIONS } from '../data/audiences';
 import { DEFAULT_GAME_MODE, GAME_MODE_IDS, getGameMode } from '../data/gameModes';
 import { ReadingLayer, type ReadingSection } from '../systems/ReadingLayer';
@@ -243,12 +243,35 @@ export class TitleScene extends Phaser.Scene {
       crtBtn.setLabel(StateManager.crtOverlay ? m.crtOn : m.crtOff);
     }, { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
 
-    // selettore lingua: cicla le lingue registrate e ricarica la scena
-    const langBtn = new Button(this, colR, rowY(3), m.language, () => {
-      StateManager.setLanguage(nextLanguage());
-      AnalyticsSystem.track('language_selected', { language: StateManager.language });
-      this.scene.restart();
-    }, { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
+    /**
+     * SELEZIONE DELLA LINGUA, non più un ciclo.
+     *
+     * Con due lingue `nextLanguage` era un interruttore e andava bene. Con la
+     * terza diventa «premi finché non indovini»: tre pressioni per tornare
+     * al punto di partenza, e nessun modo di sapere quante lingue esistono
+     * prima di averle viste tutte. È un difetto di accessibilità prima che
+     * di gusto, ed è il difetto che il test
+     * MAX_LINGUE_PER_COMMUTATORE_A_CICLO ha fatto scattare nel momento esatto
+     * in cui il francese è stato pubblicato.
+     *
+     * Un pulsante per lingua: ogni lingua si raggiunge con UN gesto, porta la
+     * propria etichetta leggibile da uno screen reader, e quella attiva si
+     * distingue per variante. La larghezza è divisa, non fissata: una quarta
+     * lingua entra senza toccare questo codice.
+     */
+    const lingue = LANGUAGE_CODES;
+    const spazio = 6;
+    const lw = Math.floor((BW - spazio * (lingue.length - 1)) / lingue.length);
+    const langBtns = lingue.map((code, i) => {
+      const x = colR - BW / 2 + lw / 2 + i * (lw + spazio);
+      const attiva = StateManager.language === code;
+      return new Button(this, x, rowY(3), LANGUAGE_LABELS[code], () => {
+        if (StateManager.language === code) return;
+        StateManager.setLanguage(code);
+        AnalyticsSystem.track('language_selected', { language: code });
+        this.scene.restart();
+      }, { width: lw, height: 44, fontSize: 12, variant: attiva ? 'ok' : 'ghost' });
+    });
 
     // selettore difficoltà (base → standard → expert)
     const diffOrder: DifficultyMode[] = ['base', 'standard', 'expert'];
@@ -300,10 +323,10 @@ export class TitleScene extends Phaser.Scene {
     // nota privacy locale, concisa
     const note = this.add.text(cx - 380, rowY(5) + 40, g.settingsPrivacy, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
     this.describePanel([
-      { items: [audioBtn, musicOnBtn, musicBtn, sfxOnBtn, sfxBtn, motionBtn, crtBtn, langBtn, diffBtn, speedBtn, creditsBtn, resetBtn].map((b) => b.labelText) },
+      { items: [audioBtn, musicOnBtn, musicBtn, sfxOnBtn, sfxBtn, motionBtn, crtBtn, ...langBtns, diffBtn, speedBtn, creditsBtn, resetBtn].map((b) => b.labelText) },
       { text: g.settingsPrivacy }
     ]);
-    c.add([audioBtn, musicOnBtn, musicBtn, sfxOnBtn, sfxBtn, motionBtn, crtBtn, langBtn, diffBtn, speedBtn, resetBtn, creditsBtn, note]);
+    c.add([audioBtn, musicOnBtn, musicBtn, sfxOnBtn, sfxBtn, motionBtn, crtBtn, ...langBtns, diffBtn, speedBtn, resetBtn, creditsBtn, note]);
   }
 
   /**

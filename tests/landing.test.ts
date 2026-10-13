@@ -5,7 +5,7 @@ import { ALL_PUBLIC, PUBLIC_COUNT, publicUrl } from './helpers/publicRoutes';
 import { CASES as PLAYABLE_CASE_LIST } from '../src/game/data/cases';
 
 const PLAYABLE_CASES = PLAYABLE_CASE_LIST.length;
-import { languageFromQuery } from '../src/game/i18n';
+import { languageFromQuery, DRAFT_LANGUAGES, LANGUAGE_CODES } from '../src/game/i18n';
 
 const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
@@ -259,9 +259,17 @@ describe('public landing — language handoff to the game', () => {
   });
 
   it('languageFromQuery honours only known codes', () => {
-    expect(languageFromQuery('?lang=en')).toBe('en');
-    expect(languageFromQuery('?lang=it')).toBe('it');
-    expect(languageFromQuery('?lang=fr')).toBeNull();
+    // DERIVATO, non trascritto. Questa asserzione scriveva `?lang=fr` ->
+    // null perché il francese non esisteva: il 13 ottobre 2026 è stato
+    // pubblicato e il test è diventato rosso su un cambiamento VOLUTO,
+    // segnalando un difetto che non c'era. Un elenco di lingue scritto in un
+    // test invecchia come ogni valore copiato.
+    for (const lang of LANGUAGE_CODES) {
+      expect(languageFromQuery(`?lang=${lang}`), `?lang=${lang} ignorato`).toBe(lang);
+    }
+    for (const bozza of DRAFT_LANGUAGES) {
+      expect(languageFromQuery(`?lang=${bozza}`), `?lang=${bozza} accettato`).toBeNull();
+    }
     expect(languageFromQuery('?lang=')).toBeNull();
     expect(languageFromQuery('?foo=bar')).toBeNull();
     expect(languageFromQuery('')).toBeNull();
