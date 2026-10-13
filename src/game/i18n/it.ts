@@ -5,7 +5,9 @@
  * Regolamento (UE) 2024/1689, come modificato dal Reg. (UE) 2026/1744.
  * Non costituiscono consulenza legale.
  */
+import { gameplayIt } from './gameplay';
 export const it = {
+  gameplay: gameplayIt,
   ui: {
     gameTitle: 'NO AI ACT',
     gameSubtitle: 'Simulatore di una società non regolata',

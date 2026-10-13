@@ -83,6 +83,7 @@ export class CityMapScene extends Phaser.Scene {
   private recommendedIds: Set<string> = new Set();
 
   create(): void {
+    StateManager.endReview();
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     // L'ispezione a sorpresa non consiglia: l'estrazione perderebbe senso.
     const plan = StateManager.gamePlan;

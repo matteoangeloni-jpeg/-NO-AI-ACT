@@ -19,6 +19,8 @@ import { fadeInScene, reveal } from '../ui/motion';
 import { StateManager } from '../systems/StateManager';
 import { addNoiseOverlay } from '../ui/backdrop';
 import { createDocumentTextures } from '../assets/procedural/documentStyles';
+import { InvestigationGuide } from '../systems/InvestigationGuide';
+import { openInvestigationGuide } from '../ui/InvestigationGuideOverlay';
 
 /**
  * Esame dei reperti: aprire tutti gli indizi, poi citare nel rapporto
@@ -70,6 +72,8 @@ export class EvidenceScene extends Phaser.Scene {
   private inspectorDesk!: InspectorDesk;
   private backBtn!: Button;
   private contradictionBtn: Button | null = null;
+  private guideBtn?: Button;
+  private lastGuideStep = -1;
 
   constructor() {
     super('Evidence');
@@ -250,6 +254,12 @@ export class EvidenceScene extends Phaser.Scene {
         if (!this.hasOpenOverlay()) this.markContradiction();
       });
     }
+    if (InvestigationGuide.eligible(this.caseData.id)) {
+      InvestigationGuide.begin(this.caseData.id);
+      this.guideBtn = new Button(this, GAME_WIDTH - 190, GAME_HEIGHT - 36, L().gameplay.guide,
+        () => openInvestigationGuide(this, this.caseData.id, this.guideStep(), () => this.syncReadingLayer()),
+        { width: 340, height: 36, fontSize: 12, variant: 'ghost' });
+    }
     this.syncReadingLayer();
   }
 
@@ -335,7 +345,14 @@ export class EvidenceScene extends Phaser.Scene {
   /** Strato di lettura (§11.1): titoli sempre, testi dei reperti aperti. */
   private syncReadingLayer(): void {
     const texts = caseText(this.caseData.id);
+    const guideText = InvestigationGuide.active(this.caseData.id) ? L().gameplay.steps[this.guideStep()] : '';
+    this.istruzione.setText(guideText || L().ui.evidence.instruction);
+    this.lastGuideStep = this.guideStep();
+    this.istruzione.setWordWrapWidth(1100);
+    this.istruzione.setVisible(!!guideText || !this.istruzioniRitirate);
+    this.notaCitazione.setVisible(!guideText && !this.istruzioniRitirate);
     ReadingLayer.setScene(fmt(L().ui.evidence.header, { code: this.caseData.fileCode }), [
+      { text: guideText },
       { text: L().ui.evidence.instruction },
       // Prima non c'era: ora che la riga a video si ritira, se non stesse qui
       // chi legge con uno strumento assistivo la perderebbe del tutto.
@@ -366,6 +383,12 @@ export class EvidenceScene extends Phaser.Scene {
     this.backBtn.setVisible(!hideNav);
     this.proceedBtn.setVisible(this.proceedEligible && !hideNav);
     this.contradictionBtn?.setVisible(!hideNav);
+    this.guideBtn?.setVisible(!hideNav);
+    if (!hideNav && InvestigationGuide.active(this.caseData.id) && this.lastGuideStep !== this.guideStep()) this.syncReadingLayer();
+  }
+
+  private guideStep(): number {
+    return InvestigationGuide.evidenceStep(this.cards.filter(c => c.isRevealed).length, this.citedIndices().length);
   }
 
   /**

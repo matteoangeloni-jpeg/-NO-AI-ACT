@@ -4,7 +4,7 @@ import type { CaseData, Classification, IndicatorState, Measure, OutcomeQuality,
 import { consequenceFor, noteFor } from '../systems/CaseSystem';
 import { NOTE_BOX } from './consequenceLayout';
 import { AudioSystem } from '../systems/AudioSystem';
-import { IndicatorHud, randomComment } from '../systems/IndicatorSystem';
+import { INDICATOR_KEYS, randomComment } from '../systems/IndicatorSystem';
 import { StateManager } from '../systems/StateManager';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { Button } from '../ui/Button';
@@ -137,11 +137,17 @@ export class ConsequenceScene extends Phaser.Scene {
       .setAlpha(0);
 
     // pannello indicatori animati
-    this.add.rectangle(cx + 330, 280, 320, 240, COLORS.carbon, 0.85).setStrokeStyle(1, COLORS.iron);
-    this.add.text(cx + 190, 172, ui.cityLabel, textStyle(12, COLOR_STR.paperDim));
-    const hud = new IndicatorHud(this, cx + 190, 200, 270);
-    hud.setState(before);
-    this.time.delayedCall(600, () => hud.animateTo(this, before, after));
+    this.add.rectangle(cx + 330, 292, 320, 280, COLORS.carbon, 0.85).setStrokeStyle(1, COLORS.iron);
+    const changeUi = L().gameplay;
+    this.add.text(cx + 184, 164, changeUi.changes, textStyle(12, COLOR_STR.accentText));
+    this.add.text(cx + 184, 190, `${changeUi.before} / ${changeUi.after} / ${changeUi.delta}`, textStyle(11.5, COLOR_STR.paperDim));
+    const changeLines = INDICATOR_KEYS.map((key, index) => {
+      const delta = after[key] - before[key];
+      const value = `${before[key]}  →  ${after[key]}   (${delta > 0 ? '+' : ''}${delta})`;
+      this.add.text(cx + 184, 224 + index * 48, L().indicators.labels[key], textStyle(11.5, COLOR_STR.paperDim));
+      this.add.text(cx + 184, 241 + index * 48, value, textStyle(14, COLOR_STR.paper));
+      return `${L().indicators.labels[key]}: ${changeUi.before} ${before[key]}, ${changeUi.after} ${after[key]}, ${changeUi.delta} ${delta > 0 ? '+' : ''}${delta}`;
+    });
 
     // micro-commento
     const comment = this.add
@@ -174,7 +180,8 @@ export class ConsequenceScene extends Phaser.Scene {
         })
       },
       { heading: ui.territoryLabel, text: consequenceFor(texts, quality) },
-      { heading: ui.noteLabel, text: noteText }
+      { heading: ui.noteLabel, text: noteText },
+      { heading: changeUi.changes, items: changeLines }
     ]);
 
     consequence.write(consequenceFor(texts, quality), () => {

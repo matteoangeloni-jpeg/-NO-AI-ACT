@@ -14,7 +14,9 @@
  * jamais familier : « dossier », « pièce », « rapport d'inspection »,
  * « fiche normative ». Le vouvoiement est la règle.
  */
+import { gameplayFr } from './gameplay';
 export const fr = {
+  gameplay: gameplayFr,
   ui: {
     gameTitle: 'NO AI ACT',
     gameSubtitle: "Simulateur d'une société non régulée",

@@ -2,6 +2,18 @@
 
 ## [Non rilasciato]
 
+### Sprint Gameplay 4.0 (revisione locale)
+- Guida contestuale del primo fascicolo del Turno, ignorabile e richiamabile,
+  nelle tre lingue. Riusa apertura, citazione, confronto e firma esistenti.
+- Riepilogo con spiegazione dei cinque elementi valutati; nessun nuovo punteggio.
+- Conseguenze con valori prima/dopo e variazioni effettive, anche nel reading layer.
+- Debrief in due viste: rilievo/prove decisive e norma/riflessione. Collegamento
+  al ripasso esistente, eseguito in memoria senza sovrascrivere i rapporti originali.
+- Modalita descritte per obiettivo, assistenza e conclusione; durata esplicitamente
+  stimata. Nessuna modifica ai casi, alla matrice legale o allo schema v2.
+- Eventi UX sul bus interno, senza nuove trasmissioni. Protocollo di playtest
+  con sei partecipanti e verifiche documentate in `docs/GAMEPLAY_4_0_REVIEW.md`.
+
 ### Added
 - **Lingua francese.** Il gioco è giocabile integralmente in français : dizionario
   completo (1 408 stringhe), quattordici dossiers verificati uno per uno dalla

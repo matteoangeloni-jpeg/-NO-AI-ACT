@@ -36,6 +36,7 @@ export class TitleScene extends Phaser.Scene {
   }
 
   create(): void {
+    StateManager.endReview();
     const cx = GAME_WIDTH / 2;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     AnalyticsSystem.page('title');
@@ -381,7 +382,7 @@ export class TitleScene extends Phaser.Scene {
     const desc = this.add.text(cx - W / 2, top + 148, '', textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: W }, lineSpacing: 3 }));
     const planText = this.add.text(cx - W / 2, top + PLAN_Y, '', textStyle(13, COLOR_STR.accentText, { wordWrap: { width: W }, lineSpacing: 4 }));
     const warnText = this.add.text(cx - W / 2, top + WARN_Y, '', textStyle(12, COLOR_STR.warning, { wordWrap: { width: W }, lineSpacing: 4 }));
-    const note = this.add.text(cx - W / 2, top + 380, g.note, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: W }, lineSpacing: 3 }));
+    const note = this.add.text(cx - W / 2, top + 380, L().gameplay.timeNote, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: W }, lineSpacing: 3 }));
 
     const modeBtn = new Button(this, cx, top + 112, '', () => {
       const next = GAME_MODE_IDS[(GAME_MODE_IDS.indexOf(StateManager.gameMode) + 1) % GAME_MODE_IDS.length];
@@ -414,7 +415,7 @@ export class TitleScene extends Phaser.Scene {
       const plan = StateManager.gamePlan;
       const mode = getGameMode(plan.mode);
       modeBtn.setLabel(fmt(g.modeLabel, { value: g.modes[plan.mode].name }));
-      desc.setText(g.modes[plan.mode].desc);
+      desc.setText(`${L().gameplay.modes[plan.mode]} ${L().gameplay.assistance[plan.difficulty]}`);
 
       // Il profilo compare solo dove conta davvero. Quando non conta, la
       // durata sale al suo posto: un pulsante nascosto non deve lasciare
@@ -461,7 +462,7 @@ export class TitleScene extends Phaser.Scene {
         { text: audBtn.visible ? audBtn.labelText : '' },
         { text: durBtn.labelText },
         { text: `${planText.text} ${warnText.text}`.trim() },
-        { text: g.note }
+        { text: L().gameplay.timeNote }
       ]);
       ReadingLayer.announce(`${modeBtn.labelText} · ${planText.text} ${warnText.text}`.trim());
     };
@@ -478,6 +479,11 @@ export class TitleScene extends Phaser.Scene {
   private startPlanned(hasSave: boolean): void {
     const plan = StateManager.gamePlan;
     if (plan.unavailable) return;
+    if (plan.mode === 'ripasso') {
+      const caseId = StateManager.beginReview();
+      if (caseId) { this.closeGroup(); this.scene.start('Case', { caseId }); }
+      return;
+    }
     if (hasSave) StateManager.newGame();
     /**
      * Quello che il pannello ha scritto è quello che si gioca. La riga di

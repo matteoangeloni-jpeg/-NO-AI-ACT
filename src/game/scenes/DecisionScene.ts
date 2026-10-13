@@ -22,6 +22,8 @@ import { CLASSIFICATION_TERMS, SUBJECT_TERMS } from '../data/termHints';
 import { addNoiseOverlay } from '../ui/backdrop';
 import { protocolDate } from '../assets/procedural/decisionSeal';
 import { stateBadge } from '../assets/procedural/visualStates';
+import { InvestigationGuide, emitGameplayUx } from '../systems/InvestigationGuide';
+import { openInvestigationGuide } from '../ui/InvestigationGuideOverlay';
 
 
 /**
@@ -107,6 +109,7 @@ export class DecisionScene extends Phaser.Scene {
   private notebookBtn?: Button;
   private backBtn?: Button;
   private termsBtn?: Button;
+  private guideBtn?: Button;
   private lastStep?: { label: string; question: string };
 
   constructor() {
@@ -262,6 +265,9 @@ export class DecisionScene extends Phaser.Scene {
 
   private header(step: string, question: string, sidebar = true): void {
     this.lastStep = { label: step, question };
+    this.guideBtn = new Button(this, GAME_WIDTH - 190, GAME_HEIGHT - 36, L().gameplay.guide,
+      () => openInvestigationGuide(this, this.caseData.id, this.motivation === null ? 3 : 4),
+      { width: 340, height: 36, fontSize: 12, variant: 'ghost' });
     // strato di lettura (§11.1): passo corrente e domanda, a ogni transizione
     // Il ritorno al passo precedente è annunciato qui e non nei tasti in
     // fondo: chi legge con uno strumento assistivo incontra la scena
@@ -324,6 +330,7 @@ export class DecisionScene extends Phaser.Scene {
     this.notebookBtn?.setVisible(!hideNav);
     this.backBtn?.setVisible(!hideNav);
     this.termsBtn?.setVisible(!hideNav);
+    this.guideBtn?.setVisible(!hideNav);
   }
 
   /**
@@ -423,7 +430,7 @@ export class DecisionScene extends Phaser.Scene {
       .setOrigin(0.5, 0);
     // microcopy: la decisione è distinta dal rapporto e si svolge in 4 passi
     this.add
-      .text(cx, GAME_HEIGHT - 110, L().ui.decision.processNote, textStyle(12, COLOR_STR.accentText, { wordWrap: { width: 900 }, align: 'center' }))
+      .text(cx, GAME_HEIGHT - 110, InvestigationGuide.active(this.caseData.id) ? L().gameplay.steps[3] : L().ui.decision.processNote, textStyle(12, COLOR_STR.accentText, { wordWrap: { width: 900 }, align: 'center' }))
       .setOrigin(0.5);
 
     const pick = (cls: Classification): void => {
@@ -610,7 +617,7 @@ export class DecisionScene extends Phaser.Scene {
     // L'avviso sta SOPRA la fila della fiducia, non sotto: buildConfidenceRow
     // disegna a y=566 e qui finiva esattamente addosso, in entrambe le lingue.
     this.add
-      .text(cx, SIGN_NOTE_Y, t.signNote, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 880 }, align: 'center' }))
+      .text(cx, SIGN_NOTE_Y, L().gameplay.evaluation, textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: 880 }, align: 'center' }))
       .setOrigin(0.5);
 
     const back = (): void => this.stepBack(() => { this.motivation = null; }, () => this.showMotivationStep());
@@ -622,9 +629,17 @@ export class DecisionScene extends Phaser.Scene {
     });
 
     new Button(this, cx, GAME_HEIGHT - 104, t.sign, () => this.sign(), { width: 460, height: 48, fontSize: 14 });
-    this.add.text(cx, GAME_HEIGHT - 70, t.signHint, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
+    this.add.text(cx, GAME_HEIGHT - 70, InvestigationGuide.active(this.caseData.id) ? L().gameplay.steps[4] : t.signHint,
+      textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 900 }, align: 'center' })).setOrigin(0.5);
     this.backBtn = this.addBackButton(t.stepBack, back);
     this.buildConfidenceRow(cx);
+    ReadingLayer.setScene(L().a11y.reportTitle, [
+      { text: L().gameplay.evaluation },
+      ...rows.map(([heading, text]) => ({ heading, text })),
+      this.citedEvidenceReading(),
+      { text: L().gameplay.evidenceLink },
+      { text: L().gameplay.steps[4] }
+    ]);
   }
 
   /**
@@ -801,6 +816,7 @@ export class DecisionScene extends Phaser.Scene {
   private resolve(motivationIndex: number): void {
     if (this.resolved) return; // un solo rapporto per fascicolo
     this.resolved = true;
+    InvestigationGuide.complete(this.caseData.id);
 
     const result = evaluateReport({
       caseData: this.caseData,
@@ -811,6 +827,7 @@ export class DecisionScene extends Phaser.Scene {
       motivationIndex
     }, StateManager.difficulty);
 
+    if (!result.cluesOk) emitGameplayUx('citation_error', this.caseData.id);
     if (result.outcome === 'non_conforme') AudioSystem.errorContestable();
     else if (result.outcome === 'conforme') AudioSystem.stampConforme();
     else AudioSystem.alert();

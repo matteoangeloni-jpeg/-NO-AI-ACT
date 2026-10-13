@@ -95,7 +95,7 @@ describe('French game dictionary', () => {
     const source = leaves(LOCALES.it);
     const target = leaves(LOCALES.fr);
     expect(Object.keys(target).sort()).toEqual(Object.keys(source).sort());
-    expect(Object.keys(target)).toHaveLength(1408);
+    expect(Object.keys(target).length).toBeGreaterThanOrEqual(1408);
     for (const [key, text] of Object.entries(target)) {
       expect(text.trim(), key).not.toBe('');
       expect((text.match(/\{\w+\}/g) ?? []).sort(), key).toEqual((source[key].match(/\{\w+\}/g) ?? []).sort());

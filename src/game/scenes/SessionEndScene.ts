@@ -140,7 +140,7 @@ export class SessionEndScene extends Phaser.Scene {
       y += inc.height + 14;
     }
 
-    const note = this.add.text(left, y, ui.note, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: PANEL_W - PAD * 2 }, lineSpacing: 3 }));
+    const note = this.add.text(left, y, StateManager.isReviewing ? L().gameplay.reviewNote : ui.note, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: PANEL_W - PAD * 2 }, lineSpacing: 3 }));
     body.add(note);
     y += note.height;
 
@@ -182,7 +182,7 @@ export class SessionEndScene extends Phaser.Scene {
     // Il debrief docente compare solo in modalità docente: è il suo posto, e
     // fuori da lì sarebbe una voce che non riguarda chi sta giocando.
     const actions: Array<[string, () => void]> = [
-      [ui.toMap, () => fadeOutScene(this, 250, () => this.scene.start('CityMap'))],
+      [StateManager.isReviewing ? L().gameplay.exitReview : ui.toMap, () => fadeOutScene(this, 250, () => this.scene.start('CityMap'))],
       [ui.learningReport, () => fadeOutScene(this, 250, () => this.scene.start('LearningReport'))]
     ];
     if (StateManager.teacherMode) {

@@ -194,6 +194,7 @@ const reportOk = await page.evaluate(() => document.querySelector('canvas') !== 
 if (!reportOk) fail.push('no game canvas at report stage');
 
 await clickButton(/DECISION DEBRIEF/, 700); // open decision debrief overlay
+await clickButton(/RULE AND REFLECTION/, 300);
 // The link opens with rel=noopener, so newer Playwright does not emit it as a
 // 'popup' of the opener page — listen for any new page in the context instead.
 const [popup] = await Promise.all([

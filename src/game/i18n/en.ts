@@ -1,4 +1,5 @@
 import type { Locale } from './index';
+import { gameplayEn } from './gameplay';
 
 /**
  * ENGLISH dictionary. Must mirror every key of the Italian source of truth.
@@ -7,6 +8,7 @@ import type { Locale } from './index';
  * Not legal advice.
  */
 export const en: Locale = {
+  gameplay: gameplayEn,
   ui: {
     gameTitle: 'NO AI ACT',
     gameSubtitle: 'Simulator of an unregulated society',

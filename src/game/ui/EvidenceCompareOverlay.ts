@@ -5,6 +5,7 @@ import { L, caseText, fmt } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { Button } from './Button';
 import { Panel } from './Panel';
+import { InvestigationGuide } from '../systems/InvestigationGuide';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from './theme';
 
 type CloseKey = 'compareCloseEvidence' | 'compareCloseDecision';
@@ -46,6 +47,7 @@ export class EvidenceCompareOverlay {
     }
     // L'ultima coppia contiene normalmente gli ultimi due reperti citati.
     this.pairCursor = this.pairs.length - 1;
+    if (InvestigationGuide.active(this.caseId)) InvestigationGuide.compare();
     this.draw(false);
   }
 

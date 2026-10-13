@@ -13,6 +13,38 @@ import { SaveSystem } from './SaveSystem';
  */
 class StateManagerImpl extends Phaser.Events.EventEmitter {
   private data: SaveData = SaveSystem.load();
+  private reviewOriginal: SaveData | null = null;
+  private reviewPlan: GamePlan | null = null;
+
+  get isReviewing(): boolean { return this.reviewOriginal !== null; }
+
+  /** Run the existing review plan in memory; never overwrite signed originals. */
+  beginReview(): string | null {
+    if (this.isReviewing) return this.nextInPlan();
+    const plan = planGame({ mode: 'ripasso', audience: this.data.audience, minutes: this.data.sessionMinutes,
+      completed: this.data.completedCases, seed: this.surpriseSeed });
+    if (plan.unavailable || !plan.caseIds.length) return null;
+    this.reviewOriginal = this.data;
+    this.reviewPlan = plan;
+    this.data = JSON.parse(JSON.stringify(this.data)) as SaveData;
+    this.data.gameMode = 'ripasso';
+    this.data.difficulty = plan.difficulty;
+    for (const id of plan.caseIds) {
+      delete this.data.completedCases[id];
+      delete this.data.caseDrafts[id];
+      delete this.data.caseMeta[id];
+    }
+    this.emit('gameplay-ux', { event: 'review_started' });
+    return plan.caseIds[0];
+  }
+
+  endReview(): void {
+    if (!this.reviewOriginal) return;
+    this.data = this.reviewOriginal;
+    this.reviewOriginal = null;
+    this.reviewPlan = null;
+    this.applyDomPreferences();
+  }
 
   get indicators(): IndicatorState {
     return { ...this.data.indicators };
@@ -130,6 +162,7 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
    * dire quali fascicoli arrivano, in che ordine e con che difficoltà.
    */
   get gamePlan(): GamePlan {
+    if (this.reviewPlan) return this.reviewPlan;
     return planGame({
       mode: this.data.gameMode,
       audience: this.data.audience,
@@ -368,6 +401,7 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
   }
 
   newGame(): void {
+    this.endReview();
     const prefs = {
       audioMuted: this.data.audioMuted,
       musicVolume: this.data.musicVolume,
@@ -399,7 +433,7 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
   }
 
   private persist(): void {
-    SaveSystem.save(this.data);
+    if (!this.isReviewing) SaveSystem.save(this.data);
   }
 }
 
