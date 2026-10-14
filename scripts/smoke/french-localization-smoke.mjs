@@ -97,13 +97,18 @@ try {
     assert.equal(await page.locator('html').getAttribute('lang'), 'fr');
     assert.equal(await page.locator('#reading-toggle').textContent(), "Texte de l'écran");
     if (viewport.width < 560) {
-      assert.match(await page.locator('.mg-continue').textContent(), /Continuer/i);
-      await page.locator('.mg-continue').click();
+      assert(await page.locator('body').evaluate(b => b.classList.contains('mobile-presentation')));
+      assert.equal(await page.locator('#mobile-guard').isVisible(), false, 'No legacy mobile blocker');
+      assert.equal(await page.locator('#reading-toggle').isVisible(), false, 'Compact reading is always visible');
+      assert(await page.locator('#reading-layer').isVisible(), 'French mobile text must be directly readable');
+      assert(await page.getByRole('button', { name: 'NOUVELLE PARTIE', exact: true }).isVisible());
+      assert.equal(await page.evaluate(() => document.getElementById('app').scrollWidth <= innerWidth + 1), true);
+    } else {
+      await page.locator('#reading-toggle').click();
+      assert.equal(await page.locator('#reading-toggle').getAttribute('aria-pressed'), 'true');
+      await page.locator('#reading-toggle').click();
     }
-    await page.locator('#reading-toggle').click();
     assert.equal(await page.locator('#reading-layer').getAttribute('lang'), 'fr');
-    assert.equal(await page.locator('#reading-toggle').getAttribute('aria-pressed'), 'true');
-    await page.locator('#reading-toggle').click();
     await page.screenshot({ path: `${out}/game-menu-${viewport.width}.png` });
     results.push({ game: 'Title', viewport, ...state });
   }

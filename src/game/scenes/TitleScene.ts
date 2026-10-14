@@ -358,6 +358,7 @@ export class TitleScene extends Phaser.Scene {
      * non si parte e che cosa fare.
      */
     if (StateManager.gamePlan.unavailable) StateManager.setGameMode(DEFAULT_GAME_MODE);
+    if (StateManager.gameMode === 'sorpresa') StateManager.rerollSurprise();
 
     const cx = GAME_WIDTH / 2;
     const cy = GAME_HEIGHT / 2;
@@ -387,6 +388,7 @@ export class TitleScene extends Phaser.Scene {
     const modeBtn = new Button(this, cx, top + 112, '', () => {
       const next = GAME_MODE_IDS[(GAME_MODE_IDS.indexOf(StateManager.gameMode) + 1) % GAME_MODE_IDS.length];
       StateManager.setGameMode(next);
+      if (next === 'sorpresa') StateManager.rerollSurprise();
       AnalyticsSystem.track('mode_selected', { mode: next });
       refresh();
     }, { width: W, height: 46, fontSize: 13, variant: 'ghost' });
@@ -496,7 +498,6 @@ export class TitleScene extends Phaser.Scene {
      * partita avviata: è una scelta del giocatore, non un vincolo.
      */
     StateManager.setDifficulty(plan.difficulty);
-    StateManager.rerollSurprise();
     this.closeGroup();
     AudioSystem.init();
     AudioSystem.confirm();

@@ -6,6 +6,8 @@
   "author": "Matteo Angeloni",
   "type": "module",
   "scripts": {
+    "smoke:final-modes": "node scripts/smoke/final-modes-smoke.mjs",
+    "smoke:final-routes": "node scripts/smoke/final-routes-smoke.mjs",
     "smoke:release-cases": "node scripts/smoke/release-cases-smoke.mjs",
     "smoke:release-pipeline": "node --import tsx scripts/smoke/release-analytics-pipeline.mjs",
     "smoke:release-a11y": "node scripts/smoke/release-a11y-smoke.mjs",

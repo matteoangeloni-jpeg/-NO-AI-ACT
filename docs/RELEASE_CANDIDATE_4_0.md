@@ -25,6 +25,14 @@ unici. La validazione automatica non sostituisce il playtest umano.
 
 ## Checklist pre-deploy
 
+Aggiornamento Final QA: leggere anche [FINAL_QA_4_0.md](FINAL_QA_4_0.md).
+Il nuovo branch locale e `codex/final-qa-v4`; questo documento conserva la
+provenienza della rc.1, non dichiara una pubblicazione. Le prove precedenti
+interrotte restano storiche: usare esiti e limiti del rapporto piu recente.
+Gate generale finale ora completato (12/12, matrice 36 profili). Playtest umani,
+screen reader reali e autorizzazione alla pubblicazione restano da svolgere:
+il gate tecnico verde non chiude automaticamente i punti 6, 9 e 10 sotto.
+
 1. Leggere [RELEASE_VALIDATION_4_0.md](RELEASE_VALIDATION_4_0.md) e chiudere i
    blocchi della versione che si intende pubblicare, non solo il build verde.
 2. Identificare lo SHA approvato e l'ultimo artefatto realmente pubblicato;
@@ -65,6 +73,7 @@ npm run smoke:fr
 npm run smoke:gameplay-ux
 npm run smoke:release-cases
 npm run smoke:release-surprise
+npm run smoke:final-modes
 npm run smoke:release-pipeline
 npm run smoke:insights-worker
 npm run smoke:insights
@@ -77,6 +86,10 @@ finale e BASE impostato al suo URL: gameplay-ux, release-a11y, privacy, mobile U
 `release-pipeline` usa quell'artefatto, mai endpoint o account Cloudflare remoti.
 `insights:check` e dry-run, non deploy. Usare `WRANGLER_SEND_METRICS=false` per la CLI.
 `smoke:release-surprise`, come release-a11y, richiede BASE con preview avviato.
+`smoke:final-modes` possiede il server DEV 4219, richiede porta libera e usa
+provider OFF: sessioni sequenziali e ripasso con originali conservati IT/EN/FR.
+Per verifica assistiva reale usare SCREEN_READER_CHECK_4_0.md e annotare
+screen reader/browser effettivi; il protocollo umano resta NON ESEGUITO.
 Il gate storico smoke:all NON comprende automaticamente tutti i controlli
 aggiuntivi sopra: eseguirli esplicitamente, senza dedurre un PASS da uno script.
 

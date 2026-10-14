@@ -153,6 +153,23 @@ describe('ogni modalità ha un nome e una spiegazione, in entrambe le lingue', (
 describe('il pannello non si apre mai su una modalità che non si può giocare', () => {
   const title = readFileSync(resolve(__dirname, '../src/game/scenes/TitleScene.ts'), 'utf8');
 
+  it('preserves the surprise preview when starting the session', () => {
+    const start = title.slice(title.indexOf('private startPlanned'), title.indexOf('private openTeachers'));
+    expect(start).not.toContain('rerollSurprise');
+    expect(start).toContain('caseId: plan.caseIds[0]');
+    const open = title.slice(title.indexOf('private openNewGame'), title.indexOf('private startPlanned'));
+    expect(open).toContain("if (StateManager.gameMode === 'sorpresa') StateManager.rerollSurprise()");
+    expect(open).toContain("if (next === 'sorpresa') StateManager.rerollSurprise()");
+  });
+
+  it('the first briefing respects the selected mode for touch and keyboard', () => {
+    const brief = readFileSync(resolve(__dirname, '../src/game/scenes/BriefingScene.ts'), 'utf8');
+    expect(brief).toContain("if (plan.freeMap) this.scene.start('CityMap')");
+    expect(brief).toContain('caseId: plan.caseIds[0] ?? firstCaseId()');
+    expect(brief).toContain('enter(openPlanned)');
+    expect(brief.slice(brief.indexOf("'keydown-ENTER'"))).toContain('openPlanned()');
+  });
+
   it("all'apertura, una modalità senza niente da proporre lascia il posto a quella predefinita", () => {
     const open = title.slice(title.indexOf('private openNewGame'), title.indexOf('private startPlanned'));
     expect(open).toContain('StateManager.gamePlan.unavailable');

@@ -2,6 +2,19 @@
 
 ## [Non rilasciato]
 
+### Final QA 4.0 - solo candidata locale
+- Corretto l'ordine Sorpresa: avvio coerente con l'anteprima, senza nuova estrazione.
+- Il primo briefing rispetta il piano scelto anche da tastiera; Libera apre la mappa.
+- Nuovo smoke delle quattro modalita nelle tre lingue e diario incrementale del
+  gate generale, senza ridurre le asserzioni o la matrice responsive.
+- Protocollo umano completato con obiettivo/scelta modalita, scheda uniforme e
+  istruzioni NVDA/VoiceOver; nessun risultato umano o assistivo inventato.
+- Esiti e limiti nel rapporto docs/FINAL_QA_4_0.md. Analytics remoto OFF;
+  nessun push, merge, deploy o attivazione Cloudflare.
+- Gate generale completato anche sulla build corretta (12/12), 36 profili IT/EN/FR,
+  1371 test, 42 percorsi casi e 107 route pubbliche locali verificati. GO per
+  playtest controllati; invio stampa/pubblicazione e telemetria reale NO-GO.
+
 ### Sprint C - candidata locale e validazione
 - Nuova matrice 14 casi x IT/EN/FR con firma, debrief, conseguenze e ripristino,
   pipeline contro D1 locale e verifiche mirate di focus/breakpoint.

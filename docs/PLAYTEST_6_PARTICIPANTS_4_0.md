@@ -32,10 +32,20 @@ volontarieta e ritiro; approvare modalita/base applicabile per la ricerca.
 - Candidata locale approvata, SHA annotato, analytics remoto OFF.
 - Nuovo profilo browser, salvataggio pulito; tenere separati quelli del facilitatore.
 - Stesso primo caso: case_scoring; secondo caso con incidente: case_lavoro.
-- Modalita Turno, difficolta normale, durata dichiarata 15 minuti per primo giro.
+- Modalita Turno, profilo casual, durata dichiarata 15 minuti per primo giro.
+  Il piano assegna difficolta Base a 15 minuti: annotare quella effettiva,
+  non scrivere "normale" e non cambiare le regole per adattarle al protocollo.
+- Dopo il primo turno, usare REVENIR/RETURN/TORNA ALLA MAPPA e scegliere il
+  fascicolo del lavoro per la seconda prova. Non avviare NUOVA PARTITA: quella
+  azzera la progressione originale. Il suggerimento del piano non blocca la mappa.
+  Annotare come aiuto 2 l'eventuale indicazione del facilitatore per trovare il caso.
 - Scegliere dispositivo previsto, annotare risoluzione/zoom/orientamento e lingua.
 - Sessione 25-35 minuti, senza timer di gioco. Il facilitatore misura solo
   intervalli operativi grossolani, non crea tracking individuale nel backend.
+- I file versionati P01-P06 e RESULTS_TEMPLATE sono modelli vuoti. Compilare
+  copie locali ad accesso ristretto FUORI dal repository, non committare o
+  pubblicare schede individuali. Nel repository puo entrare solo un riepilogo
+  aggregato approvato, senza citazioni identificabili.
 
 ## Introduzione da leggere
 
@@ -46,7 +56,9 @@ risposte. Se rimani bloccato posso aiutarti, e annotero quando succede."
 
 ## Compiti senza anticipare le soluzioni
 
-1. Apri il sito nella tua lingua e avvia una nuova partita nella modalita Turno.
+1. Apri il sito nella tua lingua. Prima di avviare, spiega l'obiettivo che hai
+   capito e quale modalita sceglieresti, con il motivo. Poi avvia il Turno per
+   il confronto uniforme: non suggerire l'obiettivo o la scelta iniziale.
 2. Apri il fascicolo e spiega con parole tue chi utilizza il sistema e a quale scopo.
 3. Esamina i reperti. Seleziona quelli che ritieni decisivi e spiega perche.
 4. Mostra come confronti due reperti apparentemente in tensione.
@@ -66,6 +78,11 @@ poi indizio navigazionale, infine intervento esplicito. Registrare il livello:
 eseguita dal facilitatore. Non contare un compito assistito come autonomo.
 
 ## Criteri di lettura
+
+Registrare separatamente usabilita (azioni completate, aiuti, blocchi, leggibilita)
+e comprensione (obiettivo, criteri, prove e conseguenze spiegati). La seconda e
+un'osservazione esplorativa, non una misura dimostrata di apprendimento causale.
+Usare [scheda uniforme](playtest/RESULTS_TEMPLATE.md) insieme alle sei schede.
 
 - Completamento autonomo: tutti i passaggi fino alla firma senza aiuti livello 2/3.
 - Comprensione: distingue finalita/contesto, prove, classificazione e misura;

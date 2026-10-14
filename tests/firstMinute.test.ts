@@ -39,10 +39,10 @@ describe('il briefing apre un fascicolo, non un menu', () => {
     expect(brief).toContain('ctaFirstCase');
   });
 
-  it('INVIO segue la CTA primaria, non la mappa', () => {
+  it('INVIO segue lo stesso ingresso della CTA primaria nella modalita scelta', () => {
     const enter = brief.slice(brief.indexOf("keydown-ENTER"));
-    expect(enter).toMatch(/scene\.start\('Case'/);
-    expect(enter).not.toMatch(/scene\.start\('CityMap'\)/);
+    expect(enter).toContain('openPlanned()');
+    expect(brief).toContain('enter(openPlanned)');
   });
 
   for (const [code, locale] of Object.entries(LOCALES)) {
