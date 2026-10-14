@@ -31,6 +31,9 @@ async function boundedJSON(request: Request): Promise<unknown> {
 export async function handle(request: Request, env: Env): Promise<Response> {
   const url = new URL(request.url);
   try {
+    // The same Worker can serve Insights and only /collect on the beta host.
+    if (url.pathname === '/collect' && env.COLLECTION_HOST && url.hostname !== env.COLLECTION_HOST) return response({ error: 'not_found' }, 404);
+    if (url.pathname !== '/collect' && env.ADMIN_HOST && url.hostname !== env.ADMIN_HOST) return response({ error: 'not_found' }, 404);
     if (url.pathname === '/collect') {
       if (env.COLLECTION_ENABLED !== 'true') return response({ error: 'collection_disabled' }, 503);
       if (!env.ALLOWED_ORIGIN || request.headers.get('Origin') !== env.ALLOWED_ORIGIN || url.search) return response({ error: 'forbidden' }, 403);

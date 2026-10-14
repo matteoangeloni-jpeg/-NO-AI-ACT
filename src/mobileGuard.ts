@@ -1,6 +1,7 @@
 import { LOCALES, isLanguageCode } from './game/i18n';
 import type { LanguageCode } from './game/data/types';
 import { mobilePresentationActive } from './game/ui/mobilePresentation';
+import { saveStorageKey } from './game/systems/saveNamespace';
 
 /**
  * Mobile guard: overlay puramente DOM/CSS (nessun canvas, nessun backend,
@@ -12,8 +13,8 @@ import { mobilePresentationActive } from './game/ui/mobilePresentation';
 export function savedLanguage(): LanguageCode {
   try {
     // schema v2 prima, con fallback allo snapshot v1 pre-migrazione
-    for (const key of ['no-ai-act-save-v2', 'no-ai-act-save-v1']) {
-      const raw = localStorage.getItem(key);
+    for (const key of ['no-ai-act-save-v2', 'no-ai-act-save-v1'] as const) {
+      const raw = localStorage.getItem(saveStorageKey(key));
       if (raw) {
         const parsed = JSON.parse(raw) as { language?: string };
         if (isLanguageCode(parsed.language)) return parsed.language;

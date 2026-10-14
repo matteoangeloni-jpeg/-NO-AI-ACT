@@ -6,6 +6,12 @@
   "author": "Matteo Angeloni",
   "type": "module",
   "scripts": {
+    "beta:build": "node scripts/beta/build.mjs",
+    "beta:preview": "node scripts/beta/preview.mjs",
+    "beta:check-stable": "node scripts/beta/check-stable.mjs",
+    "infra:inspect": "node scripts/infra/inspect.mjs",
+    "infra:check": "node scripts/infra/check.mjs",
+    "smoke:beta": "node scripts/smoke/beta-smoke.mjs",
     "smoke:final-modes": "node scripts/smoke/final-modes-smoke.mjs",
     "smoke:final-routes": "node scripts/smoke/final-routes-smoke.mjs",
     "smoke:release-cases": "node scripts/smoke/release-cases-smoke.mjs",

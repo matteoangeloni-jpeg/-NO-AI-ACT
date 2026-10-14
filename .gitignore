@@ -5,6 +5,8 @@ analytics/.wrangler/
 analytics/.dev.vars
 analytics/.dev.vars.*
 dist/
+dist-beta/
+.infrastructure/
 *.local
 .DS_Store
 

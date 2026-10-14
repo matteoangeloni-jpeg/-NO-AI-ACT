@@ -12,6 +12,8 @@ export interface Env {
   DB: Database;
   COLLECTION_ENABLED?: string;
   ALLOWED_ORIGIN?: string;
+  ADMIN_HOST?: string;
+  COLLECTION_HOST?: string;
   INGEST_LIMITER?: Limiter;
   ADMIN_LIMITER?: Limiter;
   ACCESS_TEAM?: string;

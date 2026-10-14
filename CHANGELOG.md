@@ -2,6 +2,15 @@
 
 ## [Non rilasciato]
 
+### Beta e infrastruttura unificata 4.0 - non pubblicata
+- Build beta separata IT/EN/FR con banner, noindex e feedback solo locale.
+- Salvataggi beta isolati senza modificare lo schema o importare dati stabili.
+- Configurazioni Pages, Worker Insights e D1 riutilizzati; controlli hostname
+  separano amministrazione e futuro collector sul dominio beta. Raccolta OFF.
+- Inventario cloud in sola lettura, istruzioni operative/privacy e rollback in
+  docs/BETA_INFRASTRUCTURE_4_0.md; nessun deploy o modifica alla produzione.
+- 1378 test passati, smoke beta/Insights/D1 locale e regressione build stabile.
+
 ### Final QA 4.0 - solo candidata locale
 - Corretto l'ordine Sorpresa: avvio coerente con l'anteprima, senza nuova estrazione.
 - Il primo briefing rispetta il piano scelto anche da tastiera; Libera apre la mappa.
