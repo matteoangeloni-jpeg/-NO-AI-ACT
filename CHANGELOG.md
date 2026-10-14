@@ -2,6 +2,13 @@
 
 ## [Non rilasciato]
 
+### Player Insights - laboratorio sperimentale
+- Palette coerente con il sito e nuova vista predittiva sui contatori aggregati.
+- Cinque baseline confrontate tramite MAE temporale; nessuna imputazione a zero
+  delle celle mancanti, nessuna previsione individuale o attivazione analytics.
+- Login locale esplicito con sessione in memoria per browser senza dialogo Basic.
+- Metodi e limiti in docs/PREDICTIVE_LAB_4_0.md.
+
 ### Beta e infrastruttura unificata 4.0 - non pubblicata
 - Build beta separata IT/EN/FR con banner, noindex e feedback solo locale.
 - Salvataggi beta isolati senza modificare lo schema o importare dati stabili.

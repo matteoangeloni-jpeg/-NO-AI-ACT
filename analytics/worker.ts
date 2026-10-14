@@ -65,7 +65,7 @@ export async function handle(request: Request, env: Env): Promise<Response> {
         'X-Retention-From': coverage.retainedFrom, 'X-Retention-Clipped': String(coverage.clipped) } });
       return response({ classification, query, threshold: LIMITS.threshold, rows, generatedAt: new Date(now).toISOString(), dayBasis: 'UTC receipt day', retentionDays: LIMITS.retentionDays, retentionWindow: coverage });
     }
-    if (url.pathname.startsWith('/api/') || !['/', '/dashboard.js', '/dashboard.css'].includes(url.pathname)) return response({ error: 'not_found' }, 404);
+    if (url.pathname.startsWith('/api/') || !['/', '/dashboard.js', '/forecast.js', '/dashboard.css'].includes(url.pathname)) return response({ error: 'not_found' }, 404);
     if (!env.ASSETS) return response({ error: 'assets_unavailable' }, 503);
     const asset = await env.ASSETS.fetch(request);
     const result = new Response(request.method === 'HEAD' ? null : asset.body, asset);

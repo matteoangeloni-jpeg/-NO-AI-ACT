@@ -1,3 +1,4 @@
+import { experiment } from './forecast.js';
 const $ = id => document.getElementById(id);
 const format = n => new Intl.NumberFormat('it-IT').format(n);
 const form = $('filters');
@@ -62,7 +63,7 @@ function render() {
   }), 'Conteggi separati: non è possibile attribuire un errore a un esito o a una singola sessione.');
   $('learning').replaceChildren();
   [['tutorial_started','Tutorial avviati'],['tutorial_completed','Tutorial completati'],['tutorial_skipped','Tutorial saltati'],['review_started','Ripassi avviati'],['debrief_opened','Debrief consultati']].forEach(([event,title])=>metric($('learning'),title,observed(totals,event),'Eventi osservati, non persone o apprendimento'));
-  renderComparison(); updateExport();
+  renderComparison(); updateExport(); renderLab();
   const previousSessions = sum(prior,'game_started')+sum(prior,'game_resumed');
   const clipped=provenance.retentionWindow.clipped || previousProvenance.retentionWindow.clipped;
   table($('period'),['Periodo','Avvii + riprese','Completamenti','Complet. / sessioni'], [['Selezionato',sessions ? format(sessions) : 'n.d.',observed(totals,'session_completed'),completed ? rate(completed,sessions) : 'n.d.'],
@@ -79,6 +80,14 @@ function renderComparison() {
     const sessions = sum(subset,'game_started')+sum(subset,'game_resumed'); const completed = sum(subset,'session_completed');
     return [labels[v]??v,sessions ? format(sessions) : 'n.d.',observed(subset,'session_completed'),completed ? rate(completed,sessions) : 'n.d.'];
   }), dimension==='version' && values.length<2 ? 'Una sola versione disponibile: confronto tra release non ancora possibile. Il backend non inventa versioni aggiuntive.' : 'Rapporti di conteggi indipendenti; nessuna inferenza causale.');
+}
+function renderLab() {
+  if(!applied)return;
+  const result=experiment(data.all ?? [],$('lab-event').value,applied.from,applied.to,Number($('lab-horizon').value));
+  $('lab-status').textContent=result.blocked ? 'Stima non disponibile: servono almeno 14 giorni consecutivi con celle disponibili. Assenze e soppressioni non sono zeri.' : `${provenance.classification==='synthetic'?'ESPERIMENTO SU DATI SINTETICI':'ESPERIMENTO SU CONTATORI PUBBLICABILI'} · ${result.values.length} giorni · ${result.scores[0].tests} verifiche temporali. Nessuna previsione di giocatori unici.`;
+  if(result.blocked){$('lab-models').replaceChildren();$('lab-forecast').replaceChildren();return;}
+  table($('lab-models'),['Modello','MAE (eventi/giorno)','Giorni di verifica'],result.scores.map(s=>[s.name,s.mae.toFixed(2),s.tests]),'Verifica a origine mobile: ogni previsione usa solo giorni precedenti. MAE piu basso = minore errore nel campione, non garanzia futura.');
+  table($('lab-forecast'),['Giorno UTC',...result.forecasts.map(s=>s.name)],result.forecasts[0].points.map((_,i)=>[iso(new Date(Date.parse(applied.to)+(i+1)*86400000)),...result.forecasts.map(s=>s.points[i].toFixed(1))]),'Proiezioni puntuali esplorative, senza intervalli di confidenza calibrati. La valutazione e a un giorno; non valida automaticamente gli orizzonti piu lunghi.');
 }
 function updateExport() {
   const dimension = $('export-dimension').value;
@@ -111,5 +120,6 @@ for(const control of form.elements)if(control.name)control.addEventListener('inp
 form.addEventListener('submit',event=>{event.preventDefault();refresh();});
 $('compare-dimension').addEventListener('change',()=>{if(provenance)renderComparison();});
 $('export-dimension').addEventListener('change',()=>{if(provenance)updateExport();});
+for(const id of ['lab-event','lab-horizon'])$(id).addEventListener('change',renderLab);
 document.querySelectorAll('[data-view]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-view]').forEach(b=>{b.removeAttribute('aria-current');$(b.dataset.view).hidden=true;});button.setAttribute('aria-current','page');$(button.dataset.view).hidden=false;}));
 refresh();
