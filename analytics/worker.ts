@@ -63,7 +63,7 @@ export async function handle(request: Request, env: Env): Promise<Response> {
       const classification = env.DATA_CLASSIFICATION === 'synthetic' ? 'synthetic' : 'observed';
       if (url.pathname.endsWith('.csv')) return new Response(csv(rows, classification, query, now), { headers: { ...headers, 'Content-Type': 'text/csv; charset=utf-8', 'Content-Disposition': 'attachment; filename="player-insights-aggregates.csv"',
         'X-Retention-From': coverage.retainedFrom, 'X-Retention-Clipped': String(coverage.clipped) } });
-      return response({ classification, query, threshold: LIMITS.threshold, rows, generatedAt: new Date(now).toISOString(), dayBasis: 'UTC receipt day', retentionDays: LIMITS.retentionDays, retentionWindow: coverage });
+      return response({ classification, collectionEnabled: env.COLLECTION_ENABLED === 'true', localEnvironment: env.LOCAL_TEST === 'true', query, threshold: LIMITS.threshold, rows, generatedAt: new Date(now).toISOString(), dayBasis: 'UTC receipt day', retentionDays: LIMITS.retentionDays, retentionWindow: coverage });
     }
     if (url.pathname.startsWith('/api/') || !['/', '/dashboard.js', '/forecast.js', '/dashboard.css'].includes(url.pathname)) return response({ error: 'not_found' }, 404);
     if (!env.ASSETS) return response({ error: 'assets_unavailable' }, 503);

@@ -45,6 +45,14 @@ const server = createServer(async (incoming, outgoing) => {
     const host = incoming.headers.host;
     if (!host || ![`127.0.0.1:${port}`, `localhost:${port}`].includes(host)) { outgoing.writeHead(403).end(); return; }
     const path = new URL(incoming.url ?? '/', `http://${host}`).pathname;
+    if (path === '/local-logout' && incoming.method === 'POST') {
+      // no-referrer can serialize a form's Origin as null; Fetch Metadata must
+      // still attest an exact same-origin browser request in that case.
+      if (incoming.headers.origin !== `http://${host}` && !(incoming.headers.origin === 'null' && incoming.headers['sec-fetch-site'] === 'same-origin')) { outgoing.writeHead(403).end(); return; }
+      const key = /(?:^|;\s*)insights_local=([a-f0-9]{64})(?:;|$)/.exec(incoming.headers.cookie ?? '')?.[1];
+      if (key) sessions.delete(key);
+      outgoing.writeHead(303, { Location: '/', 'Set-Cookie': 'insights_local=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0', 'Cache-Control': 'no-store' }).end(); return;
+    }
     if (path === '/local-login' && incoming.method === 'POST') {
       if (incoming.headers.origin !== `http://${host}`) { outgoing.writeHead(403).end(); return; }
       let body = ''; for await (const chunk of incoming) { body += chunk; if (body.length > 2048) { outgoing.writeHead(413).end(); return; } }

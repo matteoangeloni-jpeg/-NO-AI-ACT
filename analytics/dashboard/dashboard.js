@@ -37,6 +37,7 @@ function query(dimension, filters=applied) {
 }
 async function fetchStats(dimension, filters) {
   const response = await fetch(`/api/stats?${query(dimension,filters)}`, { cache:'no-store' });
+  if(response.status===401 || response.status===403){$('sign-in').hidden=false;$('collection-status').textContent='Accesso scaduto o negato. I dati gia mostrati non sono aggiornati.';}
   if (!response.ok) throw new Error(response.status === 401 ? 'Accesso scaduto o non autorizzato.' : 'Statistiche non disponibili. Riprova tra poco.');
   return response.json();
 }
@@ -49,6 +50,13 @@ function render() {
   metric($('kpis'),'Rapporto di completamento',completed ? rate(completed,sessions) : 'n.d.',`${observed(totals,'session_completed')} completamenti / ${sessions ? format(sessions) : 'n.d.'} avvii e riprese`);
   const dates = [];
   for (let date=Date.parse(applied.from); date<=Date.parse(applied.to); date+=86400000) dates.push(iso(new Date(date)));
+  const latest=totals.map(r=>r.day).sort().at(-1);
+  const available=new Set(totals.map(r=>r.day)).size;
+  $('collection-status').textContent=`Raccolta ${provenance.collectionEnabled?'ABILITATA sul backend':'DISATTIVATA sul backend'} · Ultimo giorno con celle disponibili nel filtro: ${latest ?? 'n.d.'} · ${available}/${dates.length} giorni con almeno una cella. La presenza di celle non dimostra copertura completa; non e l'ora dell'ultimo evento ricevuto.${provenance.retentionWindow.clipped?' Intervallo parzialmente conservato.':''}`;
+  $('logout').hidden=!provenance.localEnvironment;
+  $('sign-in').hidden=true;
+  let chart=$('activity-chart');if(!chart){chart=node('div');chart.id='activity-chart';$('trend').before(chart);}
+  drawChart(chart,dates,[{name:'Avvii',values:dates.map(day=>totals.some(r=>r.day===day&&r.event==='game_started')?sum(totals.filter(r=>r.day===day),'game_started'):null)},{name:'Completamenti',values:dates.map(day=>totals.some(r=>r.day===day&&r.event==='session_completed')?sum(totals.filter(r=>r.day===day),'session_completed'):null)}]);
   table($('trend'), ['Giorno UTC','Avvii','Riprese','Completamenti'], dates.map(day => {
     const rows = totals.filter(r => r.day===day);
     const count = event => rows.some(r => r.event===event) ? format(sum(rows,event)) : 'n.d.';
@@ -85,9 +93,24 @@ function renderLab() {
   if(!applied)return;
   const result=experiment(data.all ?? [],$('lab-event').value,applied.from,applied.to,Number($('lab-horizon').value));
   $('lab-status').textContent=result.blocked ? 'Stima non disponibile: servono almeno 14 giorni consecutivi con celle disponibili. Assenze e soppressioni non sono zeri.' : `${provenance.classification==='synthetic'?'ESPERIMENTO SU DATI SINTETICI':'ESPERIMENTO SU CONTATORI PUBBLICABILI'} · ${result.values.length} giorni · ${result.scores[0].tests} verifiche temporali. Nessuna previsione di giocatori unici.`;
-  if(result.blocked){$('lab-models').replaceChildren();$('lab-forecast').replaceChildren();return;}
+  let chart=$('prediction-chart');if(!chart){chart=node('div');chart.id='prediction-chart';$('lab-forecast').before(chart);}
+  if(result.blocked){$('lab-models').replaceChildren();$('lab-forecast').replaceChildren();chart.replaceChildren();return;}
+  const future=result.forecasts[0].points.map((_,i)=>iso(new Date(Date.parse(applied.to)+(i+1)*86400000)));
+  drawChart(chart,[...result.days,...future],[{name:'Conteggi disponibili',values:[...result.values,...future.map(()=>null)]},...result.forecasts.map(s=>({name:s.name,values:[...result.values.map(()=>null),...s.points],forecast:true}))]);
   table($('lab-models'),['Modello','MAE (eventi/giorno)','Giorni di verifica'],result.scores.map(s=>[s.name,s.mae.toFixed(2),s.tests]),'Verifica a origine mobile: ogni previsione usa solo giorni precedenti. MAE piu basso = minore errore nel campione, non garanzia futura.');
   table($('lab-forecast'),['Giorno UTC',...result.forecasts.map(s=>s.name)],result.forecasts[0].points.map((_,i)=>[iso(new Date(Date.parse(applied.to)+(i+1)*86400000)),...result.forecasts.map(s=>s.points[i].toFixed(1))]),'Proiezioni puntuali esplorative, senza intervalli di confidenza calibrati. La valutazione e a un giorno; non valida automaticamente gli orizzonti piu lunghi.');
+}
+function drawChart(target,days,series){
+  target.replaceChildren();const colors=['#acc5ed','#f1ce69','#75dba2','#ff928b','#c1a7ef','#edf1f7'];
+  const ns='http://www.w3.org/2000/svg';const svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox','0 0 800 240');svg.setAttribute('role','img');svg.setAttribute('aria-label','Conteggi giornalieri; valori esatti nella tabella seguente. Interruzioni indicano dati mancanti.');
+  const max=Math.max(1,...series.flatMap(s=>s.values.filter(v=>v!==null)));
+  for(const [i,s]of series.entries()){
+    let d='';let open=false;
+    s.values.forEach((v,j)=>{if(v===null){open=false;return;}const x=60+j*720/Math.max(1,days.length-1),y=200-v*170/max;d+=`${open?'L':'M'}${x},${y} `;open=true;const dot=document.createElementNS(ns,'circle');dot.setAttribute('cx',String(x));dot.setAttribute('cy',String(y));dot.setAttribute('r','3');dot.setAttribute('fill',colors[i%colors.length]);svg.append(dot);});
+    const path=document.createElementNS(ns,'path');path.setAttribute('d',d);path.setAttribute('fill','none');path.setAttribute('stroke',colors[i%colors.length]);path.setAttribute('stroke-width','2');if(s.forecast)path.setAttribute('stroke-dasharray','6 4');svg.append(path);
+  }
+  for(const [x,y,label]of [[5,35,Math.ceil(max)],[20,200,0],[60,230,days[0]],[670,230,days.at(-1)]]){const text=document.createElementNS(ns,'text');text.setAttribute('x',String(x));text.setAttribute('y',String(y));text.setAttribute('fill','#e7ecf5');text.textContent=String(label);svg.append(text);}
+  const legend=node('p',series.map(s=>`${s.name}${s.forecast?' (proiezione tratteggiata)':''}`).join(' · '));target.append(svg,legend);
 }
 function updateExport() {
   const dimension = $('export-dimension').value;

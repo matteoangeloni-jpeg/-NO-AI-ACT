@@ -4,6 +4,7 @@
 <body>
 <header><h1>NO AI ACT <span>Player Insights</span></h1><strong id="classification">Verifica origine dati…</strong></header>
 <main>
+<div class="operations"><p id="collection-status" role="status">Stato raccolta non verificato</p><a id="sign-in" href="/" hidden>Accedi di nuovo</a><form id="logout" method="post" action="/local-logout" hidden><button type="submit">Esci</button></form></div>
 <form id="filters"><label>Dal<input type="date" name="from" required></label><label>Al<input type="date" name="to" required></label><label>Versione<select name="version"><option value="">Tutte</option></select></label><button type="submit">Aggiorna</button><a id="export" href="/api/export.csv">Esporta CSV</a></form>
 <p id="status" role="status" aria-live="polite"></p>
 <nav aria-label="Viste"><button type="button" aria-current="page" data-view="overview">Panoramica</button><button type="button" data-view="gameplay">Gameplay</button><button type="button" data-view="compare">Confronti</button><button type="button" data-view="lab">Laboratorio predittivo</button><button type="button" data-view="source">Dati e definizioni</button></nav>

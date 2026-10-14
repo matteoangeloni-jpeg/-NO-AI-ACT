@@ -22,6 +22,7 @@ import { chromium } from 'playwright';
 import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
 
 const BASE = process.env.BASE || 'http://localhost:4200';
+const SAVE_KEY = process.env.RELEASE_CHANNEL === 'beta' ? 'no-ai-act-beta-save-v2' : 'no-ai-act-save-v2';
 const ALLOWED_HOSTS = []; // /play/ has no automatic remote telemetry, including its shell.
 const CASE = 'case_scoring';
 const fail = [];
@@ -80,7 +81,7 @@ await page.addInitScript((key) => {
       localStorage.setItem(key, JSON.stringify({ version: 2, briefingSeen: true, reducedMotion: true, language: 'it' }));
     }
   } catch { /* origine senza storage: non è un problema del gioco */ }
-}, 'no-ai-act-save-v2');
+}, SAVE_KEY);
 
 await page.goto(`${BASE}/play/?lang=it`, { waitUntil: 'load' });
 await page.waitForFunction(() => {
@@ -100,7 +101,7 @@ for (const k of ['1', '1', '2', '2']) { await page.keyboard.press(k); await page
 await page.keyboard.press('Enter'); // firma
 await page.waitForTimeout(1200);
 
-const saved = await page.evaluate((key) => localStorage.getItem(key), 'no-ai-act-save-v2');
+const saved = await page.evaluate((key) => localStorage.getItem(key), SAVE_KEY);
 if (!saved || !saved.includes(CASE)) fail.push('il caso non risulta giocato: il controllo non proverebbe nulla');
 
 // --- USCITA DALLA PAGINA: è qui che un beacon si nasconderebbe ------------

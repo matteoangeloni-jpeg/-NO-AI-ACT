@@ -2,6 +2,13 @@
 
 ## [Non rilasciato]
 
+### Dashboard - gate di pubblicazione
+- Stato raccolta, copertura delle celle e retention visibili senza confondere
+  dati mancanti con zero o ultimo giorno disponibile con ultimo evento ricevuto.
+- Grafici temporali e proiezioni con tabelle; logout locale revoca la sessione.
+- Pipeline analytics locale riconciliata e gate cloud/privacy documentati in
+  docs/DASHBOARD_RELEASE_GATE_4_0.md. Raccolta OFF, nessun deploy.
+
 ### Player Insights - laboratorio sperimentale
 - Palette coerente con il sito e nuova vista predittiva sui contatori aggregati.
 - Cinque baseline confrontate tramite MAE temporale; nessuna imputazione a zero

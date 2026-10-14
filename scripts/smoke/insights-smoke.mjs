@@ -63,15 +63,18 @@ try {
   const boundary=new Date(Date.now()-89*86400000).toISOString().slice(0,10);
   await page.locator('input[name=from]').fill(new Date(Date.parse(boundary)+3*86400000).toISOString().slice(0,10));
   await page.locator('input[name=to]').fill(new Date(Date.parse(boundary)+16*86400000).toISOString().slice(0,10));
-  await page.locator('button[type=submit]').click();await page.locator('#status').filter({hasText:'Aggiornato'}).waitFor();
+  await page.locator('#filters button[type=submit]').click();await page.locator('#status').filter({hasText:'Aggiornato'}).waitFor();
   await page.locator('[data-view="compare"]').click();assert.match(await page.locator('#period').innerText(),/non comparabile/);
   assert.match(await page.locator('#period caption').innerText(),/3 giorni conservati/);
   await page.locator('input[name=from]').fill(appliedFrom);await page.locator('input[name=to]').fill(appliedTo);
   // Empty historical periods must be unavailable, not zero-player observations.
-  await page.locator('input[name=from]').fill('2025-01-01');await page.locator('input[name=to]').fill('2025-01-14');await page.locator('button[type=submit]').click();
+  await page.locator('input[name=from]').fill('2025-01-01');await page.locator('input[name=to]').fill('2025-01-14');await page.locator('#filters button[type=submit]').click();
   await page.locator('#status').filter({hasText:'2025-01-01'}).waitFor();
   assert.equal(await page.locator('#kpis .metric strong').first().innerText(),'n.d.');
-  await page.route('**/api/stats?**',route=>route.abort());await page.locator('button[type=submit]').click();await page.locator('#status.error').waitFor();assert.equal(await page.locator('#export').getAttribute('href'),null);
+  await page.route('**/api/stats?**',route=>route.abort());await page.locator('#filters button[type=submit]').click();await page.locator('#status.error').waitFor();assert.equal(await page.locator('#export').getAttribute('href'),null);
+  await page.unroute('**/api/stats?**');await page.locator('#logout button').click();
+  await page.locator('#password').waitFor({timeout:5000}).catch(async error=>{console.log('Logout response:',await page.locator('body').innerText());throw error;});
+  assert.equal((await context.request.get(url+'/api/stats')).status(),401);
   assert.deepEqual(external,[]);assert.deepEqual(errors,[]);
   await writeFile(new URL('results.json',output),JSON.stringify({classification:'synthetic',results,unauthorized:'denied',collection:'disabled',reconciled:true,csvRows:sourceRows,networkFailure:'visible',externalRequests:0},null,2));
   console.log(`Player Insights PASS: ${results.length} viewports, 30 views, login, predictive models, auth, metrics, CSV, empty state and network failure.`);
