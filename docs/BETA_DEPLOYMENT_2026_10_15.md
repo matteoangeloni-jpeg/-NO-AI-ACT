@@ -1,5 +1,16 @@
 # Beta 4.0 - pubblicazione del 15 ottobre 2026
 
+## Aggiornamento 16 ottobre: link beta pubblico
+
+Su conferma esplicita del proprietario, beta.no-ai-act.eu e stato rimosso
+dalle destinazioni dell'applicazione Access Beta tester. Il link del gioco
+e ora pubblico, senza email, codici o account. La policy amministratore
+condivisa non e stata modificata; pages.dev e anteprime restano protetti.
+Verifica senza cookie: /play/?lang=it risponde 200 senza redirect e mantiene
+X-Robots-Tag noindex, nofollow, noarchive. /api/stats sul dominio Insights
+continua a reindirizzare al login Access. Nessun nuovo deploy del gioco e
+nessuna attivazione telemetria. La descrizione sotto documenta lo stato iniziale.
+
 Progetto Pages separato: no-ai-act-beta, branch di pubblicazione beta.
 URL: https://beta.no-ai-act.eu/play/?lang=it (anche en e fr).
 Deployment: 58ea55a8.no-ai-act-beta.pages.dev.
