@@ -17,3 +17,4 @@ for (const f of files) {
   copyFileSync(f, `dist/${f}`);
   console.log(`copy-notices: ${f} -> dist/${f}`);
 }
+copyFileSync('node_modules/lucide/LICENSE', 'dist/LICENSES/Lucide.txt');

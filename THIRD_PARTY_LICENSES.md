@@ -38,6 +38,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
+### Lucide (https://lucide.dev)
+
+Le frecce del carosello stampa usano Lucide (ISC), con icone derivate da
+Feather (MIT). Il testo completo del pacchetto, inclusi entrambi i notice,
+viene distribuito in `LICENSES/Lucide.txt` dalla build.
+
+### Loghi e miniatura della rassegna stampa
+
+I loghi di Fix Gaming Channel e Absolute Gamer e la miniatura del video di
+Videogiochi italiani identificano le rispettive pubblicazioni collegate.
+Restano dei rispettivi titolari e non sono inclusi nella licenza CC BY-SA
+del progetto. Provenienza: `public/assets/press/SOURCES.md`.
+
 ## Strumenti di sviluppo NON distribuiti nella build
 
 I seguenti strumenti sono usati solo in fase di sviluppo/build/test: il loro
@@ -54,8 +67,9 @@ repository upstream.
 
 ---
 
-Nessun altro materiale di terze parti (immagini, audio, font, dati) è
-incluso. Gli asset grafici e tipografici sono generati proceduralmente dal
+Oltre agli asset identificativi della rassegna stampa sopra elencati,
+nessun altro materiale di terze parti (immagini, audio, font, dati) è
+incluso. Gli asset grafici e tipografici del gioco sono generati proceduralmente dal
 codice del progetto; i campioni audio in `src/game/assets/audio/` sono
 stati prodotti dall'autore con ElevenLabs su piano a pagamento, che
 attribuisce all'abbonato i diritti d'uso commerciale sull'output generato.

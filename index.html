@@ -453,22 +453,43 @@
 
     <section aria-labelledby="press-title">
       <div class="wrap">
-        <h2 id="press-title"><span class="num">04</span>Parlano di noi.</h2>
-        <ul class="plain">
-          <li><strong>Fix Gaming Channel</strong> &middot; Racconto dello sviluppatore &middot; <time datetime="2026-10-16">16 ottobre 2026</time>
-            <p><a href="https://www.fixgamingchannel.com/fix-stories-no-ai-act-matteo-angeloni/" rel="noopener external" target="_blank">Fix Stories: From AI Research to a Game Built on Weekends</a>. Matteo Angeloni racconta in prima persona la nascita e lo sviluppo del gioco. Articolo in inglese, non una recensione indipendente.</p>
+        <div class="press-heading">
+          <h2 id="press-title"><span class="num">04</span>Parlano di noi.</h2>
+          <div class="press-controls" hidden>
+            <span class="press-position" aria-live="polite" aria-atomic="true">01 / 03</span>
+            <button type="button" data-press-prev aria-label="Contenuto precedente" title="Contenuto precedente" aria-controls="press-track"><i data-lucide="arrow-left" aria-hidden="true"></i></button>
+            <button type="button" data-press-next aria-label="Contenuto successivo" title="Contenuto successivo" aria-controls="press-track"><i data-lucide="arrow-right" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <ul class="press-track" id="press-track" tabindex="0" aria-label="Articoli e video su NO AI ACT">
+          <li class="press-item">
+            <div class="press-media press-media-logo"><img src="/assets/press/fix-gaming-channel.webp" alt="Logo e banner di Fix Gaming Channel" width="1450" height="180" loading="lazy" decoding="async" /></div>
+            <div class="press-copy">
+              <div class="press-meta"><span>Racconto dello sviluppatore</span><time datetime="2026-10-16">16 ottobre 2026</time></div>
+              <p class="press-outlet">Fix Gaming Channel</p>
+              <h3><a href="https://www.fixgamingchannel.com/fix-stories-no-ai-act-matteo-angeloni/" rel="noopener external" target="_blank">Fix Stories: From AI Research to a Game Built on Weekends</a></h3>
+              <p>Matteo Angeloni racconta la nascita e lo sviluppo del gioco. Articolo in inglese, non una recensione indipendente.</p>
+            </div>
           </li>
-          <li><strong>Videogiochi italiani</strong> &middot; Video gameplay &middot; <time datetime="2026-10-03">3 ottobre 2026</time>
-            <p><a href="https://www.youtube.com/watch?v=BJO6aiElmrY" rel="noopener external" target="_blank">Abbiamo Giocato a NO AI ACT: Un'Europa Senza Regole sull'AI!</a>. Una partita commentata in italiano, registrata prima della nuova beta.</p>
+          <li class="press-item">
+            <div class="press-media"><img src="/assets/press/videogiochi-italiani.jpg" alt="Miniatura del gameplay di Videogiochi italiani: NO AI ACT, IA senza regole" width="480" height="360" loading="lazy" decoding="async" /></div>
+            <div class="press-copy">
+              <div class="press-meta"><span>Video gameplay</span><time datetime="2026-10-03">3 ottobre 2026</time></div>
+              <p class="press-outlet">Videogiochi italiani</p>
+              <h3><a href="https://www.youtube.com/watch?v=BJO6aiElmrY" rel="noopener external" target="_blank">Abbiamo Giocato a NO AI ACT: Un'Europa Senza Regole sull'AI!</a></h3>
+              <p>Una partita commentata in italiano, registrata prima della nuova beta.</p>
+            </div>
+          </li>
+          <li class="press-item">
+            <div class="press-media press-media-logo"><img src="/assets/press/absolute-gamer.webp" alt="Logo di Absolute Gamer" width="1200" height="290" loading="lazy" decoding="async" /></div>
+            <div class="press-copy">
+              <div class="press-meta"><span>Recensione</span><time datetime="2026-07-24">24 luglio 2026</time></div>
+              <p class="press-outlet">Absolute Gamer</p>
+              <h3><a href="https://www.absolutegamer.it/no-ai-act-serious-game-gratuito-ai-act-europeo/" rel="noopener external" target="_blank">NO AI ACT, il serious game gratuito sull'AI Act europeo</a></h3>
+              <blockquote>“Un caso costa quindici minuti e vi lascia con un'idea più chiara…”</blockquote>
+            </div>
           </li>
         </ul>
-        <figure class="press-quote">
-          <blockquote>“Un caso costa quindici minuti e vi lascia con un'idea più chiara…”</blockquote>
-          <figcaption>
-            <span class="p-outlet">Absolute Gamer</span> — NO AI ACT, il serious game gratuito sull'AI Act europeo<br />
-            <a href="https://www.absolutegamer.it/no-ai-act-serious-game-gratuito-ai-act-europeo/" rel="noopener external" target="_blank">Leggi l'articolo ▸</a>
-          </figcaption>
-        </figure>
       </div>
     </section>
 
@@ -607,6 +628,7 @@
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7c85578fc8ad4488a54c6bc670a10dcf"}'></script><!-- End Cloudflare Web Analytics -->
   <script type="module" src="/src/scripts/landing-reveal.ts"></script>
   <script type="module" src="/src/scripts/nav.ts"></script>
+  <script type="module" src="/src/scripts/press-carousel.ts"></script>
 </body>
 </html>
 
