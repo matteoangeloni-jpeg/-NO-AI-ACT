@@ -7,7 +7,8 @@ import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
 
 const out = resolve('scripts/smoke/out/press-coverage');
 mkdirSync(out, { recursive: true });
-const server = await preview({ preview: { host: '127.0.0.1', port: 4237, strictPort: true } });
+const server = process.env.BASE ? undefined : await preview({ preview: { host: '127.0.0.1', port: 0 } });
+const base = process.env.BASE ?? `http://127.0.0.1:${server.httpServer.address().port}`;
 let browser;
 try {
   browser = await chromium.launch(smokeBrowserLaunchOptions());
@@ -16,7 +17,7 @@ try {
     await context.route(/cloudflareinsights\.com/, route => route.abort());
     for (const [lang, path] of [['it', '/'], ['en', '/en/']]) {
       const page = await context.newPage();
-      await page.goto(`http://127.0.0.1:4237${path}`, { waitUntil: 'networkidle' });
+      await page.goto(`${base}${path}`, { waitUntil: 'networkidle' });
       const section = page.locator('section[aria-labelledby="press-title"]');
       for (const href of [
         'https://www.fixgamingchannel.com/fix-stories-no-ai-act-matteo-angeloni/',
@@ -36,5 +37,5 @@ try {
   }
 } finally {
   await browser?.close();
-  await new Promise(resolve => server.httpServer.close(resolve));
+  if (server) await new Promise(resolve => server.httpServer.close(resolve));
 }
