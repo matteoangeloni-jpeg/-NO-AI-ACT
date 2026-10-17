@@ -33,6 +33,10 @@ try {
       await section.scrollIntoViewIfNeeded();
       await page.waitForFunction(() => [...document.querySelectorAll('.press-media img')].every(img => img.complete && img.naturalWidth > 0));
       assert.equal(await section.locator('.press-media img').count(), 3);
+      assert(await section.locator('.press-media img').evaluateAll(imgs => imgs.every(img => {
+        const url = new URL(img.currentSrc); return url.origin === location.origin && url.pathname.startsWith('/assets/press/');
+      })));
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
       assert.equal(await section.locator('.press-controls svg').count(), 2);
       assert.equal(await section.locator('[data-press-prev]').isDisabled(), true);
       await section.locator('[data-press-next]').click();
@@ -55,6 +59,17 @@ try {
     }
     await context.close();
   }
+  const animated = await browser.newContext({ viewport: { width: 390, height: 1000 }, reducedMotion: 'no-preference' });
+  const rapid = await animated.newPage(); await rapid.goto(base);
+  await rapid.locator('[data-press-next]').dblclick({ delay: 30 });
+  await rapid.waitForFunction(() => document.querySelector('[data-press-next]').disabled);
+  await rapid.locator('[data-press-prev]').dblclick({ delay: 30 });
+  await rapid.waitForFunction(() => document.querySelector('[data-press-prev]').disabled);
+  await rapid.locator('.press-track').focus();
+  await rapid.keyboard.press('ArrowRight'); await rapid.keyboard.press('ArrowRight');
+  await rapid.waitForFunction(() => document.querySelector('[data-press-next]').disabled);
+  await animated.close();
+  console.log('PASS rapid repeated navigation with smooth motion');
   const noJS = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 1000 } });
   const fallback = await noJS.newPage(); await fallback.goto(base);
   assert.equal(await fallback.locator('.press-controls').isVisible(), false);
