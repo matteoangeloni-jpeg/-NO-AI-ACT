@@ -98,6 +98,7 @@ with only committed dependencies:
 | `smoke:action-layer` | a drawn button with no real button behind it; a focus ring off its target; the TAB escaping an open panel; one ENTER firing two actions |
 | `smoke:inspector-desk` | the evidence comparison not opening from exhibits or decision; background desk actions remaining focusable behind it; Full-HD comparison screenshots failing |
 | `smoke:press-pages` | a v2.3 guide or press kit missing its primary content; horizontal overflow at desktop/mobile widths; a press screenshot no longer being Full HD |
+| `smoke:press-coverage` | missing press links or dates, misleading attribution, or homepage overflow at desktop/mobile widths |
 | `smoke:visual-language` | a state glyph the font cannot draw (it renders as an empty box, so one of the three signals vanishes); two texts landing on top of each other; text spilling past the bottom edge of the report paper; a canvas rendered at fewer pixels than the screen. Runs the whole flow six times: Italian and English, reduced motion on and off, 1280×720, Full HD and Full HD at 2× device pixel ratio |
 
 
