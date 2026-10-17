@@ -43,6 +43,9 @@ async function fetchStats(dimension, filters) {
 }
 function render() {
   const totals = data.all ?? []; const starts = sum(totals,'game_started'); const resumed = sum(totals,'game_resumed'); const sessions = starts+resumed; const completed = sum(totals,'session_completed');
+  $('usage-kpis').replaceChildren();
+  [['game_started','Nuove partite'],['game_resumed','Riprese'],['case_started','Fascicoli avviati'],['usage_case_completed','Fascicoli completati'],['usage_case_left','Uscite osservate dal fascicolo'],['usage_session_completed','Piani completati']].forEach(([event,title])=>metric($('usage-kpis'),title,observed(totals,event),'Solo eventi condivisi volontariamente; assenze e celle sotto soglia sono n.d.'));
+  table($('usage-phases'),['Fase','Visite osservate'],(data.phase??[]).filter(r=>r.event==='pageview').map(r=>[r.value,format(r.count)]),'Distribuzione aggregata delle fasi raggiunte, non percorsi individuali o abbandoni certi.');
   $('kpis').replaceChildren();
   metric($('kpis'),'Sessioni osservate',sessions ? format(sessions) : 'n.d.','Avvii + riprese; non giocatori unici');
   metric($('kpis'),'Avvii',observed(totals,'game_started'),'Conferme di un nuovo piano');

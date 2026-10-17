@@ -7,13 +7,11 @@
   "preview_urls": false,
   "routes": [
     { "pattern": "insights.no-ai-act.eu", "custom_domain": true }
-    // AFTER separate telemetry/privacy approval and beta DNS activation only:
-    // ,{ "pattern": "beta.no-ai-act.eu/collect", "zone_name": "no-ai-act.eu" }
   ],
   "assets": { "directory": "../../analytics/dashboard", "binding": "ASSETS", "run_worker_first": true },
   "observability": { "enabled": false },
   "vars": {
-    "COLLECTION_ENABLED": "false", "DATA_CLASSIFICATION": "observed",
+    "COLLECTION_ENABLED": "true", "USAGE_ONLY": "true", "DATA_CLASSIFICATION": "observed",
     "ALLOWED_ORIGIN": "https://beta.no-ai-act.eu",
     "ADMIN_HOST": "insights.no-ai-act.eu", "COLLECTION_HOST": "beta.no-ai-act.eu"
   },

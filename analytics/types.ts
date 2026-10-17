@@ -11,6 +11,7 @@ export interface Limiter { limit(input: { key: string }): Promise<{ success: boo
 export interface Env {
   DB: Database;
   COLLECTION_ENABLED?: string;
+  USAGE_ONLY?: string;
   ALLOWED_ORIGIN?: string;
   ADMIN_HOST?: string;
   COLLECTION_HOST?: string;

@@ -53,6 +53,7 @@
     "https://www.unitus.it/"
   ],
   "optionalAnalyticsEndpoints": {
+    "betaUsage": "https://beta.no-ai-act.eu/collect",
     "note": "Adapter opzionali DISATTIVATI. Analytics A imposta remoteApproved=false e approvedEndpoints=[] nel singleton: le variabili VITE_ non autorizzano invii. /play/ non carica beacon. Attivazione futura dopo verifica privacy, endpoint autorizzati, retention/accessi e aggiornamento dell'informativa e runtimeHostAllowlist.",
     "plausible": "https://plausible.io/api/event"
   }

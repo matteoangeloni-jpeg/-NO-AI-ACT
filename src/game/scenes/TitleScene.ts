@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { AnalyticsSystem } from '../systems/AnalyticsSystem';
+import { AnalyticsSystem, betaUsagePrivacyNote } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { SaveSystem } from '../systems/SaveSystem';
 import { StateManager } from '../systems/StateManager';
@@ -322,10 +322,11 @@ export class TitleScene extends Phaser.Scene {
       { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
 
     // nota privacy locale, concisa
-    const note = this.add.text(cx - 380, rowY(5) + 40, g.settingsPrivacy, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
+    const settingsPrivacy = betaUsagePrivacyNote(StateManager.language) ?? g.settingsPrivacy;
+    const note = this.add.text(cx - 380, rowY(5) + 40, settingsPrivacy, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
     this.describePanel([
       { items: [audioBtn, musicOnBtn, musicBtn, sfxOnBtn, sfxBtn, motionBtn, crtBtn, ...langBtns, diffBtn, speedBtn, creditsBtn, resetBtn].map((b) => b.labelText) },
-      { text: g.settingsPrivacy }
+      { text: settingsPrivacy }
     ]);
     c.add([audioBtn, musicOnBtn, musicBtn, sfxOnBtn, sfxBtn, motionBtn, crtBtn, ...langBtns, diffBtn, speedBtn, resetBtn, creditsBtn, note]);
   }

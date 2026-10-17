@@ -1,6 +1,7 @@
 import { authorized } from './auth';
 import { csv, ingest, LIMITS, parseQuery, purge, readCells, retentionWindow, validateBatch } from './aggregation';
 import type { Env } from './types';
+import { validateUsageBatch } from './beta-usage';
 
 const headers = {
   'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'no-referrer',
@@ -49,6 +50,7 @@ export async function handle(request: Request, env: Env): Promise<Response> {
       let body: unknown;
       try { body = await boundedJSON(request); } catch (e) { return response({ error: 'invalid_body' }, e instanceof Error && e.message === 'size' ? 413 : 400, cors); }
       if (!validateBatch(body)) return response({ error: 'invalid_payload' }, 400, cors);
+      if (env.USAGE_ONLY === 'true' && !validateUsageBatch(body)) return response({ error: 'usage_only' }, 400, cors);
       await ingest(env.DB, body);
       return response({ accepted: true }, 202, cors);
     }

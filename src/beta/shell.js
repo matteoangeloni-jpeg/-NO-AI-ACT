@@ -13,6 +13,24 @@
   const badge = create('strong'); const open = create('button', { type: 'button' });
   const stable = create('a', { href: 'https://www.no-ai-act.eu/', rel: 'noreferrer' });
   banner.append(badge, open, stable);
+  const usageWords = {
+    it: ['Condividi statistiche di utilizzo (facoltativo)', 'Informativa beta', 'Le pagine informative descrivono la versione stabile. Nella beta le statistiche sono facoltative: vedi l’informativa beta.'],
+    en: ['Share usage statistics (optional)', 'Beta privacy notice', 'The information pages describe the stable release. Beta usage statistics are optional: see the beta privacy notice.'],
+    fr: ['Partager les statistiques (facultatif)', 'Confidentialité bêta', 'Les pages d’information décrivent la version stable. Les statistiques de la bêta sont facultatives : voir la notice de confidentialité.']
+  };
+  const usageLabel = create('label', { class: 'beta-usage-choice' });
+  const usage = create('input', { type: 'checkbox', id: 'beta-usage-opt-in', disabled: '' });
+  const usageText = create('span'); usageLabel.append(usage, usageText);
+  const policy = create('a', { href: '/beta-statistics.html', target: '_blank', rel: 'noopener noreferrer' });
+  const usageBuild = document.querySelector('meta[name="no-ai-act-usage"]')?.content === 'opt-in';
+  const gamePage = Boolean(document.getElementById('app'));
+  banner.append(policy);
+  if (usageBuild && gamePage) banner.append(usageLabel);
+  const pageNotice = create('p', { class: 'beta-privacy-scope' });
+  if (!gamePage && usageBuild) banner.append(pageNotice);
+  const ready = () => { usage.disabled = document.documentElement.dataset.betaUsageReady !== 'true'; };
+  ready(); window.addEventListener('no-ai-act-beta-statistics-ready', ready);
+  usage.addEventListener('change', () => window.dispatchEvent(new CustomEvent('no-ai-act-beta-statistics', { detail: usage.checked })));
   const dialog = create('dialog', { id: 'beta-feedback', 'aria-labelledby': 'beta-feedback-title' });
   const form = create('form', { method: 'dialog', autocomplete: 'off' });
   const title = create('h2', { id: 'beta-feedback-title' }); const notice = create('p', { id: 'beta-feedback-notice' });
@@ -27,6 +45,8 @@
   const update = () => {
     const w = words[language()]; [badge, open, stable, title, notice, label, download, cancel].forEach((el, i) => { el.textContent = w[i]; });
     banner.lang = language(); dialog.lang = language();
+    const u = usageWords[language()]; usageText.textContent = u[0]; policy.textContent = u[1]; pageNotice.textContent = u[2];
+    policy.href = `/beta-statistics.html#${language()}`;
   };
   update(); new MutationObserver(update).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   const resize = () => document.documentElement.style.setProperty('--beta-banner-height', `${banner.getBoundingClientRect().height}px`);

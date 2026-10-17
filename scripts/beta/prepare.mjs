@@ -3,7 +3,7 @@ import { readFileSync, writeFileSync, readdirSync, copyFileSync, existsSync, unl
 import { resolve, join } from 'node:path';
 import assert from 'node:assert/strict';
 
-export function prepareBeta(directory) {
+export function prepareBeta(directory, { usage = false } = {}) {
   const root = resolve(directory);
   assert.equal(root, resolve('dist-beta'), 'Only the isolated beta artifact may be rewritten');
   const files = [];
@@ -31,6 +31,10 @@ export function prepareBeta(directory) {
     visit(document); assert(head);
     const fragment = parseFragment('<meta name="robots" content="noindex, nofollow, noarchive"><meta name="googlebot" content="noindex, nofollow, noarchive"><meta name="no-ai-act-channel" content="beta"><link rel="stylesheet" href="/beta-shell.css"><script defer src="/beta-shell.js"></script>');
     for (const node of fragment.childNodes) { node.parentNode = head; head.childNodes.push(node); }
+    if (usage) {
+      const marker = parseFragment('<meta name="no-ai-act-usage" content="opt-in">').childNodes[0];
+      marker.parentNode = head; head.childNodes.push(marker);
+    }
     writeFileSync(file, serialize(document));
   }
   for (const name of ['sitemap.xml', 'sitemap-it.xml', 'sitemap-en.xml', 'sitemap-fr.xml', 'CNAME', 'llms.txt', 'llms-full.txt']) {
@@ -38,8 +42,9 @@ export function prepareBeta(directory) {
   }
   copyFileSync('src/beta/shell.js', join(root, 'beta-shell.js'));
   copyFileSync('src/beta/shell.css', join(root, 'beta-shell.css'));
+  copyFileSync('src/beta/statistics.html', join(root, 'beta-statistics.html'));
   writeFileSync(join(root, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
   writeFileSync(join(root, '_headers'), '/*\n  X-Robots-Tag: noindex, nofollow, noarchive\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: no-referrer\n');
   writeFileSync(join(root, '404.html'), '<!doctype html><html lang="it"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><title>NO AI ACT Beta - 404</title><link rel="stylesheet" href="/beta-shell.css"><script defer src="/beta-shell.js"></script></head><body><main><h1>404</h1><a href="/">NO AI ACT Beta</a></main></body></html>');
-  return files.length + 1;
+  return files.length + 2;
 }

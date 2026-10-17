@@ -2,10 +2,11 @@ import { ANALYTICS_SCHEMA_VERSION, ANALYTICS_GAME_VERSION, ANALYTICS_LIMITS, EVE
   sanitizeProperties, validatePayload, durationBucket, isCaseId, isEvidenceIndex,
   type AnalyticsContext, type AnalyticsPhase, type AnalyticsPayload, type AnalyticsAggregate,
   type AnalyticsProperties, type AnalyticsEvent, type AnalyticsResult } from './analyticsSchema';
+import { usagePayload } from '../../../analytics/beta-usage';
 export { ANALYTICS_EVENTS, ALLOWED_PROPERTIES, sanitizeProperties } from './analyticsSchema';
 export type { AnalyticsEvent, AnalyticsProperties, AllowedProperty } from './analyticsSchema';
 
-export type AnalyticsProvider = 'off' | 'console' | 'plausible' | 'umami';
+export type AnalyticsProvider = 'off' | 'console' | 'plausible' | 'umami' | 'first-party';
 export interface AnalyticsConfig {
   provider?: string;
   dev: boolean;
@@ -16,10 +17,14 @@ export interface AnalyticsConfig {
   /** Separate infrastructure approval, never inferred from provider environment variables. */
   remoteApproved?: boolean;
   approvedEndpoints?: readonly string[];
+  releaseChannel?: string;
+  origin?: string;
 }
 export type AnalyticsTransport = (url: string, body: Record<string, unknown>) => void | Promise<void>;
 const { cells: MAX_CELLS, count: MAX_COUNT } = ANALYTICS_LIMITS;
+const BETA_USAGE_ENDPOINT = 'https://beta.no-ai-act.eu/collect';
 function endpoint(config: AnalyticsConfig): string | undefined {
+  if (config.provider === 'first-party') return BETA_USAGE_ENDPOINT;
   if (config.provider === 'plausible') return 'https://plausible.io/api/event';
   if (config.provider !== 'umami' || !config.umamiScriptUrl) return;
   try {
@@ -31,6 +36,9 @@ function endpoint(config: AnalyticsConfig): string | undefined {
 }
 export function resolveProvider(config: AnalyticsConfig): AnalyticsProvider {
   if (config.doNotTrack) return 'off';
+  if (config.provider === 'first-party') return config.releaseChannel === 'beta'
+    && config.origin === new URL(BETA_USAGE_ENDPOINT).origin && config.remoteApproved === true
+    && config.approvedEndpoints?.includes(endpoint(config)!) ? 'first-party' : 'off';
   if (config.provider === 'off' || config.provider === 'console') return config.provider;
   if (config.provider === 'plausible' || config.provider === 'umami') {
     const url = endpoint(config);
@@ -43,8 +51,10 @@ export function resolveProvider(config: AnalyticsConfig): AnalyticsProvider {
 }
 const fetchTransport: AnalyticsTransport = async (url, body) => {
   const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body), credentials: 'omit', referrerPolicy: 'no-referrer', cache: 'no-store' });
+    body: JSON.stringify(body), credentials: 'omit', referrerPolicy: 'no-referrer', cache: 'no-store',
+    ...(url === BETA_USAGE_ENDPOINT ? { keepalive: true, redirect: 'error' as const, signal: AbortSignal.timeout(5000) } : {}) });
   if (!response.ok || response.headers.get('x-plausible-dropped') === '1') throw new Error('Analytics transport failed');
+  if (url === BETA_USAGE_ENDPOINT && (response.status !== 202 || (await response.json()).accepted !== true)) throw new Error('Usage batch not accepted');
 };
 interface Attempt {
   id: string;
@@ -73,6 +83,8 @@ export class Analytics {
   private lastSelection = new Map<string, string>();
   private flushing = false;
   private generation = 0;
+  private pendingUsage: { batchId: string; cells: AnalyticsAggregate[] } | null = null;
+  private pendingUsageCreated = 0;
   private readonly config: AnalyticsConfig;
   sentCount = 0;
   readonly diagnostics = { accepted: 0, rejected: 0, duplicates: 0, droppedCells: 0, droppedCounts: 0, transportErrors: 0 };
@@ -81,7 +93,7 @@ export class Analytics {
     private readonly clock: () => number = () => performance.now()) {
     this.config = Object.freeze({ ...config, approvedEndpoints: Object.freeze([...(config.approvedEndpoints ?? [])]) });
     this.provider = resolveProvider(this.config);
-    this.enabled = this.provider !== 'off';
+    this.enabled = this.provider !== 'off' && this.provider !== 'first-party';
   }
   private now(): number { try { const n = this.clock(); return Number.isFinite(n) ? n : 0; } catch { return 0; } }
   private context(): AnalyticsContext {
@@ -96,6 +108,7 @@ export class Analytics {
   disable(): void {
     this.enabled = false;
     this.generation++;
+    this.pendingUsage = null;
     this.cells.clear(); this.documentOnce.clear(); this.sessionOnce.clear(); this.lastSelection.clear();
     this.session = null; this.attempt = null;
   }
@@ -201,15 +214,18 @@ export class Analytics {
       if (this.lastSelection.get(event) === selected) { this.diagnostics.duplicates++; return; }
       this.lastSelection.set(event, selected);
     }
-    const key = JSON.stringify(payload);
-    const cell = this.cells.get(key);
     seen?.add(event);
     if (a && event === 'hint_requested') a.hintUsed = true;
     if (a && event === 'case_completed') { a.completed = true; a.result = payload.properties.result; }
+    const stored = this.provider === 'first-party' ? usagePayload(payload) : payload;
+    if (!stored) return;
+    const key = JSON.stringify(stored);
+    const cell = this.cells.get(key);
     if (!cell && this.cells.size >= MAX_CELLS) { this.diagnostics.droppedCells++; return; }
-    if (cell && cell.count >= MAX_COUNT) { this.diagnostics.droppedCounts++; return; }
-    if (cell) cell.count = Math.min(MAX_COUNT, cell.count + 1);
-    else this.cells.set(key, { ...payload, count: 1 });
+    const maxCount = this.provider === 'first-party' ? 100 : MAX_COUNT;
+    if (cell && cell.count >= maxCount) { this.diagnostics.droppedCounts++; return; }
+    if (cell) cell.count = Math.min(maxCount, cell.count + 1);
+    else this.cells.set(key, { ...stored, count: 1 });
     this.diagnostics.accepted++;
     if (this.provider === 'console') {
       try { console.info('[analytics]', { cells: this.cells.size, accepted: this.diagnostics.accepted }); this.sentCount++; } catch { /* diagnostics cannot block play */ }
@@ -225,6 +241,31 @@ export class Analytics {
     const generation = this.generation;
     let ok = true;
     try {
+      if (this.provider === 'first-party') {
+        if (this.pendingUsage && this.now() - this.pendingUsageCreated >= 23 * 3600000) {
+          this.pendingUsage = null; this.cells.clear(); return false;
+        }
+        if (!this.pendingUsage) {
+          const cells = this.snapshot().slice(0, 10);
+          if (!cells.length) return true;
+          this.pendingUsage = { batchId: crypto.randomUUID(), cells };
+          this.pendingUsageCreated = this.now();
+        }
+        const pending = this.pendingUsage;
+        try {
+          await this.transport(url, pending as unknown as Record<string, unknown>);
+          this.sentCount++;
+          if (generation === this.generation) {
+            for (const { count, ...cell } of pending.cells) {
+              const key = JSON.stringify(cell); const current = this.cells.get(key);
+              if (current && current.count <= count) this.cells.delete(key);
+              else if (current) current.count -= count;
+            }
+            this.pendingUsage = null;
+          }
+          return true;
+        } catch { this.diagnostics.transportErrors++; return false; }
+      }
       for (const cell of this.snapshot()) {
         if (!this.isEnabled() || this.generation !== generation) break;
         const { properties, event, schemaVersion, gameVersion, count } = cell;
@@ -250,11 +291,25 @@ export class Analytics {
 function envConfig(): AnalyticsConfig {
   const env = import.meta.env ?? {};
   const doNotTrack = typeof navigator !== 'undefined' &&
-    (navigator.doNotTrack === '1' || (navigator as { msDoNotTrack?: string }).msDoNotTrack === '1');
+    (navigator.doNotTrack === '1' || (navigator as { msDoNotTrack?: string }).msDoNotTrack === '1'
+      || (navigator as Navigator & { globalPrivacyControl?: boolean }).globalPrivacyControl === true);
   return { provider: env.VITE_ANALYTICS_PROVIDER as string | undefined, dev: Boolean(env.DEV), doNotTrack,
     plausibleDomain: env.VITE_PLAUSIBLE_DOMAIN as string | undefined,
     umamiWebsiteId: env.VITE_UMAMI_WEBSITE_ID as string | undefined,
     umamiScriptUrl: env.VITE_UMAMI_SCRIPT_URL as string | undefined,
-    remoteApproved: false, approvedEndpoints: [] };
+    releaseChannel: env.VITE_RELEASE_CHANNEL as string | undefined,
+    origin: typeof location === 'undefined' ? undefined : location.origin,
+    ...(env.VITE_RELEASE_CHANNEL === 'beta' && env.VITE_ANALYTICS_PROVIDER === 'first-party'
+      ? { remoteApproved: true, approvedEndpoints: [BETA_USAGE_ENDPOINT] }
+      : { remoteApproved: false, approvedEndpoints: [] }) };
 }
 export const AnalyticsSystem = new Analytics(envConfig());
+export function betaUsagePrivacyNote(language: string): string | undefined {
+  if (import.meta.env.VITE_RELEASE_CHANNEL !== 'beta' || import.meta.env.VITE_ANALYTICS_PROVIDER !== 'first-party') return;
+  const words: Record<string, string> = {
+    it: 'Salvataggi e risposte restano sul dispositivo. Solo se scegli la casella in alto, condividi statistiche di utilizzo senza nomi o esiti. Vedi Informativa beta.',
+    en: 'Saves and answers stay on your device. Only if you check the box above, usage statistics without names or outcomes are shared. See Beta privacy notice.',
+    fr: 'Sauvegardes et reponses restent sur votre appareil. Seulement si vous cochez la case en haut, des statistiques sans noms ni resultats sont partagees. Voir la notice beta.'
+  };
+  return words[language] ?? words.it;
+}

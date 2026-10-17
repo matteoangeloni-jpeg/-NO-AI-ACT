@@ -30,6 +30,19 @@ installKeyEventDedupe();
 initMobilePresentation();
 installAnalyticsInstrumentation(StateManager, AnalyticsSystem,
   () => ({ language: StateManager.language, mode: StateManager.gameMode }), window);
+if (import.meta.env.VITE_RELEASE_CHANNEL === 'beta' && AnalyticsSystem.provider === 'first-party') {
+  window.addEventListener('no-ai-act-beta-statistics', (event: Event) => {
+    if ((event as CustomEvent).detail === true) {
+      AnalyticsSystem.enable(); AnalyticsSystem.track('game_opened');
+    } else AnalyticsSystem.disable();
+  });
+  window.setInterval(() => { void AnalyticsSystem.flush(); }, 10000);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') void AnalyticsSystem.flush();
+  });
+  document.documentElement.dataset.betaUsageReady = 'true';
+  window.dispatchEvent(new Event('no-ai-act-beta-statistics-ready'));
+}
 if (import.meta.env.DEV) {
   (window as unknown as { playerTelemetry?: unknown }).playerTelemetry = {
     snapshot: () => AnalyticsSystem.snapshot(), diagnostics: () => ({ ...AnalyticsSystem.diagnostics })

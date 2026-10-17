@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { computeEnding } from '../data/endings';
-import { AnalyticsSystem } from '../systems/AnalyticsSystem';
+import { AnalyticsSystem, betaUsagePrivacyNote } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { IndicatorHud } from '../systems/IndicatorSystem';
 import { StateManager } from '../systems/StateManager';
@@ -87,7 +87,8 @@ export class FinaleScene extends Phaser.Scene {
     // moduli esterni e non raccoglie feedback o dati — niente pulsanti, niente
     // link, nessuna trasmissione. Sostituisce il vecchio CTA verso il modulo
     // esterno, rimosso dal prodotto pubblico.
-    const privacy = L().ui.finale.privacyNote;
+    const betaPrivacy = betaUsagePrivacyNote(StateManager.language);
+    const privacy = betaPrivacy ? { title: 'Privacy - Beta', text: betaPrivacy } : L().ui.finale.privacyNote;
     const fbLeft = cx - 570;
     this.add.text(fbLeft, 540, privacy.title, textStyle(13, COLOR_STR.accentText, { fontStyle: 'bold' }));
     this.add.text(fbLeft, 562, privacy.text, textStyle(11, COLOR_STR.paperDim, { wordWrap: { width: 410 }, lineSpacing: 3 }));

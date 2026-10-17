@@ -12,7 +12,7 @@ export const PHASES = Object.freeze(['menu', 'briefing', 'map', 'case', 'evidenc
 export const RESULTS = Object.freeze(['correct', 'partial', 'wrong'] as const);
 export const DURATION_BUCKETS = Object.freeze(['under_1m', '1_to_5m', '5_to_15m', '15_to_30m', '30m_plus'] as const);
 export const ANALYTICS_EVENTS = Object.freeze([
-  'game_opened', 'game_started', 'game_resumed', 'game_session_ended', 'language_selected', 'mode_selected',
+  'game_opened', 'game_started', 'game_resumed', 'usage_case_completed', 'usage_case_left', 'usage_session_completed', 'game_session_ended', 'language_selected', 'mode_selected',
   'case_started', 'case_completed', 'case_abandoned', 'session_completed',
   'evidence_opened', 'evidence_cited', 'citation_error', 'hint_requested', 'decision_submitted', 'report_signed',
   'tutorial_started', 'tutorial_skipped', 'tutorial_completed', 'debrief_opened', 'review_started',
@@ -44,6 +44,9 @@ type Rule = { readonly required: readonly AllowedProperty[]; readonly optional: 
 const rule = (required: readonly AllowedProperty[] = [], optional: readonly AllowedProperty[] = [], once: Rule['once'] = 'action'): Rule => Object.freeze({ required: Object.freeze([...required]), optional: Object.freeze([...optional]), once });
 export const EVENT_CATALOG: Readonly<Record<AnalyticsEvent, Rule>> = Object.freeze({
   game_opened: rule([], [], 'document'),
+  usage_case_completed: rule(['caseId'], [], 'case'),
+  usage_case_left: rule(['caseId'], [], 'case'),
+  usage_session_completed: rule([], [], 'session'),
   game_started: rule([], [], 'session'), game_resumed: rule([], [], 'session'),
   game_session_ended: rule(['durationBucket'], [], 'session'),
   language_selected: rule(), mode_selected: rule(), case_started: rule(['caseId'], [], 'case'),
