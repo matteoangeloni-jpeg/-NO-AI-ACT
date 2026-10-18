@@ -831,6 +831,18 @@ export const PAGINE = [
         ]
       },
       {
+        titolo: 'Une activité de maîtrise de l’IA fondée sur les preuves',
+        blocchi: [
+          { testo: 'Pour une courte discussion en binôme, choisissez un dossier du jeu et préparez quatre colonnes sur une feuille : usage du système, personnes concernées, preuves disponibles et informations manquantes. Utilisez uniquement le cas fictif, sans ajouter de données personnelles réelles.' },
+          { lista: [
+            'Avant de classer le système, identifiez une décision automatisée et une personne qui pourrait en subir les conséquences.',
+            'Comparez deux documents du dossier : lequel soutient votre interprétation et lequel la remet en question ?',
+            'Proposez une mesure et précisez le problème auquel elle répond. Votre partenaire recherche une information manquante qui pourrait modifier votre décision.'
+          ] },
+          { testo: 'Terminez par deux phrases : « La preuve décisive est… » et « Je changerais d’avis si… ». Consultez le <a href="{FR}pour-les-formateurs/">guide d’animation pour les formateurs</a> et les <a href="{FR}categories-de-risque-ai-act/">exemples de catégories de risque</a>. Cet exercice ne certifie ni une compétence ni la conformité réglementaire.' }
+        ]
+      },
+      {
         titolo: 'Apprendre en décidant',
         blocchi: [
           {
