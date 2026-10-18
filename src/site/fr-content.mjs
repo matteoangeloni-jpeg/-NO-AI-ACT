@@ -74,9 +74,9 @@ export const PAGINE = [
       "Jeu d'enquête gratuit et open source sur le règlement européen sur l'intelligence artificielle : 14 dossiers, dans le navigateur, sans compte.",
     breadcrumb: 'Accueil',
     eyebrow: 'RÉPUBLIQUE MUNICIPALE AUTOMATISÉE — ANNÉE 2032',
-    h1: "NO AI ACT — enquêter sur l'IA pour comprendre la règle",
+    h1: "NO AI ACT : un jeu pédagogique sur l'AI Act",
     lead:
-      "Quatorze dossiers. Des systèmes d'intelligence artificielle. Des personnes réelles. Vous êtes l'inspecteur : examinez les pièces, classez le risque, signez votre rapport.",
+      "Un jeu d'enquête gratuit sur l'intelligence artificielle. Dans une Europe imaginaire de 2032 sans AI Act, examinez quatorze dossiers, classez les risques et signez votre rapport. Ce récit est une fiction, pas une description du droit européen en vigueur.",
     sezioni: [
       {
         titolo: 'Une ville où la règle est arrivée trop tard',
@@ -249,18 +249,25 @@ export const PAGINE = [
     slug: 'ai-act-pour-enseignants',
     it: 'ai-act-per-docenti/',
     en: 'en/ai-act-for-teachers/',
-    title: "AI Act pour les enseignants : utiliser le jeu en classe",
+    title: "AI Act à l'école : repères pour les enseignants",
     description:
-      "Comment utiliser NO AI ACT en classe : structure en trois temps, mode enseignant, pauses de discussion, débriefing local. Sans compte ni données d'élèves.",
-    ogTitle: "L'AI Act pour les enseignants et les formateurs",
+      "AI Act pour les enseignants : distinguer usages de l'IA à l'école, risques et responsabilités. Introduction au règlement et cas pour débattre en classe.",
+    ogTitle: "AI Act à l'école : usages et responsabilités",
     ogDescription:
-      "Une séance de 20 à 40 minutes, aucune donnée d'élève, un débriefing local exportable. Ce qui marche, et ce que le jeu ne mesure pas.",
+      "Une introduction aux usages de l'IA à l'école, à leurs finalités et aux rôles des acteurs, puis des pistes pour discuter ces questions avec NO AI ACT.",
     breadcrumb: 'Pour les enseignants',
     eyebrow: 'ENSEIGNANTS ET CLASSE',
-    h1: "L'AI Act pour les enseignants et les formateurs",
+    h1: "L'AI Act à l'école : usages et responsabilités",
     lead:
-      "Une structure en trois temps et un mode enseignant qui ouvre la discussion après chaque dossier. Le débriefing reste sur l’appareil ; les statistiques d’usage sont agrégées.",
+      "Utiliser l'IA dans un établissement et enseigner l'AI Act sont deux tâches différentes. Cette introduction relie le contexte réglementaire aux discussions proposées par le jeu.",
     sezioni: [
+      {
+        titolo: "Comprendre l'usage avant de classer le risque",
+        blocchi: [
+          { testo: "Une aide à l'apprentissage, une procédure d'admission et l'évaluation d'examens n'ont pas la même finalité. Identifiez ce que fait le système, qui le fournit, qui l'utilise sous son autorité et qui en subit les effets. Vérifiez ensuite les conditions applicables dans le texte officiel. Toutes les applications scolaires ne relèvent pas automatiquement de la même catégorie. Maîtrise de l'IA, protection des données, transparence et contrôle humain sont des questions distinctes qui peuvent se compléter. Ni cette introduction ni une partie ne certifient la légalité d'un produit ou le respect de toutes les obligations d'un établissement." },
+          { testo: "Pour préparer une séance, ses activités et son débriefing, consultez les <a href=\"{FR}pour-les-formateurs/\">ressources pour les formateurs</a>. Pour le cadre général, commencez par le <a href=\"{FR}guide-ai-act/\">guide de l'AI Act</a>." }
+        ]
+      },
       {
         titolo: 'Avant, pendant, après',
         blocchi: [

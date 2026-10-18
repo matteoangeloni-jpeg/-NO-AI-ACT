@@ -11,14 +11,14 @@
 > algorithmic risk governance — not legal advice.
 
 - Version: v4.0.0
-- Status: press candidate; not yet tagged
+- Status: published web version; tagged-release history is listed separately below.
 - Game languages: Italian, English and French.
-- Website localization candidate: Italian, English and French; 13 introductory pages each in German, Spanish and European Portuguese (pt-PT). New languages do not imply a translated game or the full educational hub.
+- Website languages: Italian, English and French; 13 introductory pages each in German, Spanish and European Portuguese (pt-PT). New website languages do not imply a translated game or the full educational hub.
 - Audience: teachers and trainers, upper-secondary and university students, researchers, professionals working with AI governance
 - Pricing: free and open source, copyleft (GPL-3.0-or-later code, CC BY-SA 4.0 educational content; up to v2.0.0 it was MIT + CC BY 4.0)
-- 14 playable cases; localization candidate includes 146 indexable website URLs (33 IT, 37 EN, 37 FR, 13 DE, 13 ES, 13 PT).
+- 14 playable cases; 146 indexable website URLs (33 IT, 37 EN, 37 FR, 13 DE, 13 ES, 13 PT).
 - Every public page shares a global navigation (Play · Education/Resources · Teachers · AI Act guide · Glossary · Privacy · language switch); the game and the education hub are reachable from every page, and the game links back to the site.
-- Best entry points: the two landing pages and the two education hubs, each of which opens with a "Start here" chooser (play now / teachers / students / AI Act guide / glossary / privacy).
+- Best entry points: the home and education hub in the reader's language. Detailed lesson-plan and reference coverage varies by locale.
 
 ## Key facts and limitations
 
@@ -27,10 +27,10 @@
 - NOT legal advice and does not replace the regulation or a professional opinion.
 - NOT a compliance tool or certification: it grants no credits or attestations.
 - Local play: no account, no registration or player identifiers. A first-party backend stores aggregate usage counters only.
-- Automatic first-party usage counters (starts, completions and phases), without answers, outcomes, player IDs or analytics cookies. Disable in the game bar; DNT/GPC respected. Saves, decisions and reports stay local. See /game-statistics.html.
-- Public pages additionally use aggregate, cookie-free Cloudflare Web Analytics.
+- Automatic first-party usage counters (starts, completions and phases), without answers, outcomes, player IDs or analytics cookies. Disable through the shield/privacy controls; DNT/GPC respected. Saves, decisions and reports stay local. See /game-statistics.html.
+- Some public pages additionally use aggregate, cookie-free Cloudflare Web Analytics.
 - Teacher mode is local; its debrief export is local and anonymous.
-- No external forms are embedded: the public build collects no feedback or personal data.
+- No external forms are embedded; the public game requests no names or email addresses.
 - Educational effectiveness has not been empirically validated; no impact claims are made.
 
 ## Play
@@ -38,6 +38,10 @@
 - Play the game (IT/EN/FR): https://www.no-ai-act.eu/play/
 - Italian landing page: https://www.no-ai-act.eu/
 - English landing page: https://www.no-ai-act.eu/en/
+- French landing page: https://www.no-ai-act.eu/fr/
+- German introductory pages: https://www.no-ai-act.eu/de/
+- Spanish introductory pages: https://www.no-ai-act.eu/es/
+- European Portuguese introductory pages: https://www.no-ai-act.eu/pt/
 - How the game works (EN): https://www.no-ai-act.eu/en/how-it-works/
 - Come funziona il gioco (IT): https://www.no-ai-act.eu/come-funziona/
 
