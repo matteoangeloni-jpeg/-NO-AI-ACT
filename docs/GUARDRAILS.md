@@ -2,6 +2,10 @@
 
 ## Temporary Statistics Notice
 
+The desktop reclaimed-space assertion waits up to five seconds for Phaser's
+asynchronous canvas resize after the notice is hidden. The maximum lost space
+remains 40px; hiding the DOM notice alone is not sufficient to pass.
+
 - `npm run smoke:usage-notice` checks automatic dismissal, restored game space,
   the persistent shield control, explicit close, Escape and keyboard focus.
 - Dismissing the notice must not change collection; the opt-out remains reachable.
