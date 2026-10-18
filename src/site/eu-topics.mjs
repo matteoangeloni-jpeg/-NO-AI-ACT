@@ -1,4 +1,4 @@
-// Scope of the first European-language publication; no empty counterpart routes.
+// Published European-language equivalents; no empty counterpart routes.
 export const TOPICS = [
   ['home', 'en', '', '', ''],
   ['how', 'en/how-it-works', 'so-funktioniert-es', 'como-funciona', 'como-funciona'],
@@ -12,6 +12,8 @@ export const TOPICS = [
   ['high', 'en/high-risk-ai-systems', 'hochrisiko-ki-systeme', 'sistemas-ia-alto-riesgo', 'sistemas-ia-risco-elevado'],
   ['transparency', 'en/transparency-obligations', 'ki-transparenzpflichten', 'obligaciones-transparencia-ia', 'obrigacoes-transparencia-ia'],
   ['gpai', 'en/general-purpose-ai', 'ki-modelle-allgemeiner-verwendungszweck', 'modelos-ia-uso-general', 'modelos-ia-finalidade-geral'],
-  ['literacy', 'en/ai-literacy', 'ki-kompetenz', 'alfabetizacion-ia', 'literacia-ia']
+  ['literacy', 'en/ai-literacy', 'ki-kompetenz', 'alfabetizacion-ia', 'literacia-ia'],
+  ['classroom', 'en/ai-act-classroom-lab', 'ai-act-unterrichtseinheit', 'taller-ai-act-aula', 'atividade-ai-act-sala-aula'],
+  ['employment', 'en/ai-in-recruitment-and-employment', 'ki-personalauswahl', 'ia-seleccion-personal', 'ia-recrutamento']
 ];
 export const topicDir = (topic, lang) => `${lang}${topic[{ de: 2, es: 3, pt: 4 }[lang]] ? `/${topic[{ de: 2, es: 3, pt: 4 }[lang]]}` : ''}`;

@@ -29,7 +29,7 @@ describe('Six-language keyword research, not unmeasured ranking claims', () => {
       const row = plan.find((row: any) => row.lang === lang && row.topic === 'classroom');
       expect(row.dir).not.toContain('docentes');
       expect(row.dir).not.toContain('lehrkraefte');
-      expect(row.gap).toContain('manca un modulo');
+      expect(row.gap).toContain('Laboratorio localizzato');
     }
   });
 

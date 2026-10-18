@@ -12,7 +12,9 @@ const kinds = {
   'en/education': 'resource-hub', 'en/for-educators': 'classroom-session',
   'en/ai-act-for-teachers': 'school-ai-act', 'en/eu-ai-act-guide': 'regulation-overview',
   'en/research-and-methodology': 'research-methodology', 'en/how-to-cite': 'citation',
-  'en/press-kit': 'press', 'en/matteo-angeloni': 'author', 'en/faq': 'faq'
+  'en/press-kit': 'press', 'en/matteo-angeloni': 'author', 'en/faq': 'faq',
+  'en/ai-act-classroom-lab': 'classroom-lab',
+  'en/ai-in-recruitment-and-employment': 'employment-case-analysis'
 };
 export const rows = publicRoutes(cfg).map(route => {
   const html = readFileSync(route.dir ? `${route.dir}/index.html` : 'index.html', 'utf8');

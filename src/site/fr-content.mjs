@@ -234,6 +234,14 @@ export const PAGINE = [
         ]
       },
       {
+        titolo: 'Choisir une activité à partir d’une question',
+        blocchi: [
+          { testo: '<strong>Préparer un atelier.</strong> L’<a href="{FR}atelier-ai-act-en-classe/">atelier AI Act en classe</a> permet de choisir un cas, de formuler un objectif et de préparer le débat sur les preuves. Le <a href="{FR}pour-les-formateurs/">guide pour les formateurs</a> accompagne l’animation. Une seule décision discutée puis révisée peut constituer la séance proposée : terminer tout le jeu n’est pas une condition de l’activité.' },
+          { testo: '<strong>Examiner un filtre de candidatures.</strong> La page sur l’<a href="{FR}ia-recrutement-emploi/">IA dans le recrutement et l’emploi</a> distingue finalité, risque et responsabilité. Demandez quelles candidatures sont réellement lues, qui peut contester une recommandation et quel document manque pour conclure. Utilisez un scénario fictif, sans importer de véritables CV ni de données personnelles.' },
+          { testo: '<strong>Commencer par un exercice court.</strong> L’<a href="{FR}maitrise-de-l-ia/">activité de maîtrise de l’IA</a> organise la discussion en quatre champs : finalité, personnes concernées, preuves et informations manquantes. Les <a href="{FR}categories-de-risque-ai-act/">catégories de risque</a> viennent ensuite préciser l’analyse. Ces parcours ne sont pas des formations accréditées et ne valent pas autorisation d’utiliser un produit réel.' }
+        ]
+      },
+      {
         titolo: 'Éprouver le règlement en jouant',
         blocchi: [
           {

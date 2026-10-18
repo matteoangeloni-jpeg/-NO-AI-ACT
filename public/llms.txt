@@ -13,10 +13,10 @@
 - Version: v4.0.0
 - Status: published web version; tagged-release history is listed separately below.
 - Game languages: Italian, English and French.
-- Website languages: Italian, English and French; 13 introductory pages each in German, Spanish and European Portuguese (pt-PT). New website languages do not imply a translated game or the full educational hub.
+- Website languages: Italian, English and French; 15 introductory and practical resources each in German, Spanish and European Portuguese (pt-PT), including classroom workshops and recruitment cases. New website languages do not imply a translated game or the full educational hub.
 - Audience: teachers and trainers, upper-secondary and university students, researchers, professionals working with AI governance
 - Pricing: free and open source, copyleft (GPL-3.0-or-later code, CC BY-SA 4.0 educational content; up to v2.0.0 it was MIT + CC BY 4.0)
-- 14 playable cases; 146 indexable website URLs (33 IT, 37 EN, 37 FR, 13 DE, 13 ES, 13 PT).
+- 14 playable cases; 152 indexable website URLs (33 IT, 37 EN, 37 FR, 15 DE, 15 ES, 15 PT).
 - Every public page shares a global navigation (Play · Education/Resources · Teachers · AI Act guide · Glossary · Privacy · language switch); the game and the education hub are reachable from every page, and the game links back to the site.
 - Best entry points: the home and education hub in the reader's language. Detailed lesson-plan and reference coverage varies by locale.
 

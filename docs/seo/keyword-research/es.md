@@ -24,9 +24,9 @@ editoriali: non sono tutte query osservate ne promesse di ranking.
 
 - Variante: situación de aprendizaje inteligencia artificial ética.
 - Intento: Preparare una lezione.
-- Pagina proprietaria: [es/educacion](https://www.no-ai-act.eu/es/educacion/).
+- Pagina proprietaria: [es/taller-ai-act-aula](https://www.no-ai-act.eu/es/taller-ai-act-aula/).
 - Intervento: Rendere immediatamente reperibili obiettivi, materiali, conduzione e discussione finale.
-- Stato: Introduzione disponibile; manca un modulo operativo localizzato con materiali e discussione finale.
+- Stato: Laboratorio localizzato con sequenza di 60 minuti, scheda su carta, scenario e discussione finale; gioco IT/EN/FR dichiarato.
 
 ### P1: alfabetización en inteligencia artificial
 
