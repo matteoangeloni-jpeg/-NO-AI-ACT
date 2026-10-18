@@ -1094,6 +1094,7 @@ footer .credit-affil {
   .metrics li { grid-template-columns: 1fr; gap: .3rem; }
 }
 /* Explicit language links: no forced redirects or locale cookies. */
+main h1, main h2 { overflow-wrap: anywhere; hyphens: auto; letter-spacing: 0; }
 .locale-links { border-bottom: 1px solid #46505a; }
 .locale-links .wrap { display: flex; flex-wrap: wrap; gap: 8px; padding-block: 12px; }
 .locale-links a { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 46px; padding: 6px 12px; font-size: 14px; letter-spacing: 0; text-decoration: none; border: 1px solid #626b74; border-radius: 4px; }

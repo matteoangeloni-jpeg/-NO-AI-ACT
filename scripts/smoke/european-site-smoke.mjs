@@ -98,6 +98,23 @@ try {
       await page.screenshot({ path: `${out}/home-${lang}-${width}.png`, animations: 'disabled' });
     }
   }
+  // Long localized headings and the activity must also fit narrow viewports.
+  const literacyRoutes = {
+    it: 'alfabetizzazione-ai', en: 'en/ai-literacy', fr: 'fr/maitrise-de-l-ia',
+    de: 'de/ki-kompetenz', es: 'es/alfabetizacion-ia', pt: 'pt/literacia-ia'
+  };
+  for (const width of [320, 390, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    for (const [lang, dir] of Object.entries(literacyRoutes)) {
+      await page.goto(`${base}/${dir}/`);
+      assert(!await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), `${lang}: literacy overflow at ${width}`);
+      const exercise = page.locator('h2').filter({ hasText: /attività di alfabetizzazione|classroom activity|activité de maîtrise|Übung zur|actividad de alfabetización|atividade de literacia/ });
+      assert.equal(await exercise.count(), 1, `${lang}: missing literacy activity`);
+      await exercise.scrollIntoViewIfNeeded();
+      assert(await exercise.isVisible());
+      if (width === 390) await page.screenshot({ path: `${out}/literacy-${lang}-390.png`, animations: 'disabled' });
+    }
+  }
   // The fallback is usable without scripts, not a JS-only language router.
   const fallback = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
   const plain = await fallback.newPage();
@@ -109,7 +126,7 @@ try {
   }
   assert.deepEqual(errors, []);
   writeFileSync(`${out}/results.json`, JSON.stringify({ generated: new Date().toISOString(), pass: true, results }, null, 2));
-  console.log(`PASS: ${results.length} route/viewport checks, 12 six-language home layouts, menus, carousel and no-JS navigation.`);
+  console.log(`PASS: ${results.length} route/viewport checks, 12 home layouts, 18 literacy layouts, menus, carousel and no-JS navigation.`);
 } finally {
   await browser?.close();
   server?.kill();
