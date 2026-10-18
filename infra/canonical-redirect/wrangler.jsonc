@@ -1,0 +1,9 @@
+{
+  "name": "no-ai-act-canonical-redirect",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-18",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "no-ai-act.eu/*", "zone_name": "no-ai-act.eu" }],
+  "observability": { "enabled": false }
+}

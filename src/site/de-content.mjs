@@ -15,8 +15,8 @@ export const PAGES = {
   home: {
     title: 'NO AI ACT: Lernspiel zur EU-KI-Verordnung',
     description: 'Kostenloses Lernspiel zur EU-KI-Verordnung: 14 Fälle untersuchen, Risiken einordnen und Entscheidungen begründen. Ohne Konto im Browser spielen.',
-    h1: 'NO AI ACT',
-    lead: 'Ein investigatives Lernspiel zur europäischen KI-Verordnung. Untersuche Belege, ordne Risiken ein und übernimm Verantwortung für deine Entscheidung.',
+    h1: 'NO AI ACT: Lernspiel zum EU AI Act',
+    lead: 'Ein kostenloses investigatives Lernspiel zum EU AI Act, der europäischen KI-Verordnung. Untersuche in einer fiktiven Welt Belege und KI-Risiken. Die Geschichte ist keine Beschreibung der geltenden Rechtslage.',
     sections: [
       ['Eine Stadt, vierzehn Untersuchungen', 'Die Handlung spielt 2032 in einer fiktiven Stadt, in der die KI-Verordnung nie wirksam geworden ist. Automatisierte Systeme entscheiden über Arbeit, öffentliche Leistungen und persönliche Möglichkeiten. Du prüfst jeweils ein Dossier mit Dokumenten, Behauptungen und widersprüchlichen Hinweisen. Die dystopische Ausgangslage ist Fiktion, keine Beschreibung der tatsächlichen europäischen Rechtslage.'],
       ['Entscheiden statt Antworten erraten', 'Du wählst eine Risikoeinordnung, eine geeignete Maßnahme, den verantwortlichen Akteur und eine Begründung. Zuvor musst du relevante Belege auswählen. Eine richtige Kategorie mit unpassenden Belegen ist nicht dieselbe Leistung wie eine nachvollziehbar begründete Entscheidung. Der anschließende Bericht erklärt Unterschiede und zeigt, worauf beim nächsten Fall zu achten ist.'],
@@ -46,11 +46,12 @@ export const PAGES = {
     ]
   },
   teachers: {
-    title: 'KI-Verordnung im Unterricht: NO AI ACT für Lehrkräfte',
-    description: 'NO AI ACT im Unterricht einsetzen: Fälle vorbereiten, gemeinsam entscheiden und Begründungen nachbesprechen. Ohne Schülerkonten oder Namenslisten.',
-    h1: 'NO AI ACT für Lehrkräfte und Lerngruppen',
-    lead: 'Der didaktische Nutzen liegt in der Diskussion über Belege und Verantwortung, nicht im Vergleich vermeintlich objektiver Ranglisten.',
+    title: 'KI-Verordnung für Schulen: Lehrkräfte und Verantwortung',
+    description: 'EU AI Act für Lehrkräfte: KI-Nutzung in Schulen, Verwendungszweck, Risiken und Verantwortung unterscheiden. Dazu ein Lernspiel für die Diskussion.',
+    h1: 'KI-Verordnung für Schulen und Lehrkräfte',
+    lead: 'KI in der Schule einzusetzen und die KI-Verordnung zu unterrichten sind zwei verschiedene Aufgaben. Diese Einführung verbindet den rechtlichen Kontext mit der Diskussion im Lernspiel.',
     sections: [
+      ['KI-Nutzung in der Schule einordnen', 'Eine Lernhilfe, ein Zulassungsverfahren und die Bewertung von Prüfungsleistungen erfüllen unterschiedliche Zwecke. Kläre zuerst, was das konkrete System tut, wer es bereitstellt, wer es in eigener Verantwortung verwendet und welche Personen betroffen sind. Prüfe danach die einschlägigen Voraussetzungen im amtlichen Text. Nicht jede Anwendung in einer Schule gehört automatisch zur gleichen Risikokategorie. KI-Kompetenz, Datenschutz, Transparenz und menschliche Aufsicht sind getrennte Fragen, die sich ergänzen können. Diese Einführung und das Spiel bescheinigen weder die rechtliche Zulässigkeit eines Produkts noch die Erfüllung sämtlicher Pflichten.'],
       ['Vor dem Spielen', 'Spiele den ausgewählten Fall zunächst selbst. Lege fest, ob die Gruppe vor allem Risiken unterscheiden, Belege bewerten oder Verantwortlichkeiten erkennen soll. Erkläre die Grenzen der Simulation und prüfe, ob die angebotenen Spielsprachen zur Lerngruppe passen. Die deutschsprachigen Webseiten bedeuten nicht, dass auch die Spieloberfläche bereits deutsch ist.'],
       ['Während der Untersuchung', 'Projiziere das Dossier oder lasse in kleinen Gruppen arbeiten. Bitte die Teilnehmenden, ihre Einordnung mit konkreten Hinweisen zu verbinden, bevor sie den Bericht unterschreiben. Der Lehrmodus unterstützt Gesprächspausen. Unterschiedliche Antworten können ein guter Anlass sein, Annahmen offenzulegen, statt nur die vermeintlich richtige Kategorie abzugleichen.'],
       ['Nach dem Bericht', 'Nutze die lokale Nachbesprechung für Fragen an die Gruppe: Was war entscheidend, was fehlte und welche Maßnahme wäre überprüfbar? Ein Export bleibt eine bewusst ausgewählte lokale Datei. Das Projekt benötigt keine Schülerkonten oder Namenslisten und sendet keine einzelnen Antworten. Aggregierte Nutzungsereignisse sind kein Nachweis individueller Kompetenz oder pädagogischer Wirksamkeit.']

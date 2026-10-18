@@ -35,7 +35,7 @@ for (const topic of TOPICS) {
 config.$comment = 'Language groups declare only existing page equivalents. IT/EN/FR cover the current full inventory; DE/ES/PT contain the first 13 introductory pages each. Portuguese targets pt-PT. /play/ is noindex and remains IT/EN/FR.';
 const languages = publishedLanguages(config);
 const alternates = group => Object.entries(group).map(([lang, dir]) => `  <link rel="alternate" hreflang="${languageCode(lang)}" href="${url(dir)}" />`).join('\n') + `\n  <link rel="alternate" hreflang="x-default" href="${url(group.it ?? group.en)}" />`;
-const switcher = (group, current) => `<nav class="locale-links" aria-label="${{it:'Lingue',en:'Languages',fr:'Langues',de:'Sprachen',es:'Idiomas',pt:'Idiomas'}[current]}"><div class="wrap">${Object.entries(group).map(([lang, dir]) => `<a href="${href(dir)}" hreflang="${languageCode(lang)}" lang="${languageCode(lang)}"${lang === current ? ' aria-current="page"' : ''}>${names[lang]}</a>`).join('')}</div></nav>`;
+const switcher = (group, current) => `<nav class="locale-links" aria-label="${{it:'Lingue',en:'Languages',fr:'Langues',de:'Sprachen',es:'Idiomas',pt:'Idiomas'}[current]}"><div class="wrap">${Object.entries(group).map(([lang, dir]) => `<a href="${href(dir)}" hreflang="${languageCode(lang)}" lang="${languageCode(lang)}"${lang === current ? ' aria-current="page"' : ''}><img src="/assets/flags/${lang === 'en' ? 'gb' : lang}.png" width="28" height="20" alt="" /><span>${names[lang]}</span></a>`).join('')}</div></nav>`;
 
 function press(lang) {
   const words = {

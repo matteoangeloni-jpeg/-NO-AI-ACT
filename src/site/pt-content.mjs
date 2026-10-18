@@ -13,7 +13,7 @@ export const PAGES = {
   home: {
     title: 'NO AI ACT: jogo educativo sobre o Regulamento IA',
     description: 'Jogo educativo gratuito sobre o Regulamento IA europeu: investiga 14 casos, classifica riscos e fundamenta decisões. Joga no navegador, sem conta.',
-    h1: 'NO AI ACT',
+    h1: 'NO AI ACT: jogo educativo sobre o AI Act',
     lead: 'Um jogo de investigação para compreender conceitos do Regulamento da Inteligência Artificial. Examina provas e assume a responsabilidade pelas tuas decisões.',
     sections: [
       ['Uma cidade, catorze investigações', 'A história decorre em 2032, numa cidade fictícia onde o Regulamento IA nunca chegou a ser aplicado. Sistemas automatizados influenciam o emprego, os serviços públicos e as oportunidades das pessoas. Cada processo contém documentos, afirmações e indícios contraditórios. Esta distopia é uma construção narrativa, não uma descrição da situação jurídica real na Europa.'],
@@ -44,11 +44,12 @@ export const PAGES = {
     ]
   },
   teachers: {
-    title: 'Regulamento IA na aula: recursos para docentes',
-    description: 'Utiliza NO AI ACT na aula: prepara casos, debate provas e revê decisões. Sem contas de alunos nem listas de nomes para começar a jogar.',
-    h1: 'NO AI ACT para docentes e grupos de aprendizagem',
-    lead: 'A atividade centra-se na argumentação e na análise de provas, não numa classificação dos alunos por pontuações.',
+    title: 'Regulamento IA nas escolas: guia para docentes',
+    description: 'Regulamento IA para docentes: distinguir finalidade, riscos e responsabilidades na escola. Introdução ao contexto europeu e casos para debater na aula.',
+    h1: 'O Regulamento IA na escola: usos e responsabilidades',
+    lead: 'Utilizar IA numa escola e ensinar o Regulamento IA são tarefas diferentes. Esta introdução liga o contexto normativo aos casos do jogo.',
     sections: [
+      ['Analisar a utilização de IA na escola', 'Uma ferramenta de apoio à aprendizagem, um procedimento de admissão e a avaliação de exames têm finalidades diferentes. Identifica o que faz o sistema concreto, quem o disponibiliza, quem o utiliza sob a sua autoridade e quem é afetado. Depois verifica as condições aplicáveis no texto oficial. Nem todas as aplicações escolares pertencem automaticamente à mesma categoria de risco. A literacia em IA, a proteção de dados, a transparência e a supervisão humana colocam questões distintas que se podem complementar. Nem esta introdução nem uma partida certificam a legalidade de um produto ou o cumprimento de todas as obrigações da escola.'],
       ['Antes de jogar', 'Experimenta primeiro o caso que pretendes utilizar. Decide se a atividade se concentra nos riscos, na qualidade das provas ou nas responsabilidades. Explica os limites da simulação e verifica se os idiomas disponíveis no jogo são adequados ao grupo. A existência de recursos em português não significa que a interface do jogo já esteja traduzida para esse idioma.'],
       ['Durante a investigação', 'Podes projetar o processo ou trabalhar em pequenos grupos. Pede que relacionem cada conclusão com indícios concretos antes de assinarem o relatório. O modo docente facilita pausas para discussão. Respostas diferentes permitem rever pressupostos, em vez de apenas comparar quem escolheu a categoria esperada.'],
       ['Depois do relatório', 'Utiliza a reflexão local para perguntar que prova foi decisiva, o que faltava e como verificar uma medida proposta. A exportação continua a ser uma escolha consciente de um ficheiro local. O projeto não necessita de contas ou nomes de alunos e não envia respostas individuais. Eventos agregados de utilização não comprovam competências pessoais nem eficácia pedagógica.']

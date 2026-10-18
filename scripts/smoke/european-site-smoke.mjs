@@ -74,6 +74,30 @@ try {
       results.push({ route: route.dir, width, ...state });
     }
   }
+  // Brand/intent edits must also keep the established IT/EN/FR heroes readable.
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    for (const lang of ['it', 'en', 'fr', 'de', 'es', 'pt']) {
+      await page.goto(`${base}/${lang === 'it' ? '' : `${lang}/`}`);
+      await page.locator('h1').evaluate(el => Promise.all(el.getAnimations().map(a => a.finished)));
+      const state = await page.evaluate(() => {
+        const heading = document.querySelector('h1');
+        const lead = document.querySelector('.hero .lead');
+        const h = heading.getBoundingClientRect(), p = lead.getBoundingClientRect();
+        return { title: heading.textContent, overflow: document.documentElement.scrollWidth > innerWidth + 1,
+          overlap: h.bottom > p.top + 1, outside: h.left < 0 || h.right > innerWidth + 1 };
+      });
+      assert(state.title.includes('NO AI ACT'), `${lang}: product identity`);
+      assert(!state.overflow && !state.overlap && !state.outside, `${lang}: hero layout at ${width}`);
+      assert.equal(await page.locator('.locale-links a').count(), 6);
+      assert(await page.locator('.locale-links img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0)), `${lang}: missing flag`);
+      assert(await page.locator('.locale-links a').evaluateAll(links => links.every(link => {
+        const rect = link.getBoundingClientRect();
+        return rect.width >= 44 && rect.height >= 44 && rect.left >= 0 && rect.right <= innerWidth;
+      })), `${lang}: language touch targets at ${width}`);
+      await page.screenshot({ path: `${out}/home-${lang}-${width}.png`, animations: 'disabled' });
+    }
+  }
   // The fallback is usable without scripts, not a JS-only language router.
   const fallback = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
   const plain = await fallback.newPage();
@@ -85,7 +109,7 @@ try {
   }
   assert.deepEqual(errors, []);
   writeFileSync(`${out}/results.json`, JSON.stringify({ generated: new Date().toISOString(), pass: true, results }, null, 2));
-  console.log(`PASS: ${results.length} route/viewport checks, menus, carousel and no-JS navigation.`);
+  console.log(`PASS: ${results.length} route/viewport checks, 12 six-language home layouts, menus, carousel and no-JS navigation.`);
 } finally {
   await browser?.close();
   server?.kill();
