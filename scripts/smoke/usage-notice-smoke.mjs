@@ -31,6 +31,12 @@ try {
     assert.equal(await page.evaluate(() => document.documentElement.style.getPropertyValue('--usage-bar-height')), '0px');
     assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     if (width === 1280) {
+      // The DOM hides the notice synchronously; Phaser fits its canvas on a
+      // later resize tick. Wait for that fit without relaxing the space limit.
+      await page.waitForFunction(() => {
+        const canvas = document.querySelector('canvas');
+        return canvas && innerHeight - canvas.getBoundingClientRect().height <= 40;
+      }, undefined, { timeout: 5000 });
       const lost = await page.evaluate(() => innerHeight - document.querySelector('canvas').getBoundingClientRect().height);
       assert(lost <= 40, `collapsed notice must return game space: ${lost}`);
     }
