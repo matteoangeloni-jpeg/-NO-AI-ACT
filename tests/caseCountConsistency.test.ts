@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { CASES } from '../src/game/data/cases';
+import { SITE_LANGUAGE_CODES } from './lib-inventory';
 
 /**
  * QUANTI CASI IL SITO DICE DI AVERE, SU OGNI PAGINA PUBBLICATA.
@@ -46,7 +47,7 @@ const SITE = 'https://www.no-ai-act.eu/';
 /** Le pagine pubblicate, derivate dai sitemap: mai un elenco scritto a mano. */
 function paginePubblicate(): string[] {
   const out: string[] = [];
-  for (const sitemap of ['public/sitemap-it.xml', 'public/sitemap-en.xml', 'public/sitemap-fr.xml']) {
+  for (const sitemap of SITE_LANGUAGE_CODES.map(l => `public/sitemap-${l}.xml`)) {
     for (const m of read(sitemap).matchAll(/<loc>([^<]+)<\/loc>/g)) {
       out.push(`${m[1].slice(SITE.length)}index.html`);
     }

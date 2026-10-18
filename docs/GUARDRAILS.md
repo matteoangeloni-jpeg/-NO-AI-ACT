@@ -92,6 +92,10 @@ The files themselves are fine when they return 200, real XML, the correct namesp
 
 ## Browser smoke tests (reproducible from a clean clone)
 
+`smoke:european-site` covers all 39 DE/ES/PT introductory pages at desktop,
+390px and 320px, including open menus, press images, carousel movement and
+no-JavaScript language navigation. It is part of `smoke:all`.
+
 Playwright is a committed `devDependency` and every browser smoke is wired as
 its own npm script, so the full browser gate reproduces from a fresh clone
 with only committed dependencies:

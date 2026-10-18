@@ -1,7 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { isBuildInput } from './lib-inventory';
+import { isBuildInput, SITE_LANGUAGE_CODES } from './lib-inventory';
 import { ALL_PUBLIC, PUBLIC_COUNT, publicUrl } from './helpers/publicRoutes';
 import { CASES as PLAYABLE_CASE_LIST } from '../src/game/data/cases';
 
@@ -192,7 +192,7 @@ describe('public static files', () => {
     // DERIVATO dalle lingue pubblicate, non elencato a mano: l'asserzione
     // fissava due figli e e' diventata rossa il giorno in cui il francese e'
     // stato pubblicato, segnalando un difetto che non c'era.
-    expect(children).toEqual(LANGUAGE_CODES.map((l) => `${SITE}sitemap-${l}.xml`));
+    expect(children).toEqual(SITE_LANGUAGE_CODES.map((l) => `${SITE}sitemap-${l}.xml`));
   });
 
   it('the child sitemaps list exactly the indexable public pages, nothing else', () => {

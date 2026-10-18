@@ -1,7 +1,7 @@
 # NO AI ACT
 
 > NO AI ACT is a free, open-source investigative serious game about the European
-> AI Act (Regulation (EU) 2024/1689), surrounded by a bilingual (IT/EN)
+> AI Act (Regulation (EU) 2024/1689), surrounded by a multilingual
 > educational hub: a plain-language guide to the regulation, teacher guides,
 > lesson plans, classroom activities, a glossary and privacy documentation.
 > The player acts as an inspector: they open the file of an artificial
@@ -12,10 +12,11 @@
 
 - Version: v4.0.0
 - Status: press candidate; not yet tagged
-- Languages: Italian (default) and English — game and educational hub
+- Game languages: Italian, English and French.
+- Website localization candidate: Italian, English and French; 13 introductory pages each in German, Spanish and European Portuguese (pt-PT). New languages do not imply a translated game or the full educational hub.
 - Audience: teachers and trainers, upper-secondary and university students, researchers, professionals working with AI governance
 - Pricing: free and open source, copyleft (GPL-3.0-or-later code, CC BY-SA 4.0 educational content; up to v2.0.0 it was MIT + CC BY 4.0)
-- 14 playable cases; 62 public educational pages
+- 14 playable cases; localization candidate includes 146 indexable website URLs (33 IT, 37 EN, 37 FR, 13 DE, 13 ES, 13 PT).
 - Every public page shares a global navigation (Play · Education/Resources · Teachers · AI Act guide · Glossary · Privacy · language switch); the game and the education hub are reachable from every page, and the game links back to the site.
 - Best entry points: the two landing pages and the two education hubs, each of which opens with a "Start here" chooser (play now / teachers / students / AI Act guide / glossary / privacy).
 
@@ -34,7 +35,7 @@
 
 ## Play
 
-- Play the game (IT/EN): https://www.no-ai-act.eu/play/
+- Play the game (IT/EN/FR): https://www.no-ai-act.eu/play/
 - Italian landing page: https://www.no-ai-act.eu/
 - English landing page: https://www.no-ai-act.eu/en/
 - How the game works (EN): https://www.no-ai-act.eu/en/how-it-works/

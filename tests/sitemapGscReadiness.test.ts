@@ -1,7 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { LANGUAGE_CODES } from '../src/game/i18n';
+import { SITE_LANGUAGE_CODES as LANGUAGE_CODES } from './lib-inventory';
 import { PUBLIC_COUNT } from './helpers/publicRoutes';
 
 /**

@@ -1,7 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { LANGUAGE_CODES } from '../src/game/i18n';
+import { SITE_LANGUAGE_CODES as LANGUAGE_CODES } from './lib-inventory';
 
 const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
@@ -76,11 +76,11 @@ describe('Open Graph — complete on every page + the play shell', () => {
     // L'asserzione era binaria — «l'opposto come alternate» — e con una terza
     // lingua «l'opposto» non significa più niente: la pagina francese
     // dichiarava fr_FR e il test pretendeva it_IT.
-    const LOCALE: Record<string, string> = { it: 'it_IT', en: 'en_GB', fr: 'fr_FR' };
+    const LOCALE: Record<string, string> = { it: 'it_IT', en: 'en_GB', fr: 'fr_FR', de: 'de_DE', es: 'es_ES', pt: 'pt_PT' };
     for (const d of ALL) {
       const html = read(fileOf(d));
       // la coque /play/ è in italiano (lang="it")
-      const lang = d === 'play' ? 'it' : d.startsWith('en/') || d === 'en' ? 'en' : d.startsWith('fr/') || d === 'fr' ? 'fr' : 'it';
+      const lang = html.match(/<html lang="([^"]+)"/)?.[1].split('-')[0] ?? 'it';
       expect(meta(html, 'og:locale', 'property'), `${d}: locale`).toBe(LOCALE[lang]);
       for (const altro of LANGUAGE_CODES.filter((l) => l !== lang)) {
         // Le pagine senza controparte in quella lingua non devono dichiararla:

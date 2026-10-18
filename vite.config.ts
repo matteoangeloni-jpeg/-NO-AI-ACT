@@ -1,16 +1,14 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vitest/config';
+// @ts-expect-error Shared ESM inventory.
+import { publicRoutes } from './src/site/route-inventory.mjs';
 
 /** L'inventario pubblico, letto dalla sua unica fonte di verità. */
 const rotte = JSON.parse(
   readFileSync(resolve(import.meta.dirname, 'scripts/seo/routes.config.json'), 'utf8')
 ) as { pairs: { it: string; en: string; fr?: string }[]; enOnly: string[]; frForEn?: Record<string, string> };
-const ROTTE: string[] = [
-  ...rotte.pairs.flatMap((p) => [p.it, p.en, ...(p.fr ? [p.fr] : [])]),
-  ...rotte.enOnly,
-  ...Object.values(rotte.frForEn ?? {})
-];
+const ROTTE: string[] = publicRoutes(rotte).map((r: { dir: string }) => r.dir);
 
 export default defineConfig({
   base: './',

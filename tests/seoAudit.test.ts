@@ -1,7 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { LANGUAGE_CODES } from '../src/game/i18n';
+import { SITE_LANGUAGE_CODES as LANGUAGE_CODES, INVENTORY_DIRS } from './lib-inventory';
 // Importing the audit module runs the full route analysis at collection time.
 // @ts-expect-error — plain ESM script without type declarations
 import { result, toCsv } from '../scripts/seo/audit-routes.mjs';
@@ -49,12 +49,7 @@ describe('route audit — no critical indexability defects', () => {
 
 describe('routes.config.json — the pair source of truth stays coherent', () => {
   it('every pair member exists and pair dirs are unique', () => {
-    const dirs = [
-      ...cfg.pairs.flatMap((p: { it: string; en: string; fr?: string }) =>
-        [p.it, p.en, ...(p.fr ? [p.fr] : [])]),
-      ...cfg.enOnly,
-      ...Object.values(cfg.frForEn ?? {})
-    ];
+    const dirs = INVENTORY_DIRS;
     expect(new Set(dirs).size).toBe(dirs.length);
     for (const d of dirs) {
       const f = d === '' ? 'index.html' : `${d}/index.html`;

@@ -17,3 +17,4 @@ scripts/smoke/out/
 # Misure della diagnosi di densità (si rifanno, non si archiviano)
 .diag/
 /artifacts/french-localization/
+/artifacts/european-localization/

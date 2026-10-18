@@ -2,7 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { LANGUAGE_CODES } from '../src/game/i18n';
+import { SITE_LANGUAGE_CODES as LANGUAGE_CODES } from './lib-inventory';
 
 /**
  * SITE-INSIGHT GUARD.

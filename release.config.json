@@ -18,7 +18,10 @@
     "it": 33,
     "en": 37,
     "fr": 37,
-    "total": 107
+    "total": 146,
+    "de": 13,
+    "es": 13,
+    "pt": 13
   },
   "saveSchema": {
     "storageKey": "no-ai-act-save-v2",
@@ -57,5 +60,13 @@
     "note": "First-party aggregate collection authorized for beta and production only. Preview and unspecified providers stay off. See game-statistics.html.",
     "plausible": "https://plausible.io/api/event",
     "publicUsage": "https://beta.no-ai-act.eu/collect"
-  }
+  },
+  "siteLanguages": [
+    "it",
+    "en",
+    "fr",
+    "de",
+    "es",
+    "pt"
+  ]
 }

@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { LANGUAGE_CODES } from '../src/game/i18n';
+import { SITE_LANGUAGE_CODES } from './lib-inventory';
 import { CASES } from '../src/game/data/cases';
 
 /**
@@ -31,7 +31,7 @@ describe('release.config.json agrees with the executable source', () => {
     // nominava `it` ed `en` a mano e il totale come loro somma, quindi al
     // terzo sitemap diceva «83 != 70» su un cambiamento voluto.
     const count = (p: string) => (read(p).match(/<loc>/g) ?? []).length;
-    const perLingua = LANGUAGE_CODES.map((l) => {
+    const perLingua = SITE_LANGUAGE_CODES.map((l) => {
       const dichiarato = (cfg.publicUrls as unknown as Record<string, number>)[l];
       expect(dichiarato, `release.config.json non dichiara publicUrls.${l}`).toBeTypeOf('number');
       expect(dichiarato, `publicUrls.${l} non corrisponde a sitemap-${l}.xml`)

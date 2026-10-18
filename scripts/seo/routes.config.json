@@ -1,16 +1,22 @@
 {
-  "$comment": "Public routes. pairs contains IT/EN/FR groups; enOnly has no IT counterpart, with optional French counterpart in frForEn. English is x-default for those groups. /play/ is noindex.",
+  "$comment": "Language groups declare only existing page equivalents. IT/EN/FR cover the current full inventory; DE/ES/PT contain the first 13 introductory pages each. Portuguese targets pt-PT. /play/ is noindex and remains IT/EN/FR.",
   "site": "https://www.no-ai-act.eu/",
   "pairs": [
     {
       "it": "",
       "en": "en",
-      "fr": "fr"
+      "fr": "fr",
+      "de": "de",
+      "es": "es",
+      "pt": "pt"
     },
     {
       "it": "come-funziona",
       "en": "en/how-it-works",
-      "fr": "fr/comment-ca-marche"
+      "fr": "fr/comment-ca-marche",
+      "de": "de/so-funktioniert-es",
+      "es": "es/como-funciona",
+      "pt": "pt/como-funciona"
     },
     {
       "it": "per-docenti",
@@ -25,52 +31,82 @@
     {
       "it": "privacy-by-design",
       "en": "en/privacy-by-design",
-      "fr": "fr/protection-des-donnees-des-la-conception"
+      "fr": "fr/protection-des-donnees-des-la-conception",
+      "de": "de/datenschutz",
+      "es": "es/privacidad",
+      "pt": "pt/privacidade"
     },
     {
       "it": "educazione",
       "en": "en/education",
-      "fr": "fr/education"
+      "fr": "fr/education",
+      "de": "de/bildung",
+      "es": "es/educacion",
+      "pt": "pt/educacao"
     },
     {
       "it": "ai-act-per-docenti",
       "en": "en/ai-act-for-teachers",
-      "fr": "fr/ai-act-pour-enseignants"
+      "fr": "fr/ai-act-pour-enseignants",
+      "de": "de/ki-verordnung-fuer-lehrkraefte",
+      "es": "es/reglamento-ia-para-docentes",
+      "pt": "pt/regulamento-ia-para-docentes"
     },
     {
       "it": "alfabetizzazione-ai",
       "en": "en/ai-literacy",
-      "fr": "fr/maitrise-de-l-ia"
+      "fr": "fr/maitrise-de-l-ia",
+      "de": "de/ki-kompetenz",
+      "es": "es/alfabetizacion-ia",
+      "pt": "pt/literacia-ia"
     },
     {
       "it": "guida-ai-act",
       "en": "en/eu-ai-act-guide",
-      "fr": "fr/guide-ai-act"
+      "fr": "fr/guide-ai-act",
+      "de": "de/ki-verordnung-leitfaden",
+      "es": "es/guia-reglamento-ia",
+      "pt": "pt/guia-regulamento-ia"
     },
     {
       "it": "categorie-rischio-ai-act",
       "en": "en/ai-act-risk-categories",
-      "fr": "fr/categories-de-risque-ai-act"
+      "fr": "fr/categories-de-risque-ai-act",
+      "de": "de/ki-risikokategorien",
+      "es": "es/categorias-riesgo-ia",
+      "pt": "pt/categorias-risco-ia"
     },
     {
       "it": "pratiche-vietate-ai-act",
       "en": "en/prohibited-ai-practices",
-      "fr": "fr/pratiques-interdites-ai-act"
+      "fr": "fr/pratiques-interdites-ai-act",
+      "de": "de/verbotene-ki-praktiken",
+      "es": "es/practicas-ia-prohibidas",
+      "pt": "pt/praticas-ia-proibidas"
     },
     {
       "it": "sistemi-ai-ad-alto-rischio",
       "en": "en/high-risk-ai-systems",
-      "fr": "fr/systemes-ia-a-haut-risque"
+      "fr": "fr/systemes-ia-a-haut-risque",
+      "de": "de/hochrisiko-ki-systeme",
+      "es": "es/sistemas-ia-alto-riesgo",
+      "pt": "pt/sistemas-ia-risco-elevado"
     },
     {
       "it": "obblighi-trasparenza-ai-act",
       "en": "en/transparency-obligations",
-      "fr": "fr/obligations-de-transparence"
+      "fr": "fr/obligations-de-transparence",
+      "de": "de/ki-transparenzpflichten",
+      "es": "es/obligaciones-transparencia-ia",
+      "pt": "pt/obrigacoes-transparencia-ia"
     },
     {
       "it": "ai-generativa-e-gpai",
       "en": "en/general-purpose-ai",
-      "fr": "fr/ia-a-usage-general"
+      "fr": "fr/ia-a-usage-general",
+      "de": "de/ki-modelle-allgemeiner-verwendungszweck",
+      "es": "es/modelos-ia-uso-general",
+      "pt": "pt/modelos-ia-finalidade-geral"
     },
     {
       "it": "provider-deployer-ai-act",
@@ -125,7 +161,10 @@
     {
       "it": "glossario",
       "en": "en/glossary",
-      "fr": "fr/glossaire"
+      "fr": "fr/glossaire",
+      "de": "de/ki-verordnung-glossar",
+      "es": "es/glosario-ia",
+      "pt": "pt/glossario-ia"
     },
     {
       "it": "come-citare",

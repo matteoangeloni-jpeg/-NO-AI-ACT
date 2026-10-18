@@ -449,7 +449,8 @@ Note di rilascio: [`docs/RELEASE_NOTES_v4.0.0.md`](docs/RELEASE_NOTES_v4.0.0.md)
 - **Nota**: la candidata 2.3 richiede merge, verifica live e playtest esterni prima del tag
 - **Casi giocabili**: 14
 - **Lingue**: italiano, inglese e francese (ramo di revisione, senza deploy)
-- **URL pubblici**: 107 (33 IT + 37 EN + 37 FR)
+- **URL pubblici**: 146 (33 IT + 37 EN + 37 FR + 13 DE + 13 ES + 13 PT)
+- **Nuove localizzazioni del sito**: tedesco, spagnolo e portoghese europeo (`pt-PT`), 13 pagine introduttive per lingua. Il gioco resta IT/EN/FR. Candidato di revisione, non pubblicazione automatica: [ambito e verifiche](docs/EU_LOCALIZATION.md).
 - **Salvataggi**: schema v2, con migrazione testata dei salvataggi v1
 - **Backend**: nessuno · **Account**: nessuno · **Raccolta dati personali**:
   nessuna · **Chiamate di rete durante il gameplay**: nessuna

@@ -14,6 +14,7 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
+import { publishedLanguages } from '../../src/site/route-inventory.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const SITE = 'https://www.no-ai-act.eu/';
@@ -40,20 +41,8 @@ const stamp = (sitemapPath) => {
   return max;
 };
 
-const maxIt = stamp('public/sitemap-it.xml');
-const maxEn = stamp('public/sitemap-en.xml');
-const maxFr = stamp('public/sitemap-fr.xml');
-
-// keep the index's child lastmod in sync with the freshest page of each child
-let index = readFileSync(resolve(root, 'public/sitemap.xml'), 'utf8');
-index = index.replace(
-  /(<loc>https:\/\/www\.no-ai-act\.eu\/sitemap-it\.xml<\/loc>\s*<lastmod>)[^<]*(<\/lastmod>)/,
-  `$1${maxIt}$2`
-).replace(
-  /(<loc>https:\/\/www\.no-ai-act\.eu\/sitemap-en\.xml<\/loc>\s*<lastmod>)[^<]*(<\/lastmod>)/,
-  `$1${maxEn}$2`
-);
-index = index.replace(/(<loc>https:\/\/www\.no-ai-act\.eu\/sitemap-fr\.xml<\/loc>\s*<lastmod>)[^<]*(<\/lastmod>)/, `$1${maxFr}$2`);
+const cfg = JSON.parse(readFileSync(resolve(root, 'scripts/seo/routes.config.json'), 'utf8'));
+const stamps = publishedLanguages(cfg).map(lang => [lang, stamp(`public/sitemap-${lang}.xml`)]);
+const index = `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${stamps.map(([lang, date]) => `  <sitemap>\n    <loc>${SITE}sitemap-${lang}.xml</loc>\n    <lastmod>${date}</lastmod>\n  </sitemap>`).join('\n')}\n</sitemapindex>\n`;
 writeFileSync(resolve(root, 'public/sitemap.xml'), index);
-
-console.log(`sitemap lastmod stamped — it: max ${maxIt}, en: max ${maxEn}, fr: max ${maxFr}`);
+console.log(`sitemap lastmod stamped: ${stamps.map(([lang, date]) => `${lang}: ${date}`).join(', ')}`);
