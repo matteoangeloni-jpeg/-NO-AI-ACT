@@ -1,5 +1,11 @@
 # Guardrails — checks before every feature PR
 
+## Temporary Statistics Notice
+
+- `npm run smoke:usage-notice` checks automatic dismissal, restored game space,
+  the persistent shield control, explicit close, Escape and keyboard focus.
+- Dismissing the notice must not change collection; the opt-out remains reachable.
+
 Operational contract that protects the shipped v1.1 product. Automated tests
 enforce all of it; run `npm test` before opening any feature PR.
 
