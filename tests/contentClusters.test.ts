@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { isBuildInput } from './lib-inventory';
 
 /**
  * ORGANIC CONTENT CLUSTER GUARD (2.0 sprint).
@@ -109,12 +110,11 @@ describe('factual anchors — law vs dates vs interpretation kept honest', () =>
 
 describe('wiring and safeguards', () => {
   it('pages exist, are vite inputs, sitemap members and in the route config', () => {
-    const vite = read('vite.config.ts');
     const routes = read('scripts/seo/routes.config.json');
     const sitemaps = read('public/sitemap-it.xml') + read('public/sitemap-en.xml');
     for (const d of ALL) {
       expect(existsSync(resolve(root, `${d}/index.html`)), d).toBe(true);
-      expect(vite, d).toContain(`'${d}/index.html'`);
+      expect(isBuildInput(d), d).toBe(true);
       expect(routes, d).toContain(`"${d}"`);
       expect(sitemaps, d).toContain(`https://www.no-ai-act.eu/${d}/</loc>`);
     }

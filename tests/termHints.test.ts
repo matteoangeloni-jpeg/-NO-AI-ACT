@@ -94,8 +94,9 @@ describe("consultare i termini non costa il filo del ragionamento", () => {
   it('chiudere un overlay riporta lo strato di lettura al passo corrente', () => {
     const close = src.slice(src.indexOf('private closeNormsOverlay'), src.indexOf('// ------------------------------------------------------------ esito'));
     expect(close, 'senza, chi legge resterebbe sui termini mentre a schermo è tornata la domanda').toContain(
-      'this.syncStepReading()'
+      'ReadingLayer.closeOverlay()'
     );
+    expect(src).toContain('ReadingLayer.openOverlay(t.termsTitle, read)');
   });
 
   it('il bottone sparisce quando un overlay è aperto, come gli altri', () => {

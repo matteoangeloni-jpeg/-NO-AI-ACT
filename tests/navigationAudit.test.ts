@@ -265,10 +265,10 @@ describe('SEO and privacy safeguards preserved', () => {
     }
   });
 
-  it('no new telemetry: the game shell has only main.ts and the Cloudflare beacon', () => {
+  it('the game shell has only main.ts and no automatic telemetry script', () => {
     const shell = read('play/index.html');
     const srcs = [...shell.matchAll(/<script[^>]*src=['"]([^'"]+)['"]/g)].map(([, s]) => s);
-    expect(srcs.sort()).toEqual(['/src/main.ts', 'https://static.cloudflareinsights.com/beacon.min.js']);
+    expect(srcs).toEqual(['/src/main.ts']);
     expect(shell).not.toMatch(/plausible|umami|google-analytics|gtag|mixpanel|segment/i);
   });
 });

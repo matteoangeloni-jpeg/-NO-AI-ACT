@@ -1,11 +1,12 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { isBuildInput } from './lib-inventory';
 import { ALL_PUBLIC, PUBLIC_COUNT, publicUrl } from './helpers/publicRoutes';
 import { CASES as PLAYABLE_CASE_LIST } from '../src/game/data/cases';
 
 const PLAYABLE_CASES = PLAYABLE_CASE_LIST.length;
-import { languageFromQuery } from '../src/game/i18n';
+import { languageFromQuery, DRAFT_LANGUAGES, LANGUAGE_CODES } from '../src/game/i18n';
 
 const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
@@ -24,11 +25,13 @@ describe('public landing — page structure', () => {
     expect(existsSync(resolve(root, 'play/index.html'))).toBe(true);
   });
 
-  it('vite is configured for the three entry points', () => {
-    const cfg = read('vite.config.ts');
-    expect(cfg).toContain("'index.html'");
-    expect(cfg).toContain("'en/index.html'");
-    expect(cfg).toContain("'play/index.html'");
+  it('vite builds the three entry points', () => {
+    // Verificato sull'INVENTARIO: vite.config.ts deriva i suoi input da
+    // routes.config.json, quindi cercare percorsi letterali nel suo testo non
+    // dimostrerebbe più niente.
+    for (const p of ['index.html', 'en/index.html', 'play/index.html']) {
+      expect(isBuildInput(p), p).toBe(true);
+    }
   });
 
   it('the landings declare the correct lang', () => {
@@ -176,7 +179,7 @@ describe('public static files', () => {
     expect(robots).not.toContain('<loc>');
   });
 
-  it('sitemap.xml is a valid sitemap index pointing at the two language child sitemaps', () => {
+  it('sitemap.xml is a valid sitemap index with one child per published language', () => {
     const sitemap = read('public/sitemap.xml');
     expect(sitemap).toContain('<?xml version="1.0" encoding="UTF-8"?>');
     expect(sitemap).toContain('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"');
@@ -186,7 +189,10 @@ describe('public static files', () => {
     expect(sitemap).not.toContain('<urlset');
     expect(sitemap).not.toContain('/play/');
     const children = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, l]) => l);
-    expect(children).toEqual([`${SITE}sitemap-it.xml`, `${SITE}sitemap-en.xml`]);
+    // DERIVATO dalle lingue pubblicate, non elencato a mano: l'asserzione
+    // fissava due figli e e' diventata rossa il giorno in cui il francese e'
+    // stato pubblicato, segnalando un difetto che non c'era.
+    expect(children).toEqual(LANGUAGE_CODES.map((l) => `${SITE}sitemap-${l}.xml`));
   });
 
   it('the child sitemaps list exactly the indexable public pages, nothing else', () => {
@@ -229,9 +235,9 @@ describe('public static files', () => {
     expect(llms).toContain('v2.0.0');
     expect(llms).toContain('14 playable cases');
     expect(lower).toContain('not legal advice');
-    expect(lower).toContain('no backend');
+    expect(lower).toContain('aggregate usage counters only');
     expect(lower).toContain('no account');
-    expect(lower).toContain('no personal data collection');
+    expect(lower).toContain('no registration or player identifiers');
     expect(lower).toContain('no external forms'); // Tally removed from the product
     expect(llms).toContain(`${SITE}play/`);
     expect(llms).toContain(`${SITE}en/`);
@@ -259,9 +265,17 @@ describe('public landing — language handoff to the game', () => {
   });
 
   it('languageFromQuery honours only known codes', () => {
-    expect(languageFromQuery('?lang=en')).toBe('en');
-    expect(languageFromQuery('?lang=it')).toBe('it');
-    expect(languageFromQuery('?lang=fr')).toBeNull();
+    // DERIVATO, non trascritto. Questa asserzione scriveva `?lang=fr` ->
+    // null perché il francese non esisteva: il 13 ottobre 2026 è stato
+    // pubblicato e il test è diventato rosso su un cambiamento VOLUTO,
+    // segnalando un difetto che non c'era. Un elenco di lingue scritto in un
+    // test invecchia come ogni valore copiato.
+    for (const lang of LANGUAGE_CODES) {
+      expect(languageFromQuery(`?lang=${lang}`), `?lang=${lang} ignorato`).toBe(lang);
+    }
+    for (const bozza of DRAFT_LANGUAGES) {
+      expect(languageFromQuery(`?lang=${bozza}`), `?lang=${bozza} accettato`).toBeNull();
+    }
     expect(languageFromQuery('?lang=')).toBeNull();
     expect(languageFromQuery('?foo=bar')).toBeNull();
     expect(languageFromQuery('')).toBeNull();
@@ -305,7 +319,7 @@ const CF_SRC = 'https://static.cloudflareinsights.com/beacon.min.js';
 const CF_TOKEN = '7c85578fc8ad4488a54c6bc670a10dcf';
 
 describe('public pages — Cloudflare Web Analytics', () => {
-  for (const [name, html] of [['IT', itHtml], ['EN', enHtml], ['play', playHtml]] as const) {
+  for (const [name, html] of [['IT', itHtml], ['EN', enHtml]] as const) {
     it(`${name} loads the Cloudflare beacon with the configured token, before </body>`, () => {
       expect(html).toContain(CF_SRC);
       expect(html).toContain(CF_TOKEN);
@@ -320,11 +334,9 @@ describe('public pages — Cloudflare Web Analytics', () => {
     });
   }
 
-  it('the play page beacon is a plain page view, outside the Phaser module', () => {
-    expect(playHtml).toContain(CF_SRC);
-    // standalone tag, not imported by the game entrypoint, and no custom events
-    expect(playHtml).not.toMatch(/import[^;]*cloudflareinsights/);
-    expect(playHtml).not.toMatch(/trackEvent|"event"\s*:/);
+  it('the play page loads no Cloudflare beacon or remote analytics script', () => {
+    expect(playHtml).not.toContain(CF_SRC);
+    expect(playHtml).not.toMatch(/data-cf-beacon|<script[^>]*src=['"]https?:/i);
   });
 });
 

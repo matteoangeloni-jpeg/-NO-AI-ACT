@@ -249,11 +249,11 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag, soloRilievi 
    */
   if (soloRilievi) { await ctx.close(); return; }
 
-  await clickButton(lang === 'it' ? 'NUOVA PARTITA' : 'NEW GAME');
-  await clickButton(lang === 'it' ? '^INIZIA' : '^START');
+  await clickButton(lang === 'it' ? 'NUOVA PARTITA' : lang === 'fr' ? 'NOUVELLE PARTIE' : 'NEW GAME');
+  await clickButton(lang === 'it' ? '^INIZIA' : lang === 'fr' ? '^COMMENCER' : '^START');
   await waitScene('Briefing');
   await click(640, 300, 300);
-  await clickButton(lang === 'it' ? 'MAPPA CIVICA' : 'CIVIC MAP');
+  await clickButton(lang === 'it' ? 'MAPPA CIVICA' : lang === 'fr' ? 'CARTE CIVIQUE' : 'CIVIC MAP');
   if (!(await waitScene('CityMap'))) { await ctx.close(); return; }
   await screenshot('01-map');
 
@@ -316,7 +316,7 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag, soloRilievi 
     const s = attive.length ? attive[attive.length - 1] : null;
     if (!s || s.scene.key !== 'Case') return false;
     return s.children.list.some((o) => o.type === 'Container' && o.visible !== false && o.input?.enabled
-      && (o.list || []).some((c) => typeof c.text === 'string' && /REPERTI|EXHIBITS/i.test(c.text)));
+      && (o.list || []).some((c) => typeof c.text === 'string' && /REPERTI|EXHIBITS|PIÈCES/i.test(c.text)));
   }, undefined, { timeout: 30000 }).then(() => true).catch(() => false);
   if (!prontoAiReperti) { fail.push(`[${tag}] il caso non ha mai mostrato l'invito ai reperti`); await ctx.close(); return; }
 
@@ -359,7 +359,7 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag, soloRilievi 
     }
   }
   await screenshot('02-case');
-  await clickButton(lang === 'it' ? 'ESAMINA I REPERTI' : 'EXAMINE THE EXHIBITS');
+  await clickButton(lang === 'it' ? 'ESAMINA I REPERTI' : lang === 'fr' ? 'EXAMINER LES PI' : 'EXAMINE THE EXHIBITS');
   if (!(await waitScene('Evidence'))) { await ctx.close(); return; }
 
   /**
@@ -417,7 +417,7 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag, soloRilievi 
    * assume il ramo felice non me lo dirà mai: accetta il bivio, lo
    * attraversa, e se fallisce dice QUALE caso stava giocando.
    */
-  await clickButton(lang === 'it' ? 'PASSA ALLA CLASSIFICAZIONE|CLASSIFICA' : 'PROCEED TO CLASSIFICATION');
+  await clickButton(lang === 'it' ? 'PASSA ALLA CLASSIFICAZIONE|CLASSIFICA' : lang === 'fr' ? 'PASSER À LA CLASSIFICATION' : 'PROCEED TO CLASSIFICATION');
   const arrivo = await page.waitForFunction(() => {
     const attive = window.game?.scene.getScenes(true) ?? [];
     const k = attive.length ? attive[attive.length - 1].scene.key : '';
@@ -512,7 +512,7 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag, soloRilievi 
     const testo = b.text.replace(/\s+/g, ' ').trim();
     return testo.length >= 40 && b.corpo > 0 && !tuttoMaiuscolo(testo);
   });
-  const etichettaLezione = lang === 'it' ? 'LEZIONE DEL CASO' : 'LESSON OF THE CASE';
+  const etichettaLezione = lang === 'it' ? 'LEZIONE DEL CASO' : lang === 'fr' ? 'LEÇON DU DOSSIER' : 'LESSON OF THE CASE';
   const lezione = prosaRapporto.find((b) => b.text.includes(etichettaLezione));
   if (!lezione) {
     fail.push(`[${tag}] nel rapporto non si trova il blocco «${etichettaLezione}»: il controllo sulla gerarchia non sta misurando niente`);
@@ -528,7 +528,7 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag, soloRilievi 
     }
   }
 
-  await clickButton(lang === 'it' ? 'PROSEGUI' : 'CONTINUE');
+  await clickButton(lang === 'it' ? 'PROSEGUI' : lang === 'fr' ? 'POURSUIVRE' : 'CONTINUE');
   if (await waitScene('Consequence')) {
     await page.waitForTimeout(1400);
     await screenshot('07-consequence');
@@ -564,7 +564,9 @@ const MATRICE = [
   { tag: 'it-hidpi',   lang: 'it', reducedMotion: false, width: 1920, height: 1080, dpr: 2, soloRilievi: true },
   { tag: 'it-ridotto', lang: 'it', reducedMotion: true,  width: 1920, height: 1080, dpr: 1 },
   { tag: 'en-1080',    lang: 'en', reducedMotion: false, width: 1920, height: 1080, dpr: 1 },
-  { tag: 'en-ridotto', lang: 'en', reducedMotion: true,  width: 1280, height: 720, dpr: 1 }
+  { tag: 'en-ridotto', lang: 'en', reducedMotion: true,  width: 1280, height: 720, dpr: 1 },
+  { tag: 'fr-1080', lang: 'fr', reducedMotion: false, width: 1920, height: 1080, dpr: 1 },
+  { tag: 'fr-ridotto', lang: 'fr', reducedMotion: true, width: 1280, height: 720, dpr: 1 }
 ];
 
 /** `ONLY=it-720` gira un solo caso: serve quando si sta correggendo una scena. */

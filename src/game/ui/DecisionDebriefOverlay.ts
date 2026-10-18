@@ -37,6 +37,7 @@ export interface DecisionDebriefData {
    * Local-only by contract — the callback must not trigger any network call.
    */
   onReflect?: (choice: 'holds' | 'unsure' | 'revise') => void;
+  onReview?: () => void;
 }
 
 /**
@@ -50,6 +51,7 @@ export interface DecisionDebriefData {
  */
 export class DecisionDebriefOverlay {
   private container?: Phaser.GameObjects.Container;
+  private details = false;
 
   constructor(
     private readonly scene: Phaser.Scene,
@@ -120,32 +122,26 @@ export class DecisionDebriefOverlay {
       sections.push({ heading: label, text: value });
     };
 
-    if (d.positive) {
-      // shorter positive variant: why (coherent) → key element → rule
+    if (!this.details) {
       labelled(ui.whyLabel, d.why);
       labelled(ui.keyElementLabel, d.observe);
-      labelled(ui.normLabel, d.norm);
+      labelled(ui.takeawayLabel, d.takeaway);
     } else {
       labelled(ui.yourChoiceLabel, d.yourChoice);
-      labelled(ui.whyLabel, d.why);
-      labelled(ui.observeLabel, d.observe);
       labelled(ui.normLabel, d.norm);
-      labelled(ui.howToLabel, d.howTo);
+      labelled(ui.conceptLabel, d.concept);
     }
-    // v1.1: concept involved + one-sentence takeaway, in both variants
-    labelled(ui.conceptLabel, d.concept);
-    labelled(ui.takeawayLabel, d.takeaway);
 
     // 2.1: multi-axis reading — the same decision seen on three axes at once
     // (legal validity, fundamental rights, public trust); presentation only
-    if (d.axes) {
+    if (this.details && d.axes) {
       container.add(scene.add.text(left, y, `${ui.axes.label}: ${d.axes}`, textStyle(11.5, COLOR_STR.accentText, { wordWrap: { width: wrap } })));
       y += 26;
       sections.push({ heading: ui.axes.label, text: d.axes });
     }
 
     // 2.0: one concise reflection question (optional, local, no score effect)
-    if (d.onReflect) {
+    if (this.details && d.onReflect) {
       const r = L().learningLayer.reflection;
       container.add(scene.add.text(left, y, `${r.label} — ${r.prompt}`, textStyle(11.5, COLOR_STR.accentText, { fontStyle: 'bold' })));
       y += 24;
@@ -169,15 +165,22 @@ export class DecisionDebriefOverlay {
 
     // close button added LAST → above the shade/hit-area, stays clickable.
     // Optional "learn more": INTERNAL page only (same origin), new tab.
-    if (d.linkUrl) {
-      const url = d.linkUrl;
-      container.add(
-        new Button(scene, cx - 150, cy + panelH / 2 - 34, ui.learnMore, () => window.open(url, '_blank', 'noopener,noreferrer'), { width: 260, height: 38, fontSize: 13, variant: 'ghost' })
-      );
-      container.add(new Button(scene, cx + 130, cy + panelH / 2 - 34, ui.close, () => this.close(), { width: 220, height: 38, fontSize: 13 }));
-    } else {
-      container.add(new Button(scene, cx, cy + panelH / 2 - 34, ui.close, () => this.close(), { width: 220, height: 38, fontSize: 13 }));
+    const actions: Array<[string, () => void]> = [
+      [this.details ? L().gameplay.overview : L().gameplay.details, () => { this.close(); this.details = !this.details; this.open(); }]
+    ];
+    if (d.onReview) {
+      actions.push([L().gameplay.review, () => { this.close(); d.onReview?.(); }]);
+      const note = scene.add.text(left, 552, L().gameplay.reviewNote, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: wrap } }));
+      container.add(note);
+      sections.push({ text: L().gameplay.reviewNote });
     }
+    if (this.details && d.linkUrl) {
+      const url = d.linkUrl;
+      actions.push([ui.learnMore, () => window.open(url, '_blank', 'noopener,noreferrer')]);
+    }
+    actions.push([ui.close, () => this.close()]);
+    const width = (wrap - (actions.length - 1) * 12) / actions.length;
+    actions.forEach(([label, action], i) => container.add(new Button(scene, left + width / 2 + i * (width + 12), 640, label, action, { width, height: 40, fontSize: 11.5 })));
 
     ReadingLayer.openOverlay(titleText, sections);
     this.scene.input.keyboard?.on('keydown-ESC', this.escHandler);

@@ -36,7 +36,7 @@ const fail = [];
 // canvas UI is the active surface.
 const CANVAS_VIEWPORTS = [
   { w: 1920, h: 1080 }, { w: 1792, h: 930 }, { w: 1440, h: 900 }, { w: 1366, h: 768 },
-  { w: 1280, h: 720 }, { w: 1024, h: 768 }, { w: 768, h: 1024 }
+  { w: 1280, h: 720 }
 ];
 
 /**
@@ -557,19 +557,15 @@ for (const vp of [{ w: 390, h: 844 }, { w: 360, h: 800 }]) {
     const el = document.getElementById('mobile-guard');
     return !!el && getComputedStyle(el).display !== 'none';
   });
-  if (!guardShown) fail.push(`${tag}: mobile guard not shown in portrait`);
+  if (guardShown) fail.push(`${tag}: legacy guard blocks mobile presentation`);
   const overflow = await mp.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
   if (overflow) fail.push(`${tag}: horizontal overflow on /play/`);
-  // clear, tested fallback (§11.4): "continue anyway" hides the guard and the
-  // scaled canvas remains usable underneath
+  // Mobile gameplay is now native HTML; full touch flow has its own smoke.
   const dismissed = await mp.evaluate(() => {
-    const btn = document.querySelector('#mobile-guard .mg-continue');
-    if (!btn) return false;
-    btn.click();
-    const el = document.getElementById('mobile-guard');
-    return getComputedStyle(el).display === 'none' && !!document.querySelector('#game-container canvas');
+    return document.body.classList.contains('mobile-presentation') &&
+      getComputedStyle(document.getElementById('reading-layer')).fontSize === '16px';
   });
-  if (!dismissed) fail.push(`${tag}: mobile-guard continue-anyway fallback broken`);
+  if (!dismissed) fail.push(`${tag}: mobile presentation not readable`);
   await mp.screenshot({ path: `${OUT}/mobile-${tag}.png` });
   await mctx.close();
 }

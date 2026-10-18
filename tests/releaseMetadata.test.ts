@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { LANGUAGE_CODES } from '../src/game/i18n';
 import { CASES } from '../src/game/data/cases';
 
 /**
@@ -26,10 +27,18 @@ describe('release.config.json agrees with the executable source', () => {
   });
 
   it('public URL counts equal the real sitemaps', () => {
+    // UN CONTEGGIO PER LINGUA PUBBLICATA, derivato: la versione precedente
+    // nominava `it` ed `en` a mano e il totale come loro somma, quindi al
+    // terzo sitemap diceva «83 != 70» su un cambiamento voluto.
     const count = (p: string) => (read(p).match(/<loc>/g) ?? []).length;
-    expect(cfg.publicUrls.it).toBe(count('public/sitemap-it.xml'));
-    expect(cfg.publicUrls.en).toBe(count('public/sitemap-en.xml'));
-    expect(cfg.publicUrls.total).toBe(cfg.publicUrls.it + cfg.publicUrls.en);
+    const perLingua = LANGUAGE_CODES.map((l) => {
+      const dichiarato = (cfg.publicUrls as unknown as Record<string, number>)[l];
+      expect(dichiarato, `release.config.json non dichiara publicUrls.${l}`).toBeTypeOf('number');
+      expect(dichiarato, `publicUrls.${l} non corrisponde a sitemap-${l}.xml`)
+        .toBe(count(`public/sitemap-${l}.xml`));
+      return dichiarato;
+    });
+    expect(cfg.publicUrls.total).toBe(perLingua.reduce((a, b) => a + b, 0));
   });
 
   it('save schema matches SaveSystem (key, version, migration source)', () => {
@@ -49,9 +58,9 @@ describe('release.config.json agrees with the executable source', () => {
   });
 
   it('privacy posture flags are all still true', () => {
-    expect(cfg.privacy.backend).toBe(false);
+    expect(cfg.privacy.backend).toBe('aggregate usage counters only');
     expect(cfg.privacy.externalForms).toBe(false);
-    expect(cfg.privacy.gameplayNetworkCalls).toBe(false);
+    expect(cfg.privacy.gameplayNetworkCalls).toBe('first-party aggregate usage only, no answers or player identifiers');
   });
 });
 

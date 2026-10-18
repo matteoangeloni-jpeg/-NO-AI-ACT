@@ -46,7 +46,7 @@ export type ErrorType =
 export type IncidentChoice = 'document' | 'suspend' | 'minimize';
 
 /** Lingue supportate. Estensione futura: 'fr' | 'es'. */
-export type LanguageCode = 'it' | 'en';
+export type LanguageCode = 'it' | 'en' | 'fr';
 
 export type NormLevel = 'vietata' | 'alto' | 'trasparenza' | 'restrittivo';
 

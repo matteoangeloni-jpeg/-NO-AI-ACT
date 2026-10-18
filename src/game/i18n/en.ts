@@ -1,4 +1,5 @@
 import type { Locale } from './index';
+import { gameplayEn } from './gameplay';
 
 /**
  * ENGLISH dictionary. Must mirror every key of the Italian source of truth.
@@ -7,6 +8,8 @@ import type { Locale } from './index';
  * Not legal advice.
  */
 export const en: Locale = {
+  gameplay: gameplayEn,
+  mobile: { open: 'OPEN DOCUMENT', uncite: 'REMOVE CITATION', search: 'Search the archive', close: 'Close' },
   ui: {
     gameTitle: 'NO AI ACT',
     gameSubtitle: 'Simulator of an unregulated society',
@@ -314,7 +317,7 @@ export const en: Locale = {
       normsEmpty: 'No norm acquired yet.',
       termsButton: 'WHAT DO THESE MEAN?',
       termsTitle: 'THE TERMS IN THIS CHOICE',
-      termsHint: 'read-only — click outside or ESC to close. It does not hint at the answer.',
+      termsHint: 'Read-only. Close to return to your decision. It does not hint at the answer.',
       termsNoEntry: 'Not a category defined by the regulation: it is what falls outside the others.'
     },
     subjects: {
@@ -609,9 +612,9 @@ export const en: Locale = {
       author: 'Matteo Angeloni',
       affiliation: 'PhD Student — University of Tuscia',
       note:
-        'Vertical slice developed with AI support.\n' +
-        'Procedural graphics and audio assets.\n' +
-        'Full licenses and attributions available in the project files.',
+        'MADE WITH AI, NOT BY AI — voluntary disclosure: developed with AI\n' +
+        'assistants, under the editorial and scientific responsibility of one person.\n' +
+        'Procedural graphics and audio assets. Full licenses in the project files.',
       phdProgramme: 'Society in change: policies, rights and security',
       phdLink: 'PhD programme page ▸',
       universityLink: 'University of Tuscia ▸',

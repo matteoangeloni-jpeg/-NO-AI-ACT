@@ -10,7 +10,7 @@
 > to be governed, or compliant). It is an educational simulation about
 > algorithmic risk governance — not legal advice.
 
-- Version: v3.0.0
+- Version: v4.0.0
 - Status: press candidate; not yet tagged
 - Languages: Italian (default) and English — game and educational hub
 - Audience: teachers and trainers, upper-secondary and university students, researchers, professionals working with AI governance
@@ -25,8 +25,9 @@
 - NOT an official EU tool: independent project, not affiliated with or endorsed by the European institutions.
 - NOT legal advice and does not replace the regulation or a professional opinion.
 - NOT a compliance tool or certification: it grants no credits or attestations.
-- No backend, no account, no registration, no personal data collection in the game.
-- No gameplay telemetry: decisions, scores and reports never leave the player's browser (localStorage only). Public pages use aggregate, cookie-free Cloudflare Web Analytics; the game itself sends nothing.
+- Local play: no account, no registration or player identifiers. A first-party backend stores aggregate usage counters only.
+- Automatic first-party usage counters (starts, completions and phases), without answers, outcomes, player IDs or analytics cookies. Disable in the game bar; DNT/GPC respected. Saves, decisions and reports stay local. See /game-statistics.html.
+- Public pages additionally use aggregate, cookie-free Cloudflare Web Analytics.
 - Teacher mode is local; its debrief export is local and anonymous.
 - No external forms are embedded: the public build collects no feedback or personal data.
 - Educational effectiveness has not been empirically validated; no impact claims are made.

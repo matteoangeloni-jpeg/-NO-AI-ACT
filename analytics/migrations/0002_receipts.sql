@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS receipts (
+  hash TEXT PRIMARY KEY CHECK(length(hash)=64),
+  expires INTEGER NOT NULL
+) WITHOUT ROWID;

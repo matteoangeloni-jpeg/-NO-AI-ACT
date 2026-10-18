@@ -60,7 +60,17 @@ describe('title screen — simplified player-first hierarchy', () => {
     expect(resources, 'i crediti non stanno piu\' fra le risorse').not.toContain('m.credits');
     const settings = title.slice(title.indexOf('private openSettings'), title.indexOf('private openTeachers'));
     expect(settings, 'i crediti devono essere raggiungibili da Impostazioni').toContain('m.credits');
-    for (const k of ['m.language', 'setDifficulty', 'settingsPrivacy']) {
+    // La LINGUA deve restare raggiungibile da Impostazioni. L'asserzione
+    // nominava `m.language`, cioè l'etichetta del vecchio pulsante a ciclo:
+    // con tre lingue quel pulsante è diventato una selezione e il simbolo è
+    // sparito, rendendo rosso un test il cui intento era soddisfatto. Ora
+    // l'asserzione è sull'INTENTO — esiste un controllo della lingua — e non
+    // sul nome di una variabile.
+    expect(
+      settings.includes('LANGUAGE_LABELS') || settings.includes('m.language'),
+      'la lingua deve essere raggiungibile da Impostazioni'
+    ).toBe(true);
+    for (const k of ['setDifficulty', 'settingsPrivacy']) {
       expect(settings, `settings must contain ${k}`).toContain(k);
     }
     // Il percorso NON si sceglie più qui: due manopole per la stessa cosa

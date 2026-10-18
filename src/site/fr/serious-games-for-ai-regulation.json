@@ -1,0 +1,27 @@
+{
+  "en": "en/serious-games-for-ai-regulation",
+  "slug": "serious-games-reglementation-ia",
+  "sourceHash": "86b5e92ff825c0d8fc658dc98ac9f4712253159fbdbafdd013e63ea878b9d00e",
+  "title": "Serious games et réglementation de l'IA | NO AI ACT",
+  "description": "Scénarios, incertitude et débriefing : pourquoi les serious games peuvent accompagner l'apprentissage de la réglementation de l'IA, avec quelles limites.",
+  "blocks": [
+    "Méthodologie · Apprentissage par le jeu",
+    "Serious games pour la réglementation de l'IA",
+    "Les serious games sont conçus pour apprendre, au-delà du seul divertissement. Cette page explique pourquoi ce format convient à la réglementation, généralement enseignée par les textes, et quelles sont ses limites.",
+    "Voir la méthode en action",
+    "À propos du jeu",
+    "<span class=\"num\">01</span>Pourquoi simuler des règles complexes",
+    "La réglementation applique une logique conditionnelle à des faits complexes. Les textes enseignent la logique ; les situations en enseignent l'application. Une simulation multiplie les situations sans enjeux réels : l'apprenant applique la règle, se trompe sans danger, puis recommence. C'est aussi la raison d'être des simulateurs de vol et des procès simulés.",
+    "<span class=\"num\">02</span>Raisonner à partir de scénarios",
+    "Dans un scénario, les concepts deviennent des outils. La responsabilité du déployeur prend sens lorsqu'il faut désigner le responsable d'un filtre de recrutement biaisé : le vendeur qui l'a construit ou le service qui l'a utilisé sans l'examiner ? Les scénarios conservent aussi l'ambiguïté : la plupart des qualifications réelles peuvent être discutées, et un bon scénario le reflète.",
+    "<span class=\"num\">03</span>Décider dans l'incertitude",
+    "Les inspecteurs ne disposent jamais de toute l'information. Décider avec des preuves partielles et répondre de cette décision est une compétence en soi. Le jeu fait vivre cette expérience : dans NO AI ACT, il faut classer à partir du dossier disponible, citer ses preuves, puis voir la décision résister ou s'effondrer.",
+    "<span class=\"num\">04</span>Des limites explicites",
+    "Un jeu exerce des <strong>raisonnements et des habitudes</strong>, pas le droit lui-même : aucune simulation ne remplace le texte ni le jugement professionnel.",
+    "La simplification est le prix de la jouabilité : chaque cas condense la réalité.",
+    "La motivation varie ; le jeu est un format, pas une solution magique.",
+    "Affirmer un effet sur l'apprentissage exige des études. Le projet n'en revendique aucun : son efficacité n'a pas été validée empiriquement.",
+    "<span class=\"num\">05</span>L'application dans NO AI ACT",
+    "Quatorze cas parcourent les <a href=\"../ai-act-risk-categories/\">catégories de risque</a>, avec des décisions fondées sur des preuves, un débriefing réflexif après chaque rapport et des conséquences visibles sur une ville simulée. Les choix de conception sont détaillés dans <a href=\"../ai-act-serious-game/\">la démarche du jeu</a> ; les supports de classe dans <a href=\"../ai-act-for-teachers/\">le guide enseignant</a> et les <a href=\"../classroom-activities/\">activités</a>."
+  ]
+}

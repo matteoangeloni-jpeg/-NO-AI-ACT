@@ -1,0 +1,36 @@
+{
+  "en": "en/privacy-conscious-learning",
+  "slug": "apprentissage-respectueux-vie-privee",
+  "sourceHash": "5524c5334b9473aaaa86dd122757b8903317b98e25d63696feef369c839be4b1",
+  "title": "Apprentissage respectueux de la vie privée | NO AI ACT",
+  "description": "Confidentialité des outils éducatifs : ce que NO AI ACT collecte ou conserve, et les questions à poser avant d'utiliser une technologie en classe.",
+  "attributes": {
+    "In brief": "En bref"
+  },
+  "blocks": [
+    "Technologies éducatives · Vie privée · Confiance",
+    "Apprendre dans le respect de la vie privée",
+    "Un outil qui apprend aux élèves à interroger la collecte de données doit accepter les mêmes questions. Cette page explique pourquoi la confidentialité compte dans les technologies éducatives et comment le projet y répond, en se fondant strictement sur son code.",
+    "Jouer sans compte",
+    "Confidentialité en détail",
+    "En bref",
+    "Cette page explique l'importance de la confidentialité dans les outils éducatifs et ce que NO AI ACT collecte ou ne collecte pas, à partir de son fonctionnement réel : aucun compte, aucune inscription, aucun profilage des joueurs ; les données de jeu restent dans le navigateur. Elle complète la page sur la protection dès la conception. Elle ne constitue pas un conseil juridique.",
+    "<span class=\"num\">01</span>Pourquoi la confidentialité compte dans l'éducation",
+    "La classe est un environnement contraint : les élèves choisissent rarement leurs outils et peuvent difficilement les refuser. La collecte de données éducatives relève donc d'un rapport de pouvoir autant que des préférences individuelles. « Nous ne collectons que peu de données » mérite d'être interrogé. L'AI Act lui-même traite l'éducation comme un domaine sensible aux enjeux importants.",
+    "<span class=\"num\">02</span>Ce que fait ce projet, et ce qu'il ne fait pas",
+    "<strong>Aucune inscription</strong> : le jeu fonctionne dans le navigateur sans compte, adresse électronique ni identifiant.",
+    "<strong>Aucun profilage des joueurs ni télémétrie du jeu</strong> : décisions, scores et rapports restent sur l'appareil ; la progression est conservée uniquement dans localStorage.",
+    "<strong>Uniquement des statistiques agrégées des pages</strong> sur le site public (Cloudflare Web Analytics sans cookies), jamais à l'intérieur du jeu.",
+    "<strong>Aucun formulaire externe intégré</strong> : cette version ne contient pas de formulaire de retour tiers.",
+    "La description complète du fonctionnement figure dans <a href=\"../privacy-by-design/\">protection dès la conception</a> ; le code est ouvert et vérifiable.",
+    "<span class=\"num\">03</span>Questions à poser à tout outil utilisé en classe",
+    "Exige-t-il des comptes d'élèves ? Pourquoi ?",
+    "Quelles données quittent exactement l'appareil, et le fournisseur peut-il le démontrer ?",
+    "Existe-t-il un tableau de bord qui profile chaque élève ? Qui y accède ?",
+    "L'outil pourrait-il fonctionner sans ces données ? Si oui, pourquoi les collecter ?",
+    "Que deviennent les données à la fin du cours ?",
+    "Ces questions sont aussi un support pédagogique : ce sont celles que le jeu apprend à poser sur tout système automatisé. Voir <a href=\"../ai-literacy/\">maîtrise de l'IA</a>.",
+    "<span class=\"num\">04</span>Utiliser cette page en classe",
+    "Associez un cas du jeu à l'examen d'un outil réellement utilisé en classe, avec les questions ci-dessus. Comparer ce que l'on peut vérifier ici et ce qui demeure invérifiable ailleurs produit souvent la discussion la plus animée. Une version structurée figure dans les <a href=\"../classroom-activities/\">activités pédagogiques</a>."
+  ]
+}

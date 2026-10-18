@@ -6,7 +6,7 @@
 [![Contenuti: CC BY-SA 4.0](https://img.shields.io/badge/contenuti-CC%20BY--SA%204.0-5d7fb8)](LICENSE)
 [![Stack](https://img.shields.io/badge/stack-TypeScript%20%2B%20Phaser%203%20%2B%20Vite-101a30)](#stack)
 [![Test](https://img.shields.io/badge/test-Vitest-d9a521)](tests/)
-[![Stato](https://img.shields.io/badge/stato-v3.0.0-3fa66a)](#stato-release)
+[![Stato](https://img.shields.io/badge/stato-v4.0.0-3fa66a)](#stato-release)
 [![Lingue](https://img.shields.io/badge/lingue-IT%20%2B%20EN-d8d6cd)](#lingue)
 
 **Serious game investigativo sull'AI Act europeo · browser, audio originale, salvataggio locale**
@@ -50,10 +50,10 @@ Questo gioco **non costituisce consulenza legale**.
 | **A chi serve** | Studenti (14+), docenti, formazione professionale, PA, cittadinanza digitale |
 | **Durata** | Da ~10–15 min (demo) a ~60–75 min (percorso avanzato) |
 | **Lingue** | Italiano / English |
-| **Account / dati** | Nessun account, nessun dato personale, nessun backend |
+| **Account / dati** | Nessun account; risposte locali; contatori aggregati disattivabili |
 | **Autore** | [Matteo Angeloni](https://www.no-ai-act.eu/matteo-angeloni/) — ideazione, game design, sviluppo e contenuti educativi |
 
-## Stato attuale del codice (v3.0.0 candidata)
+## Stato attuale del codice (v4.0.0 candidata)
 
 La 2.0 trasforma il progetto in un prodotto educativo e di ricerca più
 solido: modello di apprendimento tipizzato e matrice legale machine-readable,
@@ -81,8 +81,8 @@ restano compatibili.
 
 Incorpora il lavoro preparato come 2.3.0 e mai taggato: la **Postazione
 ispettiva** persistente che riunisce fascicolo, confronto dei reperti, norme,
-archivio e taccuino. Il sito è a **70 URL pubblici**; il press kit include una
-galleria Full HD. Dettagli: `docs/RELEASE_NOTES_v3.0.0.md`.
+archivio e taccuino. Il ramo di revisione include **107 URL pubblici** (italiano, inglese e francese), non ancora pubblicati; il press kit include una
+galleria Full HD. Dettagli: `docs/RELEASE_NOTES_v4.0.0.md`.
 
 ## Novità in v1.0.0 — Prima release pubblica stabile (storico)
 
@@ -103,7 +103,7 @@ di gioco: la 1.0 è una release di stabilizzazione e pubblicazione.
 Dettagli: [`docs/RELEASE_NOTES_v1.0.0.md`](docs/RELEASE_NOTES_v1.0.0.md) ·
 contenuti v0.6: [`docs/RELEASE_NOTES_v0.6.0.md`](docs/RELEASE_NOTES_v0.6.0.md).
 
-> **No backend · No accounts · No classroom dashboard · No personal data
+> **Aggregate usage counters only · No accounts · No classroom dashboard · No personal data
 > collection.** Teacher mode is local debrief support. Educational simulation,
 > not legal advice.
 
@@ -223,21 +223,21 @@ indicatori, tempo, domande di discussione) consultabile a schermo, con export
 > Eventuali export sono generati sul dispositivo dell'utente e possono essere
 > condivisi manualmente. Le pagine pubbliche usano statistiche aggregate e
 > privacy-friendly (Cloudflare Web Analytics, senza cookie né dati personali);
-> il gioco non invia gameplay, risultati o report e la sua telemetria interna è
-> disattivata di default.
+> il gioco invia automaticamente solo contatori aggregati di utilizzo,
+> disattivabili nella barra del gioco. Risposte, risultati e report restano locali.
 >
 > 🇬🇧 NO AI ACT is a public demo available through GitHub Pages. The game does
 > not require an account, does not ask for names, emails, school, or class, and
 > does not store results on a server. Teacher mode only produces a local
 > debrief. Any exports are generated on the user's device and can be shared
 > manually. The public pages use aggregate, privacy-friendly statistics
-> (Cloudflare Web Analytics, no cookies or personal data); the game sends no
-> gameplay, results or reports and its in-game telemetry is off by default.
+> (Cloudflare Web Analytics); the game automatically sends first-party aggregate
+> usage counters with opt-out. Answers, results and reports stay local.
 
 Telemetria opzionale privacy-by-design (`AnalyticsSystem`): eventi di gameplay
 aggregati con allowlist rigida; **niente** nomi, email, IP nel payload, free
 text, cookie, fingerprinting, session replay o identificativi persistenti.
-Default in produzione: **spenta**; rispetta Do Not Track. Adapter opzionali per
+In produzione: **contatori aggregati automatici**, disattivabili; rispetta DNT/GPC. Adapter opzionali per
 Plausible/Umami via variabili `VITE_*`. Dettagli e nota GDPR:
 [`docs/ANALYTICS.md`](docs/ANALYTICS.md).
 
@@ -361,7 +361,13 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 ## Roadmap
 
-**🧪 v3.0.0 — L'AI Act come modificato, e il quattordicesimo caso (non ancora taggata)**
+**v4.0.0 — Interfaccia mobile, tutorial, debrief e statistiche aggregate**
+- Percorso investigativo piu chiaro, quattro modalita, IT/EN/FR e presentazione mobile HTML.
+- Tutorial contestuale, spiegazioni delle valutazioni, debrief e ripasso.
+- Contatori aggregati automatici disattivabili; nessuna risposta o esito inviato.
+- Note: [docs/RELEASE_NOTES_v4.0.0.md](docs/RELEASE_NOTES_v4.0.0.md).
+
+**v3.0.0 — L'AI Act come modificato, e il quattordicesimo caso**
 - Prima versione che insegna il Reg. (UE) 2024/1689 **come modificato** dal
   Digital Omnibus (Reg. UE 2026/1744): calendario, pratiche vietate, articolo 4,
   enforcement a due corsie, articoli 4a, 25(2) e 27(4).
@@ -372,7 +378,7 @@ struttura fra i dizionari (predisposto per FR/ES).
 - **I salvataggi restano compatibili**: nessuna struttura dati cambia.
 - Incorpora il lavoro preparato come 2.3.0 e **mai taggato** — postazione
   ispettiva, confronto fra prove citate, taccuino, percorso tastiera.
-- 70 URL pubblici. Restano necessarie le due tornate di playtest esterni prima
+- 107 URL pubblici nel ramo di revisione, su tre lingue. Restano necessarie le due tornate di playtest esterni prima
   di dichiarare la build press-ready.
 - Dettagli: [`docs/RELEASE_NOTES_v3.0.0.md`](docs/RELEASE_NOTES_v3.0.0.md) ·
   [`docs/RELEASE_NOTES_v2.3.0.md`](docs/RELEASE_NOTES_v2.3.0.md).
@@ -435,15 +441,15 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 Fonte machine-readable: [`release.config.json`](release.config.json)
 (coerenza garantita da test automatici).
-Note di rilascio: [`docs/RELEASE_NOTES_v3.0.0.md`](docs/RELEASE_NOTES_v3.0.0.md).
+Note di rilascio: [`docs/RELEASE_NOTES_v4.0.0.md`](docs/RELEASE_NOTES_v4.0.0.md).
 
-- **Versione**: v3.0.0 (candidata; fonte: `package.json`)
-- **Tag della versione**: `v3.0.0` — **non ancora pubblicato**
+- **Versione**: v4.0.0 (candidata; fonte: `package.json`)
+- **Tag della versione**: `v4.0.0` — **non ancora pubblicato**
 - **Ultima release effettivamente taggata**: `v2.2.0`
 - **Nota**: la candidata 2.3 richiede merge, verifica live e playtest esterni prima del tag
 - **Casi giocabili**: 14
-- **Lingue**: italiano e inglese
-- **URL pubblici**: 70 (33 IT + 37 EN)
+- **Lingue**: italiano, inglese e francese (ramo di revisione, senza deploy)
+- **URL pubblici**: 107 (33 IT + 37 EN + 37 FR)
 - **Salvataggi**: schema v2, con migrazione testata dei salvataggi v1
 - **Backend**: nessuno · **Account**: nessuno · **Raccolta dati personali**:
   nessuna · **Chiamate di rete durante il gameplay**: nessuna
@@ -526,10 +532,10 @@ optional **local self-check**, a **confidence and reflection layer**, and a
 with aria-live announcements and a keyboard path through a full case) support
 learning and accessibility. Three difficulty modes, mission paths, IT/EN.
 
-No account, no backend, no personal-data collection, no network calls during
+No account or player identifiers; only aggregate usage calls during
 gameplay: graphics are procedural and recorded audio has a local synthetic
 fallback; saves stay in `localStorage`. **Teacher mode** is local debrief
-support only, with on-device `.txt`/`.json` exports. Version **3.0.0** is a
+support only, with on-device `.txt`/`.json` exports. Version **4.0.0** is a
 press candidate not yet tagged; the latest tagged release is **2.2.0**.
 Educational simplification of the AI Act, not legal advice. Its educational effectiveness has **not yet been empirically
 validated**. Code: GPL-3.0-or-later · narrative and didactic content: CC BY-SA 4.0.

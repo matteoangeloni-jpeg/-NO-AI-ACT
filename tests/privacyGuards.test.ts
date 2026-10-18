@@ -160,12 +160,12 @@ describe('/play/ SEO + privacy policy stays intact', () => {
     expect(play).toContain('content="noindex, follow"');
     expect(play).toContain('rel="canonical" href="https://www.no-ai-act.eu/play/"');
   });
-  it('/play/ has social metadata but no telemetry beyond the shared CF beacon', () => {
+  it('/play/ has social metadata and no remote scripts', () => {
     expect(play).toContain('property="og:title"');
     expect(play).toContain('name="twitter:card"');
     const srcs = [...play.matchAll(/<script[^>]*src=['"]([^'"]+)['"]/g)].map(([, s]) => s);
     const external = srcs.filter((s) => /^https?:\/\//.test(s));
-    expect(external).toEqual(['https://static.cloudflareinsights.com/beacon.min.js']);
+    expect(external).toEqual([]);
   });
   it('/play/ is excluded from every sitemap; the child sitemaps total the public URLs', () => {
     // /sitemap.xml is a sitemap index; the URLs live in the language children.

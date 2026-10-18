@@ -17,8 +17,9 @@
  * Node standard library only; the only external runtime is Playwright itself,
  * which the smokes import (a committed devDependency).
  */
-import { spawn, spawnSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { execFileSync, spawn, spawnSync } from 'node:child_process';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
@@ -26,7 +27,16 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PORT = 4200;
 const PROBE = `http://127.0.0.1:${PORT}/`;
 const BASE = `http://localhost:${PORT}`; // smokes' host allowlists expect "localhost"
-const SMOKES = ['gameplay-smoke.mjs', 'keyboard-smoke.mjs', 'draft-smoke.mjs', 'privacy-smoke.mjs', 'layout-smoke.mjs', 'audio-smoke.mjs', 'action-layer-smoke.mjs', 'inspector-desk-smoke.mjs', 'visual-language-smoke.mjs', 'press-pages-smoke.mjs', 'press-coverage-smoke.mjs'];
+const SMOKES = ['gameplay-smoke.mjs', 'keyboard-smoke.mjs', 'draft-smoke.mjs', 'privacy-smoke.mjs', 'layout-smoke.mjs', 'audio-smoke.mjs', 'action-layer-smoke.mjs', 'inspector-desk-smoke.mjs', 'visual-language-smoke.mjs', 'press-pages-smoke.mjs', 'mobile-ux-smoke.mjs', 'analytics-smoke.mjs', 'press-coverage-smoke.mjs'];
+const output = resolve(root, 'scripts/smoke/out/final-qa');
+mkdirSync(output, { recursive: true });
+const report = { sha: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(),
+  sourceDiffSha256: createHash('sha256').update(execFileSync('git', ['diff', 'HEAD'], { cwd: root })).digest('hex'),
+  builtPlayIndexSha256: existsSync(resolve(root, 'dist/play/index.html'))
+    ? createHash('sha256').update(readFileSync(resolve(root, 'dist/play/index.html'))).digest('hex') : null,
+  node: process.version, startedAt: new Date().toISOString(), completed: false, jobs: [] };
+const saveReport = () => writeFileSync(resolve(output, 'general-gate-results.json'), JSON.stringify(report, null, 2));
+saveReport();
 
 if (!existsSync(resolve(root, 'dist/index.html'))) {
   console.error('smoke:all: dist/index.html not found — run `npm run build` first.');
@@ -77,10 +87,13 @@ if (!up) {
 let firstFailure = 0;
 for (const smoke of SMOKES) {
   console.log(`\nsmoke:all → ${smoke}`);
+  const started = Date.now();
   const { status } = spawnSync(process.execPath, [resolve(root, 'scripts/smoke', smoke)], {
     cwd: root, stdio: 'inherit', env: { ...process.env, BASE }
   });
   const code = status ?? 1;
+  report.jobs.push({ smoke, exitCode: code, durationMs: Date.now() - started });
+  saveReport();
   if (code !== 0) {
     console.error(`smoke:all: ${smoke} FAILED (exit ${code})`);
     if (firstFailure === 0) firstFailure = code;
@@ -92,5 +105,9 @@ for (const smoke of SMOKES) {
 }
 
 stopServer();
+report.completed = true;
+report.exitCode = firstFailure;
+report.finishedAt = new Date().toISOString();
+saveReport();
 console.log(firstFailure === 0 ? '\nsmoke:all: all browser smokes PASSED' : '\nsmoke:all: FAILED');
 process.exit(firstFailure);

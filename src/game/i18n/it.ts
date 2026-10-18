@@ -5,7 +5,10 @@
  * Regolamento (UE) 2024/1689, come modificato dal Reg. (UE) 2026/1744.
  * Non costituiscono consulenza legale.
  */
+import { gameplayIt } from './gameplay';
 export const it = {
+  gameplay: gameplayIt,
+  mobile: { open: 'APRI DOCUMENTO', uncite: 'RIMUOVI CITAZIONE', search: 'Cerca nell’archivio', close: 'Chiudi' },
   ui: {
     gameTitle: 'NO AI ACT',
     gameSubtitle: 'Simulatore di una società non regolata',
@@ -313,7 +316,7 @@ export const it = {
       normsEmpty: 'Nessuna norma ancora acquisita.',
       termsButton: 'CHE COSA VUOL DIRE?',
       termsTitle: 'I TERMINI DI QUESTA SCELTA',
-      termsHint: 'solo consultazione — clic fuori o ESC per chiudere. Non suggerisce la risposta.',
+      termsHint: 'Sola consultazione. Chiudi per tornare alla decisione. Non suggerisce la risposta.',
       termsNoEntry: 'Non è una categoria definita dal regolamento: è ciò che resta fuori dalle altre.'
     },
     subjects: {
@@ -625,9 +628,9 @@ export const it = {
       author: 'Matteo Angeloni',
       affiliation: 'PhD Student — Università degli Studi della Tuscia',
       note:
-        'Vertical slice sviluppata con supporto AI.\n' +
-        'Asset grafici e audio procedurali.\n' +
-        'Licenze e attribuzioni complete disponibili nei file del progetto.',
+        "FATTO CON L'IA, NON DALL'IA — dichiarazione volontaria: sviluppato con\n" +
+        'assistenti IA, sotto responsabilità editoriale e scientifica di una persona.\n' +
+        'Asset grafici e audio procedurali. Licenze complete nei file del progetto.',
       phdProgramme: 'Società in mutamento: politiche, diritti e sicurezza',
       phdLink: 'Pagina del dottorato ▸',
       universityLink: 'Università degli Studi della Tuscia ▸',

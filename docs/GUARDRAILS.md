@@ -9,6 +9,9 @@ enforce all of it; run `npm test` before opening any feature PR.
   gated transport inside `AnalyticsSystem` — which resolves to **`off`** in
   production (`resolveProvider({ dev: false })` → `off`, and Do-Not-Track always
   forces `off`). No analytics provider env is set in the build.
+  Analytics A also hard-gates remote approval independently of provider env,
+  validates a closed versioned schema, and removes the CF beacon from /play/.
+  Local dev counters never flush automatically and never enter the save schema.
 - Enforced by `tests/privacyGuards.test.ts`.
 
 ## Save compatibility
@@ -93,6 +96,7 @@ with only committed dependencies:
 | `smoke:keyboard` | a core action reachable only with a pointer; the reading layer out of step with the scene; the outcome never announced |
 | `smoke:draft` | a case draft that does not survive leaving and re-entering the file |
 | `smoke:privacy` | a request to a host outside the allowlist; an external form; `/play/` losing its `noindex` |
+| `smoke:analytics` | invalid or duplicate counters, mismatched UI events in IT/EN/FR, offline or DNT breaking play, any telemetry request in the isolated dev fixture |
 | `smoke:layout` | text or controls under the page chrome; a panel that clips its own content; a heading that repeats itself |
 | `smoke:audio` | silence where a theme should play; clipping; every theme collapsing onto the same loudness |
 | `smoke:action-layer` | a drawn button with no real button behind it; a focus ring off its target; the TAB escaping an open panel; one ENTER firing two actions |
@@ -138,3 +142,25 @@ uploaded — a smoke failure fails the workflow and blocks deployment.
 4. `npm run smoke:all` — every browser smoke green (see above).
 5. Confirm: no new external host, no console errors, `/play/` noindex, no
    external forms, no gameplay/scoring/case/ending/save changes.
+# Mobile Gameplay 4.0
+
+## Aggregate usage release check
+
+Version 4.0 explicitly enables the first-party collector in `.env.production`.
+Only the exact www/beta origins may send; previews and unconfigured providers
+stay off. DNT/GPC override automatic collection. The former blanket claim of no
+gameplay network traffic does not apply to these bounded aggregate batches.
+
+After building, run `USAGE_TEST_CHANNEL=production node scripts/smoke/beta-usage-smoke.mjs`
+(set the environment variable separately in PowerShell). This intercepts all
+traffic locally and checks actual cases, automatic collection, duplicate delivery,
+opt-out, reload, mobile/desktop layout and DNT/GPC with a local Worker/D1.
+No observed production counters are seeded by the smoke.
+
+Run the same script without that variable after an explicit automatic beta build
+to test the isolated beta artifact. Privacy notice: `public/game-statistics.html`.
+
+`npm run smoke:mobile-ux` verifica il percorso a tocco nelle tre lingue,
+le dimensioni dei target, il reflow, il testo al 200%, la rotazione e il ripasso.
+Fa parte di `smoke:all`; sostituisce il vecchio percorso mobile basato sulle
+coordinate del canvas in `gameplay-smoke.mjs`.

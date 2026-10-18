@@ -1,5 +1,12 @@
 node_modules/
+.player-insights/
+.wrangler/
+analytics/.wrangler/
+analytics/.dev.vars
+analytics/.dev.vars.*
 dist/
+dist-beta/
+.infrastructure/
 *.local
 .DS_Store
 
@@ -9,3 +16,4 @@ scripts/smoke/out/
 
 # Misure della diagnosi di densità (si rifanno, non si archiviano)
 .diag/
+/artifacts/french-localization/

@@ -31,9 +31,9 @@ describe('play shell — semantic layer markup', () => {
     expect(shell).toContain('class="mg-continue"');
   });
 
-  it('adds no scripts beyond main.ts and the pre-existing beacon', () => {
+  it('loads only main.ts and no automatic telemetry script', () => {
     const srcs = [...shell.matchAll(/<script[^>]*src=['"]([^'"]+)['"]/g)].map(([, s]) => s);
-    expect(srcs.sort()).toEqual(['/src/main.ts', 'https://static.cloudflareinsights.com/beacon.min.js']);
+    expect(srcs).toEqual(['/src/main.ts']);
   });
 });
 
@@ -131,6 +131,10 @@ describe('mobile guard — v2-aware language and declared fallback (§11.4)', ()
       store.set('no-ai-act-save-v1', JSON.stringify({ language: 'it' }));
       store.set('no-ai-act-save-v2', JSON.stringify({ language: 'en' }));
       expect(savedLanguage()).toBe('en');
+      store.set('no-ai-act-save-v2', JSON.stringify({ language: 'fr' }));
+      expect(savedLanguage()).toBe('fr');
+      store.set('no-ai-act-save-v2', JSON.stringify({ language: 'invalid' }));
+      expect(savedLanguage()).toBe('it');
       store.delete('no-ai-act-save-v2');
       expect(savedLanguage()).toBe('it');
     } finally {
@@ -144,11 +148,12 @@ describe('mobile guard — v2-aware language and declared fallback (§11.4)', ()
     expect(src).toContain('dismissed = true');
   });
 
-  it('the layout smoke tests the fallback at 360×800 and 390×844', () => {
+  it('the layout smoke tests adaptive presentation at 360×800 and 390×844', () => {
     const smoke = read('scripts/smoke/layout-smoke.mjs');
     expect(smoke).toContain('{ w: 390, h: 844 }');
     expect(smoke).toContain('{ w: 360, h: 800 }');
-    expect(smoke).toContain('continue-anyway');
+    expect(smoke).toContain('mobile-presentation');
+    expect(smoke).toContain('legacy guard blocks mobile presentation');
     expect(smoke).toContain('{ w: 1920, h: 1080 }');
   });
 });

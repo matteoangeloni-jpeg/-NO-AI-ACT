@@ -1,45 +1,183 @@
 {
-  "$comment": "Single source of truth for public route pairs (IT dir ⇄ EN dir; '' = IT landing, 'en' = EN landing). Consumed by scripts/seo/audit-routes.mjs and tests/seoAudit.test.ts. enOnly routes have no IT counterpart yet: they self-reference in hreflang and use themselves as x-default. Every route listed here must exist, be indexable, carry a self canonical and belong to exactly one language sitemap. /play/ is intentionally NOT here (noindex, out of sitemaps).",
+  "$comment": "Public routes. pairs contains IT/EN/FR groups; enOnly has no IT counterpart, with optional French counterpart in frForEn. English is x-default for those groups. /play/ is noindex.",
   "site": "https://www.no-ai-act.eu/",
   "pairs": [
-    { "it": "", "en": "en" },
-    { "it": "come-funziona", "en": "en/how-it-works" },
-    { "it": "per-docenti", "en": "en/for-educators" },
-    { "it": "ai-act-serious-game", "en": "en/ai-act-serious-game" },
-    { "it": "privacy-by-design", "en": "en/privacy-by-design" },
-    { "it": "educazione", "en": "en/education" },
-    { "it": "ai-act-per-docenti", "en": "en/ai-act-for-teachers" },
-    { "it": "alfabetizzazione-ai", "en": "en/ai-literacy" },
-    { "it": "guida-ai-act", "en": "en/eu-ai-act-guide" },
-    { "it": "categorie-rischio-ai-act", "en": "en/ai-act-risk-categories" },
-    { "it": "pratiche-vietate-ai-act", "en": "en/prohibited-ai-practices" },
-    { "it": "sistemi-ai-ad-alto-rischio", "en": "en/high-risk-ai-systems" },
-    { "it": "obblighi-trasparenza-ai-act", "en": "en/transparency-obligations" },
-    { "it": "ai-generativa-e-gpai", "en": "en/general-purpose-ai" },
-    { "it": "provider-deployer-ai-act", "en": "en/provider-deployer-ai-act" },
-    { "it": "ai-act-pubblica-amministrazione", "en": "en/ai-act-public-administration" },
-    { "it": "ai-act-per-le-aziende", "en": "en/ai-act-for-business" },
-    { "it": "sanzioni-ai-act", "en": "en/ai-act-penalties" },
-    { "it": "ai-act-e-gdpr", "en": "en/ai-act-and-gdpr" },
-    { "it": "fria-ai-act-valutazione-diritti-fondamentali", "en": "en/fria-ai-act-fundamental-rights-impact-assessment" },
-    { "it": "apprendimento-privacy-consapevole", "en": "en/privacy-conscious-learning" },
-    { "it": "serious-game-regolazione-ai", "en": "en/serious-games-for-ai-regulation" },
-    { "it": "attivita-didattiche", "en": "en/classroom-activities" },
-    { "it": "lezione-introduzione-ai-act", "en": "en/lesson-plan-introduction-to-the-ai-act" },
-    { "it": "glossario", "en": "en/glossary" },
-    { "it": "come-citare", "en": "en/how-to-cite" },
-    { "it": "ricerca-e-metodologia", "en": "en/research-and-methodology" },
-    { "it": "matteo-angeloni", "en": "en/matteo-angeloni" },
-    { "it": "press-kit", "en": "en/press-kit" },
-    { "it": "tempi-applicazione-ai-act", "en": "en/ai-act-application-timeline" },
-    { "it": "deepfake-e-trasparenza", "en": "en/deepfakes-and-transparency" },
-    { "it": "ai-nel-lavoro-e-selezione", "en": "en/ai-in-recruitment-and-employment" },
-    { "it": "laboratorio-ai-act-in-classe", "en": "en/ai-act-classroom-lab" }
+    {
+      "it": "",
+      "en": "en",
+      "fr": "fr"
+    },
+    {
+      "it": "come-funziona",
+      "en": "en/how-it-works",
+      "fr": "fr/comment-ca-marche"
+    },
+    {
+      "it": "per-docenti",
+      "en": "en/for-educators",
+      "fr": "fr/pour-les-formateurs"
+    },
+    {
+      "it": "ai-act-serious-game",
+      "en": "en/ai-act-serious-game",
+      "fr": "fr/serious-game-ai-act"
+    },
+    {
+      "it": "privacy-by-design",
+      "en": "en/privacy-by-design",
+      "fr": "fr/protection-des-donnees-des-la-conception"
+    },
+    {
+      "it": "educazione",
+      "en": "en/education",
+      "fr": "fr/education"
+    },
+    {
+      "it": "ai-act-per-docenti",
+      "en": "en/ai-act-for-teachers",
+      "fr": "fr/ai-act-pour-enseignants"
+    },
+    {
+      "it": "alfabetizzazione-ai",
+      "en": "en/ai-literacy",
+      "fr": "fr/maitrise-de-l-ia"
+    },
+    {
+      "it": "guida-ai-act",
+      "en": "en/eu-ai-act-guide",
+      "fr": "fr/guide-ai-act"
+    },
+    {
+      "it": "categorie-rischio-ai-act",
+      "en": "en/ai-act-risk-categories",
+      "fr": "fr/categories-de-risque-ai-act"
+    },
+    {
+      "it": "pratiche-vietate-ai-act",
+      "en": "en/prohibited-ai-practices",
+      "fr": "fr/pratiques-interdites-ai-act"
+    },
+    {
+      "it": "sistemi-ai-ad-alto-rischio",
+      "en": "en/high-risk-ai-systems",
+      "fr": "fr/systemes-ia-a-haut-risque"
+    },
+    {
+      "it": "obblighi-trasparenza-ai-act",
+      "en": "en/transparency-obligations",
+      "fr": "fr/obligations-de-transparence"
+    },
+    {
+      "it": "ai-generativa-e-gpai",
+      "en": "en/general-purpose-ai",
+      "fr": "fr/ia-a-usage-general"
+    },
+    {
+      "it": "provider-deployer-ai-act",
+      "en": "en/provider-deployer-ai-act",
+      "fr": "fr/fournisseur-deployeur-ai-act"
+    },
+    {
+      "it": "ai-act-pubblica-amministrazione",
+      "en": "en/ai-act-public-administration",
+      "fr": "fr/ai-act-administration-publique"
+    },
+    {
+      "it": "ai-act-per-le-aziende",
+      "en": "en/ai-act-for-business",
+      "fr": "fr/ai-act-entreprises"
+    },
+    {
+      "it": "sanzioni-ai-act",
+      "en": "en/ai-act-penalties",
+      "fr": "fr/sanctions-ai-act"
+    },
+    {
+      "it": "ai-act-e-gdpr",
+      "en": "en/ai-act-and-gdpr",
+      "fr": "fr/ai-act-et-rgpd"
+    },
+    {
+      "it": "fria-ai-act-valutazione-diritti-fondamentali",
+      "en": "en/fria-ai-act-fundamental-rights-impact-assessment",
+      "fr": "fr/analyse-impact-droits-fondamentaux-ai-act"
+    },
+    {
+      "it": "apprendimento-privacy-consapevole",
+      "en": "en/privacy-conscious-learning",
+      "fr": "fr/apprentissage-respectueux-vie-privee"
+    },
+    {
+      "it": "serious-game-regolazione-ai",
+      "en": "en/serious-games-for-ai-regulation",
+      "fr": "fr/serious-games-reglementation-ia"
+    },
+    {
+      "it": "attivita-didattiche",
+      "en": "en/classroom-activities",
+      "fr": "fr/activites-pedagogiques"
+    },
+    {
+      "it": "lezione-introduzione-ai-act",
+      "en": "en/lesson-plan-introduction-to-the-ai-act",
+      "fr": "fr/seance-introduction-ai-act"
+    },
+    {
+      "it": "glossario",
+      "en": "en/glossary",
+      "fr": "fr/glossaire"
+    },
+    {
+      "it": "come-citare",
+      "en": "en/how-to-cite",
+      "fr": "fr/comment-citer"
+    },
+    {
+      "it": "ricerca-e-metodologia",
+      "en": "en/research-and-methodology",
+      "fr": "fr/recherche-methodologie"
+    },
+    {
+      "it": "matteo-angeloni",
+      "en": "en/matteo-angeloni",
+      "fr": "fr/matteo-angeloni"
+    },
+    {
+      "it": "press-kit",
+      "en": "en/press-kit",
+      "fr": "fr/dossier-de-presse"
+    },
+    {
+      "it": "tempi-applicazione-ai-act",
+      "en": "en/ai-act-application-timeline",
+      "fr": "fr/calendrier-application-ai-act"
+    },
+    {
+      "it": "deepfake-e-trasparenza",
+      "en": "en/deepfakes-and-transparency",
+      "fr": "fr/hypertrucages-transparence"
+    },
+    {
+      "it": "ai-nel-lavoro-e-selezione",
+      "en": "en/ai-in-recruitment-and-employment",
+      "fr": "fr/ia-recrutement-emploi"
+    },
+    {
+      "it": "laboratorio-ai-act-in-classe",
+      "en": "en/ai-act-classroom-lab",
+      "fr": "fr/atelier-ai-act-en-classe"
+    }
   ],
   "enOnly": [
     "en/digital-citizenship-ai-regulation",
     "en/lesson-plan-risk-based-approach",
     "en/lesson-plan-transparency-and-users",
     "en/faq"
-  ]
+  ],
+  "frForEn": {
+    "en/digital-citizenship-ai-regulation": "fr/citoyennete-numerique-reglementation-ia",
+    "en/faq": "fr/faq",
+    "en/lesson-plan-risk-based-approach": "fr/seance-approche-par-les-risques",
+    "en/lesson-plan-transparency-and-users": "fr/seance-transparence-utilisateurs"
+  }
 }

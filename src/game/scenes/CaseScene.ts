@@ -7,6 +7,9 @@ import { Button } from '../ui/Button';
 import { TypewriterText } from '../ui/TypewriterText';
 import { L, caseText, fmt, locationName } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
+import { StateManager } from '../systems/StateManager';
+import { InvestigationGuide } from '../systems/InvestigationGuide';
+import { openInvestigationGuide } from '../ui/InvestigationGuideOverlay';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene, reveal } from '../ui/motion';
 import { addNoiseOverlay } from '../ui/backdrop';
@@ -29,7 +32,7 @@ export class CaseScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
     AnalyticsSystem.page('case');
-    AnalyticsSystem.track('case_started', { caseId: this.caseData.id, locationId: this.caseData.locationId });
+    AnalyticsSystem.startCase(this.caseData.id);
     AudioSystem.setMusicRole('archive', this.caseData.id);
     AudioSystem.openCase();
     addNoiseOverlay(this, 0.4);
@@ -62,12 +65,26 @@ export class CaseScene extends Phaser.Scene {
       if (proceed.visible) this.scene.start('Evidence', { caseId: this.caseData.id });
     });
     // strato di lettura (§11.1): scenario completo, sincronizzato all'ingresso
-    ReadingLayer.setScene(texts.title, [
+    const publishReading = (): void => ReadingLayer.setScene(texts.title, [
       { text: fmt(L().ui.case.fileLabel, { code: this.caseData.fileCode }) },
-      { text: texts.scenario }
+      { text: texts.scenario },
+      { text: InvestigationGuide.active(this.caseData.id) ? L().gameplay.steps[0] : '' },
+      { text: StateManager.isReviewing ? L().gameplay.reviewNote : '' }
     ]);
+    publishReading();
+    if (InvestigationGuide.eligible(this.caseData.id)) {
+      InvestigationGuide.begin(this.caseData.id);
+      const hint = this.add.text(cx, 520, L().gameplay.steps[0], textStyle(14, COLOR_STR.accentText, { wordWrap: { width: 820 }, align: 'center' }))
+        .setOrigin(0.5, 0).setVisible(InvestigationGuide.active(this.caseData.id));
+      new Button(this, cx, 610, L().gameplay.guide, () => openInvestigationGuide(this, this.caseData.id, 0,
+        () => { hint.setVisible(InvestigationGuide.active(this.caseData.id)); publishReading(); }), { width: 360, height: 40, fontSize: 13 });
+    }
 
     new Button(this, 90, GAME_HEIGHT - 36, L().ui.case.backToMap, () => this.scene.start('CityMap'), { width: 140, height: 36, fontSize: 12, variant: 'ghost' });
+    if (StateManager.isReviewing) {
+      this.add.text(cx, 520, L().gameplay.reviewNote, textStyle(13, COLOR_STR.accentText, { wordWrap: { width: 820 }, align: 'center' })).setOrigin(0.5, 0);
+      new Button(this, cx, 610, L().gameplay.exitReview, () => this.scene.start('CityMap'), { width: 430, height: 40, fontSize: 13 });
+    }
     this.input.keyboard?.on('keydown-ESC', () => this.scene.start('CityMap'));
   }
 }

@@ -653,6 +653,7 @@ ul.plain li { margin-bottom: 0.4rem; }
 .press-gallery img {
   display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 16 / 9;
   object-fit: cover;
 }
@@ -820,6 +821,23 @@ section { padding: 4rem 0; }
 
 /* --- footer: mono, maiuscolo, link a destra --- */
 footer .credit { font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.72rem; }
+/* DICHIARAZIONE VOLONTARIA SULL'USO DELL'IA, non un'etichetta di conformità.
+   Sta nel piè di pagina perché è l'unico posto presente su tutte le rotte, e
+   si distingue dal numero di versione che la precede: quello è un dato, questa
+   è un'affermazione di responsabilità. Il bordo a sinistra fa quel lavoro
+   senza aggiungere un colore nuovo alla tavolozza. La motivazione completa sta
+   sulle pagine di metodologia, a cui questo rimanda. */
+footer .credit .ai-disclosure {
+  border-left: 2px solid var(--accent, currentColor);
+  padding-left: 0.45em;
+  margin-left: 0.1em;
+  white-space: nowrap;
+}
+@media (max-width: 480px) {
+  /* Su schermo stretto il motto va a capo da solo invece di spingere la riga
+     fuori dalla pagina: il piè di pagina contiene già quattro informazioni. */
+  footer .credit .ai-disclosure { white-space: normal; }
+}
 /* L'affiliazione sta sotto il credito e in secondo piano: è un'informazione
    di contesto su chi firma il progetto, non una voce di navigazione. */
 footer .credit-affil {

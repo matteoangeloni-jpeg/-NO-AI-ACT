@@ -39,6 +39,7 @@ import { Button } from '../ui/Button';
 import { DecisionDebriefOverlay } from '../ui/DecisionDebriefOverlay';
 import { L, caseText, fmt, normText } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
+import { emitGameplayUx } from '../systems/InvestigationGuide';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene } from '../ui/motion';
 import { addNoiseOverlay } from '../ui/backdrop';
@@ -349,17 +350,32 @@ export class ReportScene extends Phaser.Scene {
       axes: axesLine,
       linkUrl: conceptLink(this.caseData.concepts[0], StateManager.language),
       // 2.0: riflessione facoltativa, annotata solo in locale (mai nel punteggio)
-      onReflect: (choice) => StateManager.saveCaseMeta(this.caseData.id, { reflection: choice })
+      onReflect: (choice) => StateManager.saveCaseMeta(this.caseData.id, { reflection: choice }),
+      onReview: !StateManager.isReviewing && Object.values(StateManager.completedCases).some(q => q !== 'correct') ? () => {
+        const caseId = StateManager.beginReview();
+        if (caseId) this.scene.start('Case', { caseId });
+      } : undefined
     });
     // non è una decorazione: è dove sta il confronto per assi, i concetti e la
     // lettura consigliata. Variante primaria, non fantasma.
-    new Button(this, 240, GAME_HEIGHT - 46, t.ui.decisionDebrief.button, () => debrief.toggle(), { width: 320, height: 40, fontSize: 13 });
+    new Button(this, 240, GAME_HEIGHT - 46, t.ui.decisionDebrief.button, () => {
+      if (!debrief.isOpen) emitGameplayUx('debrief_opened', this.caseData.id);
+      debrief.toggle();
+    }, { width: 320, height: 40, fontSize: 13 });
 
     // strato di lettura (§11.1) + annuncio dell'esito (aria-live)
     ReadingLayer.setScene(t.a11y.reportTitle, [
       { text: texts.title },
       { heading: t.ui.outcomes[result.outcome], text: analysis },
+      { heading: t.ui.report.dominantLabel, text: result.dominantError ? t.ui.errors[result.dominantError] : texts.noteCorrect },
+      { heading: t.ui.report.decisiveEvidenceLabel, text: relevant },
+      { heading: t.ui.report.evidenceLabel, text: citedTitles },
       { text: `${t.ui.report.decisionLabel} ${t.classifications[this.params.classification]} → ${t.measures[this.params.measure]}` },
+      { heading: t.ui.report.subjectLabel, text: t.ui.subjects[this.params.subject] },
+      { heading: t.ui.report.motivationLabel, text: texts.motivations[this.params.motivationIndex] },
+      ...(this.params.incidentChoice && texts.incident ? [{ heading: t.ui.report.incidentLabel, text: texts.incident.options[this.params.incidentChoice] }] : []),
+      ...(showsSecondaryErrors(StateManager.difficulty) ? [{ heading: t.ui.report.secondaryLabel, items: result.secondaryErrors.map(e => t.ui.errors[e]) }] : []),
+      { heading: t.ui.report.lessonLabel, text: caseLearning(this.caseData.id).takeaway },
       { text: `${t.ui.decisionDebrief.axes.label}: ${axesLine}` }
     ]);
     ReadingLayer.announce(fmt(t.a11y.outcomeAnnounced, { outcome: t.ui.outcomes[result.outcome] }));

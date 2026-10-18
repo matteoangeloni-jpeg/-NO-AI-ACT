@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { COLORS, COLOR_STR, textStyle, GAME_WIDTH } from './theme';
 import { StateManager } from '../systems/StateManager';
 import { L } from '../i18n';
+import { ReadingLayer } from '../systems/ReadingLayer';
 
 export type ToastKind = 'info' | 'warning' | 'alert' | 'ok';
 
@@ -31,6 +32,7 @@ const current = new WeakMap<Phaser.Scene, Phaser.GameObjects.Container>();
 export const TOAST_HEIGHT = 44;
 
 export function showToast(scene: Phaser.Scene, message: string, kind: ToastKind = 'info', topOffset = 36): void {
+  ReadingLayer.announce(message);
   const previous = current.get(scene);
   if (previous?.active) {
     scene.tweens.killTweensOf(previous);

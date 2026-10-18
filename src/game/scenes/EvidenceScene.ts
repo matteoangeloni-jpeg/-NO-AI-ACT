@@ -19,6 +19,8 @@ import { fadeInScene, reveal } from '../ui/motion';
 import { StateManager } from '../systems/StateManager';
 import { addNoiseOverlay } from '../ui/backdrop';
 import { createDocumentTextures } from '../assets/procedural/documentStyles';
+import { InvestigationGuide, emitGameplayUx } from '../systems/InvestigationGuide';
+import { openInvestigationGuide } from '../ui/InvestigationGuideOverlay';
 
 /**
  * Esame dei reperti: aprire tutti gli indizi, poi citare nel rapporto
@@ -70,6 +72,8 @@ export class EvidenceScene extends Phaser.Scene {
   private inspectorDesk!: InspectorDesk;
   private backBtn!: Button;
   private contradictionBtn: Button | null = null;
+  private guideBtn?: Button;
+  private lastGuideStep = -1;
 
   constructor() {
     super('Evidence');
@@ -88,7 +92,6 @@ export class EvidenceScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     fadeInScene(this, 250);
     AnalyticsSystem.page('evidence');
-    AnalyticsSystem.track('evidence_opened', { caseId: this.caseData.id });
     AudioSystem.setMusicRole('archive', this.caseData.id);
     addNoiseOverlay(this, 0.4);
 
@@ -169,7 +172,11 @@ export class EvidenceScene extends Phaser.Scene {
       // è lei a sapere che «prova decisiva» è uno stato e merita il
       // distintivo, mentre le altre funzioni restano una riga di testo.
       const stance = this.caseData.clueStances?.[i];
-      const card = new DossierCard(this, x, y, cardW, cardH, clue, i, () => this.refreshState(), sourceLabel, stance, src);
+      const card = new DossierCard(this, x, y, cardW, cardH, clue, i, () => {
+        const current = this.cards[i];
+        AnalyticsSystem.evidenceAction(this.caseData.id, i, current.isRevealed, current.isCited);
+        this.refreshState();
+      }, sourceLabel, stance, src);
       card.setAlpha(0);
       reveal(this, { targets: card, alpha: 1, duration: 250, delay: i * 100 });
       this.cards.push(card);
@@ -181,6 +188,7 @@ export class EvidenceScene extends Phaser.Scene {
     // comparirebbero vuote e poi si riempirebbero.
     const draft = StateManager.draftFor(this.caseData.id);
     if (draft) {
+      AnalyticsSystem.restoreEvidence(this.caseData.id, draft.revealedClues, draft.citedClues);
       this.cards.forEach((card, i) => {
         card.setAlpha(1);
         card.restore(draft.revealedClues.includes(i), draft.citedClues.includes(i));
@@ -250,6 +258,12 @@ export class EvidenceScene extends Phaser.Scene {
         if (!this.hasOpenOverlay()) this.markContradiction();
       });
     }
+    if (InvestigationGuide.eligible(this.caseData.id)) {
+      InvestigationGuide.begin(this.caseData.id);
+      this.guideBtn = new Button(this, GAME_WIDTH - 190, GAME_HEIGHT - 36, L().gameplay.guide,
+        () => openInvestigationGuide(this, this.caseData.id, this.guideStep(), () => this.syncReadingLayer()),
+        { width: 340, height: 36, fontSize: 12, variant: 'ghost' });
+    }
     this.syncReadingLayer();
   }
 
@@ -272,7 +286,10 @@ export class EvidenceScene extends Phaser.Scene {
       caseLabel: fmt(ui.fileLabel, { code: this.caseData.fileCode }),
       phaseLabel: ui.evidencePhase
     });
-    this.contextBtn = this.inspectorDesk.addAction(ui.context, () => this.contextOverlay.toggle(), { width: 126 });
+    this.contextBtn = this.inspectorDesk.addAction(ui.context, () => {
+      if (!this.contextOverlay.isOpen) emitGameplayUx('help_requested', this.caseData.id);
+      this.contextOverlay.toggle();
+    }, { width: 126 });
     this.compareBtn = this.inspectorDesk.addAction(ui.compare, () => this.compareOverlay.toggle(), { width: 142, disabled: true });
     this.inspectorDesk.addAction(ui.normLocked, () => undefined, { width: 142, disabled: true });
     this.notebookBtn = this.inspectorDesk.addAction(ui.notebook, () => this.notebookOverlay.toggle(), { width: 126 });
@@ -325,8 +342,6 @@ export class EvidenceScene extends Phaser.Scene {
       .filter((i) => i >= 0);
     AnalyticsSystem.track('clues_selected', {
       caseId: this.caseData.id,
-      selectedClueCount: cited.length,
-      relevantClueCount: this.caseData.relevantClues.length
     });
     const next = this.caseData.hasIncident ? 'Incident' : 'Decision';
     this.scene.start(next, { caseId: this.caseData.id, citedClues: cited });
@@ -335,22 +350,30 @@ export class EvidenceScene extends Phaser.Scene {
   /** Strato di lettura (§11.1): titoli sempre, testi dei reperti aperti. */
   private syncReadingLayer(): void {
     const texts = caseText(this.caseData.id);
+    const guideText = InvestigationGuide.active(this.caseData.id) ? L().gameplay.steps[this.guideStep()] : '';
+    this.istruzione.setText(guideText || L().ui.evidence.instruction);
+    this.lastGuideStep = this.guideStep();
+    this.istruzione.setWordWrapWidth(1100);
+    this.istruzione.setVisible(!!guideText || !this.istruzioniRitirate);
+    this.notaCitazione.setVisible(!guideText && !this.istruzioniRitirate);
     ReadingLayer.setScene(fmt(L().ui.evidence.header, { code: this.caseData.fileCode }), [
+      { text: guideText },
       { text: L().ui.evidence.instruction },
       // Prima non c'era: ora che la riga a video si ritira, se non stesse qui
       // chi legge con uno strumento assistivo la perderebbe del tutto.
       { text: L().ui.evidence.citeNote },
-      { text: fmt(L().a11y.evidenceHint, { n: Math.min(texts.clues.length, 6) }) },
-      {
-        items: texts.clues.map((clue, i) => {
+      { text: fmt(L().a11y.evidenceHint, { n: Math.min(texts.clues.length, 6) }), desktopOnly: true },
+      ...texts.clues.map((clue, i) => {
           const card = this.cards[i];
-          return evidenceReadingLine(
+          const source = texts.clueSources?.[i];
+          return { actionSlot: `evidence-${i}`, heading: `${fmt(L().ui.evidence.exhibit, { num: i + 1 })} - ${clue.title}`,
+            text: (source ? `${L().ui.evidence.sourceLabel}: ${L().ui.evidence.sources[source]}. ` : '') + evidenceReadingLine(
             clue,
             card ? { revealed: card.isRevealed, cited: card.isCited } : undefined,
             { sealed: L().ui.evidence.sealed, cited: L().a11y.evidenceCited }
-          );
-        })
-      }
+          ) };
+        }),
+      { text: this.progressText.text }
     ]);
   }
 
@@ -366,6 +389,12 @@ export class EvidenceScene extends Phaser.Scene {
     this.backBtn.setVisible(!hideNav);
     this.proceedBtn.setVisible(this.proceedEligible && !hideNav);
     this.contradictionBtn?.setVisible(!hideNav);
+    this.guideBtn?.setVisible(!hideNav);
+    if (!hideNav && InvestigationGuide.active(this.caseData.id) && this.lastGuideStep !== this.guideStep()) this.syncReadingLayer();
+  }
+
+  private guideStep(): number {
+    return InvestigationGuide.evidenceStep(this.cards.filter(c => c.isRevealed).length, this.citedIndices().length);
   }
 
   /**

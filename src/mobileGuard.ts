@@ -1,5 +1,7 @@
-import { LOCALES } from './game/i18n';
+import { LOCALES, isLanguageCode } from './game/i18n';
 import type { LanguageCode } from './game/data/types';
+import { mobilePresentationActive } from './game/ui/mobilePresentation';
+import { saveStorageKey } from './game/systems/saveNamespace';
 
 /**
  * Mobile guard: overlay puramente DOM/CSS (nessun canvas, nessun backend,
@@ -11,17 +13,18 @@ import type { LanguageCode } from './game/data/types';
 export function savedLanguage(): LanguageCode {
   try {
     // schema v2 prima, con fallback allo snapshot v1 pre-migrazione
-    for (const key of ['no-ai-act-save-v2', 'no-ai-act-save-v1']) {
-      const raw = localStorage.getItem(key);
+    for (const key of ['no-ai-act-save-v2', 'no-ai-act-save-v1'] as const) {
+      const raw = localStorage.getItem(saveStorageKey(key));
       if (raw) {
         const parsed = JSON.parse(raw) as { language?: string };
-        if (parsed.language === 'en' || parsed.language === 'it') return parsed.language;
+        if (isLanguageCode(parsed.language)) return parsed.language;
       }
     }
   } catch {
     /* localStorage non disponibile */
   }
-  if (typeof navigator !== 'undefined' && navigator.language && navigator.language.startsWith('en')) return 'en';
+  const browserLanguage = typeof navigator === 'undefined' ? '' : navigator.language?.split('-')[0];
+  if (isLanguageCode(browserLanguage)) return browserLanguage;
   return 'it';
 }
 
@@ -45,7 +48,7 @@ export function initMobileGuard(): void {
     const t = LOCALES[savedLanguage()].a11y;
     if (msg) msg.textContent = LOCALES[savedLanguage()].ui.mobileGuard.message;
     if (continueBtn) continueBtn.textContent = t.mobileContinue;
-    const show = !dismissed && shouldShowMobileGuard(window.innerWidth, window.innerHeight);
+    const show = !mobilePresentationActive() && !dismissed && shouldShowMobileGuard(window.innerWidth, window.innerHeight);
     el.style.display = show ? 'flex' : 'none';
   };
 

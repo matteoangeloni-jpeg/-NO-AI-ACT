@@ -22,6 +22,8 @@ import { CLASSIFICATION_TERMS, SUBJECT_TERMS } from '../data/termHints';
 import { addNoiseOverlay } from '../ui/backdrop';
 import { protocolDate } from '../assets/procedural/decisionSeal';
 import { stateBadge } from '../assets/procedural/visualStates';
+import { InvestigationGuide, emitGameplayUx } from '../systems/InvestigationGuide';
+import { openInvestigationGuide } from '../ui/InvestigationGuideOverlay';
 
 
 /**
@@ -107,7 +109,7 @@ export class DecisionScene extends Phaser.Scene {
   private notebookBtn?: Button;
   private backBtn?: Button;
   private termsBtn?: Button;
-  private lastStep?: { label: string; question: string };
+  private guideBtn?: Button;
 
   constructor() {
     super('Decision');
@@ -186,21 +188,6 @@ export class DecisionScene extends Phaser.Scene {
     builders[this.resumeStep()]();
   }
 
-  /**
-   * Riporta lo strato di lettura al passo corrente. Serve dopo la chiusura
-   * di un overlay che lo ha sostituito: senza, chi legge con uno strumento
-   * assistivo resterebbe sui termini del glossario mentre sullo schermo è
-   * tornata la domanda.
-   */
-  private syncStepReading(): void {
-    if (!this.lastStep) return;
-    ReadingLayer.setScene(fmt(L().a11y.decisionTitle, { step: this.lastStep.label }), [
-      { text: this.lastStep.question },
-      { text: L().ui.decision.stepBackHint },
-      this.citedEvidenceReading()
-    ]);
-  }
-
   private citedEvidenceReading(): { heading: string; items: string[] } {
     const texts = caseText(this.caseData.id);
     return {
@@ -261,7 +248,9 @@ export class DecisionScene extends Phaser.Scene {
   }
 
   private header(step: string, question: string, sidebar = true): void {
-    this.lastStep = { label: step, question };
+    this.guideBtn = new Button(this, GAME_WIDTH - 190, GAME_HEIGHT - 36, L().gameplay.guide,
+      () => openInvestigationGuide(this, this.caseData.id, this.motivation === null ? 3 : 4),
+      { width: 340, height: 36, fontSize: 12, variant: 'ghost' });
     // strato di lettura (§11.1): passo corrente e domanda, a ogni transizione
     // Il ritorno al passo precedente è annunciato qui e non nei tasti in
     // fondo: chi legge con uno strumento assistivo incontra la scena
@@ -288,9 +277,15 @@ export class DecisionScene extends Phaser.Scene {
       phaseLabel: desk.decisionPhase,
       status: fmt(desk.citedStatus, { cited: this.citedClues.length })
     });
-    this.contextBtn = this.inspectorDesk.addAction(desk.context, () => this.contextOverlay.toggle(), { width: 122 });
+    this.contextBtn = this.inspectorDesk.addAction(desk.context, () => {
+      if (!this.contextOverlay.isOpen) emitGameplayUx('help_requested', this.caseData.id);
+      this.contextOverlay.toggle();
+    }, { width: 122 });
     this.compareBtn = this.inspectorDesk.addAction(desk.compare, () => this.compareOverlay.toggle(), { width: 132, disabled: this.citedClues.length < 2 });
-    this.caseNormBtn = this.inspectorDesk.addAction(desk.norm, () => this.caseNormOverlay.toggle(), { width: 112 });
+    this.caseNormBtn = this.inspectorDesk.addAction(desk.norm, () => {
+      if (!this.caseNormOverlay.isOpen) emitGameplayUx('help_requested', this.caseData.id);
+      this.caseNormOverlay.toggle();
+    }, { width: 112 });
     this.normsBtn = this.inspectorDesk.addAction(desk.archive, () => this.toggleNormsOverlay(), { width: 122 });
     this.notebookBtn = this.inspectorDesk.addAction(desk.notebook, () => this.notebookOverlay.toggle(), { width: 116 });
     if (sidebar) this.buildSidebar();
@@ -324,6 +319,7 @@ export class DecisionScene extends Phaser.Scene {
     this.notebookBtn?.setVisible(!hideNav);
     this.backBtn?.setVisible(!hideNav);
     this.termsBtn?.setVisible(!hideNav);
+    this.guideBtn?.setVisible(!hideNav);
   }
 
   /**
@@ -423,14 +419,14 @@ export class DecisionScene extends Phaser.Scene {
       .setOrigin(0.5, 0);
     // microcopy: la decisione è distinta dal rapporto e si svolge in 4 passi
     this.add
-      .text(cx, GAME_HEIGHT - 110, L().ui.decision.processNote, textStyle(12, COLOR_STR.accentText, { wordWrap: { width: 900 }, align: 'center' }))
+      .text(cx, GAME_HEIGHT - 110, InvestigationGuide.active(this.caseData.id) ? L().gameplay.steps[3] : L().ui.decision.processNote, textStyle(12, COLOR_STR.accentText, { wordWrap: { width: 900 }, align: 'center' }))
       .setOrigin(0.5);
 
     const pick = (cls: Classification): void => {
       if (this.classification !== null) return;
       this.classification = cls;
       this.persistDraft('measure');
-      AnalyticsSystem.track('classification_selected', { caseId: this.caseData.id, classification: cls });
+      AnalyticsSystem.track('classification_selected', { caseId: this.caseData.id });
       AudioSystem.registerDecision();
       this.nextStep(() => this.showMeasureStep());
     };
@@ -463,7 +459,7 @@ export class DecisionScene extends Phaser.Scene {
       if (this.measure !== null) return;
       this.measure = measure;
       this.persistDraft('subject');
-      AnalyticsSystem.track('measure_selected', { caseId: this.caseData.id, measure });
+      AnalyticsSystem.track('measure_selected', { caseId: this.caseData.id });
       AudioSystem.registerDecision();
       this.nextStep(() => this.showSubjectStep());
     };
@@ -534,7 +530,7 @@ export class DecisionScene extends Phaser.Scene {
 
     texts.motivations.forEach((motivation, i) => {
       // bottone largo con etichetta vuota: il testo multilinea è sovrapposto
-      new Button(this, cx, 230 + i * 110, '', () => pick(i), { width: 880, height: 92, fontSize: 13 });
+      new Button(this, cx, 230 + i * 110, '', () => pick(i), { width: 880, height: 92, fontSize: 13, accessibleLabel: `${i + 1}. ${motivation}` });
       this.add
         .text(cx - 410, 230 + i * 110, `${i + 1}. ${motivation}`, textStyle(13.5, COLOR_STR.paper, { wordWrap: { width: 800 }, lineSpacing: 5 }))
         .setOrigin(0, 0.5);
@@ -610,7 +606,7 @@ export class DecisionScene extends Phaser.Scene {
     // L'avviso sta SOPRA la fila della fiducia, non sotto: buildConfidenceRow
     // disegna a y=566 e qui finiva esattamente addosso, in entrambe le lingue.
     this.add
-      .text(cx, SIGN_NOTE_Y, t.signNote, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 880 }, align: 'center' }))
+      .text(cx, SIGN_NOTE_Y, L().gameplay.evaluation, textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: 880 }, align: 'center' }))
       .setOrigin(0.5);
 
     const back = (): void => this.stepBack(() => { this.motivation = null; }, () => this.showMotivationStep());
@@ -622,9 +618,18 @@ export class DecisionScene extends Phaser.Scene {
     });
 
     new Button(this, cx, GAME_HEIGHT - 104, t.sign, () => this.sign(), { width: 460, height: 48, fontSize: 14 });
-    this.add.text(cx, GAME_HEIGHT - 70, t.signHint, textStyle(12, COLOR_STR.paperDim)).setOrigin(0.5);
+    this.add.text(cx, GAME_HEIGHT - 70, InvestigationGuide.active(this.caseData.id) ? L().gameplay.steps[4] : t.signHint,
+      textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 900 }, align: 'center' })).setOrigin(0.5);
     this.backBtn = this.addBackButton(t.stepBack, back);
     this.buildConfidenceRow(cx);
+    ReadingLayer.setScene(L().a11y.reportTitle, [
+      { text: L().gameplay.evaluation },
+      ...rows.map(([heading, text]) => ({ heading, text })),
+      this.citedEvidenceReading(),
+      { text: L().gameplay.evidenceLink },
+      { text: L().gameplay.steps[4] },
+      { text: `${L().learningLayer.confidence.label} ${L().learningLayer.confidence.optionalTag}` }
+    ]);
   }
 
   /**
@@ -658,10 +663,13 @@ export class DecisionScene extends Phaser.Scene {
       { level: 2, label: t.levels.mid },
       { level: 3, label: t.levels.high }
     ];
+    const confidenceButtons: Button[] = [];
     const pick = (level: ConfidenceLevel, label: string): void => {
       this.confidence = level;
       this.persistDraft('summary');
       status.setText(fmt(t.recorded, { level: label }));
+      confidenceButtons.forEach((button, i) => button.setPressed(levels[i].level === level));
+      ReadingLayer.announce(status.text);
     };
     // Una fiducia già dichiarata e poi ripresa da una bozza deve rileggersi:
     // senza questo il giocatore la ritroverebbe salvata ma invisibile, e la
@@ -670,7 +678,9 @@ export class DecisionScene extends Phaser.Scene {
     if (restored) status.setText(fmt(t.recorded, { level: restored.label }));
 
     levels.forEach(({ level, label }, i) => {
-      new Button(this, cx + 150 + i * 130, y, `${7 + i}. ${label}`, () => pick(level, label), { width: 118, height: 32, fontSize: 11, variant: 'ghost' });
+      const button = new Button(this, cx + 150 + i * 130, y, `${7 + i}. ${label}`, () => pick(level, label), { width: 118, height: 32, fontSize: 11, variant: 'ghost' });
+      button.setPressed(this.confidence === level);
+      confidenceButtons.push(button);
     });
     (['SEVEN', 'EIGHT', 'NINE'] as const).forEach((key, i) => {
       this.input.keyboard?.on(`keydown-${key}`, () => {
@@ -699,6 +709,7 @@ export class DecisionScene extends Phaser.Scene {
       this.closeNormsOverlay();
       return;
     }
+    emitGameplayUx('help_requested', this.caseData.id);
     const cx = GAME_WIDTH / 2;
     const cy = GAME_HEIGHT / 2;
     const t = L().ui.decision;
@@ -739,7 +750,8 @@ export class DecisionScene extends Phaser.Scene {
     container.add(hint);
     const bottom = hint.y + hint.height / 2 + 24;
     sheet.setSize(960, bottom - (TOP - 28)).setPosition(cx, (TOP - 28 + bottom) / 2);
-    ReadingLayer.setScene(t.termsTitle, read);
+    container.add(new Button(this, cx, GAME_HEIGHT - 40, L().mobile.close, () => this.closeNormsOverlay(), { width: 280, height: 40 }));
+    ReadingLayer.openOverlay(t.termsTitle, read);
     this.overlay = container;
   }
 
@@ -758,6 +770,7 @@ export class DecisionScene extends Phaser.Scene {
       this.closeNormsOverlay();
       return;
     }
+    emitGameplayUx('help_requested', this.caseData.id);
     const cx = GAME_WIDTH / 2;
     const cy = GAME_HEIGHT / 2;
     const container = this.add.container(0, 0).setDepth(80);
@@ -788,19 +801,26 @@ export class DecisionScene extends Phaser.Scene {
       .text(cx, GAME_HEIGHT - 110, L().ui.decision.normsHint, textStyle(12, COLOR_STR.paperDim))
       .setOrigin(0.5);
     container.add(hint);
+    container.add(new Button(this, cx, GAME_HEIGHT - 40, L().mobile.close, () => this.closeNormsOverlay(), { width: 280, height: 40 }));
+    ReadingLayer.openOverlay(L().ui.menu.archive, unlocked.length ? unlocked.slice(0, 6).map(norm => {
+      const text = NormSystem.view(norm.id);
+      return { heading: text.title, text: `${text.reference}\n${text.explanation}` };
+    }) : [{ text: L().ui.decision.normsEmpty }]);
     this.overlay = container;
   }
 
   private closeNormsOverlay(): void {
+    if (!this.overlay) return;
     this.overlay?.destroy();
     this.overlay = undefined;
-    this.syncStepReading();
+    ReadingLayer.closeOverlay();
   }
 
   // ------------------------------------------------------------ esito
   private resolve(motivationIndex: number): void {
     if (this.resolved) return; // un solo rapporto per fascicolo
     this.resolved = true;
+    InvestigationGuide.complete(this.caseData.id);
 
     const result = evaluateReport({
       caseData: this.caseData,
@@ -811,6 +831,8 @@ export class DecisionScene extends Phaser.Scene {
       motivationIndex
     }, StateManager.difficulty);
 
+    if (!result.cluesOk) emitGameplayUx('citation_error', this.caseData.id);
+    AnalyticsSystem.track('decision_submitted', { caseId: this.caseData.id });
     if (result.outcome === 'non_conforme') AudioSystem.errorContestable();
     else if (result.outcome === 'conforme') AudioSystem.stampConforme();
     else AudioSystem.alert();
@@ -832,16 +854,10 @@ export class DecisionScene extends Phaser.Scene {
       citedClues: this.citedClues,
       incidentChoice: this.incidentChoice
     });
+    AnalyticsSystem.track('report_signed', { caseId: this.caseData.id, result: result.quality });
     AnalyticsSystem.track('case_completed', {
       caseId: this.caseData.id,
-      completedCasesCount: StateManager.completedCount()
-    });
-    AnalyticsSystem.track('case_result', {
-      caseId: this.caseData.id,
-      result: result.quality,
-      classification: this.classification!,
-      measure: this.measure!,
-      selectedClueCount: this.citedClues.length
+      result: result.quality
     });
 
     this.scene.start('Report', {

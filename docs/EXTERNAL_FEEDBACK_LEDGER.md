@@ -115,6 +115,50 @@ proprio quel vuoto, con persone del mestiere invece che conoscenti.
 con una verifica esplicita del carico cognitivo, così la tornata misura anche
 il difetto di MLA-01.
 
+### VGI-01 · VideogiochiItaliani — la ratio fra gioco e apprendimento
+
+| | |
+|---|---|
+| **Fonte** | VideogiochiItaliani |
+| **Data** | ottobre 2026 |
+| **Tipologia** | game design / leggibilità degli obiettivi |
+| **Area** | ciclo di gioco, nel suo insieme |
+| **Gravità** | **alta** |
+| **Stato** | **aperto** — diagnosi fatta, interventi pianificati (I6, I7) |
+| **Versione** | rilevato su 3.0.0 |
+
+**Sintesi fedele.** La *ratio* che collega la dimensione ludica e l'obiettivo
+educativo non risulta sufficientemente evidente.
+
+**Perché è la seconda voce che conta davvero.** È il **secondo riscontro d'uso
+da una persona esterna** nella storia del progetto, dopo MLA-01. Due persone
+fuori dal progetto hanno provato il gioco e hanno segnalato, indipendentemente,
+due facce della stessa cosa: la prima che l'interfaccia è densa, la seconda che
+il senso di quella densità non si legge.
+
+**La diagnosi NON è «manca la struttura didattica».** L'audit del codice
+(`docs/PROGRAMMA_4_0_AUDIT.md` §1.5) ha verificato il contrario: ogni fascicolo
+dichiara misure corrette e parziali, posture degli indizi (`decisive` /
+`minimizes_risk`), soggetto responsabile, motivazione corretta e debole, errori
+dominanti possibili; `learningModel.ts` aggiunge obiettivi per caso e
+misconcezioni attese; `MultiAxisFeedback` distingue già tre assi di valutazione.
+
+Il problema è che **niente di tutto questo è visibile al giocatore prima del
+debrief**. Gli obiettivi del caso esistono nel modello e li legge soltanto il
+rapporto finale: si scopre su cosa si era valutati dopo aver deciso.
+
+**Perché la distinzione cambia l'intervento.** Se la diagnosi fosse «manca
+struttura», la risposta sarebbe aggiungere contenuto didattico. Essendo «la
+struttura non è leggibile», la risposta è esporre quella che c'è — dichiarare
+l'obiettivo all'ingresso del fascicolo e separare i tre assi nell'esito — senza
+aggiungere spiegazioni testuali, che è quanto il brief del programma 4.0
+esclude espressamente.
+
+**Azione proposta.** Interventi I6 e I7 del piano 4.0. **Nessuno dei due è
+stato eseguito**: questa voce resta aperta, e lo resterà finché una persona
+esterna non riproverà il gioco — perché è una diagnosi di leggibilità, e la
+leggibilità la misurano i lettori.
+
 ### FIX-01 · Fix Gaming Channel — posizionamento
 
 | | |
@@ -202,16 +246,27 @@ Non è feedback esterno, ma vincola come si trattano quelli che lo sono.
 |---|---|---|---|---|
 | MLA-01 | Media & Learning Association | prodotto / UX | **alta** | **in corso** |
 | MLA-02 | Media & Learning Association | opportunità | n/a | aperto |
+| **VGI-01** | **VideogiochiItaliani** | **game design** | **alta** | **aperto** |
 | FIX-01 | Fix Gaming Channel | posizionamento | n/a | aperto |
 | TIG-01 | theindiegames | editoriale | n/a | in attesa |
 | DIGRA-01 | DiGRA | disseminazione | n/a | aperto |
 | AIL-01 | AI LITERATE / Dataninja | prodotto (atteso) | da determinare | in attesa |
 
-**Riscontri d'uso da persone esterne: uno.** Le soglie del protocollo di
-playtest — quattro tester su cinque completano il primo caso senza aiuto, quattro
-su cinque distinguono classificazione, misura e motivazione — restano **non
-misurate**. Non «mancate»: mai misurate. È il dato più importante di questo
-registro.
+**Riscontri d'uso da persone esterne: due** (MLA-01 e VGI-01). Era uno fino a
+ottobre 2026, e il numero va tenuto aggiornato qui perché è — per dichiarazione
+di questo registro — il dato più importante che contiene.
+
+Le soglie del protocollo di playtest — quattro tester su cinque completano il
+primo caso senza aiuto, quattro su cinque distinguono classificazione, misura e
+motivazione — restano **non misurate**. Non «mancate»: mai misurate. E dal
+29 settembre 2026 le due tornate non sono in programma, per decisione del
+proprietario: quindi il progetto resta **didatticamente non validato**, e due
+riscontri spontanei non sono un playtest.
+
+**Il fatto che i due riscontri convergano non li moltiplica.** MLA-01 dice che
+l'interfaccia è densa, VGI-01 che il senso di quella densità non si legge: sono
+due facce dello stesso problema, osservate da due persone. È un segnale più
+forte di uno, e resta un campione di due.
 
 ---
 

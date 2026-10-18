@@ -1,6 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { isBuildInput } from './lib-inventory';
 
 const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
@@ -27,9 +28,8 @@ describe('SEO pages — existence and build wiring', () => {
   });
 
   it('vite builds every educational page (rollup inputs)', () => {
-    const cfg = read('vite.config.ts');
-    for (const p of PAGES) {
-      expect(cfg, `vite input missing for ${p.file}`).toContain(`'${p.file}'`);
+        for (const p of PAGES) {
+      expect(isBuildInput(p.file), `vite input missing for ${p.file}`).toBe(true);
     }
   });
 });

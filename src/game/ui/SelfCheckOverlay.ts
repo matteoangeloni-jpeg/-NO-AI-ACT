@@ -90,7 +90,7 @@ export class SelfCheckOverlay {
 
     texts.options.forEach((option, i) => {
       const y = cy - 30 + i * 74;
-      c.add(new Button(this.scene, cx, y, '', () => this.answer(i === q.correctIndex), { width: wrap, height: 60, fontSize: 13 }));
+      c.add(new Button(this.scene, cx, y, '', () => this.answer(i === q.correctIndex), { width: wrap, height: 60, fontSize: 13, accessibleLabel: `${i + 1}. ${option}` }));
       c.add(
         this.scene.add
           .text(cx - wrap / 2 + 18, y, `${i + 1}. ${option}`, textStyle(13, COLOR_STR.paper, { wordWrap: { width: wrap - 40 }, lineSpacing: 4 }))

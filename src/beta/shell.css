@@ -1,0 +1,22 @@
+#beta-banner { position: fixed; inset: 0 0 auto; z-index: 10000; display: flex; align-items: center; flex-wrap: wrap; gap: 8px 16px; padding: 8px 16px; color: #171b19; background: #ffe073; font: 16px/1.4 system-ui, sans-serif; letter-spacing: 0; }
+#beta-banner strong { margin-right: auto; }
+#beta-banner .beta-usage-choice { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 14px; }
+#beta-banner .beta-usage-choice input { width: 20px; height: 20px; flex: 0 0 20px; }
+#beta-banner .beta-privacy-scope { flex-basis: 100%; margin: 0; font-size: 13px; }
+.beta-policy { max-width: 760px; margin: 40px auto; padding: 24px; font: 16px/1.6 system-ui, sans-serif; color: #171b19; background: #fff; }
+#beta-banner button, #beta-banner a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 12px; border: 1px solid #48524b; border-radius: 2px; color: #171b19; background: transparent; font: inherit; text-decoration: none; }
+html { scroll-padding-top: var(--beta-banner-height, 68px); }
+body.beta-page { padding-top: var(--beta-banner-height, 68px); }
+body.beta-game #app { padding-top: calc(var(--play-chrome-top, 0px) + var(--beta-banner-height, 68px)); }
+body.beta-game.mobile-presentation { display: flex; flex-direction: column; height: 100dvh; padding-top: 0; overflow: hidden; }
+body.beta-game.mobile-presentation #beta-banner { position: relative; flex: 0 0 auto; }
+body.beta-game.mobile-presentation #app { flex: 1 1 auto; min-height: 0; height: auto; padding-top: 16px; }
+body.beta-page .topbar { top: var(--beta-banner-height, 68px); }
+#beta-feedback { width: min(560px, calc(100% - 24px)); max-height: calc(100dvh - 24px); margin: auto; padding: 24px; overflow: auto; border: 1px solid #48524b; border-radius: 4px; color: #171b19; background: #fff; font: 16px/1.5 system-ui, sans-serif; }
+#beta-feedback::backdrop { background: #0009; }
+#beta-feedback h2, #beta-feedback p, #beta-feedback label { display: block; margin-bottom: 16px; }
+#beta-feedback textarea { display: block; width: 100%; min-height: 144px; padding: 8px; border: 1px solid #48524b; border-radius: 2px; font: inherit; }
+#beta-feedback .beta-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+#beta-feedback button { min-height: 44px; padding: 8px 16px; border: 1px solid #48524b; border-radius: 2px; font: inherit; background: #fff; color: #171b19; }
+#beta-feedback button[type="submit"] { background: #ffe073; }
+#beta-banner :focus-visible, #beta-feedback :focus-visible { outline: 3px solid #126346; outline-offset: 2px; }

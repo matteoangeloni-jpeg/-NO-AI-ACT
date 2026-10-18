@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { it as itDict } from '../src/game/i18n/it';
 import { en } from '../src/game/i18n/en';
+import ts from 'typescript';
 
 /**
  * U03 — RIEPILOGO E FIRMA SEPARATI.
@@ -37,7 +38,9 @@ describe('scegliere la motivazione non firma più', () => {
 });
 
 describe('la firma è un gesto suo, e verifica la completezza', () => {
-  const sign = src.slice(src.indexOf('private sign('), src.indexOf('// ----------------------------------------------------- overlay norme'));
+  const ast = ts.createSourceFile('DecisionScene.ts', src, ts.ScriptTarget.Latest, true);
+  const scene = ast.statements.find(ts.isClassDeclaration)!;
+  const sign = scene.members.find(member => ts.isMethodDeclaration(member) && member.name.getText(ast) === 'sign')!.getText(ast);
 
   it('rifiuta un rapporto incompleto, qualunque pezzo manchi', () => {
     for (const field of ['classification', 'measure', 'subject', 'motivation']) {

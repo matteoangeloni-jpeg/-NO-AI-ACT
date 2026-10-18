@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { AnalyticsSystem } from '../systems/AnalyticsSystem';
+import { AnalyticsSystem, betaUsagePrivacyNote } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { SaveSystem } from '../systems/SaveSystem';
 import { StateManager } from '../systems/StateManager';
@@ -8,7 +8,7 @@ import { Panel } from '../ui/Panel';
 import { TeacherGuideOverlay } from '../ui/TeacherGuideOverlay';
 import { SiteResourcesOverlay } from '../ui/SiteResourcesOverlay';
 import { showToast } from '../ui/AlertToast';
-import { L, fmt, nextLanguage } from '../i18n';
+import { L, LANGUAGE_CODES, LANGUAGE_LABELS, fmt } from '../i18n';
 import { AUDIENCE_IDS, SESSION_DURATIONS } from '../data/audiences';
 import { DEFAULT_GAME_MODE, GAME_MODE_IDS, getGameMode } from '../data/gameModes';
 import { ReadingLayer, type ReadingSection } from '../systems/ReadingLayer';
@@ -36,6 +36,7 @@ export class TitleScene extends Phaser.Scene {
   }
 
   create(): void {
+    StateManager.endReview();
     const cx = GAME_WIDTH / 2;
     this.cameras.main.setBackgroundColor(COLOR_STR.carbon);
     AnalyticsSystem.page('title');
@@ -243,12 +244,35 @@ export class TitleScene extends Phaser.Scene {
       crtBtn.setLabel(StateManager.crtOverlay ? m.crtOn : m.crtOff);
     }, { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
 
-    // selettore lingua: cicla le lingue registrate e ricarica la scena
-    const langBtn = new Button(this, colR, rowY(3), m.language, () => {
-      StateManager.setLanguage(nextLanguage());
-      AnalyticsSystem.track('language_selected', { language: StateManager.language });
-      this.scene.restart();
-    }, { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
+    /**
+     * SELEZIONE DELLA LINGUA, non più un ciclo.
+     *
+     * Con due lingue `nextLanguage` era un interruttore e andava bene. Con la
+     * terza diventa «premi finché non indovini»: tre pressioni per tornare
+     * al punto di partenza, e nessun modo di sapere quante lingue esistono
+     * prima di averle viste tutte. È un difetto di accessibilità prima che
+     * di gusto, ed è il difetto che il test
+     * MAX_LINGUE_PER_COMMUTATORE_A_CICLO ha fatto scattare nel momento esatto
+     * in cui il francese è stato pubblicato.
+     *
+     * Un pulsante per lingua: ogni lingua si raggiunge con UN gesto, porta la
+     * propria etichetta leggibile da uno screen reader, e quella attiva si
+     * distingue per variante. La larghezza è divisa, non fissata: una quarta
+     * lingua entra senza toccare questo codice.
+     */
+    const lingue = LANGUAGE_CODES;
+    const spazio = 6;
+    const lw = Math.floor((BW - spazio * (lingue.length - 1)) / lingue.length);
+    const langBtns = lingue.map((code, i) => {
+      const x = colR - BW / 2 + lw / 2 + i * (lw + spazio);
+      const attiva = StateManager.language === code;
+      return new Button(this, x, rowY(3), LANGUAGE_LABELS[code], () => {
+        if (StateManager.language === code) return;
+        StateManager.setLanguage(code);
+        AnalyticsSystem.track('language_selected', { language: code });
+        this.scene.restart();
+      }, { width: lw, height: 44, fontSize: 12, variant: attiva ? 'ok' : 'ghost' });
+    });
 
     // selettore difficoltà (base → standard → expert)
     const diffOrder: DifficultyMode[] = ['base', 'standard', 'expert'];
@@ -298,12 +322,13 @@ export class TitleScene extends Phaser.Scene {
       { width: BW, height: 44, fontSize: 13, variant: 'ghost' });
 
     // nota privacy locale, concisa
-    const note = this.add.text(cx - 380, rowY(5) + 40, g.settingsPrivacy, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
+    const settingsPrivacy = betaUsagePrivacyNote(StateManager.language) ?? g.settingsPrivacy;
+    const note = this.add.text(cx - 380, rowY(5) + 40, settingsPrivacy, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: 760 }, lineSpacing: 3 }));
     this.describePanel([
-      { items: [audioBtn, musicOnBtn, musicBtn, sfxOnBtn, sfxBtn, motionBtn, crtBtn, langBtn, diffBtn, speedBtn, creditsBtn, resetBtn].map((b) => b.labelText) },
-      { text: g.settingsPrivacy }
+      { items: [audioBtn, musicOnBtn, musicBtn, sfxOnBtn, sfxBtn, motionBtn, crtBtn, ...langBtns, diffBtn, speedBtn, creditsBtn, resetBtn].map((b) => b.labelText) },
+      { text: settingsPrivacy }
     ]);
-    c.add([audioBtn, musicOnBtn, musicBtn, sfxOnBtn, sfxBtn, motionBtn, crtBtn, langBtn, diffBtn, speedBtn, resetBtn, creditsBtn, note]);
+    c.add([audioBtn, musicOnBtn, musicBtn, sfxOnBtn, sfxBtn, motionBtn, crtBtn, ...langBtns, diffBtn, speedBtn, resetBtn, creditsBtn, note]);
   }
 
   /**
@@ -334,6 +359,7 @@ export class TitleScene extends Phaser.Scene {
      * non si parte e che cosa fare.
      */
     if (StateManager.gamePlan.unavailable) StateManager.setGameMode(DEFAULT_GAME_MODE);
+    if (StateManager.gameMode === 'sorpresa') StateManager.rerollSurprise();
 
     const cx = GAME_WIDTH / 2;
     const cy = GAME_HEIGHT / 2;
@@ -358,11 +384,13 @@ export class TitleScene extends Phaser.Scene {
     const desc = this.add.text(cx - W / 2, top + 148, '', textStyle(12, COLOR_STR.paperDim, { wordWrap: { width: W }, lineSpacing: 3 }));
     const planText = this.add.text(cx - W / 2, top + PLAN_Y, '', textStyle(13, COLOR_STR.accentText, { wordWrap: { width: W }, lineSpacing: 4 }));
     const warnText = this.add.text(cx - W / 2, top + WARN_Y, '', textStyle(12, COLOR_STR.warning, { wordWrap: { width: W }, lineSpacing: 4 }));
-    const note = this.add.text(cx - W / 2, top + 380, g.note, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: W }, lineSpacing: 3 }));
+    const note = this.add.text(cx - W / 2, top + 380, L().gameplay.timeNote, textStyle(11.5, COLOR_STR.paperDim, { wordWrap: { width: W }, lineSpacing: 3 }));
 
     const modeBtn = new Button(this, cx, top + 112, '', () => {
       const next = GAME_MODE_IDS[(GAME_MODE_IDS.indexOf(StateManager.gameMode) + 1) % GAME_MODE_IDS.length];
       StateManager.setGameMode(next);
+      if (next === 'sorpresa') StateManager.rerollSurprise();
+      AnalyticsSystem.track('mode_selected', { mode: next });
       refresh();
     }, { width: W, height: 46, fontSize: 13, variant: 'ghost' });
 
@@ -391,7 +419,7 @@ export class TitleScene extends Phaser.Scene {
       const plan = StateManager.gamePlan;
       const mode = getGameMode(plan.mode);
       modeBtn.setLabel(fmt(g.modeLabel, { value: g.modes[plan.mode].name }));
-      desc.setText(g.modes[plan.mode].desc);
+      desc.setText(`${L().gameplay.modes[plan.mode]} ${L().gameplay.assistance[plan.difficulty]}`);
 
       // Il profilo compare solo dove conta davvero. Quando non conta, la
       // durata sale al suo posto: un pulsante nascosto non deve lasciare
@@ -438,7 +466,7 @@ export class TitleScene extends Phaser.Scene {
         { text: audBtn.visible ? audBtn.labelText : '' },
         { text: durBtn.labelText },
         { text: `${planText.text} ${warnText.text}`.trim() },
-        { text: g.note }
+        { text: L().gameplay.timeNote }
       ]);
       ReadingLayer.announce(`${modeBtn.labelText} · ${planText.text} ${warnText.text}`.trim());
     };
@@ -455,6 +483,11 @@ export class TitleScene extends Phaser.Scene {
   private startPlanned(hasSave: boolean): void {
     const plan = StateManager.gamePlan;
     if (plan.unavailable) return;
+    if (plan.mode === 'ripasso') {
+      const caseId = StateManager.beginReview();
+      if (caseId) { this.closeGroup(); this.scene.start('Case', { caseId }); }
+      return;
+    }
     if (hasSave) StateManager.newGame();
     /**
      * Quello che il pannello ha scritto è quello che si gioca. La riga di
@@ -466,11 +499,10 @@ export class TitleScene extends Phaser.Scene {
      * partita avviata: è una scelta del giocatore, non un vincolo.
      */
     StateManager.setDifficulty(plan.difficulty);
-    StateManager.rerollSurprise();
     this.closeGroup();
     AudioSystem.init();
     AudioSystem.confirm();
-    AnalyticsSystem.track('game_started', { language: StateManager.language });
+    AnalyticsSystem.startSession('new');
     StateManager.markStarted();
     fadeOutScene(this, 300, () => {
       if (!StateManager.briefingSeen) this.scene.start('Briefing');
@@ -558,7 +590,7 @@ export class TitleScene extends Phaser.Scene {
   private startGame(isNew: boolean): void {
     AudioSystem.init();
     AudioSystem.confirm();
-    AnalyticsSystem.track('game_started', { language: StateManager.language });
+    AnalyticsSystem.startSession(isNew ? 'new' : 'resume');
     StateManager.markStarted();
     fadeOutScene(this, 300, () => {
       if (isNew || !StateManager.briefingSeen) this.scene.start('Briefing');

@@ -350,3 +350,142 @@ body.reading-visible #reading-layer {
   border-radius: var(--radius);
   cursor: pointer;
 }
+
+/* Compact presentation uses the same reading content and registered actions.
+   Phaser continues owning state, audio and transitions behind this surface. */
+body.mobile-presentation #app {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  background: #090d12;
+  color: #e9edf0;
+}
+body.mobile-presentation #game-container {
+  position: fixed;
+  inset: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+body.mobile-presentation #crt-overlay,
+body.mobile-presentation #reading-toggle,
+body.mobile-presentation #mobile-guard { display: none !important; }
+body.mobile-presentation #site-return {
+  position: static;
+  order: 0;
+  align-self: flex-start;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  letter-spacing: 0;
+  color: #b9c7d5;
+  opacity: 1;
+  padding: 8px 0;
+  background: none;
+  max-width: 100%;
+  white-space: normal;
+}
+body.mobile-presentation #reading-layer {
+  position: static;
+  order: 1;
+  flex: none;
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  margin: 0 auto;
+  padding: 0;
+  clip-path: none;
+  overflow: visible;
+  white-space: normal;
+  background: none;
+  border: 0;
+  color: #e9edf0;
+  font: 1rem/1.65 var(--font-ui);
+  overflow-wrap: anywhere;
+}
+body.mobile-presentation #reading-layer h2 {
+  font: bold 1.375rem/1.35 var(--font-mono);
+  letter-spacing: 0;
+  color: #f1ce69;
+  padding: 12px 0 16px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #62758a;
+}
+body.mobile-presentation #reading-layer h3 {
+  font: bold 1rem/1.5 var(--font-mono);
+  color: #a9c9f5;
+  margin: 0 0 8px;
+}
+body.mobile-presentation #reading-layer section { margin-bottom: 16px; }
+body.mobile-presentation #reading-layer [data-action-slot] {
+  border-block: 1px solid #62758a;
+  padding: 16px 0;
+}
+body.mobile-presentation #reading-layer .rl-note { display: none; }
+body.mobile-presentation #reading-layer .rl-desktop-only { display: none; }
+body.mobile-presentation #action-layer {
+  position: static;
+  order: 2;
+  flex: none;
+  width: 100%;
+  max-width: 720px;
+  margin: 8px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: auto;
+}
+body.mobile-presentation .action-btn {
+  position: static !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 48px;
+  flex: none;
+  padding: 12px 16px !important;
+  border: 1px solid #7b8fa3 !important;
+  border-radius: 2px;
+  background: #192633 !important;
+  color: #f4f6f8 !important;
+  font: 600 1rem/1.5 var(--font-ui) !important;
+  letter-spacing: 0;
+  text-align: left;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  pointer-events: auto !important;
+  touch-action: manipulation;
+  cursor: pointer !important;
+}
+body.mobile-presentation .action-btn[hidden] { display: none !important; }
+body.mobile-presentation .action-btn[aria-pressed="true"] { border-left: 6px solid #75dba2 !important; }
+body.mobile-presentation .action-btn:disabled { color: #bdc7d0 !important; background: #15191f !important; border-style: dashed !important; cursor: not-allowed !important; }
+body.mobile-presentation :focus-visible { outline: 3px solid #f1ce69; outline-offset: 3px; }
+body.mobile-presentation input {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border: 1px solid #7b8fa3;
+  background: #192633;
+  color: #f4f6f8;
+  font: inherit;
+}
+body.mobile-presentation #sr-announcer {
+  position: static;
+  order: 0;
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  margin: 0 auto;
+  clip-path: none;
+  overflow: visible;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  color: #f1ce69;
+  font: 1rem/1.5 var(--font-ui);
+}
+body.mobile-presentation #sr-announcer:not(:empty) { padding: 12px 0; border-bottom: 1px solid #62758a; }

@@ -36,21 +36,22 @@ export const CONCEPT_IDS: ConceptId[] = [
  * L'esistenza di ogni pagina è verificata dai test (tests/learningExperience).
  */
 export const CONCEPT_LINKS: Record<ConceptId, Record<LanguageCode, string>> = {
-  risk_based_approach: { it: '/categorie-rischio-ai-act/', en: '/en/ai-act-risk-categories/' },
-  prohibited_practices: { it: '/pratiche-vietate-ai-act/', en: '/en/prohibited-ai-practices/' },
-  high_risk: { it: '/sistemi-ai-ad-alto-rischio/', en: '/en/high-risk-ai-systems/' },
-  transparency: { it: '/obblighi-trasparenza-ai-act/', en: '/en/transparency-obligations/' },
-  gpai: { it: '/ai-generativa-e-gpai/', en: '/en/general-purpose-ai/' },
-  human_oversight: { it: '/guida-ai-act/', en: '/en/eu-ai-act-guide/' },
-  data_governance: { it: '/glossario/', en: '/en/glossary/' },
-  privacy_by_design: { it: '/privacy-by-design/', en: '/en/privacy-by-design/' },
-  ai_literacy: { it: '/alfabetizzazione-ai/', en: '/en/ai-literacy/' }
+  risk_based_approach: { it: '/categorie-rischio-ai-act/', en: '/en/ai-act-risk-categories/', fr: '/fr/categories-de-risque-ai-act/' },
+  prohibited_practices: { it: '/pratiche-vietate-ai-act/', en: '/en/prohibited-ai-practices/', fr: '/fr/pratiques-interdites-ai-act/' },
+  high_risk: { it: '/sistemi-ai-ad-alto-rischio/', en: '/en/high-risk-ai-systems/', fr: '/fr/systemes-ia-a-haut-risque/' },
+  transparency: { it: '/obblighi-trasparenza-ai-act/', en: '/en/transparency-obligations/', fr: '/fr/obligations-de-transparence/' },
+  gpai: { it: '/ai-generativa-e-gpai/', en: '/en/general-purpose-ai/', fr: '/fr/ia-a-usage-general/' },
+  human_oversight: { it: '/guida-ai-act/', en: '/en/eu-ai-act-guide/', fr: '/fr/guide-ai-act/' },
+  data_governance: { it: '/glossario/', en: '/en/glossary/', fr: '/fr/glossaire/' },
+  privacy_by_design: { it: '/privacy-by-design/', en: '/en/privacy-by-design/', fr: '/fr/protection-des-donnees-des-la-conception/' },
+  ai_literacy: { it: '/alfabetizzazione-ai/', en: '/en/ai-literacy/', fr: '/fr/maitrise-de-l-ia/' }
 };
 
 /** Pagine consigliate quando non ci sono concetti deboli da approfondire. */
 export const FALLBACK_LINKS: Record<LanguageCode, string[]> = {
   it: ['/educazione/', '/guida-ai-act/', '/glossario/'],
-  en: ['/en/education/', '/en/eu-ai-act-guide/', '/en/glossary/']
+  en: ['/en/education/', '/en/eu-ai-act-guide/', '/en/glossary/'],
+  fr: ['/fr/education/', '/fr/guide-ai-act/', '/fr/glossaire/']
 };
 
 /**
@@ -104,5 +105,14 @@ export const SITE_LINKS: Record<LanguageCode, SiteLinkSet> = {
     glossary: '../en/glossary/',
     privacy: '../en/privacy-by-design/',
     home: '../en/'
+  },
+  fr: {
+    play: '../fr/comment-ca-marche/',
+    hub: '../fr/education/',
+    teacher: '../fr/ai-act-pour-enseignants/',
+    guide: '../fr/guide-ai-act/',
+    glossary: '../fr/glossaire/',
+    privacy: '../fr/protection-des-donnees-des-la-conception/',
+    home: '../fr/'
   }
 };

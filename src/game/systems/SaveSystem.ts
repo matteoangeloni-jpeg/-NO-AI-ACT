@@ -2,6 +2,7 @@ import { INITIAL_INDICATORS } from '../data/indicators';
 import type { SaveData } from '../data/types';
 import { sanitizeDrafts } from './caseDraft';
 import { DEFAULT_GAME_MODE } from '../data/gameModes';
+import { saveStorageKey } from './saveNamespace';
 
 /**
  * Persistenza locale (schema v2, mission §10.8).
@@ -92,7 +93,7 @@ function hydrateV2(parsed: Record<string, unknown>): SaveData {
 export const SaveSystem = {
   load(): SaveData {
     try {
-      const raw = localStorage.getItem(KEY);
+      const raw = localStorage.getItem(saveStorageKey(KEY));
       if (raw) {
         const parsed = JSON.parse(raw) as Record<string, unknown>;
         if (typeof parsed.version === 'number' && parsed.version > CURRENT_SAVE_VERSION) {
@@ -105,7 +106,7 @@ export const SaveSystem = {
         return hydrateV2(parsed);
       }
       // nessun v2: migra un eventuale v1 (senza cancellarlo — snapshot downgrade)
-      const legacy = localStorage.getItem(LEGACY_KEY);
+      const legacy = localStorage.getItem(saveStorageKey(LEGACY_KEY));
       if (legacy) {
         const migrated = migrateV1toV2(JSON.parse(legacy) as Record<string, unknown>);
         this.save(migrated);
@@ -120,7 +121,7 @@ export const SaveSystem = {
 
   save(data: SaveData): void {
     try {
-      localStorage.setItem(KEY, JSON.stringify(data));
+      localStorage.setItem(saveStorageKey(KEY), JSON.stringify(data));
     } catch {
       // storage pieno o non disponibile: il gioco continua senza persistenza
     }
@@ -128,8 +129,8 @@ export const SaveSystem = {
 
   reset(): SaveData {
     try {
-      localStorage.removeItem(KEY);
-      localStorage.removeItem(LEGACY_KEY);
+      localStorage.removeItem(saveStorageKey(KEY));
+      localStorage.removeItem(saveStorageKey(LEGACY_KEY));
     } catch {
       /* ignora */
     }

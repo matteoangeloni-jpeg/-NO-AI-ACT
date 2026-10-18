@@ -48,7 +48,8 @@ const required = [
   'robots.txt',
   'sitemap.xml',
   'sitemap-it.xml',
-  'sitemap-en.xml'
+  'sitemap-en.xml',
+  'sitemap-fr.xml'
 ];
 for (const rel of required) {
   const ok = existsSync(join(dist, rel));
@@ -67,12 +68,36 @@ for (const rel of required) {
  */
 try {
   const rotte = JSON.parse(readFileSync(resolve(root, 'scripts/seo/routes.config.json'), 'utf8'));
-  const attese = rotte.pairs.length * 2 + rotte.enOnly.length;
+  const dirs = [
+    ...rotte.pairs.flatMap((p) => [p.it, p.en, ...(p.fr ? [p.fr] : [])]),
+    ...rotte.enOnly,
+    ...Object.values(rotte.frForEn ?? {})
+  ];
+  const attese = dirs.length;
   const count = (p) => (readFileSync(join(dist, p), 'utf8').match(/<loc>/g) ?? []).length;
-  const it = count('sitemap-it.xml');
-  const en = count('sitemap-en.xml');
-  console.log(`  sitemap children: ${it} IT + ${en} EN = ${it + en}`);
-  if (it + en !== attese) fail.push(`sitemap children total ${it + en} (want ${attese})`);
+  const per = ['it', 'en', 'fr'].map((l) => [l, count(`sitemap-${l}.xml`)]);
+  const totale = per.reduce((n, [, v]) => n + v, 0);
+  console.log(`  sitemap children: ${per.map(([l, v]) => `${v} ${l.toUpperCase()}`).join(' + ')} = ${totale}`);
+  if (totale !== attese) fail.push(`sitemap children total ${totale} (want ${attese})`);
+
+  /**
+   * OGNI ROTTA DELL'INVENTARIO DEVE AVERE UNA PAGINA NEL DIST.
+   *
+   * IL DIFETTO CHE QUESTO CONTROLLO NASCE PER CHIUDERE, il 13 ottobre 2026:
+   * tredici pagine francesi sono state generate, i test sono passati,
+   * `audit:seo` ha dato PASS su 83 rotte, e questo cancello ha dato PASS —
+   * mentre il `dist` NON LE CONTENEVA. Le pagine entrano nella build da un
+   * elenco in vite.config.ts che nessuno aveva aggiornato, e il controllo
+   * contava i file PRESENTI invece dei file ATTESI. Un difetto che non rompe
+   * niente è quello che arriva in produzione.
+   */
+  const mancanti = dirs
+    .map((d) => (d === '' ? 'index.html' : `${d}/index.html`))
+    .filter((f) => !existsSync(join(dist, f)));
+  console.log(`  pagine dell'inventario nel dist: ${dirs.length - mancanti.length}/${dirs.length}`);
+  if (mancanti.length) {
+    fail.push(`pagine dell'inventario assenti dal dist (${mancanti.length}): ${mancanti.slice(0, 6).join(', ')}`);
+  }
 } catch (e) {
   fail.push(`sitemap child read failed: ${e.message}`);
 }

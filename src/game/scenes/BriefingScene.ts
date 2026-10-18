@@ -40,8 +40,13 @@ export class BriefingScene extends Phaser.Scene {
       StateManager.setBriefingSeen();
       fadeOutScene(this, 300, go);
     };
-    const btn = new Button(this, cx, btnY, L().briefing.ctaFirstCase,
-      enter(() => this.scene.start('Case', { caseId: firstCaseId() })), { width: 340 });
+    const plan = StateManager.gamePlan;
+    const openPlanned = (): void => {
+      if (plan.freeMap) this.scene.start('CityMap');
+      else this.scene.start('Case', { caseId: plan.caseIds[0] ?? firstCaseId() });
+    };
+    const btn = new Button(this, cx, btnY, plan.freeMap ? L().briefing.cta : L().briefing.ctaFirstCase,
+      enter(openPlanned), { width: 340 });
     btn.setVisible(false);
 
 
@@ -85,7 +90,7 @@ export class BriefingScene extends Phaser.Scene {
     this.input.keyboard?.on('keydown-ENTER', () => {
       if (btn.visible) {
         StateManager.setBriefingSeen();
-        this.scene.start('Case', { caseId: firstCaseId() });
+        openPlanned();
       }
     });
     // strato di lettura (§11.1)

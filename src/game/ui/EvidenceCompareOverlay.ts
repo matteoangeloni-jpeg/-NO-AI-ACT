@@ -5,6 +5,7 @@ import { L, caseText, fmt } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { Button } from './Button';
 import { Panel } from './Panel';
+import { InvestigationGuide } from '../systems/InvestigationGuide';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from './theme';
 
 type CloseKey = 'compareCloseEvidence' | 'compareCloseDecision';
@@ -46,6 +47,7 @@ export class EvidenceCompareOverlay {
     }
     // L'ultima coppia contiene normalmente gli ultimi due reperti citati.
     this.pairCursor = this.pairs.length - 1;
+    if (InvestigationGuide.active(this.caseId)) InvestigationGuide.compare();
     this.draw(false);
   }
 
@@ -97,6 +99,7 @@ export class EvidenceCompareOverlay {
     );
     container.add(this.scene.add.rectangle(cx, cy + 8, 1, 330, COLORS.iron, 0.8));
 
+    const sections = [{ heading: ui.compareTitle, text: ui.compareIntro }];
     const drawDocument = (index: number, x: number): void => {
       const clue = texts.clues[index];
       const source = texts.clueSources?.[index] as EvidenceSource | undefined;
@@ -107,6 +110,8 @@ export class EvidenceCompareOverlay {
       const stanceText = stance
         ? (L().ui.evidence.stances as Record<string, string>)[stance]
         : ui.compareUnknownFunction;
+      sections.push({ heading: `${fmt(L().ui.evidence.exhibit, { num: index + 1 })} — ${clue.title}`,
+        text: `${ui.compareSource}: ${sourceText}\n${clue.text}\n${ui.compareFunction}: ${stanceText}` });
 
       const paperY = cy + 8;
       const paperW = 520;
@@ -153,10 +158,6 @@ export class EvidenceCompareOverlay {
     container.add(new Button(this.scene, cx, cy + panelH / 2 - 34, ui[this.closeKey], () => this.close(), { width: 250, height: 38, fontSize: 12.5 }));
     this.container = container;
 
-    const sections = [leftIndex, rightIndex].map((index) => ({
-      heading: `${fmt(L().ui.evidence.exhibit, { num: index + 1 })} — ${texts.clues[index].title}`,
-      text: texts.clues[index].text
-    }));
     if (replacing) ReadingLayer.replaceOverlay(ui.compareTitle, sections);
     else ReadingLayer.openOverlay(ui.compareTitle, sections);
   }

@@ -2,6 +2,145 @@
 
 ## [Non rilasciato]
 
+### Dashboard - gate di pubblicazione
+- Stato raccolta, copertura delle celle e retention visibili senza confondere
+  dati mancanti con zero o ultimo giorno disponibile con ultimo evento ricevuto.
+- Grafici temporali e proiezioni con tabelle; logout locale revoca la sessione.
+- Pipeline analytics locale riconciliata e gate cloud/privacy documentati in
+  docs/DASHBOARD_RELEASE_GATE_4_0.md. Raccolta OFF, nessun deploy.
+
+### Player Insights - laboratorio sperimentale
+- Palette coerente con il sito e nuova vista predittiva sui contatori aggregati.
+- Cinque baseline confrontate tramite MAE temporale; nessuna imputazione a zero
+  delle celle mancanti, nessuna previsione individuale o attivazione analytics.
+- Login locale esplicito con sessione in memoria per browser senza dialogo Basic.
+- Metodi e limiti in docs/PREDICTIVE_LAB_4_0.md.
+
+### Beta e infrastruttura unificata 4.0 - non pubblicata
+- Build beta separata IT/EN/FR con banner, noindex e feedback solo locale.
+- Salvataggi beta isolati senza modificare lo schema o importare dati stabili.
+- Configurazioni Pages, Worker Insights e D1 riutilizzati; controlli hostname
+  separano amministrazione e futuro collector sul dominio beta. Raccolta OFF.
+- Inventario cloud in sola lettura, istruzioni operative/privacy e rollback in
+  docs/BETA_INFRASTRUCTURE_4_0.md; nessun deploy o modifica alla produzione.
+- 1378 test passati, smoke beta/Insights/D1 locale e regressione build stabile.
+
+### Final QA 4.0 - solo candidata locale
+- Corretto l'ordine Sorpresa: avvio coerente con l'anteprima, senza nuova estrazione.
+- Il primo briefing rispetta il piano scelto anche da tastiera; Libera apre la mappa.
+- Nuovo smoke delle quattro modalita nelle tre lingue e diario incrementale del
+  gate generale, senza ridurre le asserzioni o la matrice responsive.
+- Protocollo umano completato con obiettivo/scelta modalita, scheda uniforme e
+  istruzioni NVDA/VoiceOver; nessun risultato umano o assistivo inventato.
+- Esiti e limiti nel rapporto docs/FINAL_QA_4_0.md. Analytics remoto OFF;
+  nessun push, merge, deploy o attivazione Cloudflare.
+- Gate generale completato anche sulla build corretta (12/12), 36 profili IT/EN/FR,
+  1371 test, 42 percorsi casi e 107 route pubbliche locali verificati. GO per
+  playtest controllati; invio stampa/pubblicazione e telemetria reale NO-GO.
+
+### Sprint C - candidata locale e validazione
+- Nuova matrice 14 casi x IT/EN/FR con firma, debrief, conseguenze e ripristino,
+  pipeline contro D1 locale e verifiche mirate di focus/breakpoint.
+- Corretti snapshot filtri/CSV, segnalazione retention parziale, ricerca desktop
+  e semantica delle finestre modali al cambio di presentazione.
+- Report con stato delle componenti e limiti, release notes, pre-deploy, rollback,
+  protocollo e sei schede umane vuote. Nessuna attestazione di conformita o
+  efficacia; gate complessivo e playtest umano ancora da completare.
+- Raccolta remota disattivata, nessun deploy o attivazione Cloudflare.
+
+### Sprint Analytics B 4.0 (solo ambiente di test)
+- Backend Workers/D1 separato dal gioco; schema Sprint A riutilizzato, quote,
+  deduplicazione transazionale dei batch, contatori marginali e retention 90 giorni.
+- Dashboard privata Player Insights con autenticazione, dati sintetici locali,
+  confronti descrittivi, denominatori espliciti e CSV aggregato protetto.
+- Configurazione fail-closed: raccolta disattivata, asset autenticati, nessun
+  account Cloudflare modificato. Ponte client non importato dal gioco.
+- Test unitari, smoke browser responsive e smoke reali workerd/D1 locali;
+  documentazione sicurezza, privacy e autorizzazioni in docs/PLAYER_INSIGHTS_4_0.md.
+
+### Sprint Analytics A 4.0 (revisione locale)
+- AnalyticsSystem riutilizzato con schema versionato, vocabolari chiusi,
+  contatori aggregati limitati in memoria e nessun identificatore persistente.
+- Avvii/riprese, tentativi, reperti, firma, aiuti, tutorial, debrief e ripasso
+  strumentati; alias case_result deduplicato nel completamento canonico.
+- Provider remoto bloccato anche con le vecchie variabili di configurazione;
+  nessun flush automatico. /play/ non carica piu il beacon Cloudflare.
+- Test su privacy, duplicazioni, offline, DNT e flussi UI IT/EN/FR;
+  catalogo, metriche e rischi in docs/PLAYER_TELEMETRY_4_0.md.
+
+### Sprint Mobile UX 4.0 (revisione locale)
+- Presentazione adattiva HTML per schermi compatti: testo leggibile, scorrimento
+  verticale e target touch da 48px; desktop Phaser conservato.
+- Documenti, citazioni, mappa e motivazioni collegati alle stesse azioni del
+  gioco. Guida, confronto, rapporto, debrief e ripasso disponibili a tocco.
+- Focus dei pannelli, nomi accessibili, contenuti delle norme e ricerca archivio
+  completati; metadati probatori e avvisi disponibili anche nella vista mobile.
+- IT/EN/FR, verifiche di rotazione e testo al 200%, nuovi smoke nel gate.
+  Nessuna modifica a casi, valutazione, schema dei salvataggi o analytics.
+- Diagnosi, confronti, verifiche e limiti in `docs/MOBILE_UX_4_0_REVIEW.md`.
+
+### Sprint Gameplay 4.0 (revisione locale)
+- Guida contestuale del primo fascicolo del Turno, ignorabile e richiamabile,
+  nelle tre lingue. Riusa apertura, citazione, confronto e firma esistenti.
+- Riepilogo con spiegazione dei cinque elementi valutati; nessun nuovo punteggio.
+- Conseguenze con valori prima/dopo e variazioni effettive, anche nel reading layer.
+- Debrief in due viste: rilievo/prove decisive e norma/riflessione. Collegamento
+  al ripasso esistente, eseguito in memoria senza sovrascrivere i rapporti originali.
+- Modalita descritte per obiettivo, assistenza e conclusione; durata esplicitamente
+  stimata. Nessuna modifica ai casi, alla matrice legale o allo schema v2.
+- Eventi UX sul bus interno, senza nuove trasmissioni. Protocollo di playtest
+  con sei partecipanti e verifiche documentate in `docs/GAMEPLAY_4_0_REVIEW.md`.
+
+### Added
+- **Lingua francese.** Il gioco è giocabile integralmente in français : dizionario
+  completo (1 408 stringhe), quattordici dossiers verificati uno per uno dalla
+  carte civique alla fiche normative, selezione della lingua a tre pulsanti.
+  Le prime tredici pagine sintetiche sono in `src/site/fr-content.mjs`;
+  altre 24 traduzioni integrali dei blocchi principali sono in `src/site/fr/`.
+  Generazione: `npm run site:fr`. Totale: 37 pagine FR, ancora senza deploy.
+- **`docs/GLOSSAIRE_FR.md`** — terminologia dalla versione ufficiale francese del
+  regolamento, separata dal vocabolario della finzione, con quattro passaggi
+  **segnalati e non tradotti** là dove una traduzione autorevole andava inventata.
+- **Inventario pubblico: 70 → 83 → 107 rotte** (33 IT + 37 EN + 37 FR), con
+  sitemap francese e hreflang reciproci. Le quattro coppie EN/FR senza pagina
+  italiana mantengono EN come x-default.
+- Controlli sulle traduzioni integrali (copertura, hash fonte, struttura,
+  riferimenti e navigazione), smoke delle 37 pagine FR desktop/mobile e
+  persistenza linguistica; due percorsi FR nello smoke del linguaggio visivo.
+- `docs/FR_LOCALIZATION_REVIEW.md`, piani operativi Gameplay/Analytics e
+  riscontro circoscritto dei quattro punti normativi in `GLOSSAIRE_FR.md`.
+
+### Fixed
+- Pulsante del reading layer e lingua del documento aggiornati dopo caricamento
+  o cambio della lingua; avviso mobile capace di riconoscere il francese salvato.
+- Inventari di build/verifica estesi anche alle quattro coppie EN/FR; collegamenti
+  assoluti conteggiati correttamente nell'audit e in site-insight.
+- `tests/localizationParity.test.ts` — chiavi rimaste nella lingua di partenza,
+  stringhe vuote, e collegamenti che portano fuori dalla propria lingua.
+
+### Changed
+- **Il cambio lingua non è più un ciclo.** Con due lingue `nextLanguage` era un
+  interruttore; alla terza diventava «premi finché non indovini». Ora è una
+  selezione: un pulsante per lingua, una pressione, etichetta propria
+  (endonimo) leggibile da uno screen reader.
+- `scripts/diag/play-case.mjs` legge il numero di reperti invece di pretenderne
+  tre, e sa rispondere alla scena incidente. Senza questo, sei dossiers su
+  quattordici risultavano rotti — in italiano come in francese.
+- Nove test che fissavano due lingue sono stati **derivati**: elenco delle
+  lingue, figli del sitemap index, direttive di robots.txt, conteggi per lingua,
+  `og:locale` e alternates. Erano diventati rossi su un cambiamento voluto.
+
+### Known limitations
+- **Le prime tredici pagine francesi restano sintetiche.** Tutte le 37 rotte EN
+  hanno ora un equivalente FR, ma la parita editoriale integrale delle prime
+  tredici non e dichiarata. Le 24 nuove pagine mantengono il contenuto principale
+  completo; stato e limiti in `docs/FR_LOCALIZATION_REVIEW.md`.
+- **Non esiste un'immagine social francese**: le pagine riusano quelle per
+  categoria, che non contengono testo di lingua. Una copertina francese va
+  disegnata.
+- Il rimando al dottorato resta alla pagina **inglese** dell'ateneo, che non
+  pubblica una versione francese.
+
 ### Changed
 - **Licenze, dalla versione successiva a v2.0.0**: il codice passa da MIT a
   **GPL-3.0-or-later**, i contenuti narrativi e didattici da CC BY 4.0 a

@@ -5,18 +5,20 @@
   "tagline_en": "Simulator of an unregulated society",
   "domain": "https://www.no-ai-act.eu",
   "repository": "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT",
-  "versionTag": "v3.0.0",
+  "versionTag": "v4.0.0",
   "lastTaggedRelease": "v2.2.0",
   "contentLastReviewed": "2026-07-18",
   "languages": [
     "it",
-    "en"
+    "en",
+    "fr"
   ],
   "playableCases": 14,
   "publicUrls": {
     "it": 33,
     "en": 37,
-    "total": 70
+    "fr": 37,
+    "total": 107
   },
   "saveSchema": {
     "storageKey": "no-ai-act-save-v2",
@@ -38,12 +40,12 @@
     }
   },
   "privacy": {
-    "backend": false,
+    "backend": "aggregate usage counters only",
     "accounts": false,
     "personalDataCollection": false,
     "externalForms": false,
-    "gameplayNetworkCalls": false,
-    "analytics": "Cloudflare Web Analytics (aggregate, cookie-free, public pages only, never inside gameplay)"
+    "gameplayNetworkCalls": "first-party aggregate usage only, no answers or player identifiers",
+    "analytics": "Automatic first-party aggregate usage, visible notice and per-page opt-out; DNT/GPC respected. Public pages also use cookie-free Cloudflare Web Analytics."
   },
   "externalLinkAllowlist": [
     "https://www.unitus.it/post-laurea/dottorati-di-ricerca/corsi-di-dottorato-attivi/societa-in-mutamento-politiche-diritti-e-sicurezza/",
@@ -51,7 +53,9 @@
     "https://www.unitus.it/"
   ],
   "optionalAnalyticsEndpoints": {
-    "note": "Endpoint di provider opzionali presenti nel codice ma DISATTIVATI: il provider di default in produzione e' off e il workflow di deploy non imposta alcuna variabile VITE_. Attivarli richiederebbe di riscrivere le pagine privacy e runtimeHostAllowlist.",
-    "plausible": "https://plausible.io/api/event"
+    "betaUsage": "https://beta.no-ai-act.eu/collect",
+    "note": "First-party aggregate collection authorized for beta and production only. Preview and unspecified providers stay off. See game-statistics.html.",
+    "plausible": "https://plausible.io/api/event",
+    "publicUsage": "https://beta.no-ai-act.eu/collect"
   }
 }

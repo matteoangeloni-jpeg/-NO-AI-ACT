@@ -36,10 +36,8 @@ export class NormCardScene extends Phaser.Scene {
     addNoiseOverlay(this, 0.4);
 
     const norm = NormSystem.view(this.normId);
-    AnalyticsSystem.track('norm_unlocked', {
-      normId: this.normId,
-      unlockedNormsCount: StateManager.unlockedNorms.length
-    });
+    AnalyticsSystem.page('norm');
+    AnalyticsSystem.track('norm_unlocked');
     this.add.text(cx, 64, ui.unlocked, textStyle(16, COLOR_STR.ok)).setOrigin(0.5);
     this.add
       .text(cx, 90, this.quality === 'wrong' ? ui.subWrong : ui.subCorrect, textStyle(12, COLOR_STR.paperDim))

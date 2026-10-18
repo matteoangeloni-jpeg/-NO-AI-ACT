@@ -1,6 +1,18 @@
 import { beforeEach, describe, expect, it as test } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { L, LANGUAGE_CODES, LOCALES, fmt, getLanguage, nextLanguage, setLanguage } from '../src/game/i18n';
+import { resolve } from 'node:path';
+import {
+  DRAFT_LANGUAGES,
+  L,
+  LANGUAGE_CODES,
+  LOCALES,
+  LANGUAGE_LABELS,
+  fmt,
+  getLanguage,
+  languageFromQuery,
+  nextLanguage,
+  setLanguage
+} from '../src/game/i18n';
 import { it } from '../src/game/i18n/it';
 import { en } from '../src/game/i18n/en';
 import { LOCATIONS } from '../src/game/data/cases';
@@ -127,9 +139,9 @@ describe('i18n — credits', () => {
     expect(c.author).toBe('Matteo Angeloni');
     expect(c.affiliation).toBe('PhD Student — Università degli Studi della Tuscia');
     expect(c.note).toBe(
-      'Vertical slice sviluppata con supporto AI.\n' +
-        'Asset grafici e audio procedurali.\n' +
-        'Licenze e attribuzioni complete disponibili nei file del progetto.'
+      "FATTO CON L'IA, NON DALL'IA \u2014 dichiarazione volontaria: sviluppato con\n" +
+        'assistenti IA, sotto responsabilit\u00e0 editoriale e scientifica di una persona.\n' +
+        'Asset grafici e audio procedurali. Licenze complete nei file del progetto.'
     );
   });
 
@@ -140,9 +152,9 @@ describe('i18n — credits', () => {
     expect(c.author).toBe('Matteo Angeloni');
     expect(c.affiliation).toBe('PhD Student — University of Tuscia');
     expect(c.note).toBe(
-      'Vertical slice developed with AI support.\n' +
-        'Procedural graphics and audio assets.\n' +
-        'Full licenses and attributions available in the project files.'
+      'MADE WITH AI, NOT BY AI \u2014 voluntary disclosure: developed with AI\n' +
+        'assistants, under the editorial and scientific responsibility of one person.\n' +
+        'Procedural graphics and audio assets. Full licenses in the project files.'
     );
   });
 
@@ -193,6 +205,81 @@ describe('i18n — runtime', () => {
       seen.add(getLanguage());
     }
     expect(seen.size).toBe(LANGUAGE_CODES.length);
+  });
+});
+
+/**
+ * LA FONDAZIONE PER N LINGUE (programma 4.0, intervento I1).
+ *
+ * Questi controlli non verificano una traduzione: verificano che il MECCANISMO
+ * delle lingue non contenga la stessa informazione in due posti. È la classe di
+ * difetto che su questo repository ha già prodotto 31 conteggi divergenti su 21
+ * pagine, e che nel modulo i18n era presente in tre copie: l'elenco delle
+ * lingue, le chiavi di LOCALES e il predicato `isLanguageCode`.
+ */
+describe('i18n — estensibilità a N lingue', () => {
+  test("l'elenco delle lingue è derivato da LOCALES, non trascritto", () => {
+    // Se qualcuno riscrivesse LANGUAGE_CODES a mano, questo resterebbe verde
+    // solo finché le due liste coincidono: è l'istante in cui divergono che
+    // conta, ed è quello che questa asserzione sorveglia.
+    expect(LANGUAGE_CODES).toEqual(Object.keys(LOCALES));
+    expect(LANGUAGE_CODES.length).toBeGreaterThanOrEqual(2);
+  });
+
+  test('ogni lingua pubblicata è raggiungibile da ?lang=, nessuna esclusa', () => {
+    // IL DIFETTO CHE QUESTO CONTROLLO ESISTE PER PRENDERE.
+    // `isLanguageCode` riscriveva a mano `value === 'it' || value === 'en'`.
+    // Pubblicare il francese senza aggiornare quella riga non avrebbe rotto
+    // niente: avrebbe fatto rifiutare `?lang=fr` in SILENZIO, mandando il
+    // giocatore francese in italiano senza alcun messaggio. Un difetto che non
+    // rompe niente è quello che resta in produzione.
+    for (const lang of LANGUAGE_CODES) {
+      expect(languageFromQuery(`?lang=${lang}`), `?lang=${lang} ignorato`).toBe(lang);
+    }
+  });
+
+  test('una lingua non pubblicata non è raggiungibile, e non finge di esserlo', () => {
+    for (const bozza of DRAFT_LANGUAGES) {
+      expect(LANGUAGE_CODES, `${bozza} è in DRAFT_LANGUAGES ma anche pubblicata`)
+        .not.toContain(bozza);
+      expect(languageFromQuery(`?lang=${bozza}`), `?lang=${bozza} accettato`).toBeNull();
+    }
+    expect(languageFromQuery('?lang=klingon')).toBeNull();
+    expect(languageFromQuery('')).toBeNull();
+  });
+
+  test('le due liste non si sovrappongono: pubblicata o bozza, mai entrambe', () => {
+    const doppie = LANGUAGE_CODES.filter((l) => (DRAFT_LANGUAGES as readonly string[]).includes(l));
+    expect(doppie, `lingue dichiarate pubblicate E in lavorazione: ${doppie.join(', ')}`).toEqual([]);
+  });
+
+  test('ogni lingua pubblicata ha un nome proprio, e nella propria lingua', () => {
+    // IL TRIPWIRE HA FATTO IL SUO LAVORO, E QUESTO LO SOSTITUISCE.
+    // Fino al 13 ottobre 2026 qui c'era un controllo che FALLIVA alla terza
+    // lingua pubblicata, perché TitleScene cambiava lingua con un solo
+    // pulsante a ciclo: con tre lingue sarebbe diventato «premi finché non
+    // indovini». Il francese l'ha fatto scattare, la selezione \u00e8 stata
+    // implementata, e il vincolo cambia natura: non più «non superare due
+    // lingue», ma «ogni lingua deve essere nominabile».
+    //
+    // Non ho alzato la soglia: l'ho sostituita con la proprietà che la
+    // selezione richiede per funzionare. Alzare una soglia è il modo di
+    // zittire un tripwire invece di ascoltarlo.
+    for (const lang of LANGUAGE_CODES) {
+      const nome = LANGUAGE_LABELS[lang];
+      expect(nome, `nessuna etichetta per ${lang}`).toBeTruthy();
+      expect(nome.length, `etichetta troppo corta per ${lang}: ${nome}`).toBeGreaterThan(2);
+    }
+    // Endonimi: i nomi NON si traducono, quindi sono identici in ogni lingua.
+    // Se finissero nei dizionari, un francofono vedrebbe «Francese» mentre
+    // l'interfaccia è in italiano, e non riconoscerebbe la propria lingua.
+    const itSource = readFileSync(resolve(__dirname, '..', 'src/game/i18n/it.ts'), 'utf8');
+    for (const nome of Object.values(LANGUAGE_LABELS)) {
+      expect(
+        itSource.includes(`: '${nome}'`),
+        `l'endonimo ${nome} è finito nel dizionario italiano: va tenuto in i18n/index.ts`
+      ).toBe(false);
+    }
   });
 
   test('fmt sostituisce i segnaposto', () => {
