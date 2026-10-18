@@ -27,7 +27,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PORT = 4200;
 const PROBE = `http://127.0.0.1:${PORT}/`;
 const BASE = `http://localhost:${PORT}`; // smokes' host allowlists expect "localhost"
-const SMOKES = ['gameplay-smoke.mjs', 'keyboard-smoke.mjs', 'draft-smoke.mjs', 'privacy-smoke.mjs', 'layout-smoke.mjs', 'audio-smoke.mjs', 'action-layer-smoke.mjs', 'inspector-desk-smoke.mjs', 'visual-language-smoke.mjs', 'press-pages-smoke.mjs', 'mobile-ux-smoke.mjs', 'analytics-smoke.mjs', 'press-coverage-smoke.mjs'];
+const SMOKES = ['gameplay-smoke.mjs', 'keyboard-smoke.mjs', 'draft-smoke.mjs', 'privacy-smoke.mjs', 'layout-smoke.mjs', 'audio-smoke.mjs', 'action-layer-smoke.mjs', 'inspector-desk-smoke.mjs', 'visual-language-smoke.mjs', 'press-pages-smoke.mjs', 'mobile-ux-smoke.mjs', 'analytics-smoke.mjs', 'press-coverage-smoke.mjs', 'usage-notice-smoke.mjs'];
 const output = resolve(root, 'scripts/smoke/out/final-qa');
 mkdirSync(output, { recursive: true });
 const report = { sha: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(),

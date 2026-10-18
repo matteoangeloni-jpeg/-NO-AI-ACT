@@ -3,6 +3,12 @@
 #game-usage button { min-height: 44px; padding: 4px 12px; border: 1px solid #6f9383; border-radius: 2px; color: #ecf1f5; background: transparent; font: inherit; cursor: pointer; }
 #game-usage button:disabled { opacity: .6; cursor: default; }
 #game-usage :focus-visible { outline: 2px solid #ffe073; outline-offset: 2px; }
+#game-usage[hidden], #usage-reopen[hidden] { display: none; }
+#game-usage svg, #usage-reopen svg { width: 16px; height: 16px; display: block; }
+#usage-close { display: grid; place-items: center; }
+#usage-reopen { position: fixed; bottom: 2px; left: 150px; width: 28px; height: 28px; display: grid; place-items: center; padding: 0; z-index: 31; border: 1px solid #6f9383; border-radius: 2px; color: #b9e5d1; background: #15221e; cursor: pointer; }
+#usage-reopen:focus-visible { outline: 2px solid #ffe073; outline-offset: 2px; }
+body.mobile-presentation #usage-reopen { position: absolute; top: 16px; right: 16px; left: auto; bottom: auto; width: 44px; height: 44px; }
 body.usage-game #app { padding-top: calc(var(--play-chrome-top, 0px) + var(--usage-bar-height, 52px)); }
 body.beta-game #game-usage { top: var(--beta-banner-height, 68px); }
 body.beta-game.usage-game #app { padding-top: calc(var(--play-chrome-top, 0px) + var(--beta-banner-height, 68px) + var(--usage-bar-height, 52px)); }

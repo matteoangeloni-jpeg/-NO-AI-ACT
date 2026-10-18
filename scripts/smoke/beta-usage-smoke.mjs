@@ -73,6 +73,14 @@ try {
     assert.equal(await p.locator('#beta-usage-opt-in').count(), 0);
     assert.equal(await choice.isEnabled(), true);
     await p.waitForTimeout(11000); assert(payloads.length > before);
+    assert.equal(await p.locator('#game-usage').isVisible(), false, 'notice must disappear without changing collection');
+    assert.equal(await p.locator('#usage-reopen').isVisible(), true);
+    assert.equal(await p.evaluate(() => document.documentElement.style.getPropertyValue('--usage-bar-height')), '0px');
+    await p.locator('#usage-reopen').click();
+    assert.equal(await p.locator('#game-usage').isVisible(), true);
+    await p.locator('#usage-close').press('Escape');
+    assert.equal(await p.locator('#game-usage').isVisible(), false);
+    assert.equal(await p.locator('#usage-reopen').evaluate(el => el === document.activeElement), true);
     const activate = async name => {
       const button = p.getByRole('button', { name }).first();
       await button.focus(); await p.keyboard.press('Enter');
@@ -99,6 +107,10 @@ try {
     const bounds = await p.evaluate(() => ({ banner: document.getElementById('game-usage').getBoundingClientRect().bottom,
       content: document.querySelector(document.body.classList.contains('mobile-presentation') ? '#reading-layer' : 'canvas').getBoundingClientRect().top }));
     assert(bounds.content >= bounds.banner - 1, JSON.stringify({ width, ...bounds }));
+    await p.locator('#usage-reopen').click();
+    await p.locator('#usage-close').click();
+    assert.equal(await p.locator('#game-usage').isVisible(), false);
+    await p.locator('#usage-reopen').click();
     await choice.click(); const after = payloads.length;
     await p.waitForTimeout(11000); assert.equal(payloads.length, after);
     await p.reload(); await scene(p, 'Title'); assert.equal(await choice.innerText(), 'Disattiva');
