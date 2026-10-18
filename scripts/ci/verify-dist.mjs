@@ -11,6 +11,7 @@
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { resolve, join, relative } from 'node:path';
 import { execSync } from 'node:child_process';
+import { publicRoutes, publishedLanguages } from '../../src/site/route-inventory.mjs';
 
 const root = process.cwd();
 const dist = resolve(root, 'dist');
@@ -69,13 +70,11 @@ for (const rel of required) {
 try {
   const rotte = JSON.parse(readFileSync(resolve(root, 'scripts/seo/routes.config.json'), 'utf8'));
   const dirs = [
-    ...rotte.pairs.flatMap((p) => [p.it, p.en, ...(p.fr ? [p.fr] : [])]),
-    ...rotte.enOnly,
-    ...Object.values(rotte.frForEn ?? {})
+    ...publicRoutes(rotte).map(r => r.dir)
   ];
   const attese = dirs.length;
   const count = (p) => (readFileSync(join(dist, p), 'utf8').match(/<loc>/g) ?? []).length;
-  const per = ['it', 'en', 'fr'].map((l) => [l, count(`sitemap-${l}.xml`)]);
+  const per = publishedLanguages(rotte).map((l) => [l, count(`sitemap-${l}.xml`)]);
   const totale = per.reduce((n, [, v]) => n + v, 0);
   console.log(`  sitemap children: ${per.map(([l, v]) => `${v} ${l.toUpperCase()}`).join(' + ')} = ${totale}`);
   if (totale !== attese) fail.push(`sitemap children total ${totale} (want ${attese})`);

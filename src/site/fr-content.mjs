@@ -125,7 +125,7 @@ export const PAGINE = [
         blocchi: [
           {
             testo:
-              "Le jeu tourne dans votre navigateur. Aucun compte, aucune donnée personnelle collectée, aucune requête réseau pendant la partie : sauvegarde et préférences restent sur votre appareil. Détails sur la page <a href=\"{FR}protection-des-donnees-des-la-conception/\">protection des données dès la conception</a>."
+              "Le jeu tourne dans votre navigateur, sans compte. Sauvegarde et préférences restent sur votre appareil. Des compteurs d’usage agrégés peuvent être envoyés automatiquement, sans nom ni réponse individuelle. Détails sur la page <a href=\"{FR}protection-des-donnees-des-la-conception/\">protection des données dès la conception</a>."
           },
           {
             callout:
@@ -201,7 +201,7 @@ export const PAGINE = [
     en: 'en/education/',
     title: "Ressources éducatives sur l'AI Act : par où commencer",
     description:
-      "Les ressources pédagogiques de NO AI ACT : guide de l'AI Act, glossaire, maîtrise de l'IA, usage en classe. Gratuit, sans compte, sans collecte de données.",
+      "Les ressources pédagogiques de NO AI ACT : guide de l'AI Act, glossaire, maîtrise de l'IA et usage en classe. Gratuit et sans compte.",
     ogTitle: "Ressources éducatives sur l'AI Act",
     ogDescription:
       "Un point d'entrée organisé par intention : comprendre la règle, enseigner la règle, ou jouer pour la comprendre.",
@@ -259,7 +259,7 @@ export const PAGINE = [
     eyebrow: 'ENSEIGNANTS ET CLASSE',
     h1: "L'AI Act pour les enseignants et les formateurs",
     lead:
-      "Une structure en trois temps, un mode enseignant qui ouvre la discussion après chaque dossier, et rien qui sorte de l'appareil.",
+      "Une structure en trois temps et un mode enseignant qui ouvre la discussion après chaque dossier. Le débriefing reste sur l’appareil ; les statistiques d’usage sont agrégées.",
     sezioni: [
       {
         titolo: 'Avant, pendant, après',

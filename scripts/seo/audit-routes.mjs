@@ -25,6 +25,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
+import { publicRoutes, publishedLanguages, languageCode } from '../../src/site/route-inventory.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const read = (p) => readFileSync(resolve(root, p), 'utf8');
@@ -33,33 +34,18 @@ const SITE = cfg.site;
 
 const FORBIDDEN_SCHEMA = ['Review', 'AggregateRating', 'Product', 'Course'];
 
-const routes = [];
-for (const { it, en, fr } of cfg.pairs) {
-  // `fr` e' presente solo sulle coppie che hanno davvero una pagina francese.
-  // Le altre NON devono dichiarare hreflang="fr": un hreflang verso una pagina
-  // inesistente e' un difetto peggiore di un hreflang mancante, perche' promette
-  // una traduzione che non c'e'.
-  routes.push({ dir: it, lang: 'it', alt: en, xDefault: it, it, en, fr: fr ?? null });
-  routes.push({ dir: en, lang: 'en', alt: it, xDefault: it, it, en, fr: fr ?? null });
-  if (fr) routes.push({ dir: fr, lang: 'fr', alt: it, xDefault: it, it, en, fr });
-}
-for (const dir of cfg.enOnly) {
-  const fr = cfg.frForEn?.[dir];
-  routes.push({ dir, lang: 'en', alt: null, xDefault: dir, en: dir, fr });
-  if (fr) routes.push({ dir: fr, lang: 'fr', alt: null, xDefault: dir, en: dir, fr });
-}
+const routes = publicRoutes(cfg);
+const languages = publishedLanguages(cfg);
 
 const fileOf = (dir) => (dir === '' ? 'index.html' : `${dir}/index.html`);
 const urlOf = (dir) => (dir === '' ? SITE : `${SITE}${dir}/`);
 const dirSet = new Set(routes.map((r) => r.dir));
 
 // --- sitemap membership -----------------------------------------------------
-const smIt = read('public/sitemap-it.xml');
-const smEn = read('public/sitemap-en.xml');
-const smFr = read('public/sitemap-fr.xml');
-const locsIt = new Set([...smIt.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, l]) => l));
-const locsEn = new Set([...smEn.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, l]) => l));
-const locsFr = new Set([...smFr.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, l]) => l));
+const sitemaps = languages.map(lang => {
+  const xml = read(`public/sitemap-${lang}.xml`);
+  return { lang, xml, locs: new Set([...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, l]) => l)) };
+});
 
 // --- helpers ----------------------------------------------------------------
 function resolveHref(dir, hrefRaw) {
@@ -96,10 +82,10 @@ const warnings = [];
 
 // every sitemap URL must carry a plausible lastmod (Google uses it for crawl
 // scheduling only when consistently accurate — see update-sitemap-lastmod.mjs)
-for (const [name, xml, locs] of [['sitemap-it', smIt, locsIt], ['sitemap-en', smEn, locsEn], ['sitemap-fr', smFr, locsFr]]) {
+for (const { lang, xml, locs } of sitemaps) {
   const stamped = (xml.match(/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/g) ?? []).length;
   if (stamped !== locs.size) {
-    critical.push(`${name}.xml: ${stamped}/${locs.size} URLs have a valid <lastmod> (run scripts/seo/update-sitemap-lastmod.mjs)`);
+    critical.push(`sitemap-${lang}.xml: ${stamped}/${locs.size} URLs have a valid <lastmod> (run scripts/seo/update-sitemap-lastmod.mjs)`);
   }
 }
 const rows = [];
@@ -130,48 +116,23 @@ for (const r of routes) {
   const url = urlOf(r.dir);
 
   // language + robots + canonical
-  const langAttr = html.match(/<html lang="([a-z]{2})">/)?.[1] ?? '';
-  if (langAttr !== r.lang) critical.push(`${label}: <html lang> is "${langAttr}", expected "${r.lang}"`);
+  const langAttr = html.match(/<html lang="([^"]+)">/)?.[1] ?? '';
+  if (langAttr !== languageCode(r.lang)) critical.push(`${label}: <html lang> is "${langAttr}", expected "${languageCode(r.lang)}"`);
   const indexable = html.includes('name="robots" content="index, follow, max-image-preview:large"');
   if (!indexable) critical.push(`${label}: missing "index, follow, max-image-preview:large" robots meta`);
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1] ?? '';
   if (canonical !== url) critical.push(`${label}: canonical "${canonical}" != "${url}"`);
 
-  // hreflang trio (reciprocity is guaranteed by deriving both sides from cfg)
-  // GLI URL DELLE TRE LINGUE SI LEGGONO DALLA ROTTA, non si deducono dalla
-  // lingua corrente: la deduzione funzionava con due lingue e dava l'URL
-  // italiano come «inglese» per ogni pagina francese.
-  const itUrl = r.alt === null ? url : urlOf(r.it);
-  const enUrl = urlOf(r.en);
-  const xUrl = urlOf(r.xDefault);
-  const hasIt = r.alt === null ? true : html.includes(`hreflang="it" href="${itUrl}"`);
-  const hasEn = html.includes(`hreflang="en" href="${enUrl}"`);
-  const hasX = html.includes(`hreflang="x-default" href="${xUrl}"`);
-  if (!hasIt) critical.push(`${label}: missing hreflang="it" -> ${itUrl}`);
-  if (!hasEn) critical.push(`${label}: missing hreflang="en" -> ${enUrl}`);
-  if (!hasX) critical.push(`${label}: missing hreflang="x-default" -> ${xUrl}`);
-  // Il francese e' il terzo lato, e vale in DUE direzioni: dove la pagina
-  // francese esiste, tutte e tre le lingue devono dichiararla; dove non
-  // esiste, nessuna deve farlo.
-  const frUrl = r.fr ? urlOf(r.fr) : null;
-  const dichiaraFr = /hreflang="fr"/.test(html);
-  if (frUrl && !html.includes(`hreflang="fr" href="${frUrl}"`)) {
-    critical.push(`${label}: missing hreflang="fr" -> ${frUrl}`);
+  // Check every member, including self, and reject phantom translations.
+  const expectedAlternates = new Map(Object.entries(r.group).map(([lang, dir]) => [languageCode(lang), urlOf(dir)]));
+  expectedAlternates.set('x-default', urlOf(r.xDefault));
+  const actualAlternates = [...html.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g)];
+  if (actualAlternates.length !== expectedAlternates.size) critical.push(`${label}: unexpected alternate count`);
+  for (const [lang, target] of expectedAlternates) {
+    if (!actualAlternates.some(([, l, u]) => l === lang && u === target)) critical.push(`${label}: missing hreflang="${lang}" -> ${target}`);
   }
-  if (!frUrl && dichiaraFr) {
-    critical.push(`${label}: declares hreflang="fr" but has no French counterpart`);
-  }
-  if (r.alt !== null && !existsSync(resolve(root, fileOf(r.alt)))) {
-    critical.push(`${label}: alternate ${r.alt || '/'} does not exist`);
-  }
-
-  // sitemap membership: exactly one, the right one
-  const inIt = locsIt.has(url);
-  const inEn = locsEn.has(url);
-  const inFr = locsFr.has(url);
-  if (r.lang === 'it' && (!inIt || inEn || inFr)) critical.push(`${label}: must be in sitemap-it only (it:${inIt} en:${inEn} fr:${inFr})`);
-  if (r.lang === 'en' && (!inEn || inIt || inFr)) critical.push(`${label}: must be in sitemap-en only (it:${inIt} en:${inEn} fr:${inFr})`);
-  if (r.lang === 'fr' && (!inFr || inIt || inEn)) critical.push(`${label}: must be in sitemap-fr only (it:${inIt} en:${inEn} fr:${inFr})`);
+  const memberships = sitemaps.filter(sm => sm.locs.has(url));
+  if (memberships.length !== 1 || memberships[0].lang !== r.lang) critical.push(`${label}: must be in sitemap-${r.lang} only`);
 
   // head content
   const title = html.match(/<title>([^<]+)<\/title>/)?.[1] ?? '';
@@ -231,8 +192,8 @@ for (const r of routes) {
   rows.push({
     route: url, lang: r.lang, pair: r.alt === null ? '(en-only)' : urlOf(r.alt),
     indexable: indexable ? 'yes' : 'NO', canonical: canonical === url ? 'self' : canonical,
-    hreflang: `${hasIt ? 'it' : '-'}/${hasEn ? 'en' : '-'}/${hasX ? 'x' : '-'}`,
-    sitemap: inIt ? 'sitemap-it' : inEn ? 'sitemap-en' : inFr ? 'sitemap-fr' : 'MISSING',
+    hreflang: [...expectedAlternates.keys()].join('/'),
+    sitemap: memberships.length === 1 ? `sitemap-${memberships[0].lang}` : 'MISSING',
     titleLen: title.length, descLen: desc.length, h1: h1Count, words: wordCount,
     ldTypes: ldTypes.join('+') || '-', inbound: inboundCount, outbound,
     brokenLinks: broken.length, images: imgs.length, imagesWithAlt: imgsWithAlt,
@@ -243,15 +204,16 @@ for (const r of routes) {
 // --- global guards ----------------------------------------------------------
 const play = read('play/index.html');
 if (!play.includes('content="noindex, follow"')) critical.push('/play/: lost its noindex, follow');
-for (const [name, sm] of [['sitemap.xml', read('public/sitemap.xml')], ['sitemap-it.xml', smIt], ['sitemap-en.xml', smEn], ['sitemap-fr.xml', smFr]]) {
+for (const [name, sm] of [['sitemap.xml', read('public/sitemap.xml')], ...sitemaps.map(s => [`sitemap-${s.lang}.xml`, s.xml])]) {
   if (sm.includes('/play/')) critical.push(`${name}: contains /play/`);
 }
 const expected = new Set(routes.map((r) => urlOf(r.dir)));
-for (const l of [...locsIt, ...locsEn]) {
+for (const l of sitemaps.flatMap(s => [...s.locs])) {
   if (!expected.has(l)) critical.push(`sitemap contains unknown route ${l} (add it to routes.config.json or remove it)`);
 }
-if (locsIt.size + locsEn.size + locsFr.size !== routes.length) {
-  critical.push(`sitemap total ${locsIt.size + locsEn.size + locsFr.size} != ${routes.length} configured routes`);
+const sitemapTotal = sitemaps.reduce((n, s) => n + s.locs.size, 0);
+if (sitemapTotal !== routes.length) {
+  critical.push(`sitemap total ${sitemapTotal} != ${routes.length} configured routes`);
 }
 
 // --- output -----------------------------------------------------------------
@@ -266,7 +228,7 @@ export const result = { rows, critical, warnings };
 
 const isMain = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isMain) {
-  const perLingua = ['it', 'en', 'fr']
+  const perLingua = languages
     .map((l) => `${rows.filter((r) => r.lang === l).length} ${l.toUpperCase()}`)
     .join(' + ');
   console.log(`--- SEO route audit: ${rows.length} routes (${perLingua}) ---`);

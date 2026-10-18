@@ -19,7 +19,7 @@ const nodes = (html: string) => { const out: any[] = []; walk(parse(html), (n: a
 describe('French publication candidate', () => {
   it('covers all 37 English routes, including four without an Italian counterpart', () => {
     expect(french).toHaveLength(37);
-    expect(new Set(INVENTORY_DIRS).size).toBe(107);
+    expect(new Set(INVENTORY_DIRS.filter(d => !/^(de|es|pt)(\/|$)/.test(d))).size).toBe(107);
     expect(translations).toHaveLength(24);
     expect(Object.keys(cfg.frForEn).sort()).toEqual([...cfg.enOnly].sort());
   });
@@ -56,7 +56,7 @@ describe('French publication candidate', () => {
         const all = nodes(read(dir ? `${dir}/index.html` : 'index.html'));
         for (const [lang, altDir] of Object.entries(group)) {
           const url = `${cfg.site}${altDir ? `${altDir}/` : ''}`;
-          expect(all.some(n => n.tagName === 'link' && attr(n, 'hreflang') === lang && attr(n, 'href') === url), `${dir} -> ${lang}`).toBe(true);
+          expect(all.some(n => n.tagName === 'link' && attr(n, 'hreflang') === (lang === 'pt' ? 'pt-PT' : lang) && attr(n, 'href') === url), `${dir} -> ${lang}`).toBe(true);
         }
       }
     }

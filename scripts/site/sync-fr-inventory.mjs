@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { translations } from './fr-translations.mjs';
+import { publicRoutes, publishedLanguages } from '../../src/site/route-inventory.mjs';
 
 const root = new URL('../../', import.meta.url);
 const read = path => readFileSync(new URL(path, root), 'utf8');
@@ -39,6 +40,7 @@ save('public/sitemap-fr.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset x
 const release = JSON.parse(read('release.config.json'));
 release.languages = ['it', 'en', 'fr'];
 release.publicUrls.fr = french.length;
-release.publicUrls.total = release.publicUrls.it + release.publicUrls.en + french.length;
+release.siteLanguages = publishedLanguages(cfg);
+release.publicUrls.total = publicRoutes(cfg).length;
 save('release.config.json', JSON.stringify(release, null, 2) + '\n');
 console.log(`Inventory synchronized: ${french.length} FR pages.`);

@@ -1,5 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+// @ts-expect-error Shared ESM inventory.
+import { publicRoutes, publishedLanguages } from '../src/site/route-inventory.mjs';
 
 /**
  * L'INVENTARIO PUBBLICO, LETTO DALLA SUA UNICA FONTE.
@@ -29,11 +31,8 @@ const cfg: Config = JSON.parse(
 );
 
 /** Le cartelle di ogni rotta pubblicata, in tutte le lingue. */
-export const INVENTORY_DIRS: string[] = [
-  ...cfg.pairs.flatMap((p) => [p.it, p.en, ...(p.fr ? [p.fr] : [])]),
-  ...cfg.enOnly,
-  ...Object.values(cfg.frForEn ?? {})
-];
+export const INVENTORY_DIRS: string[] = publicRoutes(cfg).map((r: { dir: string }) => r.dir);
+export const SITE_LANGUAGE_CODES: string[] = publishedLanguages(cfg);
 
 /** I file `index.html` corrispondenti, nella forma usata dai test. */
 export const INVENTORY_FILES: string[] = INVENTORY_DIRS.map((d) =>

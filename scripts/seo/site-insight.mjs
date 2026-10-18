@@ -22,26 +22,14 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
+import { publicRoutes } from '../../src/site/route-inventory.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const read = (p) => readFileSync(resolve(root, p), 'utf8');
 const cfg = JSON.parse(read('scripts/seo/routes.config.json'));
 const asJson = process.argv.includes('--json');
 
-const routes = [];
-for (const { it, en, fr } of cfg.pairs) {
-  routes.push({ dir: it, lang: 'it', alt: en });
-  routes.push({ dir: en, lang: 'en', alt: it });
-  // La terza lingua entra dove la coppia la dichiara: senza questa riga il
-  // referto diceva «70 pagine» su un sito che ne pubblica 83, e le pagine
-  // francesi non comparivano fra le fragili né fra le sottili.
-  if (fr) routes.push({ dir: fr, lang: 'fr', alt: it });
-}
-for (const dir of cfg.enOnly) {
-  const fr = cfg.frForEn?.[dir];
-  routes.push({ dir, lang: 'en', alt: fr ?? null });
-  if (fr) routes.push({ dir: fr, lang: 'fr', alt: dir });
-}
+const routes = publicRoutes(cfg);
 
 const fileOf = (dir) => (dir === '' ? 'index.html' : `${dir}/index.html`);
 const dirSet = new Set(routes.map((r) => r.dir));
