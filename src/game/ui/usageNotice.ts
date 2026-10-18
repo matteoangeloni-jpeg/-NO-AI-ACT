@@ -27,6 +27,14 @@ export function initUsageNotice(analytics: Analytics): void {
   bar.addEventListener('keydown', event => event.stopPropagation());
   bar.append(status, policy, toggle); document.body.prepend(bar); document.body.classList.add('usage-game');
   new MutationObserver(update).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
-  new ResizeObserver(() => document.documentElement.style.setProperty('--usage-bar-height', `${bar.getBoundingClientRect().height}px`)).observe(bar);
   update();
+  const measure = () => {
+    const height = `${bar.getBoundingClientRect().height}px`;
+    if (document.documentElement.style.getPropertyValue('--usage-bar-height') === height) return;
+    document.documentElement.style.setProperty('--usage-bar-height', height);
+    window.dispatchEvent(new Event('resize'));
+  };
+  // Reserve the measured row before Phaser reads its initial parent size.
+  measure();
+  new ResizeObserver(measure).observe(bar);
 }
