@@ -29,6 +29,11 @@ The new languages have no useful post-release performance history yet.
   resubmitted through Search Console. Receipt is not a guarantee of indexing.
 - No new URLs, fake search volumes, meta-keywords, bulk legal claims or
   duplicated keyword landing pages. No gameplay or telemetry changes.
+- Mobile language navigation uses locally served flag images plus written names,
+  44px-minimum touch targets, a three-column layout and an active-language cue.
+  Links and hreflang remain direct, crawlable and usable without JavaScript.
+- `SEO_KEYWORD_OPPORTUNITIES.md` maps 24 editorial candidates to existing pages
+  across six languages, with primary terminology sources and evidence limits.
 
 ## Reproduction
 

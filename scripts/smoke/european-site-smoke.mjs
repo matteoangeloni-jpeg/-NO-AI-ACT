@@ -90,6 +90,11 @@ try {
       assert(state.title.includes('NO AI ACT'), `${lang}: product identity`);
       assert(!state.overflow && !state.overlap && !state.outside, `${lang}: hero layout at ${width}`);
       assert.equal(await page.locator('.locale-links a').count(), 6);
+      assert(await page.locator('.locale-links img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0)), `${lang}: missing flag`);
+      assert(await page.locator('.locale-links a').evaluateAll(links => links.every(link => {
+        const rect = link.getBoundingClientRect();
+        return rect.width >= 44 && rect.height >= 44 && rect.left >= 0 && rect.right <= innerWidth;
+      })), `${lang}: language touch targets at ${width}`);
       await page.screenshot({ path: `${out}/home-${lang}-${width}.png`, animations: 'disabled' });
     }
   }

@@ -58,6 +58,9 @@ describe('European website localization, separate from gameplay', () => {
       expect(links).toHaveLength(Object.keys(route.group).length);
       for (const [lang, dir] of Object.entries(route.group)) {
         const link = links.find(n => attr(n, 'hreflang') === languageCode(lang));
+        const flag = nodes(link).find(n => n.tagName === 'img');
+        expect(attr(flag, 'src')).toBe(`/assets/flags/${lang === 'en' ? 'gb' : lang}.png`);
+        expect(attr(flag, 'alt')).toBe('');
         expect(attr(link, 'href')).toBe(dir ? `/${dir}/` : '/');
         expect(attr(link, 'aria-current')).toBe(lang === route.lang ? 'page' : undefined);
       }
