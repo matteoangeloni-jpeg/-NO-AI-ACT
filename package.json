@@ -50,11 +50,13 @@
     "diag:density": "node scripts/diag/ui-density.mjs",
     "diag:case": "node scripts/diag/play-case.mjs",
     "smoke:press-pages": "node scripts/smoke/press-pages-smoke.mjs",
+    "smoke:press-coverage": "node scripts/smoke/press-coverage-smoke.mjs",
     "smoke:all": "node scripts/smoke/run-all.mjs",
     "smoke:visual-language": "node scripts/smoke/visual-language-smoke.mjs"
   },
   "license": "(GPL-3.0-or-later AND CC-BY-SA-4.0)",
   "dependencies": {
+    "lucide": "1.59.0",
     "phaser": "^3.87.0"
   },
   "devDependencies": {

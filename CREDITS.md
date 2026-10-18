@@ -5,13 +5,14 @@
 | Componente | Autore | Fonte | Licenza | Link | Attribuzione | Modifiche |
 |---|---|---|---|---|---|---|
 | Phaser 3 | Richard Davey, Phaser Studio Inc. | npm | MIT | https://phaser.io | notice MIT distribuito con la build in `THIRD_PARTY_LICENSES.md` | nessuna |
+| Lucide (frecce della rassegna stampa) | Lucide Icons and Contributors; Cole Bemis / Feather | npm | ISC + MIT | https://lucide.dev | notice integrale distribuito in `LICENSES/Lucide.txt` | nessuna |
 | Vite | Evan You e contributori | npm | MIT | https://vitejs.dev | non richiesta | nessuna |
 | TypeScript | Microsoft | npm | Apache-2.0 | https://www.typescriptlang.org | non richiesta | nessuna |
 | Vitest | Vitest team | npm (solo dev) | MIT | https://vitest.dev | non richiesta | nessuna |
 
 ## Asset
 
-Tutti gli asset grafici sono **originali e generati proceduralmente**
+Gli asset grafici del gioco sono **originali e generati proceduralmente**
 all'interno di questo repository. L'audio è generato proceduralmente, con
 l'eccezione dei campioni registrati descritti sotto.
 
@@ -60,7 +61,11 @@ rilasciati con licenza **CC BY-SA 4.0** (vedi LICENSE, Sez. 2 — attribuzione:
 "Matteo Angeloni — NO AI ACT").
 Contenuti normativi: sintesi divulgative del Regolamento (UE) 2024/1689
 (AI Act), marcate in gioco come "versione didattica semplificata".
-Nessun marchio, logo reale, volto riconoscibile o materiale di terze parti.
+Il gioco non include marchi o loghi reali. La sezione stampa del sito usa
+i loghi di Fix Gaming Channel e Absolute Gamer e la miniatura del gameplay
+di Videogiochi italiani per identificare i contenuti collegati. Restano dei
+rispettivi titolari, esclusi dalla licenza dei contenuti del progetto.
+Fonti esatte in `public/assets/press/SOURCES.md`.
 
 ## Distribuzione dei notice
 
