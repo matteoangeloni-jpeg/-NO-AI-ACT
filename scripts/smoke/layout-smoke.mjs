@@ -677,7 +677,7 @@ for (const vp of [{ w: 1920, h: 1080 }, { w: 1280, h: 720 }]) {
     if (!c) return null;
     const r = c.getBoundingClientRect();
     const contorno = [];
-    for (const sel of ['#site-return', '#reading-toggle']) {
+    for (const sel of ['#site-return', '#reading-toggle', '#game-usage']) {
       const e = document.querySelector(sel);
       if (!e) continue;
       const b = e.getBoundingClientRect();
@@ -686,13 +686,17 @@ for (const vp of [{ w: 1920, h: 1080 }, { w: 1280, h: 720 }]) {
     }
     return {
       h: r.height, w: r.width, l: r.left, t: r.top, r: r.right, b: r.bottom,
-      vh: window.innerHeight, vw: window.innerWidth, contorno
+      vh: window.innerHeight, vw: window.innerWidth, contorno,
+      usageHeight: document.querySelector('#game-usage')?.getBoundingClientRect().height ?? 0
     };
   });
   if (!misura) {
     fail.push(`${ctx}: canvas non trovato, il controllo sarebbe inerte`);
   } else {
-    const tolta = misura.vh - misura.h;
+    // The v4 privacy notice has its own bounded row; retain the original
+    // 40px budget for game chrome and verify both rows cannot cover the canvas.
+    if (misura.usageHeight > 56) fail.push(`${ctx}: statistics notice exceeds 56px`);
+    const tolta = misura.vh - misura.h - misura.usageHeight;
     if (tolta > FASCIA_MAX) {
       fail.push(
         `${ctx}: il contorno sottrae ${tolta.toFixed(0)} px di altezza (max ${FASCIA_MAX}). ` +
