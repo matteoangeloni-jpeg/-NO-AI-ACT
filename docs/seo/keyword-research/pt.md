@@ -24,9 +24,9 @@ editoriali: non sono tutte query osservate ne promesse di ranking.
 
 - Variante: recursos inteligência artificial cidadania digital.
 - Intento: Preparare una lezione.
-- Pagina proprietaria: [pt/educacao](https://www.no-ai-act.eu/pt/educacao/).
+- Pagina proprietaria: [pt/atividade-ai-act-sala-aula](https://www.no-ai-act.eu/pt/atividade-ai-act-sala-aula/).
 - Intervento: Rendere immediatamente reperibili obiettivi, materiali, conduzione e discussione finale.
-- Stato: Introduzione disponibile; manca un modulo operativo localizzato con materiali e discussione finale.
+- Stato: Laboratorio localizzato con sequenza di 60 minuti, scheda su carta, scenario e discussione finale; gioco IT/EN/FR dichiarato.
 
 ### P1: literacia em inteligência artificial
 

@@ -24,9 +24,9 @@ editoriali: non sono tutte query osservate ne promesse di ranking.
 
 - Variante: AI Act Unterrichtseinheit.
 - Intento: Preparare una lezione.
-- Pagina proprietaria: [de/bildung](https://www.no-ai-act.eu/de/bildung/).
+- Pagina proprietaria: [de/ai-act-unterrichtseinheit](https://www.no-ai-act.eu/de/ai-act-unterrichtseinheit/).
 - Intervento: Rendere immediatamente reperibili obiettivi, materiali, conduzione e discussione finale.
-- Stato: Introduzione disponibile; manca un modulo operativo localizzato con materiali e discussione finale.
+- Stato: Laboratorio localizzato con sequenza di 60 minuti, scheda su carta, scenario e discussione finale; gioco IT/EN/FR dichiarato.
 
 ### P1: KI-Kompetenz im Unterricht
 

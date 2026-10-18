@@ -9,7 +9,7 @@ const groups = routeGroups(config);
 const output = 'docs/seo/keyword-research';
 export const plan = Object.entries(markets).flatMap(([lang, market]) => topics.map(([topic, source, priority, intent, action], i) => {
   const introductory = ['de', 'es', 'pt'].includes(lang);
-  const key = introductory && topic === 'classroom' ? 'en/education' : source;
+  const key = introductory && topic === 'classroom' ? 'en/ai-act-classroom-lab' : source;
   const dir = groups.find(group => group.en === key)?.[lang];
   if (typeof dir !== 'string' || !existsSync(dir ? `${dir}/index.html` : 'index.html')) {
     throw new Error(`Missing real destination: ${lang}/${topic}`);
@@ -17,7 +17,7 @@ export const plan = Object.entries(markets).flatMap(([lang, market]) => topics.m
   return { lang, topic, priority, intent, action, dir, url: config.site + (dir ? `${dir}/` : ''),
     keywords: market.phrases[i],
     gap: introductory && topic === 'classroom'
-      ? 'Introduzione disponibile; manca un modulo operativo localizzato con materiali e discussione finale.'
+      ? 'Laboratorio localizzato con sequenza di 60 minuti, scheda su carta, scenario e discussione finale; gioco IT/EN/FR dichiarato.'
       : topic === 'literacy'
         ? 'Questa proposta aggiunge un esercizio localizzato sulle prove e sulla discussione, senza certificazioni o raccolta di risposte.'
       : topic === 'game'

@@ -1,5 +1,5 @@
 {
-  "$comment": "Language groups declare only existing page equivalents. IT/EN/FR cover the current full inventory; DE/ES/PT contain the first 13 introductory pages each. Portuguese targets pt-PT. /play/ is noindex and remains IT/EN/FR.",
+  "$comment": "Language groups declare only existing page equivalents. IT/EN/FR cover the current full inventory; DE/ES/PT contain 15 introductory and practical resources each. Portuguese targets pt-PT. /play/ is noindex and remains IT/EN/FR.",
   "site": "https://www.no-ai-act.eu/",
   "pairs": [
     {
@@ -199,12 +199,18 @@
     {
       "it": "ai-nel-lavoro-e-selezione",
       "en": "en/ai-in-recruitment-and-employment",
-      "fr": "fr/ia-recrutement-emploi"
+      "fr": "fr/ia-recrutement-emploi",
+      "de": "de/ki-personalauswahl",
+      "es": "es/ia-seleccion-personal",
+      "pt": "pt/ia-recrutamento"
     },
     {
       "it": "laboratorio-ai-act-in-classe",
       "en": "en/ai-act-classroom-lab",
-      "fr": "fr/atelier-ai-act-en-classe"
+      "fr": "fr/atelier-ai-act-en-classe",
+      "de": "de/ai-act-unterrichtseinheit",
+      "es": "es/taller-ai-act-aula",
+      "pt": "pt/atividade-ai-act-sala-aula"
     }
   ],
   "enOnly": [

@@ -192,7 +192,13 @@
     "pt/modelos-ia-finalidade-geral": "guide",
     "de/ki-kompetenz": "en-default",
     "es/alfabetizacion-ia": "en-default",
-    "pt/literacia-ia": "en-default"
+    "pt/literacia-ia": "en-default",
+    "de/ai-act-unterrichtseinheit": "education",
+    "es/taller-ai-act-aula": "education",
+    "pt/atividade-ai-act-sala-aula": "education",
+    "de/ki-personalauswahl": "guide",
+    "es/ia-seleccion-personal": "guide",
+    "pt/ia-recrutamento": "guide"
   },
   "localeFr": "fr_FR"
 }

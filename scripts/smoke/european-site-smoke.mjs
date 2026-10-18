@@ -116,6 +116,19 @@ try {
     }
   }
   // The fallback is usable without scripts, not a JS-only language router.
+  const educationGroup = cfg.pairs.find(group => group.en === 'en/education');
+  for (const width of [320, 390, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    for (const lang of ['it', 'en', 'fr', 'de', 'es', 'pt']) {
+      await page.goto(`${base}/${educationGroup[lang]}/`);
+      assert(!await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), `${lang}: education overflow at ${width}`);
+      for (const en of ['en/ai-act-classroom-lab', 'en/ai-in-recruitment-and-employment']) {
+        const dir = cfg.pairs.find(group => group.en === en)[lang];
+        assert(await page.locator('main a').evaluateAll((links, suffix) => links.some(link => new URL(link.href).pathname === `/${suffix}/`), dir), `${lang}: missing contextual path to ${en}`);
+      }
+    }
+  }
+  // The fallback is usable without scripts, not a JS-only language router.
   const fallback = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
   const plain = await fallback.newPage();
   for (const lang of ['de', 'es', 'pt']) {
@@ -126,7 +139,7 @@ try {
   }
   assert.deepEqual(errors, []);
   writeFileSync(`${out}/results.json`, JSON.stringify({ generated: new Date().toISOString(), pass: true, results }, null, 2));
-  console.log(`PASS: ${results.length} route/viewport checks, 12 home layouts, 18 literacy layouts, menus, carousel and no-JS navigation.`);
+  console.log(`PASS: ${results.length} route/viewport checks, 12 home layouts, 18 literacy layouts, 18 education layouts, menus, images, carousel and no-JS navigation.`);
 } finally {
   await browser?.close();
   server?.kill();

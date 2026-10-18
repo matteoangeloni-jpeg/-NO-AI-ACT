@@ -1107,3 +1107,6 @@ main h1, main h2 { overflow-wrap: anywhere; hyphens: auto; letter-spacing: 0; }
   .locale-links a { flex-direction: column; gap: 5px; min-height: 64px; padding: 6px 2px; font-size: 13px; }
 }
 .eu-play-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.resource-figure { margin: 0; }
+.resource-figure img { display: block; width: 100%; height: auto; }
+.resource-figure figcaption { margin-top: 12px; font-size: 14px; color: var(--ink-dim); }
