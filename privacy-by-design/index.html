@@ -22,7 +22,7 @@
   <meta property="og:locale" content="it_IT" />
   <meta property="og:locale:alternate" content="en_GB" />
   <meta property="og:title" content="Privacy by design — NO AI ACT" />
-  <meta property="og:description" content="Nessun account, nessuna telemetria di gioco, salvataggi solo locali: come è progettata la privacy di NO AI ACT." />
+  <meta property="og:description" content="Nessun account, statistiche aggregate disattivabili, salvataggi locali: come è progettata la privacy di NO AI ACT." />
   <meta property="og:url" content="https://www.no-ai-act.eu/privacy-by-design/" />
   <meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-og.png" />
   <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-og.png" />
@@ -32,7 +32,7 @@
   <meta property="og:image:alt" content="Copertina di NO AI ACT: serious game educativo gratuito sull'AI Act europeo." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Privacy by design — NO AI ACT" />
-  <meta name="twitter:description" content="Nessun account, nessuna telemetria di gioco, salvataggi solo locali: come è progettata la privacy di NO AI ACT." />
+  <meta name="twitter:description" content="Nessun account, statistiche aggregate disattivabili, salvataggi locali: come è progettata la privacy di NO AI ACT." />
   <meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-og.png" />
   <meta name="twitter:image:alt" content="Copertina di NO AI ACT: serious game educativo gratuito sull'AI Act europeo." />
   <link rel="stylesheet" href="/src/styles/landing.css" />
@@ -82,7 +82,7 @@
         "name": "C'è un modulo di feedback esterno?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. Questa versione non incorpora moduli esterni: non c'è nessun modulo da compilare e il gioco non invia nulla a fornitori terzi."
+          "text": "No. Questa versione non incorpora moduli esterni: non c'è nessun modulo da compilare e le risposte non sono inviate a fornitori terzi; Cloudflare ospita i contatori aggregati di utilizzo."
         }
       }
     ]
@@ -178,8 +178,8 @@
         <h2 id="niente-title"><span class="num">01</span>Che cosa il gioco NON fa</h2>
         <ul class="plain">
           <li><strong>Nessun account</strong>: si gioca senza registrazione, email o identificatori.</li>
-          <li><strong>Nessuna telemetria di gioco</strong>: le tue decisioni, i punteggi, i rapporti ispettivi e i percorsi non vengono inviati ad alcun server.</li>
-          <li><strong>Nessun backend</strong>: il gioco è un sito statico; non esiste un database di giocatori.</li>
+          <li><strong>Statistiche aggregate di utilizzo</strong>: avvii, completamenti e schermate sono contati automaticamente, con disattivazione nella barra del gioco. Decisioni, punteggi e rapporti restano locali.</li>
+          <li><strong>Nessun database di giocatori</strong>: il backend conserva solo contatori aggregati, senza account o identificatori del giocatore.</li>
           <li><strong>Nessun dato degli studenti</strong>: la modalità docente e il suo export di debrief sono locali e anonimi.</li>
           <li><strong>Nessun identificatore persistente</strong> creato dal gioco, nessun cookie aggiunto dal gioco.</li>
         </ul>
@@ -213,14 +213,14 @@
         <h2 id="sintesi-title"><span class="num">05</span>In sintesi: misurato vs non misurato</h2>
         <div class="grid">
           <div class="card">
-            <span class="tag">Misurato (solo pagine pubbliche)</span>
+            <span class="tag">Misurato (solo contatori aggregati)</span>
             <h3>Statistiche aggregate</h3>
             <p>Visite alle pagine pubbliche del sito tramite Cloudflare Web Analytics: senza cookie, senza profilazione individuale, senza identificatori. Risponde a "quante persone visitano il sito", mai a "chi sei".</p>
           </div>
           <div class="card">
             <span class="tag">Mai misurato</span>
-            <h3>Tutto ciò che fai nel gioco</h3>
-            <p>Decisioni, classificazioni, punteggi, rapporti ispettivi, casi giocati, tempo di gioco, esiti: niente di tutto questo lascia il tuo browser. Non esistono account, cookie di gioco, pixel o telemetria.</p>
+            <h3>Risposte, punteggi e rapporti</h3>
+            <p>Decisioni, classificazioni, punteggi, rapporti ed esiti restano locali. Il gioco invia automaticamente solo contatori aggregati di utilizzo, senza cookie statistici o identificatori del giocatore. La barra permette di disattivarli; DNT e GPC sono rispettati.</p>
           </div>
         </div>
       </div>
@@ -265,7 +265,7 @@
         </details>
         <details>
           <summary>C'è un modulo di feedback esterno?</summary>
-          <div class="answer"><p>No. Questa versione non incorpora moduli esterni: non c'è nessun modulo da compilare e il gioco non invia nulla a fornitori terzi.</p></div>
+          <div class="answer"><p>No. Questa versione non incorpora moduli esterni: non c'è nessun modulo da compilare e le risposte non sono inviate a fornitori terzi; Cloudflare ospita i contatori aggregati di utilizzo.</p></div>
         </details>
       </div>
     </section>
@@ -276,7 +276,7 @@
       <h2 id="footer-title" class="stamp">Simulazione didattica — non consulenza legale</h2>
       <p>NO AI ACT è uno strumento educativo. Semplifica volutamente il <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" hreflang="it">Regolamento (UE) 2024/1689 (AI Act)</a> e non sostituisce il testo normativo né un parere professionale.</p>
       <p><a href="../">Home</a> · <a href="../come-funziona/">Come funziona</a> · <a href="../per-docenti/">Per docenti</a> · <a href="../ai-act-serious-game/">Serious game sull'AI Act</a> · <a href="../en/privacy-by-design/" hreflang="en">English version</a></p>
-      <p class="credit">Ideato e sviluppato da <a href="/matteo-angeloni/">Matteo Angeloni</a> · v3.0.0 · <span class="ai-disclosure">Fatto con l'IA, non dall'IA</span><br /><span class="credit-affil">Dottorando in <a href="https://www.unitus.it/post-laurea/dottorati-di-ricerca/corsi-di-dottorato-attivi/societa-in-mutamento-politiche-diritti-e-sicurezza/">Società in mutamento: politiche, diritti e sicurezza</a> · <a href="https://www.unitus.it/">Università degli Studi della Tuscia</a> — progetto indipendente, non espressione ufficiale dell'ateneo</span></p>
+      <p class="credit">Ideato e sviluppato da <a href="/matteo-angeloni/">Matteo Angeloni</a> · v4.0.0 · <span class="ai-disclosure">Fatto con l'IA, non dall'IA</span><br /><span class="credit-affil">Dottorando in <a href="https://www.unitus.it/post-laurea/dottorati-di-ricerca/corsi-di-dottorato-attivi/societa-in-mutamento-politiche-diritti-e-sicurezza/">Società in mutamento: politiche, diritti e sicurezza</a> · <a href="https://www.unitus.it/">Università degli Studi della Tuscia</a> — progetto indipendente, non espressione ufficiale dell'ateneo</span></p>
     </div>
   </footer>
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7c85578fc8ad4488a54c6bc670a10dcf"}'></script><!-- End Cloudflare Web Analytics -->

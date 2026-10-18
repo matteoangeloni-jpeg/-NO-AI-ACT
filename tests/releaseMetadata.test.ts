@@ -58,9 +58,9 @@ describe('release.config.json agrees with the executable source', () => {
   });
 
   it('privacy posture flags are all still true', () => {
-    expect(cfg.privacy.backend).toBe(false);
+    expect(cfg.privacy.backend).toBe('aggregate usage counters only');
     expect(cfg.privacy.externalForms).toBe(false);
-    expect(cfg.privacy.gameplayNetworkCalls).toBe(false);
+    expect(cfg.privacy.gameplayNetworkCalls).toBe('first-party aggregate usage only, no answers or player identifiers');
   });
 });
 

@@ -2,7 +2,8 @@ import { PLAYABLE_CASES } from '../data/cases';
 import { en } from '../i18n/en';
 
 export const ANALYTICS_SCHEMA_VERSION = 1 as const;
-export const ANALYTICS_GAME_VERSION = '4.0-candidate' as const;
+export const ANALYTICS_GAME_VERSION = '4.0.0' as const;
+export const ANALYTICS_GAME_VERSIONS = Object.freeze(['4.0-candidate', ANALYTICS_GAME_VERSION] as const);
 export const TUTORIAL_VERSION = 'investigation-v1' as const;
 export const ANALYTICS_LIMITS = Object.freeze({ cells: 512, count: 1_000_000 });
 export const LANGUAGES = Object.freeze(['it', 'en', 'fr'] as const);
@@ -33,7 +34,7 @@ export interface AnalyticsProperties extends AnalyticsContext {
 }
 export interface AnalyticsPayload {
   schemaVersion: typeof ANALYTICS_SCHEMA_VERSION;
-  gameVersion: typeof ANALYTICS_GAME_VERSION;
+  gameVersion: typeof ANALYTICS_GAME_VERSIONS[number];
   event: AnalyticsEvent;
   properties: AnalyticsProperties;
 }
@@ -96,7 +97,7 @@ export function validatePayload(value: unknown): value is AnalyticsPayload {
   const p = value as Record<string, unknown>;
   if (!['schemaVersion', 'gameVersion', 'event', 'properties'].every(k => Object.prototype.hasOwnProperty.call(p,k))) return false;
   if (Object.keys(p).some(k => !['schemaVersion', 'gameVersion', 'event', 'properties'].includes(k))) return false;
-  if (p.schemaVersion !== ANALYTICS_SCHEMA_VERSION || p.gameVersion !== ANALYTICS_GAME_VERSION || !member(ANALYTICS_EVENTS, p.event)) return false;
+  if (p.schemaVersion !== ANALYTICS_SCHEMA_VERSION || !member(ANALYTICS_GAME_VERSIONS, p.gameVersion) || !member(ANALYTICS_EVENTS, p.event)) return false;
   if (!p.properties || typeof p.properties !== 'object' || Array.isArray(p.properties)) return false;
   const props = p.properties as Record<string, unknown>;
   const r = EVENT_CATALOG[p.event as AnalyticsEvent];

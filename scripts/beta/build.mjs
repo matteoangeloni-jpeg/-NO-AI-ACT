@@ -14,8 +14,8 @@ for (const name of ['THIRD_PARTY_LICENSES.md', 'LICENSE', 'CREDITS.md', 'LICENSE
   mkdirSync(dirname(`dist-beta/${name}`), { recursive: true }); copyFileSync(name, `dist-beta/${name}`);
 }
 const pages = prepareBeta('dist-beta', { usage });
-writeFileSync('dist-beta/beta-release.json', JSON.stringify({ channel: 'beta', gameVersion: '4.0-candidate',
+writeFileSync('dist-beta/beta-release.json', JSON.stringify({ channel: 'beta', gameVersion: '4.0.0',
   commit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
   dirty: Boolean(execFileSync('git', ['status', '--porcelain'], { encoding: 'utf8' }).trim()),
-  builtAt: new Date().toISOString(), pages, analytics: usage ? 'first-party-opt-in' : 'off', saveKey: 'no-ai-act-beta-save-v2' }, null, 2));
-console.log(`Beta build: ${pages} HTML pages, noindex, usage ${usage ? 'OPT-IN' : 'OFF'}, isolated saves. No upload performed.`);
+  builtAt: new Date().toISOString(), pages, analytics: usage ? 'first-party-aggregate-automatic' : 'off', saveKey: 'no-ai-act-beta-save-v2' }, null, 2));
+console.log(`Beta build: ${pages} HTML pages, noindex, usage ${usage ? 'AGGREGATE AUTOMATIC' : 'OFF'}, isolated saves. No upload performed.`);

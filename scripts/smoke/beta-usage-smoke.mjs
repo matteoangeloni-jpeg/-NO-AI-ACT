@@ -9,7 +9,9 @@ import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
 import { prepareEvidenceWithKeyboard } from './lib-evidence.mjs';
 import { completeDecisionWithKeyboard } from './lib-decision.mjs';
 
-const root = resolve('dist-beta'); const out = resolve('scripts/smoke/out/beta-usage');
+const production = process.env.USAGE_TEST_CHANNEL === 'production';
+const origin = production ? 'https://www.no-ai-act.eu' : 'https://beta.no-ai-act.eu';
+const root = resolve(production ? 'dist' : 'dist-beta'); const out = resolve(`scripts/smoke/out/${production ? 'public' : 'beta'}-usage`);
 mkdirSync(out, { recursive: true });
 const server = createServer((req, res) => {
   try {
@@ -35,8 +37,13 @@ async function context(options) {
   const c = await browser.newContext({ reducedMotion: 'reduce', ...options });
   await c.route('**/*', async route => {
     const req = route.request(); const url = new URL(req.url());
-    if (url.origin !== 'https://beta.no-ai-act.eu') { forbidden.push(url.origin); return route.abort(); }
+    if (url.pathname !== '/collect' && url.origin !== origin) {
+      if (url.hostname === 'static.cloudflareinsights.com') return route.abort();
+      forbidden.push(url.origin); return route.abort();
+    }
     if (url.pathname === '/collect') {
+      assert.equal(url.origin, 'https://beta.no-ai-act.eu');
+      if (req.method() === 'OPTIONS') return route.fulfill({ status: 204, headers: { 'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'POST', 'Access-Control-Allow-Headers': 'Content-Type' } });
       assert.equal(req.method(), 'POST'); assert.equal(req.headers().cookie, undefined);
       assert.equal(req.headers().referer, undefined);
       const body = req.postData(); const data = JSON.parse(body); payloads.push(data);
@@ -44,9 +51,9 @@ async function context(options) {
         assert(!['result','hintUsed','durationBucket','sessionId','email','name'].some(k => k in cell.properties));
         assert(!['report_signed','decision_submitted','case_completed'].includes(cell.event));
       }
-      const send = () => mf.dispatchFetch(url.href, { method: 'POST', headers: { Origin: url.origin, 'Content-Type': 'application/json' }, body });
+      const send = () => mf.dispatchFetch(url.href, { method: 'POST', headers: { Origin: origin, 'Content-Type': 'application/json' }, body });
       const result = await send(); assert.equal(result.status, 202); assert.equal((await send()).status, 202);
-      return route.fulfill({ status: 202, contentType: 'application/json', body: await result.text() });
+      return route.fulfill({ status: 202, headers: { 'Access-Control-Allow-Origin': origin }, contentType: 'application/json', body: await result.text() });
     }
     const response = await fetch(`${local}${url.pathname}`);
     return route.fulfill({ status: response.status, contentType: response.headers.get('content-type'), body: Buffer.from(await response.arrayBuffer()) });
@@ -60,11 +67,12 @@ try {
   for (const width of [390, 1440]) {
     const c = await context({ viewport: { width, height: width === 390 ? 844 : 1000 }, hasTouch: width === 390 });
     const p = await c.newPage(); p.on('pageerror', e => errors.push(String(e)));
-    await p.goto('https://beta.no-ai-act.eu/play/?lang=it'); await scene(p, 'Title');
-    const choice = p.locator('#beta-usage-opt-in'); await choice.waitFor();
-    assert.equal(await choice.isChecked(), false); assert.equal(await choice.isEnabled(), true);
-    const before = payloads.length; await p.waitForTimeout(11000); assert.equal(payloads.length, before);
-    await choice.check();
+    const before = payloads.length;
+    await p.goto(`${origin}/play/?lang=it`); await scene(p, 'Title');
+    const choice = p.locator('#usage-toggle'); await choice.waitFor();
+    assert.equal(await p.locator('#beta-usage-opt-in').count(), 0);
+    assert.equal(await choice.isEnabled(), true);
+    await p.waitForTimeout(11000); assert(payloads.length > before);
     const activate = async name => {
       const button = p.getByRole('button', { name }).first();
       await button.focus(); await p.keyboard.press('Enter');
@@ -88,19 +96,19 @@ try {
     assert.equal(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
     await p.screenshot({ path: `${out}/consented-${width}.png` });
     await p.evaluate(() => window.scrollTo(0, 0));
-    const bounds = await p.evaluate(() => ({ banner: document.getElementById('beta-banner').getBoundingClientRect().bottom,
+    const bounds = await p.evaluate(() => ({ banner: document.getElementById('game-usage').getBoundingClientRect().bottom,
       content: document.querySelector(document.body.classList.contains('mobile-presentation') ? '#reading-layer' : 'canvas').getBoundingClientRect().top }));
     assert(bounds.content >= bounds.banner - 1, JSON.stringify({ width, ...bounds }));
-    await choice.uncheck(); const after = payloads.length;
+    await choice.click(); const after = payloads.length;
     await p.waitForTimeout(11000); assert.equal(payloads.length, after);
-    await p.reload(); await scene(p, 'Title'); assert.equal(await choice.isChecked(), false);
+    await p.reload(); await scene(p, 'Title'); assert.equal(await choice.innerText(), 'Disattiva');
     await c.close();
   }
   for (const flag of ['doNotTrack', 'globalPrivacyControl']) {
     const c = await context({ viewport: { width: 390, height: 844 } });
     await c.addInitScript(key => Object.defineProperty(navigator, key, { get: () => key === 'doNotTrack' ? '1' : true }), flag);
-    const p = await c.newPage(); await p.goto('https://beta.no-ai-act.eu/play/?lang=it'); await scene(p, 'Title');
-    assert.equal(await p.locator('#beta-usage-opt-in').isEnabled(), false);
+    const p = await c.newPage(); await p.goto(`${origin}/play/?lang=it`); await scene(p, 'Title');
+    assert.equal(await p.locator('#usage-toggle').isEnabled(), false);
     const before = payloads.length; await p.waitForTimeout(11000); assert.equal(payloads.length, before); await c.close();
   }
   const rows = (await db.prepare('SELECT * FROM counters').all()).results;
@@ -110,6 +118,6 @@ try {
   assert.equal((await mf.dispatchFetch('https://beta.no-ai-act.eu/api/stats')).status, 404);
   assert.equal((await mf.dispatchFetch('https://insights.no-ai-act.eu/api/stats')).status, 404);
   assert.deepEqual(errors, []); assert.deepEqual(forbidden, []);
-  writeFileSync(`${out}/results.json`, JSON.stringify({ classification: 'local automated test only', widths: [390,1440], beforeConsent: 'no sends', revoked: 'no further sends', reload: 'choice cleared', browserPrivacy: 'DNT/GPC respected', started: 2, completed: 2, duplicateDelivery: 'deduplicated', dimensions: [...new Set(rows.map(r=>r.dimension))], liveWrites: false }, null, 2));
-  console.log('PASS beta consent + actual UI cases + local Worker/D1 + dedupe + opt-out + DNT/GPC; zero live writes.');
+  writeFileSync(`${out}/results.json`, JSON.stringify({ classification: 'local automated test only', origin, widths: [390,1440], automatic: true, revoked: 'no further sends', reload: 'automatic again as disclosed', browserPrivacy: 'DNT/GPC respected', started: 2, completed: 2, duplicateDelivery: 'deduplicated', dimensions: [...new Set(rows.map(r=>r.dimension))], liveWrites: false }, null, 2));
+  console.log('PASS automatic counters + actual UI cases + local Worker/D1 + dedupe + opt-out + DNT/GPC; zero live writes.');
 } finally { await browser?.close(); await mf.dispose(); await new Promise(r => server.close(r)); }

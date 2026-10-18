@@ -14,23 +14,16 @@
   const stable = create('a', { href: 'https://www.no-ai-act.eu/', rel: 'noreferrer' });
   banner.append(badge, open, stable);
   const usageWords = {
-    it: ['Condividi statistiche di utilizzo (facoltativo)', 'Informativa beta', 'Le pagine informative descrivono la versione stabile. Nella beta le statistiche sono facoltative: vedi l’informativa beta.'],
-    en: ['Share usage statistics (optional)', 'Beta privacy notice', 'The information pages describe the stable release. Beta usage statistics are optional: see the beta privacy notice.'],
-    fr: ['Partager les statistiques (facultatif)', 'Confidentialité bêta', 'Les pages d’information décrivent la version stable. Les statistiques de la bêta sont facultatives : voir la notice de confidentialité.']
+    it: ['Statistiche aggregate', 'Informativa statistiche', 'Statistiche aggregate automatiche, disattivabili nella barra del gioco. Risposte e salvataggi restano locali.'],
+    en: ['Aggregate statistics', 'Statistics privacy notice', 'Automatic aggregate statistics can be disabled in the game bar. Answers and saves stay local.'],
+    fr: ['Statistiques agregees', 'Confidentialite des statistiques', 'Statistiques agregees automatiques, desactivables dans la barre du jeu. Reponses et sauvegardes restent locales.']
   };
-  const usageLabel = create('label', { class: 'beta-usage-choice' });
-  const usage = create('input', { type: 'checkbox', id: 'beta-usage-opt-in', disabled: '' });
-  const usageText = create('span'); usageLabel.append(usage, usageText);
-  const policy = create('a', { href: '/beta-statistics.html', target: '_blank', rel: 'noopener noreferrer' });
-  const usageBuild = document.querySelector('meta[name="no-ai-act-usage"]')?.content === 'opt-in';
+  const policy = create('a', { href: '/game-statistics.html', target: '_blank', rel: 'noopener noreferrer' });
+  const usageBuild = document.querySelector('meta[name="no-ai-act-usage"]')?.content === 'automatic';
   const gamePage = Boolean(document.getElementById('app'));
   banner.append(policy);
-  if (usageBuild && gamePage) banner.append(usageLabel);
   const pageNotice = create('p', { class: 'beta-privacy-scope' });
   if (!gamePage && usageBuild) banner.append(pageNotice);
-  const ready = () => { usage.disabled = document.documentElement.dataset.betaUsageReady !== 'true'; };
-  ready(); window.addEventListener('no-ai-act-beta-statistics-ready', ready);
-  usage.addEventListener('change', () => window.dispatchEvent(new CustomEvent('no-ai-act-beta-statistics', { detail: usage.checked })));
   const dialog = create('dialog', { id: 'beta-feedback', 'aria-labelledby': 'beta-feedback-title' });
   const form = create('form', { method: 'dialog', autocomplete: 'off' });
   const title = create('h2', { id: 'beta-feedback-title' }); const notice = create('p', { id: 'beta-feedback-notice' });
@@ -45,8 +38,8 @@
   const update = () => {
     const w = words[language()]; [badge, open, stable, title, notice, label, download, cancel].forEach((el, i) => { el.textContent = w[i]; });
     banner.lang = language(); dialog.lang = language();
-    const u = usageWords[language()]; usageText.textContent = u[0]; policy.textContent = u[1]; pageNotice.textContent = u[2];
-    policy.href = `/beta-statistics.html#${language()}`;
+    const u = usageWords[language()]; policy.textContent = u[1]; pageNotice.textContent = u[2];
+    policy.href = `/game-statistics.html#${language()}`;
   };
   update(); new MutationObserver(update).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   const resize = () => document.documentElement.style.setProperty('--beta-banner-height', `${banner.getBoundingClientRect().height}px`);

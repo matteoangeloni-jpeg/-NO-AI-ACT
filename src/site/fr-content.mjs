@@ -435,7 +435,7 @@ export const PAGINE = [
     en: 'en/privacy-by-design/',
     title: 'Protection des données dès la conception : nos choix',
     description:
-      "NO AI ACT ne collecte aucune donnée personnelle : aucun compte, aucun traceur, aucune requête pendant la partie. Ce que cela coûte, et ce que cela protège.",
+      "NO AI ACT : sans compte, reponses locales et statistiques agregees desactivables. Donnees conservees, fonctionnement et limites de la confidentialite.",
     ogTitle: 'Protection des données dès la conception',
     ogDescription:
       "Aucun compte, aucun cookie de suivi, aucune donnée d'élève. Les choix techniques qui rendent la promesse vérifiable, et leurs limites.",
@@ -451,7 +451,7 @@ export const PAGINE = [
           {
             lista: [
               "<strong>Aucun compte.</strong> Le jeu s'ouvre et se joue : rien à créer, rien à confirmer.",
-              "<strong>Aucune requête réseau pendant la partie.</strong> Réponses, rapports et progression ne quittent jamais l'appareil ; la sauvegarde vit dans le stockage local du navigateur.",
+              "<strong>Statistiques agregees de fonctionnement.</strong> Des compteurs sont envoyes automatiquement, sans reponses, resultats ou identifiants du joueur. Desactivation dans la barre du jeu ; DNT/GPC respectes. Sauvegardes locales.",
               "<strong>Aucun traceur publicitaire, aucun formulaire externe, aucune iframe de tiers.</strong>",
               "<strong>Aucune donnée d'élève.</strong> Le mode enseignant produit un débriefing local ; son export ne contient ni nom, ni adresse électronique, ni classe, ni établissement."
             ]
@@ -472,7 +472,7 @@ export const PAGINE = [
         blocchi: [
           {
             testo:
-              "Sans compte et sans traceur, le projet ne sait pas combien de personnes terminent un dossier, où elles abandonnent, ni quelles explications ne fonctionnent pas. <strong>Cette ignorance est le coût assumé de la promesse</strong>, et elle est aussi la raison pour laquelle l'efficacité pédagogique reste non validée."
+              "Les compteurs agreges indiquent des evenements, pas des personnes uniques ou des parcours individuels. Ils ne prouvent ni apprentissage ni abandon. Voir la <a href=\"/game-statistics.html\">notice des statistiques</a> pour la finalite, la conservation et la desactivation. L'efficacite pedagogique reste non validee."
           },
           { callout: DISCLAIMER }
         ]

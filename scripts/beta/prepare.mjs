@@ -32,7 +32,7 @@ export function prepareBeta(directory, { usage = false } = {}) {
     const fragment = parseFragment('<meta name="robots" content="noindex, nofollow, noarchive"><meta name="googlebot" content="noindex, nofollow, noarchive"><meta name="no-ai-act-channel" content="beta"><link rel="stylesheet" href="/beta-shell.css"><script defer src="/beta-shell.js"></script>');
     for (const node of fragment.childNodes) { node.parentNode = head; head.childNodes.push(node); }
     if (usage) {
-      const marker = parseFragment('<meta name="no-ai-act-usage" content="opt-in">').childNodes[0];
+      const marker = parseFragment('<meta name="no-ai-act-usage" content="automatic">').childNodes[0];
       marker.parentNode = head; head.childNodes.push(marker);
     }
     writeFileSync(file, serialize(document));
@@ -42,7 +42,7 @@ export function prepareBeta(directory, { usage = false } = {}) {
   }
   copyFileSync('src/beta/shell.js', join(root, 'beta-shell.js'));
   copyFileSync('src/beta/shell.css', join(root, 'beta-shell.css'));
-  copyFileSync('src/beta/statistics.html', join(root, 'beta-statistics.html'));
+  copyFileSync('public/game-statistics.html', join(root, 'beta-statistics.html'));
   writeFileSync(join(root, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
   writeFileSync(join(root, '_headers'), '/*\n  X-Robots-Tag: noindex, nofollow, noarchive\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: no-referrer\n');
   writeFileSync(join(root, '404.html'), '<!doctype html><html lang="it"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><title>NO AI ACT Beta - 404</title><link rel="stylesheet" href="/beta-shell.css"><script defer src="/beta-shell.js"></script></head><body><main><h1>404</h1><a href="/">NO AI ACT Beta</a></main></body></html>');

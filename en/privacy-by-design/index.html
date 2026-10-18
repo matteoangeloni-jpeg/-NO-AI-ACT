@@ -22,7 +22,7 @@
   <meta property="og:locale" content="en_GB" />
   <meta property="og:locale:alternate" content="it_IT" />
   <meta property="og:title" content="Privacy by design — NO AI ACT" />
-  <meta property="og:description" content="No accounts, no gameplay telemetry, local-only saves: how NO AI ACT's privacy is designed." />
+  <meta property="og:description" content="No accounts, aggregate statistics with opt-out, local-only saves: how NO AI ACT's privacy is designed." />
   <meta property="og:url" content="https://www.no-ai-act.eu/en/privacy-by-design/" />
   <meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png" />
   <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png" />
@@ -32,7 +32,7 @@
   <meta property="og:image:alt" content="NO AI ACT cover: free educational serious game on the EU AI Act." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Privacy by design — NO AI ACT" />
-  <meta name="twitter:description" content="No accounts, no gameplay telemetry, local-only saves: how NO AI ACT's privacy is designed." />
+  <meta name="twitter:description" content="No accounts, aggregate statistics with opt-out, local-only saves: how NO AI ACT's privacy is designed." />
   <meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png" />
   <meta name="twitter:image:alt" content="NO AI ACT cover: free educational serious game on the EU AI Act." />
   <link rel="stylesheet" href="/src/styles/landing.css" />
@@ -74,7 +74,7 @@
         "name": "Are my answers sent anywhere?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. Decisions, scores and reports never leave your browser: there is no game server to send them to. You can verify this in the open-source code and by watching the browser's network traffic."
+          "text": "No. Decisions, scores and reports stay in your browser. Only aggregate usage counters are sent automatically and can be disabled in the game bar. See the statistics notice for retention, infrastructure and controls."
         }
       },
       {
@@ -181,8 +181,8 @@
         <h2 id="not-title"><span class="num">01</span>What the game does NOT do</h2>
         <ul class="plain">
           <li><strong>No accounts</strong>: you play without registration, email or identifiers.</li>
-          <li><strong>No gameplay telemetry</strong>: your decisions, scores, inspection reports and case paths are never sent to any server.</li>
-          <li><strong>No backend</strong>: the game is a static site; there is no player database.</li>
+          <li><strong>Aggregate usage statistics</strong>: starts, completions and screens are counted automatically, with a disable control in the game bar. Decisions, scores and reports stay local.</li>
+          <li><strong>No player database</strong>: the backend stores marginal counters only, without player accounts or identifiers.</li>
           <li><strong>No student data</strong>: teacher mode and its debrief export are local and anonymous.</li>
           <li><strong>No persistent identifiers</strong> created by the game, no cookies added by the game.</li>
         </ul>
@@ -216,14 +216,14 @@
         <h2 id="summary-title"><span class="num">05</span>At a glance: measured vs never measured</h2>
         <div class="grid">
           <div class="card">
-            <span class="tag">Measured (public pages only)</span>
+            <span class="tag">Measured (aggregate usage only)</span>
             <h3>Aggregate statistics</h3>
             <p>Visits to the site's public pages via Cloudflare Web Analytics: no cookies, no individual profiling, no identifiers. It answers "how many people visit the site", never "who you are".</p>
           </div>
           <div class="card">
             <span class="tag">Never measured</span>
-            <h3>Everything you do in the game</h3>
-            <p>Decisions, classifications, scores, inspection reports, cases played, play time, outcomes: none of it leaves your browser. There are no accounts, no game cookies, no pixels, no telemetry.</p>
+            <h3>Answers, scores and reports</h3>
+            <p>Decisions, classifications, scores, reports and outcomes stay local. The game automatically sends aggregate usage counters only, without analytics cookies or player identifiers. Disable them in the game bar; DNT and GPC are respected.</p>
           </div>
         </div>
       </div>
@@ -232,7 +232,7 @@
     <section aria-labelledby="verify-title">
       <div class="wrap">
         <h2 id="verify-title"><span class="num">06</span>How to verify it</h2>
-        <p class="section-intro">The project is open source: the code is public on <a href="https://github.com/matteoangeloni-jpeg/-NO-AI-ACT">GitHub</a>, including the rules that keep in-game analytics off by default and the automated tests that lock these behaviours in. You can also open your browser's developer tools and observe the absence of network calls during play.</p>
+        <p class="section-intro">The project is open source: the code is public on <a href="https://github.com/matteoangeloni-jpeg/-NO-AI-ACT">GitHub</a>, including the minimal aggregate collector, opt-out controls and automated tests. Browser developer tools can be used to inspect the bounded counter batches; answers and outcomes are excluded.</p>
         <p>The educational reasoning behind these choices is on <a href="../privacy-conscious-learning/">privacy-conscious learning</a>, with the questions to ask of any classroom tool; the broader context is in the <a href="../education/">education hub</a> and the <a href="../glossary/">glossary</a> (privacy by design, data governance).</p>
       </div>
     </section>
@@ -264,7 +264,7 @@
         </details>
         <details>
           <summary>Are my answers sent anywhere?</summary>
-          <div class="answer"><p>No. Decisions, scores and reports never leave your browser: there is no game server to send them to. You can verify this in the open-source code and by watching the browser's network traffic.</p></div>
+          <div class="answer"><p>No. Decisions, scores and reports stay in your browser. Only aggregate usage counters are sent automatically and can be disabled in the game bar. See the <a href="/game-statistics.html">statistics notice</a> for retention, infrastructure and controls.</p></div>
         </details>
         <details>
           <summary>Is there an external feedback form?</summary>
@@ -279,7 +279,7 @@
       <h2 id="footer-title" class="stamp">Educational simulation — not legal advice</h2>
       <p>NO AI ACT is an educational tool. It deliberately simplifies <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" hreflang="en">Regulation (EU) 2024/1689 (AI Act)</a> and does not replace the legal text or professional advice.</p>
       <p><a href="../">Home</a> · <a href="../how-it-works/">How it works</a> · <a href="../for-educators/">For educators</a> · <a href="../ai-act-serious-game/">AI Act serious game</a> · <a href="../../privacy-by-design/" hreflang="it">Versione italiana</a></p>
-      <p class="credit">Designed and developed by <a href="/en/matteo-angeloni/">Matteo Angeloni</a> · v3.0.0 · <span class="ai-disclosure">Made with AI, not by AI</span><br /><span class="credit-affil">PhD candidate in <a href="https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/">Society in change: policies, rights and security</a> · <a href="https://www.unitus.it/">University of Tuscia</a> — independent project, not an official output of the university</span></p>
+      <p class="credit">Designed and developed by <a href="/en/matteo-angeloni/">Matteo Angeloni</a> · v4.0.0 · <span class="ai-disclosure">Made with AI, not by AI</span><br /><span class="credit-affil">PhD candidate in <a href="https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/">Society in change: policies, rights and security</a> · <a href="https://www.unitus.it/">University of Tuscia</a> — independent project, not an official output of the university</span></p>
     </div>
   </footer>
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7c85578fc8ad4488a54c6bc670a10dcf"}'></script><!-- End Cloudflare Web Analytics -->

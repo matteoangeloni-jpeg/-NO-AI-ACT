@@ -1,4 +1,4 @@
-import { ANALYTICS_GAME_VERSION, validateAggregate, type AnalyticsAggregate } from '../src/game/systems/analyticsSchema';
+import { ANALYTICS_GAME_VERSIONS, validateAggregate, type AnalyticsAggregate } from '../src/game/systems/analyticsSchema';
 import { DIMENSIONS, type Cell, type Database, type Dimension } from './types';
 
 export const LIMITS = Object.freeze({ bytes: 32768, cells: 32, cellCount: 100, batchCount: 1000, dailyCount: 100000, retentionDays: 90, threshold: 10 });
@@ -80,7 +80,7 @@ export function parseQuery(url: URL, now = Date.now()): Query | null {
   const to = url.searchParams.get('to') ?? today;
   const dimension = url.searchParams.get('dimension') ?? 'all';
   const version = url.searchParams.get('version') || undefined;
-  if (version && version !== ANALYTICS_GAME_VERSION) return null;
+  if (version && !ANALYTICS_GAME_VERSIONS.some(known => known === version)) return null;
   const validDay = (d: string) => /^\d{4}-\d{2}-\d{2}$/.test(d) && Number.isFinite(Date.parse(d)) && new Date(d).toISOString().slice(0, 10) === d;
   if (!validDay(from) || !validDay(to) || from > to || to > today || Date.parse(to) - Date.parse(from) > 89 * 86400000 || !DIMENSIONS.includes(dimension as Dimension)) return null;
   return { from, to, dimension: dimension as Dimension, ...(version ? { version } : {}) };

@@ -19,12 +19,14 @@ export interface AnalyticsConfig {
   approvedEndpoints?: readonly string[];
   releaseChannel?: string;
   origin?: string;
+  collectionMode?: 'automatic';
 }
 export type AnalyticsTransport = (url: string, body: Record<string, unknown>) => void | Promise<void>;
 const { cells: MAX_CELLS, count: MAX_COUNT } = ANALYTICS_LIMITS;
 const BETA_USAGE_ENDPOINT = 'https://beta.no-ai-act.eu/collect';
+const PUBLIC_USAGE_ENDPOINT = BETA_USAGE_ENDPOINT;
 function endpoint(config: AnalyticsConfig): string | undefined {
-  if (config.provider === 'first-party') return BETA_USAGE_ENDPOINT;
+  if (config.provider === 'first-party') return config.origin === 'https://www.no-ai-act.eu' ? PUBLIC_USAGE_ENDPOINT : BETA_USAGE_ENDPOINT;
   if (config.provider === 'plausible') return 'https://plausible.io/api/event';
   if (config.provider !== 'umami' || !config.umamiScriptUrl) return;
   try {
@@ -36,8 +38,8 @@ function endpoint(config: AnalyticsConfig): string | undefined {
 }
 export function resolveProvider(config: AnalyticsConfig): AnalyticsProvider {
   if (config.doNotTrack) return 'off';
-  if (config.provider === 'first-party') return config.releaseChannel === 'beta'
-    && config.origin === new URL(BETA_USAGE_ENDPOINT).origin && config.remoteApproved === true
+  if (config.provider === 'first-party') return ((config.releaseChannel === 'beta' && config.origin === new URL(BETA_USAGE_ENDPOINT).origin)
+    || (config.releaseChannel === 'production' && config.origin === 'https://www.no-ai-act.eu')) && config.remoteApproved === true
     && config.approvedEndpoints?.includes(endpoint(config)!) ? 'first-party' : 'off';
   if (config.provider === 'off' || config.provider === 'console') return config.provider;
   if (config.provider === 'plausible' || config.provider === 'umami') {
@@ -52,9 +54,9 @@ export function resolveProvider(config: AnalyticsConfig): AnalyticsProvider {
 const fetchTransport: AnalyticsTransport = async (url, body) => {
   const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body), credentials: 'omit', referrerPolicy: 'no-referrer', cache: 'no-store',
-    ...(url === BETA_USAGE_ENDPOINT ? { keepalive: true, redirect: 'error' as const, signal: AbortSignal.timeout(5000) } : {}) });
+    ...([BETA_USAGE_ENDPOINT, PUBLIC_USAGE_ENDPOINT].includes(url) ? { keepalive: true, redirect: 'error' as const, signal: AbortSignal.timeout(5000) } : {}) });
   if (!response.ok || response.headers.get('x-plausible-dropped') === '1') throw new Error('Analytics transport failed');
-  if (url === BETA_USAGE_ENDPOINT && (response.status !== 202 || (await response.json()).accepted !== true)) throw new Error('Usage batch not accepted');
+  if ([BETA_USAGE_ENDPOINT, PUBLIC_USAGE_ENDPOINT].includes(url) && (response.status !== 202 || (await response.json()).accepted !== true)) throw new Error('Usage batch not accepted');
 };
 interface Attempt {
   id: string;
@@ -93,7 +95,7 @@ export class Analytics {
     private readonly clock: () => number = () => performance.now()) {
     this.config = Object.freeze({ ...config, approvedEndpoints: Object.freeze([...(config.approvedEndpoints ?? [])]) });
     this.provider = resolveProvider(this.config);
-    this.enabled = this.provider !== 'off' && this.provider !== 'first-party';
+    this.enabled = this.provider !== 'off' && (this.provider !== 'first-party' || config.collectionMode === 'automatic');
   }
   private now(): number { try { const n = this.clock(); return Number.isFinite(n) ? n : 0; } catch { return 0; } }
   private context(): AnalyticsContext {
@@ -299,17 +301,17 @@ function envConfig(): AnalyticsConfig {
     umamiScriptUrl: env.VITE_UMAMI_SCRIPT_URL as string | undefined,
     releaseChannel: env.VITE_RELEASE_CHANNEL as string | undefined,
     origin: typeof location === 'undefined' ? undefined : location.origin,
-    ...(env.VITE_RELEASE_CHANNEL === 'beta' && env.VITE_ANALYTICS_PROVIDER === 'first-party'
-      ? { remoteApproved: true, approvedEndpoints: [BETA_USAGE_ENDPOINT] }
+    ...(env.VITE_ANALYTICS_PROVIDER === 'first-party' && ['beta', 'production'].includes(env.VITE_RELEASE_CHANNEL as string)
+      ? { remoteApproved: true, approvedEndpoints: [BETA_USAGE_ENDPOINT, PUBLIC_USAGE_ENDPOINT], collectionMode: 'automatic' as const }
       : { remoteApproved: false, approvedEndpoints: [] }) };
 }
 export const AnalyticsSystem = new Analytics(envConfig());
 export function betaUsagePrivacyNote(language: string): string | undefined {
-  if (import.meta.env.VITE_RELEASE_CHANNEL !== 'beta' || import.meta.env.VITE_ANALYTICS_PROVIDER !== 'first-party') return;
+  if (import.meta.env.VITE_ANALYTICS_PROVIDER !== 'first-party') return;
   const words: Record<string, string> = {
-    it: 'Salvataggi e risposte restano sul dispositivo. Solo se scegli la casella in alto, condividi statistiche di utilizzo senza nomi o esiti. Vedi Informativa beta.',
-    en: 'Saves and answers stay on your device. Only if you check the box above, usage statistics without names or outcomes are shared. See Beta privacy notice.',
-    fr: 'Sauvegardes et reponses restent sur votre appareil. Seulement si vous cochez la case en haut, des statistiques sans noms ni resultats sont partagees. Voir la notice beta.'
+    it: 'Salvataggi e risposte restano sul dispositivo. Statistiche aggregate di utilizzo senza nomi o esiti sono attive automaticamente; puoi disattivarle nella barra Informativa statistiche.',
+    en: 'Saves and answers stay on your device. Aggregate usage statistics without names or outcomes start automatically; you can disable them in the statistics notice bar.',
+    fr: 'Sauvegardes et reponses restent sur votre appareil. Les statistiques agregees sans noms ni resultats sont automatiques ; vous pouvez les desactiver dans la barre de confidentialite.'
   };
   return words[language] ?? words.it;
 }

@@ -13,12 +13,22 @@ function play(a: Analytics) {
   a.track('case_completed', { caseId: 'case_scoring', result: 'wrong' });
 }
 describe('minimal voluntary beta collection', () => {
-  it('requires the exact approved beta origin and never enables stable or previews', () => {
+  it('requires the exact approved origin/channel and never enables previews', () => {
     expect(resolveProvider(config)).toBe('first-party');
     for (const change of [{ releaseChannel: 'production' }, { origin: 'https://www.no-ai-act.eu' },
       { origin: 'https://no-ai-act-beta.pages.dev' }, { remoteApproved: false }, { doNotTrack: true }]) {
       expect(resolveProvider({ ...config, ...change })).toBe('off');
     }
+  });
+  it('records automatically only with explicit automatic configuration and respects browser privacy signals', async () => {
+    const calls: unknown[] = [];
+    const a = new Analytics({ ...config, collectionMode: 'automatic' }, (_url, body) => { calls.push(body); });
+    play(a); await a.flush(); expect(calls).toHaveLength(1);
+    a.disable(); play(a); await a.flush(); expect(calls).toHaveLength(1);
+    const blocked = new Analytics({ ...config, collectionMode: 'automatic', doNotTrack: true });
+    blocked.enable(); play(blocked); expect(blocked.snapshot()).toEqual([]);
+    expect(resolveProvider({ ...config, releaseChannel: 'production', origin: 'https://www.no-ai-act.eu',
+      approvedEndpoints: ['https://beta.no-ai-act.eu/collect'] })).toBe('first-party');
   });
   it('does not record or transmit before opt-in; revocation clears the buffer', async () => {
     const calls: unknown[] = []; const a = new Analytics(config, (_url, body) => { calls.push(body); });

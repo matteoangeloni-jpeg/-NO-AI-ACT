@@ -144,6 +144,22 @@ uploaded — a smoke failure fails the workflow and blocks deployment.
    external forms, no gameplay/scoring/case/ending/save changes.
 # Mobile Gameplay 4.0
 
+## Aggregate usage release check
+
+Version 4.0 explicitly enables the first-party collector in `.env.production`.
+Only the exact www/beta origins may send; previews and unconfigured providers
+stay off. DNT/GPC override automatic collection. The former blanket claim of no
+gameplay network traffic does not apply to these bounded aggregate batches.
+
+After building, run `USAGE_TEST_CHANNEL=production node scripts/smoke/beta-usage-smoke.mjs`
+(set the environment variable separately in PowerShell). This intercepts all
+traffic locally and checks actual cases, automatic collection, duplicate delivery,
+opt-out, reload, mobile/desktop layout and DNT/GPC with a local Worker/D1.
+No observed production counters are seeded by the smoke.
+
+Run the same script without that variable after an explicit automatic beta build
+to test the isolated beta artifact. Privacy notice: `public/game-statistics.html`.
+
 `npm run smoke:mobile-ux` verifica il percorso a tocco nelle tre lingue,
 le dimensioni dei target, il reflow, il testo al 200%, la rotazione e il ripasso.
 Fa parte di `smoke:all`; sostituisce il vecchio percorso mobile basato sulle

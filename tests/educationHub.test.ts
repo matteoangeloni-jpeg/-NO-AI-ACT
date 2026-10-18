@@ -327,7 +327,7 @@ describe('education hub — safeguards', () => {
       expect(llms).toContain(heading);
     }
     for (const line of ['NOT an official EU tool', 'NOT legal advice', 'NOT a compliance tool',
-      'no account, no registration', 'No gameplay telemetry']) {
+      'no account, no registration', 'Automatic first-party usage counters']) {
       expect(llms).toContain(line);
     }
     for (const d of ['en/education/', 'educazione/', 'en/glossary/', 'glossario/', 'en/faq/']) {

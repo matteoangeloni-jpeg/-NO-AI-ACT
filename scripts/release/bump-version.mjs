@@ -51,7 +51,7 @@ if (vecchia === nuova) {
 }
 
 /** Cartelle che non si toccano mai: generate, scaricate, o non nostre. */
-const ESCLUSE = new Set(['node_modules', 'dist', '.git', '.diag', '.press-capture-tmp', 'scripts/smoke/out']);
+const ESCLUSE = new Set(['node_modules', 'dist', 'dist-beta', 'artifacts', '.wrangler', '.infrastructure', '.git', '.diag', '.press-capture-tmp', 'scripts/smoke/out', 'docs']);
 /** Estensioni in cui la versione compare come testo. */
 const ESTENSIONI = /\.(html|md|cff|json|txt|xml)$/;
 /**
@@ -95,7 +95,11 @@ for (const p of file(root)) {
   if (!testo.includes(vecchia)) continue;
   const quante = testo.split(vecchia).length - 1;
   toccati.push({ file: relative(root, p), quante });
-  if (!prova) writeFileSync(p, testo.split(vecchia).join(nuova));
+  if (!prova) {
+    const archive = `no-ai-act-v${vecchia}-press-screenshots.zip`;
+    const preserved = testo.split(archive).join('__HISTORICAL_PRESS_ARCHIVE__');
+    writeFileSync(p, preserved.split(vecchia).join(nuova).split('__HISTORICAL_PRESS_ARCHIVE__').join(archive));
+  }
 }
 
 console.log(`${vecchia} → ${nuova}${prova ? '  (prova: nessuna scrittura)' : ''}\n`);
@@ -107,7 +111,7 @@ console.log(`\n${toccati.length} file, ${toccati.reduce((n, t) => n + t.quante, 
 if (!prova) {
   // package.json e package-lock.json insieme, dai comandi di npm: il lockfile
   // ha una struttura sua e riscriverlo a mano è il modo di romperlo.
-  execFileSync('npm', ['version', nuova, '--no-git-tag-version', '--allow-same-version'], {
+  execFileSync(process.execPath, [process.env.npm_execpath || process.env.RELEASE_NPM_CLI || 'C:/Program Files/nodejs/node_modules/npm/bin/npm-cli.js', 'version', nuova, '--no-git-tag-version', '--allow-same-version'], {
     cwd: root, stdio: 'inherit'
   });
   console.log(`\npackage.json e package-lock.json portati a ${nuova} da npm.`);

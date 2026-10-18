@@ -235,9 +235,9 @@ describe('public static files', () => {
     expect(llms).toContain('v2.0.0');
     expect(llms).toContain('14 playable cases');
     expect(lower).toContain('not legal advice');
-    expect(lower).toContain('no backend');
+    expect(lower).toContain('aggregate usage counters only');
     expect(lower).toContain('no account');
-    expect(lower).toContain('no personal data collection');
+    expect(lower).toContain('no registration or player identifiers');
     expect(lower).toContain('no external forms'); // Tally removed from the product
     expect(llms).toContain(`${SITE}play/`);
     expect(llms).toContain(`${SITE}en/`);

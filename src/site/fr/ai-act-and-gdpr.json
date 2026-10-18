@@ -1,10 +1,12 @@
 {
   "en": "en/ai-act-and-gdpr",
   "slug": "ai-act-et-rgpd",
-  "sourceHash": "038360448f2502873f720de19b6a01105f4670aa789405a20c9d7c193b1b15d4",
+  "sourceHash": "ab2487927802a929393c960d8117e2bf4b075d626be8455e97281bd2fcd92685",
   "title": "AI Act et RGPD : obligations et articulation | NO AI ACT",
   "description": "AI Act et RGPD s'appliquent ensemble : découvrez leurs champs, les rôles des acteurs et les différences entre analyses d'impact, à partir de cas concrets.",
-  "attributes": {"Breadcrumb": "Fil d'Ariane"},
+  "attributes": {
+    "Breadcrumb": "Fil d'Ariane"
+  },
   "blocks": [
     "<a href=\"../../en/\">NO AI ACT</a>",
     "<a href=\"../../en/eu-ai-act-guide/\">Guide de l'AI Act européen</a>",
@@ -69,7 +71,7 @@
     "Catégories de risque",
     "<span class=\"num\">08</span>Sources officielles et transparence",
     "<strong>Responsabilité éditoriale</strong> : le projet NO AI ACT, Matteo Angeloni ; révision éditoriale interne, sans expertise juridique indépendante.",
-    "<strong>Première publication</strong> : septembre 2026 · <strong>Dernière révision de la source</strong> : septembre 2026, site v3.0.0 · Traduction française : octobre 2026.",
+    "<strong>Première publication</strong> : septembre 2026 · <strong>Dernière révision de la source</strong> : septembre 2026, site v4.0.0 · Traduction française : octobre 2026.",
     "<strong>Sources officielles</strong> : <a href=\"https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng\" hreflang=\"fr\">règlement (UE) 2024/1689 sur EUR-Lex</a> ; <a href=\"https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng\" hreflang=\"fr\">règlement (UE) 2016/679, RGPD</a> ; <a href=\"https://www.edpb.europa.eu/\" hreflang=\"en\">Comité européen de la protection des données</a> ; <a href=\"https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai\" hreflang=\"en\">cadre réglementaire européen pour l'IA</a>.",
     "<strong>Avertissement</strong> : cette page propose une lecture pédagogique simplifiée de l'articulation entre deux règlements. Elle ne constitue pas un conseil juridique et ne remplace pas l'analyse d'une situation concrète par un professionnel.",
     "<a href=\"../../en/glossary/\">Glossaire</a> · <a href=\"../../en/ai-act-for-business/\">AI Act pour les entreprises</a> · <a href=\"../../en/ai-act-penalties/\">Sanctions de l'AI Act</a>"

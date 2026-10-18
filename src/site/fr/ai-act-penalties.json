@@ -1,10 +1,12 @@
 {
   "en": "en/ai-act-penalties",
   "slug": "sanctions-ai-act",
-  "sourceHash": "cca779afab25a4675d9c995c90eb133de10cea195d55317202d1acc34aca0c0b",
+  "sourceHash": "5276109ad1547cbcfd785ecfe0df32ee717934a594eaa9154f9f58b839d4eaa0",
   "title": "Sanctions de l'AI Act : montants et calendrier | NO AI ACT",
   "description": "Comprendre les sanctions de l'AI Act : plafonds, règles pour les PME, autorités compétentes et calendrier, dans une lecture pédagogique du règlement.",
-  "attributes": {"Breadcrumb": "Fil d'Ariane"},
+  "attributes": {
+    "Breadcrumb": "Fil d'Ariane"
+  },
   "blocks": [
     "<a href=\"../../en/\">NO AI ACT</a>",
     "<a href=\"../../en/eu-ai-act-guide/\">Guide de l'AI Act européen</a>",
@@ -65,7 +67,7 @@
     "Guide de l'AI Act européen",
     "<span class=\"num\">08</span>Sources officielles et transparence",
     "<strong>Responsabilité éditoriale</strong> : le projet NO AI ACT, Matteo Angeloni ; révision éditoriale interne, sans expertise juridique indépendante.",
-    "<strong>Première publication</strong> : septembre 2026 · <strong>Dernière révision de la source</strong> : septembre 2026, site v3.0.0 · Traduction française : octobre 2026.",
+    "<strong>Première publication</strong> : septembre 2026 · <strong>Dernière révision de la source</strong> : septembre 2026, site v4.0.0 · Traduction française : octobre 2026.",
     "<strong>Sources officielles</strong> : <a href=\"https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng\" hreflang=\"fr\">règlement (UE) 2024/1689 sur EUR-Lex</a>, articles 99 pour les sanctions nationales, 100 pour les institutions de l'Union, 101 pour les modèles d'IA à usage général et 113 pour les dates ; <a href=\"https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai\" hreflang=\"en\">cadre réglementaire européen pour l'IA</a> ; <a href=\"https://digital-strategy.ec.europa.eu/en/policies/ai-office\" hreflang=\"en\">Bureau européen de l'IA</a>.",
     "<strong>Avertissement</strong> : cette page propose une lecture pédagogique simplifiée des montants et des mécanismes. Elle ne constitue pas un conseil juridique, ne calcule l'exposition de personne et ne remplace ni le règlement ni l'avis d'un professionnel.",
     "<a href=\"../../en/glossary/\">Glossaire</a> · <a href=\"../../en/high-risk-ai-systems/\">Systèmes à haut risque</a> · <a href=\"../../en/ai-act-and-gdpr/\">AI Act et RGPD</a>"

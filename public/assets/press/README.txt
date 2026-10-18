@@ -1,4 +1,4 @@
-NO AI ACT v3.0.0 press candidate - screenshot pack
+NO AI ACT v3.0.0 - archived screenshot pack (predates version 4.0)
 Generated from the playable build on 2026-09-29.
 
 10 JPEG screenshots, 1920x1080 pixels:
