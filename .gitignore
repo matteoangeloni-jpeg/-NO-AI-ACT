@@ -19,3 +19,13 @@ scripts/smoke/out/
 /artifacts/french-localization/
 /artifacts/european-localization/
 /.seo-cache/
+
+# Grafo di conoscenza prodotto da graphify (strumento di sviluppo, non del prodotto).
+# Fuori dal repository per tre ragioni, e la terza è quella che conta:
+#  · è un ARTEFATTO rigenerabile con `graphify update .`, non una sorgente;
+#  · pesa quanto il repository e cambia a ogni modifica di codice;
+#  · graph.html carica vis-network da unpkg.com. Nel repository non fa danno, ma se
+#    finisse nel `dist` violerebbe `runtimeHostAllowlist` — il sito dichiara
+#    pubblicamente di non inviare nulla a fornitori terzi oltre a Cloudflare.
+#    Tenerlo ignorato è la prima delle due barriere; la seconda è un test.
+graphify-out/

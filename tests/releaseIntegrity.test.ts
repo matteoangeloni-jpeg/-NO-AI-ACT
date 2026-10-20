@@ -39,7 +39,17 @@ function shippedHtml(base: string): string[] {
   const walk = (dir: string): void => {
     for (const e of readdirSync(resolve(root, dir))) {
       const rel = join(dir, e);
-      if (['node_modules', 'dist', '.git', 'scripts', 'tests', 'docs', 'src', 'public', 'graphify-out'].includes(rel)) continue;
+      // Le cartelle escluse comprendono gli ARTEFATTI DEGLI STRUMENTI di
+      // sviluppo, e `graphify-out` c'è per un motivo preciso: contiene un
+      // `graph.html` generato dal grafo di conoscenza del repository, con i
+      // nomi dei simboli del codice dentro. Questa guardia cerca affermazioni
+      // normative superate nelle pagine PUBBLICATE; su un artefatto di
+      // sviluppo trova i nomi del codice e segnala un difetto che non esiste.
+      // È quanto è accaduto il 20 ottobre 2026, un minuto dopo aver generato
+      // il primo grafo: la guardia enumerava «gli HTML del repository» e
+      // l'arrivo di un nuovo strumento ne ha cambiato il significato.
+      if (['node_modules', 'dist', '.git', 'scripts', 'tests', 'docs', 'src', 'public',
+           'graphify-out', '.diag'].includes(rel)) continue;
       if (base === '.' && UNSHIPPED.some((u) => rel === u || rel.startsWith(`${u}/`))) continue;
       const abs = resolve(root, rel);
       if (statSync(abs).isDirectory()) walk(rel);
