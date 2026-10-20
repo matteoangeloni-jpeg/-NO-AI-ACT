@@ -96,21 +96,44 @@ Escluso l'artefatto — e **verificato che la guardia prenda ancora il difetto
 vero**, iniettando «11 casi» in `index.html`: rossa. Escludere un artefatto e
 zittire un controllo si somigliano troppo per non distinguerli con una prova.
 
-## 5. Il limite che riguarda «da questo momento in poi»
+## 5. Come fa a esserci in ogni sessione
 
-**Questo container è effimero.** `uv tool install` scrive in `/root/.local` e
-`graphify install` in `/root/.claude/skills/`: entrambi spariscono quando la
-sessione viene riciclata. Nel repository restano i tre comandi npm, quindi
-reinstallare costa un comando — ma **non è automatico**.
+**Il container è effimero**: `uv tool install` scrive in `/root/.local` e
+`graphify install` in `/root/.claude/skills/`, e spariscono quando la sessione
+viene riciclata.
 
-Per averlo in ogni sessione senza pensarci, la riga va nello **script di
-inizializzazione dell'ambiente**, che si modifica dal menù dell'ambiente cloud
-nella barra del titolo della sessione, voce *Edit*, campo *Setup script*:
+La soluzione **sta nel repository**, non in un'impostazione da cercare:
+`.claude/hooks/session-start.sh`, registrato in `.claude/settings.json`, gira
+all'avvio di ogni sessione web e fa tre cose:
 
-```bash
-uv tool install graphifyy && graphify install
-```
+| | |
+|---|---|
+| `npm install` | senza, niente test e niente build |
+| `CHROMIUM_PATH=/opt/pw-browsers/chromium` | senza, `smoke:all` muore con un errore che consiglia `npx playwright install` — la cosa da non fare con egress limitato e disco a quota. È costato un'ora di diagnosi il 29 settembre 2026 |
+| `uv tool install --force graphifyy && graphify install` | graphify pronto |
 
-Solo tu puoi farlo: è una impostazione dell'ambiente, non un file del
-repository. Finché non c'è, ogni sessione nuova parte senza graphify e con
-`npm run graph:install` ce l'ha di nuovo.
+**È sincrono di proposito.** La sessione parte un po' più tardi, ma non parte
+mai con metà degli strumenti pronti: un hook asincrono introduce una corsa fra
+chi installa e chi lancia i test.
+
+**Non è bloccante per graphify.** Se l'installazione fallisce la sessione parte
+comunque e lo dice, col motivo a schermo: un grafo mancante non impedisce di
+lavorare, e far fallire l'avvio per uno strumento accessorio sarebbe
+sproporzionato. Si rimedia con `npm run graph:install`.
+
+**Gira solo sul remoto.** Su una macchina locale esce subito senza fare niente:
+l'ambiente è di chi la usa, e un hook che installa strumenti a sua insaputa è
+un'invadenza.
+
+### Due cose trovate provando l'hook, non leggendolo
+
+1. **`uv tool install` senza `--force` non ricompone uno stato a metà.** Con il
+   pacchetto registrato e il binario assente risponde «già installato» e NON
+   ricrea l'eseguibile: il passo dopo fallisce e la sessione resta senza
+   strumento. Scoperto nascondendo il binario e rilanciando l'hook.
+2. **La prima stesura nascondeva l'errore.** Mandava tutto in `/dev/null` e
+   stampava «non installato» senza dire perché. Ora l'uscita dell'errore arriva
+   a schermo: un guasto diagnosticabile non va ridotto a una riga muta.
+
+**Serve una cosa da te, una volta:** l'hook entra in funzione quando è sul ramo
+principale. Finché resta sul branch, le sessioni nuove non lo vedono.
