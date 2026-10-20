@@ -29,6 +29,20 @@
   lingue, figli del sitemap index, direttive di robots.txt, conteggi per lingua,
   `og:locale` e alternates. Erano diventati rossi su un cambiamento voluto.
 
+### Tooling
+- **graphify** (Apache-2.0, `graphifyy` su PyPI) installato come strumento di
+  sviluppo: mappa il repository in un grafo interrogabile con tree-sitter,
+  **senza chiamare alcun modello** nel percorso che usiamo. Comandi:
+  `npm run graph:install`, `graph:update`, `graph:ask`. Documentato in
+  `docs/STRUMENTO_GRAPHIFY.md`.
+  Prima misura: 2655 nodi, 5995 archi, 166 comunità su 296 file; il nodo più
+  connesso è `L()` con 125 archi, cioè l'i18n è lo snodo architetturale.
+- `tests/toolArtifacts.test.ts` — gli artefatti degli strumenti di sviluppo
+  restano fuori dal repository e dal `dist`, e nessun host nuovo entra in
+  `runtimeHostAllowlist`. Nasce perché `graphify-out/graph.html` carica
+  vis-network da unpkg.com: innocuo nel repository, rottura di una promessa
+  pubblica se finisse nel sito.
+
 ### Known limitations
 - **Le tredici pagine francesi non sono la traduzione integrale del sito.** Le
   pagine italiane e inglesi contano ~28 000 parole su 70 rotte; le francesi
