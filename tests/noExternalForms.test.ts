@@ -13,7 +13,7 @@ import { describe, expect, it } from 'vitest';
 
 const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
-const SKIP = new Set(['node_modules', 'dist', '.git', '.github', 'no-ai-act-audit']);
+const SKIP = new Set(['node_modules', 'dist', '.git', '.github', 'no-ai-act-audit', 'graphify-out']);
 const SHIPPED_EXT = /\.(html|ts|mjs|js|css|txt|json|xml)$/;
 
 function walk(dir: string): string[] {

@@ -22,7 +22,8 @@ const pages = [
   ['provider-deployer-en', '/en/provider-deployer-ai-act/'],
   ['public-administration-en', '/en/ai-act-public-administration/'],
   ['fria-en', '/en/fria-ai-act-fundamental-rights-impact-assessment/'],
-  ['press-kit-en', '/en/press-kit/']
+  ['press-kit-en', '/en/press-kit/'],
+  ['press-kit-fr', '/fr/dossier-de-presse/']
 ];
 const viewports = [
   ['desktop', { width: 1440, height: 900 }],
@@ -97,4 +98,4 @@ if (failures.length) {
 }
 console.log('press pages smoke — PASS');
 console.log(`  screenshots: ${out}`);
-console.log('  ok 8 pagine IT/EN, desktop/mobile, zero overflow e 10 immagini Full HD valide');
+console.log('  ok 9 pagine IT/EN/FR, desktop/mobile, zero overflow e 10 immagini Full HD valide');
