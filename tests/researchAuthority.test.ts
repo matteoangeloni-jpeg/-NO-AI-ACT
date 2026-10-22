@@ -190,7 +190,7 @@ describe('press kit — accurate, versioned, no inflated claims', () => {
     expect(it_).toContain("Biografia breve dell'autore");
     expect(en).toContain('../matteo-angeloni/');
     expect(en).toContain('Short author biography');
-    for (const html of [it_, en]) expect(html).toContain('no-ai-act-v3.0-press-screenshots.zip');
+    for (const html of [it_, en]) expect(html).toContain(`no-ai-act-v${pkg.version}-press-screenshots.zip`);
   });
 });
 

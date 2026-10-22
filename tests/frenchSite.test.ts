@@ -78,7 +78,7 @@ describe('French publication candidate', () => {
         const file = path.endsWith('/') ? `${path}index.html` : path;
         expect(existsSync(resolve(root, file)) || existsSync(resolve(root, 'public', file)), `${dir}: missing ${href}`).toBe(true);
         if (url.hash && file.endsWith('.html')) {
-          const targets = nodes(read(file));
+          const targets = nodes(read(existsSync(resolve(root, file)) ? file : `public/${file}`));
           expect(targets.some(t => attr(t, 'id') === decodeURIComponent(url.hash.slice(1))), `${dir}: anchor ${href}`).toBe(true);
         }
       }

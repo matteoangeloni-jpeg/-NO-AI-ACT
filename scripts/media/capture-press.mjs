@@ -33,7 +33,7 @@ import { prepareEvidenceWithKeyboard } from '../smoke/lib-evidence.mjs';
 import { completeDecisionWithKeyboard } from '../smoke/lib-decision.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const outDir = resolve(root, 'public/assets/press/screenshots');
+const outDir = resolve(root, 'public/assets/press/screenshots-v4');
 /**
  * Si scatta QUI, non nella cartella del press kit.
  *

@@ -39,7 +39,7 @@ function shippedHtml(base: string): string[] {
   const walk = (dir: string): void => {
     for (const e of readdirSync(resolve(root, dir))) {
       const rel = join(dir, e);
-      if (['node_modules', 'dist', '.git', 'scripts', 'tests', 'docs', 'src', 'public'].includes(rel)) continue;
+      if (['node_modules', 'dist', '.git', 'scripts', 'tests', 'docs', 'src', 'public', 'graphify-out'].includes(rel)) continue;
       if (base === '.' && UNSHIPPED.some((u) => rel === u || rel.startsWith(`${u}/`))) continue;
       const abs = resolve(root, rel);
       if (statSync(abs).isDirectory()) walk(rel);
