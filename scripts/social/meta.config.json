@@ -198,7 +198,10 @@
     "pt/atividade-ai-act-sala-aula": "education",
     "de/ki-personalauswahl": "guide",
     "es/ia-seleccion-personal": "guide",
-    "pt/ia-recrutamento": "guide"
+    "pt/ia-recrutamento": "guide",
+    "de/pressemappe": "en-default",
+    "es/kit-de-prensa": "en-default",
+    "pt/kit-de-imprensa": "en-default"
   },
   "localeFr": "fr_FR"
 }

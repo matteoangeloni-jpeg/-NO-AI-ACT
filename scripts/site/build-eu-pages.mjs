@@ -8,6 +8,7 @@ import * as de from '../../src/site/de-content.mjs';
 import * as es from '../../src/site/es-content.mjs';
 import * as pt from '../../src/site/pt-content.mjs';
 import { PRACTICAL_PAGES, HUB_PATHS } from '../../src/site/eu-practical-content.mjs';
+import { PRESS_PAGES } from '../../src/site/eu-press-content.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const read = file => readFileSync(resolve(root, file), 'utf8');
@@ -53,7 +54,7 @@ function press(lang) {
 }
 
 for (const [lang, { UI: ui, PAGES: basePages }] of Object.entries({ de, es, pt })) {
-  const pages = { ...basePages, ...PRACTICAL_PAGES[lang] };
+  const pages = { ...basePages, ...PRACTICAL_PAGES[lang], ...PRESS_PAGES[lang] };
   for (const topic of TOPICS) {
     const id = topic[0]; const page = pages[id]; const dir = topicDir(topic, lang);
     if (!page || page.sections.length < 3) throw new Error(`Incomplete editorial page: ${lang}/${id}`);
@@ -65,7 +66,7 @@ for (const [lang, { UI: ui, PAGES: basePages }] of Object.entries({ de, es, pt }
       {'@type':'ListItem',position:1,name:'NO AI ACT',item:url(lang)},
       ...(id==='home'?[]:[{'@type':'ListItem',position:2,name:page.h1,item:url(dir)}])
     ]};
-    const resource = { '@context':'https://schema.org','@type':'LearningResource',name:page.h1,url:url(dir),inLanguage:ui.lang,isAccessibleForFree:true,learningResourceType:'Reading',image:`${config.site}${image.slice(1)}` };
+    const resource = { '@context':'https://schema.org','@type':id==='press'?'WebPage':'LearningResource',name:page.h1,url:url(dir),inLanguage:ui.lang,isAccessibleForFree:true,...(id==='press'?{}:{learningResourceType:'Reading'}),image:`${config.site}${image.slice(1)}` };
     const html = `<!doctype html>
 <html lang="${ui.lang}"><head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -97,7 +98,7 @@ ${Object.keys(group).filter(l=>l!==lang).map(l=>`  <meta property="og:locale:alt
   </div></header>
 ${switcher(group,lang)}
   <main id="main"><section class="hero" aria-labelledby="page-title"><div class="wrap"><p class="stamp">NO AI ACT · ${ui.name}</p><h1 id="page-title">${escape(page.h1)}</h1><p class="lead">${escape(page.lead)}</p><p class="cta-row"><a class="btn btn-primary" href="#play-languages">${ui.play}</a></p></div></section>
-${page.sections.map(([heading,text],i)=>`<section aria-labelledby="section-${i}"><div class="wrap"><h2 id="section-${i}"><span class="num">${String(i+1).padStart(2,'0')}</span>${escape(heading)}</h2><p>${escape(text)}</p></div></section>`).join('\n')}
+${page.sections.map(([heading,text],i)=>`<section aria-labelledby="section-${i}"><div class="wrap"><h2 id="section-${i}"><span class="num">${String(i+1).padStart(2,'0')}</span>${escape(heading)}</h2><p>${escape(text)}</p>${page.extras?.[i]??''}</div></section>`).join('\n')}
 ${id==='education'?`<section aria-labelledby="study-paths-title"><div class="wrap"><h2 id="study-paths-title">${HUB_PATHS[lang].title}</h2>${HUB_PATHS[lang].items.map(([target,label,text])=>`<h3><a href="${href(topicDir(TOPICS.find(t=>t[0]===target),lang))}">${escape(label)}</a></h3><p>${escape(text)}</p>`).join('')}</div></section>`:''}
 ${page.illustrated?`<section aria-label="NO AI ACT"><div class="wrap"><figure class="resource-figure"><a href="/assets/press/screenshots/03-evidence-desk.jpg" target="_blank" rel="noopener"><img src="/assets/press/screenshots/03-evidence-desk.jpg" width="1920" height="1080" alt="${escape(ui.screenshot)}" loading="lazy" decoding="async" /></a><figcaption>${escape(ui.screenshot)}</figcaption></figure></div></section>`:''}
 ${page.links?`<section aria-labelledby="next-reading-title"><div class="wrap"><h2 id="next-reading-title">${ui.related}</h2><ul class="plain">${page.links.map(([target,label])=>`<li><a href="${href(topicDir(TOPICS.find(t=>t[0]===target),lang))}">${escape(label)}</a></li>`).join('')}</ul></div></section>`:''}

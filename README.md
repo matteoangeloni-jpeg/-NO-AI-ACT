@@ -449,8 +449,8 @@ Note di rilascio: [`docs/RELEASE_NOTES_v4.0.0.md`](docs/RELEASE_NOTES_v4.0.0.md)
 - **Nota**: la candidata 2.3 richiede merge, verifica live e playtest esterni prima del tag
 - **Casi giocabili**: 14
 - **Lingue**: italiano, inglese e francese (ramo di revisione, senza deploy)
-- **URL pubblici**: 152 (33 IT + 37 EN + 37 FR + 15 DE + 15 ES + 15 PT)
-- **Localizzazioni del sito**: tedesco, spagnolo e portoghese europeo (`pt-PT`), 15 risorse introduttive e pratiche per lingua, inclusi laboratori e casi sul reclutamento. Il gioco resta IT/EN/FR. [Contenuti, fonti e verifiche](docs/seo/CONTENT_CAMPAIGN_2026-10-18.md).
+- **URL pubblici**: 155 (33 IT + 37 EN + 37 FR + 16 DE + 16 ES + 16 PT)
+- **Localizzazioni del sito**: tedesco, spagnolo e portoghese europeo (`pt-PT`), 16 risorse introduttive, pratiche e stampa per lingua, inclusi laboratori e casi sul reclutamento. Press kit in tutte e sei le lingue; il gioco resta IT/EN/FR. [Contenuti, fonti e verifiche](docs/seo/CONTENT_CAMPAIGN_2026-10-18.md).
 - **Salvataggi**: schema v2, con migrazione testata dei salvataggi v1
 - **Backend**: nessuno · **Account**: nessuno · **Raccolta dati personali**:
   nessuna · **Chiamate di rete durante il gameplay**: nessuna

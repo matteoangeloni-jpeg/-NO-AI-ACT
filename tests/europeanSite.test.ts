@@ -16,14 +16,14 @@ const attr = (n: any, name: string) => n.attrs?.find((a: any) => a.name === name
 function nodes(n: any): any[] { return [n, ...(n.childNodes ?? []).flatMap(nodes)]; }
 
 describe('European website localization, separate from gameplay', () => {
-  it('has 15 introductory and practical pages per new language and no phantom translations', () => {
+  it('has 16 introductory, practical and press pages per new language and no phantom translations', () => {
     expect(SITE_LANGUAGE_CODES).toEqual(['it', 'en', 'fr', 'de', 'es', 'pt']);
     expect(LANGUAGE_CODES).toEqual(['it', 'en', 'fr']);
-    expect(INVENTORY_DIRS).toHaveLength(152);
+    expect(INVENTORY_DIRS).toHaveLength(155);
     for (const lang of ['de', 'es', 'pt']) {
       const dirs = INVENTORY_DIRS.filter(d => d === lang || d.startsWith(`${lang}/`));
       expect(new Set(dirs)).toEqual(new Set(TOPICS.map((t: any) => topicDir(t, lang))));
-      expect(dirs).toHaveLength(15);
+      expect(dirs).toHaveLength(16);
     }
   });
 
