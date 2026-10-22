@@ -3,7 +3,7 @@
 import { copyFileSync, existsSync, mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 
-const files = ['THIRD_PARTY_LICENSES.md', 'LICENSE', 'CREDITS.md', 'LICENSES/GPL-3.0.txt'];
+const files = ['THIRD_PARTY_LICENSES.md', 'LICENSE', 'CREDITS.md', 'LICENSES/GPL-3.0.txt', 'favicon.svg'];
 
 if (!existsSync('dist')) {
   console.error('copy-notices: cartella dist/ assente. Eseguire prima vite build.');

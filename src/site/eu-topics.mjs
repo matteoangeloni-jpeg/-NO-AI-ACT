@@ -14,6 +14,7 @@ export const TOPICS = [
   ['gpai', 'en/general-purpose-ai', 'ki-modelle-allgemeiner-verwendungszweck', 'modelos-ia-uso-general', 'modelos-ia-finalidade-geral'],
   ['literacy', 'en/ai-literacy', 'ki-kompetenz', 'alfabetizacion-ia', 'literacia-ia'],
   ['classroom', 'en/ai-act-classroom-lab', 'ai-act-unterrichtseinheit', 'taller-ai-act-aula', 'atividade-ai-act-sala-aula'],
-  ['employment', 'en/ai-in-recruitment-and-employment', 'ki-personalauswahl', 'ia-seleccion-personal', 'ia-recrutamento']
+  ['employment', 'en/ai-in-recruitment-and-employment', 'ki-personalauswahl', 'ia-seleccion-personal', 'ia-recrutamento'],
+  ['press', 'en/press-kit', 'pressemappe', 'kit-de-prensa', 'kit-de-imprensa']
 ];
 export const topicDir = (topic, lang) => `${lang}${topic[{ de: 2, es: 3, pt: 4 }[lang]] ? `/${topic[{ de: 2, es: 3, pt: 4 }[lang]]}` : ''}`;

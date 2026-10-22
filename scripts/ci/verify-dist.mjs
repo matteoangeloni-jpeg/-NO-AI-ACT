@@ -43,6 +43,7 @@ console.log('files  :', files.length);
 
 // --- deploy-critical files ---
 const required = [
+  'favicon.svg',
   'index.html',
   'en/index.html',
   'play/index.html',

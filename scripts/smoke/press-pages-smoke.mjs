@@ -23,11 +23,15 @@ const pages = [
   ['public-administration-en', '/en/ai-act-public-administration/'],
   ['fria-en', '/en/fria-ai-act-fundamental-rights-impact-assessment/'],
   ['press-kit-en', '/en/press-kit/'],
-  ['press-kit-fr', '/fr/dossier-de-presse/']
+  ['press-kit-fr', '/fr/dossier-de-presse/'],
+  ['press-kit-de', '/de/pressemappe/'],
+  ['press-kit-es', '/es/kit-de-prensa/'],
+  ['press-kit-pt', '/pt/kit-de-imprensa/']
 ];
 const viewports = [
   ['desktop', { width: 1440, height: 900 }],
-  ['mobile', { width: 390, height: 844 }]
+  ['mobile', { width: 390, height: 844 }],
+  ['narrow-mobile', { width: 320, height: 844 }]
 ];
 const failures = [];
 
@@ -62,6 +66,11 @@ for (const [viewportName, viewport] of viewports) {
     }
 
     if (name.startsWith('press-kit')) {
+      const logo = await context.request.get(`${BASE}/favicon.svg`);
+      if (!logo.ok()) failures.push(`${viewportName}/${name}: logo download HTTP ${logo.status()}`);
+      const zipHref = await page.locator('a[download]').first().getAttribute('href');
+      const zip = await context.request.get(new URL(zipHref, BASE).href);
+      if (!zip.ok()) failures.push(`${viewportName}/${name}: ZIP HTTP ${zip.status()}`);
       const galleryImages = page.locator('.press-gallery img');
       for (let index = 0; index < await galleryImages.count(); index += 1) {
         const image = galleryImages.nth(index);
@@ -98,4 +107,4 @@ if (failures.length) {
 }
 console.log('press pages smoke — PASS');
 console.log(`  screenshots: ${out}`);
-console.log('  ok 9 pagine IT/EN/FR, desktop/mobile, zero overflow e 10 immagini Full HD valide');
+console.log('  ok 12 pagine, sei press kit, desktop/mobile/320px, logo e ZIP disponibili, 10 immagini Full HD valide');
