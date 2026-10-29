@@ -109,16 +109,11 @@ export const PAGINE = [
         ]
       },
       {
-        titolo: 'Dans la presse',
-        blocchi: [
-          {
-            lista: [
-              '<strong>Fix Gaming Channel</strong> &middot; R&eacute;cit du d&eacute;veloppeur &middot; <time datetime="2026-10-16">16 octobre 2026</time>. <a href="https://www.fixgamingchannel.com/fix-stories-no-ai-act-matteo-angeloni/" rel="noopener external" target="_blank">Fix Stories: From AI Research to a Game Built on Weekends</a>. Matteo Angeloni raconte la cr&eacute;ation du jeu &agrave; la premi&egrave;re personne. Contribution en anglais, et non critique ind&eacute;pendante.',
-              '<strong>Videogiochi italiani</strong> &middot; Vid&eacute;o de gameplay &middot; <time datetime="2026-10-03">3 octobre 2026</time>. <a href="https://www.youtube.com/watch?v=BJO6aiElmrY" rel="noopener external" target="_blank">Abbiamo Giocato a NO AI ACT: Un\'Europa Senza Regole sull\'AI!</a>. Partie comment&eacute;e en italien, enregistr&eacute;e avant la nouvelle b&ecirc;ta.',
-              '<strong>Absolute Gamer</strong> &middot; Article en italien. <a href="https://www.absolutegamer.it/no-ai-act-serious-game-gratuito-ai-act-europeo/" rel="noopener external" target="_blank">NO AI ACT, il serious game gratuito sull\'AI Act europeo</a>.'
-            ]
-          }
-        ]
+        // La rassegna arriva dal componente condiviso: stessi tre indirizzi
+        // delle altre cinque lingue, parole francesi da `press-coverage.mjs`.
+        // Prima qui c'era un elenco scritto a mano, la quarta copia degli
+        // stessi fatti, e niente pretendeva che fosse d'accordo con le altre.
+        press: true
       },
       {
         titolo: 'Gratuit, dans le navigateur, sans compte',

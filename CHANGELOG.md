@@ -11,6 +11,30 @@
   dichiarazione afferma (la macchina propone, la persona decide).
 
 ### Changed
+- **La rassegna «parlano di noi» ora esiste in tutte e sei le lingue, e i suoi
+  fatti stanno in un posto solo.** Il francese non l'aveva: al suo posto un
+  elenco di paragrafi, con gli stessi tre indirizzi scritti a mano una quarta
+  volta. Ora `src/site/press-coverage.mjs` tiene le uscite — indirizzo,
+  immagine, testata, titolo, data — e le parole per ogni lingua generata; i
+  generatori francese ed europeo leggono da lì.
+- **Tedesco, spagnolo e portoghese avevano schede senza descrizione**, e con
+  esse mancava l'avvertenza che distingue un racconto firmato dall'autore da
+  una recensione indipendente: tre lingue mostravano il contributo di Fix
+  Gaming Channel senza dire che non è una recensione. Ora ce l'hanno, tradotta,
+  insieme al testo alternativo delle immagini e alla data di Absolute Gamer che
+  in quelle tre lingue non veniva stampata.
+- **Quello che si traduce e quello che no.** Occhiello, descrizione, testo
+  alternativo e comandi sono nella lingua della pagina; l'indirizzo porta
+  sempre all'originale e il titolo dell'opera altrui si cita com'è, con
+  l'occhiello a dire in che lingua è. La citazione di Absolute Gamer resta in
+  italiano, marcata `lang="it"` dove la pagina non è italiana, perché tradurre
+  una citazione è riscriverla.
+- `tests/pressCoverage.test.ts` — ogni home porta il carosello (francese
+  compreso), con esattamente le uscite del modulo e i loro indirizzi; le due
+  home scritte a mano non possono derivare dai fatti condivisi; nessuna lingua
+  perde l'avvertenza sul contributo dell'autore. `press-coverage-smoke.mjs`
+  deriva indirizzi, date e numero di immagini dal modulo invece di tenerne una
+  quinta copia, e ora gira anche sul francese.
 - **`docs/EXTERNAL_FEEDBACK_LEDGER.md`: tre fatti che l'intervista pubblica
   rende noti e il registro non conteneva.** L'autore conferma in pubblico la
   diagnosi di MLA-01 e VGI-01; il «dal Belgio» che cita è quasi certamente

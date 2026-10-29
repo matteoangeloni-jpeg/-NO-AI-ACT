@@ -9,6 +9,7 @@ import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PAGINE, NAV, SITE } from '../../src/site/fr-content.mjs';
+import { pressSection } from '../../src/site/press-coverage.mjs';
 import { translatedPages } from './fr-translations.mjs';
 
 /**
@@ -81,6 +82,12 @@ ${[...NAV, ...extraNav].map(gruppo).join('\n')}
 
 /** Una sezione: titolo, paragrafi, e liste opzionali. */
 function sezione(s, i) {
+  // La rassegna non e' una sezione di testo: e' il componente condiviso, con i
+  // fatti presi da `src/site/press-coverage.mjs` e le parole francesi da li'.
+  // Prima questa pagina ne portava una QUARTA copia scritta a mano — stessi
+  // tre indirizzi, stesse tre date — e nessun meccanismo pretendeva che fosse
+  // d'accordo con le altre tre.
+  if (s.press) return `    ${pressSection('fr', { num: String(i + 1).padStart(2, '0') })}`;
   const id = `s${i}-title`;
   const corpo = s.blocchi
     .map((b) => {
@@ -223,7 +230,7 @@ ${p.sezioni?.map(sezione).join('\n\n')}
     </div>
   </footer>
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7c85578fc8ad4488a54c6bc670a10dcf"}'></script><!-- End Cloudflare Web Analytics -->
-  <script type="module" src="/src/scripts/nav.ts"></script>
+  <script type="module" src="/src/scripts/nav.ts"></script>${p.sezioni?.some((s) => s.press) ? '\n  <script type="module" src="/src/scripts/press-carousel.ts"></script>' : ''}
 </body>
 </html>
 `;

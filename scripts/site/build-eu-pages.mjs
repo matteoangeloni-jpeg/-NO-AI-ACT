@@ -8,6 +8,7 @@ import * as de from '../../src/site/de-content.mjs';
 import * as es from '../../src/site/es-content.mjs';
 import * as pt from '../../src/site/pt-content.mjs';
 import { PRACTICAL_PAGES, HUB_PATHS } from '../../src/site/eu-practical-content.mjs';
+import { pressSection } from '../../src/site/press-coverage.mjs';
 import { PRESS_PAGES } from '../../src/site/eu-press-content.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
@@ -39,19 +40,6 @@ const languages = publishedLanguages(config);
 const alternates = group => Object.entries(group).map(([lang, dir]) => `  <link rel="alternate" hreflang="${languageCode(lang)}" href="${url(dir)}" />`).join('\n') + `\n  <link rel="alternate" hreflang="x-default" href="${url(group.it ?? group.en)}" />`;
 const switcher = (group, current) => `<nav class="locale-links" aria-label="${{it:'Lingue',en:'Languages',fr:'Langues',de:'Sprachen',es:'Idiomas',pt:'Idiomas'}[current]}"><div class="wrap">${Object.entries(group).map(([lang, dir]) => `<a href="${href(dir)}" hreflang="${languageCode(lang)}" lang="${languageCode(lang)}"${lang === current ? ' aria-current="page"' : ''}><img src="/assets/flags/${lang === 'en' ? 'gb' : lang}.png" width="28" height="20" alt="" /><span>${names[lang]}</span></a>`).join('')}</div></nav>`;
 
-function press(lang) {
-  const words = {
-    de: ['In den Medien', 'Vorheriger Beitrag', 'Nächster Beitrag', 'Entwicklerbeitrag (Englisch)', 'Gameplay (Italienisch)', 'Artikel (Italienisch)'],
-    es: ['En los medios', 'Contenido anterior', 'Contenido siguiente', 'Relato del desarrollador (inglés)', 'Gameplay (italiano)', 'Artículo (italiano)'],
-    pt: ['Na imprensa', 'Conteúdo anterior', 'Conteúdo seguinte', 'Relato do criador (inglês)', 'Gameplay (italiano)', 'Artigo (italiano)']
-  }[lang];
-  const sources = [
-    ['fix-gaming-channel.webp',1450,180,'Fix Gaming Channel','https://www.fixgamingchannel.com/fix-stories-no-ai-act-matteo-angeloni/','Fix Stories: From AI Research to a Game Built on Weekends','2026-10-16',words[3]],
-    ['videogiochi-italiani.jpg',480,360,'Videogiochi italiani','https://www.youtube.com/watch?v=BJO6aiElmrY',"Abbiamo Giocato a NO AI ACT: Un’Europa Senza Regole sull’AI!",'2026-10-03',words[4]],
-    ['absolute-gamer.webp',1200,290,'Absolute Gamer','https://www.absolutegamer.it/no-ai-act-serious-game-gratuito-ai-act-europeo/',"NO AI ACT, il serious game gratuito sull’AI Act europeo",null,words[5]]
-  ];
-  return `<section aria-labelledby="press-title"><div class="wrap"><div class="press-heading"><h2 id="press-title">${words[0]}</h2><div class="press-controls" hidden><span class="press-position" aria-live="polite" aria-atomic="true">01 / 03</span>${[words[1],words[2]].map((label,i) => `<button type="button" data-press-${i?'next':'prev'} aria-label="${label}" title="${label}" aria-controls="press-track"><i data-lucide="arrow-${i?'right':'left'}" aria-hidden="true"></i></button>`).join('')}</div></div><ul class="press-track" id="press-track" tabindex="0" aria-label="${words[0]}">${sources.map(([image,w,h,publisher,link,title,date,label],i) => `<li class="press-item"><div class="press-media${i===0?' press-media-logo':''}"><img src="/assets/press/${image}" width="${w}" height="${h}" alt="${escape(publisher)}" loading="lazy" decoding="async" /></div><div class="press-copy"><div class="press-meta"><span>${label}</span>${date?`<time datetime="${date}">${new Intl.DateTimeFormat(languageCode(lang),{dateStyle:'long',timeZone:'UTC'}).format(new Date(date))}</time>`:''}</div><p class="press-outlet">${publisher}</p><h3><a href="${link}" rel="noopener external" target="_blank">${escape(title)}</a></h3></div></li>`).join('')}</ul></div></section>`;
-}
 
 for (const [lang, { UI: ui, PAGES: basePages }] of Object.entries({ de, es, pt })) {
   const pages = { ...basePages, ...PRACTICAL_PAGES[lang], ...PRESS_PAGES[lang] };
@@ -103,7 +91,7 @@ ${id==='education'?`<section aria-labelledby="study-paths-title"><div class="wra
 ${page.illustrated?`<section aria-label="NO AI ACT"><div class="wrap"><figure class="resource-figure"><a href="/assets/press/screenshots/03-evidence-desk.jpg" target="_blank" rel="noopener"><img src="/assets/press/screenshots/03-evidence-desk.jpg" width="1920" height="1080" alt="${escape(ui.screenshot)}" loading="lazy" decoding="async" /></a><figcaption>${escape(ui.screenshot)}</figcaption></figure></div></section>`:''}
 ${page.links?`<section aria-labelledby="next-reading-title"><div class="wrap"><h2 id="next-reading-title">${ui.related}</h2><ul class="plain">${page.links.map(([target,label])=>`<li><a href="${href(topicDir(TOPICS.find(t=>t[0]===target),lang))}">${escape(label)}</a></li>`).join('')}</ul></div></section>`:''}
 ${page.sources?`<section aria-labelledby="source-reading-title"><div class="wrap"><h2 id="source-reading-title">${ui.source}</h2><ul class="plain">${page.sources.map(([link,label])=>`<li><a href="${escape(link)}">${escape(label)}</a></li>`).join('')}</ul></div></section>`:''}
-${id==='home'?press(lang):''}
+${id==='home'?pressSection(lang):''}
   <section aria-labelledby="play-languages"><div class="wrap"><h2 id="play-languages">${ui.play}</h2><p>${escape(ui.game)}</p><p class="eu-play-links">${['it','en','fr'].map((l,i)=>`<a href="/play/?lang=${l}" hreflang="${l}">${ui.gameLanguages[i]}</a>`).join(' · ')}</p></div></section>
 ${page.links?'':`  <section aria-labelledby="related-title"><div class="wrap"><h2 id="related-title">${ui.related}</h2><ul class="plain">${TOPICS.filter(t=>t[0]!==id).map(t=>`<li><a href="${href(topicDir(t,lang))}">${escape(t[0]==='home'?ui.home:pages[t[0]].h1)}</a></li>`).join('')}</ul></div></section>`}
   </main><footer aria-labelledby="footer-title"><div class="wrap"><h2 id="footer-title" class="stamp">${ui.legal}</h2><p>${escape(ui.disclaimer)}</p><p><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/${ui.official}" hreflang="${ui.lang}">${ui.source}</a> · <a href="/en/research-and-methodology/" hreflang="en" lang="en">${ui.authorLink}</a> · <a href="/game-statistics.html#en" hreflang="en">${ui.privacyLink}</a></p><p class="credit">${ui.author} · v${version}<br />${escape(ui.disclosure)}</p></div></footer>
