@@ -77,14 +77,20 @@ describe('la rassegna, nelle sei lingue', () => {
     expect(colpe, colpe.join('\n')).toEqual([]);
   });
 
-  it('i titoli delle opere altrui non vengono tradotti dalle lingue generate', () => {
-    // Le due home scritte a mano glossano il titolo di Absolute Gamer, scelta
-    // editoriale loro e dichiarata. Le quattro generate citano l'originale:
-    // se un giorno il generatore cominciasse a tradurre i titoli, questo
-    // diventerebbe rosso invece di cambiare in silenzio cosa il sito attribuisce
-    // a una testata.
+  it('nessuna lingua traduce il titolo di un articolo altrui', () => {
+    // IL SITO SI CONTRADDICEVA DENTRO LA STESSA PAGINA. La home inglese teneva
+    // in italiano il titolo del video («Abbiamo Giocato a NO AI ACT…») e
+    // traduceva quello dell'articolo di Absolute Gamer: due opere della stessa
+    // lingua, trattate in due modi opposti a due schede di distanza. Le quattro
+    // lingue generate citavano entrambi gli originali. Tradurre il titolo di un
+    // articolo significa attribuire a una testata parole che non ha scritto, e
+    // chi copia la rassegna per citarla si porta dietro l'errore.
+    // Ora si cita l'originale ovunque, e l'occhiello dice in che lingua e'
+    // («Review (in Italian)»), informazione che sulla scheda di Absolute Gamer
+    // non poteva stare nella descrizione, perche' quello slot porta la
+    // citazione del pezzo.
     const colpe: string[] = [];
-    for (const [lang, file] of HOME.filter(([l]) => l in PRESS_WORDS)) {
+    for (const [lang, file] of HOME) {
       const sec = sezione(read(file));
       for (const item of items) {
         if (!sec.includes(item.title.replace(/&/g, '&amp;'))) {

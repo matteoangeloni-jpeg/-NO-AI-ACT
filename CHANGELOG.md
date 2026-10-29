@@ -29,6 +29,20 @@
   l'occhiello a dire in che lingua è. La citazione di Absolute Gamer resta in
   italiano, marcata `lang="it"` dove la pagina non è italiana, perché tradurre
   una citazione è riscriverla.
+- **Nessuna lingua traduce più il titolo di un articolo altrui.** La home
+  inglese teneva in italiano il titolo del video di Videogiochi italiani e
+  traduceva quello dell'articolo di Absolute Gamer: due opere della stessa
+  lingua, trattate in modo opposto a due schede di distanza. Tradurre il titolo
+  di un articolo attribuisce a una testata parole che non ha scritto, e chi
+  copia la rassegna per citarla si porta dietro l'errore. Ora si cita
+  l'originale in tutte e sei le lingue, e l'occhiello dice in che lingua è
+  («Review (in Italian)»), perché su quella scheda la descrizione è occupata
+  dalla citazione del pezzo.
+- Gli apostrofi dei titoli citati erano di due forme diverse a seconda della
+  pagina: tipografici nelle quattro lingue generate, dritti nelle due home
+  scritte a mano. Ora sono quelli del modulo ovunque. **Non è stato possibile
+  verificarli sulla fonte**: i domini delle testate non sono raggiungibili dalla
+  politica di rete di questa sessione.
 - `tests/pressCoverage.test.ts` — ogni home porta il carosello (francese
   compreso), con esattamente le uscite del modulo e i loro indirizzi; le due
   home scritte a mano non possono derivare dai fatti condivisi; nessuna lingua
