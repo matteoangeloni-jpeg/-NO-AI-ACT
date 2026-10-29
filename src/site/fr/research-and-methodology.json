@@ -1,7 +1,7 @@
 {
   "en": "en/research-and-methodology",
   "slug": "recherche-methodologie",
-  "sourceHash": "eef1789b05eb14ebebd351d6d5f6a0404c3aec5211ce76f099952a05f800ca73",
+  "sourceHash": "9bedeb58b00d42407f668da060a0b4923bf2a73cf55c9adb75333aa9dc4ef2fe",
   "title": "Recherche et méthodologie de NO AI ACT",
   "description": "Objectifs pédagogiques, mécanismes, sources juridiques, confidentialité et état de validation de NO AI ACT : un cadre transparent pour étudier le jeu.",
   "blocks": [
@@ -60,6 +60,7 @@
     "<strong>Déclaration volontaire, pas label de conformité.</strong> Le développement a largement employé des assistants IA pour le code, les tests, la documentation et une partie des textes. La <strong>responsabilité éditoriale et scientifique appartient à une personne</strong>, qui répond des affirmations publiées.",
     "Les affirmations réglementaires doivent être confrontées aux <strong>sources primaires</strong>, soit le règlement (UE) 2024/1689 modifié par le règlement (UE) 2026/1744. Une sortie de modèle ne fait pas autorité. Les passages nécessitant une compétence spécialisée sont signalés pour révision.",
     "<strong>Pourquoi cette déclaration volontaire ?</strong> L'article 50 distingue le marquage lisible par machine imposé aux <em>fournisseurs de systèmes génératifs</em> (paragraphe 2) et l'information concernant des <em>textes générés publiés</em> pour informer sur des questions d'intérêt public (paragraphe 4). Ce dernier prévoit une exception en cas de révision humaine ou de contrôle éditorial et de responsabilité éditoriale assumée. Le projet invoque ce cadre, sous réserve de la vérification de ses conditions : sa déclaration volontaire ne certifie pas la conformité. Elle permet aux lecteurs et aux chercheurs de comprendre comment le travail a été produit.",
+    "<strong>Où ce processus est raconté en détail.</strong> Dans un <a href=\"https://www.youtube.com/watch?v=lzh-1yXEJGY\" rel=\"noopener external\" target=\"_blank\">entretien accordé à Videogiochi italiani</a> le 26 octobre 2026 (en italien), l'auteur décrit la genèse du projet et son usage des assistants : la machine propose du code et des étapes de développement, la décision finale sur chaque étape revient à une personne. La déclaration ci-dessus n'est pas un slogan ajouté après coup : elle décrit ce processus, et il existe désormais un compte rendu public auquel la confronter.",
     "<span class=\"num\">07</span>Étudier ou réutiliser le jeu",
     "<strong>Cadre de validation :</strong> théorie du changement, construits, mesures pré/post proposées, échantillonnage et codes anonymes des participants figurent dans le <a href=\"https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/RESEARCH_VALIDATION_FRAMEWORK.md\">cadre de validation scientifique</a>.",
     "<strong>Stimuli versionnés :</strong> cas, textes et règles sont reproductibles en citant la version exacte (tag GitHub et <code>release.config.json</code>).",

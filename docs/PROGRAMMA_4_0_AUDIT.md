@@ -172,6 +172,11 @@ VideogiochiItaliani. Il registro dichiara ancora «**riscontri d'uso da persone
 esterne: uno**», e con questo sono **due**. Quel numero è, per dichiarazione del
 registro stesso, «il dato più importante» che contiene.
 
+> **Chiuso il 29 ottobre 2026.** La voce VGI-01 esiste nel registro e il
+> conteggio dice due. Questo paragrafo resta come era scritto perché l'audit è
+> un'istantanea del 13 ottobre: riscriverlo al presente cancellerebbe il fatto
+> che per sedici giorni il registro è stato indietro rispetto alla realtà.
+
 ---
 
 ## 2. Rischi

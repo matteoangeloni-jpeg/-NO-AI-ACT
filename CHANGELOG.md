@@ -2,6 +2,35 @@
 
 ## [Non rilasciato]
 
+### Added
+- **L'intervista di Videogiochi italiani come resoconto pubblico del processo**,
+  citata nelle sezioni «Fatto con l'IA, non dall'IA» delle tre pagine di
+  metodologia (IT, EN, FR). La dichiarazione volontaria sull'uso dell'IA aveva
+  finora solo la parola del progetto: ora ha una fonte esterna, datata, a cui
+  essere confrontata — l'autore vi descrive lo stesso modo di lavorare che la
+  dichiarazione afferma (la macchina propone, la persona decide).
+
+### Changed
+- **`docs/EXTERNAL_FEEDBACK_LEDGER.md`: tre fatti che l'intervista pubblica
+  rende noti e il registro non conteneva.** L'autore conferma in pubblico la
+  diagnosi di MLA-01 e VGI-01; il «dal Belgio» che cita è quasi certamente
+  MLA-01 e non un terzo riscontro — scritto come inferenza, perché tale è; e
+  descrive prove d'uso precedenti su fasce d'età diverse di cui non esiste
+  traccia in nessun file del progetto. Il conteggio dei riscontri d'uso esterni
+  **resta due**, e il registro ora dice esplicitamente perché due pubblicazioni
+  non lo alzano.
+- **MLA-02 aggiornata:** la metà editoriale dell'apertura si è concretizzata in
+  un articolo pubblicato; la metà che conta — pilot con docenti, feedback
+  strutturato — **resta aperta e non programmata**. Il progetto resta
+  didatticamente non validato.
+- `docs/ITALIAN_GAME_PRESS_OUTREACH.md`: la regola «non contattare queste realtà
+  finché i due gate del playtest non passano» è stata superata dai fatti — i
+  gate non sono mai stati eseguiti e la riga 2 dell'elenco ha pubblicato il
+  26 ottobre. La decisione su che farne è registrata come decisione del
+  proprietario, non presa qui.
+
+## [Non rilasciato]
+
 ### Dashboard - gate di pubblicazione
 - Stato raccolta, copertura delle celle e retention visibili senza confondere
   dati mancanti con zero o ultimo giorno disponibile con ultimo evento ricevuto.

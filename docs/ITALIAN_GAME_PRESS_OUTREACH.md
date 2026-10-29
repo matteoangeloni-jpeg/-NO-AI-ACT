@@ -4,12 +4,28 @@ Ricerca aggiornata al 17 settembre 2026. Verificare sempre la pagina contatti
 subito prima dell'invio. Non contattare queste realtà finché il protocollo
 `PRESS_PLAYTEST_PROTOCOL_v2.3.md` non ha superato entrambi i gate.
 
+> **Aggiornamento del 29 ottobre 2026 — la regola qui sopra è stata superata
+> dai fatti, e va deciso che farne.** Il 26 ottobre 2026 VideogiochiItaliani
+> (riga 2) ha pubblicato una prova del gioco e un'intervista di 34 minuti:
+> [youtube.com](https://www.youtube.com/watch?v=lzh-1yXEJGY). I due gate del
+> protocollo di playtest **non sono mai stati eseguiti**, e dal 29 settembre
+> 2026 non sono in programma. Quindi la condizione «non contattare finché i
+> gate non passano» oggi non è una regola in vigore: è una regola disattesa, e
+> una regola disattesa scritta in cima a un documento è peggio di nessuna
+> regola, perché fa credere che qualcosa stia proteggendo l'invio.
+>
+> **Decisione da prendere (del proprietario, non di chi scrive qui):** o i gate
+> tornano programmati e la condizione resta, oppure la condizione si toglie e
+> si scrive che cosa la sostituisce — per esempio: contattare una realtà alla
+> volta e fermarsi dopo la prima, invece di mandare la prima ondata intera
+> senza riscontri d'uso alle spalle.
+
 ## Prima ondata
 
 | Priorita | Realtà | Perché è pertinente | Angolo da proporre | Contatto verificato |
 | --- | --- | --- | --- | --- |
 | 1 | Indie Games Devel Italia | Testata specializzata in indie; invita esplicitamente a presentare nuovi giochi | Un investigativo browser italiano che usa la burocrazia come meccanica | [Modulo e redazione](https://indiegamesdevel.com/it/chi-siamo/) |
-| 2 | VideogiochiItaliani.it | Copre produzioni italiane, anche piccole, con recensioni e interviste | Solo developer italiano, open source, tema europeo attuale | [Chi siamo e contatti](https://videogiochiitaliani.it/contatti/) |
+| 2 | VideogiochiItaliani.it — **fatto: prova + intervista, 26 ottobre 2026** | Copre produzioni italiane, anche piccole, con recensioni e interviste | Solo developer italiano, open source, tema europeo attuale | [Chi siamo e contatti](https://videogiochiitaliani.it/contatti/) |
 | 3 | Crunchy Reviews | Dichiara di accettare giochi da recensire e proposte da realtà indipendenti | Press path gratuito di 20-30 minuti, nessuna chiave necessaria | [Contatti](https://crunchyreviews.it/contatti/) |
 | 4 | Nerdando | Testata indie registrata con sezione videogiochi e contatti di redazione | Videogioco, cittadinanza digitale e cultura normativa | [Contatti redazione](https://nerdando.com/contattaci/) |
 | 5 | IlVideogioco.com | Testata registrata con canale dedicato a notizie e comunicati | Serious game italiano valutabile come gioco, non come lezione | [Contatti](https://www.ilvideogioco.com/contatti/) |

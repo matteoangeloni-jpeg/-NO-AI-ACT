@@ -115,6 +115,22 @@ proprio quel vuoto, con persone del mestiere invece che conoscenti.
 con una verifica esplicita del carico cognitivo, così la tornata misura anche
 il difetto di MLA-01.
 
+**Aggiornamento del 29 ottobre 2026 — la parte editoriale si è concretizzata,
+quella di validazione no.** È uscito un contributo dell'autore sul sito
+dell'associazione: *NO AI ACT: What if learning about AI regulation began with
+an investigation?*, [media-and-learning.eu](https://media-and-learning.eu/no-ai-act-what-if-learning-about-ai-regulation-began-with-an-investigation/),
+ottobre 2026. Va pubblicato sul sito nel carosello «Parlano di noi» della home,
+dove sta già il contributo analogo di Fix Gaming Channel — etichettato lì, con
+ragione, «non una recensione indipendente».
+
+**Quello che questo aggiornamento NON è.** Un articolo **firmato dall'autore**
+e ospitato da un'associazione è disseminazione: non è un riscontro d'uso, non è
+un pilot con docenti e non sposta di una unità il conteggio in fondo a questo
+file. La metà di MLA-02 che conta davvero — pilot, Teacher Academy, feedback
+strutturato — **resta aperta e non programmata**. Scambiare la visibilità per
+validazione è esattamente la confusione che le prime righe di questo registro
+esistono per impedire.
+
 ### VGI-01 · VideogiochiItaliani — la ratio fra gioco e apprendimento
 
 | | |
@@ -158,6 +174,42 @@ esclude espressamente.
 stato eseguito**: questa voce resta aperta, e lo resterà finché una persona
 esterna non riproverà il gioco — perché è una diagnosi di leggibilità, e la
 leggibilità la misurano i lettori.
+
+**L'intervista è pubblica dal 26 ottobre 2026.** *INTERVISTA a Matteo Angeloni:
+NO AI ACT*, Videogiochi Italiani, [youtube.com](https://www.youtube.com/watch?v=lzh-1yXEJGY), 34 minuti, in
+italiano. Pubblicata sul sito nel carosello «Parlano di noi» della home, dove
+già compare la partita commentata della stessa testata del 3 ottobre: sono due
+cose diverse e il carosello le distingue.
+Il feedback registrato in questa voce era arrivato prima, in forma privata:
+ora esiste anche un resoconto pubblico, e tre cose che vi si dicono vanno
+tenute qui perché il registro non le conteneva.
+
+**Uno — l'autore conferma la diagnosi, pubblicamente.** Al minuto 33 dice che
+deve «migliorare l'apporto ludico» e «semplificare un po' l'interfaccia». È la
+stessa cosa che dicono MLA-01 e VGI-01, detta dal responsabile del progetto in
+una sede esterna. Non aggiunge una terza osservazione: rende pubblica la presa
+d'atto delle prime due.
+
+**Due — MLA-01 è quasi certamente il «dal Belgio» dell'intervista.** «Dal
+Belgio alcuni mi avevano scritto che tutto bello, però l'interfaccia a volte è
+un pochino pesante.» L'associazione di MLA-01 è belga (MEDEA: Media & Learning
+ivzw, sede a Lovanio) e il contenuto coincide con MLA-01: densità
+dell'interfaccia. **È un'inferenza, non una conferma dell'autore**, e va
+scritta come tale — ma va scritta, perché a un lettore esterno quel passaggio
+sembra un *terzo* riscontro. Se è MLA-01, il conteggio in fondo a questo file
+resta due; se fosse qualcun altro, sarebbe il proprietario a doverlo dire.
+
+**Tre — ci sono prove d'uso precedenti che questo registro non documenta.**
+Nell'intervista l'autore racconta di aver fatto provare il gioco a più persone
+di fasce d'età diverse, e di aver osservato che il riscontro migliore veniva da
+chi già giocava: «nelle varie prove che io ho fatto il bias maggiore era
+proprio la conoscenza del videogioco». Di quelle prove **non esiste traccia**
+né qui né in `docs/PRESS_PLAYTEST_RESULTS_TEMPLATE.csv`: nessuna nota, nessun profilo,
+nessuna misura. Non sono quindi risultati utilizzabili, e non entrano nel
+conteggio; ma il fatto che l'autore le descriva in pubblico mentre la
+documentazione del progetto non le menziona è un difetto del registro, non
+dell'intervista. **Azione:** se quelle prove vanno contate, vanno prima
+ricostruite e scritte qui dal proprietario, che è l'unico che le ricorda.
 
 ### FIX-01 · Fix Gaming Channel — posizionamento
 
@@ -267,6 +319,13 @@ riscontri spontanei non sono un playtest.
 l'interfaccia è densa, VGI-01 che il senso di quella densità non si legge: sono
 due facce dello stesso problema, osservate da due persone. È un segnale più
 forte di uno, e resta un campione di due.
+
+**E le pubblicazioni di ottobre 2026 non lo spostano.** Un'intervista e un
+articolo sono due uscite, non due riscontri: la prima racconta un feedback già
+registrato (VGI-01), il secondo è firmato dall'autore. Il «dal Belgio» citato
+nell'intervista è quasi certamente MLA-01, non una terza persona. Il conteggio resta **due** —
+e le prove d'uso informali che l'autore descrive nell'intervista non lo
+alzano finché non sono documentate (vedi VGI-01, nota tre).
 
 ---
 
