@@ -52,7 +52,8 @@ describe('Sprint B closed ingestion envelope', () => {
   });
   it.each([0, -1, NaN, Infinity, 1.5, 101, 1000000])('rejects count %s', count => expect(validateBatch(batch([{ ...base, count }]))).toBe(false));
   it('rejects invalid version, category, ID, duplicate cell, oversized batch and legacy alias', () => {
-    for (const patch of [{ gameVersion:'bogus' }, { schemaVersion:2 }, { event:'private' }, { properties:{ ...base.properties, mode:'custom' } }]) expect(validateBatch({ ...batch(), cells:[{ ...base, ...patch }] })).toBe(false);
+    for (const patch of [{ gameVersion:'bogus' }, { schemaVersion:3 }, { event:'private' }, { properties:{ ...base.properties, mode:'custom' } }]) expect(validateBatch({ ...batch(), cells:[{ ...base, ...patch }] })).toBe(false);
+    expect(validateBatch(batch([{ ...base, schemaVersion: 1 }]))).toBe(true);
     expect(validateBatch({ ...batch(), batchId:'permanent-user' })).toBe(false);
     expect(validateBatch({ ...batch(), batchId:crypto.randomUUID()+'\n' })).toBe(false);
     expect(validateBatch(batch([base,base]))).toBe(false);

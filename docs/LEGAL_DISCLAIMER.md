@@ -47,11 +47,12 @@ is recommended, alongside the actual regulatory text.
 
 ## Privacy
 
-NO AI ACT collects **no personal data**. There is no backend and no account. The
-public pages use aggregate, privacy-friendly Cloudflare Web Analytics (no cookies,
-no personal data) to measure page usage; the game itself sends no analytics,
-results, answers or reports, and progress is stored only in the browser's local
-storage. See the project brief and the on-site privacy section for details.
+NO AI ACT requires no account and intentionally includes no names, email addresses,
+free text or persistent player identifiers in its analytics payload. Public pages
+use cookie-free Cloudflare Web Analytics; the game sends bounded first-party
+aggregate counters and closed game-generated assessment categories. Answers,
+reports and saved progress remain in the browser's local storage. Hosting providers
+may process connection metadata. See the on-site privacy section for details.
 
 ## Licensing
 

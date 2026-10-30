@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { EventEmitter } from 'node:events';
 import { Analytics, AnalyticsSystem, resolveProvider, sanitizeProperties, type AnalyticsConfig, type AnalyticsTransport } from '../src/game/systems/AnalyticsSystem';
-import { ANALYTICS_EVENTS, ANALYTICS_LIMITS, EVENT_CATALOG, LANGUAGES, MODES, PHASES, durationBucket, validatePayload, validateAggregate,
+import { ANALYTICS_EVENTS, ANALYTICS_LIMITS, ANALYTICS_SCHEMA_VERSION, EVENT_CATALOG, LANGUAGES, MODES, PHASES, durationBucket, validatePayload, validateAggregate,
   type AnalyticsEvent } from '../src/game/systems/analyticsSchema';
 import { installAnalyticsInstrumentation } from '../src/game/systems/analyticsInstrumentation';
 
@@ -72,7 +72,8 @@ describe('closed schema and minimization', () => {
     for(const c of a.snapshot()) expect(validateAggregate(c)).toBe(true);
     const {count:ignored,...p}=a.snapshot().find(c=>c.event==='case_completed')!;
     expect(ignored).toBe(1); expect(validatePayload(p)).toBe(true);
-    expect(validatePayload({...p,schemaVersion:2})).toBe(false);
+    expect(validatePayload({...p,schemaVersion:3})).toBe(false);
+    expect(validatePayload({...p,schemaVersion:1})).toBe(true);
     expect(validatePayload({...p,extra:'x'})).toBe(false);
     expect(validatePayload({...p,properties:{...p.properties,email:'x'}})).toBe(false);
     expect(validatePayload({...p,properties:{...p.properties,caseId:'unknown'}})).toBe(false);
@@ -210,7 +211,7 @@ describe('aggregate transports use explicit flush and closed data', () => {
     expect(t.calls).toEqual([]); expect(await a.flush()).toBe(true); expect(t.calls.length).toBeGreaterThan(0);
     const body=t.calls[0].body as {url:string;props:Record<string,unknown>};
     expect(body.url).toBe('https://noaiact.example/play/');
-    expect(body.props.schemaVersion).toBe(1); expect(body.props.count).toBe(1);
+    expect(body.props.schemaVersion).toBe(ANALYTICS_SCHEMA_VERSION); expect(body.props.count).toBe(1);
     expect(JSON.stringify(t.calls)).not.toMatch(/classification|motivation|referrer|userAgent|sessionId/);
     expect(a.snapshot()).toEqual([]);
   });
@@ -218,7 +219,7 @@ describe('aggregate transports use explicit flush and closed data', () => {
     const t=mockTransport(); const a=new Analytics({dev:false,provider:'umami',umamiWebsiteId:'site-1',
       umamiScriptUrl:'https://stats.example/script.js',remoteApproved:true,approvedEndpoints:['https://stats.example/api/send']},t.fn);
     a.track('game_opened'); await a.flush(); expect(t.calls[0].url).toBe('https://stats.example/api/send');
-    expect(JSON.stringify(t.calls[0].body)).toContain('"schemaVersion":1');
+    expect(JSON.stringify(t.calls[0].body)).toContain(`"schemaVersion":${ANALYTICS_SCHEMA_VERSION}`);
     expect((t.calls[0].body as {payload:{hostname:string}}).payload.hostname).toBe('www.no-ai-act.eu');
   });
   it('sync and async failures keep bounded cells and never reject gameplay', async () => {

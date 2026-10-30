@@ -46,7 +46,9 @@ usability/engagement results must never be reported as learning results.
 Researchers assign codes OUTSIDE the game (e.g. class roster mapping kept by
 the teacher). Participants may write their code on paper instruments and on
 the manually exported summary filename. The game itself stores no code, no
-identifier, and transmits nothing.
+identifier. The public build transmits only the bounded first-party aggregate
+usage and game-generated assessment categories documented in `ANALYTICS.md`;
+these are operational telemetry, not a research dataset or evidence of learning.
 
 ## Separation between the public product and research instruments
 - The public build never embeds surveys, tracking or identifiers.

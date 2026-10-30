@@ -342,8 +342,8 @@ struttura fra i dizionari (predisposto per FR/ES).
   strutturale e non viene dichiarata una conformità WCAG completa.
 - Contenuto giuridico in **versione didattica semplificata**: non sostituisce il
   testo del regolamento né una consulenza legale.
-- **Telemetria di gioco disattivata di default** (le pagine pubbliche usano solo
-  Cloudflare Web Analytics aggregato, senza cookie né dati personali); nessun
+- **Telemetria first-party aggregata e disattivabile**: schema chiuso, nessun
+  cookie o identificatore persistente del giocatore, rispetto DNT/GPC; nessun
   account, nessuna dashboard classe, nessun registro studenti.
 - Dimensioni build: fonte autorevole `npm run report:dist` (ultimo report di
   release verificato: dist ~6,52 MB; bundle di gioco ~423 KB gzip; landing
@@ -452,8 +452,9 @@ Note di rilascio: [`docs/RELEASE_NOTES_v4.0.0.md`](docs/RELEASE_NOTES_v4.0.0.md)
 - **URL pubblici**: 155 (33 IT + 37 EN + 37 FR + 16 DE + 16 ES + 16 PT)
 - **Localizzazioni del sito**: tedesco, spagnolo e portoghese europeo (`pt-PT`), 16 risorse introduttive, pratiche e stampa per lingua, inclusi laboratori e casi sul reclutamento. Press kit in tutte e sei le lingue; il gioco resta IT/EN/FR. [Contenuti, fonti e verifiche](docs/seo/CONTENT_CAMPAIGN_2026-10-18.md).
 - **Salvataggi**: schema v2, con migrazione testata dei salvataggi v1
-- **Backend**: nessuno · **Account**: nessuno · **Raccolta dati personali**:
-  nessuna · **Chiamate di rete durante il gameplay**: nessuna
+- **Backend applicativo/account**: nessuno · **Identificatori persistenti del
+  giocatore nel payload**: nessuno · **Analytics**: contatori aggregati first-party,
+  disattivabili e soggetti a soglia di pubblicazione
 - **DOI**: non ancora disponibile (previsto via Zenodo dopo il tag)
 - **Efficacia didattica**: non ancora validata empiricamente
 - **Test / build**: suite Vitest completa + build + verifiche dist verdi in CI

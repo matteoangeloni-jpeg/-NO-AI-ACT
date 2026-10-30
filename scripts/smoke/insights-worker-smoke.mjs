@@ -25,7 +25,7 @@ try {
   const response=await mf.dispatchFetch('http://localhost/api/stats',{headers:admin});assert.equal(response.status,200);
   const stats=await response.json();assert.equal(stats.rows[0].count,12);assert.equal(stats.classification,'synthetic');
   assert.equal((await mf.dispatchFetch('http://localhost/api/stats?language=fr&mode=libera',{headers:admin})).status,400);
-  await db.prepare('UPDATE daily_quota SET count=100000').run();payload.batchId=crypto.randomUUID();assert.equal((await collect()).status,503);
+  await db.prepare('UPDATE daily_quota SET count=100000').run();payload.batchId=crypto.randomUUID();assert.equal((await collect()).status,429);
   assert.equal((await db.prepare("SELECT count FROM counters WHERE dimension='all'").first()).count,12);
   const old='2000-01-01';await db.prepare("INSERT INTO counters VALUES(?, '4.0-candidate','game_started','all','*',10)").bind(old).run();
   // Real scheduled Worker handler, not the Node/SQLite substitute.

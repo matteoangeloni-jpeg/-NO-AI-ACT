@@ -1,6 +1,18 @@
-export const DIMENSIONS = ['all', 'language', 'mode', 'caseId', 'phase', 'result', 'durationBucket', 'hintUsed', 'tutorialVersion'] as const;
+export const DIMENSIONS = ['all', 'language', 'mode', 'caseId', 'phase', 'result', 'durationBucket', 'hintUsed', 'tutorialVersion',
+  'classificationPair', 'caseEvidenceQuality', 'caseDecisionQuality', 'caseFinalEvaluation', 'caseDuration',
+  'caseRevision', 'abandonmentPhase', 'technicalError', 'accessibilitySetting'] as const;
 export type Dimension = typeof DIMENSIONS[number];
 export interface Cell { day: string; version: string; event: string; dimension: Dimension; value: string; count: number }
+export const COMPOSITE_REPORTS = ['case_performance', 'decision_evidence', 'technical_quality'] as const;
+export type CompositeReport = typeof COMPOSITE_REPORTS[number];
+export interface CompositeCell {
+  day: string;
+  schemaVersion: number;
+  version: string;
+  report: CompositeReport;
+  dimensions: Record<string, string | boolean>;
+  count: number;
+}
 export interface Statement {
   bind(...values: unknown[]): Statement;
   all<T>(): Promise<{ results: T[] }>;
