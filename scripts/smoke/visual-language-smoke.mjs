@@ -100,6 +100,16 @@ async function giro({ lang, reducedMotion, width, height, dpr, tag, soloRilievi 
   await page.addInitScript((s) => localStorage.setItem('no-ai-act-save-v1', s), save({ lang, reducedMotion }));
   await page.goto(`${BASE}/play/?lang=${lang}`, { waitUntil: 'load' });
 
+  // The notice has its own smoke. Close it through the real UI so its timed
+  // collapse cannot move the canvas between pointer measurement and click.
+  const noticeClose = page.locator('#usage-close');
+  if (await noticeClose.isVisible()) {
+    await noticeClose.click();
+    await page.waitForFunction(() => document.getElementById('game-usage')?.hidden);
+    // Closing restores focus to the shield, whose shortcuts stay isolated.
+    await page.evaluate(() => document.activeElement?.blur());
+  }
+
   const toPage = (lx, ly) => page.evaluate(worldToPageFn, { x: lx, y: ly });
   const click = async (lx, ly, w = 260) => {
     const { x, y } = await toPage(lx, ly);
