@@ -13,12 +13,11 @@ remains 40px; hiding the DOM notice alone is not sufficient to pass.
 Operational contract that protects the shipped v1.1 product. Automated tests
 enforce all of it; run `npm test` before opening any feature PR.
 
-## No telemetry
-- The game sends **nothing**. `src/game/` contains no `fetch` / `XMLHttpRequest`
-  / `sendBeacon` / `WebSocket` / `EventSource` except the single approved,
-  gated transport inside `AnalyticsSystem` — which resolves to **`off`** in
-  production (`resolveProvider({ dev: false })` → `off`, and Do-Not-Track always
-  forces `off`). No analytics provider env is set in the build.
+## Bounded aggregate telemetry
+- The game sends only the approved, gated, first-party aggregate transport in
+  `AnalyticsSystem`. Production uses the versioned allowlisted schema; Do-Not-Track,
+  GPC and the in-game opt-out stop subsequent sends. Raw answers, free text,
+  reports, persistent player identifiers and detailed interaction sequences are forbidden.
   Analytics A also hard-gates remote approval independently of provider env,
   validates a closed versioned schema, and removes the CF beacon from /play/.
   Local dev counters never flush automatically and never enter the save schema.

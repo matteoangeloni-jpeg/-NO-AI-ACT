@@ -180,7 +180,7 @@ export class Analytics {
   }
   private abandonCase(): void {
     if (!this.attempt || this.attempt.completed) return;
-    this.track('case_abandoned', { caseId: this.attempt.id, ...this.attempt.context });
+    this.track('case_abandoned', { caseId: this.attempt.id, ...this.attempt.context, abandonmentPhase: this.phase });
     this.attempt = null;
   }
 
@@ -309,9 +309,9 @@ export const AnalyticsSystem = new Analytics(envConfig());
 export function betaUsagePrivacyNote(language: string): string | undefined {
   if (import.meta.env.VITE_ANALYTICS_PROVIDER !== 'first-party') return;
   const words: Record<string, string> = {
-    it: 'Salvataggi e risposte restano sul dispositivo. Statistiche aggregate di utilizzo senza nomi o esiti sono attive automaticamente; puoi disattivarle nella barra Informativa statistiche.',
-    en: 'Saves and answers stay on your device. Aggregate usage statistics without names or outcomes start automatically; you can disable them in the statistics notice bar.',
-    fr: 'Sauvegardes et reponses restent sur votre appareil. Les statistiques agregees sans noms ni resultats sont automatiques ; vous pouvez les desactiver dans la barre de confidentialite.'
+    it: 'Salvataggi e risposte restano sul dispositivo. Sono attive statistiche aggregate su utilizzo e categorie di valutazione del gioco, senza nomi, testo libero o sequenze dettagliate; puoi disattivarle nella barra Informativa statistiche.',
+    en: 'Saves and answers stay on your device. Aggregate statistics cover usage and game-assessment categories, without names, free text or detailed sequences; you can disable them in the statistics notice bar.',
+    fr: 'Sauvegardes et reponses restent sur votre appareil. Les statistiques agregees couvrent l usage et les categories d evaluation du jeu, sans noms, texte libre ni sequences detaillees ; vous pouvez les desactiver dans la barre de confidentialite.'
   };
   return words[language] ?? words.it;
 }

@@ -24,6 +24,7 @@ import { protocolDate } from '../assets/procedural/decisionSeal';
 import { stateBadge } from '../assets/procedural/visualStates';
 import { InvestigationGuide, emitGameplayUx } from '../systems/InvestigationGuide';
 import { openInvestigationGuide } from '../ui/InvestigationGuideOverlay';
+import { deriveCaseTelemetry } from '../systems/telemetryMetrics';
 
 
 /**
@@ -93,6 +94,10 @@ export class DecisionScene extends Phaser.Scene {
   private subject: ResponsibleSubject | null = null;
   private motivation: number | null = null;
   private citedClues: number[] = [];
+  private openedClues: number[] = [];
+  private initialClassification: Classification | null = null;
+  private lastClassification: Classification | null = null;
+  private classificationRevisions = 0;
   private confidence: ConfidenceLevel | null = null;
   private incidentChoice?: IncidentChoice;
   private resolved = false;
@@ -122,6 +127,10 @@ export class DecisionScene extends Phaser.Scene {
     this.subject = null;
     this.motivation = null;
     this.citedClues = data.citedClues ?? [];
+    this.openedClues = [];
+    this.initialClassification = null;
+    this.lastClassification = null;
+    this.classificationRevisions = 0;
     this.confidence = null;
     this.incidentChoice = data.incidentChoice;
     this.resolved = false; // le istanze di scena vengono riusate tra start()
@@ -137,6 +146,9 @@ export class DecisionScene extends Phaser.Scene {
       this.subject = draft.subject;
       this.motivation = draft.motivation;
       this.confidence = draft.confidence;
+      this.openedClues = [...draft.revealedClues];
+      this.initialClassification = draft.classification;
+      this.lastClassification = draft.classification;
       if (draft.citedClues.length > 0 && this.citedClues.length === 0) this.citedClues = [...draft.citedClues];
     }
   }
@@ -424,6 +436,9 @@ export class DecisionScene extends Phaser.Scene {
 
     const pick = (cls: Classification): void => {
       if (this.classification !== null) return;
+      if (this.initialClassification === null) this.initialClassification = cls;
+      else if (this.lastClassification !== null && this.lastClassification !== cls) this.classificationRevisions += 1;
+      this.lastClassification = cls;
       this.classification = cls;
       this.persistDraft('measure');
       AnalyticsSystem.track('classification_selected', { caseId: this.caseData.id });
@@ -855,6 +870,25 @@ export class DecisionScene extends Phaser.Scene {
       incidentChoice: this.incidentChoice
     });
     AnalyticsSystem.track('report_signed', { caseId: this.caseData.id, result: result.quality });
+    const quality = deriveCaseTelemetry({
+      caseData: this.caseData,
+      openedEvidence: this.openedClues,
+      citedEvidence: this.citedClues,
+      classification: this.classification!,
+      measure: this.measure!,
+      subject: this.subject!,
+      result,
+      initialClassification: this.initialClassification ?? this.classification!,
+      classificationRevisions: this.classificationRevisions
+    });
+    AnalyticsSystem.track('case_quality_assessed', { caseId: this.caseData.id, ...quality });
+    if (this.classificationRevisions > 0) {
+      AnalyticsSystem.track('decision_revised', {
+        caseId: this.caseData.id,
+        revisionCountBand: quality.revisionCountBand,
+        revisionDirection: quality.revisionDirection
+      });
+    }
     AnalyticsSystem.track('case_completed', {
       caseId: this.caseData.id,
       result: result.quality

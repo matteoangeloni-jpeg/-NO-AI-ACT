@@ -1,7 +1,7 @@
 {
   "en": "en/privacy-conscious-learning",
   "slug": "apprentissage-respectueux-vie-privee",
-  "sourceHash": "5524c5334b9473aaaa86dd122757b8903317b98e25d63696feef369c839be4b1",
+  "sourceHash": "792d50df418394fb91af6a9938b3051c08671be13b099f2abc252408d5daad47",
   "title": "Apprentissage respectueux de la vie privée | NO AI ACT",
   "description": "Confidentialité des outils éducatifs : ce que NO AI ACT collecte ou conserve, et les questions à poser avant d'utiliser une technologie en classe.",
   "attributes": {
@@ -19,8 +19,8 @@
     "La classe est un environnement contraint : les élèves choisissent rarement leurs outils et peuvent difficilement les refuser. La collecte de données éducatives relève donc d'un rapport de pouvoir autant que des préférences individuelles. « Nous ne collectons que peu de données » mérite d'être interrogé. L'AI Act lui-même traite l'éducation comme un domaine sensible aux enjeux importants.",
     "<span class=\"num\">02</span>Ce que fait ce projet, et ce qu'il ne fait pas",
     "<strong>Aucune inscription</strong> : le jeu fonctionne dans le navigateur sans compte, adresse électronique ni identifiant.",
-    "<strong>Aucun profilage des joueurs ni télémétrie du jeu</strong> : décisions, scores et rapports restent sur l'appareil ; la progression est conservée uniquement dans localStorage.",
-    "<strong>Uniquement des statistiques agrégées des pages</strong> sur le site public (Cloudflare Web Analytics sans cookies), jamais à l'intérieur du jeu.",
+    "<strong>Aucun profilage des joueurs</strong> : décisions, réponses, scores et rapports restent sur l'appareil ; la progression est conservée uniquement dans localStorage.",
+    "<strong>Uniquement des compteurs agrégés et limités</strong> : le jeu transmet des catégories fermées d'utilisation et d'évaluation produite par le jeu, sans cookies ni identifiant persistant ; elles peuvent être désactivées et respectent DNT/GPC. Les pages publiques utilisent aussi Cloudflare Web Analytics sans cookies.",
     "<strong>Aucun formulaire externe intégré</strong> : cette version ne contient pas de formulaire de retour tiers.",
     "La description complète du fonctionnement figure dans <a href=\"../privacy-by-design/\">protection dès la conception</a> ; le code est ouvert et vérifiable.",
     "<span class=\"num\">03</span>Questions à poser à tout outil utilisé en classe",

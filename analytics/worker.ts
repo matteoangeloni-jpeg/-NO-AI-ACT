@@ -1,5 +1,6 @@
 import { authorized } from './auth';
-import { csv, ingest, LIMITS, parseQuery, purge, readCells, retentionWindow, validateBatch } from './aggregation';
+import { aggregateCountsCsv, compositeCsv, csv, DailyQuotaExceeded, ingest, LIMITS, parseQuery, purge, readCells, readCompositeCells, retentionWindow, validateBatch } from './aggregation';
+import type { CompositeReport } from './types';
 import type { Env } from './types';
 import { validateUsageBatch } from './beta-usage';
 
@@ -51,19 +52,37 @@ export async function handle(request: Request, env: Env): Promise<Response> {
       try { body = await boundedJSON(request); } catch (e) { return response({ error: 'invalid_body' }, e instanceof Error && e.message === 'size' ? 413 : 400, cors); }
       if (!validateBatch(body)) return response({ error: 'invalid_payload' }, 400, cors);
       if (env.USAGE_ONLY === 'true' && !validateUsageBatch(body)) return response({ error: 'usage_only' }, 400, cors);
-      await ingest(env.DB, body);
+      try { await ingest(env.DB, body); }
+      catch (error) {
+        if (error instanceof DailyQuotaExceeded) return response({ error: 'daily_quota_exceeded' }, 429, { ...cors, 'Retry-After': '86400' });
+        throw error;
+      }
       return response({ accepted: true }, 202, cors);
     }
     if (!['GET', 'HEAD'].includes(request.method)) return response({ error: 'method' }, 405);
     if (!await authorized(request, env)) return response({ error: 'authentication_required' }, 401,
       env.LOCAL_TEST === 'true' ? { 'WWW-Authenticate': 'Basic realm="Player Insights local test", charset="UTF-8"' } : {});
     if (!env.ADMIN_LIMITER || !(await env.ADMIN_LIMITER.limit({ key: 'admin-global' })).success) return response({ error: 'admin_rate_limited' }, 429);
-    if (url.pathname === '/api/stats' || url.pathname === '/api/export.csv') {
+    const compositeExports: Record<string, { report: CompositeReport; filename: string }> = {
+      '/api/export/case-performance.csv': { report: 'case_performance', filename: 'player-insights-case-performance.csv' },
+      '/api/export/decision-evidence.csv': { report: 'decision_evidence', filename: 'player-insights-decision-evidence.csv' },
+      '/api/export/technical-quality.csv': { report: 'technical_quality', filename: 'player-insights-technical-quality.csv' }
+    };
+    if (url.pathname === '/api/stats' || url.pathname === '/api/export.csv' || url.pathname === '/api/export/aggregate-counts.csv' || compositeExports[url.pathname]) {
       const query = parseQuery(url); if (!query) return response({ error: 'invalid_query' }, 400);
       const now = Date.now(); const coverage = retentionWindow(query, now);
-      const rows = await readCells(env.DB, query, now);
       const classification = env.DATA_CLASSIFICATION === 'synthetic' ? 'synthetic' : 'observed';
-      if (url.pathname.endsWith('.csv')) return new Response(csv(rows, classification, query, now), { headers: { ...headers, 'Content-Type': 'text/csv; charset=utf-8', 'Content-Disposition': 'attachment; filename="player-insights-aggregates.csv"',
+      const composite = compositeExports[url.pathname];
+      if (composite) {
+        const rows = await readCompositeCells(env.DB, composite.report, query, now);
+        return new Response(compositeCsv(rows, classification, composite.report, query, now), { headers: { ...headers, 'Content-Type': 'text/csv; charset=utf-8',
+          'Content-Disposition': `attachment; filename="${composite.filename}"`, 'X-Telemetry-Schema': '2', 'X-Game-Version': query.version ?? 'mixed',
+          'X-Retention-From': coverage.retainedFrom, 'X-Retention-Clipped': String(coverage.clipped) } });
+      }
+      const rows = await readCells(env.DB, query, now);
+      if (url.pathname.endsWith('.csv')) return new Response(url.pathname === '/api/export/aggregate-counts.csv'
+        ? aggregateCountsCsv(rows, classification, query, now) : csv(rows, classification, query, now), { headers: { ...headers, 'Content-Type': 'text/csv; charset=utf-8', 'Content-Disposition': 'attachment; filename="player-insights-aggregate-counts.csv"',
+        'X-Telemetry-Schema': '1,2', 'X-Game-Version': query.version ?? 'mixed',
         'X-Retention-From': coverage.retainedFrom, 'X-Retention-Clipped': String(coverage.clipped) } });
       return response({ classification, collectionEnabled: env.COLLECTION_ENABLED === 'true', localEnvironment: env.LOCAL_TEST === 'true', query, threshold: LIMITS.threshold, rows, generatedAt: new Date(now).toISOString(), dayBasis: 'UTC receipt day', retentionDays: LIMITS.retentionDays, retentionWindow: coverage });
     }

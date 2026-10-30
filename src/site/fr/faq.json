@@ -1,7 +1,7 @@
 {
   "en": "en/faq",
   "slug": "faq",
-  "sourceHash": "2c07c48e2986a35ea53e12694ec4f1b99041e94d333bc26c55bee85af03f133f",
+  "sourceHash": "1e82044a3d9bbcaed2a4f88be402215b1ed0496a93afc0aefc8793d045526f61",
   "title": "Questions fréquentes sur NO AI ACT",
   "description": "Réponses sur la gratuité, les langues, les licences, la confidentialité, les usages pédagogiques et les limites du serious game NO AI ACT.",
   "blocks": [
@@ -22,7 +22,7 @@
     "Faut-il s'inscrire ?",
     "Non. Le jeu fonctionne dans le navigateur sans compte, adresse électronique ni identifiant. La progression est conservée uniquement dans le localStorage du navigateur.",
     "Les joueurs sont-ils suivis ?",
-    "Non. Décisions, scores et rapports restent sur l'appareil ; le jeu ne transmet aucune télémétrie. Les pages publiques utilisent uniquement des statistiques agrégées sans cookies.",
+    "Les joueurs ne sont pas profilés. Décisions, réponses, scores et rapports restent sur l'appareil. Le jeu transmet uniquement des catégories agrégées et limitées d'utilisation et d'évaluation produite par le jeu, sans cookies ni identifiant persistant ; ces compteurs peuvent être désactivés et respectent DNT/GPC.",
     "Quelles langues sont disponibles ?",
     "L'italien, l'anglais et le français : le jeu complet et les ressources éducatives sont accessibles dans ces langues dans cette version.",
     "Le jeu couvre-t-il tout l'AI Act ?",
