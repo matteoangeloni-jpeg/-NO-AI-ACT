@@ -1,3 +1,4 @@
+import { renderPressReferences } from './press-coverage.mjs';
 const shots = ['01-city-map','02-case-file','03-evidence-desk','04-decision','05-decision-summary','06-inspection-report','07-consequence','08-rule-card','09-evidence-compare','10-decision-compare'];
 const escape = value => String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
 const locales = {
@@ -88,7 +89,7 @@ export const PRESS_PAGES = Object.fromEntries(Object.entries(locales).map(([lang
     8: list([link('/en/how-to-cite/',p.citation,true),link('/en/research-and-methodology/',p.methodology,true)]),
     9: `<p>${link('/game-statistics.html#en',p.privacy,true)}</p>`,
     10: list([link({de:'/de/ai-act-unterrichtseinheit/',es:'/es/taller-ai-act-aula/',pt:'/pt/atividade-ai-act-sala-aula/'}[lang],p.lab),link({de:'/de/bildung/',es:'/es/educacion/',pt:'/pt/educacao/'}[lang],p.hub)]),
-    11: list([link('https://www.fixgamingchannel.com/fix-stories-no-ai-act-matteo-angeloni/','Fix Gaming Channel — Fix Stories (EN)'),link('https://www.youtube.com/watch?v=BJO6aiElmrY','Videogiochi italiani — Gameplay (IT)'),link('/en/matteo-angeloni/',p.author,true)])
+    11: renderPressReferences(lang)+`<p>${link('/en/matteo-angeloni/',p.author,true)}</p>`
   };
   return [lang,{press:{title:p.title,description:p.description,h1:p.h1,lead:p.lead,sections:p.headings.map((heading,i)=>[heading,p.paragraphs[i]]),extras}}];
 }));

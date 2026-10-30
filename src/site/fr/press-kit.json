@@ -1,7 +1,7 @@
 {
   "en": "en/press-kit",
   "slug": "dossier-de-presse",
-  "sourceHash": "d866380e1eecbcaf48ac8c473c1b554d72e4f3355f7fd8224055d16998270d66",
+  "sourceHash": "e75d4395a5b8b76a9e301cec3bdc52e98f426cac3904a45d05c7ffa778a54d55",
   "title": "Dossier de presse NO AI ACT : textes, images et crédits",
   "description": "Présenter NO AI ACT : descriptions, fiche du jeu, biographie, captures Full HD, licences, crédits et déclaration sur la production audio avec ElevenLabs.",
   "attributes": {
@@ -110,7 +110,12 @@
     "<a href=\"/fr/atelier-ai-act-en-classe/\">Atelier AI Act en classe</a>",
     "<a href=\"/fr/education/\">Ressources pédagogiques</a>",
     "<span class=\"num\">12</span>Références presse et contact",
-    "<a href=\"https://www.fixgamingchannel.com/fix-stories-no-ai-act-matteo-angeloni/\" rel=\"noopener external\">Fix Gaming Channel, Fix Stories, 16 octobre 2026</a> : récit de l'auteur à la première personne, pas une critique indépendante. <a href=\"https://www.youtube.com/watch?v=BJO6aiElmrY\" rel=\"noopener external\">Videogiochi italiani, gameplay du 3 octobre 2026</a> : vidéo italienne antérieure à la version 4.0, pas une démonstration de l'interface actuelle.",
+    "<a href=\"https://www.smartphonology.it/no-ai-act-gioco-gratuito-browser/\" hreflang=\"it\" lang=\"it\" rel=\"noopener external\">Smartphonology — NO AI ACT: il gioco gratuito da browser sui rischi dell’IA</a> · <time datetime=\"2026-10-30\">2026-10-30</time>. Présentation du jeu, de ses modes et de ses limites, à partir du signalement et des documents publics du développeur.",
+    "<a href=\"https://www.youtube.com/watch?v=lzh-1yXEJGY&amp;t=11s\" hreflang=\"it\" lang=\"it\" rel=\"noopener external\">Videogiochi italiani — INTERVISTA a Matteo Angeloni: NO AI ACT</a> · <time datetime=\"2026-10-26\">2026-10-26</time>. Entretien avec Matteo Angeloni, créateur et développeur de NO AI ACT.",
+    "<a href=\"https://media-and-learning.eu/no-ai-act-what-if-learning-about-ai-regulation-began-with-an-investigation/\" hreflang=\"en\" lang=\"en\" rel=\"noopener external\">Media &amp; Learning Association — NO AI ACT: What if learning about AI regulation began with an investigation?</a> · <time datetime=\"2026-10-26\">2026-10-26</time>. Une contribution signée Matteo Angeloni sur le projet et ses usages éducatifs possibles, et non une critique indépendante.",
+    "<a href=\"https://www.fixgamingchannel.com/fix-stories-no-ai-act-matteo-angeloni/\" hreflang=\"en\" lang=\"en\" rel=\"noopener external\">Fix Gaming Channel — Fix Stories: From AI Research to a Game Built on Weekends</a> · <time datetime=\"2026-10-16\">2026-10-16</time>. Matteo Angeloni raconte la création et le développement du jeu ; il ne s’agit pas d’une critique indépendante.",
+    "<a href=\"https://www.youtube.com/watch?v=BJO6aiElmrY\" hreflang=\"it\" lang=\"it\" rel=\"noopener external\">Videogiochi italiani — Abbiamo Giocato a NO AI ACT: Un’Europa Senza Regole sull’AI!</a> · <time datetime=\"2026-10-03\">2026-10-03</time>. Une partie commentée en italien, enregistrée avant la nouvelle bêta et la version 4.0.",
+    "<a href=\"https://www.absolutegamer.it/no-ai-act-serious-game-gratuito-ai-act-europeo/\" hreflang=\"it\" lang=\"it\" rel=\"noopener external\">Absolute Gamer — NO AI ACT, il serious game gratuito sull’AI Act europeo</a> · <time datetime=\"2026-07-24\">2026-07-24</time>. La critique du serious game d’enquête par Absolute Gamer.",
     "Pour la presse et les entretiens : <a href=\"/fr/matteo-angeloni/\">profil et contacts de Matteo Angeloni</a>. Projet indépendant : l'affiliation universitaire de l'auteur ne constitue ni promotion ni approbation institutionnelle du jeu."
   ]
 }

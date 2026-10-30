@@ -9,6 +9,7 @@ import * as es from '../../src/site/es-content.mjs';
 import * as pt from '../../src/site/pt-content.mjs';
 import { PRACTICAL_PAGES, HUB_PATHS } from '../../src/site/eu-practical-content.mjs';
 import { PRESS_PAGES } from '../../src/site/eu-press-content.mjs';
+import { renderPressCoverage, renderPressReferences } from '../../src/site/press-coverage.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const read = file => readFileSync(resolve(root, file), 'utf8');
@@ -40,17 +41,7 @@ const alternates = group => Object.entries(group).map(([lang, dir]) => `  <link 
 const switcher = (group, current) => `<nav class="locale-links" aria-label="${{it:'Lingue',en:'Languages',fr:'Langues',de:'Sprachen',es:'Idiomas',pt:'Idiomas'}[current]}"><div class="wrap">${Object.entries(group).map(([lang, dir]) => `<a href="${href(dir)}" hreflang="${languageCode(lang)}" lang="${languageCode(lang)}"${lang === current ? ' aria-current="page"' : ''}><img src="/assets/flags/${lang === 'en' ? 'gb' : lang}.png" width="28" height="20" alt="" /><span>${names[lang]}</span></a>`).join('')}</div></nav>`;
 
 function press(lang) {
-  const words = {
-    de: ['In den Medien', 'Vorheriger Beitrag', 'Nächster Beitrag', 'Entwicklerbeitrag (Englisch)', 'Gameplay (Italienisch)', 'Artikel (Italienisch)'],
-    es: ['En los medios', 'Contenido anterior', 'Contenido siguiente', 'Relato del desarrollador (inglés)', 'Gameplay (italiano)', 'Artículo (italiano)'],
-    pt: ['Na imprensa', 'Conteúdo anterior', 'Conteúdo seguinte', 'Relato do criador (inglês)', 'Gameplay (italiano)', 'Artigo (italiano)']
-  }[lang];
-  const sources = [
-    ['fix-gaming-channel.webp',1450,180,'Fix Gaming Channel','https://www.fixgamingchannel.com/fix-stories-no-ai-act-matteo-angeloni/','Fix Stories: From AI Research to a Game Built on Weekends','2026-10-16',words[3]],
-    ['videogiochi-italiani.jpg',480,360,'Videogiochi italiani','https://www.youtube.com/watch?v=BJO6aiElmrY',"Abbiamo Giocato a NO AI ACT: Un’Europa Senza Regole sull’AI!",'2026-10-03',words[4]],
-    ['absolute-gamer.webp',1200,290,'Absolute Gamer','https://www.absolutegamer.it/no-ai-act-serious-game-gratuito-ai-act-europeo/',"NO AI ACT, il serious game gratuito sull’AI Act europeo",null,words[5]]
-  ];
-  return `<section aria-labelledby="press-title"><div class="wrap"><div class="press-heading"><h2 id="press-title">${words[0]}</h2><div class="press-controls" hidden><span class="press-position" aria-live="polite" aria-atomic="true">01 / 03</span>${[words[1],words[2]].map((label,i) => `<button type="button" data-press-${i?'next':'prev'} aria-label="${label}" title="${label}" aria-controls="press-track"><i data-lucide="arrow-${i?'right':'left'}" aria-hidden="true"></i></button>`).join('')}</div></div><ul class="press-track" id="press-track" tabindex="0" aria-label="${words[0]}">${sources.map(([image,w,h,publisher,link,title,date,label],i) => `<li class="press-item"><div class="press-media${i===0?' press-media-logo':''}"><img src="/assets/press/${image}" width="${w}" height="${h}" alt="${escape(publisher)}" loading="lazy" decoding="async" /></div><div class="press-copy"><div class="press-meta"><span>${label}</span>${date?`<time datetime="${date}">${new Intl.DateTimeFormat(languageCode(lang),{dateStyle:'long',timeZone:'UTC'}).format(new Date(date))}</time>`:''}</div><p class="press-outlet">${publisher}</p><h3><a href="${link}" rel="noopener external" target="_blank">${escape(title)}</a></h3></div></li>`).join('')}</ul></div></section>`;
+  return renderPressCoverage(lang);
 }
 
 for (const [lang, { UI: ui, PAGES: basePages }] of Object.entries({ de, es, pt })) {
@@ -114,11 +105,20 @@ ${id==='home'?'  <script type="module" src="/src/scripts/press-carousel.ts"></sc
   }
 }
 
-// Structured locations keep edits to existing pages limited to alternate tags
-// and the explicit language selector; preserve their editorial HTML verbatim.
+// Structured locations preserve unrelated editorial HTML when synchronizing
+// language navigation and the shared press inventory.
 for (const route of publicRoutes(config).filter(route => ['it','en','fr'].includes(route.lang))) {
   let html = read(file(route.dir)); const edits = []; let header;
   walk(parse(html,{sourceCodeLocationInfo:true}), node => {
+    if (['', 'en'].includes(route.dir) && node.tagName==='section' && attribute(node,'aria-labelledby')==='press-title') {
+      const loc=node.sourceCodeLocation; edits.push({start:loc.startOffset,end:loc.endOffset,text:renderPressCoverage(route.lang,'04')});
+    }
+    if (['press-kit','en/press-kit'].includes(route.dir) && node.tagName==='section' && attribute(node,'aria-labelledby')==='coverage-title') {
+      const wrap=node.childNodes.find(n=>n.tagName==='div');
+      const references=wrap?.childNodes.find(n=>n.tagName==='p'||attribute(n,'id')==='press-references');
+      if (!references?.sourceCodeLocation) throw new Error(`Missing press references: ${route.dir}`);
+      const loc=references.sourceCodeLocation; edits.push({start:loc.startOffset,end:loc.endOffset,text:renderPressReferences(route.lang)});
+    }
     if (node.tagName==='header' && !header) header=node.sourceCodeLocation;
     if (node.tagName==='link' && attribute(node,'rel')==='alternate' && attribute(node,'hreflang')) {
       const loc=node.sourceCodeLocation; edits.push({start:loc.startOffset,end:loc.endOffset,text:''});
