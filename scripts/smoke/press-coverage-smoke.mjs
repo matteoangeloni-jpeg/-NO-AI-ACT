@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 import { preview } from 'vite';
 import { chromium } from 'playwright';
 import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
+import { PRESS_COVERAGE } from '../../src/site/press-coverage.mjs';
 
 const out = resolve('scripts/smoke/out/press-coverage');
 mkdirSync(out, { recursive: true });
@@ -15,24 +16,21 @@ try {
   for (const width of [320, 390, 768, 1440]) {
     const context = await browser.newContext({ viewport: { width, height: 1000 }, reducedMotion: 'reduce' });
     await context.route(/cloudflareinsights\.com/, route => route.abort());
-    for (const [lang, path] of [['it', '/'], ['en', '/en/']]) {
+    for (const [lang, path] of [['it', '/'], ['en', '/en/'], ['fr', '/fr/'], ['de', '/de/'], ['es', '/es/'], ['pt', '/pt/']]) {
       const page = await context.newPage();
       await page.goto(`${base}${path}`, { waitUntil: 'networkidle' });
       const section = page.locator('section[aria-labelledby="press-title"]');
-      for (const href of [
-        'https://www.fixgamingchannel.com/fix-stories-no-ai-act-matteo-angeloni/',
-        'https://www.youtube.com/watch?v=BJO6aiElmrY',
-        'https://www.absolutegamer.it/no-ai-act-serious-game-gratuito-ai-act-europeo/'
-      ]) assert.equal(await section.locator(`a[href="${href}"]`).count(), 1);
+      for (const { href } of PRESS_COVERAGE) assert.equal(await section.locator(`a[href="${href}"]`).count(), 1);
       assert.equal(await section.locator('time[datetime="2026-10-16"]').count(), 1);
       assert.equal(await section.locator('time[datetime="2026-10-03"]').count(), 1);
-      assert.match(await section.innerText(), lang === 'it' ? /non una recensione indipendente/ : /not an independent review/);
-      assert.match(await section.innerText(), lang === 'it' ? /prima della nuova beta/ : /before the new beta/);
+      assert.equal(await section.locator('time[datetime="2026-10-26"]').count(), 2);
+      assert.equal(await section.locator('time[datetime="2026-10-30"]').count(), 1);
+      assert.match(await section.innerText(), /4\.0/);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
       const track = section.locator('.press-track');
       await section.scrollIntoViewIfNeeded();
       await page.waitForFunction(() => [...document.querySelectorAll('.press-media img')].every(img => img.complete && img.naturalWidth > 0));
-      assert.equal(await section.locator('.press-media img').count(), 3);
+      assert.equal(await section.locator('.press-media img').count(), PRESS_COVERAGE.length);
       assert(await section.locator('.press-media img').evaluateAll(imgs => imgs.every(img => {
         const url = new URL(img.currentSrc); return url.origin === location.origin && url.pathname.startsWith('/assets/press/');
       })));
@@ -54,7 +52,7 @@ try {
       await page.waitForFunction(() => document.getElementById('press-track').scrollLeft <= 3);
       assert(await section.locator('.press-copy').evaluateAll(elements => elements.every(el => el.scrollWidth <= el.clientWidth + 1)));
       await section.screenshot({ path: resolve(out, `${lang}-${width}.png`) });
-      console.log(`PASS ${lang} ${width}px: three local images, dates, attribution, arrows, keyboard, boundaries, no overflow`);
+      console.log(`PASS ${lang} ${width}px: six local images, dates, arrows, keyboard, boundaries, no overflow`);
       await page.close();
     }
     await context.close();
@@ -62,18 +60,20 @@ try {
   const animated = await browser.newContext({ viewport: { width: 390, height: 1000 }, reducedMotion: 'no-preference' });
   const rapid = await animated.newPage(); await rapid.goto(base);
   await rapid.locator('[data-press-next]').dblclick({ delay: 30 });
+  await rapid.locator('.press-track').focus(); await rapid.keyboard.press('End');
   await rapid.waitForFunction(() => document.querySelector('[data-press-next]').disabled);
   await rapid.locator('[data-press-prev]').dblclick({ delay: 30 });
+  await rapid.locator('.press-track').focus(); await rapid.keyboard.press('Home');
   await rapid.waitForFunction(() => document.querySelector('[data-press-prev]').disabled);
   await rapid.locator('.press-track').focus();
-  await rapid.keyboard.press('ArrowRight'); await rapid.keyboard.press('ArrowRight');
+  for (let i=0;i<PRESS_COVERAGE.length;i++) await rapid.keyboard.press('ArrowRight');
   await rapid.waitForFunction(() => document.querySelector('[data-press-next]').disabled);
   await animated.close();
   console.log('PASS rapid repeated navigation with smooth motion');
   const noJS = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 1000 } });
   const fallback = await noJS.newPage(); await fallback.goto(base);
   assert.equal(await fallback.locator('.press-controls').isVisible(), false);
-  assert.equal(await fallback.locator('.press-track a').count(), 3);
+  assert.equal(await fallback.locator('.press-track a').count(), PRESS_COVERAGE.length);
   assert(await fallback.locator('.press-track').evaluate(el => el.scrollWidth > el.clientWidth));
   await noJS.close();
 } finally {

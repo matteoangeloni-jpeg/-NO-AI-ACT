@@ -10,6 +10,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PAGINE, NAV, SITE } from '../../src/site/fr-content.mjs';
 import { translatedPages } from './fr-translations.mjs';
+import { renderPressCoverage } from '../../src/site/press-coverage.mjs';
 
 /**
  * L'IMMAGINE SOCIALE VIENE DALLA MAPPATURA, non da una costante.
@@ -81,6 +82,7 @@ ${[...NAV, ...extraNav].map(gruppo).join('\n')}
 
 /** Una sezione: titolo, paragrafi, e liste opzionali. */
 function sezione(s, i) {
+  if (s.press) return renderPressCoverage('fr', String(i + 1).padStart(2, '0'));
   const id = `s${i}-title`;
   const corpo = s.blocchi
     .map((b) => {
@@ -223,7 +225,7 @@ ${p.sezioni?.map(sezione).join('\n\n')}
     </div>
   </footer>
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7c85578fc8ad4488a54c6bc670a10dcf"}'></script><!-- End Cloudflare Web Analytics -->
-  <script type="module" src="/src/scripts/nav.ts"></script>
+  <script type="module" src="/src/scripts/nav.ts"></script>${p.slug === '' ? '\n  <script type="module" src="/src/scripts/press-carousel.ts"></script>' : ''}
 </body>
 </html>
 `;
