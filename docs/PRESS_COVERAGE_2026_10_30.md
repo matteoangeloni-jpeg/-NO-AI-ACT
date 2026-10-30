@@ -32,3 +32,15 @@ inventory in `src/site/press-coverage.mjs`. Existing coverage is retained.
 These third-party identification assets remain the property of their respective
 owners. They are not part of the project's CC BY press-image grant. Files are
 served locally; no YouTube iframe, remote image request or new tracker is added.
+
+## Visual test follow-up
+
+The full PR workflow passed the new media checks but failed its existing
+`en-ridotto` visual-game journey between Case and Evidence. The same failure was
+reproduced locally with the unchanged game bundle `play-CP_-nEVD.js`. The statistics
+notice can collapse after eight seconds and move the canvas between coordinate
+measurement and a pointer click. Visual-test setup now closes that notice through
+its real button and clears its restored shield focus before gameplay. The
+previously failing journey passes with all original assertions unchanged. The
+notice's auto-hide, focus, close and reopening behavior remains covered by the
+separate `usage-notice-smoke.mjs`; no game behavior or production setting changes.
