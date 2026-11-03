@@ -269,7 +269,7 @@ describe('structured-data integrity — sameAs allowlist and evidenced dates', (
     for (const p of shippedHtml('.')) {
       const html = read(p);
       expect(html, `${p}: datePublished must not be claimed without evidence`).not.toContain('datePublished');
-      const normalized = p.replaceAll('\\', '/');
+      const normalized = p.replace(/\\/g, '/');
       const expected = p.includes('matteo-angeloni') ? '2026-09-29' : cfg.contentLastReviewed;
       const allowed = revisedOn20261103.has(normalized) ? [expected, '2026-11-03'] : [expected];
       for (const [, d] of html.matchAll(/"dateModified"\s*:\s*"([^"]+)"/g)) {
