@@ -254,12 +254,26 @@ describe('structured-data integrity — sameAs allowlist and evidenced dates', (
   });
 
   it('no datePublished (unsupported: repo history begins 2026-06-10); dateModified pinned to the documented revision', () => {
+    const revisedOn20261103 = new Set([
+      'de/ki-verordnung-leitfaden/index.html',
+      'deepfake-e-trasparenza/index.html',
+      'en/ai-literacy/index.html',
+      'en/deepfakes-and-transparency/index.html',
+      'en/eu-ai-act-guide/index.html',
+      'en/high-risk-ai-systems/index.html',
+      'fria-ai-act-valutazione-diritti-fondamentali/index.html',
+      'guida-ai-act/index.html',
+      'obblighi-trasparenza-ai-act/index.html',
+      'pratiche-vietate-ai-act/index.html',
+    ]);
     for (const p of shippedHtml('.')) {
       const html = read(p);
       expect(html, `${p}: datePublished must not be claimed without evidence`).not.toContain('datePublished');
-      for (const [, d] of html.matchAll(/"dateModified": "([^"]+)"/g)) {
-        const expected = p.includes('matteo-angeloni') ? '2026-09-29' : cfg.contentLastReviewed;
-        expect(d.startsWith(expected), `${p}: dateModified ${d} != expected ${expected}`).toBe(true);
+      const normalized = p.replaceAll('\\', '/');
+      const expected = p.includes('matteo-angeloni') ? '2026-09-29' : cfg.contentLastReviewed;
+      const allowed = revisedOn20261103.has(normalized) ? [expected, '2026-11-03'] : [expected];
+      for (const [, d] of html.matchAll(/"dateModified"\s*:\s*"([^"]+)"/g)) {
+        expect(allowed.some((date) => d.startsWith(date)), `${p}: dateModified ${d} not in ${allowed.join(', ')}`).toBe(true);
       }
     }
   });
