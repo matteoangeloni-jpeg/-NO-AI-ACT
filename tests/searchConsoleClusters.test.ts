@@ -34,6 +34,7 @@ describe('Search Console priority clusters', () => {
       expect(article.author?.name, file).toBe('Matteo Angeloni');
       expect(article.author?.url, file).toMatch(/\/matteo-angeloni\/$/);
       expect(article.mainEntityOfPage, file).toMatch(/^https:\/\/www\.no-ai-act\.eu\//);
+      expect(article.dateModified, file).toMatch(/^2026-(07-18|11-03)/);
     }
   });
 
