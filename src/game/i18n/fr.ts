@@ -130,7 +130,7 @@ export const fr = {
       terms: 'TERMES',
       compareTitle: 'COMPARAISON DES PIÈCES',
       compareIntro:
-        'Deux documents sur le même plan : comparez provenance, fonction et contenu avant de décider.',
+        'Deux pièces citées côte à côte. La comparaison ne signale aucune pièce.',
       compareCounter: 'PAIRE {current} SUR {total}',
       compareSource: 'SOURCE',
       compareFunction: 'FONCTION',
@@ -295,10 +295,10 @@ export const fr = {
       cite: 'CITER DANS LE RAPPORT ▢',
       cited: 'CITÉE DANS LE RAPPORT ▣',
       allRevealedToast: 'Pièces examinées. Citer au moins 2 pièces pour continuer.',
-      contradictionButton: 'Signaler une contradiction [C]',
+      contradictionButton: 'Vérifier le désaccord [C]',
       contradictionFound: 'Contradiction documentaire : « {a} » contredit « {b} ».',
       contradictionNone:
-        'Aucune contradiction documentaire entre les pièces citées : citez la pièce décisive et le compte rendu qui minimise.',
+        'Aucun désaccord reconnu entre les pièces citées. Comparez les affirmations de chaque source.',
       progress:
         'Pièces examinées : {opened} sur {total} · citées : {cited} (il en faut au moins {min})',
       progressReady: "Vous avez assez d'éléments : vous pouvez passer à la classification.",
