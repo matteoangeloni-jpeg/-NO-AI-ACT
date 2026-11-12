@@ -158,6 +158,7 @@ export class EvidenceCompareOverlay {
     container.add(new Button(this.scene, cx, cy + panelH / 2 - 34, ui[this.closeKey], () => this.close(), { width: 250, height: 38, fontSize: 12.5 }));
     this.container = container;
 
+    sections.push({ heading: '', text: ui.compareHint });
     if (replacing) ReadingLayer.replaceOverlay(ui.compareTitle, sections);
     else ReadingLayer.openOverlay(ui.compareTitle, sections);
   }
