@@ -15,6 +15,32 @@ const mf=new Miniflare(convertV4MiniflareOptions({workers:[{name:'rc',modules:tr
   ratelimits:{INGEST_LIMITER:{namespace_id:'41001',simple:{limit:60,period:60}},ADMIN_LIMITER:{namespace_id:'41002',simple:{limit:120,period:60}}}
 }]}));
 const expected=new Map();const key=row=>JSON.stringify([row.day,row.version,row.event,row.dimension,row.value]);
+const perCaseDimensions = {
+  caseEvidenceQuality: 'evidenceQuality',
+  caseDecisionQuality: 'decisionQuality',
+  caseFinalEvaluation: 'result',
+  caseDuration: 'durationBucket',
+  caseRevision: 'revisionDirection',
+};
+
+function expectedDimensions(properties) {
+  const { caseId, selectedClassification, referenceClassification, abandonmentPhase, errorCode } = properties;
+  const dimensions = [['all', '*']];
+  for (const name of ['language', 'mode', 'caseId', 'phase', 'result', 'durationBucket', 'hintUsed', 'tutorialVersion', 'accessibilitySetting']) {
+    if (properties[name] !== undefined) dimensions.push([name, properties[name]]);
+  }
+  if (caseId) {
+    for (const [dimension, property] of Object.entries(perCaseDimensions)) {
+      if (properties[property] !== undefined) dimensions.push([dimension, `${caseId}|${properties[property]}`]);
+    }
+    if (selectedClassification && referenceClassification) {
+      dimensions.push(['classificationPair', `${caseId}|${selectedClassification}->${referenceClassification}`]);
+    }
+  }
+  if (abandonmentPhase) dimensions.push(['abandonmentPhase', `${caseId ?? '*'}|${abandonmentPhase}`]);
+  if (errorCode) dimensions.push(['technicalError', `${caseId ?? '*'}|${errorCode}`]);
+  return dimensions;
+}
 const day=new Date().toISOString().slice(0,10);let batches=0;
 try {
   const db=await mf.getD1Database('DB');
@@ -23,7 +49,7 @@ try {
     assert(fixture.events.every(validateAggregate));
     for(const c of fixture.events) {
       // Independent recomputation: do not call the backend's project() helper.
-      for(const [dimension,value] of [['all','*'],...Object.entries(c.properties)]) {
+      for(const [dimension,value] of expectedDimensions(c.properties)) {
         const row={day,version:c.gameVersion,event:c.event,dimension,value:String(value)};
         const k=key(row);expected.set(k,(expected.get(k)??0)+c.count);
       }

@@ -40,6 +40,11 @@ if (AnalyticsSystem.provider === 'first-party') {
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') void AnalyticsSystem.flush();
   });
+  // The instrumentation records abandonment on pagehide, after the tab
+  // may already have become hidden. Give those counters a chance to flush.
+  window.addEventListener('pagehide', (event) => {
+    if (!event.persisted) void AnalyticsSystem.flush();
+  });
 }
 if (import.meta.env.DEV) {
   (window as unknown as { playerTelemetry?: unknown }).playerTelemetry = {
