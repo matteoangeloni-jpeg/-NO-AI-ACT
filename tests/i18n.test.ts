@@ -315,14 +315,15 @@ describe('le etichette dei pulsanti parlano con la stessa voce', () => {
     return out;
   };
 
-  for (const [lang, dict] of [['it', it], ['en', en]] as const) {
+  for (const lang of LANGUAGE_CODES) {
+    const dict = LOCALES[lang];
     test(`${lang}: nessuna etichetta di pulsante in minuscolo`, () => {
       // TUTTO il dizionario, non il solo ramo `ui`: taccuino e capitoli
       // vivono altrove, e limitarsi a `ui` rendeva la guardia cieca proprio
       // sui due pulsanti che avevano il difetto.
       const labels = buttonLabels(dict);
       expect(labels.length, 'nessuna chiave letta: il controllo sarebbe inerte').toBeGreaterThan(7);
-      const offenders = labels.filter(([, v]) => v !== v.toLocaleUpperCase(lang === 'it' ? 'it-IT' : 'en-US'));
+      const offenders = labels.filter(([, v]) => v !== v.toLocaleUpperCase(lang === 'pt' ? 'pt-PT' : lang));
       expect(offenders.map(([k, v]) => `${k} = "${v}"`), offenders.map(([k, v]) => `${k} = "${v}"`).join('\n')).toEqual([]);
     });
   }

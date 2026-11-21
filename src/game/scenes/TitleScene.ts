@@ -176,12 +176,12 @@ export class TitleScene extends Phaser.Scene {
     // era scritta due volte — 500 nel pannello e 250 nel calcolo delle
     // righe — e bastava crescere di una riga perché le due smettessero di
     // corrispondere senza che nulla lo dicesse.
-    const PANEL_H = 560;
+    const PANEL_H = 600;
     const c = this.openPanel(g.settingsTitle, PANEL_H);
     const colL = cx - 190;
     const colR = cx + 190;
     const BW = 360;
-    const rowY = (r: number): number => cy - PANEL_H / 2 + 78 + r * 52;
+    const rowY = (r: number): number => cy - PANEL_H / 2 + 78 + (r + (r > 3 ? 1 : 0)) * 52;
 
     const audioBtn = new Button(this, colL, rowY(0), StateManager.audioMuted ? m.audioOff : m.audioOn, () => {
       AudioSystem.init();
@@ -259,16 +259,17 @@ export class TitleScene extends Phaser.Scene {
      *
      * Un pulsante per lingua: ogni lingua si raggiunge con UN gesto, porta la
      * propria etichetta leggibile da uno screen reader, e quella attiva si
-     * distingue per variante. La larghezza è divisa, non fissata: una quarta
-     * lingua entra senza toccare questo codice.
+     * distingue per variante. Tre colonne mantengono leggibili gli endonimi;
+     * la seconda riga ospita DE/ES/PT senza comprimere le etichette.
      */
     const lingue = LANGUAGE_CODES;
     const spazio = 6;
-    const lw = Math.floor((BW - spazio * (lingue.length - 1)) / lingue.length);
+    const colonne = Math.min(3, lingue.length);
+    const lw = Math.floor((BW - spazio * (colonne - 1)) / colonne);
     const langBtns = lingue.map((code, i) => {
-      const x = colR - BW / 2 + lw / 2 + i * (lw + spazio);
+      const x = colR - BW / 2 + lw / 2 + (i % colonne) * (lw + spazio);
       const attiva = StateManager.language === code;
-      return new Button(this, x, rowY(3), LANGUAGE_LABELS[code], () => {
+      return new Button(this, x, rowY(3) + Math.floor(i / colonne) * 52, LANGUAGE_LABELS[code], () => {
         if (StateManager.language === code) return;
         StateManager.setLanguage(code);
         AnalyticsSystem.track('language_selected', { language: code });

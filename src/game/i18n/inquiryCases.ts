@@ -1,4 +1,7 @@
 import type { LanguageCode } from '../data/types';
+import deTranslation from './translations/de.json';
+import esTranslation from './translations/es.json';
+import ptTranslation from './translations/pt.json';
 
 export const INQUIRY_CASE_IDS = [
   'case_scoring', 'case_lavoro', 'case_media', 'case_scuola', 'case_ospedale', 'case_biometria', 'case_credito',
@@ -16,6 +19,9 @@ export interface CaseInquiryScaffold {
 
 /** Questions support the investigation without naming the reference answer or decisive exhibit. */
 export const INQUIRY_CASES: Record<LanguageCode, Record<InquiryCaseId, CaseInquiryScaffold>> = {
+  de: deTranslation.inquiry,
+  es: esTranslation.inquiry,
+  pt: ptTranslation.inquiry,
   it: {
     case_scoring: {
       opening: 'La collega posa sul tavolo due richieste di alloggio. «Prima di giudicare il punteggio, ricostruiamo quale decisione cambia per queste persone e quali dati vengono usati.»',

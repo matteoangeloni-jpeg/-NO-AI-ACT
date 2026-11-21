@@ -118,10 +118,14 @@ function render(title: string, sections: ReadingSection[]): void {
   }
   current = { title, sections };
   updateToggleLabel();
-  if (typeof document !== 'undefined') document.documentElement.lang = StateManager.language;
+  const documentLanguage = StateManager.language === 'pt' ? 'pt-PT' : StateManager.language;
+  if (typeof document !== 'undefined') {
+    document.documentElement.lang = documentLanguage;
+    document.title = `${L().ui.gameTitle} — ${L().ui.gameSubtitle}`;
+  }
   const layer = el('reading-layer');
   if (!layer) return;
-  layer.setAttribute('lang', StateManager.language);
+  layer.setAttribute('lang', documentLanguage);
   // costruzione DOM con textContent, senza markup interpretato: il testo dei casi
   // non può mai essere interpretato come markup
   layer.replaceChildren(node('h2', title));

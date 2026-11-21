@@ -15,10 +15,10 @@ const config = JSON.parse(read('scripts/seo/routes.config.json'));
 const attr = (n: any, name: string) => n.attrs?.find((a: any) => a.name === name)?.value;
 function nodes(n: any): any[] { return [n, ...(n.childNodes ?? []).flatMap(nodes)]; }
 
-describe('European website localization, separate from gameplay', () => {
+describe('European website localization aligned with gameplay', () => {
   it('has 16 introductory, practical and press pages per new language and no phantom translations', () => {
     expect(SITE_LANGUAGE_CODES).toEqual(['it', 'en', 'fr', 'de', 'es', 'pt']);
-    expect(LANGUAGE_CODES).toEqual(['it', 'en', 'fr']);
+    expect(LANGUAGE_CODES).toEqual(SITE_LANGUAGE_CODES);
     expect(INVENTORY_DIRS).toHaveLength(155);
     for (const lang of ['de', 'es', 'pt']) {
       const dirs = INVENTORY_DIRS.filter(d => d === lang || d.startsWith(`${lang}/`));
@@ -37,7 +37,7 @@ describe('European website localization, separate from gameplay', () => {
       const main = html.split('<main')[1].split('</main>')[0];
       expect(main.replace(/<[^>]+>/g, ' ').split(/\s+/).length).toBeGreaterThan(180);
       const play = all.filter(n => n.tagName === 'a' && attr(n, 'href')?.startsWith('/play/'));
-      expect(play.map(n => attr(n, 'href'))).toEqual(['/play/?lang=it', '/play/?lang=en', '/play/?lang=fr']);
+      expect(play.map(n => attr(n, 'href'))).toEqual(LANGUAGE_CODES.map(lang => `/play/?lang=${lang}`));
       expect(html).not.toMatch(/<script[^>]+src="https?:/);
       expect(html).not.toContain('<form');
       expect(html).not.toContain('TBD');

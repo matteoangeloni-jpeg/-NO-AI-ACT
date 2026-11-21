@@ -2,6 +2,9 @@ import type { CaseTexts, LanguageCode, NormTexts } from '../data/types';
 import { it } from './it';
 import { en } from './en';
 import { fr } from './fr';
+import { de } from './de';
+import { es } from './es';
+import { pt } from './pt';
 
 /**
  * Sistema i18n minimale e tipato.
@@ -33,7 +36,7 @@ export type Locale = typeof it;
  * DRAFT_LANGUAGES): registrarla a metà non produrrebbe una traduzione
  * parziale pubblicata, produrrebbe una build rotta.
  */
-export const LOCALES: Record<LanguageCode, Locale> = { it, en, fr };
+export const LOCALES: Record<LanguageCode, Locale> = { it, en, fr, de, es, pt };
 
 /**
  * DERIVATO da LOCALES, non trascritto. La versione precedente lo scriveva a
@@ -54,7 +57,7 @@ export const LANGUAGE_CODES: LanguageCode[] = Object.keys(LOCALES) as LanguageCo
  * in LOCALES, non appare nell'interfaccia e non è raggiungibile da `?lang=`.
  * Il controllo è in tests/i18n.test.ts e vale in entrambe le direzioni.
  */
-export const DRAFT_LANGUAGES = ['es', 'de'] as const;
+export const DRAFT_LANGUAGES = [] as const;
 
 /**
  * Oltre questo numero di lingue pubblicate il commutatore a ciclo
@@ -76,7 +79,10 @@ export const MAX_LINGUE_PER_COMMUTATORE_A_CICLO = 2;
 export const LANGUAGE_LABELS: Record<LanguageCode, string> = {
   it: 'ITALIANO',
   en: 'ENGLISH',
-  fr: 'FRANÇAIS'
+  fr: 'FRANÇAIS',
+  de: 'DEUTSCH',
+  es: 'ESPAÑOL',
+  pt: 'PORTUGUÊS'
 };
 
 let current: LanguageCode = 'it';
@@ -96,7 +102,7 @@ export function nextLanguage(): LanguageCode {
 
 /**
  * Parse a URL query string (e.g. `?lang=en`) into a known language code.
- * Used for the public landing → game handoff (/play/?lang=it|en). Returns
+ * Used for the public landing → game handoff in all six published languages. Returns
  * null for missing or unknown values, so the caller keeps the saved language.
  */
 export function isLanguageCode(value: unknown): value is LanguageCode {
@@ -107,6 +113,7 @@ export function isLanguageCode(value: unknown): value is LanguageCode {
 
 export function languageFromQuery(search: string): LanguageCode | null {
   const lang = new URLSearchParams(search).get('lang');
+  if (lang === 'pt-PT') return 'pt';
   return isLanguageCode(lang) ? lang : null;
 }
 

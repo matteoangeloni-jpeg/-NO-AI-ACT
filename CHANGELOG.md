@@ -1,5 +1,16 @@
 # CHANGELOG — NO AI ACT
 
+## [5.1.0] — 2026-11-21
+
+- Gioco completo in DE/ES/PT europeo, allineato alle sei lingue del sito: tutti i
+  14 casi, percorso guidato, norme, glossario, report e testi accessibili.
+- Selettore su due righe, dodici risorse docente, avvisi privacy e interfaccia beta
+  tradotti; salvataggi v1/v2 e client precedenti del collector preservati.
+- Note della release nelle sei lingue, URL esistenti e tag precedenti conservati.
+  [Copertura, controlli e limiti](docs/v5/SIX_LANGUAGE_LOCALIZATION.md).
+- Nessuno smoke test per questa release, come richiesto. Revisione bilingue umana
+  e validazione educativa ancora aperte; nessun dato individuale aggiunto.
+
 ## [5.0.1] — 2026-11-21
 
 - Guida docente e report con risorse francesi, etichette tradotte IT/EN/FR e sei collegamenti.

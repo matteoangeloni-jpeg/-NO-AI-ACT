@@ -1,12 +1,12 @@
 export const UI = {
   lang: 'pt-PT', locale: 'pt_PT', name: 'Português', skip: 'Saltar para o conteúdo', menu: 'Navegação', resources: 'Temas', home: 'Início',
-  play: 'Jogar: escolher idioma', game: 'O jogo está disponível em italiano, inglês e francês. Estas páginas estão em português europeu; as opções seguintes abrem o jogo no idioma indicado.',
-  gameLanguages: ['Italiano', 'Inglês', 'Francês'], related: 'Continuar a leitura', source: 'Texto jurídico oficial da UE',
+  play: 'Jogar: escolher idioma', game: 'O jogo está disponível em italiano, inglês, francês, alemão, espanhol e português europeu. Estas páginas estão em português europeu; as opções seguintes abrem o jogo no idioma indicado.',
+  gameLanguages: ['Italiano', 'Inglês', 'Francês', 'Alemão', 'Espanhol', 'Português'], related: 'Continuar a leitura', source: 'Texto jurídico oficial da UE',
   legal: 'Simplificação educativa, não aconselhamento jurídico',
   disclaimer: 'NO AI ACT é um jogo educativo independente, gratuito e de código aberto. Estas explicações introduzem conceitos selecionados e não substituem o texto em vigor nem uma avaliação profissional. A sua eficácia educativa não foi demonstrada por um estudo controlado.',
   author: 'Desenvolvido por Matteo Angeloni', authorLink: 'Autor e metodologia (em inglês)',
-  privacy: 'Estatísticas de utilização', privacyLink: 'Informação sobre as estatísticas (em inglês)',
-  screenshot: 'Imagem de arquivo do jogo, versão 3: investigação de um processo. A publicação atual é a versão 4.',
+  privacy: 'Estatísticas de utilização', privacyLink: 'Informação sobre as estatísticas',
+  screenshot: 'Imagem de arquivo do jogo, versão 3: investigação de um processo. A publicação atual é a versão 5.1.0.',
   disclosure: 'Conteúdo preparado com apoio de IA e revisão editorial; não é uma tradução oficial.', official: 'por'
 };
 export const PAGES = {
@@ -151,7 +151,7 @@ export const PAGES = {
     sections: [
       ['Relacionar conhecimento e contexto', 'A literacia em IA diz respeito a uma utilização informada destes sistemas numa situação concreta. Inclui não confundir capacidade técnica com fiabilidade, reconhecer incertezas e considerar as consequências para as pessoas afetadas. Os conhecimentos necessários dependem também das tarefas que uma pessoa desempenha com o sistema.'],
       ['Comparar as fundamentações', 'NO AI ACT trabalha hábitos selecionados: reconhecer indícios relevantes, situar os riscos no seu contexto, distinguir intervenientes e fundamentar medidas. Em grupo, pode discutir-se por que motivo duas explicações semelhantes não têm o mesmo apoio. Esse processo de discussão é mais importante do que acumular rapidamente respostas aparentemente corretas.'],
-      ['Uma atividade de literacia em IA para a sala de aula', 'Em pares, escolham um dossiê numa das línguas disponíveis do jogo e preparem quatro colunas em papel: utilização do sistema, pessoas afetadas, provas disponíveis e informação em falta. Usem apenas o caso fictício, sem acrescentar dados pessoais reais. Identifiquem uma decisão automatizada e as suas possíveis consequências. Comparem dois documentos: qual apoia a vossa interpretação e qual a põe em causa? Proponham uma medida e expliquem o problema concreto a que responde. A outra pessoa identifica uma informação em falta que poderia alterar a decisão. Terminem com duas frases: «A prova decisiva é…» e «Mudaria de opinião se…». O exercício não certifica competências nem conformidade regulamentar. O jogo está disponível em italiano, inglês e francês.'],
+      ['Uma atividade de literacia em IA para a sala de aula', 'Em pares, escolham um dossiê numa das línguas disponíveis do jogo e preparem quatro colunas em papel: utilização do sistema, pessoas afetadas, provas disponíveis e informação em falta. Usem apenas o caso fictício, sem acrescentar dados pessoais reais. Identifiquem uma decisão automatizada e as suas possíveis consequências. Comparem dois documentos: qual apoia a vossa interpretação e qual a põe em causa? Proponham uma medida e expliquem o problema concreto a que responde. A outra pessoa identifica uma informação em falta que poderia alterar a decisão. Terminem com duas frases: «A prova decisiva é…» e «Mudaria de opinião se…». O exercício não certifica competências nem conformidade regulamentar. O jogo está disponível em italiano, inglês, francês, alemão, espanhol e português europeu.'],
       ['Explicar os limites do recurso', 'O jogo não cobre todas as competências técnicas nem todos os requisitos jurídicos. Concluir uma partida não confere um certificado nem comprova o cumprimento das obrigações de uma organização. Uma formação adequada deve considerar o público, os conhecimentos prévios e o trabalho real. A eficácia educativa do projeto não foi demonstrada através de um estudo controlado.']
     ]
   }

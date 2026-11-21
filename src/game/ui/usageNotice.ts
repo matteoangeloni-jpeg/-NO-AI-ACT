@@ -6,7 +6,10 @@ export function initUsageNotice(analytics: Analytics): void {
   const words: Record<string, string[]> = {
     it: ['Statistiche aggregate attive', 'Statistiche disattivate', 'Informativa statistiche', 'Disattiva', 'Riattiva', 'Chiudi avviso'],
     en: ['Aggregate statistics active', 'Statistics disabled', 'Statistics privacy notice', 'Disable', 'Enable', 'Close notice'],
-    fr: ['Statistiques agregees actives', 'Statistiques desactivees', 'Confidentialite des statistiques', 'Desactiver', 'Activer', 'Fermer la notification']
+    fr: ['Statistiques agregees actives', 'Statistiques desactivees', 'Confidentialite des statistiques', 'Desactiver', 'Activer', 'Fermer la notification'],
+    de: ['Aggregierte Statistik aktiv', 'Statistik deaktiviert', 'Datenschutzhinweise zur Statistik', 'Deaktivieren', 'Aktivieren', 'Hinweis schließen'],
+    es: ['Estadísticas agregadas activas', 'Estadísticas desactivadas', 'Información de privacidad de las estadísticas', 'Desactivar', 'Activar', 'Cerrar aviso'],
+    pt: ['Estatísticas agregadas ativas', 'Estatísticas desativadas', 'Informação sobre as estatísticas', 'Desativar', 'Ativar', 'Fechar aviso']
   };
   const bar = document.createElement('aside'); bar.id = 'game-usage';
   const status = document.createElement('span');
@@ -18,7 +21,8 @@ export function initUsageNotice(analytics: Analytics): void {
   reopen.innerHTML = '<i data-lucide="shield-check"></i>';
   reopen.setAttribute('aria-controls', bar.id); reopen.setAttribute('aria-expanded', 'true');
   const update = () => {
-    const lang = document.documentElement.lang in words ? document.documentElement.lang : 'it';
+    const requested = document.documentElement.lang.split('-')[0];
+    const lang = requested in words ? requested : 'it';
     const w = words[lang]; const active = analytics.isEnabled();
     status.textContent = w[active ? 0 : 1]; policy.textContent = w[2];
     policy.href = `/game-statistics.html#${lang}`; bar.setAttribute('aria-label', w[2]);

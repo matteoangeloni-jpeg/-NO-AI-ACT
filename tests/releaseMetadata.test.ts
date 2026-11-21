@@ -25,7 +25,7 @@ const llms = read('public/llms.txt');
 describe('release.config.json agrees with the executable source', () => {
   it('labels aggregate counters with this release and accepts existing clients', () => {
     expect(ANALYTICS_GAME_VERSION).toBe(pkg.version);
-    for (const gameVersion of ['4.0-candidate', '4.0.0', '5.0.0', pkg.version]) {
+    for (const gameVersion of ['4.0-candidate', '4.0.0', '5.0.0', '5.0.1', pkg.version]) {
       expect(ANALYTICS_GAME_VERSIONS).toContain(gameVersion);
       expect(validatePayload({ schemaVersion: 2, gameVersion, event: 'game_started',
         properties: { language: 'it', mode: 'turno', phase: 'menu' } })).toBe(true);
@@ -96,7 +96,7 @@ describe('documentation derives from the source of truth (no drift)', () => {
     const citation = read('CITATION.cff');
     expect(citation).toContain(`version: ${pkg.version}`);
     expect(citation).toContain(`date-released: "${cfg.releaseDate}"`);
-    expect(citation).toContain('Italian, English and French');
+    expect(citation).toContain('Italian, English, French, German, Spanish and European Portuguese');
   });
 
   it('README case count matches the data', () => {

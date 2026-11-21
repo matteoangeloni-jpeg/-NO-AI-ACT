@@ -8,6 +8,7 @@ import { TEACHER_RESOURCES } from '../src/game/data/concepts';
 import { buildTeacherReport, teacherReportToText } from '../src/game/systems/TeacherReportSystem';
 
 const read = (path: string) => readFileSync(path, 'utf8');
+const researchLanguages = JSON.parse(read('docs/v5/languages.json')).methodologyDossier as string[];
 const documents = ['METHODOLOGY', 'LEGAL_LEARNING_MATRIX', 'COVERAGE_COMPLETION',
   'ARGUMENTATION_STUDY02', 'METHODOLOGY_TEST_PLAN', 'METHODOLOGY_IMPLEMENTATION', 'TEST_RESULTS'];
 const documentPath = (language: string, name: string) => `docs/v5/${language === 'it' ? '' : `${language}/`}${name}.md`;
@@ -45,7 +46,7 @@ describe('teacher guide resources and exports cover every playable language', ()
           expect(resource, `${language}: ${id}`).toBeDefined();
           expect(existsSync(resolve(resource!.url.slice(1), 'index.html'))).toBe(true);
           const html = read(resolve(resource!.url.slice(1), 'index.html'));
-          expect(html).toContain(`<html lang="${target}"`);
+          expect(html).toContain(`<html lang="${target === 'pt' ? 'pt-PT' : target}"`);
           expect(labels[id]).toContain(`(${target.toUpperCase()})`);
           if (language !== 'it') expect(labels[id]).not.toBe(LOCALES.it.ui.teacherGuide.links[id]);
           const line = `${labels[id]} — https://www.no-ai-act.eu${resource!.url}`;
@@ -59,8 +60,8 @@ describe('teacher guide resources and exports cover every playable language', ()
   }
 });
 
-describe('the complete methodology dossier is available in every game language', () => {
-  for (const language of LANGUAGE_CODES) {
+describe('the historical methodology dossier retains its declared research languages', () => {
+  for (const language of researchLanguages) {
     it(`${language}: includes all seven substantial documents with working local navigation`, () => {
       const index = read('docs/v5/README.md');
       for (const name of documents) {
@@ -92,7 +93,7 @@ describe('the complete methodology dossier is available in every game language',
     });
 
     it(`${language}: provides both V5 release notes and preserves the original screenshot version`, () => {
-      for (const version of ['5.0.0', JSON.parse(read('package.json')).version]) {
+      for (const version of ['5.0.0', '5.0.1']) {
         const path = `docs/RELEASE_NOTES_v${version}${language === 'it' ? '' : `.${language}`}.md`;
         const notes = read(path);
         expect(notes).toContain(`v${version}`);
@@ -100,6 +101,22 @@ describe('the complete methodology dossier is available in every game language',
       }
       const cfg = JSON.parse(read('release.config.json'));
       expect(existsSync(`public/assets/press/no-ai-act-v${cfg.pressScreenshotVersion}-press-screenshots.zip`)).toBe(true);
+    });
+  }
+});
+
+describe('current release notes describe all six playable languages', () => {
+  for (const language of LANGUAGE_CODES) {
+    it(`${language}: has localized current notes and working six-language navigation`, () => {
+      const version = JSON.parse(read('package.json')).version;
+      const path = `docs/RELEASE_NOTES_v${version}${language === 'it' ? '' : `.${language}`}.md`;
+      const notes = read(path);
+      expect(notes).toContain(`v${version}`);
+      for (const name of ['Italiano', 'English', 'Français', 'Deutsch', 'Español', 'Português']) expect(notes).toContain(name);
+      for (const match of notes.matchAll(/\]\(([^)]+\.md)\)/g)) {
+        if (!/^https?:/.test(match[1])) expect(existsSync(resolve(dirname(path), match[1])), match[1]).toBe(true);
+      }
+      if (language !== 'it') expect(notes).not.toBe(read(`docs/RELEASE_NOTES_v${version}.md`));
     });
   }
 });

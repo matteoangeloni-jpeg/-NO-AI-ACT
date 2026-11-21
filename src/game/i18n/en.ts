@@ -190,7 +190,10 @@ export const en: Locale = {
         activities_en: 'Classroom activities (EN)',
         lesson_en: 'Lesson plan (EN)',
         activities_fr: 'Classroom activities (FR)',
-        lesson_fr: 'Lesson plan (FR)'
+        lesson_fr: 'Lesson plan (FR)',
+        activities_de: 'Classroom activities (DE)', lesson_de: 'Introduction for teachers (DE)',
+        activities_es: 'Classroom activities (ES)', lesson_es: 'Introduction for teachers (ES)',
+        activities_pt: 'Classroom activities (PT)', lesson_pt: 'Introduction for teachers (PT)'
       },
       close: 'Close'
     },

@@ -1,5 +1,5 @@
 {
-  "$comment": "Language groups declare only existing page equivalents. IT/EN/FR cover the current full inventory; DE/ES/PT contain 16 introductory and practical resources each. Portuguese targets pt-PT. /play/ is noindex and remains IT/EN/FR.",
+  "$comment": "Language groups declare only existing page equivalents. IT/EN/FR cover the current full inventory; DE/ES/PT contain 16 introductory and practical resources each. Portuguese targets pt-PT. /play/ is noindex and supports IT/EN/FR/DE/ES/PT.",
   "site": "https://www.no-ai-act.eu/",
   "pairs": [
     {

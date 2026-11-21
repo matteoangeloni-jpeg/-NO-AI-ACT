@@ -1,12 +1,12 @@
 export const UI = {
   lang: 'es', locale: 'es_ES', name: 'Español', skip: 'Ir al contenido', menu: 'Navegación', resources: 'Temas', home: 'Inicio',
-  play: 'Jugar: elegir idioma', game: 'El juego está disponible en italiano, inglés y francés. Estas páginas están en español; las opciones siguientes abren el juego en el idioma indicado.',
-  gameLanguages: ['Italiano', 'Inglés', 'Francés'], related: 'Seguir leyendo', source: 'Texto jurídico oficial de la UE',
+  play: 'Jugar: elegir idioma', game: 'El juego está disponible en italiano, inglés, francés, alemán, español y portugués europeo. Estas páginas están en español; las opciones siguientes abren el juego en el idioma indicado.',
+  gameLanguages: ['Italiano', 'Inglés', 'Francés', 'Alemán', 'Español', 'Portugués'], related: 'Seguir leyendo', source: 'Texto jurídico oficial de la UE',
   legal: 'Simplificación educativa, no asesoramiento jurídico',
   disclaimer: 'NO AI ACT es un juego educativo independiente, gratuito y de código abierto. Estas explicaciones introducen conceptos seleccionados y no sustituyen el texto vigente ni una evaluación profesional. Su eficacia educativa no se ha demostrado mediante un estudio controlado.',
   author: 'Desarrollado por Matteo Angeloni', authorLink: 'Autor y metodología (en inglés)',
-  privacy: 'Estadísticas de uso', privacyLink: 'Información sobre las estadísticas (en inglés)',
-  screenshot: 'Captura de archivo del juego, versión 3: investigación de un expediente. La publicación actual es la versión 4.',
+  privacy: 'Estadísticas de uso', privacyLink: 'Información sobre las estadísticas',
+  screenshot: 'Captura de archivo del juego, versión 3: investigación de un expediente. La publicación actual es la versión 5.1.0.',
   disclosure: 'Contenido elaborado con ayuda de IA y revisión editorial; no es una traducción oficial.', official: 'spa'
 };
 export const PAGES = {
@@ -151,7 +151,7 @@ export const PAGES = {
     sections: [
       ['Relacionar conocimiento y contexto', 'La alfabetización en IA se refiere a un uso informado de estos sistemas en una situación concreta. Incluye no confundir capacidades técnicas con fiabilidad, reconocer incertidumbres y considerar las consecuencias para las personas afectadas. Los conocimientos necesarios dependen también de las tareas que una persona realiza con el sistema.'],
       ['Contrastar las justificaciones', 'NO AI ACT trabaja hábitos seleccionados: reconocer indicios relevantes, situar los riesgos en su contexto, distinguir actores y justificar medidas. En grupo se puede debatir por qué dos explicaciones parecidas no tienen el mismo respaldo. Ese proceso de discusión importa más que acumular rápidamente respuestas que parecen correctas.'],
-      ['Una actividad de alfabetización en IA para el aula', 'En parejas, elegid un expediente en una de las lenguas disponibles del juego y preparad cuatro columnas en papel: uso del sistema, personas afectadas, pruebas disponibles e información que falta. Utilizad solo el caso ficticio, sin añadir datos personales reales. Identificad una decisión automatizada y sus posibles consecuencias. Comparad dos documentos: ¿cuál respalda vuestra interpretación y cuál la cuestiona? Proponed una medida y explicad qué problema concreto aborda. La otra persona identifica una información ausente que podría cambiar la decisión. Terminad con dos frases: «La prueba decisiva es…» y «Cambiaría de opinión si…». El ejercicio no certifica competencias ni cumplimiento normativo. El juego está disponible en italiano, inglés y francés.'],
+      ['Una actividad de alfabetización en IA para el aula', 'En parejas, elegid un expediente en una de las lenguas disponibles del juego y preparad cuatro columnas en papel: uso del sistema, personas afectadas, pruebas disponibles e información que falta. Utilizad solo el caso ficticio, sin añadir datos personales reales. Identificad una decisión automatizada y sus posibles consecuencias. Comparad dos documentos: ¿cuál respalda vuestra interpretación y cuál la cuestiona? Proponed una medida y explicad qué problema concreto aborda. La otra persona identifica una información ausente que podría cambiar la decisión. Terminad con dos frases: «La prueba decisiva es…» y «Cambiaría de opinión si…». El ejercicio no certifica competencias ni cumplimiento normativo. El juego está disponible en italiano, inglés, francés, alemán, español y portugués europeo.'],
       ['Explicar los límites del recurso', 'El juego no cubre todas las competencias técnicas ni todos los requisitos jurídicos. Completar una partida no otorga un certificado ni acredita el cumplimiento de obligaciones de una organización. Una formación adecuada debe considerar al público, sus conocimientos previos y su trabajo real. La eficacia educativa del proyecto no está demostrada mediante un estudio controlado.']
     ]
   }

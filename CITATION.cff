@@ -12,7 +12,7 @@ abstract: >-
   inspector in a fictional 2032 city where the AI Act never entered into
   force: across 14 playable cases they open files on AI systems, examine evidence, classify risk
   and file inspection reports, while city indicators respond to their
-  decisions. The game is available in Italian, English and French, requires no account,
+  decisions. The game is available in Italian, English, French, German, Spanish and European Portuguese, requires no account,
   runs in the browser and sends only aggregate usage counters, with opt-out
   and no player identifiers. Answers, reports and guided notes stay local. Game code is GPL-3.0-licensed; educational and
   narrative content is CC BY-SA 4.0. Educational effectiveness has not yet been
@@ -25,7 +25,7 @@ authors:
       Università degli Studi della Tuscia — PhD programme
       "Società in mutamento: politiche, diritti e sicurezza"
     website: "https://www.no-ai-act.eu/en/matteo-angeloni/"
-version: 5.0.1
+version: 5.1.0
 date-released: "2026-11-21"
 repository-code: "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"
 url: "https://www.no-ai-act.eu/"

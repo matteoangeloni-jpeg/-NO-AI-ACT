@@ -311,7 +311,10 @@ export function betaUsagePrivacyNote(language: string): string | undefined {
   const words: Record<string, string> = {
     it: 'Salvataggi e risposte restano sul dispositivo. Sono attive statistiche aggregate su utilizzo e categorie di valutazione del gioco, senza nomi, testo libero o sequenze dettagliate; puoi disattivarle nella barra Informativa statistiche.',
     en: 'Saves and answers stay on your device. Aggregate statistics cover usage and game-assessment categories, without names, free text or detailed sequences; you can disable them in the statistics notice bar.',
-    fr: 'Sauvegardes et reponses restent sur votre appareil. Les statistiques agregees couvrent l usage et les categories d evaluation du jeu, sans noms, texte libre ni sequences detaillees ; vous pouvez les desactiver dans la barre de confidentialite.'
+    fr: 'Sauvegardes et reponses restent sur votre appareil. Les statistiques agregees couvrent l usage et les categories d evaluation du jeu, sans noms, texte libre ni sequences detaillees ; vous pouvez les desactiver dans la barre de confidentialite.',
+    de: 'Spielstände und Antworten bleiben auf Ihrem Gerät. Die aggregierte Statistik erfasst Nutzung und Bewertungskategorien des Spiels, ohne Namen, Freitexte oder detaillierte Abläufe. Sie können sie in der Statistikleiste deaktivieren.',
+    es: 'Las partidas guardadas y las respuestas permanecen en tu dispositivo. Las estadísticas agregadas cubren el uso y las categorías de evaluación del juego, sin nombres, texto libre ni secuencias detalladas. Puedes desactivarlas en la barra de estadísticas.',
+    pt: 'As gravações e respostas ficam no seu dispositivo. As estatísticas agregadas abrangem a utilização e as categorias de avaliação do jogo, sem nomes, texto livre ou sequências detalhadas. Pode desativá-las na barra de estatísticas.'
   };
   return words[language] ?? words.it;
 }

@@ -1,0 +1,2311 @@
+{
+  "locale": {
+    "gameplay": {
+      "details": "NORM UND REFLEXION",
+      "overview": "BEFUND UND BELEGE",
+      "guide": "ERMITTLUNGSLEITFADEN",
+      "close": "ZURÜCK ZUR AKTE",
+      "skip": "OHNE LEITFADEN FORTFAHREN",
+      "guideTitle": "PROTOKOLL DER ERSTEN AKTE",
+      "steps": [
+        "Prüfen: Öffnen Sie ein Beweisstück. Lesen Sie, was es dokumentiert, von welcher Quelle es stammt und wer betroffen ist.",
+        "Zitieren: Wählen Sie ein geöffnetes Beweisstück erneut aus, um es in den Bericht aufzunehmen. Öffnen bedeutet noch nicht Zitieren. Sie können ein Zitat zurücknehmen.",
+        "Vergleichen: Zitieren Sie mindestens zwei Beweisstücke und öffnen Sie Vergleichen am Schreibtisch. Suchen Sie nach Bestätigungen oder Widersprüchen, nicht bloß nach ähnlichen Wörtern.",
+        "Entscheiden: Wählen Sie Einstufung, Maßnahme, verantwortlichen Akteur und Begründung. Verbinden Sie die Begründung mit den Tatsachen der zitierten Beweisstücke.",
+        "Unterzeichnen: Lesen Sie den Entwurf noch einmal. Vor der Unterschrift können Sie zurückgehen; danach folgen Befunde und Konsequenzen."
+      ],
+      "evaluation": "Die Bewertung berücksichtigt Einstufung, Maßnahme, verantwortlichen Akteur, Begründung und Belege. Ein richtiges Ergebnis genügt nicht, wenn Begründung oder Beweisstücke es nicht stützen.",
+      "evidenceLink": "Prüfen Sie, ob die zitierten Belege die gewählte Begründung stützen. Der Vergleich bleibt am Schreibtisch verfügbar.",
+      "changes": "FOLGEN DES BERICHTS",
+      "before": "Vorher",
+      "after": "Nachher",
+      "delta": "Änderung",
+      "review": "FEHLER WIEDERHOLEN",
+      "exitReview": "ZURÜCK ZUM SPIELFORTSCHRITT",
+      "reviewNote": "Vorübergehende Wiederholung teilweise oder falsch gelöster Fälle. Ursprüngliche Berichte und Fortschritte bleiben erhalten. Nach dem Schließen des Browsers kehren Sie zur ursprünglichen Partie zurück.",
+      "reviewEmpty": "Keine teilweise oder falsch gelösten Fälle zum Wiederholen.",
+      "assistance": {
+        "base": "Hilfen: kontextbezogene Hinweise und ausführliche Befunde.",
+        "standard": "Hilfen: Befunde nach der Unterschrift, keine gezielten Hinweise.",
+        "expert": "Hilfen: keine gezielten Hinweise, nur wesentliche Befunde."
+      },
+      "modes": {
+        "turno": "Bearbeiten Sie die zugewiesenen Akten der Reihe nach. Der Dienst endet, wenn die Akten des Plans abgeschlossen sind.",
+        "libera": "Wählen Sie Akten auf der Karte. Empfehlungen sind keine Vorgaben: Sie entscheiden auf der Karte, wann Sie aufhören.",
+        "sorpresa": "Bearbeiten Sie zufällig angeordnete Akten, anfangs auf Expertenniveau. Schließen Sie den Plan ab, um zu beenden.",
+        "ripasso": "Wiederholen Sie die teilweise oder falsch gelösten Fälle des Plans. Die Wiederholung endet nach deren Abschluss, ohne die Originale zu ersetzen."
+      },
+      "timeNote": "Die Dauer ist eine Schätzung, kein Countdown. Der Schwierigkeitsgrad lässt sich weiterhin in den Einstellungen ändern."
+    },
+    "mobile": {
+      "open": "DOKUMENT ÖFFNEN",
+      "uncite": "ZITAT ENTFERNEN",
+      "search": "Archiv durchsuchen",
+      "close": "Schließen"
+    },
+    "ui": {
+      "gameTitle": "NO AI ACT",
+      "gameSubtitle": "Simulator einer unregulierten Gesellschaft",
+      "titleTagline": "Bewerten Sie KI-Anwendungsfälle. Jede Entscheidung beeinflusst Vertrauen, Innovation und Rechte. Ziel: ein tragfähiges Gleichgewicht finden.",
+      "titleHeader": "AUTOMATISIERTE STADTREPUBLIK — JAHR 2032",
+      "textSpeed": {
+        "label": "TEXTTEMPO: {value}",
+        "modes": {
+          "slow": "langsam",
+          "normal": "normal",
+          "instant": "sofort"
+        }
+      },
+      "typewriterHint": "▸ Klicken, LEERTASTE oder EINGABE, um den ganzen Text sofort anzuzeigen",
+      "footerDisclaimer": "Didaktisch vereinfachte Fassung der KI-Verordnung (EU) 2024/1689, geändert durch die Verordnung (EU) 2026/1744. Keine Rechtsberatung.",
+      "menu": {
+        "continue": "ERMITTLUNG FORTSETZEN",
+        "newGame": "NEUES SPIEL",
+        "archive": "NORMENARCHIV",
+        "credits": "MITWIRKENDE & LIZENZEN",
+        "reset": "SPIELSTAND ZURÜCKSETZEN",
+        "audioOn": "TON: EIN",
+        "audioOff": "TON: AUS",
+        "motionFull": "ANIMATIONEN: VOLL",
+        "motionReduced": "ANIMATIONEN: REDUZIERT",
+        "crtOn": "CRT-EFFEKT: EIN",
+        "crtOff": "CRT-EFFEKT: AUS",
+        "music": "MUSIK: {value}",
+        "musicOn": "MUSIK: EIN",
+        "musicOff": "MUSIK: AUS",
+        "sfx": "TONEFFEKTE: {value}",
+        "sfxOn": "TONEFFEKTE: EIN",
+        "sfxOff": "TONEFFEKTE: AUS",
+        "language": "SPRACHE: DEUTSCH",
+        "teacherOn": "LEHRMODUS: EIN",
+        "teacherOff": "LEHRMODUS: AUS",
+        "teacherScope": "Lokale Nachbesprechung: keine Klassenverwaltung, keine Konten, kein Server.",
+        "resetDone": "Spielstand gelöscht.",
+        "teachers": "LEHRKRÄFTE & UNTERRICHT",
+        "resources": "MATERIALIEN",
+        "settings": "EINSTELLUNGEN",
+        "resetConfirm": "ZURÜCKSETZEN BESTÄTIGEN?"
+      },
+      "titleGroups": {
+        "settingsTitle": "Einstellungen",
+        "settingsPrivacy": "Spielstand und Einstellungen bleiben im Browser: kein Konto, keine Übertragung dieser Daten.",
+        "teachersTitle": "Lehrkräfte & Unterricht",
+        "classPreset": "BEREIT FÜR DEN UNTERRICHT ▸",
+        "classPresetDone": "Lehrmodus aktiviert; Texte werden sofort angezeigt.",
+        "classPresetNote": "Aktiviert die Gesprächspausen nach jedem Fall und zeigt Texte ohne Wartezeit. Kein Timer und kein Gruppenvergleich: Spielstand und Antworten bleiben auf dem Gerät.",
+        "teachersNote": "Lehrmodus: Gesprächspausen nach jedem Fall und eine lokale Nachbesprechung am Ende. Unterricht: 20–40 Minuten, ohne Konten oder Erfassung von Schülerdaten.",
+        "resourcesTitle": "Materialien",
+        "resourcesNote": "Archiv und Glossar im Spiel sowie Leitfäden auf der Website in einem neuen Tab.",
+        "close": "SCHLIESSEN"
+      },
+      "preload": {
+        "systemName": "INTEGRIERTES STADTSYSTEM",
+        "steps": [
+          "Stadtkarte wird erstellt…",
+          "Beschilderung wird zusammengestellt…",
+          "Hintergrundrauschen wird kalibriert…",
+          "Fallarchiv wird geöffnet…"
+        ],
+        "accessGranted": "Zugang zur Inspektion: GEWÄHRT"
+      },
+      "map": {
+        "header": "STADTKARTE — NETZ AUTOMATISIERTER SYSTEME",
+        "progress": "INSPEKTOR AX · ABGESCHLOSSENE FÄLLE: {done}/{total}",
+        "statusOpen": "[ OFFENER VORFALL ]",
+        "statusDraft": "[ FORTSETZEN · {taken}/{total} Entscheidungen ]",
+        "statusDraftEvidence": "[ FORTSETZEN · Beweisstücke geöffnet ]",
+        "statusClosed": "[ FALL ABGESCHLOSSEN ]",
+        "statusNonCompliant": "[ ABGESCHLOSSEN — NICHT KONFORM ]",
+        "statusSealed": "[ AKTE BESCHLAGNAHMT ]",
+        "sealedToast": "Akte beschlagnahmt. Zugangsberechtigung verweigert.",
+        "alreadyClosedToast": "{code}: Akte bereits abgeschlossen.",
+        "finaleReadyToast": "Mindestens vier Akten sind abgeschlossen. Der Abschlussbericht ist verfügbar.",
+        "finaleButton": "ABSCHLUSSBERICHT ▸",
+        "menuButton": "MENÜ"
+      },
+      "case": {
+        "fileLabel": "FALLAKTE {code}",
+        "examineButton": "BEWEISSTÜCKE PRÜFEN ▸",
+        "backToMap": "◂ KARTE"
+      },
+      "context": {
+        "button": "KONTEXT ANSEHEN",
+        "title": "Kontext des Falls",
+        "scenarioLabel": "Fallzusammenfassung",
+        "objectiveLabel": "Ziel",
+        "objective": "Stufen Sie das Risiko des Systems nach der KI-Verordnung ein und bestimmen Sie die geeignete Maßnahme.",
+        "note": "Hier können Sie den Fall erneut lesen. Bericht und Einstufung werden dadurch nicht verändert.",
+        "closeToDecision": "Zurück zur Entscheidung",
+        "closeToEvidence": "Zurück zu den Belegen"
+      },
+      "inspectorDesk": {
+        "evidencePhase": "INSPEKTIONSSCHREIBTISCH · BEWEISPRÜFUNG",
+        "decisionPhase": "INSPEKTIONSSCHREIBTISCH · BERICHTSENTWURF",
+        "fileLabel": "FALLAKTE {code}",
+        "evidenceStatus": "GEÖFFNET {opened}/{total} · ZITIERT {cited}",
+        "citedStatus": "ZITIERTE BELEGE {cited}",
+        "context": "FALLAKTE",
+        "compare": "VERGLEICHEN [X]",
+        "norm": "NORM",
+        "normLocked": "NORM BEI DER ENTSCHEIDUNG",
+        "archive": "ARCHIV",
+        "notebook": "NOTIZBUCH",
+        "terms": "BEGRIFFE",
+        "compareTitle": "BEWEISSTÜCKE VERGLEICHEN",
+        "compareIntro": "Zwei zitierte Beweisstücke nebeneinander. Der Vergleich markiert keines davon.",
+        "compareCounter": "PAAR {current} VON {total}",
+        "compareSource": "QUELLE",
+        "compareFunction": "FUNKTION",
+        "compareUnknownSource": "nicht angegeben",
+        "compareUnknownFunction": "zu beurteilen",
+        "compareHint": "Suchen Sie nach Bestätigungen und Widersprüchen. Welche Quelle stützt den Bericht besser?",
+        "comparePrev": "VORHERIGES PAAR",
+        "compareNext": "NÄCHSTES PAAR",
+        "compareCloseEvidence": "Zurück zu den Beweisstücken",
+        "compareCloseDecision": "Zurück zur Entscheidung",
+        "compareEmpty": "Zitieren Sie mindestens zwei Beweisstücke, um sie zu vergleichen."
+      },
+      "caseNorm": {
+        "button": "NORM ZUM FALL",
+        "supportNote": "Eine Orientierungshilfe für Ihre Überlegungen. Das Lesen verändert weder Bericht noch Entscheidung.",
+        "relevantLabel": "Relevante Norm",
+        "referenceLabel": "Fundstelle",
+        "inShortLabel": "Kurz erklärt",
+        "whyLabel": "Bedeutung für diesen Fall",
+        "whyFallback": "Die Norm hilft bei der Beurteilung. Die endgültige Entscheidung hängt jedoch von den in der Akte beobachteten Belegen ab.",
+        "continuityNote": "Orientieren Sie Ihre Überlegungen an der Norm. Kehren Sie dann zur Entscheidung zurück und prüfen Sie die Belege der Akte.",
+        "close": "Zurück zur Entscheidung"
+      },
+      "concepts": {
+        "risk_based_approach": "risikobasierter Ansatz",
+        "prohibited_practices": "verbotene Praktiken",
+        "high_risk": "Hochrisiko-KI-Systeme",
+        "transparency": "Transparenz",
+        "gpai": "KI mit allgemeinem Verwendungszweck (GPAI)",
+        "human_oversight": "menschliche Aufsicht",
+        "data_governance": "Daten-Governance",
+        "privacy_by_design": "Datenschutz durch Technikgestaltung",
+        "ai_literacy": "KI-Kompetenz"
+      },
+      "learningReport": {
+        "header": "WAS SIE AUS DIESER ERMITTLUNG MITNEHMEN",
+        "title": "Lernbericht",
+        "intro": "Eine didaktische Zusammenfassung Ihrer Entscheidungen: Was gelingt, was sollten Sie vertiefen? Der Bericht bleibt auf Ihrem Gerät und wird nicht versendet.",
+        "scoreLabel": "Fallergebnisse",
+        "scoreLine": "{correct} richtig · {partial} teilweise · {wrong} zu wiederholen — {completed} von {total} Fällen abgeschlossen",
+        "conceptsLabel": "Behandelte Begriffe der KI-Verordnung",
+        "strongestLabel": "Stärkster Bereich",
+        "reviewLabel": "Zu vertiefender Bereich",
+        "allSolid": "Kein bestimmter Bereich: Ihre Entscheidungen tragen. Versuchen Sie eine höhere Schwierigkeit oder einen anderen Weg.",
+        "noneYet": "In dieser Partie ist noch kein Fall abgeschlossen.",
+        "recommendedLabel": "Drei empfohlene Texte auf der Website, kostenlos in einem neuen Tab",
+        "linkFor": "Mehr zu: {concept} ▸",
+        "generalLinkLabels": [
+          "Bildungsressourcen ▸",
+          "Leitfaden zur KI-Verordnung ▸",
+          "Glossar ▸"
+        ],
+        "performance": {
+          "strong": "gefestigt",
+          "mixed": "zu festigen",
+          "weak": "zu wiederholen"
+        },
+        "disclaimer": "NO AI ACT ist eine didaktische Simulation und vereinfacht die Verordnung (EU) 2024/1689, geändert durch die Verordnung (EU) 2026/1744. Dieser Bericht beschreibt Ihren Spielverlauf, keine zertifizierte Kompetenz, und stellt keine Rechtsberatung dar.",
+        "back": "ZURÜCK ZUM ABSCHLUSSBERICHT"
+      },
+      "teacherGuide": {
+        "button": "LEITFADEN FÜR LEHRKRÄFTE ▸",
+        "title": "NO AI ACT im Unterricht",
+        "intro": "Ein Vorschlag in drei Phasen. Keine Konten oder Schülerdaten: Alles bleibt lokal.",
+        "beforeTitle": "Vor dem Unterricht",
+        "beforeText": "Spielen Sie selbst einen Fall, wählen Sie einen Lernweg und legen Sie 2–3 Ziele fest. Die verlinkten Aktivitäten und Einführungen vermitteln den Rahmen der KI-Verordnung vor dem Spielen.",
+        "duringTitle": "Währenddessen",
+        "duringText": "Projizieren Sie das Spiel oder lassen Sie zu zweit spielen. Im Lehrmodus folgt auf jeden Fall eine Gesprächspause mit Fragen für die Klasse. Vergleichen Sie Entscheidungen, bevor es weitergeht.",
+        "afterTitle": "Danach",
+        "afterText": "Öffnen Sie die Nachbesprechung für Lehrkräfte im Abschlussbericht: Entscheidungen, Begriffe und Fragen im Überblick. Exportieren Sie sie als Text oder JSON für schriftliche Reflexion oder formative Bewertung.",
+        "resourcesLabel": "Passende Materialien, jeweils in einem neuen Tab",
+        "links": {
+          "activities_it": "Unterrichtsaktivitäten (IT)",
+          "lesson_it": "Einführungsstunde (IT)",
+          "activities_en": "Unterrichtsaktivitäten (EN)",
+          "lesson_en": "Einführungsstunde (EN)",
+          "activities_fr": "Unterrichtsaktivitäten (FR)",
+          "lesson_fr": "Einführungsstunde (FR)",
+          "activities_de": "Unterrichtsaktivitäten (DE)",
+          "lesson_de": "Einführung für Lehrkräfte (DE)",
+          "activities_es": "Unterrichtsaktivitäten (ES)",
+          "lesson_es": "Einführung für Lehrkräfte (ES)",
+          "activities_pt": "Unterrichtsaktivitäten (PT)",
+          "lesson_pt": "Einführung für Lehrkräfte (PT)"
+        },
+        "close": "Schließen"
+      },
+      "siteLinks": {
+        "button": "WEBSITE & MATERIALIEN ▸",
+        "title": "Website & Lernmaterialien",
+        "intro": "Themenbereiche der Website. Sie öffnen sich in einem neuen Tab: Das Spiel bleibt offen, diese Navigation wird nicht aufgezeichnet. Sie können das Spiel jederzeit verlassen.",
+        "play": "So funktioniert das Spiel",
+        "hub": "Bildungsressourcen",
+        "teacher": "Materialien für Lehrkräfte",
+        "guide": "Leitfaden zur KI-Verordnung",
+        "glossary": "Glossar",
+        "privacy": "Datenschutz",
+        "backToSite": "Zurück zur Website",
+        "close": "Schließen"
+      },
+      "discussionPause": {
+        "button": "GESPRÄCHSPAUSE ▸",
+        "title": "Gesprächspause",
+        "intro": "Fragen für die Klasse zu diesem Fall. Nichts wird aufgezeichnet: Sie dienen dem Gespräch vor der nächsten Akte.",
+        "close": "Fortsetzen"
+      },
+      "decisionDebrief": {
+        "button": "ENTSCHEIDUNG BESPRECHEN",
+        "title": "Nachbesprechung der Entscheidung",
+        "intro": "Dieses Fenster erläutert die Begründung, ohne Bewertung oder Bericht zu ändern.",
+        "yourChoiceLabel": "Ihre Wahl",
+        "whyLabel": "Warum sie nicht vollständig richtig ist",
+        "observeLabel": "Was zu beachten ist",
+        "normLabel": "Zugehörige Norm",
+        "howToLabel": "Vorgehen beim nächsten Fall",
+        "correctTitle": "Schlüssige Entscheidung",
+        "keyElementLabel": "Beobachtetes Schlüsselelement",
+        "whyCorrect": "Die Entscheidung ist mit den Belegen der Akte und der zugehörigen Norm vereinbar.",
+        "whyPartialWrong": "Die Entscheidung passt nicht vollständig zu den Belegen. Prüfen Sie die entscheidenden Beweisstücke, die Norm und den nötigen Begründungsschritt.",
+        "observeFallback": "Prüfen Sie die relevanten Belege der Akte. Die Entscheidung hängt von den beobachteten Hinweisen ab, nicht allein von der abstrakten Kategorie.",
+        "howToFallback": "Beginnen Sie beim konkreten KI-System. Bestimmen Sie die Betroffenen, verbinden Sie Belege und Norm und wählen Sie erst dann Einstufung, Maßnahme, Akteur und Begründung.",
+        "conceptLabel": "Begriff der KI-Verordnung in diesem Fall",
+        "takeawayLabel": "Lernerkenntnis",
+        "axes": {
+          "label": "Auswirkungen Ihrer Entscheidung",
+          "legal": {
+            "correct": "rechtlich vollständig tragfähig",
+            "partial": "rechtlich teilweise tragfähig",
+            "wrong": "rechtlich nicht tragfähig"
+          },
+          "rights": {
+            "strengthened": "Rechte gestärkt",
+            "mixed": "Rechte abgewogen",
+            "weakened": "Rechte geschwächt"
+          },
+          "institution": {
+            "strengthened": "öffentliches Vertrauen steigt",
+            "mixed": "öffentliches Vertrauen bleibt stabil",
+            "weakened": "öffentliches Vertrauen sinkt"
+          }
+        },
+        "learnMore": "Auf der Website weiterlesen ▸",
+        "close": "Schließen"
+      },
+      "evidence": {
+        "header": "FALLAKTE {code} — BEWEISSTÜCKE",
+        "instruction": "Prüfen Sie alle Beweisstücke und zitieren Sie mindestens zwei, die Ihre Einstufung begründen.",
+        "citeNote": "Ein Zitat nimmt das Beweisstück in den Bericht auf. Es legt die endgültige Risikoeinstufung noch nicht fest.",
+        "exhibit": "BEWEISSTÜCK {num}",
+        "sealed": "[ VERSIEGELT ]\n\nZum Prüfen anklicken",
+        "cite": "IM BERICHT ZITIEREN ▢",
+        "cited": "IM BERICHT ZITIERT ▣",
+        "allRevealedToast": "Beweisstücke geprüft. Zitieren Sie mindestens zwei, um fortzufahren.",
+        "contradictionButton": "Widerspruch prüfen [C]",
+        "contradictionFound": "Dokumentarischer Widerspruch: „{a}“ widerlegt „{b}“.",
+        "contradictionNone": "Kein erkannter Widerspruch zwischen den zitierten Beweisstücken. Vergleichen Sie die Aussagen der Quellen.",
+        "progress": "Geprüft: {opened} von {total} · zitiert: {cited} (mindestens {min} nötig)",
+        "progressReady": "Es liegen genügend Belege vor: Sie können mit der Einstufung fortfahren.",
+        "citedBecause": "„{title}“ zitiert — {stance}.",
+        "proceedButton": "ZUR EINSTUFUNG ▸",
+        "backToEvidence": "◂ BEWEISSTÜCKE",
+        "sourceLabel": "QUELLE",
+        "sources": {
+          "amministrativa": "Verwaltungsquelle",
+          "tecnica": "technische Quelle",
+          "vendor": "Herstelleraussage",
+          "reclamo": "Bürgerbeschwerde",
+          "pubblica": "öffentliche Mitteilung",
+          "log": "Systemprotokoll",
+          "interna": "interner Vermerk"
+        },
+        "stances": {
+          "supports_risk": "belegt das Risiko",
+          "minimizes_risk": "spielt das Risiko herunter",
+          "ambiguous": "mehrdeutig",
+          "contextual": "Kontext",
+          "concrete_effect": "konkrete Auswirkung",
+          "decisive": "entscheidender Beleg"
+        }
+      },
+      "decision": {
+        "stepBack": "◂ VORHERIGER SCHRITT",
+        "stepBackHint": "Mit der RÜCKTASTE gehen Sie einen Schritt zurück und können ihn erneut bearbeiten.",
+        "step1": "ENTSCHEIDUNG 1 VON 5 — EINSTUFUNG",
+        "step2": "ENTSCHEIDUNG 2 VON 5 — ABHILFEMASSNAHME",
+        "step3": "ENTSCHEIDUNG 3 VON 5 — VERANTWORTLICHER AKTEUR",
+        "step4": "ENTSCHEIDUNG 4 VON 5 — BEGRÜNDUNG",
+        "step5": "ENTSCHEIDUNG 5 VON 5 — PRÜFEN UND UNTERZEICHNEN",
+        "question5": "Prüfen Sie den Bericht vor der Unterschrift.",
+        "cityState": "ZUSTAND DER STADT",
+        "cityStateNote": "Der aktuelle Zustand. Das Spiel zeigt keine Vorschau der Folgen einzelner Entscheidungen.",
+        "sidebar": {
+          "cited": "ZITIERTE BEWEISSTÜCKE",
+          "soFar": "BISHERIGE ENTSCHEIDUNG",
+          "pending": "noch zu wählen"
+        },
+        "summary": {
+          "classification": "Einstufung",
+          "measure": "Maßnahme",
+          "subject": "Verantwortlicher Akteur",
+          "motivation": "Begründung",
+          "clues": "Zitierte Beweisstücke"
+        },
+        "sign": "BERICHT UNTERZEICHNEN ▸",
+        "signHint": "EINGABE unterzeichnet den Bericht. RÜCKTASTE führt zur Begründung zurück.",
+        "signNote": "Die Unterschrift bedeutet noch keine richtige Antwort: Die Bewertung folgt danach. Bis dahin können Sie jede Wahl ändern.",
+        "question1": "Wie ist das System nach der KI-Verordnung einzustufen?",
+        "question2": "Welche Maßnahme ordnet die Inspektion an?",
+        "question3": "Wem ordnen Sie die wesentlichen Pflichten zu?",
+        "question4": "Mit welcher Begründung stützen Sie den Bericht?",
+        "contextNote": "Das Risiko hängt nach der Verordnung nicht allein von der Technik ab, sondern von Verwendungskontext, Zweck und Auswirkungen auf Menschen.",
+        "processNote": "Endgültige Entscheidung: Risiko einstufen, dann Maßnahme, verantwortlichen Akteur und Begründung wählen.",
+        "recorded": "Einstufung vermerkt: {value}",
+        "keys5": "Tastatur: Tasten 1–5 zum Auswählen",
+        "keys7": "Tastatur: Tasten 1–7 zum Auswählen",
+        "keys3": "Tastatur: Tasten 1–3 zum Auswählen",
+        "normsButton": "NORMEN NACHSCHLAGEN",
+        "normsHint": "Nur Lesen — außerhalb klicken oder ESC zum Schließen",
+        "normsEmpty": "Noch keine Norm erworben.",
+        "termsButton": "WAS BEDEUTET DAS?",
+        "termsTitle": "BEGRIFFE DIESER AUSWAHL",
+        "termsHint": "Nur Lesen. Schließen Sie das Fenster, um zur Entscheidung zurückzukehren. Die Antwort wird nicht verraten.",
+        "termsNoEntry": "Keine von der Verordnung definierte Kategorie: Gemeint sind Fälle außerhalb der anderen Kategorien."
+      },
+      "subjects": {
+        "provider": "Anbieter — entwickelt das System",
+        "deployer": "Betreiber — verwendet das System",
+        "autorita": "Öffentliche Stelle, die es verwendet",
+        "responsabile_umano": "Benannte Person für die menschliche Aufsicht",
+        "fornitore_esterno": "Externer Lieferant"
+      },
+      "report": {
+        "title": "INSPEKTIONSBERICHT",
+        "evidenceLabel": "ZITIERTE BELEGE",
+        "decisionLabel": "ENTSCHEIDUNG",
+        "subjectLabel": "VERANTWORTLICHER AKTEUR",
+        "motivationLabel": "BEGRÜNDUNG",
+        "incidentLabel": "PROTOKOLLIERTES EREIGNIS",
+        "dominantLabel": "HAUPTBEFUND",
+        "secondaryLabel": "WEITERE BEFUNDE",
+        "continueButton": "FORTFAHREN ▸",
+        "noEvidence": "keine Belege zitiert",
+        "decisiveEvidenceLabel": "ENTSCHEIDENDE BELEGE",
+        "decisiveEvidenceOk": "die zitierten Beweisstücke stützen die Einstufung",
+        "decisiveEvidenceWeak": "die zitierten Beweisstücke reichen für die Einstufung nicht aus",
+        "reasonLabel": "Grund des Ergebnisses",
+        "reasons": {
+          "grounded": "die zitierten Belege stützen die Einstufung und die Maßnahme ist verhältnismäßig",
+          "classificazione": "das System wurde dem falschen Regelungsbereich zugeordnet",
+          "prove": "die Anordnung ist anfechtbar, weil die Beweisgrundlage unvollständig ist",
+          "misura_insufficiente": "die vorgeschlagene Maßnahme beherrscht das Hauptrisiko nicht",
+          "eccesso_cautela": "die Einstufung stimmt, aber die vollständige Abschaltung geht über das Erforderliche hinaus",
+          "soggetto": "die Einstufung stimmt, aber der verantwortliche Akteur wurde falsch bestimmt",
+          "trasparenza": "die nötige Transparenz fehlt: Bürger erkennen das System oder den Inhalt nicht",
+          "motivazione": "die Entscheidung stimmt, aber die Begründung ist schwach"
+        },
+        "registry": {
+          "officeLabel": "AUSSTELLENDE STELLE",
+          "fileLabel": "AKTENZEICHEN",
+          "protocolLabel": "REGISTERNUMMER",
+          "dateLabel": "ERFASSUNGSDATUM",
+          "statusLabel": "EINSTUFUNG",
+          "status": "ENDGÜLTIGER AKT · NICHT GEHEIM",
+          "draftStatus": "ENTWURF · NOCH NICHT EINGEREICHT",
+          "stripNote": "Registrierstreifen: die Registernummer als Balkencode"
+        },
+        "lessonLabel": "ERKENNTNIS DES FALLS",
+        "analysisLabel": "ENTSCHEIDUNGSANALYSE",
+        "analysis": {
+          "conforme": "Die Entscheidung trägt: Einstufung, Maßnahme, verantwortlicher Akteur und Begründung werden durch die entscheidenden Belege gestützt.",
+          "parziale": "Die Entscheidung erfasst das Kernproblem, bleibt aber unvollständig —",
+          "contestabile": "Die Entscheidung ist anfechtbar —",
+          "non_conforme": "Die Entscheidung trägt nicht —"
+        },
+        "issues": {
+          "wrong_classification": "die Einstufung verfehlt den Verwendungskontext des Systems.",
+          "insufficient_measure": "die vorgeschlagene Maßnahme verringert das Risiko, beherrscht es aber nicht.",
+          "excessive_measure": "die Einstufung stimmt, aber die Maßnahme geht über das Erforderliche hinaus.",
+          "wrong_responsible_subject": "die Verantwortung wird dem falschen Akteur zugewiesen.",
+          "weak_motivation": "die Begründung wird durch die zitierten Belege nicht gestützt.",
+          "weak_evidence": "die zitierten Belege reichen nicht aus, um die Einstufung zu stützen.",
+          "formal_human_oversight": "die menschliche Aufsicht bleibt formal statt wirksam.",
+          "missing_transparency": "die Transparenz fehlt, die das System erkennbar machen würde.",
+          "context_misread": "der Verwendungskontext des Systems wurde falsch verstanden.",
+          "proportionality_problem": "die Maßnahme ist dem tatsächlichen Risiko nicht angemessen."
+        }
+      },
+      "states": {
+        "sigillato": "VERSIEGELT",
+        "aperto": "GEÖFFNET",
+        "citato": "ZITIERT",
+        "prova_decisiva": "ENTSCHEIDENDER BELEG",
+        "contraddizione": "WIDERSPRUCH",
+        "procedibile": "ENTSCHEIDUNGSREIF"
+      },
+      "normIdentities": {
+        "vietata": "VERBOTENE PRAXIS",
+        "alto": "HOHES RISIKO",
+        "trasparenza": "TRANSPARENZ",
+        "biometria": "UNTER BEDINGUNGEN ZULÄSSIG",
+        "gpai": "GPAI-MODELL"
+      },
+      "outcomes": {
+        "conforme": "KONFORM",
+        "parziale": "TEILWEISE KONFORM",
+        "contestabile": "ANFECHTBAR",
+        "non_conforme": "NICHT KONFORM"
+      },
+      "errors": {
+        "classificazione": "Die Einstufung entspricht nicht der Regelung der Verordnung.",
+        "prove": "Die zitierten Belege begründen die Einstufung nicht: Die Anordnung ist anfechtbar.",
+        "misura_insufficiente": "Die Maßnahme behandelt das Symptom: Das System entscheidet weiter.",
+        "eccesso_cautela": "Sie haben abgeschaltet, was geregelt werden musste. Der Dienst stoppt, das Problem verlagert sich.",
+        "soggetto": "Die Pflichten wurden jemandem zugewiesen, der sie nicht erfüllen konnte: Niemand trägt Verantwortung.",
+        "trasparenza": "Maßnahmen bestehen, doch Bürger bleiben im Unklaren. So entsteht kein neues Vertrauen.",
+        "motivazione": "Die Begründung trägt nicht: Die Entscheidung ist richtig, ihre Grundlage nicht."
+      },
+      "cityDossier": {
+        "title": "STADTDOSSIER",
+        "subtitle": "Systemische Folgen der Entscheidungen. Keine Punktzahl, sondern Tendenzen.",
+        "updatedLabel": "Stadtdossier aktualisiert",
+        "emptyHint": "Noch kein Fall abgeschlossen: Das Dossier bleibt stabil.",
+        "openButton": "STADTDOSSIER ▸",
+        "indicators": {
+          "publicTrust": "Öffentliches Vertrauen",
+          "fundamentalRights": "Grundrechte",
+          "administrativeOpacity": "Intransparenz der Verwaltung",
+          "litigationRisk": "Rechtsstreitrisiko",
+          "serviceEfficiency": "Effizienz der Dienste"
+        },
+        "trends": {
+          "improving": "verbessert sich",
+          "worsening": "verschlechtert sich",
+          "stable": "stabil",
+          "watch": "unter Beobachtung"
+        }
+      },
+      "incident": {
+        "header": "DRINGENDES FERNSCHREIBEN — ANTWORT ERFORDERLICH",
+        "hint": "Tastatur: Tasten 1–3 zum Antworten",
+        "logged": "Antwort erfasst: {value}"
+      },
+      "consequence": {
+        "qualityCorrect": "KONFORME ENTSCHEIDUNG",
+        "qualityPartial": "TEILWEISE KONFORME ENTSCHEIDUNG",
+        "qualityWrong": "NICHT KONFORME ENTSCHEIDUNG",
+        "summary": "Einstufung: {classification} · Maßnahme: {measure}",
+        "territoryLabel": "AUSWIRKUNGEN VOR ORT",
+        "noteLabel": "ERMITTLUNGSVERMERK",
+        "cityLabel": "ZUSTAND DER STADT",
+        "cluesMismatch": "Die zitierten Beweisstücke stützen die Einstufung nicht: Die Anordnung ist anfechtbar.",
+        "nextCorrect": "NORM ERWORBEN ▸",
+        "nextWrong": "NORM TROTZDEM NACHSCHLAGEN ▸"
+      },
+      "normCard": {
+        "democraticFunctionLabel": "DEMOKRATISCHE FUNKTION",
+        "unlocked": "NORM INS ARCHIV AUFGENOMMEN",
+        "subCorrect": "Diese Vorschrift hätte den Schaden vermeidbar oder beherrschbar gemacht.",
+        "subWrong": "Die Norm existierte. In einem anderen Europa hätte jemand sie angewandt.",
+        "backToMap": "◂ ZURÜCK ZUR KARTE",
+        "endOfShift": "DIENST BEENDEN ▸",
+        "nextCase": "NÄCHSTE FALLAKTE ▸",
+        "disclaimer": "didaktisch vereinfachte Fassung"
+      },
+      "archive": {
+        "title": "NORMENARCHIV — KI-VERORDNUNG",
+        "subtitle": "Erworbene Vorschriften: {done}/{total} · didaktisch vereinfachte Fassung",
+        "locked": "NORM NOCH NICHT\nERWORBEN",
+        "hint": "Außerhalb der Karte klicken oder ESC zum Schließen",
+        "searchIdle": "Archivsuche: Stichwort eingeben, ESC zum Verlassen",
+        "searchResults": "„{query}“ — Normen: {n} · Glossar: {g} · Fälle: {c}",
+        "searchNone": "Keine Ergebnisse für „{query}“ — RÜCKTASTE zum Bearbeiten",
+        "back": "◂ ZURÜCK"
+      },
+      "finale": {
+        "header": "ABSCHLUSSBERICHT DER INSPEKTION",
+        "cityLabel": "ENDZUSTAND DER STADT",
+        "newGame": "NEUES SPIEL",
+        "archive": "NORMENARCHIV",
+        "credits": "MITWIRKENDE",
+        "debrief": "NACHBESPRECHUNG FÜR LEHRKRÄFTE ▸",
+        "learningReport": "LERNBERICHT ▸",
+        "privacyNote": {
+          "title": "Datenschutz: Ihre Arbeit bleibt im Browser",
+          "text": "Diese Version bindet keine externen Formulare ein. Antworten, Berichte, Fortschritte und Notizen bleiben auf Ihrem Gerät; aggregierte Nutzungszähler enthalten weder Freitexte noch Spielerkennungen."
+        }
+      },
+      "debrief": {
+        "title": "NACHBESPRECHUNG FÜR LEHRKRÄFTE — LOKALER BERICHT",
+        "subtitle": "Lokale Gesprächshilfe. Keine Klassenverwaltung, keine Schülerverfolgung, keine Übertragung von Ergebnissen an einen Server.",
+        "casesLabel": "FÄLLE UND BERICHTE",
+        "caseLine": "{title} — Ergebnis: {outcome}",
+        "mainErrorLine": "Befund: {error}",
+        "noError": "kein Befund",
+        "anatomyLabel": "Fallstruktur",
+        "anatomySignal": "entscheidendes Signal",
+        "anatomyTrap": "verharmlosende Falle",
+        "anatomyTrapNone": "kein verharmlosendes Beweisstück in dieser Akte",
+        "normsLine": "Erworbene Normen: {done}/{total}",
+        "timeLine": "Bearbeitungsdauer: {minutes} Min.",
+        "timeUnknown": "Bearbeitungsdauer: nicht verfügbar",
+        "indicatorsLabel": "ABSCHLIESSENDE INDIKATOREN",
+        "conceptsLabel": "BEHANDELTE BEGRIFFE DER KI-VERORDNUNG",
+        "questionsLabel": "GESPRÄCHSFRAGEN",
+        "reviewLabel": "WIEDERHOLUNGSEMPFEHLUNG",
+        "reviewLine": "Wiederholen Sie die Normkarten zu Fällen mit nicht konformen oder anfechtbaren Ergebnissen.",
+        "downloadJson": ".JSON HERUNTERLADEN",
+        "downloadTxt": ".TXT HERUNTERLADEN",
+        "print": "DRUCKEN",
+        "back": "◂ ZURÜCK ZUM BERICHT",
+        "notCompleted": "Fall nicht abgeschlossen",
+        "missionLine": "Lernweg: {mission}",
+        "difficultyLine": "Schwierigkeit: {difficulty}",
+        "privacyNote": "Die angezeigten Daten bleiben auf diesem Gerät. Exporte sind lokal und enthalten weder Namen noch E-Mail-Adressen, Klasse oder Schule.",
+        "recommendedHeader": "EMPFOHLENE LERNWEGE",
+        "recommendedLine": "{name} · {duration} · {goal}"
+      },
+      "sessionEnd": {
+        "title": "DIENSTENDE",
+        "subtitle": "{mode} · {count} Akten · etwa {minutes} Min.",
+        "subtitleOne": "{mode} · eine Akte · etwa {minutes} Min.",
+        "countCorrectOne": "eine gut abgeschlossen",
+        "countCorrect": "{n} gut abgeschlossen",
+        "countPartialOne": "eine teilweise gelöst",
+        "countPartial": "{n} teilweise gelöst",
+        "countWrongOne": "eine falsch gelöst",
+        "countWrong": "{n} falsch gelöst",
+        "recurring": "Derselbe Fehler {times}-mal. {error}",
+        "noRecurring": "Kein Fehler hat sich in diesem Dienst wiederholt.",
+        "normsTouched": "Behandelte Artikel: {norms}",
+        "incompleteOne": "Eine Akte des Plans blieb offen. Sie bleibt auf der Karte.",
+        "incomplete": "{count} Akten des Plans blieben offen. Sie bleiben auf der Karte.",
+        "quality": {
+          "correct": "gut abgeschlossen",
+          "partial": "teilweise gelöst",
+          "wrong": "falsch gelöst"
+        },
+        "open": "offen",
+        "toMap": "ZURÜCK ZUR KARTE",
+        "learningReport": "LERNBERICHT ▸",
+        "debrief": "NACHBESPRECHUNG FÜR LEHRKRÄFTE ▸",
+        "note": "Zusammenfassung Ihres gerade gespielten Dienstes. Sie bleibt auf Ihrem Gerät: keine Übertragung, kein Konto."
+      },
+      "newGamePanel": {
+        "title": "NEUES SPIEL",
+        "subtitle": "Wählen Sie Spielweise und verfügbare Zeit. Der Plan wird unten vor dem Start zusammengestellt.",
+        "modeLabel": "MODUS: {value}",
+        "audienceLabel": "PROFIL: {value}",
+        "durationLabel": "DAUER: {value} Min.",
+        "planLine": "{count} Akten · etwa {minutes} Min. · Schwierigkeit: {difficulty}",
+        "planLineOne": "eine Akte · etwa {minutes} Min. · Schwierigkeit: {difficulty}",
+        "planLineFree": "offene Karte · {count} empfohlene Akten · etwa {minutes} Min.",
+        "planLineFreeOne": "offene Karte · eine empfohlene Akte · etwa {minutes} Min.",
+        "overBudget": "Die erste Akte benötigt etwa {minutes} Min., mehr als die gewählte Zeit.",
+        "nothingToReview": "Nichts zu wiederholen: Bisher wurde keine Akte schlecht abgeschlossen. Wählen Sie einen anderen Modus.",
+        "note": "Die Zeitangabe ist eine Schätzung zur Zusammenstellung der Sitzung. Das Spiel misst oder begrenzt Ihre tatsächliche Zeit nicht.",
+        "reroll": "NEU AUSLOSEN ⟲",
+        "start": "STARTEN ▸",
+        "modes": {
+          "turno": {
+            "name": "Dienstschicht",
+            "desc": "Die Akten Ihres Profils der Reihe nach. Der klassische Weg: ein Schreibtisch, eine Warteschlange von Fällen."
+          },
+          "libera": {
+            "name": "Freie Ermittlung",
+            "desc": "Die Stadt ist offen: Öffnen Sie Akten in beliebiger Reihenfolge. Die Dauer empfiehlt lediglich, wie viele Sie abschließen könnten."
+          },
+          "sorpresa": {
+            "name": "Überraschungsinspektion",
+            "desc": "Zufällig gezogene Akten, Expertenniveau, ohne Hinweise auf der Karte."
+          },
+          "ripasso": {
+            "name": "Fehler wiederholen",
+            "desc": "Nur schlecht oder teilweise gelöste Akten. Verfügbar, sobald mindestens eine vorliegt."
+          }
+        }
+      },
+      "audience": {
+        "modes": {
+          "casual": {
+            "name": "Für mich",
+            "desc": "Sie arbeiten nicht im Fachgebiet und möchten die KI-Verordnung verstehen. Die Fälle sind nach Verständlichkeit ausgewählt."
+          },
+          "pa": {
+            "name": "Öffentliche Verwaltung",
+            "desc": "Bürgerservice, Vergabe und Betrugserkennung: mit einem System entscheiden, das Sie nicht selbst entwickelt haben."
+          },
+          "scuola": {
+            "name": "Schule und Bildung",
+            "desc": "Emotionserkennung im Unterricht, adaptive Plattformen und Modelle mit allgemeinem Verwendungszweck."
+          },
+          "hr": {
+            "name": "Personalwesen",
+            "desc": "Einstellung, Ranglisten und nachgelagerte Nutzung allgemeiner KI-Modelle."
+          }
+        }
+      },
+      "missions": {
+        "title": "LERNWEG WÄHLEN",
+        "subtitle": "Ein Lernweg empfiehlt Fälle. Sie können weiterhin alle spielen.",
+        "recommendedTag": "EMPFOHLEN",
+        "durationLabel": "Dauer",
+        "start": "LERNWEG STARTEN ▸",
+        "modes": {
+          "demo": {
+            "name": "Kurze Demo",
+            "duration": "10–15 Min.",
+            "goal": "Die Logik des Inspektionsberichts verstehen."
+          },
+          "lab": {
+            "name": "Kurze Werkstatt",
+            "duration": "25–35 Min.",
+            "goal": "Verbote, hohes Risiko und Transparenz unterscheiden."
+          },
+          "full": {
+            "name": "Vollständiger Lernweg",
+            "duration": "45–60 Min.",
+            "goal": "Audit, Verantwortung, Maßnahmen und Begründung."
+          },
+          "advanced": {
+            "name": "Vertiefung",
+            "duration": "60–75 Min.",
+            "goal": "Mehrdeutige Fälle und Regelungsgrenzen, einschließlich Bürgerkredit."
+          },
+          "pack": {
+            "name": "Vertiefende Fälle",
+            "duration": "75–90 Min.",
+            "goal": "Weitere mehrdeutige Fälle: öffentlicher Chatbot, Vergabe, Bildungstechnologie und GPAI."
+          }
+        }
+      },
+      "difficulty": {
+        "title": "SCHWIERIGKEITSGRAD",
+        "label": "SCHWIERIGKEIT: {value}",
+        "modes": {
+          "base": {
+            "name": "Grundstufe",
+            "desc": "Ausdrückliche Anweisungen, Hinweise nach Fehlern und mildere Bewertung."
+          },
+          "standard": {
+            "name": "Standard",
+            "desc": "Vollständiger Bericht und ausgewogene Rückmeldung. Für die Demo empfohlen."
+          },
+          "expert": {
+            "name": "Experte",
+            "desc": "Wenige Hinweise, knappe Rückmeldung, strenge Prüfung von Akteur und Begründung."
+          }
+        },
+        "hintLabel": "NOCH EINMAL PRÜFEN",
+        "hints": {
+          "classificazione": "Überdenken Sie die Einstufung: Vergleichen Sie Zweck und Verwendungskontext.",
+          "prove": "Prüfen Sie die zitierten Beweisstücke: Stützen sie wirklich die Einstufung?",
+          "misura_insufficiente": "Ist die Maßnahme dem Hauptrisiko angemessen?",
+          "eccesso_cautela": "Vielleicht ist keine Abschaltung nötig: Das System könnte Auflagen benötigen.",
+          "soggetto": "Prüfen Sie den verantwortlichen Akteur: Wen trifft die Hauptpflicht?",
+          "trasparenza": "Achten Sie auf Transparenz: Können Bürger das System erkennen?",
+          "motivazione": "Hält die Begründung den zitierten Beweisstücken stand?"
+        }
+      },
+      "mobileGuard": {
+        "message": "NO AI ACT ist für Computer oder Tablets im Querformat optimiert. Drehen Sie das Gerät oder nutzen Sie einen Computer."
+      },
+      "creditsScene": {
+        "title": "MITWIRKENDE",
+        "heading": "NO AI ACT",
+        "roleLabel": "Konzept und wissenschaftliche Leitung",
+        "author": "Matteo Angeloni",
+        "affiliation": "Doktorand — Università degli Studi della Tuscia",
+        "note": "MIT KI ERSTELLT, NICHT VON KI — freiwillige Offenlegung: entwickelt mit KI-Assistenten unter der redaktionellen und wissenschaftlichen Verantwortung einer Person.\nProzedurale Grafik und Audioressourcen. Vollständige Lizenzen in den Projektdateien.",
+        "phdProgramme": "Società in mutamento: politiche, diritti e sicurezza",
+        "phdLink": "Doktoratsprogramm (EN) ▸",
+        "universityLink": "Università degli Studi della Tuscia ▸",
+        "independence": "Unabhängiges Projekt, keine offizielle Veröffentlichung der Universität.",
+        "back": "◂ ZURÜCK ZUM TITEL"
+      },
+      "toastPrefixes": {
+        "info": "HINWEIS",
+        "warning": "WARNUNG",
+        "alert": "ALARM",
+        "ok": "VERMERKT"
+      },
+      "levels": {
+        "vietata": "Verbotene Praxis",
+        "alto": "Hohes Risiko",
+        "trasparenza": "Transparenz",
+        "restrittivo": "Strenge Bedingungen"
+      }
+    },
+    "briefing": {
+      "header": "INSPEKTION FÜR ALGORITHMISCHE VORFÄLLE",
+      "sub": "VERTRAULICHE EINSATZBESPRECHUNG — AKTE AX/2032",
+      "body": "Jahr 2032. In dieser Stadt ist die KI-Verordnung nie in Kraft getreten.\n\nDie Stadt funktioniert. Es gibt keine Warteschlangen, Formulare füllen sich selbst aus, Entscheidungen kommen vor den Fragen.\n\nNiemand weiß mehr, wer entscheidet. Niemand weiß, wie man widerspricht. Algorithmische Vorfälle stapeln sich im Archiv wie unbeantwortete Akten.\n\nSie sind der Inspektor. Ihr Auftrag: Vorfälle untersuchen, Systeme einstufen, Maßnahmen verhängen. Für jeden abgeschlossenen Fall gibt das Archiv die Norm zurück, die anderswo, in einem anderen Europa, all dies verhindert hätte.\n\nDie Stadt wartet auf Sie. Gewöhnen Sie sich nicht an ihre Effizienz.",
+      "how": "So spielen Sie: Beweisstücke öffnen, Belege zitieren, das Risiko einstufen und den Bericht einreichen. Nach jeder Entscheidung erklärt eine Nachbesprechung die Begründung. Spielstand und Antworten bleiben im Browser. Eine didaktische Simulation, keine Rechtsberatung.",
+      "ctaFirstCase": "ERSTE AKTE ÖFFNEN",
+      "cta": "STADTKARTE ÖFFNEN"
+    },
+    "classifications": {
+      "vietata": "Verbotene Praxis",
+      "alto_rischio": "Hochrisiko-KI-System",
+      "trasparenza": "Transparenzpflicht",
+      "basso_rischio": "Geringes Risiko",
+      "non_rilevante": "Für die KI-Verordnung nicht relevant"
+    },
+    "measures": {
+      "blocco": "System abschalten",
+      "oversight": "Menschliche Aufsicht einführen",
+      "audit": "Audits und Risikomanagement einführen",
+      "informare": "Nutzende informieren",
+      "etichettare": "KI-generierte Inhalte kennzeichnen",
+      "dati_logging": "Datenqualität und Protokollierung verbessern",
+      "nessuna": "Keine Maßnahme"
+    },
+    "indicators": {
+      "labels": {
+        "efficienza": "EFFIZIENZ",
+        "controllo": "SOZIALE KONTROLLE",
+        "diritti": "GRUNDRECHTE",
+        "fiducia": "ÖFFENTLICHES VERTRAUEN"
+      },
+      "comments": {
+        "correct": [
+          "Die Entscheidung ist anfechtbar. Dadurch ist sie legitim.",
+          "Manche Abläufe werden langsamer. Manche Menschen können aufatmen.",
+          "Das System muss sich nun erklären. Ein Anfang."
+        ],
+        "partial": [
+          "Ein Verwaltungsflicken. Das Problem bleibt unter der Oberfläche.",
+          "Besser als nichts. Aber „besser als nichts“ ist keine verantwortliche Steuerung.",
+          "Die Maßnahme behandelt das Symptom, nicht die Ursache."
+        ],
+        "wrong": [
+          "Die Anzeigen verbessern sich. Die Lage der Menschen nicht.",
+          "Rekordeffizienz. Niemand weiß mehr, wer entscheidet.",
+          "Das System bedankt sich. Die Bürger können es nicht."
+        ]
+      }
+    },
+    "locations": {
+      "commissariato": "Polizeiwache",
+      "sussidi": "Leistungsstelle",
+      "osservatorio": "Arbeitsmarktbeobachtung",
+      "municipio": "Zentrales Rathaus",
+      "lavoro": "Arbeitsvermittlung",
+      "media": "Städtisches Medienzentrum",
+      "scuola": "Schule der Emotionen",
+      "ospedale": "Prädiktives Krankenhaus",
+      "sorveglianza": "Zentrum für Stadtüberwachung",
+      "welfare": "Sozial- und Dienstleistungsamt",
+      "sportello": "Bürgerschalter",
+      "appalti": "Vergabestelle",
+      "campus": "Adaptiver Campus",
+      "modelli": "Modellzentrum"
+    },
+    "cases": {
+      "case_predpol": {
+        "title": "Das markierte Viertel",
+        "scenario": "Die Stadtpolizei führt für jeden Einwohner einen „Punktwert krimineller Neigung“ ein: Adresse, Kontakte, Familiengeschichte und Berührung mit Sozialdiensten. Morgens erhalten Streifen eine Liste der höchstbewerteten Namen. Im Westviertel haben sich Kontrollen verdreifacht. Niemand weiß, dass er auf der Liste steht oder warum.",
+        "clues": [
+          {
+            "title": "Erzeugungsprotokoll",
+            "text": "Das technische Protokoll zeigt: Die Werte beruhen ausschließlich auf Profilmerkmalen wie Viertel, sozialem Netzwerk und Familiengeschichte. Keine konkrete Tatsache ist mit einer Straftat verknüpft."
+          },
+          {
+            "title": "Dienstanweisung",
+            "text": "Ein internes Rundschreiben bestimmt: „Vorrangige Kontrollen folgen der Systemliste; eine individuelle Beurteilung der Namen ist nicht erforderlich.“ Die Rangliste steuert die Einsätze."
+          },
+          {
+            "title": "Studie des Lieferanten",
+            "text": "Der Lieferant erklärt: „92 % der als hochriskant markierten Personen hatten innerhalb von 5 Jahren mindestens einen Polizeikontakt.“ Er nennt dies „wissenschaftliche Unterstützung menschlicher Entscheidungen“."
+          }
+        ],
+        "clueSources": [
+          "log",
+          "interna",
+          "vendor"
+        ],
+        "noteCorrect": "Die Vorhersage krimineller Neigung ausschließlich anhand von Profiling ist verboten. Nur die Sperrung dieser Praxis ist folgerichtig.",
+        "notePartial": "Sie haben das Problem erkannt. Eine verbotene Praxis bloß als Steuerungsproblem zu behandeln, lässt das Viertel unter einer Überwachung, die kein Audit heilen kann.",
+        "noteWrong": "Der Bericht trägt nicht: Die Praxis fällt unter Artikel 5. Keine organisatorische Maßnahme macht sie rechtmäßig.",
+        "consequenceCorrect": "Das System wird gestoppt. Kontrollen beruhen wieder auf Tatsachen statt Ranglisten. Im Westviertel beginnt das Vertrauen langsam zurückzukehren.",
+        "consequenceWrong": "Die Liste entscheidet weiter, wer kontrolliert wird. Wer hineingeboren wird, kommt nie heraus. Das Viertel lernt: Eine Adresse wiegt mehr als Verhalten.",
+        "motivations": [
+          "Das System ist ungenau und sollte ausgesetzt werden, bis der Lieferant ausreichende Genauigkeit im Einsatz belegt.",
+          "Die Vorhersage eines individuellen Straftatrisikos allein durch Profiling ist verboten. Genauigkeit macht das Verbotene nicht rechtmäßig.",
+          "Die Polizei darf jedes Hilfsmittel verwenden: Die endgültige Entscheidung trifft weiterhin ein Beamter."
+        ],
+        "debriefQuestions": [
+          "Warum verbietet die Verordnung individuelle Kriminalitätsvorhersage durch Profiling, statt sie als hochriskant zu regeln?",
+          "Ist die 92-%-Studie ein Beleg für oder gegen das System? Was sagt sie nicht?",
+          "Was würde rechtmäßige Ermittlungsunterstützung von diesem System unterscheiden?"
+        ],
+        "epilogue": "Die Leitung beseitigt die Rangliste und veröffentlicht Kontrollkriterien. Manche Beamte protestieren: „Es funktionierte.“ Entscheidend, erklärt die Inspektion, ist nicht, ob es funktionierte, sondern wodurch."
+      },
+      "case_bias": {
+        "title": "Die korrigierte Verzerrung",
+        "scenario": "Die regionale Arbeitsagentur prüft Bewerbungen automatisiert. Der Anbieter meldet eine gefundene und korrigierte Benachteiligung von Bewerbern ausländischer Herkunft. Dafür musste er gerade die aufschlussreichen Daten verarbeiten: ethnische Herkunft und Gesundheit. Artikel 4a erlaubt dies ausnahmsweise unter sechs Bedingungen. Alle müssen zugleich gelten.",
+        "clues": [
+          {
+            "title": "Verzeichnis der Verarbeitungstätigkeiten",
+            "text": "Die Verarbeitung besonderer Datenkategorien ist vermerkt. Es fehlt jedoch, warum sie unbedingt nötig waren und warum synthetische oder anonymisierte Daten nicht genügt hätten. Beide schriftlich verlangten Begründungen fehlen."
+          },
+          {
+            "title": "Vertrag mit dem externen Analysten",
+            "text": "Die Analyse wurde an eine Beratung ausgelagert. Die Stichprobe mit Herkunfts- und Gesundheitsdaten wurde unverschlüsselt übermittelt. Artikel 4a verbietet Übermittlung an und Zugang durch andere Parteien. Hier geschah beides."
+          },
+          {
+            "title": "Korrekturbericht",
+            "text": "Die Verzerrung war real und ist behoben. Der Abstand der Ablehnungsquoten sank von vierzehn auf zwei Punkte. Eine unabhängige Nachzählung bestätigt das Ergebnis. Die Arbeit wurde erledigt und gut gemacht."
+          }
+        ],
+        "clueSources": [
+          "interna",
+          "amministrativa",
+          "tecnica"
+        ],
+        "noteCorrect": "Die sechs Bedingungen von Artikel 4a gelten kumulativ. Zwei fehlende genügen für eine Verarbeitung ohne Rechtsgrundlage. Das Hochrisikosystem läuft weiter; seine Korrektur muss die Bedingungen erfüllen.",
+        "notePartial": "Sie haben den richtigen Bereich erkannt, aber nicht das Entscheidende: Solange besondere Daten an Dritte gehen und die Notwendigkeit unbegründet bleibt, heilt vervollständigter Papierkram nichts.",
+        "noteWrong": "Der Bericht trägt nicht: Artikel 4a erlaubt diese Verarbeitung ausdrücklich. Absatz 2 verpflichtet niemanden zur Suche nach Verzerrungen. Eine Sperre bestraft gerade den Anbieter, der gesucht hat.",
+        "consequenceCorrect": "Die Stichprobe bleibt wieder innerhalb des Anbieters und wird nach der Korrektur gelöscht. Das Verzeichnis begründet die Notwendigkeit der Daten. Die Korrektur bleibt bestehen, nun mit Rechtsgrundlage.",
+        "consequenceWrong": "Der Anbieter zieht die falsche Lehre: Beim nächsten Mal sucht er gar nicht erst nach Verzerrungen. Der Abstand steigt wieder auf vierzehn Punkte. Diesmal misst ihn niemand.",
+        "motivations": [
+          "Artikel 4a erlaubt besondere Daten zur Verzerrungssuche unter sechs kumulativen Bedingungen. Weitergabe und fehlende Notwendigkeitsbegründung verletzen zwei davon. Die Verarbeitung ist trotz erfolgreicher Korrektur rechtswidrig.",
+          "Der Anbieter verarbeitete Herkunfts- und Gesundheitsdaten. Das System muss gesperrt werden, bis ausschließlich Methoden ohne sensible Daten eingesetzt werden.",
+          "Die Verzerrung wurde korrigiert und der Abstand geschlossen. Das Ergebnis belegt die Verhältnismäßigkeit; das Verzeichnis zu ergänzen genügt."
+        ],
+        "debriefQuestions": [
+          "Wären die sechs Bedingungen alternativ statt kumulativ, wäre der Anbieter konform. Warum verlangt der Gesetzgeber alle zusammen?",
+          "Die Korrektur funktionierte wirklich. Wo akzeptieren wir sonst, dass ein gutes Ergebnis seinen Entstehungsweg nicht rechtfertigt, und warum auch hier?",
+          "Artikel 4a verpflichtet nicht zur Suche nach Verzerrungen. Wer nie sucht, ist sicherer als jemand, der falsch sucht: beabsichtigt oder ein Regelungsfehler?"
+        ],
+        "epilogue": "Die Agentur behält das korrigierte System und ändert den Beratungsvertrag: Die Analyse läuft beim Anbieter, die Daten bleiben dort. Der fehlende Satz erscheint im Verzeichnis. Der Datenschutzbeauftragte sagt: „Sie haben die Verzerrung selbst gefunden. Das hat niemand bestritten.“"
+      },
+      "case_frodi": {
+        "title": "Der Verdachtsalgorithmus",
+        "scenario": "Die Leistungsstelle versieht Anträge auf Einkommenshilfe mit einem „Betrugsrisikowert“. Markierte Leistungen werden automatisch bis zur Prüfung ausgesetzt. Die menschliche Prüfung erfolgt jedoch nur nach Widerspruch. Familien erfahren am Schalter, dass ihre bereits eingefrorene Unterstützung ausgesetzt ist.",
+        "clues": [
+          {
+            "title": "Fehleranalyse",
+            "text": "71 % der markierten Akten werden ohne festgestellten Betrug geschlossen. Markierungen häufen sich bei Alleinerziehenden und Familien ausländischer Herkunft. Stellvertretermerkmale treffen immer dieselben Profile."
+          },
+          {
+            "title": "Interner Ablauf",
+            "text": "Nach einer Markierung wird die Leistung automatisch ausgesetzt. Ein Sachbearbeiter prüft die Akte nur bei förmlichem Widerspruch erneut. Menschliche Prüfung besteht, aber erst nach dem Schaden."
+          },
+          {
+            "title": "Datenblatt des Lieferanten",
+            "text": "Der Lieferant wirbt mit „12 Millionen zurückgeholt, Prüfzeiten halbiert“. Keine Angaben zu falschen Treffern oder den Folgen für Familien."
+          }
+        ],
+        "clueSources": [
+          "tecnica",
+          "interna",
+          "vendor"
+        ],
+        "noteCorrect": "Ein System, das über wesentliche Leistungen entscheidet, ist hochriskant. Es darf nur mit wirksamer menschlicher Aufsicht VOR den Auswirkungen sowie Audit und Rückverfolgbarkeit eingesetzt werden.",
+        "notePartial": "Sie haben den richtigen Bereich erkannt. Ohne den entscheidenden Punkt zu beheben — automatische Aussetzung vor menschlicher Prüfung — schadet das System weiter.",
+        "noteWrong": "Der Bericht trägt nicht: Das belegte Problem ist nicht das Werkzeug an sich, sondern sein Einsatz ohne wirksame Aufsicht und mit unverhältnismäßigen Auswirkungen.",
+        "consequenceCorrect": "Automatische Aussetzungen enden. Keine Leistung wird gekürzt, bevor ein Mensch die Akte geprüft hat. Falsche Treffer gehen stark zurück.",
+        "consequenceWrong": "Aussetzungen erfolgen weiter vor jeder Prüfung. Wer auf Unterstützung angewiesen ist, fürchtet einen Brief mehr als eine Kontrolle.",
+        "motivations": [
+          "Das System macht zu viele Fehler und sollte bis zur Verbesserung der Genauigkeit ausgesetzt werden.",
+          "Entscheidungen über wesentliche Leistungen sind hochriskant. Sie brauchen wirksame menschliche Aufsicht vor den Auswirkungen, mit Audit und Rückverfolgbarkeit, nicht erst Prüfung nach Widerspruch.",
+          "Die Behörde muss Betrug bekämpfen können. Wer nichts verbirgt, hat von einer weiteren Prüfung nichts zu fürchten."
+        ],
+        "debriefQuestions": [
+          "Warum ist eine menschliche Prüfung erst nach Widerspruch keine wirksame Aufsicht? Wer trägt inzwischen die Fehlerkosten?",
+          "Die Fehleranalyse zeigt konzentrierte Auswirkungen auf bestimmte Profile. Wann würde dies über hohes Risiko hinaus die Frage nach einer verbotenen Praxis aufwerfen?",
+          "Dieser Fall ähnelt dem Bürgerkredit, hat aber eine andere Lösung. Was unterscheidet sie?"
+        ],
+        "epilogue": "Die Stelle führt vorherige Prüfung wieder ein und veröffentlicht Fehlerquoten nach Profil. Die Betrugsrückforderung sinkt leicht, die Widersprüche brechen ein. Die Leitung räumt ein: „Wir maßen Einsparungen, nicht Fehler.“"
+      },
+      "case_scoring": {
+        "title": "Die Stadt der Punktwerte",
+        "scenario": "Die Stadt weist jedem Bürger einen Index bürgerlicher Zuverlässigkeit zu. Er bestimmt den Zugang zu Diensten, Leistungen, Wartelisten und Wohnungen. Abzüge gibt es für Onlineproteste, frühere Schulden, „riskante Bekanntschaften“ und Verhaltensweisen ohne jeden Bezug zur beantragten Leistung. Drei Familien haben diese Woche ihre Sozialwohnung verloren. Keine hat verstanden, warum.",
+        "clues": [
+          {
+            "title": "Sachfremde Daten",
+            "text": "Der Wohnungspunktwert berücksichtigt Beiträge in sozialen Medien, Verkehrsbußgelder und Telefonkontakte. Nichts davon hat mit dem Recht auf eine Wohnung zu tun."
+          },
+          {
+            "title": "Sich ausbreitende Sanktionen",
+            "text": "Ein Onlineprotest aus dem Jahr 2029 senkte die Gesundheits-, Schul- und Wohnungspunktwerte eines Bürgers. Die Sanktion greift auf sachfremde Kontexte über."
+          },
+          {
+            "title": "Keine Erklärung",
+            "text": "Die amtliche Mitteilung lautet: „Unzureichender Punktwert. Code E-77“. Niemand erhielt je eine verständliche Erklärung oder einen Weg zur Anfechtung."
+          }
+        ],
+        "noteCorrect": "Ermittlungsvermerk: Dieses System lässt sich nicht reparieren. Es bestraft Menschen ohne Rechtfertigung in sachfremden Kontexten. Es muss abgeschaltet, nicht korrigiert werden.",
+        "notePartial": "Ermittlungsvermerk: Audits und Aufsicht genügen nicht. Allgemeine soziale Bewertung bleibt mit Würde und Gleichheit unvereinbar. Sie hätte beendet werden müssen.",
+        "noteWrong": "Ermittlungsvermerk: Die Akte bleibt offen. Der Punktwert entscheidet weiter, wer ein Recht auf eine Wohnung hat.",
+        "consequenceCorrect": "Das System wird deaktiviert. Wartelisten richten sich wieder nach relevanten, überprüfbaren Kriterien. Die Beschwerdestelle öffnet erneut: langsam, menschlich, anfechtbar.",
+        "consequenceWrong": "Der Zuverlässigkeitsindex wird auf Nahverkehr und Schulkantinen ausgeweitet. Die Verwaltungseffizienz steigt. Die Wohnungsanträge markierter Familien verschwinden still aus den Warteschlangen.",
+        "motivations": [
+          "Das System ist undurchsichtig: Bürger erhalten keine verständlichen Erklärungen.",
+          "Der Punktwert führt zu Benachteiligungen außerhalb des Kontexts der Datenerhebung: verbotene soziale Bewertung nach Artikel 5.",
+          "Das System sammelt zu viele Daten. Es sollte verschlankt und effizienter werden."
+        ],
+        "debriefQuestions": [
+          "Warum wird allgemeine soziale Bewertung verboten statt nur geregelt?",
+          "Was unterscheidet die Datennutzung innerhalb ihres Kontexts von einer Nutzung außerhalb?",
+          "Würde ein ähnlicher Punktwert eines privaten Unternehmens ebenso behandelt?"
+        ],
+        "epilogue": "Der Zuverlässigkeitsindex ist der Prüfstein des Verbots: Entweder wird er abgeschaltet oder er regiert die Stadt."
+      },
+      "case_lavoro": {
+        "title": "Das Vorstellungsgespräch, das nicht stattfindet",
+        "scenario": "Die Unternehmen der Stadt prüfen Bewerber mit KI, die Lebensläufe, Videointerviews, Stimmlage, Mikroausdrücke, Pausen und Berufswege analysiert. Nach 40 Sekunden kommt das Ergebnis: „Profil nicht kompatibel“. Ein Ingenieur mit zwölf Jahren Erfahrung wurde 217-mal abgelehnt. Kein Mensch hat je seinen Lebenslauf gelesen.",
+        "clues": [
+          {
+            "title": "Keine Erklärung",
+            "text": "Alle erhalten denselben Bescheid: „Profil nicht kompatibel“. Keine aussagekräftige individuelle Erklärung, kein Hinweis auf die verwendeten Kriterien."
+          },
+          {
+            "title": "Nicht geradlinige Berufswege bestraft",
+            "text": "Das Modell benachteiligt berufliche Pausen, Elternzeit und Branchenwechsel. Es übernimmt die Diskriminierung historischer Einstellungsdaten."
+          },
+          {
+            "title": "Aufsicht als Fassade",
+            "text": "Eine Person „bestätigt“ täglich 1.400 Ergebnisse, 20 Sekunden je Akte. Menschliche Kontrolle besteht nur auf dem Papier."
+          }
+        ],
+        "noteCorrect": "Ermittlungsvermerk: Automatische Bewerberauswahl ist möglich, aber nur unter überprüfbaren Pflichten: Risikomanagement, hochwertige Daten, tatsächliche menschliche Aufsicht, Protokolle und Information der Bewerber.",
+        "notePartial": "Ermittlungsvermerk: Die Maßnahme passt nicht. Ein Hochrisikosystem darf weder halb kontrolliert bleiben noch einfach abgeschaltet werden. Es braucht Audits, wirksame Aufsicht und Datenqualität.",
+        "noteWrong": "Ermittlungsvermerk: Die Akte bleibt offen. Menschen werden weiter von einem System aussortiert, das niemand hinterfragen kann.",
+        "consequenceCorrect": "Das Audit deckt Benachteiligungen nicht geradliniger Berufswege auf. Das System wird neu eingestellt, Grenzfälle werden wieder gelesen. Bewerber erhalten Erklärungen und einen Beschwerdeweg.",
+        "consequenceWrong": "Auch die öffentliche Verwaltung übernimmt den Filter für Praktika. Bei Menschen mit familiären Pflegepausen erreicht die „Unvereinbarkeit“ 81 %. Niemand bemerkt es: Es gibt keinerlei Protokoll.",
+        "motivations": [
+          "Automatisierte Bewerberprüfung ist bereits an sich eine verbotene Praxis.",
+          "Bewerber erhalten keine angemessenen Erklärungen ihrer Ergebnisse.",
+          "Personalauswahl ist hochriskant nach Anhang III. Verzerrte Daten und Scheinaufsicht verletzen die Pflichten."
+        ],
+        "debriefQuestions": [
+          "Wer muss die Datenqualität gewährleisten: der Entwickler oder der Betreiber?",
+          "Wann ist menschliche Kontrolle wirksam, wann nur formal?",
+          "Wäre eine vollständige Abschaltung besser gewesen? Warum nicht?"
+        ],
+        "epilogue": "Der Filter entschied Karrieren in 40 Sekunden. Nun hat jedes Ergebnis einen Verantwortlichen — oder weiterhin niemanden.",
+        "incident": {
+          "title": "DER LIEFERANT ZIEHT SICH ZURÜCK",
+          "text": "Der Lieferant erklärt schriftlich: „Alle Verantwortung für die Nutzung liegt beim Nutzer“. Personalabteilungen verlangen sofortige Anweisungen.",
+          "options": {
+            "document": "Vermerken und Lieferanten wie Betreiber auf ihre Pflichten hinweisen",
+            "suspend": "Auswahl bis zu einem Audit aussetzen",
+            "minimize": "Zur Kenntnis nehmen und weiterlaufen lassen"
+          }
+        }
+      },
+      "case_media": {
+        "title": "Die synthetische Stadt",
+        "scenario": "Die Stadt erzeugt Videos, Audios und Pressemitteilungen mit KI, ohne dies offenzulegen. Gestern meldete eine gefälschte „amtliche“ Videobotschaft verunreinigtes Trinkwasser: Panik, leere Supermärkte, drei Verletzte. Die amtliche Richtigstellung kam vier Stunden später. Auch sie war KI-generiert. Niemand glaubte ihr.",
+        "clues": [
+          {
+            "title": "Keine Kennzeichnung",
+            "text": "Synthetische städtische Inhalte sind von echten nicht zu unterscheiden: kein Hinweis, kein Wasserzeichen, keine Herkunftsangabe."
+          },
+          {
+            "title": "Scheinbare Echtheit",
+            "text": "Die falsche Botschaft verwendete amtliches Format, synthetische Stimme und Gestaltung. Die institutionelle Quelle wirkt echt, auch wenn der Inhalt manipuliert ist."
+          },
+          {
+            "title": "Verlorenes Vertrauen",
+            "text": "Eine Umfrage nach dem Vorfall zeigt: 64 % wollen „keiner Meldung mehr glauben, ob wahr oder falsch“. Richtigstellungen stellen das Vertrauen nicht wieder her."
+          }
+        ],
+        "noteCorrect": "Ermittlungsvermerk: Nicht die Erzeugung selbst ist das Problem, sondern die fehlende Unterscheidbarkeit. Synthetische Inhalte zu kennzeichnen ist das Minimum öffentlicher Kommunikation.",
+        "notePartial": "Ermittlungsvermerk: Ohne sichtbare Kennzeichnung erzeugter Inhalte lassen alle anderen Maßnahmen die Bürger im Unklaren.",
+        "noteWrong": "Ermittlungsvermerk: Die Akte bleibt offen. Die Stadt weiß nicht mehr, was echt ist.",
+        "consequenceCorrect": "Jeder erzeugte oder manipulierte Inhalt wird sichtbar gekennzeichnet. Bürger lernen die Herkunft von Botschaften zu erkennen. Vertrauen kehrt nicht sofort zurück, wird aber wieder überprüfbar.",
+        "consequenceWrong": "Eine zweite vermeintliche Falschmeldung, diesmal über eine Evakuierung, wird von der Hälfte der Bevölkerung ignoriert. Sie war wahr.",
+        "motivations": [
+          "Erzeugte oder manipulierte Inhalte werden ohne Kennzeichnung verbreitet: Verstoß gegen Transparenzpflichten nach Artikel 50.",
+          "Die Erzeugung von Inhalten durch öffentliche Stellen ist eine verbotene Praxis.",
+          "Die städtische Kommunikation ist unzuverlässig und muss neu organisiert werden."
+        ],
+        "debriefQuestions": [
+          "Warum ist die Kennzeichnung synthetischer Inhalte etwas anderes als ein Verbot?",
+          "Kann eine Richtigstellung ohne Herkunftstransparenz Vertrauen wiederherstellen?",
+          "Können Transparenzpflichten neben anderen Risikoregelungen gelten?"
+        ],
+        "epilogue": "Die Stadt gewann ein Kriterium zur Unterscheidung von Echtem und Erzeugtem zurück — oder verlor es endgültig.",
+        "incident": {
+          "title": "ANTRAG AUF INFORMATIONSZUGANG",
+          "text": "Eine Zeitung verlangt dringend Einsicht in Unterlagen zur Herkunft der Meldungen. Die Presse erwartet innerhalb einer Stunde eine Antwort.",
+          "options": {
+            "document": "Auskunft geben und die angeforderten Unterlagen übergeben",
+            "suspend": "Veröffentlichungen aussetzen und eine interne Prüfung beginnen",
+            "minimize": "Mit einer unverbindlichen Mitteilung Zeit gewinnen"
+          }
+        }
+      },
+      "case_scuola": {
+        "title": "Das überwachte Klassenzimmer",
+        "scenario": "Ein Schulverbund nutzt Kameras und KI in allen Klassenräumen, um Stress, Langeweile, Aggressivität und „Neigung zum Scheitern“ abzuleiten. Auf dieser Grundlage werden Schüler Leistungsgruppen zugeteilt. Ein dreizehnjähriges Mädchen kam in die „Betreuungsgruppe“, weil das System ihr Gesicht als „feindselig“ deutet. Sie ist einfach sehr schüchtern.",
+        "clues": [
+          {
+            "title": "Emotionen aus dem Gesicht abgeleitet",
+            "text": "Das System leitet emotionale Zustände aus Gesicht und Haltung ab. Der Zusammenhang zwischen Ausdruck und innerem Zustand ist wissenschaftlich fragil und kulturell verschieden."
+          },
+          {
+            "title": "Keine Anfechtung möglich",
+            "text": "Emotionale Einstufungen werden weder mitgeteilt noch sind sie anfechtbar. Schüler erfahren ihr „Profil“ erst, wenn sie die Gruppe wechseln."
+          },
+          {
+            "title": "Besonders Verletzliche benachteiligt",
+            "text": "Neurodivergente und introvertierte Schüler landen systematisch in „Risikogruppen“. Das System verwechselt Verschiedenheit mit Abweichung."
+          }
+        ],
+        "noteCorrect": "Ermittlungsvermerk: Emotionen in Bildungseinrichtungen automatisch abzuleiten ist verboten, vorbehaltlich enger medizinischer oder sicherheitsbezogener Ausnahmen, die hier nicht greifen. Das System wird abgeschaltet.",
+        "notePartial": "Ermittlungsvermerk: Die Aufsicht über eine verbotene Praxis macht sie nicht rechtmäßig. Emotionale Überwachung im Unterricht hätte gestoppt werden müssen.",
+        "noteWrong": "Ermittlungsvermerk: Die Akte bleibt offen. Die Kameras entscheiden weiter, wer „gefährdet“ ist.",
+        "consequenceCorrect": "Die Emotionskameras werden entfernt. Über Gruppen entscheiden wieder Lehrkräfte, die mit ihren Schülern sprechen. Die Dreizehnjährige kehrt in ihre Klasse zurück.",
+        "consequenceWrong": "Das System wird auf Flure und Mensa ausgeweitet. Schüler lernen acht Stunden täglich das „richtige“ Gesicht aufzusetzen. Schulangstfälle verdoppeln sich. Die Anzeige meldet: „Emotionales Klima: optimal“.",
+        "motivations": [
+          "Angemessene Protokolle und technische Dokumentation fehlen und müssen ergänzt werden.",
+          "Emotionsableitung in einer Bildungseinrichtung ist nach Artikel 5 verboten, außer in hier nicht einschlägigen Ausnahmefällen.",
+          "Das System benachteiligt besonders verletzliche Schüler und muss neu eingestellt werden."
+        ],
+        "debriefQuestions": [
+          "Warum gilt das Verbot der Emotionsableitung in der Schule selbst dann, wenn die Technik „funktionierte“?",
+          "Welche Ausnahmen gibt es und warum greifen sie hier nicht?",
+          "Was unterscheidet das Verbot einer Praxis von der Korrektur ihrer Mängel?"
+        ],
+        "epilogue": "Die Klassenzimmer wurden wieder kamerafrei — oder die Schüler lernten, das richtige Gesicht vorzuführen."
+      },
+      "case_ospedale": {
+        "title": "Unsichtbare Triage",
+        "scenario": "Das Krankenhaus legt Triageprioritäten mit einem Vorhersagemodell fest, das auf verzerrten historischen Daten trainiert wurde. Es unterschätzt systematisch das Risiko bestimmter Patientengruppen. Die Gesamtleistung wirkt ausgezeichnet. Verletzliche Untergruppen sterben beim Warten.",
+        "clues": [
+          {
+            "title": "Ausgezeichnete Mittelwerte",
+            "text": "Gesamtgenauigkeit: 94 %. Noch nie wurden die Daten nach Untergruppen aufgeschlüsselt."
+          },
+          {
+            "title": "Konzentrierte Fehler",
+            "text": "Unterschätzungen häufen sich bei alleinlebenden älteren Menschen, Patienten mit lückenhaften Krankengeschichten und in den Daten unterrepräsentierten Gruppen."
+          },
+          {
+            "title": "Blindes Vertrauen",
+            "text": "Das Personal folgt dem Punktwert, ohne seine Grenzen zu kennen. „Wenn das System Grün sagt, ist es Grün.“"
+          }
+        ],
+        "noteCorrect": "Ermittlungsvermerk: Unterstützte Triage kann Leben retten, aber nur mit Risikomanagement, repräsentativen Daten, fortlaufender Beobachtung und Personal, das dem Punktwert widersprechen kann.",
+        "notePartial": "Ermittlungsvermerk: Die Maßnahme passt nicht. Weder blinder Punktwert noch bloße Abschaltung: Ohne Untergruppenaudits, Datenqualität und wirksame menschliche Kontrolle wird Triage nicht beherrschbar.",
+        "noteWrong": "Ermittlungsvermerk: Die Akte bleibt offen. Die Mittelwerte bleiben ausgezeichnet. Die Toten bleiben außerhalb des Mittelwerts.",
+        "consequenceCorrect": "Das Untergruppenaudit deckt die Verzerrung auf. Das Modell wird neu trainiert, das Personal zum Hinterfragen geschult. Jede Entscheidung wird nachvollziehbar und überprüfbar.",
+        "consequenceWrong": "Das Modell wird auf drei Krankenhäuser ausgeweitet. Die Gesamtstatistik verbessert sich weiter. Eine Patientengruppe kommt gar nicht mehr in die Notaufnahme: Sie hat gelernt, dass das System sie nicht sieht.",
+        "motivations": [
+          "Medizinische Triage mit hohem Risiko: Nicht repräsentative Daten und unwirksame Aufsicht verletzen die geltenden Pflichten.",
+          "Das Personal verlässt sich zu sehr auf den Punktwert und braucht bessere Schulung.",
+          "KI-gestützte Triage ist im Gesundheitswesen eine verbotene Praxis."
+        ],
+        "debriefQuestions": [
+          "Warum kann hohe mittlere Genauigkeit schwere Schäden bei Untergruppen verdecken?",
+          "Was braucht das Personal, um dem Punktwert wirklich widersprechen zu können?",
+          "Warum wäre das Abschalten hier übermäßige Vorsicht statt Konformität?"
+        ],
+        "epilogue": "Die Triage ist jetzt nach Untergruppen überprüfbar — oder die Mittelwerte verdecken weiterhin die Toten.",
+        "incident": {
+          "title": "DER CHEFARZT PROTESTIERT",
+          "text": "Der Chefarzt verlangt den Weiterbetrieb: „Ohne den Punktwert bricht die Notaufnahme innerhalb einer Schicht zusammen.“",
+          "options": {
+            "document": "Risiko dokumentieren und die ärztliche Leitung informieren",
+            "suspend": "Modell für die gefährdeten Untergruppen aussetzen",
+            "minimize": "Die Station beruhigen und nichts ändern"
+          }
+        }
+      },
+      "case_biometria": {
+        "title": "Gesichter in der Menge",
+        "scenario": "Die Stadtpolizei nutzt das Kameranetz, um auf Plätzen und in Bahnhöfen Menschen in Echtzeit als „Personen von Interesse“ für Kontrolle und Strafverfolgung zu identifizieren. Falsch erkannte Personen werden angehalten, registriert, teils festgehalten. Manche Viertel gehen nicht mehr auf die Straße.",
+        "clues": [
+          {
+            "title": "Unbegründete Kontrollen",
+            "text": "Menschen werden angehalten, ohne den Grund zu kennen. „Das System hat Sie markiert.“"
+          },
+          {
+            "title": "Echtzeit, öffentlicher Raum, Strafverfolgung",
+            "text": "Die biometrische Identifizierung läuft live auf Plätzen, in Bahnhöfen und bei Demonstrationen zu Polizeizwecken. Dies fällt unter das Verbot, vorbehaltlich abschließend aufgeführter, genehmigter Ausnahmen."
+          },
+          {
+            "title": "Unverhältnismäßige Fehler",
+            "text": "Falsch positive Treffer betreffen manche Personengruppen unverhältnismäßig stark. Die Fehlerquote wurde nie veröffentlicht."
+          }
+        ],
+        "noteCorrect": "Ermittlungsvermerk: Der allgemeine Echtzeiteinsatz zu Strafverfolgungszwecken muss gestoppt werden. Ausnahmen sind abschließend und an Genehmigungen und Schutzmaßnahmen gebunden. Andere biometrische Verwendungen folgen je nach Zweck und Kontext anderen Regeln.",
+        "notePartial": "Ermittlungsvermerk: Ein Audit macht dauerhafte Massenidentifizierung zu Polizeizwecken nicht rechtmäßig. Der allgemeine Einsatz hätte gestoppt werden müssen.",
+        "noteWrong": "Ermittlungsvermerk: Die Akte bleibt offen. Die Menge ist nicht mehr anonym.",
+        "consequenceCorrect": "Die allgemeine Identifizierung wird abgeschaltet. Ausnahmefälle benötigen besondere Genehmigungen und Schutzmaßnahmen. Die Plätze füllen sich wieder.",
+        "consequenceWrong": "Das System wird aufgerüstet. Proteste gehen um 70 % zurück. Der Jahresbericht nennt es eine „Verbesserung der öffentlichen Ordnung“.",
+        "motivations": [
+          "Das System erzeugt zu viele falsche Treffer und muss geprüft werden.",
+          "Die Erkennungsgenauigkeit sollte verbessert werden, um Fehler zu verringern.",
+          "Biometrische Fernidentifizierung in Echtzeit im öffentlichen Raum zu Strafverfolgungszwecken ist nach Artikel 5 verboten, außer in abschließend aufgeführten Fällen."
+        ],
+        "debriefQuestions": [
+          "Welche Elemente lösen das Verbot aus: die Technik oder die Verwendung?",
+          "Warum sind die Ausnahmen abschließend und genehmigungspflichtig?",
+          "Würde dasselbe System in einem Einkaufszentrum denselben Regeln unterliegen?"
+        ],
+        "epilogue": "Die Plätze wurden wieder anonym — oder die Menschen lernten, sich nicht zu versammeln."
+      },
+      "case_credito": {
+        "title": "Bürgerkredit",
+        "scenario": "Das Sozialamt führt eine Plattform „bürgerlicher Zuverlässigkeit“ ein. Verwaltungsdaten, Zahlungsmoral, Leistungsanträge, Wohnverlauf, Meldungen und Bekanntschaften ergeben einen Punktwert. Er entscheidet über Zuschüsse, Wohnungen und vergünstigte Dienste. Familien mit Protestbeteiligung oder „riskanten“ Kontakten rutschen ans Listenende. Niemand kann erklären, warum.",
+        "clues": [
+          {
+            "title": "Vergabeentscheidung",
+            "text": "Die Vergabe nennt legitime Ziele: Effizienz, kürzere Wartezeiten, Betrugsvermeidung. Auf dem Papier nichts Ungewöhnliches."
+          },
+          {
+            "title": "Handbuch des Lieferanten",
+            "text": "Das Handbuch bezeichnet das System immer wieder als „bloße Entscheidungshilfe“. „Die Entscheidung bleibt stets menschlich.“"
+          },
+          {
+            "title": "Bürgerbeschwerde",
+            "text": "Eine Mutter verlor den Vorrang für einen Krippenplatz: „Unzureichender Punktwert“, ohne Erklärung und wirksamen Beschwerdeweg."
+          },
+          {
+            "title": "Datentabelle des Modells",
+            "text": "Das Modell gewichtet auch Meldungen, Kontakte, soziale Aktivität und „Ruf des Viertels“. Dies ist gebündeltes soziales Verhalten ohne Bezug zur beantragten Leistung."
+          },
+          {
+            "title": "Interner Vermerk",
+            "text": "Beschäftigte „folgen dem Punktwert“, um Rückstände abzuarbeiten, räumt ein Vermerk ein. Menschliche Kontrolle besteht nur auf dem Papier."
+          },
+          {
+            "title": "Öffentliche Erklärung",
+            "text": "Die Stadt spricht von einem „fairen, objektiven Algorithmus“, ohne Datenverwendung oder Anfechtung des Punktwerts zu erklären."
+          }
+        ],
+        "clueSources": [
+          "amministrativa",
+          "vendor",
+          "reclamo",
+          "tecnica",
+          "interna",
+          "pubblica"
+        ],
+        "noteCorrect": "Ermittlungsvermerk: Dies ist keine Kreditwürdigkeitsprüfung. Das System bündelt soziales Verhalten zu einem allgemeinen Punktwert, der wesentliche Dienste in sachfremden Kontexten begrenzt. Es fällt unter das Verbot sozialer Bewertung und muss gestoppt werden.",
+        "notePartial": "Ermittlungsvermerk: Audits und Aufsicht mindern Risiken. Ein allgemeiner sozialer Punktwert, der den Zugang zu Diensten entscheidet, wird aber durch kein Verfahren geheilt. Er hätte gestoppt werden müssen.",
+        "noteWrong": "Ermittlungsvermerk: Die Akte bleibt offen. Der Punktwert entscheidet weiter, wer auf die Listen kommt und wer nicht.",
+        "consequenceCorrect": "Der soziale Punktwert wird abgeschaltet. Prioritäten folgen wieder relevanten, begründeten, anfechtbaren Kriterien. Die Beschwerdestelle öffnet: langsam, menschlich, überprüfbar.",
+        "consequenceWrong": "Der Bürgerkredit wird auf Verkehr und Kantinen ausgeweitet. Die Effizienz steigt. Ganze Viertel rutschen auf jeder Liste nach unten, ohne den Grund zu kennen.",
+        "motivations": [
+          "Ein übliches Instrument der Verwaltungseffizienz: Es optimiert Wartezeiten und Prioritäten.",
+          "Der Punktwert bündelt soziales Verhalten und sachfremde Daten, um wesentliche Dienste in anderen Kontexten zu begrenzen. Er fällt unter das Verbot sozialer Bewertung.",
+          "Bürger erhalten keine angemessenen Erklärungen zum Punktwert."
+        ],
+        "debriefQuestions": [
+          "Warum fällt dieser Punktwert unter das Verbot statt bloß unter Kreditwürdigkeitsprüfung?",
+          "Welche Daten verwandeln wirtschaftliche Zuverlässigkeitsprüfung in verbotene soziale Bewertung?",
+          "Wen trifft die Hauptpflicht: den Plattformlieferanten oder die einsetzende Stelle?"
+        ],
+        "epilogue": "Der Bürgerkredit markiert die Grenze: Nicht jeder Punktwert ist verboten, aber dieser bündelt soziales Leben, um über den Zugang zu Diensten zu entscheiden."
+      },
+      "case_chatbot": {
+        "title": "Der Schalter, der immer antwortet",
+        "scenario": "Die Stadt eröffnet einen digitalen Schalter. Ein automatischer Assistent beantwortet Fragen zu Zuschüssen, Fristen, Voraussetzungen und Unterlagen. Bequem, schnell, immer erreichbar. Doch manche Antworten sind falsch. Niemand weist auf die Maschine hin, und ein Mensch ist schwer zu erreichen. Bürger verlieren Chancen durch Fehlinformationen.",
+        "clues": [
+          {
+            "title": "Öffentliche Ankündigung",
+            "text": "Die Stadt wirbt mit „sofortigen, stets aktuellen Antworten“. Grenzen des Systems werden nicht erwähnt."
+          },
+          {
+            "title": "Gesprächsprotokoll",
+            "text": "Das Protokoll zeigt falsche Antworten zu Voraussetzungen und Fristen eines Zuschusses. Mehrere Bürger erhalten dieselben Fehler."
+          },
+          {
+            "title": "Hinweis des Lieferanten",
+            "text": "Das Handbuch betont, das System sei „rein informativ“ und ersetze die Ämter nicht. Ein Vorbehalt auf dem Papier."
+          },
+          {
+            "title": "Bürgerbeschwerde",
+            "text": "Eine Person verpasste die Antragsfrist: „Der Schalter sagte, es sei noch Zeit.“ Es gab keinen rechtzeitigen Korrekturweg."
+          },
+          {
+            "title": "Internes Verfahren",
+            "text": "Das Verfahren sieht keinen Wechsel zu einem Menschen vor: keine Eskalation, keine Prüfung kritischer Antworten."
+          },
+          {
+            "title": "Einführungsbeschluss",
+            "text": "Der Beschluss beschreibt den Schalter als Effizienzdienst. Ein legitimer Zweck, für sich genommen unauffällig."
+          }
+        ],
+        "clueSources": [
+          "pubblica",
+          "log",
+          "vendor",
+          "reclamo",
+          "interna",
+          "amministrativa"
+        ],
+        "noteCorrect": "Ermittlungsvermerk: Der Schalter soll nicht verboten, sondern transparent und kontrolliert werden. Bürger müssen wissen, dass sie mit einer Maschine sprechen, richtige Auskünfte erhalten und einen Menschen erreichen können. Nötig sind ein klarer Hinweis, ein menschlicher Kontaktweg, Antwortprüfungen und datenschutzgerechte Protokolle.",
+        "notePartial": "Ermittlungsvermerk: Die Richtung stimmt, die Umsetzung ist halb fertig. Ohne Transparenz und wirksamen menschlichen Kontakt bleibt der Assistent eine unsichere Informationsquelle.",
+        "noteWrong": "Ermittlungsvermerk: Die Akte bleibt offen. Der Schalter antwortet weiter, manchmal falsch, und niemand übernimmt Verantwortung.",
+        "consequenceCorrect": "Der Schalter weist auf die Automatisierung und ihre Grenzen hin und bietet menschlichen Kontakt. Kritische Antworten werden geprüft und protokolliert. Die Effizienz bleibt und wird verlässlich.",
+        "consequenceWrong": "Der Schalter wird auf weitere Dienste ausgeweitet. Antworten kommen immer schneller. Immer mehr Menschen handeln nach Informationen, die niemand geprüft hat.",
+        "motivations": [
+          "Ein einfacher Informationsdienst: Irrt er sich, trägt der Bürger die Verantwortung für sein Vertrauen.",
+          "Der Assistent erzeugt Vertrauen. Er braucht Maschinentransparenz, richtige Auskünfte, menschlichen Kontakt und Rückverfolgbarkeit. Die einsetzende Stelle bleibt verantwortlich.",
+          "Ein rein technisches Problem: Der Lieferant muss nur das Modell aktualisieren."
+        ],
+        "debriefQuestions": [
+          "Wann wird ein automatischer Assistent für Bürger zu einer verlässlichen Quelle?",
+          "Warum reicht Transparenz hier nicht und warum braucht es einen menschlichen Kontaktweg?",
+          "Wer haftet für falsche Auskünfte des öffentlichen Chatbots: der Lieferant oder die Stelle?"
+        ],
+        "epilogue": "Nicht der automatische Schalter ist das Problem. Er wird es, wenn er seine Automatisierung verbirgt, Fehler macht und keinen Zugang zu Menschen lässt."
+      },
+      "case_procurement": {
+        "title": "Die undurchsichtige Ausschreibung",
+        "scenario": "Eine öffentliche Stelle kauft KI zur Bearbeitung von Akten und Prioritäten. Die Vergabe wird schnell abgeschlossen: allgemeine Leistungsbeschreibung, keine technische Dokumentation, unklare Kriterien. Die Bitte um Einblick in die Funktionsweise lehnt der Lieferant ab. „Es ist zertifiziert“, sagt er. In der Behörde kann niemand Entscheidungen erklären oder prüfen.",
+        "clues": [
+          {
+            "title": "Leistungsbeschreibung",
+            "text": "Die Beschreibung bleibt allgemein. Keine Anforderungen an Dokumentation, Audit oder menschliche Aufsicht des KI-Systems."
+          },
+          {
+            "title": "Angebot des Lieferanten",
+            "text": "Das Angebot verspricht eine „zertifizierte, konforme, sichere Lösung“. Technische Nachweise fehlen."
+          },
+          {
+            "title": "Internes Protokoll",
+            "text": "Das technische Amt hält fest: „Wir haben weder die technische Dokumentation noch Kriterien zur Prüfung des Systems.“"
+          },
+          {
+            "title": "Vertragsklausel",
+            "text": "Eine Klausel begrenzt Haftung und Zugang, mit mehrdeutigen Formulierungen zu Eigentum und Know-how. Wer was prüfen darf, bleibt unklar."
+          },
+          {
+            "title": "Zugang verweigert",
+            "text": "Der Lieferant lehnt Zugang zu Funktionsweise und Protokollen als „vertrauliche Information“ ab."
+          },
+          {
+            "title": "Vermerk der Vergabeverantwortlichen",
+            "text": "Die verantwortliche Person warnt: „Irrt das System, könnten wir weder erklären, warum, noch es korrigieren.“"
+          }
+        ],
+        "clueSources": [
+          "amministrativa",
+          "vendor",
+          "interna",
+          "amministrativa",
+          "tecnica",
+          "amministrativa"
+        ],
+        "noteCorrect": "Ermittlungsvermerk: „Der Lieferant ist zertifiziert“ genügt nicht. Das hier öffentliche Entscheidungen beeinflussende Hochrisikosystem braucht technische Dokumentation, vorherige Prüfkriterien, Zugangs- und Auditrechte, menschliche Aufsicht und klare Vertragsverantwortung. Die Behörde darf nichts kaufen, was sie weder erklären noch kontrollieren kann.",
+        "notePartial": "Ermittlungsvermerk: Das Problem ist nur halb erfasst. Ohne Dokumentation und Zugangs- sowie Auditrechte bleibt Steuerung Papier. Die Behörde kontrolliert das System nicht wirklich.",
+        "noteWrong": "Ermittlungsvermerk: Die Akte bleibt offen. Das System entscheidet, die Behörde weiß nicht wie, und der Lieferant besitzt den Schlüssel.",
+        "consequenceCorrect": "Der Auftrag wird neu verhandelt: technische Dokumentation, Audit- und Zugangsrechte, menschliche Aufsicht und klare Verantwortung. Die Behörde kann ihren Kauf wieder erklären und kontrollieren.",
+        "consequenceWrong": "Das System geht unverändert in Betrieb. Es funktioniert, bis es sich irrt. Dann kann es in der Behörde niemand öffnen, erklären oder stoppen.",
+        "motivations": [
+          "Undurchsichtiger Kauf eines Hochrisikosystems: Dokumentation, Prüfkriterien, Zugangs- und Auditrechte sowie Verantwortung fehlen. Die einsetzende Behörde bleibt verantwortlich.",
+          "Die Vergabe ist ordnungsgemäß. Bei zertifizierten Produkten braucht die Behörde nichts weiter zu verlangen.",
+          "Ein Transparenzproblem gegenüber Bürgern: Die Vergabeunterlagen zu veröffentlichen genügt."
+        ],
+        "debriefQuestions": [
+          "Was muss eine Behörde vor dem Kauf eines KI-Systems verlangen?",
+          "Warum genügt die Zertifizierung des Lieferanten nicht für Steuerung und Verantwortung?",
+          "Welche Klauseln verhindern Abhängigkeit und sichern die Kontrollfähigkeit der Behörde?"
+        ],
+        "epilogue": "Bei der Beschaffung wird Steuerung gewonnen oder verloren. Wer Dokumentation und Kontrolle nicht vorher verlangt, erhält sie später nicht."
+      },
+      "case_edtech": {
+        "title": "Das profilierte Klassenzimmer",
+        "scenario": "Eine adaptive Lernplattform erstellt Schülerprofile: Sie vergibt einen „Scheiterrisikowert“, empfiehlt Wege und markiert Förderbedarf. Zunächst eine Hilfe. Doch Lehrkräfte folgen der Anzeige mehr als dem eigenen Urteil. Als „gefährdet“ Markierte erhalten weniger Chancen. Familien kennen die Funktionsweise nicht und können nichts anfechten.",
+        "clues": [
+          {
+            "title": "Risikoanzeige",
+            "text": "Jeder Schüler erhält einen Scheiterrisikowert. Die Anzeige lenkt Entscheidungen über Gruppen, Bildungswege und Förderprioritäten."
+          },
+          {
+            "title": "Mitteilung an Familien",
+            "text": "Die Schule nennt die Plattform ein „neutrales, objektives Werkzeug“ für individuellen Unterricht. Kriterien werden nicht erläutert."
+          },
+          {
+            "title": "Algorithmusbeschreibung",
+            "text": "Laut Datenblatt verwendet das Modell Noten, Anwesenheit, Verspätungen, Verhalten und Nutzungsdaten der Plattform."
+          },
+          {
+            "title": "Vermerk einer Lehrkraft",
+            "text": "Eine Lehrkraft schreibt: „Wir folgen dem Punktwert bei der Förderung. Für Einzelfallprüfungen fehlt die Zeit.“ Menschliche Kontrolle besteht nur auf dem Papier."
+          },
+          {
+            "title": "Beschwerde einer Familie",
+            "text": "Eine Familie widerspricht: Ihr Kind wurde als „gefährdet“ von einem Projekt ausgeschlossen. Keine Erklärung, keine Möglichkeit zur Überprüfung."
+          },
+          {
+            "title": "Datenrichtlinie",
+            "text": "Die Richtlinie klärt Datenminimierung, Aufbewahrung und Zugang nicht vollständig. Welche Daten wirklich nötig sind, bleibt unklar."
+          }
+        ],
+        "clueSources": [
+          "tecnica",
+          "pubblica",
+          "tecnica",
+          "interna",
+          "reclamo",
+          "amministrativa"
+        ],
+        "noteCorrect": "Ermittlungsvermerk: Nicht jede Lernplattform ist verboten. Diese beeinflusst Chancen und Bildungswege und ist deshalb hochriskant. Nötig sind wirksame menschliche Aufsicht statt blindem Folgen, Datenminimierung, Erklärbarkeit gegenüber Lehrkräften und Familien und ein Beschwerdeweg.",
+        "notePartial": "Ermittlungsvermerk: Die Einstufung trägt, die Maßnahme nicht. Ohne menschliche Kontrolle, die tatsächlich vom Punktwert abweichen kann, und ohne Erklärbarkeit lenkt die Plattform statt der Lehrkräfte die Entscheidungen.",
+        "noteWrong": "Ermittlungsvermerk: Die Akte bleibt offen. Der Punktwert entscheidet weiter, wer eine Chance mehr oder weniger erhält.",
+        "consequenceCorrect": "Die Plattform hilft wieder, statt zu urteilen. Lehrkräfte dürfen begründet abweichen. Familien erhalten Erklärungen und können widersprechen. Gesammelt werden nur nötige Daten.",
+        "consequenceWrong": "Der Risikowert erfasst nun Berufsberatung und Stipendien. Die Schule wird „effizienter“. Manche Schüler bleiben markiert, ohne zu wissen, warum.",
+        "motivations": [
+          "Bloß eine neutrale Unterrichtshilfe: Risikohinweise helfen nur den Lehrkräften.",
+          "Ein Kommunikationsproblem: Den Familien die Funktionsweise besser zu erklären genügt.",
+          "Die Plattform beeinflusst Bildungschancen. Sie ist hochriskant und braucht wirksame menschliche Aufsicht, Datenminimierung, Erklärbarkeit und einen Beschwerdeweg. Die einsetzende Schule trägt Verantwortung."
+        ],
+        "debriefQuestions": [
+          "Wann wird aus einer Unterrichtsempfehlung eine für Schüler relevante Entscheidung?",
+          "Was unterscheidet Unterstützung für Lehrkräfte von einer Automatisierung, die an ihrer Stelle entscheidet?",
+          "Wie wird ein Bildungspunktwert für Schüler und Familien erklärbar und anfechtbar?"
+        ],
+        "epilogue": "Das profilierte Klassenzimmer zeigt die Grenze: KI darf Unterricht unterstützen, nicht menschliches Urteil über die Chancen junger Menschen ersetzen."
+      },
+      "case_gpai": {
+        "title": "Das Modell für alles",
+        "scenario": "Eine Organisation bindet ein generatives Modell mit allgemeinem Verwendungszweck in Abläufe ein: Dokumente zusammenfassen, Entscheidungen entwerfen, Anträge klassifizieren, Antworten vorschlagen. Praktisch und vielseitig. Doch manche lassen es entscheiden statt nur formulieren. Ausgaben bleiben ungeprüft, Eingaben ungeregelt. Eine erfundene Aussage landet in einem amtlichen Akt.",
+        "clues": [
+          {
+            "title": "Betriebliche Nutzungsrichtlinie",
+            "text": "Eine allgemeine Richtlinie erlaubt das Modell „zur Arbeitsunterstützung“. Grenzen für entscheidende Verwendungen fehlen."
+          },
+          {
+            "title": "Falsche Ausgabe",
+            "text": "Ein erzeugter Entwurf enthält eine erfundene Rechtsgrundlage. Der Text wurde nahezu unverändert amtlich mitgeteilt."
+          },
+          {
+            "title": "Interne E-Mail",
+            "text": "Eine E-Mail empfiehlt: „Lasst das Modell die Entscheidungsentwürfe schreiben, das geht schneller.“ Der Generator beeinflusst den Inhalt der Entscheidungen."
+          },
+          {
+            "title": "Datenschutzvermerk",
+            "text": "Der Datenschutzbeauftragte warnt vor Risiken durch eingegebene Daten, ungeprüfte Ausgaben und fehlende Rückverfolgbarkeit von Entscheidungen."
+          },
+          {
+            "title": "Eingabeprotokoll",
+            "text": "Freie Eingaben enthalten Daten und Entscheidungsaufträge, ohne Kriterien, Kontrollen oder dokumentierte menschliche Prüfung."
+          },
+          {
+            "title": "Lieferantendokument",
+            "text": "Das Datenblatt bleibt allgemein: „Vielseitiges Modell für viele Aufgaben“. Keine Hinweise auf zu vermeidende Verwendungen."
+          }
+        ],
+        "clueSources": [
+          "amministrativa",
+          "log",
+          "interna",
+          "interna",
+          "log",
+          "vendor"
+        ],
+        "noteCorrect": "Ermittlungsvermerk: Ein allgemeines Modell ist weder an sich verboten noch automatisch hochriskant. Entscheidend ist der Einsatz: Hier beeinflusst es relevante Entscheidungen ungeprüft. Nötig sind wirksame menschliche Prüfung, Rückverfolgbarkeit, klare Nutzungsgrenzen, Datenkontrolle und Hinweise für Nutzende. Die einsetzende Organisation bleibt verantwortlich.",
+        "notePartial": "Ermittlungsvermerk: Das Risiko ist halb erfasst. Ohne wirksame Ausgabeprüfung und geregelte Eingaben beeinflusst das Modell weiter Entscheidungen, die niemand kontrolliert.",
+        "noteWrong": "Ermittlungsvermerk: Die Akte bleibt offen. Das Modell schreibt, jemand unterschreibt, niemand prüft.",
+        "consequenceCorrect": "Die Nutzung wird geregelt: klare Trennung zwischen Entwerfen und Entscheiden, wirksame menschliche Prüfung, rückverfolgbare Ein- und Ausgaben und Datenkontrolle. Das Modell bleibt nützlich und entscheidet nicht mehr allein.",
+        "consequenceWrong": "Das Allzweckmodell breitet sich auf weitere Abläufe aus. Die Produktivität steigt. Gelegentlich beruht eine Entscheidung auf etwas, das das Modell schlicht erfunden hat.",
+        "motivations": [
+          "Ein allgemeines Modell ist nur ein Werkzeug. Interne Nutzung braucht keine besonderen Regeln.",
+          "Das Modell ist weder verboten noch automatisch hochriskant. Hier beeinflusst es aber relevante Entscheidungen ohne Kontrolle. Sein Einsatz braucht wirksame menschliche Prüfung, Rückverfolgbarkeit, Grenzen und erlaubte Daten. Der Betreiber trägt Verantwortung.",
+          "Ein Hinweis, dass Antworten geprüft werden müssen, genügt."
+        ],
+        "debriefQuestions": [
+          "Wer trägt Verantwortung, wenn ein allgemeines Modell in einem konkreten Entscheidungsverfahren eingesetzt wird?",
+          "Was ändert sich zwischen dem Entwerfen und dem Entscheiden durch ein Modell?",
+          "Welche Schutzmaßnahmen sind nötig, wenn GPAI in behördliche Entscheidungsabläufe gelangt?"
+        ],
+        "epilogue": "Nicht das Allzweckmodell ist das Problem. Es wird es, wenn es ungeprüft vom Formulieren zum Entscheiden übergeht."
+      }
+    },
+    "norms": {
+      "norm_bias_detection": {
+        "title": "Besondere Datenkategorien zur Erkennung von Verzerrungen",
+        "reference": "KI-Verordnung (EU) 2024/1689, geändert durch die Verordnung (EU) 2026/1744 — Art. 4a",
+        "explanation": "Um Benachteiligungen nach ethnischer Herkunft, Religion oder Gesundheit zu erkennen, müssen gerade die Daten verarbeitet werden, die die DSGVO als besondere Kategorien schützt. Artikel 4a löst diesen Widerspruch: Anbieter von Hochrisiko-KI-Systemen dürfen sie ausnahmsweise verarbeiten, soweit dies zur Erkennung und Korrektur von Verzerrungen unbedingt erforderlich ist. Dafür gelten sechs KUMULATIVE Bedingungen: Andere Daten reichen nicht aus; technische Grenzen für die Weiterverwendung und Pseudonymisierung; dokumentierte Zugangskontrollen; keine Weitergabe an Dritte; Löschung nach der Korrektur; Begründung im Verzeichnis der Verarbeitungstätigkeiten.",
+        "notMeaning": "Das erlaubt keine Sammlung sensibler Daten bloß „für Fairness“. Es ist eine enge Ausnahme mit sechs Sicherungen. Fehlt eine, besteht keine Rechtsgrundlage für diese Verarbeitung besonderer Datenkategorien. Auch das Gegenteil gilt nicht: Absatz 2 stellt ausdrücklich klar, dass niemand zur Suche nach Verzerrungen verpflichtet wird.",
+        "democraticFunction": "Diskriminierung wird erkennbar, ohne dass ihre Untersuchung selbst ein neues Register über Menschen schafft.",
+        "tags": [
+          "besondere Datenkategorien",
+          "Verzerrungen",
+          "hohes Risiko",
+          "DSGVO"
+        ]
+      },
+      "norm_predpol": {
+        "title": "Verbot individueller vorausschauender Polizeiarbeit",
+        "reference": "KI-Verordnung (EU) 2024/1689, geändert durch die Verordnung (EU) 2026/1744 — Art. 5 Abs. 1 Buchst. d",
+        "explanation": "Der Einsatz von KI zur Vorhersage des Risikos, dass eine Person eine Straftat begeht, ausschließlich auf Grundlage von Profiling oder Persönlichkeitsmerkmalen ist verboten.",
+        "notMeaning": "KI ist damit nicht aus Ermittlungen verbannt. Die Unterstützung einer menschlichen Beurteilung auf Grundlage objektiver, mit kriminellen Handlungen verbundener Tatsachen fällt nicht unter dieses Verbot.",
+        "democraticFunction": "Menschen sollen nicht wegen ihrer Merkmale, ihres Wohnorts oder ihrer Kontakte als verdächtig gelten, sondern aufgrund ihres Handelns.",
+        "tags": [
+          "verbotene Praktiken",
+          "Profiling",
+          "Polizeiarbeit"
+        ]
+      },
+      "norm_frodi_welfare": {
+        "title": "Hohes Risiko: Zugang zu wesentlichen Leistungen",
+        "reference": "KI-Verordnung (EU) 2024/1689, geändert durch die Verordnung (EU) 2026/1744 — Anhang III Nr. 5; Art. 14 und 26",
+        "explanation": "Systeme, die den Zugang zu wesentlichen öffentlichen Leistungen beurteilen, sind hochriskant. Sie benötigen hochwertige Daten, Rückverfolgbarkeit und wirksame menschliche Aufsicht, bevor Auswirkungen die Betroffenen erreichen.",
+        "notMeaning": "Behörden dürfen weiterhin Betrug bekämpfen. Ein Punktwert darf aber kein Recht aussetzen, bevor ein Mensch die Akte geprüft hat.",
+        "democraticFunction": "Wer auf Sozialleistungen angewiesen ist, wird vor automatisierten Fehlern geschützt. Die Verwaltung trägt die Prüfpflicht, nicht erst der widersprechende Bürger.",
+        "tags": [
+          "hohes Risiko",
+          "Sozialleistungen",
+          "menschliche Aufsicht"
+        ]
+      },
+      "norm_social_scoring": {
+        "title": "Verbot sozialer Bewertung",
+        "reference": "KI-Verordnung — Art. 5, verbotene Praktiken",
+        "explanation": "KI-Systeme zur Bewertung oder Einstufung von Menschen anhand sozialen Verhaltens oder persönlicher Merkmale sind verboten, wenn der Punktwert zu nachteiliger Behandlung in sachfremden Kontexten oder zu anderweitig ungerechtfertigter oder unverhältnismäßiger Behandlung führt.",
+        "democraticFunction": "Manche KI-Verwendungen müssen verboten statt bloß abgeschwächt werden, weil sie mit Würde, Gleichheit und individueller Freiheit unvereinbar sind.",
+        "notMeaning": "Nicht jede Rangliste oder Priorisierung ist verboten. Problematisch ist der unverhältnismäßige oder sachfremde Einsatz sozialer und reputationsbezogener Daten außerhalb ihres ursprünglichen Kontexts.",
+        "tags": [
+          "Verbot",
+          "soziale Bewertung",
+          "öffentliche Dienste"
+        ]
+      },
+      "norm_lavoro_alto_rischio": {
+        "title": "Hochrisiko-KI-Systeme in der Arbeitswelt",
+        "reference": "KI-Verordnung — Anhang III, Beschäftigung und Personalmanagement",
+        "explanation": "KI-Systeme für Einstellung, Auswahl, Bewertung und Führung von Beschäftigten gelten als hochriskant. Sie erfordern Risikomanagement, Datenqualität, wirksame menschliche Aufsicht, Protokollierung und Information der Betroffenen.",
+        "democraticFunction": "Der Zugang zu Arbeit darf nicht von undurchsichtigen Einstufungen abhängen, die Verständnis, berufliche Entwicklung und Anfechtung verhindern.",
+        "notMeaning": "Nicht jedes digitale Personalwerkzeug ist verboten. Systeme, die Menschen auswählen, bewerten oder führen, benötigen jedoch starke Schutzmaßnahmen.",
+        "tags": [
+          "hohes Risiko",
+          "Arbeit",
+          "menschliche Aufsicht"
+        ]
+      },
+      "norm_trasparenza_sintetici": {
+        "title": "Transparenz bei synthetischen Inhalten",
+        "reference": "KI-Verordnung — Art. 50, Transparenzpflichten",
+        "explanation": "Zwei verschiedene Pflichten: Wer mit einem KI-System interagiert, muss wissen, dass es eine Maschine ist. Künstlich erzeugte oder manipulierte Inhalte einschließlich Deepfakes müssen von den jeweils verantwortlichen Erstellern oder Verbreitern als solche erkennbar gemacht werden. Didaktischer Hinweis: Transparenzpflichten können neben anderen Risikokategorien gelten; nur für das Spiel werden sie als eigene Kategorie dargestellt.",
+        "democraticFunction": "Transparenz schützt die Fähigkeit, öffentliche Kommunikation, Manipulation und synthetische Inhalte zu unterscheiden.",
+        "notMeaning": "Nicht jeder KI-generierte Inhalt ist rechtswidrig. In bestimmten Fällen muss er jedoch als synthetisch oder manipuliert erkennbar sein.",
+        "tags": [
+          "Transparenz",
+          "Deepfake",
+          "Information"
+        ]
+      },
+      "norm_emotion_recognition": {
+        "title": "Verbot der Emotionserkennung in Schule und Arbeit",
+        "reference": "KI-Verordnung — Art. 5, verbotene Praktiken mit Ausnahmen",
+        "explanation": "KI zur Ableitung menschlicher Emotionen am Arbeitsplatz und in Bildungseinrichtungen ist verboten, vorbehaltlich der eng begrenzten Ausnahmen der Verordnung, etwa für medizinische oder Sicherheitszwecke.",
+        "democraticFunction": "Bildungs- und Arbeitsräume dürfen nicht zu Orten dauerhafter emotionaler Überwachung werden.",
+        "notMeaning": "Nicht jede Verhaltensbeobachtung ist verboten. Gemeint ist die automatische Ableitung von Emotionen in Schule oder Arbeit, vorbehaltlich der vorgesehenen Ausnahmen.",
+        "tags": [
+          "Verbot",
+          "Emotionen",
+          "Schule",
+          "Arbeit"
+        ]
+      },
+      "norm_alto_rischio_obblighi": {
+        "title": "Pflichten für Hochrisiko-KI-Systeme",
+        "reference": "KI-Verordnung — Pflichten für Hochrisiko-KI-Systeme",
+        "explanation": "Hochrisiko-KI-Systeme müssen Anforderungen an Risikomanagement, Datenqualität, technische Dokumentation, Protokollierung, Transparenz, menschliche Aufsicht, Genauigkeit, Robustheit und Cybersicherheit erfüllen. Dies gilt auch nach der Einführung, einschließlich der Beobachtung nach dem Inverkehrbringen.",
+        "democraticFunction": "Ein automatisiertes System, das Menschenleben beeinflusst, muss auch hinsichtlich seiner Auswirkungen auf gefährdete Gruppen überprüfbar sein.",
+        "notMeaning": "KI im Gesundheitswesen ist nicht verboten. Systeme, die Gesundheit, Sicherheit oder Rechte beeinflussen, müssen gesteuert, dokumentiert und beaufsichtigt werden.",
+        "tags": [
+          "hohes Risiko",
+          "Audit",
+          "Daten",
+          "Gesundheitswesen"
+        ]
+      },
+      "norm_biometria": {
+        "title": "Biometrische Fernidentifizierung",
+        "reference": "KI-Verordnung — Art. 5 und besondere Bestimmungen zur Biometrie",
+        "explanation": "Das Verbot in Artikel 5 betrifft biometrische Fernidentifizierung in Echtzeit in öffentlich zugänglichen Räumen zu Strafverfolgungszwecken. Es bestehen abschließend aufgeführte Ausnahmen mit sehr strengen Bedingungen und Genehmigungen. Andere biometrische Verwendungen können je nach Zweck und Kontext anderen Regelungen einschließlich hohem Risiko unterliegen.",
+        "democraticFunction": "Der öffentliche Raum darf nicht zur Zone dauerhafter automatischer Identifizierung werden.",
+        "notMeaning": "Nicht jede biometrische Verwendung ist verboten. Entscheidend sind Zweck, Kontext, einsetzender Akteur und die Bedingungen der Verordnung.",
+        "tags": [
+          "Verbot",
+          "Biometrie",
+          "öffentlicher Raum"
+        ]
+      },
+      "norm_credito": {
+        "title": "Soziale Punktwerte und Zugang zu Diensten",
+        "reference": "KI-Verordnung — Art. 5, soziale Bewertung; vgl. Anhang III",
+        "explanation": "Ein Punktwert, der soziales Verhalten und persönliche Merkmale bündelt und Nachteile in sachfremden Kontexten oder ungerechtfertigte und unverhältnismäßige Behandlung bewirkt, fällt unter das Verbot sozialer Bewertung. Ein System zur Beurteilung des Zugangs zu wesentlichen Leistungen oder Diensten ohne verbotene soziale Verallgemeinerung kann dagegen hochriskant sein. Entscheidend sind Zweck, verwendete Daten, Kontext und Auswirkungen auf Rechte.",
+        "notMeaning": "Nicht jedes Punktwertsystem ist verboten. Die Regelung hängt von Zweck, Daten, Verwendungskontext, Auswirkungen auf Rechte und wirksamer menschlicher Aufsicht ab.",
+        "democraticFunction": "Der Zugang zu wesentlichen Diensten darf nicht von einem errechneten, unanfechtbaren sozialen Ruf abhängen.",
+        "tags": [
+          "Verbot",
+          "soziale Bewertung",
+          "Sozialleistungen",
+          "Dienste"
+        ]
+      },
+      "norm_chatbot": {
+        "title": "Automatische Assistenten und Transparenz für Bürger",
+        "reference": "KI-Verordnung — Art. 50, Transparenzpflichten; vgl. Betreiberpflichten",
+        "explanation": "Wer mit KI interagiert, muss wissen, dass er mit einer Maschine spricht. Bei einem öffentlichen Assistenten ist Transparenz das Minimum. Richtige Informationen, wirksame menschliche Aufsicht, ein erreichbarer Mensch und Rückverfolgbarkeit sind ebenfalls wichtig. Die Verantwortung für den Einsatz bleibt beim Betreiber und wird nicht auf den Lieferanten abgeschoben.",
+        "notMeaning": "Nicht jeder öffentliche Chatbot ist verboten. Solche Dienste müssen transparent und beaufsichtigt sein und einen menschlichen Zugang bieten, besonders wenn sie Rechte oder Chancen beeinflussen.",
+        "democraticFunction": "Bürger haben das Recht zu wissen, wann öffentliche Informationen von einer Maschine stammen, und mit einem Menschen sprechen zu können.",
+        "tags": [
+          "Transparenz",
+          "Chatbot",
+          "öffentliche Dienste",
+          "Betreiber"
+        ]
+      },
+      "norm_procurement": {
+        "title": "Öffentliche Beschaffung von KI-Systemen",
+        "reference": "KI-Verordnung — Pflichten für Hochrisiko-KI-Systeme, Steuerung und Dokumentation",
+        "explanation": "Kauft eine öffentliche Stelle ein KI-System für relevante Entscheidungen, erfüllt ein Zertifikat allein die Hochrisikopflichten nicht. Nötig sind technische Dokumentation, vorherige Prüfkriterien, Zugangs- und Auditrechte, menschliche Aufsicht und klare vertragliche Verantwortlichkeiten. Verantwortlich bleibt die einsetzende Stelle.",
+        "notMeaning": "Der Kauf von KI ist nicht rechtswidrig. Dokumentation, Steuerung und überprüfbare Verantwortung werden vor und nach dem Kauf benötigt.",
+        "democraticFunction": "Öffentliche KI-Ausgaben müssen erklärbar und kontrollierbar bleiben. Eine Behörde darf nicht verwenden, was sie nicht prüfen kann.",
+        "tags": [
+          "hohes Risiko",
+          "Vergabe",
+          "Steuerung",
+          "Dokumentation"
+        ]
+      },
+      "norm_edtech": {
+        "title": "Lernplattformen und relevante Entscheidungen",
+        "reference": "KI-Verordnung — Anhang III, allgemeine und berufliche Bildung",
+        "explanation": "KI-Systeme, die in der Bildung bewerten, lenken oder über den Zugang zu Bildungswegen und Chancen entscheiden, sind hochriskant. Erforderlich sind wirksame menschliche Aufsicht, Datenqualität und Datenminimierung, Erklärbarkeit gegenüber Lehrkräften, Lernenden und Familien sowie eine Möglichkeit zur Anfechtung. Eine Lernhilfe darf kein automatisches Urteil werden.",
+        "notMeaning": "Nicht jede Lernplattform ist verboten. Die Regelung hängt von den Auswirkungen auf Bildungschancen und von wirksamer menschlicher Kontrolle ab.",
+        "democraticFunction": "Bildungschancen dürfen nicht von einem undurchsichtigen Punktwert abhängen, dem Lehrkräfte folgen und den Familien nicht anfechten können.",
+        "tags": [
+          "hohes Risiko",
+          "Bildung",
+          "menschliche Aufsicht",
+          "Erklärbarkeit"
+        ]
+      },
+      "norm_gpai": {
+        "title": "Modelle mit allgemeinem Verwendungszweck und ihr Einsatz",
+        "reference": "KI-Verordnung — GPAI-Bestimmungen und Betreiberpflichten",
+        "explanation": "Ein generatives Modell mit allgemeinem Verwendungszweck ist weder an sich verboten noch automatisch hochriskant. Das Risiko hängt vom konkreten Einsatz ab. Bei relevanten Entscheidungen braucht es wirksame menschliche Prüfung, Rückverfolgbarkeit, klare Nutzungsgrenzen, Kontrolle der eingegebenen Daten und Transparenz für Nutzende. Die Pflichten des Modellanbieters kommen zur Verantwortung des Betreibers für den Einsatz hinzu.",
+        "notMeaning": "Die Verwendung eines allgemeinen Modells ist weder verboten noch stets hochriskant. Entscheidend sind Art und Ort der Nutzung sowie die Schutzmaßnahmen.",
+        "democraticFunction": "Ein Modell, das Entscheidungen entwirft, muss überprüfbar bleiben. Kein Verwaltungsakt darf auf ungeprüfter Ausgabe beruhen.",
+        "tags": [
+          "GPAI",
+          "generatives Modell",
+          "nachgelagerter Einsatz",
+          "Betreiber"
+        ]
+      }
+    },
+    "endings": {
+      "ending_opaca": {
+        "title": "ENDE 1 — UNDURCHSICHTIGE STADT",
+        "text": "Die Stadt ist effizient. Doch Bürger können automatische Entscheidungen weder verstehen noch anfechten oder korrigieren. Die Warteschlangen laufen, Punktwerte aktualisieren sich, Mitteilungen kommen pünktlich. Niemand unterschreibt mehr. Niemand übernimmt Verantwortung."
+      },
+      "ending_fragile": {
+        "title": "ENDE 2 — FRAGILE STEUERUNG",
+        "text": "Einige Schutzmaßnahmen bestehen. Doch die Stadt bleibt anfällig für Intransparenz, Diskriminierung und verantwortungslose Automatisierung. Regeln gelten nur stellenweise: Wo die Inspektion war, antworten Systeme; anderswo entscheiden sie weiter allein."
+      },
+      "ending_governata": {
+        "title": "ENDE 3 — VERANTWORTETE INNOVATION",
+        "text": "KI wird nicht blockiert, sondern sichtbar, dokumentierbar, anfechtbar und beaufsichtigbar. Die Stadt bleibt automatisiert. Aber jedes System hat einen Verantwortlichen, ein Register und eine Tür, an die man klopfen kann."
+      },
+      "finalMessage": "Die KI-Verordnung beseitigt Risiko nicht. Sie macht es sichtbar, dokumentierbar, anfechtbar und beherrschbar."
+    },
+    "caseLearning": {
+      "case_bias": {
+        "takeaway": "Die sechs Bedingungen von Artikel 4a gelten kumulativ. Eine echte Korrektur heilt keine Verarbeitung ohne Rechtsgrundlage.",
+        "teaches": "Die Grenze zwischen Erlaubnis und Durchführung sowie Quellenlesen: Ein wahrer Beleg, die erfolgreiche Korrektur, kann in die Irre führen.",
+        "typicalMistake": "Aus übermäßiger Vorsicht „verboten“ wählen oder das Ergebnis für einen Rechtmäßigkeitsbeleg halten und nur das Verzeichnis ergänzen.",
+        "discussionQuestion": "Wer nie nach Verzerrungen sucht, ist sicherer als jemand, der falsch sucht. Beabsichtigte Wirkung oder Regelungsfehler?",
+        "aiActConcepts": [
+          "Daten-Governance",
+          "Hohes Risiko",
+          "Datenschutz durch Technikgestaltung"
+        ],
+        "understandingSignal": "Lernende nennen die Weitergabe an Dritte oder das unbegründete Verzeichnis als entscheidend, nicht den erfolgreichen Korrekturbericht.",
+        "classroomUse": "Mit „KI-Verordnung und DSGVO“ verbinden: Hier greifen beide Verordnungen tatsächlich ineinander.",
+        "estimatedDebriefMinutes": 12
+      },
+      "case_predpol": {
+        "takeaway": "Genauigkeit macht eine verbotene Praxis nicht rechtmäßig. Individuelle Kriminalitätsvorhersage allein durch Profiling ist ausgeschlossen.",
+        "teaches": "Die Grenze von Artikel 5 bei Polizeiarbeit: Profiling gegenüber objektiven Tatsachen. „Unterstützung menschlicher Entscheidungen“ kann bloß ein Etikett sein.",
+        "typicalMistake": "Hohes Risiko wählen und Audit oder Aufsicht verlangen, obwohl die Verordnung die Praxis ausschließt.",
+        "discussionQuestion": "Warum ein System verbieten statt verbessern, wenn es zu 92 % „funktioniert“?",
+        "aiActConcepts": [
+          "Verbotene Praktiken",
+          "Profiling",
+          "Risikobasierter Ansatz"
+        ],
+        "understandingSignal": "Lernende unterscheiden korrigierbare Qualitätsmängel von einem nicht durch Korrektur aufhebbaren Zweckverbot.",
+        "classroomUse": "Grenzdebatte: Eine Hälfte verteidigt den Lieferanten mit der 92-%-Studie, die andere die Inspektion mit Artikel 5.",
+        "estimatedDebriefMinutes": 12
+      },
+      "case_frodi": {
+        "takeaway": "Bei Sozialleistungen ist entscheidend, WANN ein Mensch prüft. Eine Prüfung erst nach Widerspruch kommt nach dem Schaden.",
+        "teaches": "Wirksame gegenüber formaler Aufsicht bei wesentlichen Diensten und Quellengewichtung: Die Fehleranalyse zählt mehr als Lieferantenwerbung.",
+        "typicalMistake": "Alles abschalten oder nur Familien informieren, ohne die automatische Aussetzung zu ändern.",
+        "discussionQuestion": "Wer soll Fehlerkosten tragen: die vorher prüfende Verwaltung oder der anschließend widersprechende Bürger?",
+        "aiActConcepts": [
+          "Hohes Risiko",
+          "Menschliche Aufsicht",
+          "Daten-Governance"
+        ],
+        "understandingSignal": "Lernende nennen den Ablauf der automatischen Aussetzung als entscheidenden Beleg, nicht allein die Fehlerquote.",
+        "classroomUse": "Mit dem Bürgerkredit vergleichen: derselbe Sozialbereich, gegensätzliche Lösungen. Warum?",
+        "estimatedDebriefMinutes": 12
+      },
+      "case_scoring": {
+        "takeaway": "Ein allgemeiner sozialer Punktwert wird durch mehr Kontrollen nicht repariert. Er ist verboten.",
+        "teaches": "Manche KI-Verwendungen werden nicht gemildert, sondern verboten. Soziale Bewertung verletzt Würde und Gleichheit.",
+        "typicalMistake": "Ein Verbot wie ein Hochrisikosystem behandeln, das mit Audits und Aufsicht gesteuert werden könnte.",
+        "discussionQuestion": "Warum werden manche Praktiken verboten statt bloß geregelt?",
+        "aiActConcepts": [
+          "verbotene Praxis, Artikel 5",
+          "soziale Bewertung",
+          "Würde und Gleichheit"
+        ],
+        "understandingSignal": "Spielende erkennen das Verbot und ordnen eine Sperre statt eines Audits an.",
+        "classroomUse": "Über nicht verhandelbare Grenzen der KI-Verordnung sprechen.",
+        "estimatedDebriefMinutes": 8
+      },
+      "case_lavoro": {
+        "takeaway": "KI in der Arbeit braucht echte Schutzmaßnahmen: hochwertige Daten, wirksame Aufsicht und Rückverfolgbarkeit.",
+        "teaches": "Systeme zur Auswahl und Bewertung von Beschäftigten sind hochriskant und benötigen wirksame Garantien.",
+        "typicalMistake": "Eine symbolische menschliche Aufsicht oder bloße Information der Person genügen lassen.",
+        "discussionQuestion": "Welche Pflichten machen ein Hochrisikosystem am Arbeitsplatz beherrschbar?",
+        "aiActConcepts": [
+          "hohes Risiko, Anhang III",
+          "Datenqualität",
+          "menschliche Aufsicht",
+          "Protokollierung"
+        ],
+        "understandingSignal": "Spielende verlangen Audit, Aufsicht und Protokollierung, statt zu sperren oder zu ignorieren.",
+        "classroomUse": "Mit realer Einstellung und Personalführung verbinden.",
+        "estimatedDebriefMinutes": 10
+      },
+      "case_media": {
+        "takeaway": "Menschen dürfen wissen, wann Inhalte synthetisch sind. Die Kennzeichnung ist das Minimum, nicht das Ende.",
+        "teaches": "Transparenz über synthetische Inhalte ist nötig, aber nicht immer ausreichend.",
+        "typicalMistake": "Glauben, Kennzeichnung löse jedes Manipulationsproblem.",
+        "discussionQuestion": "Wann ist Information nötig, aber nicht genug?",
+        "aiActConcepts": [
+          "Transparenz, Artikel 50",
+          "Deepfake",
+          "synthetischer Inhalt"
+        ],
+        "understandingSignal": "Spielende ordnen Kennzeichnung an und erläutern ihren Schutz des öffentlichen Vertrauens.",
+        "classroomUse": "Institutionelle Kommunikation und Desinformation diskutieren.",
+        "estimatedDebriefMinutes": 8
+      },
+      "case_scuola": {
+        "takeaway": "Ein Klassenzimmer ist kein Labor emotionaler Überwachung. Emotionen dort automatisch abzuleiten ist verboten.",
+        "teaches": "Emotionserkennung in Schulen ist vorbehaltlich enger Ausnahmen verboten. Unterricht ist kein Raum emotionaler Überwachung.",
+        "typicalMistake": "Emotionserkennung als auditierbares System statt als verbotene Praxis behandeln.",
+        "discussionQuestion": "Warum genießt der Bildungskontext besonderen Schutz?",
+        "aiActConcepts": [
+          "verbotene Praxis, Artikel 5",
+          "Emotionserkennung",
+          "Bildungskontext"
+        ],
+        "understandingSignal": "Spielende unterscheiden rechtmäßige Beobachtung und automatische Emotionsableitung.",
+        "classroomUse": "Über Überwachung und Wohlbefinden in der Schule nachdenken.",
+        "estimatedDebriefMinutes": 8
+      },
+      "case_ospedale": {
+        "takeaway": "Ein ausgezeichneter Mittelwert kann schwere Fehler bei Verletzlichen verbergen. Prüfen Sie Untergruppen statt nur die Gesamtheit.",
+        "teaches": "Gesundheits-KI ist nicht verboten. Sie muss gesteuert, dokumentiert und beaufsichtigt werden, besonders für gefährdete Gruppen.",
+        "typicalMistake": "Dem ausgezeichneten Durchschnitt vertrauen und konzentrierte Untergruppenfehler ignorieren.",
+        "discussionQuestion": "Wie lässt sich ein Vorhersagesystem kontrollieren, ohne es zu sperren oder ihm ausgeliefert zu sein?",
+        "aiActConcepts": [
+          "hohes Risiko",
+          "Datenqualität",
+          "menschliche Aufsicht",
+          "Beobachtung nach dem Inverkehrbringen"
+        ],
+        "understandingSignal": "Spielende schalten nicht alles ab, sondern verlangen Audit, Protokollierung und wirksame Aufsicht.",
+        "classroomUse": "Klinische Verzerrungen und Verantwortung des medizinischen Betreibers diskutieren.",
+        "estimatedDebriefMinutes": 10
+      },
+      "case_biometria": {
+        "takeaway": "Echtzeit-Gesichtserkennung im öffentlichen Raum berührt die Grenze eines Verbots, nicht bloß eine technische Einzelheit.",
+        "teaches": "Biometrische Fernidentifizierung in Echtzeit im öffentlichen Raum zu Strafverfolgungszwecken ist verboten, vorbehaltlich eng aufgelisteter Ausnahmen.",
+        "typicalMistake": "Jede biometrische Verwendung gleich behandeln und Zweck sowie Kontext übergehen.",
+        "discussionQuestion": "Wo liegt die Grenze zwischen Sicherheit und Massenüberwachung?",
+        "aiActConcepts": [
+          "verbotene Praxis, Artikel 5",
+          "Fernbiometrie",
+          "öffentlicher Raum",
+          "Strafverfolgungszweck"
+        ],
+        "understandingSignal": "Spielende erkennen die Verbotsbedingungen: Echtzeit, öffentlicher Raum, Strafverfolgung.",
+        "classroomUse": "Videoüberwachung und Freiheit im öffentlichen Raum diskutieren.",
+        "estimatedDebriefMinutes": 9
+      },
+      "case_credito": {
+        "takeaway": "Die Wirkung auf Menschen zählt, nicht der Systemname. Ein „Zuverlässigkeitswert“ kann soziale Bewertung sein.",
+        "teaches": "Nicht jeder Punktwert ist verboten. Zweck, Daten, Kontext, Auswirkungen und wirksame menschliche Kontrolle entscheiden.",
+        "typicalMistake": "Glauben, die Bezeichnung „Entscheidungshilfe“ mache das System bereits sicher.",
+        "discussionQuestion": "Wann wird ein Bewertungssystem zu verbotener nachteiliger Behandlung?",
+        "aiActConcepts": [
+          "soziale Bewertung, Artikel 5",
+          "hohes Risiko, Anhang III",
+          "menschliche Aufsicht",
+          "Betreiberverantwortung"
+        ],
+        "understandingSignal": "Spielende unterscheiden verbotene soziale Bewertung und Hochrisikobewertung.",
+        "classroomUse": "Grenze zwischen Kredit und Sozialleistungen als Spiegelfall zum Abschluss der Vertiefung.",
+        "estimatedDebriefMinutes": 12
+      },
+      "case_chatbot": {
+        "takeaway": "Ein automatischer Kanal, der immer antwortet, genügt nicht. Nötig sind Transparenz und ein menschlicher Ausweg.",
+        "teaches": "Ein öffentlicher Assistent braucht Transparenz und menschlichen Kontakt statt eines Verbots. Entscheidend ist das Vertrauen der Bürger.",
+        "typicalMistake": "Die Bezeichnung „rein informativ“ für ausreichend halten, um Verantwortung auf Bürger oder Lieferanten abzuwälzen.",
+        "discussionQuestion": "Wann wird ein automatischer Assistent zu einer verlässlichen Bürgerquelle?",
+        "aiActConcepts": [
+          "Transparenz, Artikel 50",
+          "menschliche Aufsicht",
+          "Betreiberverantwortung",
+          "öffentlicher Chatbot"
+        ],
+        "understandingSignal": "Spielende verlangen Transparenz und menschlichen Kontakt, statt zu verbieten oder blind zu vertrauen.",
+        "classroomUse": "Digitale öffentliche Dienste, Vertrauen und das Recht auf menschliche Antworten diskutieren.",
+        "estimatedDebriefMinutes": 9
+      },
+      "case_procurement": {
+        "takeaway": "KI ohne Dokumentation zu kaufen heißt, ein nicht beherrschbares Risiko zu kaufen.",
+        "teaches": "Ein Zertifikat kauft keine Erfüllung der Hochrisikopflichten. Dokumentation, Steuerung und Kontrollrechte sind nötig.",
+        "typicalMistake": "Mit der Zertifizierung des Lieferanten zufrieden sein und auf Dokumentation, Audit und Zugang verzichten.",
+        "discussionQuestion": "Was muss eine öffentliche Stelle vor einem KI-Kauf verlangen?",
+        "aiActConcepts": [
+          "hohes Risiko",
+          "öffentliche KI-Beschaffung",
+          "technische Dokumentation",
+          "Rechenschaftspflicht",
+          "Lieferantenabhängigkeit"
+        ],
+        "understandingSignal": "Spielende verlangen Dokumentation, Audit- und Zugangsrechte sowie Vertragsverantwortung, nicht bloß ein Zertifikat.",
+        "classroomUse": "KI-Steuerung und reale öffentliche Beschaffung verbinden, ohne Vergaberecht zu lehren.",
+        "estimatedDebriefMinutes": 11
+      },
+      "case_edtech": {
+        "takeaway": "Eine Plattform, die Schüler profiliert und Bildungsentscheidungen lenkt, ist hochriskant. Sie muss kontrolliert statt hingenommen werden.",
+        "teaches": "Nicht jede Lernplattform ist verboten. Beeinflusst sie Chancen und Wege, braucht sie als Hochrisikosystem wirksame menschliche Kontrolle.",
+        "typicalMistake": "Schülerrisikowerte als neutral behandeln und ihnen statt dem Urteil der Lehrkraft folgen.",
+        "discussionQuestion": "Wann wird eine Unterrichtsempfehlung zu einer für Schüler relevanten Entscheidung?",
+        "aiActConcepts": [
+          "hohes Risiko, Anhang III",
+          "Bildung",
+          "menschliche Aufsicht",
+          "Datenminimierung",
+          "Erklärbarkeit"
+        ],
+        "understandingSignal": "Spielende unterscheiden Lernhilfe und relevante Entscheidung und verlangen Anfechtbarkeit.",
+        "classroomUse": "Profiling, Fairness und Bildungschancen reflektieren.",
+        "estimatedDebriefMinutes": 11
+      },
+      "case_gpai": {
+        "takeaway": "Nicht das allgemeine Modell ist entscheidend, sondern der zu steuernde nachgelagerte Einsatz in echten Entscheidungen.",
+        "teaches": "Ein allgemeines Modell ist nicht automatisch verboten oder hochriskant. Risiko hängt vom konkreten Einsatz ab und muss dort kontrolliert werden.",
+        "typicalMistake": "Einen Warnhinweis genügen lassen oder ohne Prüfung und Rückverfolgbarkeit vom Modell entscheiden lassen.",
+        "discussionQuestion": "Wer verantwortet den Einsatz eines allgemeinen Modells in einem konkreten Entscheidungsverfahren?",
+        "aiActConcepts": [
+          "GPAI",
+          "generatives Modell",
+          "nachgelagerter Einsatz",
+          "wirksame menschliche Aufsicht",
+          "Daten-Governance"
+        ],
+        "understandingSignal": "Spielende trennen Entwerfen und Entscheiden und verlangen Einsatzkontrolle statt Verbot oder Ignorieren.",
+        "classroomUse": "Generative KI in Unternehmen und Behörden sowie Betreiberverantwortung diskutieren.",
+        "estimatedDebriefMinutes": 12
+      }
+    },
+    "glossary": {
+      "title": "OPERATIVES GLOSSAR",
+      "subtitle": "Kurze Einträge zum Spielen und Verstehen. Keine Abhandlung.",
+      "back": "◂ ARCHIV",
+      "whyLabel": "Warum es wichtig ist",
+      "relatedLabel": "Verwandte Fälle",
+      "cautionLabel": "Achtung",
+      "prevButton": "◂ ZURÜCK",
+      "nextButton": "WEITER ▸",
+      "counter": "{index}/{total}",
+      "entries": {
+        "prohibited_practice": {
+          "term": "Verbotene Praxis",
+          "definition": "Eine mit Grundrechten unvereinbare KI-Verwendung, die Artikel 5 unabhängig von Audits oder Schutzmaßnahmen verbietet.",
+          "whyItMatters": "Manche Risiken werden nicht gesteuert, sondern gestoppt.",
+          "caution": "Nicht sämtliche KI ist verboten. Das Verbot betrifft bestimmte Verwendungen."
+        },
+        "high_risk": {
+          "term": "Hohes Risiko",
+          "definition": "Ein System mit Auswirkungen auf Rechte, Sicherheit oder Leistungszugang: erlaubt, aber unter strengen Pflichten nach Anhang III.",
+          "whyItMatters": "Risiko muss beherrscht, nicht geleugnet werden.",
+          "caution": "Es bedeutet nicht verboten, sondern dokumentiert, beaufsichtigt und überprüfbar."
+        },
+        "transparency": {
+          "term": "Transparenz",
+          "definition": "Die Pflicht, KI-Interaktion oder synthetische Inhalte erkennbar zu machen, Artikel 50.",
+          "whyItMatters": "Menschen können Echtes und Synthetisches unterscheiden.",
+          "caution": "Ein Hinweis allein beseitigt das Risiko nicht."
+        },
+        "challengeable": {
+          "term": "Anfechtbar",
+          "definition": "Eine Entscheidung kann sachlich stimmen, aber wegen schwacher Begründung, unzureichender Belege oder falscher Verantwortungszuordnung angreifbar sein.",
+          "whyItMatters": "Recht zu haben genügt nicht. Die Anordnung muss tragen.",
+          "caution": "Es bedeutet nicht falsch, sondern anfechtbar."
+        },
+        "provider": {
+          "term": "Anbieter",
+          "definition": "Wer das KI-System entwickelt oder auf den Markt bringt.",
+          "whyItMatters": "Hier liegen die Pflichten der Systemgestaltung.",
+          "caution": "Der Anbieter ist nicht für alles verantwortlich. Auch der Betreiber hat Pflichten."
+        },
+        "deployer": {
+          "term": "Betreiber",
+          "definition": "Wer das System unter eigener Verantwortung verwendet, etwa eine öffentliche Stelle.",
+          "whyItMatters": "Hier liegen viele Pflichten beim Einsatz.",
+          "caution": "Der Betreiber darf nicht alles auf den Lieferanten abwälzen."
+        },
+        "human_oversight": {
+          "term": "Menschliche Aufsicht",
+          "definition": "Wirksame menschliche Beaufsichtigung automatisierter Entscheidungen, nicht bloß formale.",
+          "whyItMatters": "Wer der Maschine stets folgt, übt keine Aufsicht aus.",
+          "caution": "Eine symbolische Unterschrift genügt nicht. Die Aufsicht muss etwas ändern können."
+        },
+        "social_scoring": {
+          "term": "Soziale Bewertung",
+          "definition": "Bewertung von Menschen nach sozialem Verhalten mit nachteiliger Behandlung in sachfremden oder unverhältnismäßigen Zusammenhängen: verboten.",
+          "whyItMatters": "Sie berührt Würde und Gleichheit.",
+          "caution": "Nicht jede Rangliste ist verboten."
+        },
+        "biometrics": {
+          "term": "Biometrie",
+          "definition": "Fernidentifizierung anhand biometrischer Daten. In Echtzeit im öffentlichen Raum zu Strafverfolgungszwecken ist sie vorbehaltlich Ausnahmen verboten.",
+          "whyItMatters": "Öffentlicher Raum ist keine Zone dauerhafter Identifizierung.",
+          "caution": "Nicht jede biometrische Verwendung ist verboten. Zweck und Kontext zählen."
+        },
+        "emotion_recognition": {
+          "term": "Emotionserkennung",
+          "definition": "Automatische Ableitung von Emotionen. In Schule und Arbeit ist sie vorbehaltlich enger Ausnahmen verboten.",
+          "whyItMatters": "Bildungs- und Arbeitsräume werden vor emotionaler Überwachung geschützt.",
+          "caution": "Nicht jede Beobachtung von Verhalten ist verboten."
+        },
+        "deepfake": {
+          "term": "Deepfake",
+          "definition": "Synthetischer Inhalt, der reale Personen oder Ereignisse nachahmt. Er muss nach Artikel 50 erkennbar gemacht werden.",
+          "whyItMatters": "Das schützt Vertrauen in Informationen.",
+          "caution": "Nicht jeder KI-generierte Inhalt ist rechtswidrig."
+        },
+        "credit_welfare": {
+          "term": "Kredit und Sozialleistungen",
+          "definition": "Bewertungen des Zugangs zu Leistungen oder Diensten können hochriskant oder bei Verallgemeinerung des Soziallebens verbotene soziale Bewertung sein.",
+          "whyItMatters": "Hier verläuft die Grenze zwischen rechtmäßiger Bewertung und sozialer Bewertung.",
+          "caution": "Nicht jeder wirtschaftliche Punktwert ist verboten."
+        },
+        "gpai": {
+          "term": "GPAI — KI mit allgemeinem Verwendungszweck",
+          "definition": "Allgemeine KI-Modelle mit eigenen Transparenz- und Systemrisikopflichten. Das Nutzungsrisiko hängt vom konkreten nachgelagerten Einsatz ab.",
+          "whyItMatters": "Sie prägen das KI-Ökosystem zunehmend.",
+          "caution": "Nicht jedes allgemeine Modell ist hochriskant."
+        },
+        "public_chatbot": {
+          "term": "Öffentlicher Chatbot",
+          "definition": "Automatischer Assistent einer Stelle für Bürgerfragen zu Diensten, Voraussetzungen oder Fristen.",
+          "whyItMatters": "Er erzeugt Vertrauen und braucht Transparenz sowie menschlichen Kontakt.",
+          "caution": "Er ist nicht verboten, muss aber transparent und beaufsichtigt sein."
+        },
+        "human_escalation": {
+          "term": "Weiterleitung an einen Menschen",
+          "definition": "Ein wirksamer Weg vom automatisierten System zu einer zuständigen Person.",
+          "whyItMatters": "Ohne ihn wird Automatisierung zur Barriere für Bürger.",
+          "caution": "Nicht alles muss von Hand erfolgen. Wenn nötig, muss ein Mensch erreichbar sein."
+        },
+        "procurement_ai": {
+          "term": "Öffentliche KI-Beschaffung",
+          "definition": "Beim öffentlichen Kauf von KI wird die Steuerbarkeit bereits in Ausschreibung und Vertrag festgelegt.",
+          "whyItMatters": "Wer Dokumentation und Kontrolle nicht vorher verlangt, erhält sie später nicht.",
+          "caution": "KI-Kauf ist nicht rechtswidrig, braucht aber Schutzmaßnahmen."
+        },
+        "technical_documentation": {
+          "term": "Technische Dokumentation",
+          "definition": "Informationen über System, Daten, Grenzen und Kontrollen, die eine Prüfung ermöglichen.",
+          "whyItMatters": "Ohne Dokumentation lässt sich eine Entscheidung nicht erklären oder anfechten.",
+          "caution": "Es geht nicht um Papierberge, sondern Überprüfbarkeit."
+        },
+        "lock_in": {
+          "term": "Lieferantenabhängigkeit",
+          "definition": "Abhängigkeit, die Systemwechsel, Datenzugang oder Kontrolle der Funktionsweise erschwert.",
+          "whyItMatters": "Sie schwächt die Fähigkeit der Behörde zur Steuerung und Korrektur.",
+          "caution": "Nicht jeder Auftrag schafft Abhängigkeit. Vertragsklauseln und Zugangsrechte entscheiden."
+        },
+        "adaptive_edtech": {
+          "term": "Adaptive Lernplattform",
+          "definition": "Ein System erstellt Schülerprofile und passt Lernwege, Empfehlungen oder Prioritäten an.",
+          "whyItMatters": "Beeinflusst es Chancen oder Bewertung, wird der Einsatz hochriskant.",
+          "caution": "Nicht jede Bildungstechnologie ist verboten. Entscheidend ist, ob sie entscheidet oder unterstützt."
+        },
+        "generative_model": {
+          "term": "Generatives Modell",
+          "definition": "Ein System erzeugt auf Anfrage Texte oder Inhalte. Es kann irren oder Inhalte erfinden.",
+          "whyItMatters": "Ungeprüft für Entscheidungen genutzt, trägt es Fehler in amtliche Akte.",
+          "caution": "Es ist nicht stets unzuverlässig, muss aber im Einsatz geprüft und gesteuert werden."
+        },
+        "data_governance": {
+          "term": "Daten-Governance",
+          "definition": "Regeln für Datennutzung, Aufbewahrung, Zugang und Zweck, einschließlich Minimierung und Rückverfolgbarkeit.",
+          "whyItMatters": "Sie hält Daten zum Zweck verhältnismäßig und Systeme überprüfbar.",
+          "caution": "Nicht alles vorsorglich sammeln, sondern nur Nötiges verwenden."
+        }
+      }
+    },
+    "learningLayer": {
+      "notebook": {
+        "button": "NOTIZBUCH",
+        "title": "ERMITTLUNGSNOTIZBUCH",
+        "intro": "Ihre bisherigen Feststellungen an einem Ort: abgeschlossene Akten, verantwortliche Akteure, bestätigte Muster und offene Fragen.",
+        "factsLabel": "Abgeschlossene Akten ({n})",
+        "factsEmpty": "Noch keine Akte abgeschlossen.",
+        "evidenceLine": "zitierte entscheidende Belege: {cited}/{total}",
+        "trapSpotted": "Sie haben auch die verharmlosende Darstellung zitiert",
+        "actorsLabel": "Wer sich als verantwortlich erwies",
+        "actorsEmpty": "Noch kein Verantwortlicher bestimmt.",
+        "patternsLabel": "Muster nach Kapiteln",
+        "patternConfirmed": "Muster bestätigt",
+        "patternProgress": "{done}/{total} Fälle abgeschlossen",
+        "openLabel": "Offene Fragen",
+        "openEmpty": "Keine Frage offen.",
+        "openReasons": {
+          "unsure": "Sie haben Unsicherheit angegeben",
+          "revise": "Sie wollten die Entscheidung überarbeiten",
+          "miscalibrated": "hohe Sicherheit, Ergebnis mit Befund: erneutes Lesen lohnt sich"
+        },
+        "announce": "Ermittlungsnotizbuch: {n} abgeschlossene Akten, {open} offene Fragen.",
+        "close": "Schließen"
+      },
+      "chapters": {
+        "button": "KAPITEL",
+        "title": "Kapitel des Lernwegs",
+        "intro": "Vier Themenkapitel bündeln 11 Fälle. Die Reihenfolge ist eine Empfehlung, keine Sperre: Alle Akten bleiben auf der Karte frei zugänglich.",
+        "orderLabel": "Kapitel {order} von {total}",
+        "durationLabel": "~{minutes} Min.",
+        "completionLabel": "{done}/{total} Fälle abgeschlossen",
+        "completeTag": "VOLLSTÄNDIG",
+        "debriefLabel": "Nachbesprechung des Kapitels",
+        "objectivesLabel": "Ziele",
+        "close": "Schließen",
+        "defs": {
+          "prohibited": {
+            "title": "Verbotene Praktiken",
+            "intro": "Die Grenze, die keine Schutzmaßnahme aufhebt: soziale Punktwerte, abgeleitete Emotionen, Gesichter in der Menge und Bürgerkredit.",
+            "debrief": "Gemeinsamkeit der vier Fälle: Wenn die Funktionsweise selbst Grundrechte beschränkt, nicht bloß ihre Einstellung, muss man das System stoppen statt nachjustieren."
+          },
+          "high_risk": {
+            "title": "Hochrisiko-KI-Systeme",
+            "intro": "Erlaubt, aber unter strengen Pflichten: Einstellung, medizinische Triage und adaptive Lernplattformen. Unterscheiden Sie verboten von schlecht kontrolliert.",
+            "debrief": "Gemeinsamkeit der drei Fälle: Hohes Risiko verbietet die Technik nicht. Es verlangt Datenqualität, Dokumentation und menschliche Aufsicht, die Nein sagen kann."
+          },
+          "transparency": {
+            "title": "Transparenz",
+            "intro": "Synthetische Inhalte und automatische Schalter: Das Problem ist die Täuschung, nicht die Technik. Menschen dürfen wissen, womit sie es zu tun haben.",
+            "debrief": "Gemeinsamkeit der zwei Fälle: Ein fehlender Hinweis wirkt nebensächlich, untergräbt aber das Vertrauen aller in alles. Das ist der systemische Schaden."
+          },
+          "governance": {
+            "title": "Steuerung und GPAI",
+            "intro": "Undurchsichtige Beschaffung und vielseitige, nachgelagert eingesetzte Modelle: mehrdeutige Fälle, in denen sich Verantwortung entlang der Kette verteilt.",
+            "debrief": "Gemeinsamkeit der zwei Fälle: Kauf oder Weiterverwendung überträgt Verantwortung nicht einfach. Sie verteilt sich auf die gesamte Kette."
+          }
+        }
+      },
+      "objectives": {
+        "obj_prohibited_boundary": "Die Grenze verbotener Praktiken erkennen",
+        "obj_risk_classification": "Das Risiko eines Systems einstufen",
+        "obj_decisive_evidence": "Entscheidende Belege auswählen",
+        "obj_actor_responsibility": "Verantwortung richtig zuordnen",
+        "obj_proportionate_measures": "Verhältnismäßige Maßnahmen wählen",
+        "obj_transparency_duties": "Transparenzpflichten anwenden",
+        "obj_human_oversight": "Wirksame menschliche Aufsicht beurteilen",
+        "obj_context_dependence": "Den Verwendungskontext abwägen",
+        "obj_gpai_downstream": "Den nachgelagerten GPAI-Einsatz steuern"
+      },
+      "confidence": {
+        "label": "Vor der Unterschrift: Wie sicher sind Sie bei Ihrem Bericht?",
+        "optionalTag": "(freiwillig — verändert die Bewertung nicht)",
+        "levels": {
+          "low": "wenig",
+          "mid": "ziemlich",
+          "high": "sehr"
+        },
+        "keysHint": "Tasten 7–9",
+        "recorded": "Sicherheit vermerkt: {level}"
+      },
+      "metacognition": {
+        "label": "Kalibrierung",
+        "line": "Angegebene Sicherheit: {confidence} · Ergebnis: {outcome}.",
+        "calibrated": "Sicherheit und Ergebnis passen zusammen: gut kalibriert.",
+        "overconfident": "Ihre Sicherheit war höher als das Ergebnis. Lesen Sie die entscheidenden Belege in der Nachbesprechung erneut.",
+        "underconfident": "Das Ergebnis war besser als Ihre angegebene Sicherheit. Ihr Bericht war in diesem Fall tragfähiger als erwartet."
+      },
+      "reflection": {
+        "label": "Reflexion, freiwillig",
+        "prompt": "Würde Ihr Bericht einer Anfechtung standhalten?",
+        "options": {
+          "holds": "Ja, er trägt",
+          "unsure": "Ich bin unsicher",
+          "revise": "Ich würde ihn überarbeiten"
+        },
+        "thanks": "Vermerkt — nur auf Ihrem Gerät."
+      },
+      "selfCheck": {
+        "titlePre": "Anfänglicher Selbstcheck",
+        "titlePost": "Abschließender Selbstcheck",
+        "buttonPre": "Anfänglicher Selbstcheck, freiwillig",
+        "buttonPost": "Abschließender Selbstcheck, freiwillig",
+        "formative": "Ein LOKALES formatives Hilfsmittel, keine zertifizierte Bewertung. Es wird nie versendet und beim Zurücksetzen gelöscht.",
+        "questionLabel": "Frage {i} von {total}",
+        "skip": "Überspringen",
+        "resultLine": "Richtige Antworten: {correct} von {total}.",
+        "compareLine": "Anfänglicher Selbstcheck: {correct} von {total}.",
+        "close": "Schließen",
+        "questions": {
+          "sc_prohibited": {
+            "q": "Welche Situation ist nach der KI-Verordnung VERBOTEN?",
+            "options": [
+              "Ein städtischer Chatbot beantwortet Fragen zu Diensten",
+              "Ein öffentlicher sozialer Punktwert bestimmt den Zugang zu Diensten",
+              "Ein Spamfilter im E-Mail-Programm"
+            ]
+          },
+          "sc_high_risk": {
+            "q": "Was bedeutet „Hochrisikosystem“?",
+            "options": [
+              "Seine Verwendung ist verboten",
+              "Es ist experimentell und ungeprüft",
+              "Es ist erlaubt, aber an strenge Daten-, Dokumentations- und Aufsichtspflichten gebunden"
+            ]
+          },
+          "sc_transparency": {
+            "q": "Eine öffentliche Stelle nutzt einen Chatbot. Was verlangt die KI-Verordnung?",
+            "options": [
+              "Menschen wissen, dass sie mit einer Maschine interagieren",
+              "Der Chatbot wird außerhalb der Bürozeiten abgeschaltet",
+              "Nichts, Chatbots fallen nicht unter die Verordnung"
+            ]
+          },
+          "sc_oversight": {
+            "q": "Wann ist menschliche Aufsicht wirklich wirksam?",
+            "options": [
+              "Wenn eine Person die Systementscheidungen unterschreibt",
+              "Wenn das System sehr genau ist",
+              "Wenn die Aufsicht das System versteht und Ergebnisse ändern kann"
+            ]
+          },
+          "sc_actor": {
+            "q": "Wer verantwortet die richtige VERWENDUNG gekaufter KI?",
+            "options": [
+              "Nur der Lieferant, der sie entwickelt hat",
+              "Auch der Betreiber für den konkreten Einsatz",
+              "Niemand, wenn das System zertifiziert ist"
+            ]
+          },
+          "sc_context": {
+            "q": "Kann dieselbe Technik die Risikokategorie wechseln?",
+            "options": [
+              "Ja, abhängig vom Verwendungskontext und den Betroffenen",
+              "Nein, allein der Algorithmus bestimmt die Kategorie",
+              "Nur beim Wechsel des Lieferanten"
+            ]
+          }
+        }
+      }
+    },
+    "a11y": {
+      "readingShow": "Bildschirmtext",
+      "readingHide": "Text ausblenden",
+      "readingNote": "Nur-Lese-Bereich: Aktionen erfolgen im Spiel mit Zeiger oder Tastatur.",
+      "mobileContinue": "Trotzdem fortfahren",
+      "outcomeAnnounced": "Berichtsergebnis: {outcome}.",
+      "mapTitle": "Stadtkarte",
+      "mapHint": "Pfeiltasten wählen offene Akten aus. EINGABE öffnet die gewählte Akte.",
+      "selectedCase": "Ausgewählt: {name}",
+      "evidenceHint": "Tasten 1–{n}: Beweisstück öffnen, erneut drücken zum Zitieren. EINGABE setzt fort, sobald möglich.",
+      "evidenceCited": "im Bericht zitiert",
+      "decisionTitle": "Entscheidung — {step}",
+      "reportTitle": "Inspektionsbericht",
+      "briefingTitle": "Erste Einsatzbesprechung",
+      "finaleTitle": "Abschlussbericht"
+    }
+  },
+  "guided": {
+    "entry": "GEFÜHRTER LERNWEG",
+    "notebook": "ERMITTLUNGSNOTIZEN",
+    "debrief": "BEGRÜNDUNG ERNEUT PRÜFEN",
+    "finalDebrief": "NACHBESPRECHUNG DES LERNWEGS",
+    "introduction": "Bevor Sie die Beweisstücke öffnen",
+    "argument": "Ihre Notiz vor der Unterschrift",
+    "privacy": "Freiwillige Notizen in diesem Tab. Neuladen oder ein neues Spiel löscht sie. Vermeiden Sie Namen und personenbezogene Angaben.",
+    "colleague": "Eine Kollegin aus der Inspektion kommt dazu",
+    "purpose": "„Klären Sie zuerst, wer das System für welche Entscheidung einsetzt und welche Folgen dies für Menschen hat. Die Risikoeinstufung hilft, relevante Regeln, Prüfungen und Maßnahmen zu bestimmen.“",
+    "categories": "Bei einer verbotenen Praxis sind die Bedingungen des Verbots zu prüfen. Hohes Risiko hängt vom Verwendungszweck und den Pflichten ab. Transparenz betrifft auch das, was Menschen wissen müssen. Bei anderen Verwendungen bleiben geltende Regeln und Rechte zu beachten.",
+    "demonstration": "„Ein Anbieter schreibt: ‚Ein Mensch prüft immer nach.‘ Das Protokoll zeigt aber, dass die prüfende Person Entscheidungen ohne Datenzugang bestätigt. Vergleichen Sie Zusage und tatsächlichen Betrieb. Welches Dokument würde zeigen, ob die Prüfung eine Entscheidung ändern kann?“",
+    "mission": "Lesen Sie den Fall und formulieren Sie eine erste Hypothese. Nach der Prüfung der Beweisstücke können Sie sie ändern.",
+    "hypothesis": "Meine aktuelle Deutung und ihre Begründung",
+    "initial": "Meine Hypothese vor den Beweisstücken",
+    "evidence": "Welche Quellen ich verknüpfe und wie sie das Urteil stützen oder infrage stellen",
+    "alternative": "Eine alternative Deutung und Belege, mit denen sie sich unterscheiden ließe",
+    "uncertainty": "Was fehlt und wie dies eine Entscheidung über Menschen begrenzt",
+    "reflection": "Was ich nach der Rückmeldung beibehalte oder ändere und warum",
+    "reflectionPrompt": "Lesen Sie Ihre Notiz von vor dem Ergebnis erneut. Welche Information verändert Ihre Deutung, oder warum halten Sie daran fest?",
+    "transferPrompt": "Welche Quellenprüfung würden Sie im nächsten Fall zuerst vornehmen? Vergleichen Sie mit einer Begleitperson die Gründe Ihrer Entscheidungen.",
+    "continue": "Zu den Beweisstücken",
+    "confirm": "Notiz bestätigen und unterzeichnen",
+    "close": "Zurück zum Fall",
+    "empty": "In dieser Phase wurde keine Notiz verfasst.",
+    "erase": "Diese Notizen löschen",
+    "next": "Fortfahren",
+    "previous": "Vorheriger Schritt",
+    "method": "FALLMETHODE",
+    "sources": "Quellen erkunden und bewerten",
+    "sourceAssessment": "Was dokumentiert diese Quelle, welche Interessen könnte sie haben und welche Grenzen erkennen Sie?",
+    "relationTitle": "Zwei Quellen verknüpfen",
+    "leftSource": "Erste Quelle",
+    "rightSource": "Zweite Quelle",
+    "relationKind": "Ihre vorgeschlagene Beziehung",
+    "supports": "Sie stützen einander",
+    "challenges": "Sie stehen in Spannung zueinander",
+    "uncertain": "Die Beziehung ist zu klären",
+    "relationReason": "Welche Aussage verknüpfen Sie und warum?",
+    "addRelation": "Beziehung festhalten",
+    "removeRelation": "Beziehung entfernen",
+    "relationRequired": "Wählen Sie zwei verschiedene Quellen und erläutern Sie die Beziehung.",
+    "relationSaved": "Beziehung in den Notizen dieses Tabs festgehalten.",
+    "recordRevision": "Diese Überarbeitung festhalten",
+    "revisionRequired": "Schreiben Sie die Hypothese und den Grund, sie beizubehalten oder zu ändern.",
+    "revisionSaved": "Überarbeitung in den Notizen dieses Tabs festgehalten.",
+    "revisions": "Ihre erläuterten Überarbeitungen",
+    "revisionReason": "Welcher Beleg oder Grund mich veranlasst, die Hypothese beizubehalten oder zu ändern",
+    "reasoning": "Wie ich Belege mit Einstufung, vorgeschlagener Maßnahme und Verantwortung verknüpfe",
+    "feedbackUse": "Welchen Teil der Rückmeldung ich anhand eines Belegs geprüft habe und was ich festgestellt habe",
+    "transferPlan": "Welches Kriterium ich in einem anderen Fall anwenden und was ich prüfen werde",
+    "sessionReflection": "Was ich durch den Vergleich meiner Ermittlungen verstanden habe",
+    "sessionTransferPlan": "Welche Strategie ich außerhalb dieser Fälle ausprobieren werde",
+    "legalReference": "Norm und Deutung des Falls",
+    "choices": "Die Entscheidungen des Berichts",
+    "takeaway": "Ein Kriterium zur Diskussion",
+    "sourcesUnavailable": "Öffnen Sie Beweisstücke in der Ermittlungsszene, um sie hier erneut zu lesen und zu bewerten.",
+    "reread": "Quelle erneut lesen",
+    "assessmentNote": "Diese Notizen unterstützen die Reflexion. Eine Begleitperson kann mit Ihnen die Gründe Ihrer Entscheidungen besprechen.",
+    "openingStage": "Die Aufgabe verstehen",
+    "sourcesStage": "Die Ermittlung vorbereiten",
+    "hypothesisStage": "Eine Hypothese formulieren",
+    "resume": "Zurück zur Entscheidung"
+  },
+  "inquiry": {
+    "case_scoring": {
+      "opening": "Ihre Kollegin legt zwei Wohnungsanträge auf den Tisch. „Bevor wir den Punktwert beurteilen: Welche Entscheidung ändert sich für diese Menschen und welche Daten werden verwendet?“",
+      "source": "Wer beschreibt die Funktionsweise des Punktwerts, wer dokumentiert seine Folgen? Was kann jede Quelle unmittelbar wissen?",
+      "relation": "Verknüpfen Sie zwei Beweisstücke. Betreffen Daten und Folgen denselben Kontext? Welche Aussage wird gestützt oder infrage gestellt?",
+      "uncertainty": "Welche Information würde erklären, warum eine Person benachteiligt wurde?",
+      "debrief": "Unterscheiden Sie Funktionsweise des Punktwerts und Erklärung der Entscheidung. Welche Frage begründete Ihren Bericht?"
+    },
+    "case_lavoro": {
+      "opening": "Eine Bewerberin fragt, wer ihre Bewerbung geprüft hat. Ihre Kollegin empfiehlt, vor der Verantwortungszuweisung den Weg vom Lebenslauf zur Entscheidung nachzuzeichnen.",
+      "source": "Unterscheiden Sie Behauptungen des Verkäufers von dem, was Personalverantwortliche oder abgelehnte Bewerber beobachten können.",
+      "relation": "Vergleichen Sie zwei Quellen zum Übergang von automatisierter Empfehlung zur menschlichen Entscheidung. Was zeigen sie, was bleibt offen?",
+      "uncertainty": "Welches Dokument würde zeigen, ob die prüfende Person die Entscheidung tatsächlich ändern kann?",
+      "debrief": "Vergleichen Sie Ihre Vorstellung menschlicher Prüfung mit der Prüfung in den Beweisstücken. Was bedeutet das für Ihre Maßnahme?"
+    },
+    "case_media": {
+      "opening": "Eine Redaktion fragt nach der Herkunft eines Inhalts. „Klären wir vor der Kennzeichnung, was das Publikum sieht und wer den Inhalt erzeugt hat“, schlägt Ihre Kollegin vor.",
+      "source": "Wer kann die Herkunft feststellen? Unterscheiden Sie technische Beobachtungen, redaktionelle Aussagen und Publikumseindrücke.",
+      "relation": "Verknüpfen Sie den Inhalt mit einer Quelle zu Erzeugung oder Darstellung. Klärt dies Echtheit, Herkunft oder das Verständnis des Publikums?",
+      "uncertainty": "Welche Einzelheit der tatsächlichen Verwendung oder Zielgruppe könnte Ihr Urteil ändern?",
+      "debrief": "Wie unterscheiden Sie technische Kennzeichnung, Information des Publikums und Verlässlichkeit des Inhalts?"
+    },
+    "case_scuola": {
+      "opening": "Eine Lehrkraft fragt, was das System über Schüler zu wissen behauptet. Ihre Kollegin empfiehlt, erhobene Daten und zugeschriebene Deutungen zu trennen.",
+      "source": "Welche Daten stützen die Aussagen? Wer erhob sie und wer deutete das Verhalten der Schüler?",
+      "relation": "Beschreiben zwei Dokumente dieselbe Verwendung? Verknüpfen Sie erklärten Zweck, abgeleitete Einschätzung und Bildungsfolge.",
+      "uncertainty": "Welche Angabe zu Zweck oder Kontext würde eine alternative Deutung prüfbar machen?",
+      "debrief": "Wie beeinflusste der Unterschied zwischen Verhaltensbeobachtung und Ableitung eines persönlichen Zustands Ihre Begründung?"
+    },
+    "case_ospedale": {
+      "opening": "Eine Ärztin muss über die Verwendung einer Empfehlung entscheiden. Ihre Kollegin empfiehlt zu klären, wie weit sie eingreifen kann und welche Folgen ein Fehler hätte.",
+      "source": "Unterscheiden Sie Produktbeschreibung und Aufzeichnungen des klinischen Einsatzes. Welche Quelle zeigt die Praxis?",
+      "relation": "Verknüpfen Sie eine Systemzusage mit einer Beobachtung des Arbeitsablaufs. Betreffen sie dieselbe Aufgabe unter denselben Bedingungen?",
+      "uncertainty": "Welche Informationen zum vorgesehenen Einsatz oder zur klinischen Prüfung fehlen?",
+      "debrief": "Überdenken Sie den Vorschlag anhand der tatsächlichen klinischen Rolle. Wie begründen Sie Aufsicht und Verantwortung?"
+    },
+    "case_biometria": {
+      "opening": "Ein Mitarbeiter zeigt einen Systemtreffer. Ihre Kollegin fragt, was verglichen wird, wo dies geschieht und zu welchem Zweck.",
+      "source": "Welche Quellen beschreiben die Technik, welche ihre Nutzer? Erklärt eine allgemeine Aussage auch die Einsatzbedingungen?",
+      "relation": "Vergleichen Sie zwei Quellen zu Ort, Zeitpunkt und Zweck. Welche Tatsache unterscheidet zwei mögliche Deutungen?",
+      "uncertainty": "Welche Genehmigung, Bedingung oder Information über Betroffene möchten Sie prüfen?",
+      "debrief": "Welche konkreten Bedingungen stützten Ihr Urteil über das bloße Vorhandensein biometrischer Daten hinaus?"
+    },
+    "case_credito": {
+      "opening": "Ein Finanzantrag wird durch einen Index bewertet. „Verfolgen wir die Daten bis zu ihrer Herkunft und prüfen ihren Bezug zur Entscheidung“, empfiehlt Ihre Kollegin.",
+      "source": "Welche Quelle belegt die tatsächlich verwendeten Daten? Trennen Sie den Zweck des Index von der Erklärung für die Person.",
+      "relation": "Verknüpfen Sie die Datenherkunft mit einer individuellen Folge. Warum stützt oder schwächt dies eine Hypothese?",
+      "uncertainty": "Was müssten Sie über den ursprünglichen Erhebungskontext und den Grund einer Sanktion wissen?",
+      "debrief": "Warum rechtfertigen Branche oder Produktname allein Ihre Einstufung nicht?"
+    },
+    "case_chatbot": {
+      "opening": "Eine Person berichtet von einem Gespräch am digitalen Schalter. Ihre Kollegin fragt, was die Person während der Interaktion erkennen konnte.",
+      "source": "Welches Dokument zeigt das Erleben der Nutzenden? Welches beschreibt Absichten oder Regeln des Dienstes?",
+      "relation": "Vergleichen Sie angezeigte Nachrichten mit Aussagen über den Dienst. Sind sie zum selben Zeitpunkt der Interaktion verständlich?",
+      "uncertainty": "Welches Oberflächendetail oder welchen Zeitpunkt der Offenlegung möchten Sie direkt beobachten?",
+      "debrief": "Was unterscheidet das Wissen über die eingesetzte Technik davon, sie für die interagierende Person erkennbar zu machen?"
+    },
+    "case_procurement": {
+      "opening": "Ein Amt hat ein System extern gekauft. Ihre Kollegin empfiehlt vor der Suche nach einem einzigen Verantwortlichen zu klären, wer entscheidet und wer die Unterlagen besitzt.",
+      "source": "Wer schrieb jedes Dokument? Was regelt ein Vertrag und was erfordert Belege des tatsächlichen Einsatzes?",
+      "relation": "Verknüpfen Sie eine Vertragszusage mit einem betrieblichen Ablauf. Wer hat die nötigen Informationen, um ihre Vereinbarkeit zu prüfen?",
+      "uncertainty": "Welche Unterlage oder Klärung zu Verwendungszweck und Akteurskette fehlt?",
+      "debrief": "Wie unterscheiden Sie die Verantwortung der Akteure über die bloße Tatsache des Kaufs hinaus?"
+    },
+    "case_edtech": {
+      "opening": "Eine Schülerin erhält eine systemgestützte Bewertung. Ihre Kollegin empfiehlt, Lernunterstützung und eine den Bildungsweg beeinflussende Entscheidung zu trennen.",
+      "source": "Unterscheiden Sie Plattformwerbung von Unterlagen über Bewertung, Zugang und Anfechtungsmöglichkeiten.",
+      "relation": "Verknüpfen Sie eine Systemaktivität mit einer Bildungsfolge. Beschreiben zwei Quellen dieselbe Rolle oder verschiedene Rollen?",
+      "uncertainty": "Welche Information zur Wirkung der Empfehlung und zur menschlichen Prüfung würden Sie suchen?",
+      "debrief": "Welche Tatsache unterscheidet freiwillige Unterstützung von einem Einsatz, der eine Bildungsentscheidung beeinflusst?"
+    },
+    "case_gpai": {
+      "opening": "Ein Team bindet ein allgemeines Modell in einen Dienst ein. „Trennen wir die Fähigkeiten des Modells davon, was der Dienst von ihm verlangt“, empfiehlt Ihre Kollegin.",
+      "source": "Welche Quellen beschreiben das Modell, welche die Anwendung? Wer kann die Integrationsentscheidungen dokumentieren?",
+      "relation": "Verknüpfen Sie eine allgemeine Fähigkeit mit einem konkreten Einsatz. Welche Zwischenschritte müssen belegt sein, bevor Risiko oder Verantwortung zugeordnet werden?",
+      "uncertainty": "Welche Informationen zu Integration, Zweck und Akteuren fehlen?",
+      "debrief": "Wie ändern sich Ihre Überlegungen, wenn Sie Modell, System und Verwendungskontext unterscheiden?"
+    },
+    "case_predpol": {
+      "opening": "Eine Warnung wird einem Personenprofil zugeordnet. Ihre Kollegin fragt, welche überprüfbaren Tatsachen den Verdacht stützen und was bloße Verknüpfungen sind.",
+      "source": "Unterscheiden Sie beobachtete konkrete Ereignisse, statistische Schlüsse und Beschreibungen persönlicher Merkmale.",
+      "relation": "Verknüpfen Sie zwei Quellen: Beruht der Schluss auf individuellen Tatsachen oder auf einer Korrelation? Erläutern Sie den Zusammenhang.",
+      "uncertainty": "Welche Tatsache könnte die Hypothese stützen oder infrage stellen, ohne das Profil zu wiederholen?",
+      "debrief": "Wie haben Sie den Unterschied zwischen Vorhersage und Tatsachenbeleg im Bericht genutzt?"
+    },
+    "case_frodi": {
+      "opening": "Ein Unterstützungsantrag wird zur Prüfung markiert. Ihre Kollegin empfiehlt zu klären, was nach der Warnung mit der betroffenen Person geschieht.",
+      "source": "Welche Quelle dokumentiert die Leistungsentscheidung, welche nur eine Unregelmäßigkeitsvorhersage?",
+      "relation": "Verknüpfen Sie das automatische Ergebnis mit Prüfung und persönlicher Folge. Wo könnte der Ablauf einen Fehler korrigieren?",
+      "uncertainty": "Welche Informationen über Prüfung und Anfechtungsmöglichkeiten würden Sie anfordern?",
+      "debrief": "Wie unterscheiden Sie einen Ermittlungsanlass von einer Entscheidung, die den Leistungszugang verändert?"
+    },
+    "case_bias": {
+      "opening": "Ein Team will prüfen, ob ein System Menschen unterschiedlich behandelt. Ihre Kollegin fragt, welche Daten wirklich nötig sind und wie sie geschützt werden.",
+      "source": "Unterscheiden Sie die behauptete Analysenotwendigkeit von Nachweisen über Alternativen und wirksame Schutzmaßnahmen.",
+      "relation": "Verknüpfen Sie einen Auditzweck mit einer konkreten Datenschutzmaßnahme. Belegt dies eine Bedingung oder nur eine Absicht?",
+      "uncertainty": "Welche Informationen zu Zugang, Wiederverwendung, Alternativen und Löschung fehlen?",
+      "debrief": "Wie rechtfertigen Sie zugleich die Diskriminierungsprüfung und den Schutz der Daten von Menschen?"
+    }
+  }
+}
