@@ -1,6 +1,6 @@
 # NO AI ACT V5 — progettazione metodologica
 
-Revisione del 21 novembre 2026. Base verificata nel ramo locale da main 527fde5. Il deploy della PR 128 risulta completato con successo. Questo lavoro richiede una nuova autorizzazione per la produzione.
+Revisione del 21 novembre 2026. Base verificata nel ramo locale da main 527fde5. Il deploy della PR 128 risulta completato con successo. Il proprietario ha successivamente autorizzato la pubblicazione come V5.0.0; note e stato del rilascio sono in RELEASE_NOTES_v5.0.0.md e nella release GitHub.
 
 ## Decisione di progetto
 

@@ -497,7 +497,7 @@ export const it = {
       learningReport: 'RAPPORTO DI APPRENDIMENTO ▸',
       privacyNote: {
         title: 'Privacy: tutto resta nel tuo browser',
-        text: 'Questa versione non incorpora moduli esterni e non raccoglie feedback o dati: risposte, rapporti e progressi non lasciano mai il tuo dispositivo.'
+        text: 'Questa versione non incorpora moduli esterni. Risposte, rapporti, progressi e appunti restano sul dispositivo; i contatori aggregati di utilizzo escludono testi e identificativi del giocatore.'
       }
     },
     debrief: {

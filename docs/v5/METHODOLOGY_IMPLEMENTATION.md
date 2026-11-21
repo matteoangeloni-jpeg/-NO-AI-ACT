@@ -1,6 +1,6 @@
 # Incremento metodologico V5 — copertura completa
 
-Ramo locale `codex/v5-methodology-guided-path`, base main `527fde5`. Revisione del 21 novembre 2026. Le modifiche correnti sono locali. La produzione richiede una nuova autorizzazione.
+Ramo di lavoro `codex/v5-methodology-guided-path`, base main `527fde5`. Revisione del 21 novembre 2026. Il rapporto documenta il completamento locale precedente al rilascio. La pubblicazione come V5.0.0 è stata poi autorizzata dal proprietario; stato corrente e note sono nella release GitHub e in RELEASE_NOTES_v5.0.0.md.
 
 ## Modifiche implementate
 
@@ -50,7 +50,7 @@ Su questa macchina Windows, `INQUIRY_4K_GPU=d3d11` richiede Direct3D per il solo
 - Le note del gioco non sono un tracciamento individuale. Un'apertura o una revisione non dimostra comprensione: la triangolazione usa spiegazioni e osservazione umana esterna.
 - La correttezza normativa dei nuovi materiali richiede revisione giuridica umana prima della somministrazione. Le risposte dei 14 casi non sono state cambiate.
 - La bibliografia è una ricognizione mirata; i limiti di accesso ai testi completi sono dichiarati nelle singole voci.
-- Nessuna pubblicazione in produzione eseguita per questo incremento.
+- Il rapporto tecnico originale precede la pubblicazione; lo stato del rilascio è documentato separatamente nella release V5.0.0.
 
 ## Deliverable
 

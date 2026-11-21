@@ -1,6 +1,6 @@
 # Verifica finale della copertura metodologica V5
 
-21 novembre 2026. Test avviati dopo l'implementazione dell'intera lista operativa in COVERAGE_COMPLETION.md. Le correzioni emerse nella verifica sono state seguite da nuove esecuzioni. Risultati sul clone locale del gioco completo, non su un rilascio in produzione.
+21 novembre 2026. Rapporto del prototipo precedente al rilascio V5.0.0. Test avviati dopo l'implementazione dell'intera lista operativa in COVERAGE_COMPLETION.md. Le correzioni emerse nella verifica sono state seguite da nuove esecuzioni. I risultati qui descritti riguardano il clone locale; i controlli della pubblicazione sono documentati separatamente nella release.
 
 | Controllo | Esito osservato |
 |---|---|

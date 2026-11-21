@@ -21,7 +21,7 @@ cancellable group so they don't block a deploy or pile up.
 
 ## Verify a successful deploy
 - The workflow run is green (both **build** and **deploy** jobs).
-- `verify:dist` printed **PASS** (all deploy-critical files, 62 sitemap URLs, mojibake-free HTML).
+- `verify:dist` printed **PASS** (all deploy-critical files, current route inventory and mojibake-free HTML).
 - After a Cloudflare **Purge Everything**, spot-check the live site:
   - `https://www.no-ai-act.eu/` and `/en/` render, no `Ã`/`—`-mojibake in the text.
   - `https://www.no-ai-act.eu/robots.txt`, `/sitemap-it.xml`, `/sitemap-en.xml` load.

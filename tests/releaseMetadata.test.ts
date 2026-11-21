@@ -80,6 +80,13 @@ describe('documentation derives from the source of truth (no drift)', () => {
     expect(llms).toContain(`- Version: v${pkg.version}`);
   });
 
+  it('the software citation identifies the actual version and release date', () => {
+    const citation = read('CITATION.cff');
+    expect(citation).toContain(`version: ${pkg.version}`);
+    expect(citation).toContain(`date-released: "${cfg.releaseDate}"`);
+    expect(citation).toContain('Italian, English and French');
+  });
+
   it('README case count matches the data', () => {
     expect(readme).toContain(`${CASES.length} casi`);
   });

@@ -1,6 +1,25 @@
 # CHANGELOG — NO AI ACT
 
-## [Non rilasciato]
+## [5.0.0] — 2026-11-21
+
+- Percorso guidato specifico per tutti i 14 casi in italiano, inglese e francese:
+  mediazioni nella sequenza investigativa, fonti valutabili e collegamenti spiegati.
+- Ipotesi iniziale preservata, revisioni motivate e argomentazione autonoma
+  fissata prima del feedback; riflessione successiva e debrief finale distinti.
+- Dialoghi semantici con isolamento di mouse, touch e tastiera dalla scena;
+  salvataggi v1/v2 compatibili e nessun nuovo punteggio di pensiero critico.
+- Dossier metodologico con matrici A/B/C, CEPAJe, LM–GM, DigComp 3.0 e
+  bibliografia europea; Study 02 locale con forme parallele e rubrica solo umana.
+- Metadati, citazioni, pagine e press kit aggiornati alla V5.0.0. Le annotazioni
+  del percorso guidato restano temporanee e fuori da salvataggi e telemetria.
+- Verifiche e limiti: `docs/RELEASE_NOTES_v5.0.0.md` e `docs/v5/TEST_RESULTS.md`.
+  Nessuna dichiarazione di efficacia educativa o validazione scientifica.
+
+## Registro storico delle iterazioni verso la 4.0
+
+Le voci seguenti conservano lo stato dichiarato nel momento in cui furono
+scritte; lo stato attuale è descritto nella release V5 e nel README. I
+laboratori sperimentali non costituiscono servizi pubblici di ricerca.
 
 ### Dashboard - gate di pubblicazione
 - Stato raccolta, copertura delle celle e retention visibili senza confondere

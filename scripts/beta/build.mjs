@@ -1,5 +1,5 @@
 import { spawnSync, execFileSync } from 'node:child_process';
-import { mkdirSync, copyFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, copyFileSync, writeFileSync, readFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { prepareBeta } from './prepare.mjs';
 
@@ -14,7 +14,7 @@ for (const name of ['THIRD_PARTY_LICENSES.md', 'LICENSE', 'CREDITS.md', 'LICENSE
   mkdirSync(dirname(`dist-beta/${name}`), { recursive: true }); copyFileSync(name, `dist-beta/${name}`);
 }
 const pages = prepareBeta('dist-beta', { usage });
-writeFileSync('dist-beta/beta-release.json', JSON.stringify({ channel: 'beta', gameVersion: '4.0.0',
+writeFileSync('dist-beta/beta-release.json', JSON.stringify({ channel: 'beta', gameVersion: JSON.parse(readFileSync('package.json', 'utf8')).version,
   commit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
   dirty: Boolean(execFileSync('git', ['status', '--porcelain'], { encoding: 'utf8' }).trim()),
   builtAt: new Date().toISOString(), pages, analytics: usage ? 'first-party-aggregate-automatic' : 'off', saveKey: 'no-ai-act-beta-save-v2' }, null, 2));

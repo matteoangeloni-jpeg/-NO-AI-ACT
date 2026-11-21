@@ -6,7 +6,7 @@
 [![Contenuti: CC BY-SA 4.0](https://img.shields.io/badge/contenuti-CC%20BY--SA%204.0-5d7fb8)](LICENSE)
 [![Stack](https://img.shields.io/badge/stack-TypeScript%20%2B%20Phaser%203%20%2B%20Vite-101a30)](#stack)
 [![Test](https://img.shields.io/badge/test-Vitest-d9a521)](tests/)
-[![Stato](https://img.shields.io/badge/stato-v4.0.0-3fa66a)](#stato-release)
+[![Stato](https://img.shields.io/badge/stato-v5.0.0-3fa66a)](#stato-release)
 [![Lingue](https://img.shields.io/badge/lingue-IT%20%2B%20EN-d8d6cd)](#lingue)
 
 **Serious game investigativo sull'AI Act europeo · browser, audio originale, salvataggio locale**
@@ -53,36 +53,22 @@ Questo gioco **non costituisce consulenza legale**.
 | **Account / dati** | Nessun account; risposte locali; contatori aggregati disattivabili |
 | **Autore** | [Matteo Angeloni](https://www.no-ai-act.eu/matteo-angeloni/) — ideazione, game design, sviluppo e contenuti educativi |
 
-## Stato attuale del codice (v4.0.0 candidata)
+## Stato attuale del codice (v5.0.0)
 
-La 2.0 trasforma il progetto in un prodotto educativo e di ricerca più
-solido: modello di apprendimento tipizzato e matrice legale machine-readable,
-capitoli tematici, autocontrollo locale facoltativo, fiducia/riflessione
-metacognitive, schema di salvataggio v2 con migrazione testata, strato di
-lettura semantico + percorso completo da tastiera, 2 nuovi casi (polizia
-predittiva, punteggio antifrode welfare → 13 totali), infrastruttura di
-citazione (CITATION.cff, pagine come citare/ricerca/press kit), sistema SEO
-con audit in CI e 4 nuove coppie di pagine IT/EN. Dettagli:
-`docs/RELEASE_NOTES_v2.1.0.md`.
+La V5 aggiunge un percorso ludopedagogico guidato a tutti i 14 casi in italiano,
+inglese e francese: mediazioni contestuali, valutazione delle fonti, collegamenti
+spiegati, revisioni motivate dell'ipotesi e argomentazione autonoma prima del
+feedback. Il debrief distingue il testo precedente dalla riflessione successiva
+e include una sintesi a fine sessione. Gli appunti restano temporanei nella scheda.
 
-La 2.2 aggiunge l'audio registrato (sette musiche in loop, una per fase del
-procedimento, e dieci effetti legati ai gesti), rende ogni pulsante
-disegnato un pulsante vero raggiungibile da tastiera e da screen reader, e
-disegna il gioco alla risoluzione dello schermo invece di stirare un
-720p. Dettagli: `docs/RELEASE_NOTES_v2.2.0.md`; metadati correnti:
-`release.config.json`.
+Il dossier [metodologico](docs/v5/METHODOLOGY.md) contiene matrici A/B/C, CEPAJe,
+LM–GM, bibliografia e limiti. Il laboratorio [Study 02](docs/v5/ARGUMENTATION_STUDY02.md)
+è separato dalla build pubblica: due forme indipendenti, osservazione e rubrica
+solo umana. Non è una raccolta pubblica di dati individuali. L'efficacia educativa
+e la validità delle inferenze richiedono ancora uno studio con partecipanti.
 
-La 3.0 è la prima versione che insegna il Reg. (UE) 2024/1689 **come
-modificato** dal Digital Omnibus (Reg. UE 2026/1744), e porta il
-**quattordicesimo caso** — «Il pregiudizio corretto», sull'articolo 4a: per
-scoprire che un sistema discrimina bisogna trattare i dati che il GDPR
-protegge, e le sei condizioni che lo consentono sono cumulative. I salvataggi
-restano compatibili.
-
-Incorpora il lavoro preparato come 2.3.0 e mai taggato: la **Postazione
-ispettiva** persistente che riunisce fascicolo, confronto dei reperti, norme,
-archivio e taccuino. Il ramo di revisione include **107 URL pubblici** (italiano, inglese e francese), non ancora pubblicati; il press kit include una
-galleria Full HD. Dettagli: `docs/RELEASE_NOTES_v4.0.0.md`.
+Restano 14 casi, quattro modalità, salvataggi v2 compatibili con v1 e 155 URL
+pubblici in sei lingue del sito. Note: [RELEASE_NOTES_v5.0.0.md](docs/RELEASE_NOTES_v5.0.0.md).
 
 ## Novità in v1.0.0 — Prima release pubblica stabile (storico)
 
@@ -441,14 +427,14 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 Fonte machine-readable: [`release.config.json`](release.config.json)
 (coerenza garantita da test automatici).
-Note di rilascio: [`docs/RELEASE_NOTES_v4.0.0.md`](docs/RELEASE_NOTES_v4.0.0.md).
+Note di rilascio: [`docs/RELEASE_NOTES_v5.0.0.md`](docs/RELEASE_NOTES_v5.0.0.md).
 
-- **Versione**: v4.0.0 (candidata; fonte: `package.json`)
-- **Tag della versione**: `v4.0.0` — **non ancora pubblicato**
+- **Versione**: v5.0.0 (fonte: `package.json`)
+- **Tag della versione**: `v5.0.0` — **non ancora pubblicato**
 - **Ultima release effettivamente taggata**: `v2.2.0`
-- **Nota**: la candidata 2.3 richiede merge, verifica live e playtest esterni prima del tag
+- **Nota**: il tag software e lo stato del deploy web sono verifiche distinte; l’efficacia educativa resta da validare.
 - **Casi giocabili**: 14
-- **Lingue**: italiano, inglese e francese (ramo di revisione, senza deploy)
+- **Lingue**: italiano, inglese e francese
 - **URL pubblici**: 155 (33 IT + 37 EN + 37 FR + 16 DE + 16 ES + 16 PT)
 - **Localizzazioni del sito**: tedesco, spagnolo e portoghese europeo (`pt-PT`), 16 risorse introduttive, pratiche e stampa per lingua, inclusi laboratori e casi sul reclutamento. Press kit in tutte e sei le lingue; il gioco resta IT/EN/FR. [Contenuti, fonti e verifiche](docs/seo/CONTENT_CAMPAIGN_2026-10-18.md).
 - **Salvataggi**: schema v2, con migrazione testata dei salvataggi v1
@@ -532,13 +518,12 @@ AI Act risk pyramid and remedy with a reasoned **inspection report**. An
 optional **local self-check**, a **confidence and reflection layer**, and a
 **semantic reading layer** (real HTML synchronized with the canvas scenes,
 with aria-live announcements and a keyboard path through a full case) support
-learning and accessibility. Three difficulty modes, mission paths, IT/EN.
+learning and accessibility. Three difficulty modes, mission paths, IT/EN/FR.
 
 No account or player identifiers; only aggregate usage calls during
 gameplay: graphics are procedural and recorded audio has a local synthetic
 fallback; saves stay in `localStorage`. **Teacher mode** is local debrief
-support only, with on-device `.txt`/`.json` exports. Version **4.0.0** is a
-press candidate not yet tagged; the latest tagged release is **2.2.0**.
+support only, with on-device `.txt`/`.json` exports. Version **5.0.0** adds guided inquiry across all 14 cases. The latest tagged release is **v2.2.0**; the V5 tag is not yet published.
 Educational simplification of the AI Act, not legal advice. Its educational effectiveness has **not yet been empirically
 validated**. Code: GPL-3.0-or-later · narrative and didactic content: CC BY-SA 4.0.
 

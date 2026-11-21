@@ -3,7 +3,7 @@ message: >-
   If you use NO AI ACT in research, teaching or derivative work, please cite
   the software as below and state the exact version you used (the version is
   visible in the site footer and in package.json). A DOI will be added here
-  after the first Zenodo archive of the 2.0 release.
+  after an authorised Zenodo archive is created.
 type: software
 title: "NO AI ACT — Simulatore di una società non regolata"
 abstract: >-
@@ -12,9 +12,9 @@ abstract: >-
   inspector in a fictional 2032 city where the AI Act never entered into
   force: across 14 playable cases they open files on AI systems, examine evidence, classify risk
   and file inspection reports, while city indicators respond to their
-  decisions. The game is bilingual (Italian/English), requires no account,
-  runs entirely in the browser, performs no gameplay network requests and
-  collects no personal data. Game code is GPL-3.0-licensed; educational and
+  decisions. The game is available in Italian, English and French, requires no account,
+  runs in the browser and sends only aggregate usage counters, with opt-out
+  and no player identifiers. Answers, reports and guided notes stay local. Game code is GPL-3.0-licensed; educational and
   narrative content is CC BY-SA 4.0. Educational effectiveness has not yet been
   empirically validated; the game is an educational simplification, not
   legal advice.
@@ -25,8 +25,8 @@ authors:
       Università degli Studi della Tuscia — PhD programme
       "Società in mutamento: politiche, diritti e sicurezza"
     website: "https://www.no-ai-act.eu/en/matteo-angeloni/"
-version: 4.0.0
-date-released: "2026-10-18"
+version: 5.0.0
+date-released: "2026-11-21"
 repository-code: "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"
 url: "https://www.no-ai-act.eu/"
 license: GPL-3.0-or-later

@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { version as gameVersion } from '../../../package.json';
 import { AnalyticsSystem, betaUsagePrivacyNote } from '../systems/AnalyticsSystem';
 import { AudioSystem } from '../systems/AudioSystem';
 import { SaveSystem } from '../systems/SaveSystem';
@@ -103,8 +104,9 @@ export class TitleScene extends Phaser.Scene {
     });
     specs.forEach((s, i) => s.build(ys[i]));
 
+    const releaseFooter = `v${gameVersion} · ${L().ui.footerDisclaimer}`;
     this.add
-      .text(cx, footerY, L().ui.footerDisclaimer, textStyle(12, COLOR_STR.paperDim))
+      .text(cx, footerY, releaseFooter, textStyle(12, COLOR_STR.paperDim))
       .setOrigin(0.5);
 
     // Le voci del menu sono pulsanti sul canvas: senza questo, chi legge con
@@ -113,7 +115,7 @@ export class TitleScene extends Phaser.Scene {
       { text: L().ui.gameSubtitle },
       { text: L().ui.titleTagline },
       { items: specs.map((_, i) => labels[i]) },
-      { text: L().ui.footerDisclaimer }
+      { text: releaseFooter }
     ]);
   }
 

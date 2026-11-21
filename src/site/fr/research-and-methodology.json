@@ -1,7 +1,7 @@
 {
   "en": "en/research-and-methodology",
   "slug": "recherche-methodologie",
-  "sourceHash": "eef1789b05eb14ebebd351d6d5f6a0404c3aec5211ce76f099952a05f800ca73",
+  "sourceHash": "653191df174d965970b3460ea13e7018f7d02bc97dc4af5adc1a0a67512f0b70",
   "title": "Recherche et méthodologie de NO AI ACT",
   "description": "Objectifs pédagogiques, mécanismes, sources juridiques, confidentialité et état de validation de NO AI ACT : un cadre transparent pour étudier le jeu.",
   "blocks": [
@@ -13,7 +13,7 @@
     "L'hypothèse de conception, à vérifier empiriquement, est que décider avec des conséquences visibles et recevoir un débriefing argumenté exerce mieux le raisonnement réglementaire que la seule lecture passive.",
     "<span class=\"num\">02</span>Mécanismes du jeu",
     "<strong>Dossiers d'inspection :</strong> 14 cas sur l'IA : notation sociale, surveillance au travail, hypertrucages, santé, biométrie, crédit, agents conversationnels publics, marchés publics, technologies éducatives et IA à usage général.",
-    "<strong>Cycle de décision :</strong> examiner les preuves, classer le risque, attribuer la responsabilité, choisir des mesures correctives, rédiger le rapport, débriefer.",
+    "<strong>Parcours guidé V5 :</strong> compréhension → hypothèse → enquête → argumentation → retour → transfert. Les 14 dossiers proposent des médiations contextuelles, une évaluation des sources et des révisions motivées. La note autonome est figée avant le retour ; réflexion ultérieure et débrief final restent distincts. Les notes sont temporaires dans l’onglet et n’évaluent pas automatiquement la pensée critique. Le transfert indépendant relève d’un protocole de recherche séparé.",
     "<strong>Conséquences visibles :</strong> les indicateurs de la ville répondent aux décisions et montrent le coût d'une société non réglementée.",
     "<strong>Débriefing explicatif :</strong> chaque décision reçoit une explication de sa solidité ou de ses défauts, reliée à la règle simplifiée.",
     "<strong>Mode enseignant local :</strong> pauses de discussion et débriefing anonyme, sans collecte de données.",
