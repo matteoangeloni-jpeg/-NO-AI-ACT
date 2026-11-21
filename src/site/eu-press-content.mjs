@@ -4,7 +4,7 @@ const escape = value => String(value).replaceAll('&','&amp;').replaceAll('<','&l
 const locales = {
   de: {
     title: 'NO AI ACT Pressemappe: Texte, Fakten und Bildmaterial',
-    description: 'Pressemappe zu NO AI ACT 5.0: Beschreibungen, Fakten, zehn aktuelle Screenshots, Logo, Lizenzen, Datenschutz, Unterrichtsmaterial und Kontakt.',
+    description: 'Pressemappe zu NO AI ACT 5.1.0: Beschreibungen, Fakten, zehn archivierte Screenshots, Logo, Lizenzen, Datenschutz, Unterrichtsmaterial und Kontakt.',
     h1: 'NO AI ACT – Pressemappe',
     lead: 'Offizielles Material zur öffentlichen Version 5.1.0. Stand: 21. November 2026. Texte und Bilder dieser Pressemappe dürfen mit Namensnennung unter CC BY 4.0 verwendet werden.',
     headings: ['Kurzbeschreibung','Projektbeschreibung','Hintergrund und Grenzen','Fakten zum Projekt','Bilder, Logo und Screenshots','Redaktionelle Themen','Über den Autor','Transparenz zum generativen Audio','Quellenangabe und Lizenzen','Datenschutz und Nutzungsstatistik','Vier Spielmodi und Unterrichtsmaterial','Pressebeiträge und Kontakt'],
@@ -29,7 +29,7 @@ const locales = {
   },
   es: {
     title: 'NO AI ACT: kit de prensa, textos, imágenes y créditos',
-    description: 'Kit de prensa de NO AI ACT 5.0: descripciones, ficha del proyecto, diez capturas actuales, logotipo, licencias, privacidad, recursos educativos y contacto.',
+    description: 'Kit de prensa de NO AI ACT 5.1.0: descripciones, ficha del proyecto, diez capturas de archivo, logotipo, licencias, privacidad, recursos educativos y contacto.',
     h1: 'NO AI ACT – Kit de prensa',
     lead: 'Material oficial de la versión pública 5.1.0. Actualizado el 21 de noviembre de 2026. Textos e imágenes de este kit reutilizables con atribución bajo CC BY 4.0.',
     headings: ['Descripción breve','Descripción del proyecto','Contexto y límites','Ficha del proyecto','Imágenes, logotipo y capturas','Enfoques editoriales','Sobre el autor','Transparencia sobre el audio generativo','Citación y licencias','Privacidad y estadísticas de uso','Cuatro modos y recursos educativos','Referencias de prensa y contacto'],
@@ -54,7 +54,7 @@ const locales = {
   },
   pt: {
     title: 'NO AI ACT: kit de imprensa, textos, imagens e créditos',
-    description: 'Kit de imprensa de NO AI ACT 5.0: descrições, ficha do projeto, dez capturas atuais, logótipo, licenças, privacidade, recursos educativos e contactos.',
+    description: 'Kit de imprensa de NO AI ACT 5.1.0: descrições, ficha do projeto, dez capturas de arquivo, logótipo, licenças, privacidade, recursos educativos e contactos.',
     h1: 'NO AI ACT – Kit de imprensa',
     lead: 'Materiais oficiais da versão pública 5.1.0. Atualizado em 21 de novembro de 2026. Textos e imagens deste kit reutilizáveis com atribuição ao abrigo de CC BY 4.0.',
     headings: ['Descrição breve','Descrição do projeto','Contexto e limites','Ficha do projeto','Imagens, logótipo e capturas','Ângulos editoriais','Sobre o autor','Transparência sobre o áudio generativo','Citação e licenças','Privacidade e estatísticas de utilização','Quatro modos e recursos educativos','Referências de imprensa e contactos'],
@@ -83,7 +83,7 @@ export const PRESS_PAGES = Object.fromEntries(Object.entries(locales).map(([lang
   const link = (href,label,en=false) => `<a href="${href}"${en?' hreflang="en" lang="en"':''}>${escape(label)}</a>`;
   const list = links => `<ul class="plain">${links.map(l=>`<li>${l}</li>`).join('')}</ul>`;
   const extras = {
-    3: `<div class="table-wrap"><table><caption>NO AI ACT 5.0</caption><tbody>${p.labels.map((label,i)=>`<tr><th scope="row">${escape(label)}</th><td>${escape(p.values[i])}</td></tr>`).join('')}</tbody></table></div>`,
+    3: `<div class="table-wrap"><table><caption>NO AI ACT ${escape(p.values[0])}</caption><tbody>${p.labels.map((label,i)=>`<tr><th scope="row">${escape(label)}</th><td>${escape(p.values[i])}</td></tr>`).join('')}</tbody></table></div>`,
     4: list([link('/favicon.svg',p.logo),link('/assets/social/no-ai-act-og.png',`${p.cover} (IT)`),link('/assets/social/no-ai-act-en-og.png',`${p.cover} (EN)`)])+`<p><a class="btn btn-primary" href="/assets/press/no-ai-act-v5.0.0-press-screenshots.zip" download>${escape(p.download)}</a></p><div class="press-gallery">${shots.map((shot,i)=>`<figure><a href="/assets/press/screenshots-v5/${shot}.jpg"><img src="/assets/press/screenshots-v5/${shot}.jpg" width="1920" height="1080" loading="lazy" alt="${escape(p.captions[i])}" /></a><figcaption>${String(i+1).padStart(2,'0')} · ${escape(p.captions[i])}</figcaption></figure>`).join('')}</div>`,
     6: `<p>${link('/en/matteo-angeloni/',p.author,true)}</p>`,
     8: list([link('/en/how-to-cite/',p.citation,true),link('/en/research-and-methodology/',p.methodology,true)]),
