@@ -186,8 +186,10 @@ export const it = {
       links: {
         activities_it: 'Attività didattiche (IT)',
         lesson_it: 'Lezione introduttiva (IT)',
-        activities_en: 'Classroom activities (EN)',
-        lesson_en: 'Lesson plan (EN)'
+        activities_en: 'Attività didattiche (EN)',
+        lesson_en: 'Lezione introduttiva (EN)',
+        activities_fr: 'Attività didattiche (FR)',
+        lesson_fr: 'Lezione introduttiva (FR)'
       },
       close: 'Chiudi'
     },

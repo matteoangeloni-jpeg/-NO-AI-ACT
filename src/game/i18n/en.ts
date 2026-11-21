@@ -185,10 +185,12 @@ export const en: Locale = {
       afterText: 'Open the teacher debrief from the final report: a summary of decisions, concepts encountered and questions. Export it as text or JSON and use it for written reflection or formative assessment.',
       resourcesLabel: 'Related resources (open in a new tab)',
       links: {
-        activities_it: 'Attività didattiche (IT)',
-        lesson_it: 'Lezione introduttiva (IT)',
+        activities_it: 'Classroom activities (IT)',
+        lesson_it: 'Lesson plan (IT)',
         activities_en: 'Classroom activities (EN)',
-        lesson_en: 'Lesson plan (EN)'
+        lesson_en: 'Lesson plan (EN)',
+        activities_fr: 'Classroom activities (FR)',
+        lesson_fr: 'Lesson plan (FR)'
       },
       close: 'Close'
     },

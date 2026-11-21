@@ -4,6 +4,7 @@ import { describe, it, expect } from 'vitest';
 const pages = ['press-kit', 'en/press-kit', 'fr/dossier-de-presse', 'de/pressemappe', 'es/kit-de-prensa', 'pt/kit-de-imprensa'];
 const version = JSON.parse(readFileSync('package.json', 'utf8')).version as string;
 const releaseDate = JSON.parse(readFileSync('release.config.json', 'utf8')).releaseDate as string;
+const screenshotVersion = JSON.parse(readFileSync('release.config.json', 'utf8')).pressScreenshotVersion ?? version;
 const imageDirectory = `/assets/press/screenshots-v${version.split('.')[0]}/`;
 describe('public press kit freshness', () => {
   for (const route of pages) it(`${route} describes the public release without stale privacy claims`, () => {
@@ -16,7 +17,7 @@ describe('public press kit freshness', () => {
     expect(html).toContain('/game-statistics.html#');
     expect(html).toContain('Global Privacy Control');
     expect(html).not.toMatch(/press candidate|candidate presse|Candidature presse|nessuna telemetria|no gameplay telemetry|ni télémétrie/);
-    expect(html).toContain(`/assets/press/no-ai-act-v${version}-press-screenshots.zip`);
+    expect(html).toContain(`/assets/press/no-ai-act-v${screenshotVersion}-press-screenshots.zip`);
     const images = [...html.matchAll(new RegExp(`<img[^>]+src="(${imageDirectory}[^"]+)"`, 'g'))];
     expect(images).toHaveLength(10);
     for (const [, src] of images) expect(existsSync(`public${src}`)).toBe(true);
@@ -28,6 +29,7 @@ describe('public press kit freshness', () => {
       const html = readFileSync(`${route}/index.html`, 'utf8');
       for (const target of pages) expect(html).toContain(`https://www.no-ai-act.eu/${target}/`);
       expect(html).toMatch(/interfaccia italiana|Italian interface|interface italienne|italienischen Benutzeroberfläche|interfaz italiana|interface italiana/);
+      expect(html).toMatch(new RegExp(`(?:versione|version|Version|versión|versão) ${screenshotVersion.replaceAll('.', '\\.')}`));
     }
   });
   it('the public logo is copied into the deployment and guarded', () => {

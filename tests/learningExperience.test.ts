@@ -77,7 +77,7 @@ describe('v1.1 — concept links resolve to real site pages', () => {
     }
   });
 
-  test('teacher resources include the four required pages', () => {
+  test('teacher resources include the existing Italian and English pages', () => {
     const urls = TEACHER_RESOURCES.map((r) => r.url);
     for (const required of [
       '/attivita-didattiche/',
@@ -200,7 +200,7 @@ describe('v1.1 — i18n completeness for the learning layer', () => {
       expect(r.disclaimer.toLowerCase()).toMatch(/non costituisce|not legal|non è una consulenza|consulenza legale/);
     });
 
-    test(`${lang}: teacher guide has before/during/after and 4 resource labels`, () => {
+    test(`${lang}: teacher guide has before/during/after and resource labels`, () => {
       const g = L.ui.teacherGuide;
       for (const key of ['button', 'title', 'intro', 'beforeTitle', 'beforeText', 'duringTitle', 'duringText', 'afterTitle', 'afterText', 'resourcesLabel', 'close'] as const) {
         expect(g[key].trim().length, `${lang}.ui.teacherGuide.${key}`).toBeGreaterThan(0);
@@ -233,7 +233,7 @@ describe('v1.1 — teacher report includes site resources', () => {
     difficulty: 'standard' as const
   };
 
-  test('report and text export list the four teacher resources', () => {
+  test('report and text export list all teacher resources', () => {
     setLanguage('it');
     const report = buildTeacherReport(input);
     expect(report.resources).toHaveLength(TEACHER_RESOURCES.length);

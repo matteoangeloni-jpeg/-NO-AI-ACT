@@ -1,5 +1,7 @@
 # Rubrica preliminare e prova di trasferimento Study 02
 
+[Italiano](ARGUMENTATION_STUDY02.md) · [English](en/ARGUMENTATION_STUDY02.md) · [Français](fr/ARGUMENTATION_STUDY02.md)
+
 Versione di lavoro del 21 novembre 2026. Disegno proposto, nessuno studio eseguito. Rubrica da validare con valutatori umani e partecipanti del pubblico previsto.
 
 ## Rubrica analitica preliminare

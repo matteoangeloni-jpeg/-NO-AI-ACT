@@ -1,5 +1,15 @@
 # CHANGELOG — NO AI ACT
 
+## [5.0.1] — 2026-11-21
+
+- Guida docente e report con risorse francesi, etichette tradotte IT/EN/FR e sei collegamenti.
+- Dossier metodologico completo e note V5.0.0/V5.0.1 nelle tre lingue del gioco:
+  [indice multilingue](docs/v5/README.md).
+- Metadati V5.0.1, archivio immagini V5.0.0 conservato con provenienza esplicita;
+  contatori aggregati compatibili anche con il client V5.0.0.
+- Verifiche statiche, test unitari e build; nessuna nuova esecuzione degli smoke test
+  per questa correzione, come richiesto dal proprietario. Limiti nelle note di rilascio.
+
 ## [5.0.0] — 2026-11-21
 
 - Percorso guidato specifico per tutti i 14 casi in italiano, inglese e francese:

@@ -9,6 +9,11 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      skip_browser_smoke:
+        description: 'Skip browser smoke tests for an explicitly authorised localization release'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -46,6 +51,7 @@ jobs:
       - name: Verify deploy-critical files in dist
         run: npm run verify:dist
       - name: Install Playwright Chromium
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.skip_browser_smoke) }}
         # `--with-deps` fa girare apt-get update, che fallisce se una qualunque
         # sorgente apt dell'immagine runner è a metà di una ripubblicazione. Il
         # 9 settembre 2026 tre run di fila sono morte qui su "Hash Sum mismatch"
@@ -59,12 +65,15 @@ jobs:
                      /etc/apt/sources.list.d/google-chrome.sources
           npx playwright install --with-deps chromium
       - name: V5 guided inquiry browser gate
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.skip_browser_smoke) }}
         run: npm run smoke:guided-inquiry
         env:
           INQUIRY_ONLY: en-390
       - name: Independent study lab and production exclusion gate
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.skip_browser_smoke) }}
         run: npm run smoke:study02
       - name: Browser smoke tests (gameplay, keyboard, layout)
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.skip_browser_smoke) }}
         run: npm run smoke:all
         env:
           SMOKE_GROUP: ${{ matrix.smoke_group }}

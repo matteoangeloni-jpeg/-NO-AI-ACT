@@ -1,5 +1,7 @@
 # NO AI ACT v5.0.0 — Indagare, argomentare, rielaborare
 
+[Italiano](RELEASE_NOTES_v5.0.0.md) · [English](RELEASE_NOTES_v5.0.0.en.md) · [Français](RELEASE_NOTES_v5.0.0.fr.md)
+
 21 novembre 2026. Release del percorso ludopedagogico guidato, con i 14 casi esistenti e le tre lingue del gioco: italiano, inglese e francese. Il sito mantiene 155 rotte e sei lingue editoriali. Lo stato effettivo di tag e pubblicazione è riportato nel README e nel registro di rilascio.
 
 ## Novità nel gioco

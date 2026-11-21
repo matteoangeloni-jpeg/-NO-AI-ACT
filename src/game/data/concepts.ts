@@ -56,14 +56,16 @@ export const FALLBACK_LINKS: Record<LanguageCode, string[]> = {
 
 /**
  * Risorse per la modalità docente (guida in gioco + export del debrief).
- * Le quattro pagine sono richieste in entrambe le lingue perché una classe
+ * Le pagine sono disponibili nelle tre lingue perché una classe
  * può giocare in una lingua e preparare la lezione nell'altra.
  */
 export const TEACHER_RESOURCES: { id: string; url: string }[] = [
   { id: 'activities_it', url: '/attivita-didattiche/' },
   { id: 'lesson_it', url: '/lezione-introduzione-ai-act/' },
   { id: 'activities_en', url: '/en/classroom-activities/' },
-  { id: 'lesson_en', url: '/en/lesson-plan-introduction-to-the-ai-act/' }
+  { id: 'lesson_en', url: '/en/lesson-plan-introduction-to-the-ai-act/' },
+  { id: 'activities_fr', url: '/fr/activites-pedagogiques/' },
+  { id: 'lesson_fr', url: '/fr/seance-introduction-ai-act/' }
 ];
 
 export function conceptLink(id: ConceptId, lang: LanguageCode): string {

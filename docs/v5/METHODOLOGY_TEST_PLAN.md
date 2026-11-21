@@ -1,5 +1,7 @@
 # Piano di verifica del percorso guidato
 
+[Italiano](METHODOLOGY_TEST_PLAN.md) · [English](en/METHODOLOGY_TEST_PLAN.md) · [Français](fr/METHODOLOGY_TEST_PLAN.md)
+
 Prima della modifica. Le tre matrici A, B e C sono state scritte nei documenti METHODOLOGY.md e LEGAL_LEARNING_MATRIX.md. Il codice di partenza offre guida contestuale, confronto, rapporto con motivazioni predisposte, debrief e ripasso. Mancano produzione autonoma e confronto esplicito fra idea iniziale e feedback.
 
 ## Criteri tecnici

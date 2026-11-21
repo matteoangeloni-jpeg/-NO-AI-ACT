@@ -73,11 +73,6 @@ const IDENTICHE_AMMESSE: { quando: (percorso: string, valore: string) => boolean
     motivo: "denominazione ufficiale dell'ateneo, non traducibile"
   },
   {
-    // Le risorse docente sono etichettate per lingua nel loro stesso nome.
-    quando: (p) => /teacherGuide\.links\.(activities|lesson)_(it|en)$/.test(p),
-    motivo: 'risorsa già etichettata con la propria lingua'
-  },
-  {
     /**
      * ANGLICISMI CHE IL TESTO ITALIANO USA, e la ragione per cui questa
      * categoria è nata DOPO aver fatto girare il controllo.
