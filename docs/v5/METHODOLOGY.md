@@ -8,6 +8,10 @@ La sequenza Comprensione → Ipotesi → Investigazione → Argomentazione → F
 
 Il percorso guidato viene scelto nel fascicolo. Le brevi scene di mediazione usano il ruolo del collega ispettore e gli stessi documenti della storia. La classificazione serve a decidere quali verifiche, misure e soggetti considerare. L'apprendente deve poter dire quale informazione manca e scegliere di proseguire senza scrivere. Evitare premi per quantità di testo o frequenza di revisione.
 
+Copertura progettuale dell'incremento completo. I 14 casi hanno ciascuno cinque mediazioni originali in italiano, inglese e francese: apertura narrativa, provenienza delle fonti, relazione tra prove, incertezza e debrief. La prima scena è divisa in tre brevi soste; un richiamo contestuale precede la decisione e resta riapribile. Nel taccuino si possono rileggere i reperti già aperti, commentarne la provenienza e proporre liberamente coppie e ragioni di una relazione. Non viene indicato se il collegamento è corretto. La storia delle revisioni contiene solo quelle esplicitamente registrate dal giocatore con una ragione; non è un log automatico di comportamento.
+
+La nota prima della firma include il passaggio dalle prove a classificazione, misura e responsabilità. Dopo il feedback, revisione, uso di una prova per controllare il feedback e piano per un altro caso sono distinti. Nel debrief di sessione si confrontano tutti i fascicoli guidati completati e si formula una sintesi. Il laboratorio locale separato `research/study02/` realizza osservazione strutturata e due task indipendenti; non viene incluso nel gioco pubblico. La tracciabilità operativa completa è in COVERAGE_COMPLETION.md. Le verifiche tecniche sono eseguite soltanto dopo questa implementazione completa; gli esiti sono nel rapporto di implementazione.
+
 ## A. Dal feedback alla verifica
 
 Le fonti dirette sono state consultate nelle email autorizzate del 18 e 19 novembre 2026. Il registro nominativo e i riferimenti privati restano nel dossier consegnato al proprietario. Gli ID seguenti consentono la tracciabilità nel codice senza riprodurre corrispondenza privata.
@@ -29,7 +33,7 @@ Le fonti dirette sono state consultate nelle email autorizzate del 18 e 19 novem
 |---|---|---|---|
 | Comprendere scopo e contesto | Riformula il problema del fascicolo | Domanda di indagine pertinente | Può ripetere la scena senza comprenderla |
 | Valutare la provenienza | Confronta dichiarazione e riscontro documentale | Spiegazione della diversa forza delle fonti | Aprire due documenti prova soltanto accesso |
-| Collegare due reperti | Descrive supporto o contrasto | Relazione nominata con contenuto e fonte | La coppia predefinita del gioco semplifica il mondo reale |
+| Collegare due reperti | Sceglie due fonti e motiva supporto, tensione o incertezza | Relazione nominata con contenuto e fonte | Proporre una coppia non prova la validità del nesso; occorre lettura umana |
 | Rivedere un'ipotesi | Confronta idea iniziale e lettura attuale | Ragione specifica del cambiamento o del mantenimento | Cambiare spesso può riflettere tentativi |
 | Argomentare | Scrive una nota prima della restituzione | Tesi, prova, passaggio logico, alternativa | Abilità di scrittura, lingua e scaffolding influenzano il testo |
 | Gestire incertezza e diritti | Indica dati mancanti e persone esposte | Richiesta di informazione e limite del giudizio | Dichiarare dubbio non ne dimostra la gestione |
@@ -57,7 +61,7 @@ La guida sostiene l'accesso al compito avanzato. Non basta aggiungere un suggeri
 | Investigazione | 14 casi, EvidenceScene e confronto | Aggiungere una sosta di relazione fra fonti | Taccuino di lavoro con controprova e incertezza |
 | Argomentazione | Scelte del rapporto, possibilità di errore e firma | Prima del responso aprire una nota autonoma nel percorso scelto | Bozza libera, snapshot al momento della firma |
 | Feedback | ReportScene, assi di feedback e ripasso | Confrontare il ragionamento precedente con la riflessione successiva | Campo di revisione separato e debrief di sessione |
-| Trasferimento | Scenario investigativo come linguaggio | Spostare la valutazione di efficacia fuori dai 14 casi | Task Study 02 indipendente, specificato nel dossier |
+| Trasferimento | Scenario investigativo come linguaggio | Spostare la valutazione di efficacia fuori dai 14 casi | Due task Study 02 completi nel laboratorio locale, indipendenti dal gioco |
 
 ## Analisi critica CEPAJe
 
@@ -86,7 +90,7 @@ LM–GM collega azioni ludiche a processi di apprendimento [2]. La tabella è un
 | Ipotesi rivedibile | Riflessione, controllo dell'interpretazione | Mantiene o cambia idea per una prova specifica | Campo nuovo |
 | Nota e firma | Auto-spiegazione e decisione impegnativa | Esplicita il nesso logico prima del feedback | Firma presente, testo nuovo |
 | Conseguenze e debrief | Feedback e riflessione sull'esperienza | Distingue esito legale, supporto e limite | Riutilizzare gli assi esistenti |
-| Scenario indipendente esterno | Applicazione e trasferimento | Usa criteri con fonti differenti | Specifica Study 02 |
+| Scenario indipendente esterno | Applicazione e trasferimento | Usa criteri con fonti differenti | Forme A/B con quattro fonti ciascuna in IT/EN/FR; rubrica manuale |
 
 Le alternative del rapporto offrono supporto ma possono favorire riconoscimento. Per questo la produzione autonoma è complementare. Il taccuino aumenta osservabilità durante una sessione con consenso. La versione pubblica conserva soltanto i contatori aggregati già esistenti.
 

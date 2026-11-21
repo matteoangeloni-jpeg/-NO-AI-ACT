@@ -16,6 +16,8 @@
     "smoke:final-routes": "node scripts/smoke/final-routes-smoke.mjs",
     "smoke:release-cases": "node scripts/smoke/release-cases-smoke.mjs",
     "smoke:guided-inquiry": "node scripts/smoke/guided-inquiry-smoke.mjs",
+    "study02:local": "node scripts/study02-lab.mjs",
+    "smoke:study02": "node scripts/smoke/study02-smoke.mjs",
     "smoke:release-pipeline": "node --import tsx scripts/smoke/release-analytics-pipeline.mjs",
     "smoke:release-a11y": "node scripts/smoke/release-a11y-smoke.mjs",
     "smoke:release-surprise": "node scripts/smoke/release-surprise-smoke.mjs",

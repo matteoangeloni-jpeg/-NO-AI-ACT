@@ -1,73 +1,68 @@
-# Incremento metodologico V5
+# Incremento metodologico V5 — copertura completa
 
-Ramo locale codex/v5-methodology-guided-path. Base main 527fde5, verificata il 21 novembre 2026. Il precedente deploy della PR 128 risulta riuscito. L'incremento corrente prepara un prototipo da revisionare localmente.
-
-Strumenti effettivamente usati. Lettura delle email originali tramite Gmail autorizzato, consultazione web di fonti ufficiali e repository accademici, Git, rg, Graphify per orientamento, TypeScript, Vitest, Vite e Playwright. Il grafo iniziale era precedente al main, quindi ogni punto modificato è stato verificato nei sorgenti. Il successivo aggiornamento AST ha prodotto 3.723 nodi con avvisi su file privi di simboli. Il grafo resta locale.
+Ramo locale `codex/v5-methodology-guided-path`, base main `527fde5`. Revisione del 21 novembre 2026. Le modifiche correnti sono locali. La produzione richiede una nuova autorizzazione.
 
 ## Modifiche implementate
 
-| Componente | Comportamento effettivo |
+| Componente | Comportamento |
 |---|---|
-| CaseScene | Apre il percorso guidato con una breve mediazione del collega, scopo della classificazione, esempio sulle fonti e prima ipotesi |
-| GuidedInquirySession | Mantiene in memoria temporanea ipotesi iniziale, lettura attuale, relazione fra fonti, alternativa, lacuna e riflessione |
-| EvidenceScene | Espone le note di indagine nel percorso scelto, conservando la prima ipotesi durante le revisioni |
-| DecisionScene | Prima della firma offre la nota autonoma e ne fissa una copia prima del responso. I campi possono essere lasciati vuoti |
-| ReportScene | Permette di rileggere l'argomentazione precedente e scrivere una riflessione distinta dopo il feedback |
-| SessionEndScene | Riunisce note e riflessioni dei fascicoli guidati nel debrief finale |
-| Dialogo HTML e CSS | Etichette dei campi, contenuti resi come testo, Escape, ritorno del focus, ciclo di Tab e pannello scorrevole |
-| Localizzazione | Un contratto di etichette e consegne per IT/EN/FR |
+| CaseScene e inquiryCases | Tre soste iniziali e cinque mediazioni specifiche per ciascuno dei 14 casi, in IT/EN/FR |
+| EvidenceScene e taccuino | Rilettura dei documenti già aperti, valutazione della provenienza, collegamenti liberi fra due fonti con ragione |
+| GuidedInquirySession | Prima ipotesi preservata, revisioni registrate esplicitamente con motivo, copia immutabile di argomentazione, fonti e relazioni prima del responso |
+| DecisionScene | Richiamo contestuale, aiuto riapribile e nota autonoma con tesi, prove, passaggio logico, alternativa e incertezza prima della firma |
+| ReportScene | Scelte e norma del caso, rilettura della nota precedente, riflessione, controllo del feedback e piano di applicazione distinti |
+| SessionEndScene | Debrief di tutti i fascicoli guidati completati, sintesi trasversale e strategia per contesti nuovi |
+| Dialogo accessibile | HTML semantico, etichette, select e dettagli nativi, Escape, focus confinato e ripristinato, scroll interno; input del puntatore e tastiera isolati dalla scena |
+| Study 02 locale | Due forme nuove con quattro fonti originali ciascuna in tre lingue, testo libero bloccato alla consegna, nessuna correzione automatica |
+| Osservazione e rubrica | Contesto CEPAJe, sette righe di osservazione, sei dimensioni di codifica umana, correttezza normativa separata |
+| Separazione dei dati | Appunti del gioco solo in memoria; laboratorio fuori da dist, server GET/HEAD su loopback, download locale soltanto esplicito |
 
-Il percorso usa gli stessi 14 casi, le loro fonti e le decisioni esistenti. La nota non modifica i risultati del rapporto. La scelta delle soste, del collega ispettore e dei quattro campi è una decisione progettuale di questo incremento, da discutere con principianti e facilitatori.
+Il percorso conserva narrativa, 14 casi, motivazioni predisposte, esiti e punteggi originali. Scrivere o proporre un collegamento non assegna punti né produce una valutazione di pensiero critico. Le mediazioni chiedono prove e circostanze senza comunicare una soluzione normativa prima del feedback. La matrice C documenta il raccordo con il consolidato UE del 27 luglio 2026 verificato su EUR-Lex.
 
-## Confine dei dati e compatibilità
+## Tracciabilità e materiali
 
-Il nuovo stato resta nella memoria JavaScript della scheda. Reload e nuova sessione lo azzerano. Le annotazioni non entrano nei salvataggi V1/V2, nei contatori aggregati, nei report esportati o negli endpoint. I dialoghi avvisano della durata temporanea degli appunti. Non scrivere dati reali identificativi nei campi. I test usano esclusivamente testo sintetico.
+Le matrici A/B, la mappa LM–GM, l'analisi CEPAJe e la bibliografia sono in METHODOLOGY.md; la matrice C è in LEGAL_LEARNING_MATRIX.md. COVERAGE_COMPLETION.md raccorda tutti i comportamenti richiesti ai componenti. ARGUMENTATION_STUDY02.md contiene rubriche, disegno, triangolazione e piano di analisi. Le email originali sono state lette; riferimenti e tracciabilità privata restano nel dossier del proprietario e non nella build pubblica. Nessun feedback viene presentato come endorsement.
 
-La versione pubblica resta separata dal protocollo di ricerca. Osservazioni individuali, raccolta di elaborati e codici di Study 02 richiedono un sistema esterno e la governance descritta in ARGUMENTATION_STUDY02.md.
+## Verifica finale
 
-## Risultati verificati
+Implementazione completata prima dell'avvio dei nuovi test, come richiesto. I risultati della precedente versione parziale non certificano questo incremento. La verifica finale e i suoi esiti vengono registrati in TEST_RESULTS.md dopo l'esecuzione. I test automatici usano solo materiali sintetici e fixture esplicite.
 
-- TypeScript, build, verifica dist e audit SEO superati. Audit su 155 rotte.
-- 1.503 test superati in 94 file, compresi quattro nuovi test sulla separazione dei testi e il reset di sessione.
-- 42 percorsi del catalogo superati, 14 casi in IT/EN/FR con ripristino dei rapporti.
-- 12 combinazioni modalità/lingua superate, Turno, Libera, Sorpresa e Ripasso in IT/EN/FR.
-- Percorso guidato verificato sul caso_scoring attraverso ingresso, ipotesi, reperti, revisione, nota prima della firma, feedback, riflessione e debrief finale.
-- Profili verificati nei test del prototipo: IT 1920×1080 e 320×800, EN 390×844 e 640×360, FR 390×844 e 3840×2160. Controllati Escape, focus, Tab, input multilinea senza firma involontaria, reset al reload e assenza del testo in localStorage e telemetria.
+Comandi: `npm run typecheck`, `npm test`, `npm run build`, `npm run audit:seo`, `npm run verify:dist`, `npm run smoke:guided-inquiry`, `npm run smoke:study02`, `npm run smoke:release-cases`, `npm run smoke:final-modes`.
 
-Il test 4K iniziale si è fermato nel Preload preesistente con rendering software. La verifica del prototipo è passata usando un browser isolato per profilo e un limite di attesa di 90 secondi per le scene. Questo esito dimostra il percorso nella configurazione testata. Le prestazioni di avvio su hardware reale richiedono profilazione separata.
+## Uso locale
 
-Un test esistente della firma vietava qualunque accesso a caseData, anche al solo ID necessario per scegliere il taccuino. Il controllo è stato aggiornato per consentire esclusivamente caseData.id e continuare a vietare lettura delle soluzioni nella firma. Il test di catalogo conferma gli esiti normativi precedenti.
+Gioco: `npm run dev`, aprire `/play/?lang=it`, scegliere un fascicolo e PERCORSO GUIDATO. La mediazione precede i reperti. Le note sono facoltative e si perdono al reload o alla nuova partita; il testo scritto non entra in salvataggi, esportazioni del gioco o telemetria.
 
-## Limiti aperti e prossima iterazione
+Studio: `npm run study02:local`, aprire `http://127.0.0.1:4262/`. PRE/POST usano due schede separate e forme controbilanciate. Il tool non gestisce identità, consenso, randomizzazione, reclutamento o conservazione istituzionale: sono responsabilità del protocollo autorizzato esterno. Prima della consegna il debrief resta disabilitato. Il download esplicito salva testo consegnato e appunti umani sul dispositivo.
 
-1. La rubrica è preliminare. Nessuna valutazione automatica del pensiero critico è stata introdotta.
-2. Le prove tecniche non verificano comprensione o trasferimento. Servono le sessioni umane e il protocollo indipendente descritti nel dossier.
-3. Il dialogo è una mediazione testuale. Durata, densità e capacità di sostenere il principiante richiedono think-aloud e possibile riduzione dei prompt.
-4. Le traduzioni del prototipo richiedono revisione bilingue. Equivalenza dei compiti di ricerca e difficoltà linguistiche vanno verificate prima dello studio.
-5. Lettori di schermo reali, dettatura, tastiera virtuale e dispositivi fisici restano da provare. I controlli automatici coprono semantica e navigazione nella configurazione testata.
-6. Le forme A/B di trasferimento sono una specifica. Prima dello studio servono fonti complete, chiave giuridica, pilot di equivalenza, ancore e accordo fra valutatori.
-7. La matrice giuridica documenta riferimenti e condizioni. Un revisore umano deve valutare ogni futura modifica dei casi.
-8. La nota prima del feedback segue le alternative già presenti nel rapporto. Questo supporto può orientare il ragionamento e va considerato nell'interpretazione degli elaborati.
-9. Il taccuino completo è stato percorso su un caso rappresentativo. Gli altri 13 hanno il componente disponibile e la regressione del catalogo superata, ma richiedono ancora playtest metodologico specifico.
-10. La ricognizione bibliografica è mirata. Alcuni testi completi erano bloccati, come precisato nella bibliografia.
+Smoke: `CHROMIUM_PATH` può selezionare Chrome installato. `INQUIRY_PORT` seleziona la porta. `INQUIRY_ONLY` limita un profilo per diagnosi; la verifica finale usa tutti i profili. Il percorso guidato copre 14 casi × 3 lingue e altri tre profili di layout, per 45 percorsi. I materiali Study 02 coprono 2 forme × 3 lingue × PRE/POST, per 12 configurazioni.
 
-## Riesecuzione locale
+Su questa macchina Windows, `INQUIRY_4K_GPU=d3d11` richiede Direct3D per il solo profilo 3840×2160; gli altri profili usano il rendering software del test. Il backend effettivo è registrato in ogni risultato. La riproduzione deve dichiarare questa differenza. L'avvio 4K con il solo rendering software ha superato il timeout di 90 secondi nel Preload preesistente; la diagnostica con GPU ha raggiunto Title in circa 5,6 secondi. Non è una stima di prestazioni generalizzabile.
 
-Nel clone work/no-ai-act, eseguire npm run dev e aprire /play/?lang=it. Aprire un fascicolo e scegliere PERCORSO GUIDATO. Le note restano facoltative e la firma si conferma esplicitamente nel dialogo.
+## Limiti aperti
 
-Per le prove automatiche eseguire npm run smoke:guided-inquiry. Su Windows è possibile impostare CHROMIUM_PATH al browser installato, come fanno i test locali. INQUIRY_ONLY seleziona un profilo per diagnosi, per esempio fr-3840. INQUIRY_PORT seleziona una porta locale libera. Lo script apre un nuovo browser per ogni profilo e chiude l'anteprima al termine.
+- Copertura dei contenuti e funzioni distinta da validità educativa. Servono pilot con principianti, osservazione, produzioni e prova indipendente; non sono stati eseguiti studi umani.
+- Rubrica, equivalenza delle forme e traduzioni sono preliminari: richiedono revisione bilingue, interviste cognitive, ancore e accordo fra valutatori.
+- Le mediazioni sono testuali. Densità, ritmo e autonomia vanno verificati nel contesto CEPAJe; la restituzione orale equivalente richiede mediazione autorizzata.
+- Lettori di schermo reali, dettatura, tastiera virtuale e dispositivi fisici richiedono prova umana. I controlli automatici non certificano accessibilità universale.
+- La nota autonoma segue le alternative del rapporto. Il loro possibile effetto di orientamento è controllato metodologicamente attraverso il task esterno.
+- La prima nota è una dichiarazione del giocatore. Chi ha già consultato un fascicolo può esserne influenzato; la baseline di ricerca è il PRE indipendente, somministrato prima del gioco su una sessione nuova.
+- Le note del gioco non sono un tracciamento individuale. Un'apertura o una revisione non dimostra comprensione: la triangolazione usa spiegazioni e osservazione umana esterna.
+- La correttezza normativa dei nuovi materiali richiede revisione giuridica umana prima della somministrazione. Le risposte dei 14 casi non sono state cambiate.
+- La bibliografia è una ricognizione mirata; i limiti di accesso ai testi completi sono dichiarati nelle singole voci.
+- Nessuna pubblicazione in produzione eseguita per questo incremento.
 
-## Mappa dei deliverable
+## Deliverable
 
-| Richiesta | Documento o componente |
+| Richiesta | Risultato |
 |---|---|
-| Documento metodologico e bibliografia | METHODOLOGY.md |
-| Matrice dei feedback | Matrice A in METHODOLOGY.md e dossier privato V5_FEEDBACK_PRIVATO.md |
-| Mappa LM–GM | METHODOLOGY.md |
-| Analisi CEPAJe | METHODOLOGY.md |
-| Prototipo funzionante | GuidedInquiry.ts, GuidedInquiryDialog.ts e cinque scene |
-| Revisione del ciclo e del feedback | Tabelle delle fasi, nota pre-feedback e riflessione post-feedback |
-| Rubrica | ARGUMENTATION_STUDY02.md |
-| Prova di trasferimento | ARGUMENTATION_STUDY02.md |
-| Piano di test | METHODOLOGY_TEST_PLAN.md |
-| Implementato e limiti | Questo rapporto |
+| Metodo e bibliografia europea | METHODOLOGY.md |
+| Matrice feedback | Matrice A e COVERAGE_COMPLETION.md; dossier privato separato |
+| LM–GM | METHODOLOGY.md |
+| CEPAJe | METHODOLOGY.md; contesto nel laboratorio |
+| Percorso guidato | inquiryCases, GuidedInquiryDialog e scene del gioco |
+| Ciclo e feedback | Revisioni, nota sigillata e riflessione distinta |
+| Rubrica | ARGUMENTATION_STUDY02.md e laboratorio manuale |
+| Trasferimento Study 02 | Due forme complete in research/study02 |
+| Test | METHODOLOGY_TEST_PLAN.md e TEST_RESULTS.md |
+| Modifiche e limiti | Questo documento |

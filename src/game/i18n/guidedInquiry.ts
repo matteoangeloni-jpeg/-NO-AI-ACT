@@ -28,7 +28,7 @@ interface GuidedCopy {
   erase: string;
 }
 
-export const GUIDED_COPY: Record<LanguageCode, GuidedCopy> = {
+const BASE_COPY: Record<LanguageCode, GuidedCopy> = {
   it: {
     entry: 'PERCORSO GUIDATO', notebook: 'NOTE DI INDAGINE', debrief: 'RILEGGI IL RAGIONAMENTO',
     finalDebrief: 'DEBRIEF DEL PERCORSO', introduction: 'Prima di aprire i reperti',
@@ -92,4 +92,88 @@ export const GUIDED_COPY: Record<LanguageCode, GuidedCopy> = {
     continue: 'Aller aux pièces', confirm: 'Confirmer la note et signer', close: 'Revenir au dossier',
     empty: 'Aucune note écrite à cette étape.', erase: 'Effacer ces notes'
   }
+};
+
+interface GuidedExtra {
+  next: string; previous: string; method: string; sources: string; sourceAssessment: string;
+  relationTitle: string; leftSource: string; rightSource: string; relationKind: string;
+  supports: string; challenges: string; uncertain: string; relationReason: string;
+  addRelation: string; removeRelation: string; relationRequired: string; relationSaved: string;
+  recordRevision: string; revisionRequired: string; revisionSaved: string; revisions: string;
+  revisionReason: string; reasoning: string; feedbackUse: string; transferPlan: string;
+  sessionReflection: string; sessionTransferPlan: string; legalReference: string; choices: string;
+  takeaway: string; sourcesUnavailable: string; reread: string; assessmentNote: string;
+  openingStage: string; sourcesStage: string; hypothesisStage: string; resume: string;
+}
+
+const EXTRA_COPY: Record<LanguageCode, GuidedExtra> = {
+  it: {
+    next: 'Prosegui', previous: 'Passo precedente', method: 'METODO DEL CASO',
+    sources: 'Esplora e valuta le fonti', sourceAssessment: 'Che cosa documenta questa fonte, quali interessi può avere e quali limiti riconosci?',
+    relationTitle: 'Collega due fonti', leftSource: 'Prima fonte', rightSource: 'Seconda fonte',
+    relationKind: 'La relazione che proponi', supports: 'Si sostengono', challenges: 'Sono in tensione', uncertain: 'Relazione da chiarire',
+    relationReason: 'Quale affermazione colleghi e perché?', addRelation: 'Registra il collegamento', removeRelation: 'Rimuovi il collegamento',
+    relationRequired: 'Scegli due fonti diverse e spiega la relazione.', relationSaved: 'Collegamento registrato negli appunti della scheda.',
+    recordRevision: 'Registra questa revisione', revisionRequired: 'Scrivi l’ipotesi e la ragione per cui la mantieni o la cambi.',
+    revisionSaved: 'Revisione registrata negli appunti della scheda.', revisions: 'Le revisioni che hai esplicitato',
+    revisionReason: 'Quale prova o ragione mi porta a mantenere o cambiare l’ipotesi',
+    reasoning: 'Come collego le prove a classificazione, misura proposta e responsabilità',
+    feedbackUse: 'Quale parte del feedback ho confrontato con una prova, e con quale esito',
+    transferPlan: 'Quale criterio userò in un caso diverso e che cosa dovrò verificare',
+    sessionReflection: 'Che cosa ho capito confrontando le mie indagini',
+    sessionTransferPlan: 'Quale strategia proverò fuori da questi fascicoli',
+    legalReference: 'Norma e lettura del caso', choices: 'Le scelte del rapporto', takeaway: 'Un criterio da discutere',
+    sourcesUnavailable: 'Apri i reperti nella scena d’indagine per rileggerli e valutarli qui.',
+    reread: 'Rileggi la fonte', assessmentNote: 'Questi appunti sostengono la riflessione. Un facilitatore può discutere con te le ragioni delle scelte.',
+    openingStage: 'Comprendere il compito', sourcesStage: 'Preparare l’indagine', hypothesisStage: 'Formulare un’ipotesi',
+    resume: 'Torna alla decisione'
+  },
+  en: {
+    next: 'Continue', previous: 'Previous step', method: 'CASE METHOD',
+    sources: 'Explore and evaluate sources', sourceAssessment: 'What does this source document, which interests might it have and which limits do you recognise?',
+    relationTitle: 'Connect two sources', leftSource: 'First source', rightSource: 'Second source',
+    relationKind: 'Your proposed relation', supports: 'They support each other', challenges: 'They are in tension', uncertain: 'Relation needs clarification',
+    relationReason: 'Which claim do you connect and why?', addRelation: 'Record relation', removeRelation: 'Remove relation',
+    relationRequired: 'Choose two different sources and explain the relation.', relationSaved: 'Relation recorded in this tab’s notes.',
+    recordRevision: 'Record this revision', revisionRequired: 'Write the hypothesis and why you keep or change it.',
+    revisionSaved: 'Revision recorded in this tab’s notes.', revisions: 'The revisions you explained',
+    revisionReason: 'Which evidence or reason leads me to keep or change the hypothesis',
+    reasoning: 'How I connect evidence to classification, proposed measure and responsibility',
+    feedbackUse: 'Which part of the feedback I checked against evidence and what I found',
+    transferPlan: 'Which criterion I will use in a different case and what I must check',
+    sessionReflection: 'What I understood by comparing my investigations',
+    sessionTransferPlan: 'Which strategy I will try outside these cases',
+    legalReference: 'Rule and case interpretation', choices: 'The report’s choices', takeaway: 'A criterion to discuss',
+    sourcesUnavailable: 'Open exhibits in the investigation scene to reread and evaluate them here.',
+    reread: 'Reread source', assessmentNote: 'These notes support reflection. A facilitator can discuss the reasons for your choices with you.',
+    openingStage: 'Understand the task', sourcesStage: 'Prepare the investigation', hypothesisStage: 'Form a hypothesis',
+    resume: 'Return to the decision'
+  },
+  fr: {
+    next: 'Poursuivre', previous: 'Étape précédente', method: 'MÉTHODE DU DOSSIER',
+    sources: 'Explorer et évaluer les sources', sourceAssessment: 'Que documente cette source, quels intérêts peut-elle avoir et quelles limites identifiez-vous ?',
+    relationTitle: 'Relier deux sources', leftSource: 'Première source', rightSource: 'Deuxième source',
+    relationKind: 'La relation que vous proposez', supports: 'Elles se soutiennent', challenges: 'Elles sont en tension', uncertain: 'Relation à éclaircir',
+    relationReason: 'Quelle affirmation reliez-vous et pourquoi ?', addRelation: 'Noter la relation', removeRelation: 'Retirer la relation',
+    relationRequired: 'Choisissez deux sources différentes et expliquez la relation.', relationSaved: 'Relation conservée dans les notes de cet onglet.',
+    recordRevision: 'Noter cette révision', revisionRequired: 'Écrivez l’hypothèse et la raison de son maintien ou de sa modification.',
+    revisionSaved: 'Révision conservée dans les notes de cet onglet.', revisions: 'Les révisions que vous avez explicitées',
+    revisionReason: 'La preuve ou la raison qui me conduit à maintenir ou modifier l’hypothèse',
+    reasoning: 'Comment je relie les preuves à la classification, à la mesure et à la responsabilité',
+    feedbackUse: 'La partie du retour que j’ai confrontée à une preuve et ce que j’en ai tiré',
+    transferPlan: 'Le critère à utiliser dans un autre cas et ce qu’il faudra vérifier',
+    sessionReflection: 'Ce que j’ai compris en comparant mes enquêtes',
+    sessionTransferPlan: 'La stratégie que j’essaierai hors de ces dossiers',
+    legalReference: 'Règle et interprétation du dossier', choices: 'Les choix du rapport', takeaway: 'Un critère à discuter',
+    sourcesUnavailable: 'Ouvrez les pièces dans la scène d’enquête pour les relire et les évaluer ici.',
+    reread: 'Relire la source', assessmentNote: 'Ces notes soutiennent la réflexion. Un médiateur peut discuter avec vous des raisons de vos choix.',
+    openingStage: 'Comprendre la tâche', sourcesStage: 'Préparer l’enquête', hypothesisStage: 'Formuler une hypothèse',
+    resume: 'Revenir à la décision'
+  }
+};
+
+export const GUIDED_COPY: Record<LanguageCode, GuidedCopy & GuidedExtra> = {
+  it: { ...BASE_COPY.it, ...EXTRA_COPY.it },
+  en: { ...BASE_COPY.en, ...EXTRA_COPY.en },
+  fr: { ...BASE_COPY.fr, ...EXTRA_COPY.fr }
 };
