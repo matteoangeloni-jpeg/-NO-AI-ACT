@@ -1,11 +1,13 @@
 import { PLAYABLE_CASES } from '../data/cases';
 import { en } from '../i18n/en';
 import type { Classification, Measure, ResponsibleSubject } from '../data/types';
+import packageMetadata from '../../../package.json';
 
 export const ANALYTICS_SCHEMA_VERSION = 2 as const;
 export const ANALYTICS_SCHEMA_VERSIONS = Object.freeze([1, ANALYTICS_SCHEMA_VERSION] as const);
-export const ANALYTICS_GAME_VERSION = '4.0.0' as const;
-export const ANALYTICS_GAME_VERSIONS = Object.freeze(['4.0-candidate', ANALYTICS_GAME_VERSION] as const);
+export const ANALYTICS_GAME_VERSION = packageMetadata.version;
+// Existing counters and in-flight clients remain readable across the V5 release.
+export const ANALYTICS_GAME_VERSIONS = Object.freeze(['4.0-candidate', '4.0.0', ANALYTICS_GAME_VERSION] as const);
 export const TUTORIAL_VERSION = 'investigation-v1' as const;
 export const ANALYTICS_LIMITS = Object.freeze({ cells: 512, count: 1_000_000 });
 export const LANGUAGES = Object.freeze(['it', 'en', 'fr'] as const);

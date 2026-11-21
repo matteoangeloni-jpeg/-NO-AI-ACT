@@ -1,8 +1,9 @@
 (() => {
+  const version = '__NO_AI_ACT_VERSION__';
   const words = {
-    it: ['BETA 4.0 - Sperimentale', 'Feedback', 'Sito stabile', 'Feedback facoltativo', 'Non inserire dati personali. Il file resta locale e non viene inviato automaticamente.', 'Osservazione', 'Scarica feedback', 'Annulla'],
-    en: ['BETA 4.0 - Experimental', 'Feedback', 'Stable site', 'Optional feedback', 'Do not include personal data. The file stays local and is not sent automatically.', 'Observation', 'Download feedback', 'Cancel'],
-    fr: ['BETA 4.0 - Expérimentale', 'Retour', 'Site stable', 'Retour facultatif', 'Ne saisissez pas de données personnelles. Le fichier reste local et ne sera pas envoyé automatiquement.', 'Observation', 'Télécharger le retour', 'Annuler']
+    it: [`BETA ${version} - Sperimentale`, 'Feedback', 'Sito stabile', 'Feedback facoltativo', 'Non inserire dati personali. Il file resta locale e non viene inviato automaticamente.', 'Osservazione', 'Scarica feedback', 'Annulla'],
+    en: [`BETA ${version} - Experimental`, 'Feedback', 'Stable site', 'Optional feedback', 'Do not include personal data. The file stays local and is not sent automatically.', 'Observation', 'Download feedback', 'Cancel'],
+    fr: [`BETA ${version} - Expérimentale`, 'Retour', 'Site stable', 'Retour facultatif', 'Ne saisissez pas de données personnelles. Le fichier reste local et ne sera pas envoyé automatiquement.', 'Observation', 'Télécharger le retour', 'Annuler']
   };
   const create = (tag, attrs = {}) => {
     const element = document.createElement(tag);
@@ -56,7 +57,7 @@
   dialog.addEventListener('close', () => { if (app) app.inert = previousInert; text.value = ''; open.focus(); });
   form.addEventListener('submit', event => {
     event.preventDefault(); if (!text.value.trim()) return;
-    const payload = { version: '4.0-beta', language: language(), feedback: text.value.trim() };
+    const payload = { version: `${version}-beta`, language: language(), feedback: text.value.trim() };
     const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' }));
     const link = create('a', { href: url, download: 'no-ai-act-beta-feedback.json' });
     document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000); dialog.close();

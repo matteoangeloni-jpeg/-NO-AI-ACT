@@ -9,6 +9,7 @@ import { completeDecisionWithKeyboard } from './lib-decision.mjs';
 import { pagesDevOptions } from '../beta/local-pages.mjs';
 
 const base = 'http://127.0.0.1:4221', out = 'scripts/smoke/out/beta';
+const version = JSON.parse(readFileSync('package.json', 'utf8')).version;
 mkdirSync(out, { recursive: true });
 const config = pagesDevOptions(4221);
 const server = spawn(config.command, config.args, { ...config.options, stdio: ['ignore', 'pipe', 'pipe'] });
@@ -48,7 +49,7 @@ try {
     await context.addInitScript(s => { if (!localStorage.getItem('no-ai-act-save-v2')) localStorage.setItem('no-ai-act-save-v2', s); }, sentinel);
     const p = await context.newPage(); current = p; p.on('pageerror', e => errors.push(String(e)));
     await p.goto(`${base}/${language === 'it' ? '' : `${language}/`}`);
-    assert.match(await p.locator('#beta-banner').innerText(), /BETA 4.0/);
+    assert((await p.locator('#beta-banner').innerText()).includes(`BETA ${version}`));
     assert.equal(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
     await p.goto(`${base}/play/?lang=${language}`); await scene(p, 'Title');
     assert.equal(await p.locator('#beta-banner').getAttribute('lang'), language);
@@ -59,7 +60,7 @@ try {
     assert(await p.locator('#app').evaluate(el => el.inert));
     const pending = p.waitForEvent('download'); await p.locator('#beta-feedback button[type="submit"]').tap();
     const download = await pending; const feedback = JSON.parse(readFileSync(await download.path(), 'utf8'));
-    assert.deepEqual(feedback, { version: '4.0-beta', language, feedback: '1 2 3 - UI feedback test' });
+    assert.deepEqual(feedback, { version: `${version}-beta`, language, feedback: '1 2 3 - UI feedback test' });
     await p.waitForFunction(() => !document.getElementById('app').inert);
     await tap(p, /NUOVA PARTITA|NEW GAME|NOUVELLE PARTIE/); await tap(p, /^(INIZIA|START|COMMENCER)/);
     await p.waitForFunction(() => window.game.scene.isActive('Case') || window.game.scene.isActive('Briefing'));

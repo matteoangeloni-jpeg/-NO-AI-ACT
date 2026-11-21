@@ -10,6 +10,7 @@
 - Rilettura del ragionamento dopo il report, uso esplicito del feedback, piano per un caso diverso e debrief trasversale a fine sessione.
 - Dialogo semantico con focus, Escape e scorrimento. Mouse, touch e tastiera sono isolati dalla scena sottostante mentre il dialogo è aperto.
 - Numero della versione derivato da package.json, visibile anche nella schermata iniziale e nel suo strato di lettura accessibile.
+- Anche i contatori aggregati derivano la versione da package.json. Il servizio mantiene la compatibilità con i client 4.0 precedenti; risposte e note guidate restano escluse.
 
 Le annotazioni sono facoltative e temporanee nella scheda. Reload e nuova partita le cancellano. Non entrano nei salvataggi, nei rapporti esportati del gioco o nella telemetria. La valutazione dei 14 casi e lo schema dei salvataggi v2, con migrazione v1, restano compatibili.
 
