@@ -9,7 +9,7 @@ import { ReadingLayer } from '../systems/ReadingLayer';
 /**
  * Guida docente in gioco (v1.1): struttura prima/durante/dopo per usare il
  * gioco in aula, con i collegamenti alle risorse del sito (attività
- * didattiche e lezione introduttiva, IT e EN).
+ * didattiche e lezione introduttiva, IT/EN/FR).
  *
  * Locale e presentazionale: nessun login, nessun account, nessun dato degli
  * studenti. I link aprono solo pagine INTERNE del sito in una nuova scheda.
@@ -79,12 +79,12 @@ export class TeacherGuideOverlay {
 
     container.add(scene.add.text(left, y, ui.resourcesLabel, textStyle(11.5, COLOR_STR.paperDim)));
     y += 46; // i pulsanti-risorsa sono centrati verticalmente: spazio per l'etichetta
-    // quattro risorse (IT e EN): pagine interne del sito, nuova scheda
-    const linkW = 216;
+    // One column per language, two rows: activities and introductory lesson.
+    const linkW = (wrap - 24) / 3;
     TEACHER_RESOURCES.forEach((res, i) => {
       const label = ui.links[res.id as keyof typeof ui.links];
       container.add(
-        new Button(scene, left + linkW / 2 + i * (linkW + 12), y, label, () => window.open(res.url, '_blank', 'noopener,noreferrer'), {
+        new Button(scene, left + linkW / 2 + Math.floor(i / 2) * (linkW + 12), y + (i % 2) * 48, label, () => window.open(res.url, '_blank', 'noopener,noreferrer'), {
           width: linkW,
           height: 40,
           fontSize: 11,

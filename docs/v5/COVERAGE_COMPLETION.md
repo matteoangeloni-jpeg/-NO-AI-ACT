@@ -1,5 +1,7 @@
 # Copertura operativa dei feedback
 
+[Italiano](COVERAGE_COMPLETION.md) · [English](en/COVERAGE_COMPLETION.md) · [Français](fr/COVERAGE_COMPLETION.md)
+
 Incremento richiesto dal proprietario il 21 novembre 2026. Questa lista definisce il lavoro da implementare prima di avviare la nuova verifica finale.
 
 | Requisito | Implementazione | Componente verificabile |

@@ -1,5 +1,7 @@
 # Incremento metodologico V5 — copertura completa
 
+[Italiano](METHODOLOGY_IMPLEMENTATION.md) · [English](en/METHODOLOGY_IMPLEMENTATION.md) · [Français](fr/METHODOLOGY_IMPLEMENTATION.md)
+
 Ramo di lavoro `codex/v5-methodology-guided-path`, base main `527fde5`. Revisione del 21 novembre 2026. Il rapporto documenta il completamento locale precedente al rilascio. La pubblicazione come V5.0.0 è stata poi autorizzata dal proprietario; stato corrente e note sono nella release GitHub e in RELEASE_NOTES_v5.0.0.md.
 
 ## Modifiche implementate

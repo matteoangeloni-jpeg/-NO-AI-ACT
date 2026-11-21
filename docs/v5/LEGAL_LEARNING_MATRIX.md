@@ -1,5 +1,7 @@
 # C. Casi, diritto, mediazione e debrief
 
+[Italiano](LEGAL_LEARNING_MATRIX.md) · [English](en/LEGAL_LEARNING_MATRIX.md) · [Français](fr/LEGAL_LEARNING_MATRIX.md)
+
 Verifica documentale del 21 novembre 2026 sul consolidato EUR-Lex del 27 luglio 2026. Le righe sono una mappa di progettazione e revisione. L'interpretazione delle circostanze di ogni caso richiede ancora un revisore giuridico umano. In questo incremento non si modificano risposte normative o punteggi.
 
 Fonte comune [Regolamento 2024/1689 consolidato](https://eur-lex.europa.eu/eli/reg/2024/1689). Le disposizioni indicate richiedono destinazione d'uso e condizioni specifiche. Le scadenze dell'art. 113 e le eccezioni vanno verificate prima di ogni modifica ai casi. La storia è ambientata nel 2032. AI literacy e diritti costituiscono obiettivi trasversali, rispettivamente art. 4 e CM/Rec(2026)12 nel loro distinto ruolo.

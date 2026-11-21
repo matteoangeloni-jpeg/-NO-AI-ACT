@@ -1,0 +1,26 @@
+# C. Dossiers, droit, médiation et débriefing
+
+[Italiano](../LEGAL_LEARNING_MATRIX.md) · [English](../en/LEGAL_LEARNING_MATRIX.md) · [Français](LEGAL_LEARNING_MATRIX.md)
+
+Vérification documentaire du 21 novembre 2026 à partir du texte consolidé EUR-Lex du 27 juillet 2026. Ces lignes constituent une carte de conception et de révision. L'interprétation des circonstances de chaque dossier exige encore une révision juridique humaine. Cet incrément ne modifie ni les réponses juridiques ni les scores des dossiers.
+
+Source commune : [règlement 2024/1689 consolidé](https://eur-lex.europa.eu/eli/reg/2024/1689). Les dispositions citées exigent de vérifier la destination d'usage et les conditions particulières. Les échéances de l'article 113 et les exceptions doivent être examinées avant toute modification des dossiers. Le récit se déroule en 2032. La maîtrise de l'IA et les droits sont des objectifs transversaux, relevant respectivement de l'article 4 et de CM/Rec(2026)12, dans leurs rôles distincts.
+
+| Dossier d'enquête | Disposition à mobiliser et à vérifier | Connaissances requises | Médiation formative prévue | Modalité de débriefing |
+|---|---|---|---|---|
+| case_scoring — mairie | Article 5(1)(c), conditions de la notation sociale | Contextes, données, effets défavorables et proportionnalité | Distinguer finalité déclarée, données utilisées et conséquences | Pourquoi une plainte sur la transparence peut-elle être insuffisante pour expliquer le problème central ? |
+| case_lavoro — recrutement | Article 6, annexe III 4(a), articles 10, 14 et 26 | Recrutement, biais et contrôle humain effectif | Comparer la promesse du fournisseur à la procédure réelle | Quel contrôle peut modifier une décision ? |
+| case_media — contenus synthétiques | Article 50(2) et (4), définitions et contexte | Provenance, hypertrucages, marquage et information | Séparer identification technique et information du public | Quel public doit comprendre quoi, et avec quelles exceptions ? |
+| case_scuola — émotions | Article 5(1)(f), exceptions médicales et de sécurité | Inférence émotionnelle, institution et finalité | Demander ce qui est inféré et où | Quel changement de finalité nécessiterait une réévaluation ? |
+| case_ospedale — aide clinique | Article 6(1), annexe I si le produit est qualifié de dispositif, articles 9, 14 et 26 | Qualification du dispositif, décision clinique et contrôle humain | Distinguer usage sanitaire et conditions de classification | Une recommandation peut-elle réellement être réexaminée ? |
+| case_biometria — surveillance | Article 5(1)(h), 5(2–7), annexe III 1 | Identification/vérification, temps réel et finalité | Questions sur le lieu, l'acteur et l'objectif | Quelles conditions rendent une exception pertinente ? |
+| case_credito — notation | Article 5(1)(c), en comparaison avec l'annexe III 5(b) | Crédit, notation sociale et réutilisation hors contexte | Comparer données pertinentes et données comportementales | Pourquoi le seul secteur du crédit ne permet-il pas de trancher entre haut risque et interdiction ? |
+| case_chatbot — guichet | Article 50(1), obligation d'information et conditions | Interaction avec l'IA, identification de cette interaction et responsabilité | Comparer expérience de l'utilisateur et déclarations | Que doit pouvoir reconnaître l'utilisateur ? |
+| case_procurement — marchés publics | Articles 13, 25 et 26, documentation des articles 11–12 en cas de haut risque | Chaîne fournisseur/déployeur et destination d'usage | Reconstituer les acteurs et les documents disponibles | L'achat public suffit-il à lui seul pour classer un système à haut risque ? |
+| case_edtech — évaluation | Article 6 et annexe III 3, articles 14 et 26 | Accès/évaluation dans l'éducation et conséquences | Distinguer aide aux études et évaluation de personnes | Quelle décision éducative est influencée ? |
+| case_gpai — modèles | Articles 3, 51 et 53, obligations liées à l'intégration dans des systèmes | Distinction modèle/système, usage général et risque systémique | Comparer le rôle du modèle à son utilisation décisionnelle concrète | Pourquoi un modèle à usage général n'implique-t-il pas automatiquement une interdiction ? |
+| case_predpol — police prédictive | Article 5(1)(d), évaluations individuelles et conditions | Profilage et faits vérifiables | Séparer corrélation et fondement factuel individuel | Quelle preuve remplacerait le seul profil ? |
+| case_frodi — prestations sociales | Article 6, annexe III 5(a), articles 14 et 26 | Prestations publiques, risque et responsabilité | Comparer sélection automatique et réexamen | Quelle est l'effectivité du contrôle humain ? |
+| case_bias — audit des biais | Article 4a et conditions cumulatives, articulation avec le RGPD | Catégories particulières, nécessité et garanties | Examiner de manière raisonnée les conditions et les données alternatives | Comment concilier vérification des biais et minimisation ? |
+
+Les consignes soutiennent le questionnement d'enquête. Cette matrice est destinée aux concepteurs et au facilitateur. La montrer intégralement avant l'enquête suggérerait les réponses et augmenterait la charge cognitive.

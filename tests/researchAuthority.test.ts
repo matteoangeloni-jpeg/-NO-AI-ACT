@@ -19,6 +19,7 @@ import { CASES } from '../src/game/data/cases';
 const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
 const pkg = JSON.parse(read('package.json'));
+const screenshotVersion = JSON.parse(read('release.config.json')).pressScreenshotVersion ?? pkg.version;
 const SITE = 'https://www.no-ai-act.eu/';
 
 const PAIRS: Array<[string, string]> = [
@@ -190,7 +191,11 @@ describe('press kit — accurate, versioned, no inflated claims', () => {
     expect(it_).toContain("Biografia breve dell'autore");
     expect(en).toContain('../matteo-angeloni/');
     expect(en).toContain('Short author biography');
-    for (const html of [it_, en]) expect(html).toContain(`no-ai-act-v${pkg.version}-press-screenshots.zip`);
+    for (const html of [it_, en]) {
+      expect(html).toContain(`no-ai-act-v${screenshotVersion}-press-screenshots.zip`);
+      expect(existsSync(resolve(root, `public/assets/press/no-ai-act-v${screenshotVersion}-press-screenshots.zip`))).toBe(true);
+      expect(html).toMatch(new RegExp(`(?:catture mostrano la versione|captures show version) ${screenshotVersion.replaceAll('.', '\\.')}`));
+    }
   });
 });
 

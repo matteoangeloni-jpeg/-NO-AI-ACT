@@ -2,9 +2,9 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { sourceMain, sourceHash, blocks } from '../site/translation-blocks.mjs';
 
-const VERSION = '5.0.0';
+const VERSION = JSON.parse(readFileSync('package.json', 'utf8')).version;
 const TAG = `v${VERSION}`;
-const DATE = '2026-11-21';
+const DATE = JSON.parse(readFileSync('release.config.json', 'utf8')).releaseDate;
 const read = file => readFileSync(file, 'utf8').replaceAll('\r\n', '\n');
 const write = (file, text) => { if (read(file) !== text) writeFileSync(file, text); };
 const cfg = JSON.parse(read('release.config.json'));
@@ -106,6 +106,9 @@ readme = readme.replace(/(last tagged release is \*\*)[^*]+(\*\*)/g, `$1${cfg.la
 readme = readme.replace(/The latest tagged release is \*\*[^*]+\*\*(?:; the V5 tag is not yet published)?\./g,
   `The latest tagged release is **${cfg.lastTaggedRelease}**${tagged ? '.' : '; the V5 tag is not yet published.'}`)
   .replace('Three difficulty modes, mission paths, IT/EN.', 'Three difficulty modes, mission paths, IT/EN/FR.');
+readme = readme.replace(/Version \*\*[\d.]+\*\* adds guided inquiry/, `Version **${VERSION}** adds guided inquiry`);
+readme = readme.replace('Note: [RELEASE_NOTES_v5.0.0.md](docs/RELEASE_NOTES_v5.0.0.md).',
+  `Note: [RELEASE_NOTES_v${VERSION}.md](docs/RELEASE_NOTES_v${VERSION}.md).`);
 write('README.md', readme);
 let llms = read('public/llms.txt').replace(/- Version: v[^\n]+/, `- Version: ${TAG}`);
 llms = llms.replace(/releases\/tag\/v2\.2\.0/g, `releases/tag/${cfg.lastTaggedRelease}`);

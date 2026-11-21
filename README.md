@@ -6,14 +6,14 @@
 [![Contenuti: CC BY-SA 4.0](https://img.shields.io/badge/contenuti-CC%20BY--SA%204.0-5d7fb8)](LICENSE)
 [![Stack](https://img.shields.io/badge/stack-TypeScript%20%2B%20Phaser%203%20%2B%20Vite-101a30)](#stack)
 [![Test](https://img.shields.io/badge/test-Vitest-d9a521)](tests/)
-[![Stato](https://img.shields.io/badge/stato-v5.0.0-3fa66a)](#stato-release)
-[![Lingue](https://img.shields.io/badge/lingue-IT%20%2B%20EN-d8d6cd)](#lingue)
+[![Stato](https://img.shields.io/badge/stato-v5.0.1-3fa66a)](#stato-release)
+[![Lingue](https://img.shields.io/badge/lingue-IT%20%2B%20EN%20%2B%20FR-d8d6cd)](#lingue)
 
 **Serious game investigativo sull'AI Act europeo · browser, audio originale, salvataggio locale**
 
 ### ▶ [GIOCA ORA / PLAY NOW](https://www.no-ai-act.eu/play/)
 
-Landing pubblica (IT/EN): `https://www.no-ai-act.eu/`
+Sito pubblico in sei lingue: `https://www.no-ai-act.eu/`
 · Gioco: `https://www.no-ai-act.eu/play/`
 
 [Come si gioca](#come-si-gioca) ·
@@ -22,6 +22,7 @@ Landing pubblica (IT/EN): `https://www.no-ai-act.eu/`
 [Dati e privacy](#dati-e-privacy) ·
 [Autore](#autore-e-responsabilità-editoriale) ·
 [Game Design Document](docs/GDD.md) ·
+[Dossier V5 · IT/EN/FR](docs/v5/README.md) ·
 [Licenze](#licenze)
 
 </div>
@@ -45,15 +46,15 @@ Questo gioco **non costituisce consulenza legale**.
 | | |
 |---|---|
 | **Cos'è** | Serious game investigativo sull'AI Act, giocabile in browser |
-| **Dove si gioca** | Landing IT/EN: <https://www.no-ai-act.eu/> · Gioco: <https://www.no-ai-act.eu/play/> (GitHub Pages) |
+| **Dove si gioca** | Sito in sei lingue: <https://www.no-ai-act.eu/> · Gioco: <https://www.no-ai-act.eu/play/> (GitHub Pages) |
 | **Cosa insegna** | La logica *risk-based* dell'AI Act: pratiche vietate, alto rischio, trasparenza, basso rischio — e perché la regola non "blocca" ma rende governabile |
 | **A chi serve** | Studenti (14+), docenti, formazione professionale, PA, cittadinanza digitale |
 | **Durata** | Da ~10–15 min (demo) a ~60–75 min (percorso avanzato) |
-| **Lingue** | Italiano / English |
+| **Lingue del gioco** | Italiano / English / Français |
 | **Account / dati** | Nessun account; risposte locali; contatori aggregati disattivabili |
 | **Autore** | [Matteo Angeloni](https://www.no-ai-act.eu/matteo-angeloni/) — ideazione, game design, sviluppo e contenuti educativi |
 
-## Stato attuale del codice (v5.0.0)
+## Stato attuale del codice (v5.0.1)
 
 La V5 aggiunge un percorso ludopedagogico guidato a tutti i 14 casi in italiano,
 inglese e francese: mediazioni contestuali, valutazione delle fonti, collegamenti
@@ -68,7 +69,7 @@ solo umana. Non è una raccolta pubblica di dati individuali. L'efficacia educat
 e la validità delle inferenze richiedono ancora uno studio con partecipanti.
 
 Restano 14 casi, quattro modalità, salvataggi v2 compatibili con v1 e 155 URL
-pubblici in sei lingue del sito. Note: [RELEASE_NOTES_v5.0.0.md](docs/RELEASE_NOTES_v5.0.0.md).
+pubblici in sei lingue del sito. Note: [RELEASE_NOTES_v5.0.1.md](docs/RELEASE_NOTES_v5.0.1.md).
 
 ## Novità in v1.0.0 — Prima release pubblica stabile (storico)
 
@@ -290,7 +291,7 @@ ipotesi che le misure hanno **smentito**.
 
 ## <a name="lingue"></a>Lingue
 
-Localizzazione **IT/EN** completa: sistema i18n tipato (`src/game/i18n/`),
+Localizzazione **IT/EN/FR** completa: sistema i18n tipato (`src/game/i18n/`),
 selettore nel menu, lingua persistita. Una suite di test garantisce la parità di
 struttura fra i dizionari (predisposto per FR/ES).
 
@@ -427,11 +428,11 @@ struttura fra i dizionari (predisposto per FR/ES).
 
 Fonte machine-readable: [`release.config.json`](release.config.json)
 (coerenza garantita da test automatici).
-Note di rilascio: [`docs/RELEASE_NOTES_v5.0.0.md`](docs/RELEASE_NOTES_v5.0.0.md).
+Note di rilascio: [`docs/RELEASE_NOTES_v5.0.1.md`](docs/RELEASE_NOTES_v5.0.1.md).
 
-- **Versione**: v5.0.0 (fonte: `package.json`)
-- **Tag della versione**: `v5.0.0` — **pubblicato**
-- **Ultima release effettivamente taggata**: `v5.0.0`
+- **Versione**: v5.0.1 (fonte: `package.json`)
+- **Tag della versione**: `v5.0.1` — **pubblicato**
+- **Ultima release effettivamente taggata**: `v5.0.1`
 - **Nota**: il tag software e lo stato del deploy web sono verifiche distinte; l’efficacia educativa resta da validare.
 - **Casi giocabili**: 14
 - **Lingue**: italiano, inglese e francese
@@ -523,7 +524,7 @@ learning and accessibility. Three difficulty modes, mission paths, IT/EN/FR.
 No account or player identifiers; only aggregate usage calls during
 gameplay: graphics are procedural and recorded audio has a local synthetic
 fallback; saves stay in `localStorage`. **Teacher mode** is local debrief
-support only, with on-device `.txt`/`.json` exports. Version **5.0.0** adds guided inquiry across all 14 cases. The latest tagged release is **v5.0.0**.
+support only, with on-device `.txt`/`.json` exports. Version **5.0.1** adds guided inquiry across all 14 cases. The latest tagged release is **v5.0.1**.
 Educational simplification of the AI Act, not legal advice. Its educational effectiveness has **not yet been empirically
 validated**. Code: GPL-3.0-or-later · narrative and didactic content: CC BY-SA 4.0.
 
