@@ -10,6 +10,7 @@ import { ReadingLayer } from '../systems/ReadingLayer';
 import { StateManager } from '../systems/StateManager';
 import { InvestigationGuide } from '../systems/InvestigationGuide';
 import { openInvestigationGuide } from '../ui/InvestigationGuideOverlay';
+import { inquiryCopy, openGuidedInquiry } from '../ui/GuidedInquiryDialog';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from '../ui/theme';
 import { fadeInScene, reveal } from '../ui/motion';
 import { addNoiseOverlay } from '../ui/backdrop';
@@ -72,6 +73,12 @@ export class CaseScene extends Phaser.Scene {
       { text: StateManager.isReviewing ? L().gameplay.reviewNote : '' }
     ]);
     publishReading();
+    if (!StateManager.isReviewing) {
+      new Button(this, cx, 564, inquiryCopy().entry, () => {
+        openGuidedInquiry(this, this.caseData.id, 'introduction',
+          () => this.scene.start('Evidence', { caseId: this.caseData.id }));
+      }, { width: 360, height: 38, fontSize: 12, variant: 'ghost' });
+    }
     if (InvestigationGuide.eligible(this.caseData.id)) {
       InvestigationGuide.begin(this.caseData.id);
       const hint = this.add.text(cx, 520, L().gameplay.steps[0], textStyle(14, COLOR_STR.accentText, { wordWrap: { width: 820 }, align: 'center' }))

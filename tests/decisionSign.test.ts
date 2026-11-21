@@ -49,7 +49,8 @@ describe('la firma è un gesto suo, e verifica la completezza', () => {
   });
 
   it('verifica la completezza, non la correttezza', () => {
-    expect(sign, 'la firma non deve sapere quale sia la risposta giusta').not.toMatch(/correct|caseData\./);
+    // The case ID selects the optional writing aid, never the answer key.
+    expect(sign, 'la firma non deve sapere quale sia la risposta giusta').not.toMatch(/correct|caseData\.(?!id\b)/);
   });
 
   it('non si firma due volte, né col bottone né col tasto', () => {

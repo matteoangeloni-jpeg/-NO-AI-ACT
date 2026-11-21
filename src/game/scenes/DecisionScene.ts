@@ -10,6 +10,7 @@ import { Button } from '../ui/Button';
 import { CaseContextOverlay } from '../ui/CaseContextOverlay';
 import { CaseNormOverlay } from '../ui/CaseNormOverlay';
 import { EvidenceCompareOverlay } from '../ui/EvidenceCompareOverlay';
+import { inquiryActive, openGuidedInquiry } from '../ui/GuidedInquiryDialog';
 import { InspectorDesk } from '../ui/InspectorDesk';
 import { NotebookOverlay } from '../ui/NotebookOverlay';
 import { NormCardView } from '../ui/NormCard';
@@ -655,6 +656,10 @@ export class DecisionScene extends Phaser.Scene {
   private sign(): void {
     if (this.resolved) return;
     if (this.classification === null || this.measure === null || this.subject === null || this.motivation === null) return;
+    if (inquiryActive(this.caseData.id) && !StateManager.isReviewing) {
+      openGuidedInquiry(this, this.caseData.id, 'argument', () => this.resolve(this.motivation!));
+      return;
+    }
     this.resolve(this.motivation);
   }
 

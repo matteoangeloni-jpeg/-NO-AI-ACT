@@ -37,6 +37,7 @@ import { AudioSystem } from '../systems/AudioSystem';
 import { StateManager } from '../systems/StateManager';
 import { Button } from '../ui/Button';
 import { DecisionDebriefOverlay } from '../ui/DecisionDebriefOverlay';
+import { inquiryActive, inquiryCopy, openGuidedInquiry } from '../ui/GuidedInquiryDialog';
 import { L, caseText, fmt, normText } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { emitGameplayUx } from '../systems/InvestigationGuide';
@@ -362,6 +363,11 @@ export class ReportScene extends Phaser.Scene {
       if (!debrief.isOpen) emitGameplayUx('debrief_opened', this.caseData.id);
       debrief.toggle();
     }, { width: 320, height: 40, fontSize: 13 });
+    if (inquiryActive(this.caseData.id)) {
+      new Button(this, 1030, GAME_HEIGHT - 46, inquiryCopy().debrief, () => {
+        if (!debrief.isOpen) openGuidedInquiry(this, this.caseData.id, 'reflection');
+      }, { width: 350, height: 40, fontSize: 11.5, variant: 'ghost' });
+    }
 
     // strato di lettura (§11.1) + annuncio dell'esito (aria-live)
     ReadingLayer.setScene(t.a11y.reportTitle, [
