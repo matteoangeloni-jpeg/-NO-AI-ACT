@@ -22,6 +22,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
+import { selectSmokes } from './smoke-groups.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PORT = 4200;
@@ -29,13 +30,16 @@ const PROBE = `http://127.0.0.1:${PORT}/`;
 const BASE = `http://localhost:${PORT}`; // smokes' host allowlists expect "localhost"
 const SMOKES = ['gameplay-smoke.mjs', 'keyboard-smoke.mjs', 'draft-smoke.mjs', 'privacy-smoke.mjs', 'layout-smoke.mjs', 'audio-smoke.mjs', 'action-layer-smoke.mjs', 'inspector-desk-smoke.mjs', 'visual-language-smoke.mjs', 'press-pages-smoke.mjs', 'mobile-ux-smoke.mjs', 'analytics-smoke.mjs', 'press-coverage-smoke.mjs', 'usage-notice-smoke.mjs'];
 SMOKES.push('european-site-smoke.mjs');
+const smokeGroup = process.env.SMOKE_GROUP || 'all';
+const selectedSmokes = selectSmokes(SMOKES, smokeGroup);
 const output = resolve(root, 'scripts/smoke/out/final-qa');
 mkdirSync(output, { recursive: true });
 const report = { sha: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(),
   sourceDiffSha256: createHash('sha256').update(execFileSync('git', ['diff', 'HEAD'], { cwd: root })).digest('hex'),
   builtPlayIndexSha256: existsSync(resolve(root, 'dist/play/index.html'))
     ? createHash('sha256').update(readFileSync(resolve(root, 'dist/play/index.html'))).digest('hex') : null,
-  node: process.version, rendererMode: process.env.SMOKE_GPU || 'swiftshader', startedAt: new Date().toISOString(), completed: false, jobs: [] };
+  node: process.version, rendererMode: process.env.SMOKE_GPU || 'swiftshader', smokeGroup,
+  startedAt: new Date().toISOString(), completed: false, jobs: [] };
 const saveReport = () => writeFileSync(resolve(output, 'general-gate-results.json'), JSON.stringify(report, null, 2));
 saveReport();
 
@@ -86,7 +90,8 @@ if (!up) {
 }
 
 let firstFailure = 0;
-for (const smoke of SMOKES) {
+console.log(`smoke:all: group ${smokeGroup} (${selectedSmokes.length}/${SMOKES.length} catalog entries)`);
+for (const smoke of selectedSmokes) {
   console.log(`\nsmoke:all → ${smoke}`);
   const started = Date.now();
   const { status } = spawnSync(process.execPath, [resolve(root, 'scripts/smoke', smoke)], {
@@ -110,5 +115,5 @@ report.completed = true;
 report.exitCode = firstFailure;
 report.finishedAt = new Date().toISOString();
 saveReport();
-console.log(firstFailure === 0 ? '\nsmoke:all: all browser smokes PASSED' : '\nsmoke:all: FAILED');
+console.log(firstFailure === 0 ? `\nsmoke:all: group ${smokeGroup} PASSED` : `\nsmoke:all: group ${smokeGroup} FAILED`);
 process.exit(firstFailure);

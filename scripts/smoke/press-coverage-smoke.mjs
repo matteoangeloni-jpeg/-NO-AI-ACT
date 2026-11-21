@@ -36,7 +36,9 @@ try {
         await page.waitForFunction(img => img.complete && img.naturalWidth > 0, await image.elementHandle());
       }
       await track.focus(); await page.keyboard.press('Home');
-      await page.waitForFunction(() => document.getElementById('press-track').scrollLeft <= 3);
+      // Scrolling and the controls' requestAnimationFrame update settle separately.
+      await page.waitForFunction(() => document.getElementById('press-track').scrollLeft <= 3
+        && document.querySelector('[data-press-prev]').disabled);
       assert.equal(await section.locator('.press-media img').count(), PRESS_COVERAGE.length);
       assert(await section.locator('.press-media img').evaluateAll(imgs => imgs.every(img => {
         const url = new URL(img.currentSrc); return url.origin === location.origin && url.pathname.startsWith('/assets/press/');

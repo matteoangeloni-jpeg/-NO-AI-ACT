@@ -27,6 +27,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        smoke_group: [core, layout, visual, mobile]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -62,8 +66,12 @@ jobs:
         run: npm run smoke:study02
       - name: Browser smoke tests (gameplay, keyboard, layout)
         run: npm run smoke:all
+        env:
+          SMOKE_GROUP: ${{ matrix.smoke_group }}
       - uses: actions/configure-pages@v5
+        if: matrix.smoke_group == 'core'
       - uses: actions/upload-pages-artifact@v3
+        if: matrix.smoke_group == 'core'
         with:
           path: dist
 
