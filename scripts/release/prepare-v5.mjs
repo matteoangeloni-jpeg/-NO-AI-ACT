@@ -8,7 +8,13 @@ const DATE = '2026-11-21';
 const read = file => readFileSync(file, 'utf8').replaceAll('\r\n', '\n');
 const write = (file, text) => { if (read(file) !== text) writeFileSync(file, text); };
 const cfg = JSON.parse(read('release.config.json'));
-const tagged = process.argv.includes('--tag-published') || cfg.lastTaggedRelease === TAG;
+// Stage final metadata locally, then publish branch + new tag in one atomic push.
+// This flag does not itself publish anything; --tag-published verifies the remote.
+const stageTag = process.argv.includes('--stage-tag');
+if (stageTag && execFileSync('git', ['ls-remote', 'upstream', `refs/tags/${TAG}`], { encoding: 'utf8' }).trim()) {
+  throw new Error(`${TAG} already exists; verify it with --tag-published instead`);
+}
+const tagged = stageTag || process.argv.includes('--tag-published') || cfg.lastTaggedRelease === TAG;
 if (process.argv.includes('--tag-published')) {
   const refs = execFileSync('git', ['ls-remote', 'upstream', `refs/tags/${TAG}`, `refs/tags/${TAG}^{}`], { encoding: 'utf8' }).trim().split('\n');
   const remote = refs.find(line => line.endsWith('^{}')) ?? refs.find(line => line.endsWith(`refs/tags/${TAG}`));
@@ -109,4 +115,5 @@ if (read('public/llms.txt').includes('## Guided inquiry in V5')) llms = read('pu
 if (tagged) llms = llms.replace(/^- Last tagged release: .+$/m,
   `- Last tagged release: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/${TAG} (tagged ${DATE}; guided inquiry and independent study tools)`);
 write('public/llms.txt', llms);
-console.log(`Prepared ${TAG}; last verified tagged release: ${cfg.lastTaggedRelease}. Regenerate French/European pages next.`);
+console.log(stageTag ? `Staged ${TAG} metadata for atomic branch/tag publication; no remote mutation performed.`
+  : `Prepared ${TAG}; last recorded tagged release: ${cfg.lastTaggedRelease}.`);

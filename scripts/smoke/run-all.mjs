@@ -35,7 +35,7 @@ const report = { sha: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, en
   sourceDiffSha256: createHash('sha256').update(execFileSync('git', ['diff', 'HEAD'], { cwd: root })).digest('hex'),
   builtPlayIndexSha256: existsSync(resolve(root, 'dist/play/index.html'))
     ? createHash('sha256').update(readFileSync(resolve(root, 'dist/play/index.html'))).digest('hex') : null,
-  node: process.version, startedAt: new Date().toISOString(), completed: false, jobs: [] };
+  node: process.version, rendererMode: process.env.SMOKE_GPU || 'swiftshader', startedAt: new Date().toISOString(), completed: false, jobs: [] };
 const saveReport = () => writeFileSync(resolve(output, 'general-gate-results.json'), JSON.stringify(report, null, 2));
 saveReport();
 

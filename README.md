@@ -430,8 +430,8 @@ Fonte machine-readable: [`release.config.json`](release.config.json)
 Note di rilascio: [`docs/RELEASE_NOTES_v5.0.0.md`](docs/RELEASE_NOTES_v5.0.0.md).
 
 - **Versione**: v5.0.0 (fonte: `package.json`)
-- **Tag della versione**: `v5.0.0` — **non ancora pubblicato**
-- **Ultima release effettivamente taggata**: `v2.2.0`
+- **Tag della versione**: `v5.0.0` — **pubblicato**
+- **Ultima release effettivamente taggata**: `v5.0.0`
 - **Nota**: il tag software e lo stato del deploy web sono verifiche distinte; l’efficacia educativa resta da validare.
 - **Casi giocabili**: 14
 - **Lingue**: italiano, inglese e francese
@@ -523,7 +523,7 @@ learning and accessibility. Three difficulty modes, mission paths, IT/EN/FR.
 No account or player identifiers; only aggregate usage calls during
 gameplay: graphics are procedural and recorded audio has a local synthetic
 fallback; saves stay in `localStorage`. **Teacher mode** is local debrief
-support only, with on-device `.txt`/`.json` exports. Version **5.0.0** adds guided inquiry across all 14 cases. The latest tagged release is **v2.2.0**; the V5 tag is not yet published.
+support only, with on-device `.txt`/`.json` exports. Version **5.0.0** adds guided inquiry across all 14 cases. The latest tagged release is **v5.0.0**.
 Educational simplification of the AI Act, not legal advice. Its educational effectiveness has **not yet been empirically
 validated**. Code: GPL-3.0-or-later · narrative and didactic content: CC BY-SA 4.0.
 
