@@ -1,6 +1,8 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { LANGUAGE_CODES, LOCALES, setLanguage } from '../src/game/i18n';
+import { ReadingLayer } from '../src/game/systems/ReadingLayer';
 import { shouldShowMobileGuard, savedLanguage } from '../src/mobileGuard';
 import { it as itLocale } from '../src/game/i18n/it';
 import { en as enLocale } from '../src/game/i18n/en';
@@ -16,6 +18,9 @@ import { en as enLocale } from '../src/game/i18n/en';
 
 const root = resolve(__dirname, '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
+const runtimeState = vi.hoisted(() => ({ language: 'it' }));
+vi.mock('../src/game/systems/StateManager', () => ({ StateManager: runtimeState }));
+afterEach(() => { vi.unstubAllGlobals(); setLanguage('it'); runtimeState.language = 'it'; });
 
 describe('play shell — semantic layer markup', () => {
   const shell = read('play/index.html');
@@ -63,9 +68,25 @@ describe('ReadingLayer — read-only, local, no duplicated interaction', () => {
     expect(src).not.toMatch(/layer\.addEventListener|<a |<button/);
   });
 
-  it('synchronises the lang attribute with the game language', () => {
-    expect(src).toContain("layer.setAttribute('lang', StateManager.language)");
-  });
+  for (const language of LANGUAGE_CODES) {
+    it(`${language}: synchronises real document and reading-layer language and title`, () => {
+      const attributes = new Map<string, string>();
+      const layer = { setAttribute: (name: string, value: string) => attributes.set(name, value),
+        replaceChildren: vi.fn(), appendChild: vi.fn(), dataset: {} };
+      const doc = { documentElement: { lang: '' }, title: '',
+        getElementById: (id: string) => id === 'reading-layer' ? layer : null,
+        createElement: () => ({ textContent: '', className: '' }), dispatchEvent: vi.fn() };
+      vi.stubGlobal('document', doc);
+      vi.stubGlobal('CustomEvent', class { constructor(public type: string, public detail: unknown) {} });
+      setLanguage(language); runtimeState.language = language;
+      ReadingLayer.setScene(LOCALES[language].ui.gameTitle, []);
+      const expected = language === 'pt' ? 'pt-PT' : language;
+      expect(doc.documentElement.lang).toBe(expected);
+      expect(attributes.get('lang')).toBe(expected);
+      expect(doc.title).toBe(`${LOCALES[language].ui.gameTitle} — ${LOCALES[language].ui.gameSubtitle}`);
+      expect(layer.replaceChildren).toHaveBeenCalledOnce();
+    });
+  }
 });
 
 describe('reading layer — scenes publish on every transition', () => {

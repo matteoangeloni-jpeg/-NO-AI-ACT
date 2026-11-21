@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { parse } from 'parse5';
+import { LANGUAGE_CODES } from '../src/game/i18n';
 // @ts-expect-error Shared editorial data.
 import { PRACTICAL_PAGES } from '../src/site/eu-practical-content.mjs';
 // @ts-expect-error Shared public route ownership.
@@ -29,9 +30,7 @@ describe('Published practical resources, not keyword doorway pages', () => {
         const all = nodes(parse(html));
         expect(all.filter(n => n.tagName === 'h1')).toHaveLength(1);
         expect(html).not.toContain('<form');
-        expect(html).not.toContain('/play/?lang=de');
-        expect(html).not.toContain('/play/?lang=es');
-        expect(html).not.toContain('/play/?lang=pt');
+        for (const language of LANGUAGE_CODES) expect(html).toContain(`/play/?lang=${language}`);
         const image = all.find(n => n.tagName === 'img' && attr(n, 'src')?.includes('03-evidence-desk'));
         expect(attr(image, 'width')).toBe('1920');
         expect(attr(image, 'height')).toBe('1080');

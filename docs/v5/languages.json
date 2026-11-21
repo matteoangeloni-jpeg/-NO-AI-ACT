@@ -1,0 +1,5 @@
+{
+  "methodologyDossier": ["it", "en", "fr"],
+  "independentStudy02": ["it", "en", "fr"],
+  "note": "Historical V5 methodology and separately controlled research materials. Public playable languages are derived from src/game/i18n, not from this document registry."
+}

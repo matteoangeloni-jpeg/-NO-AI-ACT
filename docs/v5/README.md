@@ -1,10 +1,14 @@
 # NO AI ACT V5 — Italiano · English · Français
 
-Il dossier metodologico completo è disponibile nelle tre lingue del gioco. Le traduzioni conservano matrici, casi, riferimenti bibliografici e limiti interpretativi. I titoli delle pubblicazioni e i nomi ufficiali degli enti restano nella lingua originale.
+Da V5.1.0 gioco e sito condividono **IT/EN/FR/DE/ES/PT**. Tutti i testi giocabili sono tradotti. [Copertura delle sei lingue e limiti](SIX_LANGUAGE_LOCALIZATION.md).
 
-The complete methodology dossier is available in all three game languages. Translations retain the matrices, cases, references and interpretive limits. Publication titles and official institution names remain in their original language.
+[Note V5.1.0: Italiano](../RELEASE_NOTES_v5.1.0.md) · [English](../RELEASE_NOTES_v5.1.0.en.md) · [Français](../RELEASE_NOTES_v5.1.0.fr.md) · [Deutsch](../RELEASE_NOTES_v5.1.0.de.md) · [Español](../RELEASE_NOTES_v5.1.0.es.md) · [Português](../RELEASE_NOTES_v5.1.0.pt.md)
 
-Le dossier méthodologique complet est disponible dans les trois langues du jeu. Les traductions conservent matrices, cas, références et limites d'interprétation. Les titres des publications et les noms officiels des organismes restent dans leur langue d'origine.
+Il dossier metodologico storico è disponibile in IT/EN/FR, come dichiarato nel [registro dei materiali di ricerca](languages.json). Le traduzioni conservano matrici, casi, riferimenti bibliografici e limiti interpretativi. I titoli delle pubblicazioni e i nomi ufficiali degli enti restano nella lingua originale.
+
+The public game supports all six website languages. This historical methodology dossier retains its IT/EN/FR research versions. Translations retain the matrices, cases, references and interpretive limits. Publication titles and official institution names remain in their original language.
+
+Le jeu public prend en charge les six langues du site. Ce dossier méthodologique historique conserve ses versions de recherche IT/EN/FR. Les traductions conservent matrices, cas, références et limites d'interprétation. Les titres des publications et les noms officiels des organismes restent dans leur langue d'origine.
 
 | Documento / Document | Italiano | English | Français |
 |---|---|---|---|

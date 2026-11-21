@@ -3,7 +3,10 @@
   const words = {
     it: [`BETA ${version} - Sperimentale`, 'Feedback', 'Sito stabile', 'Feedback facoltativo', 'Non inserire dati personali. Il file resta locale e non viene inviato automaticamente.', 'Osservazione', 'Scarica feedback', 'Annulla'],
     en: [`BETA ${version} - Experimental`, 'Feedback', 'Stable site', 'Optional feedback', 'Do not include personal data. The file stays local and is not sent automatically.', 'Observation', 'Download feedback', 'Cancel'],
-    fr: [`BETA ${version} - Expérimentale`, 'Retour', 'Site stable', 'Retour facultatif', 'Ne saisissez pas de données personnelles. Le fichier reste local et ne sera pas envoyé automatiquement.', 'Observation', 'Télécharger le retour', 'Annuler']
+    fr: [`BETA ${version} - Expérimentale`, 'Retour', 'Site stable', 'Retour facultatif', 'Ne saisissez pas de données personnelles. Le fichier reste local et ne sera pas envoyé automatiquement.', 'Observation', 'Télécharger le retour', 'Annuler'],
+    de: [`BETA ${version} - Experimentell`, 'Rückmeldung', 'Stabile Website', 'Freiwillige Rückmeldung', 'Geben Sie keine personenbezogenen Daten ein. Die Datei bleibt lokal und wird nicht automatisch versendet.', 'Beobachtung', 'Rückmeldung herunterladen', 'Abbrechen'],
+    es: [`BETA ${version} - Experimental`, 'Comentarios', 'Sitio estable', 'Comentarios opcionales', 'No incluyas datos personales. El archivo permanece en tu dispositivo y no se envía automáticamente.', 'Observación', 'Descargar comentarios', 'Cancelar'],
+    pt: [`BETA ${version} - Experimental`, 'Comentários', 'Sítio estável', 'Comentários facultativos', 'Não inclua dados pessoais. O ficheiro fica no dispositivo e não é enviado automaticamente.', 'Observação', 'Descarregar comentários', 'Cancelar']
   };
   const create = (tag, attrs = {}) => {
     const element = document.createElement(tag);
@@ -17,7 +20,10 @@
   const usageWords = {
     it: ['Statistiche aggregate', 'Informativa statistiche', 'Statistiche aggregate automatiche, disattivabili nella barra del gioco. Risposte e salvataggi restano locali.'],
     en: ['Aggregate statistics', 'Statistics privacy notice', 'Automatic aggregate statistics can be disabled in the game bar. Answers and saves stay local.'],
-    fr: ['Statistiques agregees', 'Confidentialite des statistiques', 'Statistiques agregees automatiques, desactivables dans la barre du jeu. Reponses et sauvegardes restent locales.']
+    fr: ['Statistiques agregees', 'Confidentialite des statistiques', 'Statistiques agregees automatiques, desactivables dans la barre du jeu. Reponses et sauvegardes restent locales.'],
+    de: ['Aggregierte Statistik', 'Datenschutzhinweise zur Statistik', 'Die automatische aggregierte Statistik lässt sich in der Spielleiste deaktivieren. Antworten und Spielstände bleiben lokal.'],
+    es: ['Estadísticas agregadas', 'Privacidad de las estadísticas', 'Las estadísticas agregadas automáticas pueden desactivarse en la barra del juego. Las respuestas y partidas guardadas permanecen en el dispositivo.'],
+    pt: ['Estatísticas agregadas', 'Informação sobre as estatísticas', 'Pode desativar as estatísticas agregadas automáticas na barra do jogo. As respostas e gravações ficam no dispositivo.']
   };
   const policy = create('a', { href: '/game-statistics.html', target: '_blank', rel: 'noopener noreferrer' });
   const usageBuild = document.querySelector('meta[name="no-ai-act-usage"]')?.content === 'automatic';
@@ -35,7 +41,10 @@
   actions.append(download, cancel); form.append(title, notice, label, text, actions); dialog.append(form);
   document.body.prepend(banner); document.body.append(dialog);
   document.body.classList.add(document.getElementById('app') ? 'beta-game' : 'beta-page');
-  const language = () => words[document.documentElement.lang] ? document.documentElement.lang : 'it';
+  const language = () => {
+    const requested = document.documentElement.lang.split('-')[0];
+    return words[requested] ? requested : 'it';
+  };
   const update = () => {
     const w = words[language()]; [badge, open, stable, title, notice, label, download, cancel].forEach((el, i) => { el.textContent = w[i]; });
     banner.lang = language(); dialog.lang = language();

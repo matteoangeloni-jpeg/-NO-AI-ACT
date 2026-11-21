@@ -7,10 +7,10 @@ export const ANALYTICS_SCHEMA_VERSION = 2 as const;
 export const ANALYTICS_SCHEMA_VERSIONS = Object.freeze([1, ANALYTICS_SCHEMA_VERSION] as const);
 export const ANALYTICS_GAME_VERSION = packageMetadata.version;
 // Existing counters and in-flight clients remain readable across the V5 release.
-export const ANALYTICS_GAME_VERSIONS = Object.freeze([...new Set(['4.0-candidate', '4.0.0', '5.0.0', ANALYTICS_GAME_VERSION])]);
+export const ANALYTICS_GAME_VERSIONS = Object.freeze([...new Set(['4.0-candidate', '4.0.0', '5.0.0', '5.0.1', ANALYTICS_GAME_VERSION])]);
 export const TUTORIAL_VERSION = 'investigation-v1' as const;
 export const ANALYTICS_LIMITS = Object.freeze({ cells: 512, count: 1_000_000 });
-export const LANGUAGES = Object.freeze(['it', 'en', 'fr'] as const);
+export const LANGUAGES = Object.freeze(['it', 'en', 'fr', 'de', 'es', 'pt'] as const);
 export const MODES = Object.freeze(['turno', 'libera', 'sorpresa', 'ripasso'] as const);
 export const PHASES = Object.freeze(['menu', 'briefing', 'map', 'case', 'evidence', 'incident', 'decision', 'report',
   'consequence', 'norm', 'archive', 'glossary', 'session_end', 'finale', 'learning', 'credits'] as const);

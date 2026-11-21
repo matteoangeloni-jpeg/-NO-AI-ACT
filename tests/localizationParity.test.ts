@@ -102,6 +102,23 @@ const IDENTICHE_AMMESSE: { quando: (percorso: string, valore: string) => boolean
   }
 ];
 
+// Cognati autentici delle lingue romanze, limitati a lingua, chiave e valore.
+// Cambiare parole corrette solo per farle differire dall'italiano peggiorerebbe
+// la traduzione. Nessuna deroga è estesa alle frasi o ad altre chiavi.
+const COGNATI: Record<string, Record<string, string>> = {
+  es: {
+    'ui.textSpeed.modes.slow': 'lenta', 'ui.inspectorDesk.norm': 'NORMA',
+    'ui.caseNorm.button': 'NORMA DEL CASO', 'ui.teacherGuide.duringTitle': 'Durante',
+    'ui.evidence.sources.interna': 'nota interna'
+  },
+  pt: {
+    'ui.textSpeed.modes.slow': 'lenta', 'ui.inspectorDesk.norm': 'NORMA',
+    'ui.inspectorDesk.compareSource': 'FONTE', 'ui.teacherGuide.duringTitle': 'Durante',
+    'ui.evidence.sourceLabel': 'FONTE', 'ui.evidence.sources.interna': 'nota interna',
+    'ui.evidence.stances.decisive': 'prova decisiva', 'ui.states.prova_decisiva': 'PROVA DECISIVA'
+  }
+};
+
 describe('parità di localizzazione fra le lingue pubblicate', () => {
   const base = appiattisci(LOCALES.it);
   const altre = LANGUAGE_CODES.filter((l) => l !== 'it');
@@ -118,7 +135,7 @@ describe('parità di localizzazione fra le lingue pubblicate', () => {
       const sospette: string[] = [];
       for (const [percorso, valore] of Object.entries(base)) {
         if (tradotto[percorso] !== valore) continue;
-        const ammessa = IDENTICHE_AMMESSE.some((r) => r.quando(percorso, valore));
+        const ammessa = IDENTICHE_AMMESSE.some((r) => r.quando(percorso, valore)) || COGNATI[lang]?.[percorso] === valore;
         if (!ammessa) sospette.push(`${percorso} = ${JSON.stringify(valore).slice(0, 70)}`);
       }
       expect(
@@ -144,9 +161,12 @@ describe('parità di localizzazione fra le lingue pubblicate', () => {
     // senza che nulla lo segnali. È il caso peggiore, non il migliore, perché
     // non si manifesta come errore ma come esperienza mescolata.
     const prefisso: Record<string, RegExp> = {
-      it: /^\.\.\/(?!en\/|fr\/)/,
+      it: /^\.\.\/(?!en\/|fr\/|de\/|es\/|pt\/)/,
       en: /^\.\.\/en\//,
-      fr: /^\.\.\/fr\//
+      fr: /^\.\.\/fr\//,
+      de: /^\.\.\/de\//,
+      es: /^\.\.\/es\//,
+      pt: /^\.\.\/pt\//
     };
     const fuoriposto: string[] = [];
     for (const lang of LANGUAGE_CODES) {
@@ -163,7 +183,10 @@ describe('parità di localizzazione fra le lingue pubblicate', () => {
   });
 
   test('i collegamenti ai concetti e quelli di ripiego restano nella lingua', () => {
-    const prefisso: Record<string, RegExp> = { it: /^\/(?!en\/|fr\/)/, en: /^\/en\//, fr: /^\/fr\// };
+    const prefisso: Record<string, RegExp> = {
+      it: /^\/(?!en\/|fr\/|de\/|es\/|pt\/)/, en: /^\/en\//, fr: /^\/fr\//,
+      de: /^\/de\//, es: /^\/es\//, pt: /^\/pt\//
+    };
     const fuoriposto: string[] = [];
     for (const [concetto, perLingua] of Object.entries(CONCEPT_LINKS)) {
       for (const lang of LANGUAGE_CODES) {

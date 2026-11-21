@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { PLAYABLE_CASES } from '../src/game/data/cases';
-import { it as itDict } from '../src/game/i18n/it';
-import { en } from '../src/game/i18n/en';
+import { LANGUAGE_CODES, LOCALES, type Locale } from '../src/game/i18n';
 
 /**
  * GLI INDICI DEVONO VOLER DIRE LA STESSA COSA NELLE DUE LINGUE (U08).
@@ -23,30 +22,28 @@ import { en } from '../src/game/i18n/en';
  * Oggi l'allineamento c'è. Questo test serve perché continui a esserci.
  */
 
-const LOCALES = [
-  ['it', itDict],
-  ['en', en]
-] as const;
+const locales = LANGUAGE_CODES.map(lang => [lang, LOCALES[lang]] as const);
 
-const caseTexts = (dict: typeof itDict, id: string): { clues: unknown[]; motivations: unknown[]; clueSources?: unknown[] } =>
+const caseTexts = (dict: Locale, id: string): { clues: unknown[]; motivations: unknown[]; clueSources?: unknown[] } =>
   (dict.cases as unknown as Record<string, { clues: unknown[]; motivations: unknown[]; clueSources?: unknown[] }>)[id];
 
-describe('IT ed EN descrivono ogni caso con lo stesso numero di elementi', () => {
+describe('tutte le lingue descrivono ogni caso con indici equivalenti', () => {
   for (const c of PLAYABLE_CASES) {
     it(`${c.id}: reperti, fonti e motivazioni hanno la stessa lunghezza`, () => {
-      const a = caseTexts(itDict, c.id);
-      const b = caseTexts(en, c.id);
-      expect(a, `${c.id} manca in italiano`).toBeTruthy();
-      expect(b, `${c.id} manca in inglese`).toBeTruthy();
-      expect(b.clues.length, 'numero di reperti diverso fra le due lingue').toBe(a.clues.length);
-      expect(b.motivations.length, 'numero di motivazioni diverso fra le due lingue').toBe(a.motivations.length);
-      expect(b.clueSources?.length ?? 0, 'numero di fonti diverso fra le due lingue').toBe(a.clueSources?.length ?? 0);
+      const a = caseTexts(LOCALES.it, c.id);
+      for (const [lang, dict] of locales) {
+        const b = caseTexts(dict, c.id);
+        expect(b, `${c.id} manca in ${lang}`).toBeTruthy();
+        expect(b.clues.length, `${lang}: numero di reperti diverso`).toBe(a.clues.length);
+        expect(b.motivations.length, `${lang}: numero di motivazioni diverso`).toBe(a.motivations.length);
+        expect(b.clueSources, `${lang}: le fonti devono restare chiavi canoniche`).toEqual(a.clueSources);
+      }
     });
   }
 });
 
 describe('ogni indice dichiarato in cases.ts esiste in entrambe le lingue', () => {
-  for (const [lang, dict] of LOCALES) {
+  for (const [lang, dict] of locales) {
     it(`${lang}: nessun indice punta fuori dagli elenchi tradotti`, () => {
       const offenders: string[] = [];
       for (const c of PLAYABLE_CASES) {
@@ -73,7 +70,7 @@ describe('ogni indice dichiarato in cases.ts esiste in entrambe le lingue', () =
   });
 
   it('il minimo di reperti da citare è raggiungibile in entrambe le lingue', () => {
-    for (const [lang, dict] of LOCALES) {
+    for (const [lang, dict] of locales) {
       for (const c of PLAYABLE_CASES) {
         const n = caseTexts(dict, c.id).clues.length;
         expect(n, `${lang}/${c.id}: ${n} reperti non bastano per i ${c.relevantClues.length} rilevanti`).toBeGreaterThanOrEqual(

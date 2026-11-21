@@ -1,12 +1,12 @@
 export const UI = {
   lang: 'de', locale: 'de_DE', name: 'Deutsch', skip: 'Zum Inhalt', menu: 'Navigation', resources: 'Themen', home: 'Startseite',
-  play: 'Spielen – Sprache wählen', game: 'Das Spiel ist auf Italienisch, Englisch und Französisch verfügbar. Diese Seiten sind auf Deutsch; die Auswahl unten öffnet das Spiel in der angegebenen Sprache.',
-  gameLanguages: ['Italienisch', 'Englisch', 'Französisch'], related: 'Weiterlesen', source: 'Offizieller EU-Rechtstext',
+  play: 'Spielen – Sprache wählen', game: 'Das Spiel ist auf Italienisch, Englisch, Französisch, Deutsch, Spanisch und europäischem Portugiesisch verfügbar. Diese Seiten sind auf Deutsch; die Auswahl unten öffnet das Spiel in der angegebenen Sprache.',
+  gameLanguages: ['Italienisch', 'Englisch', 'Französisch', 'Deutsch', 'Spanisch', 'Portugiesisch'], related: 'Weiterlesen', source: 'Offizieller EU-Rechtstext',
   legal: 'Didaktische Vereinfachung, keine Rechtsberatung',
   disclaimer: 'NO AI ACT ist ein unabhängiges, kostenloses Open-Source-Lernspiel. Die Erläuterungen führen in ausgewählte Begriffe ein und ersetzen weder den geltenden Rechtstext noch eine fachliche Prüfung. Die pädagogische Wirksamkeit wurde nicht durch eine kontrollierte Studie nachgewiesen.',
   author: 'Entwickelt von Matteo Angeloni', authorLink: 'Autor und Methodik (Englisch)',
-  privacy: 'Nutzungsstatistik', privacyLink: 'Informationen zur Statistik (Englisch)',
-  screenshot: 'Archivaufnahme des Spiels, Version 3: Untersuchung eines Falldossiers. Die aktuelle Veröffentlichung ist Version 4.',
+  privacy: 'Nutzungsstatistik', privacyLink: 'Informationen zur Statistik',
+  screenshot: 'Archivaufnahme des Spiels, Version 3: Untersuchung eines Falldossiers. Die aktuelle Veröffentlichung ist Version 5.1.0.',
   disclosure: 'Mit KI-Unterstützung erstellt und redaktionell bearbeitet; keine amtliche Übersetzung.',
   official: 'deu'
 };
@@ -153,7 +153,7 @@ export const PAGES = {
     sections: [
       ['Wissen mit dem Einsatz verbinden', 'KI-Kompetenz betrifft einen informierten Umgang mit KI im jeweiligen Kontext. Dazu gehört, technische Möglichkeiten nicht mit Verlässlichkeit gleichzusetzen, Unsicherheiten zu erkennen und die Folgen für Betroffene zu bedenken. Welche Kenntnisse gebraucht werden, hängt auch davon ab, welche Aufgaben eine Person mit dem System übernimmt.'],
       ['Begründungen gemeinsam prüfen', 'NO AI ACT übt ausgewählte Denkgewohnheiten: relevante Hinweise erkennen, Risiken im Kontext einordnen, Rollen unterscheiden und Maßnahmen begründen. In einer Lerngruppe lässt sich besprechen, warum zwei ähnlich klingende Begründungen nicht gleich belastbar sind. Der Gesprächsprozess ist wichtiger als eine schnelle Sammlung vermeintlich richtiger Antworten.'],
-      ['Eine Übung zur KI-Kompetenz im Unterricht', 'Wählt zu zweit ein Dossier in einer verfügbaren Spielsprache und notiert vier Spalten auf Papier: Verwendungszweck, betroffene Personen, vorhandene Belege und fehlende Informationen. Verwendet nur den fiktiven Fall, keine echten personenbezogenen Daten. Benennt zunächst eine automatisierte Entscheidung und ihre möglichen Folgen. Vergleicht dann zwei Dokumente: Welches stützt eure Einschätzung, welches spricht dagegen? Schlagt eine Maßnahme vor und erklärt das konkrete Problem, das sie lösen soll. Die andere Person nennt eine fehlende Information, die das Urteil ändern könnte. Schließt mit zwei Sätzen: „Der entscheidende Beleg ist …“ und „Ich würde meine Meinung ändern, wenn …“. Die Übung ist kein Kompetenzzertifikat und kein Nachweis rechtlicher Konformität. Das Spiel ist auf Italienisch, Englisch und Französisch verfügbar.'],
+      ['Eine Übung zur KI-Kompetenz im Unterricht', 'Wählt zu zweit ein Dossier in einer verfügbaren Spielsprache und notiert vier Spalten auf Papier: Verwendungszweck, betroffene Personen, vorhandene Belege und fehlende Informationen. Verwendet nur den fiktiven Fall, keine echten personenbezogenen Daten. Benennt zunächst eine automatisierte Entscheidung und ihre möglichen Folgen. Vergleicht dann zwei Dokumente: Welches stützt eure Einschätzung, welches spricht dagegen? Schlagt eine Maßnahme vor und erklärt das konkrete Problem, das sie lösen soll. Die andere Person nennt eine fehlende Information, die das Urteil ändern könnte. Schließt mit zwei Sätzen: „Der entscheidende Beleg ist …“ und „Ich würde meine Meinung ändern, wenn …“. Die Übung ist kein Kompetenzzertifikat und kein Nachweis rechtlicher Konformität. Das Spiel ist auf Italienisch, Englisch, Französisch, Deutsch, Spanisch und europäischem Portugiesisch verfügbar.'],
       ['Die Grenzen des Lernspiels benennen', 'Das Spiel deckt weder sämtliche technischen Kompetenzen noch alle rechtlichen Anforderungen ab. Ein abgeschlossener Fall oder Spielstand ist kein Zertifikat und kein Nachweis erfüllter Organisationspflichten. Für eine passende Schulung müssen Zielgruppe, Vorkenntnisse und tatsächliche Arbeitsaufgaben zusätzlich berücksichtigt werden. Die pädagogische Wirksamkeit des Projekts ist nicht durch eine kontrollierte Studie belegt.']
     ]
   }

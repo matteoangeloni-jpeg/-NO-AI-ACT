@@ -1,4 +1,7 @@
 import type { LanguageCode } from '../data/types';
+import deTranslation from './translations/de.json';
+import esTranslation from './translations/es.json';
+import ptTranslation from './translations/pt.json';
 
 interface GuidedCopy {
   entry: string;
@@ -28,7 +31,7 @@ interface GuidedCopy {
   erase: string;
 }
 
-const BASE_COPY: Record<LanguageCode, GuidedCopy> = {
+const BASE_COPY: Record<'it' | 'en' | 'fr', GuidedCopy> = {
   it: {
     entry: 'PERCORSO GUIDATO', notebook: 'NOTE DI INDAGINE', debrief: 'RILEGGI IL RAGIONAMENTO',
     finalDebrief: 'DEBRIEF DEL PERCORSO', introduction: 'Prima di aprire i reperti',
@@ -106,7 +109,7 @@ interface GuidedExtra {
   openingStage: string; sourcesStage: string; hypothesisStage: string; resume: string;
 }
 
-const EXTRA_COPY: Record<LanguageCode, GuidedExtra> = {
+const EXTRA_COPY: Record<'it' | 'en' | 'fr', GuidedExtra> = {
   it: {
     next: 'Prosegui', previous: 'Passo precedente', method: 'METODO DEL CASO',
     sources: 'Esplora e valuta le fonti', sourceAssessment: 'Che cosa documenta questa fonte, quali interessi può avere e quali limiti riconosci?',
@@ -175,5 +178,8 @@ const EXTRA_COPY: Record<LanguageCode, GuidedExtra> = {
 export const GUIDED_COPY: Record<LanguageCode, GuidedCopy & GuidedExtra> = {
   it: { ...BASE_COPY.it, ...EXTRA_COPY.it },
   en: { ...BASE_COPY.en, ...EXTRA_COPY.en },
-  fr: { ...BASE_COPY.fr, ...EXTRA_COPY.fr }
+  fr: { ...BASE_COPY.fr, ...EXTRA_COPY.fr },
+  de: deTranslation.guided,
+  es: esTranslation.guided,
+  pt: ptTranslation.guided
 };

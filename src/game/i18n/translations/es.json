@@ -1,0 +1,2311 @@
+{
+  "locale": {
+    "gameplay": {
+      "details": "NORMA Y REFLEXIÓN",
+      "overview": "HALLAZGO Y PRUEBAS",
+      "guide": "GUÍA DE INVESTIGACIÓN",
+      "close": "VOLVER AL EXPEDIENTE",
+      "skip": "CONTINUAR SIN GUÍA",
+      "guideTitle": "PROTOCOLO DEL PRIMER EXPEDIENTE",
+      "steps": [
+        "Consulta: abre una prueba documental y lee qué documenta, de qué fuente procede y quién sufre sus efectos.",
+        "Cita: vuelve a seleccionar una prueba abierta para incluirla en el informe. Abrir no equivale a citar. Puedes retirar una cita.",
+        "Compara: cita al menos dos pruebas y abre Comparar en la mesa. Busca confirmaciones o contradicciones, no solo palabras parecidas.",
+        "Decide: elige clasificación, medida, responsable y justificación. Relaciona la justificación con los hechos de las pruebas citadas.",
+        "Firma: revisa el borrador. Puedes volver atrás antes de firmar; después recibirás los hallazgos y las consecuencias."
+      ],
+      "evaluation": "La evaluación considera clasificación, medida, responsable, justificación y pruebas. Un resultado correcto no basta si el razonamiento o las pruebas no lo sostienen.",
+      "evidenceLink": "Comprueba que las pruebas citadas sostienen la justificación elegida. La comparación sigue disponible en la mesa.",
+      "changes": "EFECTOS DEL INFORME",
+      "before": "Antes",
+      "after": "Después",
+      "delta": "Variación",
+      "review": "REPASAR ERRORES",
+      "exitReview": "VOLVER A LA PROGRESIÓN",
+      "reviewNote": "Repaso temporal de casos parciales o incorrectos. Se conservan los informes y la progresión originales; al cerrar el navegador vuelves a la partida original.",
+      "reviewEmpty": "No hay casos parciales o incorrectos que repasar.",
+      "assistance": {
+        "base": "Ayudas: pistas contextuales y hallazgos detallados.",
+        "standard": "Ayudas: hallazgos después de firmar; sin pistas dirigidas.",
+        "expert": "Ayudas: sin pistas dirigidas, hallazgos esenciales."
+      },
+      "modes": {
+        "turno": "Investiga los expedientes asignados en orden. El turno termina cuando cierras los del plan.",
+        "libera": "Elige expedientes en el mapa. Las recomendaciones no son restricciones: decides cuándo terminar desde el mapa.",
+        "sorpresa": "Investiga expedientes en orden aleatorio, inicialmente con dificultad experta. Termina completando el plan.",
+        "ripasso": "Repasa los casos parciales o incorrectos del plan. El repaso termina al completarlos sin sustituir los originales."
+      },
+      "timeNote": "La duración es una estimación, no una cuenta atrás. Puedes cambiar la dificultad en los ajustes."
+    },
+    "mobile": {
+      "open": "ABRIR DOCUMENTO",
+      "uncite": "RETIRAR CITA",
+      "search": "Buscar en el archivo",
+      "close": "Cerrar"
+    },
+    "ui": {
+      "gameTitle": "NO AI ACT",
+      "gameSubtitle": "Simulador de una sociedad sin regulación",
+      "titleTagline": "Evalúa usos de la IA. Cada decisión afecta a la confianza pública, la innovación y los derechos. Objetivo: encontrar un equilibrio sostenible.",
+      "titleHeader": "REPÚBLICA MUNICIPAL AUTOMATIZADA — AÑO 2032",
+      "textSpeed": {
+        "label": "VELOCIDAD DEL TEXTO: {value}",
+        "modes": {
+          "slow": "lenta",
+          "normal": "normal",
+          "instant": "instantánea"
+        }
+      },
+      "typewriterHint": "▸ clic, ESPACIO o INTRO para mostrar todo el texto de inmediato",
+      "footerDisclaimer": "Versión educativa simplificada del Reglamento de IA (UE) 2024/1689, modificado por el Reglamento (UE) 2026/1744. No constituye asesoramiento jurídico.",
+      "menu": {
+        "continue": "CONTINUAR INVESTIGACIÓN",
+        "newGame": "NUEVA PARTIDA",
+        "archive": "ARCHIVO DE NORMAS",
+        "credits": "CRÉDITOS Y LICENCIAS",
+        "reset": "BORRAR PARTIDA GUARDADA",
+        "audioOn": "SONIDO: ACTIVADO",
+        "audioOff": "SONIDO: DESACTIVADO",
+        "motionFull": "ANIMACIONES: COMPLETAS",
+        "motionReduced": "ANIMACIONES: REDUCIDAS",
+        "crtOn": "EFECTO CRT: ACTIVADO",
+        "crtOff": "EFECTO CRT: DESACTIVADO",
+        "music": "MÚSICA: {value}",
+        "musicOn": "MÚSICA: ACTIVADA",
+        "musicOff": "MÚSICA: DESACTIVADA",
+        "sfx": "EFECTOS DE SONIDO: {value}",
+        "sfxOn": "EFECTOS: ACTIVADOS",
+        "sfxOff": "EFECTOS: DESACTIVADOS",
+        "language": "IDIOMA: ESPAÑOL",
+        "teacherOn": "MODO DOCENTE: ACTIVADO",
+        "teacherOff": "MODO DOCENTE: DESACTIVADO",
+        "teacherScope": "Debrief local: sin gestión de clases, cuentas ni servidor.",
+        "resetDone": "Partida guardada borrada.",
+        "teachers": "DOCENTES Y AULA",
+        "resources": "RECURSOS",
+        "settings": "AJUSTES",
+        "resetConfirm": "¿CONFIRMAR BORRADO?"
+      },
+      "titleGroups": {
+        "settingsTitle": "Ajustes",
+        "settingsPrivacy": "La partida guardada y las preferencias permanecen en el navegador: sin cuenta ni envío de estos datos.",
+        "teachersTitle": "Docentes y aula",
+        "classPreset": "LISTO PARA EL AULA ▸",
+        "classPresetDone": "Modo docente activado y texto inmediato.",
+        "classPresetNote": "Activa las pausas de discusión después de cada caso y muestra el texto sin espera. No añade un cronómetro ni compara grupos: la partida y las respuestas permanecen en el dispositivo.",
+        "teachersNote": "Modo docente: pausas de discusión tras cada caso y debrief local al final. Uso en clase: 20–40 minutos, sin cuentas ni recogida de datos del alumnado.",
+        "resourcesTitle": "Recursos",
+        "resourcesNote": "Archivo y glosario del juego, además de las guías del sitio en otra pestaña.",
+        "close": "CERRAR"
+      },
+      "preload": {
+        "systemName": "SISTEMA CÍVICO INTEGRADO",
+        "steps": [
+          "generando la cartografía cívica…",
+          "compilando la señalización…",
+          "calibrando el ruido de fondo…",
+          "abriendo el archivo de casos…"
+        ],
+        "accessGranted": "acceso a la inspección: AUTORIZADO"
+      },
+      "map": {
+        "header": "MAPA CÍVICO — RED DE SISTEMAS AUTOMATIZADOS",
+        "progress": "INSPECTOR AX · CASOS CERRADOS: {done}/{total}",
+        "statusOpen": "[ INCIDENTE ABIERTO ]",
+        "statusDraft": "[ REANUDAR · {taken}/{total} decisiones ]",
+        "statusDraftEvidence": "[ REANUDAR · pruebas abiertas ]",
+        "statusClosed": "[ CASO CERRADO ]",
+        "statusNonCompliant": "[ CERRADO — NO CONFORME ]",
+        "statusSealed": "[ EXPEDIENTE INCAUTADO ]",
+        "sealedToast": "Expediente incautado. Acceso denegado.",
+        "alreadyClosedToast": "{code}: expediente ya cerrado.",
+        "finaleReadyToast": "Hay al menos cuatro expedientes cerrados. El informe final está disponible.",
+        "finaleButton": "INFORME FINAL ▸",
+        "menuButton": "MENÚ"
+      },
+      "case": {
+        "fileLabel": "EXPEDIENTE {code}",
+        "examineButton": "EXAMINAR LAS PRUEBAS ▸",
+        "backToMap": "◂ MAPA"
+      },
+      "context": {
+        "button": "REVISAR EL CONTEXTO",
+        "title": "Contexto del caso",
+        "scenarioLabel": "Resumen del caso",
+        "objectiveLabel": "Objetivo",
+        "objective": "Clasifica el riesgo del sistema según el Reglamento de IA y determina la medida adecuada.",
+        "note": "Este panel permite releer el caso. No modifica el informe ni la clasificación.",
+        "closeToDecision": "Volver a la decisión",
+        "closeToEvidence": "Volver a las pruebas"
+      },
+      "inspectorDesk": {
+        "evidencePhase": "MESA DE INSPECCIÓN · REVISIÓN DE PRUEBAS",
+        "decisionPhase": "MESA DE INSPECCIÓN · BORRADOR DEL ACTA",
+        "fileLabel": "EXPEDIENTE {code}",
+        "evidenceStatus": "ABIERTAS {opened}/{total} · CITADAS {cited}",
+        "citedStatus": "PRUEBAS CITADAS {cited}",
+        "context": "EXPEDIENTE",
+        "compare": "COMPARAR [X]",
+        "norm": "NORMA",
+        "normLocked": "NORMA EN LA DECISIÓN",
+        "archive": "ARCHIVO",
+        "notebook": "CUADERNO",
+        "terms": "TÉRMINOS",
+        "compareTitle": "COMPARAR PRUEBAS",
+        "compareIntro": "Dos pruebas citadas una junto a otra. Compararlas no marca ninguna de ellas.",
+        "compareCounter": "PAREJA {current} DE {total}",
+        "compareSource": "FUENTE",
+        "compareFunction": "FUNCIÓN",
+        "compareUnknownSource": "no indicada",
+        "compareUnknownFunction": "por valorar",
+        "compareHint": "Busca qué se confirma, qué entra en conflicto y qué fuente sostiene mejor el informe.",
+        "comparePrev": "PAREJA ANTERIOR",
+        "compareNext": "PAREJA SIGUIENTE",
+        "compareCloseEvidence": "Volver a las pruebas",
+        "compareCloseDecision": "Volver a la decisión",
+        "compareEmpty": "Cita al menos dos pruebas antes de compararlas."
+      },
+      "caseNorm": {
+        "button": "NORMA DEL CASO",
+        "supportNote": "Una norma para orientar tu razonamiento en este caso. Consultarla no modifica el informe ni la decisión.",
+        "relevantLabel": "Norma pertinente",
+        "referenceLabel": "Referencia",
+        "inShortLabel": "En pocas palabras",
+        "whyLabel": "Por qué importa en este caso",
+        "whyFallback": "Esta norma ayuda a valorar el caso, pero la decisión final depende de las pruebas observadas en el expediente.",
+        "continuityNote": "Usa la norma para orientar el razonamiento, vuelve a la decisión y valora las pruebas del expediente.",
+        "close": "Volver a la decisión"
+      },
+      "concepts": {
+        "risk_based_approach": "enfoque basado en el riesgo",
+        "prohibited_practices": "prácticas prohibidas",
+        "high_risk": "sistemas de alto riesgo",
+        "transparency": "transparencia",
+        "gpai": "IA de uso general (GPAI)",
+        "human_oversight": "supervisión humana",
+        "data_governance": "gobernanza de datos",
+        "privacy_by_design": "protección de datos desde el diseño",
+        "ai_literacy": "alfabetización en materia de IA"
+      },
+      "learningReport": {
+        "header": "QUÉ TE LLEVAS DE ESTA INVESTIGACIÓN",
+        "title": "Informe de aprendizaje",
+        "intro": "Un resumen educativo de tus decisiones para reconocer lo que dominas y qué conviene leer. Permanece en tu dispositivo y no se envía.",
+        "scoreLabel": "Resultados de los casos",
+        "scoreLine": "{correct} correctos · {partial} parciales · {wrong} por repasar — {completed} casos completados de {total}",
+        "conceptsLabel": "Conceptos del Reglamento de IA tratados",
+        "strongestLabel": "Área más sólida",
+        "reviewLabel": "Área por repasar",
+        "allSolid": "Ninguna en particular: tus decisiones se sostienen. Prueba una dificultad mayor u otro recorrido.",
+        "noneYet": "Todavía no has completado ningún caso en esta partida.",
+        "recommendedLabel": "Tres lecturas recomendadas del sitio, gratuitas y en otra pestaña",
+        "linkFor": "Más sobre: {concept} ▸",
+        "generalLinkLabels": [
+          "Recursos educativos ▸",
+          "Guía del Reglamento de IA ▸",
+          "Glosario ▸"
+        ],
+        "performance": {
+          "strong": "sólida",
+          "mixed": "por consolidar",
+          "weak": "por repasar"
+        },
+        "disclaimer": "NO AI ACT es una simulación educativa que simplifica el Reglamento (UE) 2024/1689, modificado por el Reglamento (UE) 2026/1744. Este informe describe tu recorrido en el juego, no una competencia certificada, y no constituye asesoramiento jurídico.",
+        "back": "VOLVER AL INFORME FINAL"
+      },
+      "teacherGuide": {
+        "button": "GUÍA DOCENTE ▸",
+        "title": "Usar NO AI ACT en clase",
+        "intro": "Una estructura sugerida en tres momentos. Sin cuentas ni datos del alumnado: todo permanece en el dispositivo.",
+        "beforeTitle": "Antes de la clase",
+        "beforeText": "Juega un caso, elige un recorrido y fija 2–3 objetivos. Las actividades y las introducciones enlazadas presentan el marco del Reglamento de IA antes de jugar.",
+        "duringTitle": "Durante",
+        "duringText": "Proyecta el juego o propón jugar por parejas. Con el modo docente, cada caso incluye una pausa con preguntas para la clase: comparad decisiones antes de continuar.",
+        "afterTitle": "Después",
+        "afterText": "Abre el debrief docente desde el informe final: decisiones, conceptos y preguntas. Expórtalo como texto o JSON y úsalo para la reflexión escrita o la evaluación formativa.",
+        "resourcesLabel": "Recursos relacionados, en otra pestaña",
+        "links": {
+          "activities_it": "Actividades de aula (IT)",
+          "lesson_it": "Plan de clase (IT)",
+          "activities_en": "Actividades de aula (EN)",
+          "lesson_en": "Plan de clase (EN)",
+          "activities_fr": "Actividades de aula (FR)",
+          "lesson_fr": "Plan de clase (FR)",
+          "activities_de": "Actividades de aula (DE)",
+          "lesson_de": "Introducción para docentes (DE)",
+          "activities_es": "Actividades de aula (ES)",
+          "lesson_es": "Introducción para docentes (ES)",
+          "activities_pt": "Actividades de aula (PT)",
+          "lesson_pt": "Introducción para docentes (PT)"
+        },
+        "close": "Cerrar"
+      },
+      "siteLinks": {
+        "button": "SITIO Y RECURSOS ▸",
+        "title": "Sitio y recursos educativos",
+        "intro": "Secciones del sitio organizadas por finalidad. Se abren en otra pestaña: el juego permanece abierto y esta navegación no se registra. Puedes salir cuando quieras.",
+        "play": "Cómo funciona el juego",
+        "hub": "Recursos educativos",
+        "teacher": "Recursos para docentes",
+        "guide": "Guía del Reglamento de IA",
+        "glossary": "Glosario",
+        "privacy": "Privacidad",
+        "backToSite": "Volver al sitio",
+        "close": "Cerrar"
+      },
+      "discussionPause": {
+        "button": "PAUSA DE DISCUSIÓN ▸",
+        "title": "Pausa de discusión",
+        "intro": "Preguntas para la clase sobre este caso. No se registra nada: sirven para conversar antes del siguiente expediente.",
+        "close": "Reanudar"
+      },
+      "decisionDebrief": {
+        "button": "REVISAR LA DECISIÓN",
+        "title": "Reflexión sobre la decisión",
+        "intro": "Este panel explica el razonamiento sin modificar la puntuación ni el informe.",
+        "yourChoiceLabel": "Tu elección",
+        "whyLabel": "Por qué no es completamente correcta",
+        "observeLabel": "Qué observar",
+        "normLabel": "Norma relacionada",
+        "howToLabel": "Cómo razonar en el siguiente caso",
+        "correctTitle": "Decisión coherente",
+        "keyElementLabel": "Elemento clave observado",
+        "whyCorrect": "La decisión es coherente con las pruebas del expediente y con la norma relacionada.",
+        "whyPartialWrong": "La decisión no se ajusta del todo a las pruebas. Revisa las pruebas clave, la norma y el paso de razonamiento necesario.",
+        "observeFallback": "Revisa las pruebas pertinentes: la decisión depende de los indicios observados, no solo de una categoría abstracta.",
+        "howToFallback": "Parte del sistema concreto de IA, identifica a las personas afectadas, relaciona pruebas y norma y solo entonces elige clasificación, medida, sujeto y justificación.",
+        "conceptLabel": "Concepto del Reglamento de IA en este caso",
+        "takeawayLabel": "Aprendizaje del caso",
+        "axes": {
+          "label": "Efectos de tu decisión",
+          "legal": {
+            "correct": "plenamente válida jurídicamente",
+            "partial": "parcialmente válida jurídicamente",
+            "wrong": "decisión no válida"
+          },
+          "rights": {
+            "strengthened": "derechos reforzados",
+            "mixed": "derechos ponderados",
+            "weakened": "derechos debilitados"
+          },
+          "institution": {
+            "strengthened": "confianza pública creciente",
+            "mixed": "confianza pública estable",
+            "weakened": "confianza pública decreciente"
+          }
+        },
+        "learnMore": "Leer más en el sitio ▸",
+        "close": "Cerrar"
+      },
+      "evidence": {
+        "header": "EXPEDIENTE {code} — PRUEBAS",
+        "instruction": "Examina todas las pruebas y cita las que sustentan la clasificación, al menos dos.",
+        "citeNote": "Citar un documento lo añade al informe, pero todavía no determina la clasificación final del riesgo.",
+        "exhibit": "PRUEBA {num}",
+        "sealed": "[ SELLADA ]\n\nPulsa para examinar",
+        "cite": "CITAR EN EL INFORME ▢",
+        "cited": "CITADA EN EL INFORME ▣",
+        "allRevealedToast": "Pruebas examinadas. Cita al menos dos para continuar.",
+        "contradictionButton": "Comprobar contradicción [C]",
+        "contradictionFound": "Contradicción documental: «{a}» refuta «{b}».",
+        "contradictionNone": "No se ha reconocido ninguna contradicción entre las pruebas citadas. Compara lo que afirma cada fuente.",
+        "progress": "Examinadas: {opened} de {total} · citadas: {cited} (se necesitan al menos {min})",
+        "progressReady": "Tienes suficientes elementos: puedes pasar a la clasificación.",
+        "citedBecause": "«{title}» citada — {stance}.",
+        "proceedButton": "PASAR A LA CLASIFICACIÓN ▸",
+        "backToEvidence": "◂ PRUEBAS",
+        "sourceLabel": "FUENTE",
+        "sources": {
+          "amministrativa": "fuente administrativa",
+          "tecnica": "fuente técnica",
+          "vendor": "declaración del proveedor",
+          "reclamo": "reclamación ciudadana",
+          "pubblica": "comunicación pública",
+          "log": "registro del sistema",
+          "interna": "nota interna"
+        },
+        "stances": {
+          "supports_risk": "demuestra el riesgo",
+          "minimizes_risk": "minimiza el riesgo",
+          "ambiguous": "ambigua",
+          "contextual": "contexto",
+          "concrete_effect": "efecto concreto",
+          "decisive": "prueba decisiva"
+        }
+      },
+      "decision": {
+        "stepBack": "◂ PASO ANTERIOR",
+        "stepBackHint": "RETROCESO vuelve un paso atrás y permite editarlo.",
+        "step1": "DECISIÓN 1 DE 5 — CLASIFICACIÓN",
+        "step2": "DECISIÓN 2 DE 5 — MEDIDA CORRECTORA",
+        "step3": "DECISIÓN 3 DE 5 — SUJETO RESPONSABLE",
+        "step4": "DECISIÓN 4 DE 5 — JUSTIFICACIÓN",
+        "step5": "DECISIÓN 5 DE 5 — REVISAR Y FIRMAR",
+        "question5": "Revisa el informe antes de firmarlo.",
+        "cityState": "ESTADO DE LA CIUDAD",
+        "cityStateNote": "El estado actual. El juego no anticipa el efecto de cada elección.",
+        "sidebar": {
+          "cited": "PRUEBAS CITADAS",
+          "soFar": "DECISIÓN HASTA AHORA",
+          "pending": "pendiente de elegir"
+        },
+        "summary": {
+          "classification": "Clasificación",
+          "measure": "Medida",
+          "subject": "Sujeto responsable",
+          "motivation": "Justificación",
+          "clues": "Pruebas citadas"
+        },
+        "sign": "FIRMAR EL INFORME ▸",
+        "signHint": "INTRO firma el informe. RETROCESO vuelve a la justificación.",
+        "signNote": "Firmar no significa haber respondido correctamente: la evaluación viene después. Hasta que firmes puedes cambiar todas las elecciones.",
+        "question1": "¿Cómo se clasifica este sistema según el Reglamento de IA?",
+        "question2": "¿Qué medida ordena la inspección?",
+        "question3": "¿A quién atribuyes las obligaciones principales?",
+        "question4": "¿Con qué justificación fundamentas el informe?",
+        "contextNote": "Según el reglamento, el riesgo no depende solo de la tecnología, sino del contexto de uso, la finalidad y los efectos sobre las personas.",
+        "processNote": "Decisión final: clasifica el riesgo y elige medida, sujeto responsable y justificación.",
+        "recorded": "Clasificación registrada: {value}",
+        "keys5": "teclado: teclas 1–5 para elegir",
+        "keys7": "teclado: teclas 1–7 para elegir",
+        "keys3": "teclado: teclas 1–3 para elegir",
+        "normsButton": "CONSULTAR NORMAS",
+        "normsHint": "solo lectura: pulsa fuera o ESC para cerrar",
+        "normsEmpty": "Todavía no has obtenido ninguna norma.",
+        "termsButton": "¿QUÉ SIGNIFICAN?",
+        "termsTitle": "LOS TÉRMINOS DE ESTA ELECCIÓN",
+        "termsHint": "Solo lectura. Cierra para volver a la decisión. No revela la respuesta.",
+        "termsNoEntry": "No es una categoría definida por el reglamento: comprende lo que queda fuera de las demás."
+      },
+      "subjects": {
+        "provider": "Proveedor: desarrolla el sistema",
+        "deployer": "Responsable del despliegue: lo utiliza",
+        "autorita": "Autoridad pública que lo utiliza",
+        "responsabile_umano": "Persona designada para la supervisión humana",
+        "fornitore_esterno": "Proveedor externo"
+      },
+      "report": {
+        "title": "INFORME DE INSPECCIÓN",
+        "evidenceLabel": "PRUEBAS CITADAS",
+        "decisionLabel": "DECISIÓN",
+        "subjectLabel": "SUJETO RESPONSABLE",
+        "motivationLabel": "JUSTIFICACIÓN",
+        "incidentLabel": "HECHO REGISTRADO",
+        "dominantLabel": "HALLAZGO PRINCIPAL",
+        "secondaryLabel": "HALLAZGOS SECUNDARIOS",
+        "continueButton": "CONTINUAR ▸",
+        "noEvidence": "ninguna prueba citada",
+        "decisiveEvidenceLabel": "PRUEBAS DECISIVAS",
+        "decisiveEvidenceOk": "las pruebas citadas sostienen la clasificación",
+        "decisiveEvidenceWeak": "las pruebas citadas no bastan para sostener la clasificación",
+        "reasonLabel": "Motivo del resultado",
+        "reasons": {
+          "grounded": "las pruebas citadas sostienen la clasificación y la medida es proporcionada",
+          "classificazione": "el sistema se ha clasificado en un régimen incorrecto",
+          "prove": "la orden es recurrible porque la base probatoria está incompleta",
+          "misura_insufficiente": "la medida propuesta no controla el riesgo principal",
+          "eccesso_cautela": "la clasificación es correcta, pero desactivarlo todo excede lo necesario",
+          "soggetto": "la clasificación es correcta, pero se ha identificado mal al responsable",
+          "trasparenza": "falta la transparencia exigida: la ciudadanía no puede reconocer el sistema o el contenido",
+          "motivazione": "la decisión es correcta, pero la justificación es débil"
+        },
+        "registry": {
+          "officeLabel": "OFICINA EMISORA",
+          "fileLabel": "CÓDIGO DEL EXPEDIENTE",
+          "protocolLabel": "NÚMERO DE REGISTRO",
+          "dateLabel": "FECHA DEL REGISTRO",
+          "statusLabel": "CLASIFICACIÓN",
+          "status": "ACTA FINAL · SIN RESERVA",
+          "draftStatus": "BORRADOR · SIN PRESENTAR",
+          "stripNote": "franja de registro: el número de registro en código de barras"
+        },
+        "lessonLabel": "ENSEÑANZA DEL CASO",
+        "analysisLabel": "ANÁLISIS DE LA DECISIÓN",
+        "analysis": {
+          "conforme": "La decisión se sostiene: clasificación, medida, responsable y justificación están respaldados por las pruebas decisivas.",
+          "parziale": "La decisión identifica el problema central, pero está incompleta —",
+          "contestabile": "La decisión es recurrible —",
+          "non_conforme": "La decisión no se sostiene —"
+        },
+        "issues": {
+          "wrong_classification": "la clasificación no tiene en cuenta el contexto de uso del sistema.",
+          "insufficient_measure": "la medida propuesta reduce el riesgo, pero no lo controla.",
+          "excessive_measure": "la clasificación es correcta, pero la medida excede lo necesario.",
+          "wrong_responsible_subject": "la responsabilidad se atribuye al sujeto equivocado.",
+          "weak_motivation": "las pruebas citadas no sostienen la justificación.",
+          "weak_evidence": "las pruebas citadas no bastan para sostener la clasificación.",
+          "formal_human_oversight": "la supervisión humana es formal, pero no efectiva.",
+          "missing_transparency": "falta la transparencia que permitiría reconocer el sistema.",
+          "context_misread": "se ha interpretado mal el contexto de uso del sistema.",
+          "proportionality_problem": "la medida no es proporcional al riesgo real."
+        }
+      },
+      "states": {
+        "sigillato": "SELLADA",
+        "aperto": "ABIERTA",
+        "citato": "CITADA",
+        "prova_decisiva": "PRUEBA DECISIVA",
+        "contraddizione": "CONTRADICCIÓN",
+        "procedibile": "LISTO PARA DECIDIR"
+      },
+      "normIdentities": {
+        "vietata": "PRÁCTICA PROHIBIDA",
+        "alto": "ALTO RIESGO",
+        "trasparenza": "TRANSPARENCIA",
+        "biometria": "PERMITIDO CON CONDICIONES",
+        "gpai": "MODELO GPAI"
+      },
+      "outcomes": {
+        "conforme": "CONFORME",
+        "parziale": "PARCIALMENTE CONFORME",
+        "contestabile": "RECURRIBLE",
+        "non_conforme": "NO CONFORME"
+      },
+      "errors": {
+        "classificazione": "La clasificación no corresponde al régimen previsto por el reglamento.",
+        "prove": "Las pruebas citadas no fundamentan la clasificación: la orden puede recurrirse.",
+        "misura_insufficiente": "La medida trata el síntoma: el sistema sigue decidiendo.",
+        "eccesso_cautela": "Has desactivado lo que necesitaba control. El servicio se detiene y el problema se desplaza.",
+        "soggetto": "Las obligaciones se han atribuido a quien no podía cumplirlas: nadie responde.",
+        "trasparenza": "Hay medidas, pero la ciudadanía sigue a oscuras. Así no se recupera la confianza.",
+        "motivazione": "La justificación no se sostiene: la decisión es correcta, pero su fundamento no."
+      },
+      "cityDossier": {
+        "title": "DOSIER DE LA CIUDAD",
+        "subtitle": "Efectos sistémicos de las decisiones. Tendencias, no una puntuación.",
+        "updatedLabel": "Dosier de la ciudad actualizado",
+        "emptyHint": "Ningún caso cerrado todavía: el dosier permanece estable.",
+        "openButton": "DOSIER DE LA CIUDAD ▸",
+        "indicators": {
+          "publicTrust": "Confianza pública",
+          "fundamentalRights": "Derechos fundamentales",
+          "administrativeOpacity": "Opacidad administrativa",
+          "litigationRisk": "Riesgo de litigio",
+          "serviceEfficiency": "Eficiencia de los servicios"
+        },
+        "trends": {
+          "improving": "mejora",
+          "worsening": "empeora",
+          "stable": "estable",
+          "watch": "bajo observación"
+        }
+      },
+      "incident": {
+        "header": "TÉLEX URGENTE — RESPUESTA NECESARIA",
+        "hint": "teclado: teclas 1–3 para responder",
+        "logged": "Respuesta registrada: {value}"
+      },
+      "consequence": {
+        "qualityCorrect": "DECISIÓN CONFORME",
+        "qualityPartial": "DECISIÓN PARCIAL",
+        "qualityWrong": "DECISIÓN NO CONFORME",
+        "summary": "Clasificación: {classification} · Medida: {measure}",
+        "territoryLabel": "EFECTOS SOBRE EL TERRENO",
+        "noteLabel": "NOTA DE INVESTIGACIÓN",
+        "cityLabel": "ESTADO DE LA CIUDAD",
+        "cluesMismatch": "Las pruebas citadas no sostenían la clasificación: la orden es recurrible.",
+        "nextCorrect": "NORMA OBTENIDA ▸",
+        "nextWrong": "CONSULTAR LA NORMA IGUALMENTE ▸"
+      },
+      "normCard": {
+        "democraticFunctionLabel": "FUNCIÓN DEMOCRÁTICA",
+        "unlocked": "NORMA INCORPORADA AL ARCHIVO",
+        "subCorrect": "Esta disposición habría permitido prevenir o controlar el daño.",
+        "subWrong": "La norma existía. En otra Europa, alguien la habría aplicado.",
+        "backToMap": "◂ VOLVER AL MAPA",
+        "endOfShift": "TERMINAR EL TURNO ▸",
+        "nextCase": "SIGUIENTE EXPEDIENTE ▸",
+        "disclaimer": "versión educativa simplificada"
+      },
+      "archive": {
+        "title": "ARCHIVO DE NORMAS — REGLAMENTO DE IA",
+        "subtitle": "Disposiciones obtenidas: {done}/{total} · versión educativa simplificada",
+        "locked": "NORMA TODAVÍA\nNO OBTENIDA",
+        "hint": "pulsa fuera de la tarjeta o ESC para cerrar",
+        "searchIdle": "Buscar en el archivo: escribe una palabra clave; ESC para salir",
+        "searchResults": "«{query}» — normas: {n} · glosario: {g} · casos: {c}",
+        "searchNone": "Sin resultados para «{query}»; RETROCESO para editar",
+        "back": "◂ VOLVER"
+      },
+      "finale": {
+        "header": "INFORME FINAL DE LA INSPECCIÓN",
+        "cityLabel": "ESTADO FINAL DE LA CIUDAD",
+        "newGame": "NUEVA PARTIDA",
+        "archive": "ARCHIVO DE NORMAS",
+        "credits": "CRÉDITOS",
+        "debrief": "REFLEXIÓN DOCENTE ▸",
+        "learningReport": "INFORME DE APRENDIZAJE ▸",
+        "privacyNote": {
+          "title": "Privacidad: tu trabajo permanece en el navegador",
+          "text": "Esta versión no integra formularios externos. Las respuestas, informes, avances y notas permanecen en tu dispositivo; los contadores agregados excluyen el texto libre y los identificadores del jugador."
+        }
+      },
+      "debrief": {
+        "title": "DEBRIEF DOCENTE — INFORME LOCAL",
+        "subtitle": "Apoyo local para la reflexión. No crea clases, no sigue al alumnado ni envía resultados a un servidor.",
+        "casesLabel": "CASOS E INFORMES",
+        "caseLine": "{title} — resultado: {outcome}",
+        "mainErrorLine": "hallazgo: {error}",
+        "noError": "ningún hallazgo",
+        "anatomyLabel": "Estructura del caso",
+        "anatomySignal": "indicio decisivo",
+        "anatomyTrap": "trampa minimizadora",
+        "anatomyTrapNone": "sin documento minimizador en este expediente",
+        "normsLine": "Normas obtenidas: {done}/{total}",
+        "timeLine": "Tiempo de realización: {minutes} min",
+        "timeUnknown": "Tiempo de realización: no disponible",
+        "indicatorsLabel": "INDICADORES FINALES",
+        "conceptsLabel": "CONCEPTOS DEL REGLAMENTO DE IA TRATADOS",
+        "questionsLabel": "PREGUNTAS PARA DISCUTIR",
+        "reviewLabel": "SUGERENCIA DE REPASO",
+        "reviewLine": "Repasa las tarjetas normativas de los casos con resultados no conformes o recurribles.",
+        "downloadJson": "DESCARGAR .JSON",
+        "downloadTxt": "DESCARGAR .TXT",
+        "print": "IMPRIMIR",
+        "back": "◂ VOLVER AL INFORME",
+        "notCompleted": "caso no completado",
+        "missionLine": "Recorrido: {mission}",
+        "difficultyLine": "Dificultad: {difficulty}",
+        "privacyNote": "Los datos mostrados permanecen en este dispositivo. La exportación es local y no incluye nombres, correos, clase ni centro educativo.",
+        "recommendedHeader": "RECORRIDOS RECOMENDADOS",
+        "recommendedLine": "{name} · {duration} · {goal}"
+      },
+      "sessionEnd": {
+        "title": "FIN DEL TURNO",
+        "subtitle": "{mode} · {count} expedientes · unos {minutes} min",
+        "subtitleOne": "{mode} · un expediente · unos {minutes} min",
+        "countCorrectOne": "uno bien cerrado",
+        "countCorrect": "{n} bien cerrados",
+        "countPartialOne": "uno parcial",
+        "countPartial": "{n} parciales",
+        "countWrongOne": "uno incorrecto",
+        "countWrong": "{n} incorrectos",
+        "recurring": "El mismo error {times} veces. {error}",
+        "noRecurring": "Ningún error se ha repetido en este turno.",
+        "normsTouched": "Artículos tratados: {norms}",
+        "incompleteOne": "Un expediente del plan ha quedado abierto. Permanece en el mapa.",
+        "incomplete": "{count} expedientes del plan han quedado abiertos. Permanecen en el mapa.",
+        "quality": {
+          "correct": "bien cerrado",
+          "partial": "parcial",
+          "wrong": "incorrecto"
+        },
+        "open": "abierto",
+        "toMap": "VOLVER AL MAPA",
+        "learningReport": "INFORME DE APRENDIZAJE ▸",
+        "debrief": "REFLEXIÓN DOCENTE ▸",
+        "note": "Resumen del turno que acabas de jugar. Permanece en tu dispositivo: sin envío ni cuenta."
+      },
+      "newGamePanel": {
+        "title": "NUEVA PARTIDA",
+        "subtitle": "Elige cómo jugar y de cuánto tiempo dispones. El plan se recompone abajo antes de empezar.",
+        "modeLabel": "MODO: {value}",
+        "audienceLabel": "PERFIL: {value}",
+        "durationLabel": "DURACIÓN: {value} min",
+        "planLine": "{count} expedientes · unos {minutes} min · dificultad {difficulty}",
+        "planLineOne": "un expediente · unos {minutes} min · dificultad {difficulty}",
+        "planLineFree": "mapa abierto · {count} expedientes sugeridos · unos {minutes} min",
+        "planLineFreeOne": "mapa abierto · un expediente sugerido · unos {minutes} min",
+        "overBudget": "El primer expediente necesita unos {minutes} min, más del tiempo elegido.",
+        "nothingToReview": "Nada que repasar: todavía no has cerrado mal ningún expediente. Elige otro modo para empezar.",
+        "note": "El tiempo es una estimación para componer la sesión. El juego no mide ni limita tu tiempo real.",
+        "reroll": "VOLVER A SORTEAR ⟲",
+        "start": "EMPEZAR ▸",
+        "modes": {
+          "turno": {
+            "name": "Turno de servicio",
+            "desc": "Los expedientes de tu perfil en orden. El recorrido clásico: una mesa y una cola de casos."
+          },
+          "libera": {
+            "name": "Investigación libre",
+            "desc": "La ciudad está abierta: abre los expedientes en cualquier orden. La duración solo orienta cuántos conviene cerrar."
+          },
+          "sorpresa": {
+            "name": "Inspección sorpresa",
+            "desc": "Expedientes elegidos al azar, dificultad experta y sin pistas en el mapa."
+          },
+          "ripasso": {
+            "name": "Repasar errores",
+            "desc": "Solo los expedientes cerrados mal o a medias. Disponible cuando hay al menos uno."
+          }
+        }
+      },
+      "audience": {
+        "modes": {
+          "casual": {
+            "name": "Por mi cuenta",
+            "desc": "No trabajas en el sector y quieres entender el Reglamento de IA. Casos elegidos por claridad, no por profesión."
+          },
+          "pa": {
+            "name": "Administración pública",
+            "desc": "Atención ciudadana, contratación y detección del fraude: decidir con un sistema que no has desarrollado."
+          },
+          "scuola": {
+            "name": "Escuela y formación",
+            "desc": "Reconocimiento de emociones en clase, plataformas adaptativas y modelos de uso general."
+          },
+          "hr": {
+            "name": "Recursos humanos",
+            "desc": "Contratación, clasificaciones y usos posteriores de modelos de propósito general."
+          }
+        }
+      },
+      "missions": {
+        "title": "ELEGIR UN RECORRIDO",
+        "subtitle": "Cada recorrido recomienda casos. Puedes seguir jugando todos.",
+        "recommendedTag": "RECOMENDADO",
+        "durationLabel": "duración",
+        "start": "EMPEZAR RECORRIDO ▸",
+        "modes": {
+          "demo": {
+            "name": "Demo rápida",
+            "duration": "10–15 min",
+            "goal": "Comprender la lógica del informe de inspección."
+          },
+          "lab": {
+            "name": "Taller breve",
+            "duration": "25–35 min",
+            "goal": "Distinguir prohibición, alto riesgo y transparencia."
+          },
+          "full": {
+            "name": "Recorrido completo",
+            "duration": "45–60 min",
+            "goal": "Auditoría, responsabilidad, medidas y razonamiento."
+          },
+          "advanced": {
+            "name": "Recorrido avanzado",
+            "duration": "60–75 min",
+            "goal": "Casos ambiguos y límites de la regulación, incluido el crédito cívico."
+          },
+          "pack": {
+            "name": "Casos avanzados",
+            "duration": "75–90 min",
+            "goal": "Más casos ambiguos: chatbot público, contratación, tecnología educativa y GPAI."
+          }
+        }
+      },
+      "difficulty": {
+        "title": "NIVEL DE DIFICULTAD",
+        "label": "DIFICULTAD: {value}",
+        "modes": {
+          "base": {
+            "name": "Básico",
+            "desc": "Instrucciones explícitas, pistas tras un error y evaluación más flexible."
+          },
+          "standard": {
+            "name": "Estándar",
+            "desc": "Informe completo y comentarios equilibrados. Recomendado para la demo."
+          },
+          "expert": {
+            "name": "Experto",
+            "desc": "Pocas pistas, comentarios breves y exigencia con el sujeto y la justificación."
+          }
+        },
+        "hintLabel": "RECONSIDERA",
+        "hints": {
+          "classificazione": "Reconsidera la clasificación: compara finalidad y contexto de uso.",
+          "prove": "Revisa las pruebas citadas: ¿sostienen realmente la clasificación?",
+          "misura_insufficiente": "¿Es la medida proporcional al riesgo principal?",
+          "eccesso_cautela": "Quizá no sea necesario desactivar el sistema: puede requerir control.",
+          "soggetto": "Revisa al responsable: ¿a quién corresponde la obligación principal?",
+          "trasparenza": "Atención a la transparencia: ¿puede la ciudadanía reconocer el sistema?",
+          "motivazione": "¿Se sostiene la justificación con las pruebas citadas?"
+        }
+      },
+      "mobileGuard": {
+        "message": "NO AI ACT está optimizado para ordenador o tableta en horizontal. Gira el dispositivo o utiliza un ordenador."
+      },
+      "creditsScene": {
+        "title": "CRÉDITOS",
+        "heading": "NO AI ACT",
+        "roleLabel": "Concepto y dirección científica",
+        "author": "Matteo Angeloni",
+        "affiliation": "Doctorando — Università degli Studi della Tuscia",
+        "note": "HECHO CON IA, NO POR IA — declaración voluntaria: desarrollado con asistentes de IA bajo la responsabilidad editorial y científica de una persona.\nGráficos procedurales y recursos de audio. Licencias completas en los archivos del proyecto.",
+        "phdProgramme": "Società in mutamento: politiche, diritti e sicurezza",
+        "phdLink": "Programa de doctorado (EN) ▸",
+        "universityLink": "Università degli Studi della Tuscia ▸",
+        "independence": "Proyecto independiente: no es una publicación oficial de la universidad.",
+        "back": "◂ VOLVER AL INICIO"
+      },
+      "toastPrefixes": {
+        "info": "AVISO",
+        "warning": "ADVERTENCIA",
+        "alert": "ALERTA",
+        "ok": "REGISTRADO"
+      },
+      "levels": {
+        "vietata": "Práctica prohibida",
+        "alto": "Alto riesgo",
+        "trasparenza": "Transparencia",
+        "restrittivo": "Condiciones restrictivas"
+      }
+    },
+    "briefing": {
+      "header": "INSPECCIÓN DE INCIDENTES ALGORÍTMICOS",
+      "sub": "INFORMACIÓN RESERVADA — EXPEDIENTE AX/2032",
+      "body": "Año 2032. En esta ciudad, el Reglamento de IA nunca entró en vigor.\n\nLa ciudad funciona. No existen las colas, los formularios se rellenan solos y las decisiones llegan antes que las preguntas.\n\nYa nadie sabe quién decide. Nadie sabe cómo recurrir. Los incidentes algorítmicos se acumulan en los archivos como expedientes sin respuesta.\n\nEres el Inspector. Tu mandato: investigar incidentes, clasificar sistemas e imponer medidas. Por cada caso cerrado, el archivo devolverá la norma que, en otro lugar, en otra Europa, habría evitado todo esto.\n\nLa ciudad te espera. Procura no acostumbrarte a su eficiencia.",
+      "how": "Cómo jugar: abre documentos, cita pruebas, clasifica el riesgo y presenta el informe. Tras cada decisión, un debrief explica el razonamiento. La partida y las respuestas permanecen en el navegador. Es una simulación educativa, no asesoramiento jurídico.",
+      "ctaFirstCase": "ABRIR EL PRIMER EXPEDIENTE",
+      "cta": "ACCEDER AL MAPA CÍVICO"
+    },
+    "classifications": {
+      "vietata": "Práctica prohibida",
+      "alto_rischio": "Sistema de alto riesgo",
+      "trasparenza": "Obligación de transparencia",
+      "basso_rischio": "Riesgo bajo",
+      "non_rilevante": "Fuera del ámbito del Reglamento de IA"
+    },
+    "measures": {
+      "blocco": "Desactivar el sistema",
+      "oversight": "Introducir supervisión humana",
+      "audit": "Activar auditorías y gestión de riesgos",
+      "informare": "Informar a las personas usuarias",
+      "etichettare": "Etiquetar el contenido generado por IA",
+      "dati_logging": "Mejorar la calidad de los datos y los registros",
+      "nessuna": "Ninguna medida"
+    },
+    "indicators": {
+      "labels": {
+        "efficienza": "EFICIENCIA",
+        "controllo": "CONTROL SOCIAL",
+        "diritti": "DERECHOS FUNDAMENTALES",
+        "fiducia": "CONFIANZA PÚBLICA"
+      },
+      "comments": {
+        "correct": [
+          "La decisión se puede recurrir. Por eso es legítima.",
+          "Algunos procesos se ralentizan. Algunas personas respiran.",
+          "Ahora el sistema debe explicarse. Es un comienzo."
+        ],
+        "partial": [
+          "Un parche administrativo. El problema sigue bajo la superficie.",
+          "Mejor que nada. Pero «mejor que nada» no es gobernanza.",
+          "La medida trata el síntoma, no la causa."
+        ],
+        "wrong": [
+          "Los paneles mejoran. La situación de las personas, no.",
+          "Eficiencia récord. Ya nadie sabe quién decide.",
+          "El sistema da las gracias. La ciudadanía no puede hacerlo."
+        ]
+      }
+    },
+    "locations": {
+      "commissariato": "Comisaría de distrito",
+      "sussidi": "Oficina de prestaciones",
+      "osservatorio": "Observatorio laboral",
+      "municipio": "Ayuntamiento central",
+      "lavoro": "Agencia de empleo",
+      "media": "Centro cívico de medios",
+      "scuola": "Escuela de las emociones",
+      "ospedale": "Hospital predictivo",
+      "sorveglianza": "Centro de vigilancia urbana",
+      "welfare": "Oficina de bienestar y servicios",
+      "sportello": "Ventanilla ciudadana",
+      "appalti": "Oficina de contratación",
+      "campus": "Campus adaptativo",
+      "modelli": "Centro de modelos"
+    },
+    "cases": {
+      "case_predpol": {
+        "title": "El distrito señalado",
+        "scenario": "La policía municipal asigna a cada residente una «puntuación de propensión delictiva» según domicilio, amistades, historia familiar y contactos con servicios sociales. Cada mañana, las patrullas reciben los nombres mejor clasificados. En el distrito oeste, los controles se han triplicado. Nadie sabe que figura en la lista ni por qué.",
+        "clues": [
+          {
+            "title": "Registro de generación",
+            "text": "El registro técnico muestra puntuaciones basadas exclusivamente en perfiles: barrio, red social e historia familiar. Ningún hecho concreto vinculado a una infracción."
+          },
+          {
+            "title": "Orden de servicio",
+            "text": "Una circular indica: «Los controles prioritarios siguen la lista del sistema; no se exige valoración individual de los nombres». La clasificación determina los controles."
+          },
+          {
+            "title": "Estudio del vendedor",
+            "text": "El vendedor afirma: «El 92 % de los señalados como de alto riesgo tuvo al menos un contacto policial en 5 años». Lo llama «apoyo científico a decisiones humanas»."
+          }
+        ],
+        "clueSources": [
+          "log",
+          "interna",
+          "vendor"
+        ],
+        "noteCorrect": "Predecir la propensión delictiva individual solo mediante perfiles es una práctica prohibida. Bloquearla es la única medida coherente.",
+        "notePartial": "Has visto el problema, pero tratar una práctica prohibida como cuestión de gobernanza deja al distrito bajo una vigilancia que ninguna auditoría puede sanar.",
+        "noteWrong": "El informe no se sostiene: la práctica está prohibida por el artículo 5 y ninguna medida organizativa la hace lícita.",
+        "consequenceCorrect": "El sistema se detiene. Los controles vuelven a partir de hechos, no de clasificaciones. En el distrito oeste, la confianza institucional empieza a recuperarse lentamente.",
+        "consequenceWrong": "La lista sigue decidiendo a quién parar. Quien nace dentro nunca sale: el distrito aprende que un domicilio pesa más que la conducta.",
+        "motivations": [
+          "El sistema es impreciso y debe suspenderse hasta que el vendedor demuestre precisión suficiente en condiciones reales.",
+          "Predecir el riesgo individual de delinquir solo mediante perfiles está prohibido. La precisión no legaliza lo que excluye el reglamento.",
+          "La policía puede utilizar cualquier apoyo: la decisión final sigue correspondiendo a un agente."
+        ],
+        "debriefQuestions": [
+          "¿Por qué se prohíbe predecir delitos individuales mediante perfiles en vez de regularlo como alto riesgo?",
+          "¿El estudio del 92 % prueba algo a favor o en contra? ¿Qué no dice?",
+          "¿Qué distinguiría un apoyo lícito a la investigación del sistema de este caso?"
+        ],
+        "epilogue": "El mando elimina la clasificación y publica los criterios de control. Algunos agentes protestan: «Funcionaba». La inspección explica que la cuestión no es si funcionaba, sino qué lo hacía funcionar."
+      },
+      "case_bias": {
+        "title": "El sesgo que corrigieron",
+        "scenario": "La agencia regional de empleo filtra candidaturas automáticamente. El proveedor anuncia haber detectado y corregido un sesgo contra personas de origen extranjero. Para encontrarlo tuvo que tratar los datos que lo revelaban: origen étnico y salud. El artículo 4 bis lo permite excepcionalmente bajo seis condiciones. Todas a la vez.",
+        "clues": [
+          {
+            "title": "Registro de actividades de tratamiento",
+            "text": "El registro menciona categorías especiales, pero no explica por qué esos datos eran estrictamente necesarios ni por qué no bastaban datos sintéticos o anonimizados. Faltan las dos justificaciones escritas que exige el artículo 4 bis."
+          },
+          {
+            "title": "Contrato con el analista externo",
+            "text": "Se subcontrató el análisis y se envió sin cifrar la muestra con origen étnico y salud. El artículo 4 bis prohíbe transmitir esos datos a otras partes o permitirles acceso. Aquí ocurrió ambas cosas."
+          },
+          {
+            "title": "Informe de corrección",
+            "text": "El sesgo existía y ha desaparecido: la diferencia de rechazo bajó de catorce puntos a dos y un recuento independiente lo confirma. El trabajo se hizo, y bien."
+          }
+        ],
+        "clueSources": [
+          "interna",
+          "amministrativa",
+          "tecnica"
+        ],
+        "noteCorrect": "Las seis condiciones del artículo 4 bis son acumulativas. Basta que falten dos para dejar el tratamiento sin base jurídica. El sistema sigue siendo de alto riesgo y continúa; debe ajustarse a las condiciones la forma de corregirlo.",
+        "notePartial": "Has identificado el ámbito, pero no el punto decisivo. Mientras los datos salgan a un tercero y no se justifique su necesidad, completar papeles no resuelve nada.",
+        "noteWrong": "El informe no se sostiene: el artículo 4 bis permite expresamente este tratamiento y su segundo apartado no obliga a buscar sesgos. Bloquear castiga precisamente al proveedor que investigó.",
+        "consequenceCorrect": "La muestra vuelve al perímetro del proveedor y se elimina tras corregir el sesgo. El registro explica por qué se necesitaban esos datos. La corrección permanece, ahora con base jurídica.",
+        "consequenceWrong": "El proveedor aprende la lección equivocada: la próxima vez no buscará el sesgo. La diferencia vuelve a catorce puntos y esta vez nadie la mide.",
+        "motivations": [
+          "El artículo 4 bis permite tratar categorías especiales para detectar sesgos con seis condiciones acumulativas. La transmisión a terceros y la falta de justificación incumplen dos: el tratamiento es ilícito aunque la corrección funcionara.",
+          "El proveedor trató origen étnico y salud: debe bloquearse el sistema hasta utilizar métodos sin ningún dato sensible.",
+          "Se corrigió el sesgo y se cerró la diferencia: el resultado demuestra proporcionalidad, así que basta completar el registro."
+        ],
+        "debriefQuestions": [
+          "Si las condiciones fueran alternativas, el proveedor sería conforme. ¿Por qué el legislador exige las seis juntas?",
+          "La corrección funcionó. ¿En qué otros ámbitos aceptamos que un buen resultado no subsana cómo se obtuvo, y por qué también aquí?",
+          "El artículo 4 bis no obliga a buscar sesgos. No buscar es más seguro que buscar mal: ¿efecto previsto o defecto de la norma?"
+        ],
+        "epilogue": "La agencia conserva el sistema corregido y modifica el contrato: el análisis se ejecuta en los servidores del proveedor y los datos no salen. Aparece la frase que faltaba en el registro. El delegado de protección de datos señala: «Encontrasteis el sesgo vosotros mismos; eso nadie lo discutía»."
+      },
+      "case_frodi": {
+        "title": "El algoritmo de la sospecha",
+        "scenario": "La oficina de prestaciones introduce una puntuación de «riesgo de fraude» en los expedientes de ayudas de ingresos. Las prestaciones señaladas se suspenden automáticamente hasta verificarlas. Pero la revisión humana solo llega si la persona recurre. Las familias descubren la suspensión en la ventanilla, con la ayuda ya congelada.",
+        "clues": [
+          {
+            "title": "Análisis de errores",
+            "text": "El 71 % de los expedientes señalados se cierra sin fraude. Las alertas se concentran en hogares monoparentales y familias de origen extranjero: el modelo usa variables indirectas que perjudican siempre a los mismos perfiles."
+          },
+          {
+            "title": "Procedimiento interno",
+            "text": "Al aparecer una alerta, se suspende automáticamente la prestación. Un funcionario revisa el expediente solo si llega un recurso formal. Hay revisión humana, pero después del daño."
+          },
+          {
+            "title": "Ficha del vendedor",
+            "text": "El vendedor anuncia «12 millones recuperados y tiempos de verificación reducidos a la mitad». No aporta datos de falsos positivos ni efectos sobre las familias."
+          }
+        ],
+        "clueSources": [
+          "tecnica",
+          "interna",
+          "vendor"
+        ],
+        "noteCorrect": "Un sistema que decide el acceso a prestaciones esenciales es de alto riesgo. Solo puede funcionar con supervisión humana efectiva ANTES de los efectos, además de auditoría y trazabilidad.",
+        "notePartial": "Has identificado el área correcta, pero sin corregir lo decisivo —la suspensión automática antes de revisar— el sistema sigue causando daños.",
+        "noteWrong": "El informe no se sostiene: el problema documentado no es la herramienta por sí misma, sino su uso sin supervisión efectiva y con impacto desproporcionado.",
+        "consequenceCorrect": "Cesan las suspensiones automáticas. No se corta ninguna prestación antes de que una persona examine el expediente. Los falsos positivos caen drásticamente.",
+        "consequenceWrong": "Las suspensiones siguen llegando antes de verificar. Quienes dependen de la ayuda aprenden a temer más una carta que una inspección.",
+        "motivations": [
+          "El sistema comete demasiados errores: debe suspenderse hasta mejorar su precisión.",
+          "Decidir el acceso a prestaciones esenciales es de alto riesgo: exige supervisión humana antes de los efectos, auditoría y trazabilidad, no solo revisión tras recurrir.",
+          "La oficina debe poder combatir el fraude: quien nada oculta no tiene por qué temer otro control."
+        ],
+        "debriefQuestions": [
+          "¿Por qué revisar solo tras un recurso no es supervisión efectiva? ¿Quién paga mientras tanto el error?",
+          "El análisis muestra impactos concentrados en ciertos perfiles. ¿Cuándo plantearía una práctica prohibida, más allá del alto riesgo?",
+          "El caso se parece al crédito cívico, pero su solución es distinta. ¿Qué cambia?"
+        ],
+        "epilogue": "La oficina restablece la verificación previa y publica errores por perfil. La recuperación del fraude baja ligeramente; los recursos se desploman. El director admite: «Medíamos el ahorro, no los errores»."
+      },
+      "case_scoring": {
+        "title": "La ciudad de las puntuaciones",
+        "scenario": "El ayuntamiento asigna a cada ciudadano un Índice de Fiabilidad Cívica. La puntuación determina la prioridad de acceso a servicios, prestaciones, listas de espera y vivienda. Penaliza protestas en línea, deudas pasadas, «amistades de riesgo» y conductas sin ninguna relación con el servicio solicitado. Tres familias han perdido esta semana su vivienda social. Ninguna ha entendido por qué.",
+        "clues": [
+          {
+            "title": "Datos irrelevantes",
+            "text": "La puntuación de vivienda incluye historial en redes sociales, multas de tráfico y contactos telefónicos. Nada de ello tiene que ver con el derecho a la vivienda."
+          },
+          {
+            "title": "Sanciones que migran",
+            "text": "Una protesta en línea de 2029 redujo las puntuaciones de salud, escuela y vivienda de un ciudadano. La sanción se extiende a contextos ajenos al original."
+          },
+          {
+            "title": "Sin explicación",
+            "text": "La notificación oficial dice: «Puntuación insuficiente. Código E-77». Nadie ha obtenido una explicación comprensible ni una vía para recurrir."
+          }
+        ],
+        "noteCorrect": "Nota de investigación: el sistema no se puede reparar. Castiga a las personas en contextos ajenos y sin justificación. Debe desactivarse, no corregirse.",
+        "notePartial": "Nota de investigación: auditorías y supervisión no bastan. La puntuación social generalizada sigue siendo incompatible con dignidad e igualdad. Había que desactivarla.",
+        "noteWrong": "Nota de investigación: el expediente sigue abierto. La puntuación continúa decidiendo quién tiene derecho a una vivienda.",
+        "consequenceCorrect": "El sistema se desactiva. Las listas de espera vuelven a criterios pertinentes y verificables. La oficina de reclamaciones reabre: lenta, humana y recurrible.",
+        "consequenceWrong": "El Índice de Fiabilidad Cívica se extiende al transporte público y los comedores escolares. Aumenta la eficiencia administrativa. Las solicitudes de vivienda de las familias señaladas desaparecen silenciosamente de las colas.",
+        "motivations": [
+          "El sistema es opaco: la ciudadanía no recibe explicaciones comprensibles.",
+          "La puntuación causa un trato perjudicial en contextos ajenos a la recogida de datos: puntuación social prohibida por el artículo 5.",
+          "El sistema recoge demasiados datos: debe simplificarse y hacerse más eficiente."
+        ],
+        "debriefQuestions": [
+          "¿Por qué se prohíbe la puntuación social generalizada en vez de limitarse a regularla?",
+          "¿Qué diferencia hay entre usar datos dentro y fuera de su contexto?",
+          "¿Recibiría el mismo trato una puntuación similar gestionada por una empresa privada?"
+        ],
+        "epilogue": "El Índice de Fiabilidad Cívica pone a prueba la prohibición: o se desactiva o gobierna la ciudad."
+      },
+      "case_lavoro": {
+        "title": "La entrevista que no existe",
+        "scenario": "Las empresas de la ciudad filtran candidaturas mediante IA que analiza currículos, entrevistas en vídeo, tono de voz, microexpresiones, pausas y trayectorias laborales. En 40 segundos llega el resultado: «Perfil no compatible». Un ingeniero con doce años de experiencia ha sido rechazado 217 veces. Ninguna persona ha leído su currículo.",
+        "clues": [
+          {
+            "title": "Sin explicación",
+            "text": "La notificación es idéntica para todos: «Perfil no compatible». No hay explicación individual significativa ni referencia a los criterios utilizados."
+          },
+          {
+            "title": "Trayectorias no lineales penalizadas",
+            "text": "El modelo penaliza pausas laborales, permisos parentales y cambios de sector. Reproduce la discriminación de los datos históricos de contratación."
+          },
+          {
+            "title": "Supervisión de fachada",
+            "text": "Una persona «valida» 1.400 resultados diarios: 20 segundos por expediente. El control humano existe en el papel, pero no en la práctica."
+          }
+        ],
+        "noteCorrect": "Nota de investigación: puede existir selección automatizada, pero con obligaciones verificables: gestión de riesgos, datos de calidad, supervisión humana real, registros e información a las personas candidatas.",
+        "notePartial": "Nota de investigación: medida mal ajustada. Un sistema de alto riesgo no debe quedar a medio controlar ni simplemente desactivarse: necesita auditorías, supervisión efectiva y calidad de datos.",
+        "noteWrong": "Nota de investigación: el expediente sigue abierto. Las personas continúan siendo descartadas por un sistema que nadie puede cuestionar.",
+        "consequenceCorrect": "La auditoría revela sesgos contra las trayectorias no lineales. Se recalibra el sistema, se vuelven a leer los casos dudosos y las personas candidatas reciben explicaciones y una vía de recurso.",
+        "consequenceWrong": "La administración pública adopta el filtro también para las prácticas. La «incompatibilidad» de quienes interrumpieron su carrera para cuidar familiares alcanza el 81 %. Nadie lo advierte: no existe ningún registro.",
+        "motivations": [
+          "La selección automatizada de candidaturas es por sí misma una práctica prohibida.",
+          "Las personas candidatas no reciben explicaciones adecuadas de los resultados.",
+          "La selección de personal es de alto riesgo según el anexo III. Los datos sesgados y la supervisión de fachada incumplen las obligaciones."
+        ],
+        "debriefQuestions": [
+          "¿Quién debe garantizar la calidad de los datos: quien desarrolla el sistema o quien lo utiliza?",
+          "¿Cuándo es efectivo el control humano y cuándo es meramente formal?",
+          "¿Habría sido mejor desactivar por completo el sistema? ¿Por qué no?"
+        ],
+        "epilogue": "El filtro decidía carreras en 40 segundos. Ahora cada resultado tiene a alguien responsable, o sigue sin tener a nadie.",
+        "incident": {
+          "title": "EL VENDEDOR SE DESENTIENDE",
+          "text": "El vendedor declara por escrito: «Toda la responsabilidad del uso corresponde al usuario». Los departamentos de recursos humanos piden instrucciones inmediatas.",
+          "options": {
+            "document": "Registrarlo y notificar las obligaciones al vendedor y al usuario",
+            "suspend": "Suspender la selección hasta una auditoría",
+            "minimize": "Tomar nota y dejar que continúe"
+          }
+        }
+      },
+      "case_media": {
+        "title": "La ciudad sintética",
+        "scenario": "El ayuntamiento produce vídeos, audios y comunicados con IA sin declararlo. Anoche, un falso mensaje «institucional» anunció la contaminación del agua: pánico, supermercados vacíos y tres heridos. El desmentido oficial llegó cuatro horas después. También era generado. Nadie lo creyó.",
+        "clues": [
+          {
+            "title": "Sin etiqueta",
+            "text": "El contenido sintético del ayuntamiento es indistinguible del real: sin etiqueta, marca de agua ni declaración de origen."
+          },
+          {
+            "title": "Autenticidad aparente",
+            "text": "El mensaje falso usaba formato oficial, voz sintética y gráficos institucionales. La fuente parece auténtica incluso cuando el contenido está manipulado."
+          },
+          {
+            "title": "Confianza irrecuperable",
+            "text": "Una encuesta posterior revela que el 64 % ya no creerá «ningún anuncio, verdadero o falso». Los desmentidos no recuperan la confianza."
+          }
+        ],
+        "noteCorrect": "Nota de investigación: el problema no es generar contenido, sino la imposibilidad de distinguirlo. Etiquetar lo sintético es la condición mínima de la comunicación pública.",
+        "notePartial": "Nota de investigación: sin etiquetas visibles en el contenido generado, las demás medidas dejan a la ciudadanía sin poder distinguirlo.",
+        "noteWrong": "Nota de investigación: el expediente sigue abierto. La ciudad ya no sabe qué es real.",
+        "consequenceCorrect": "Todo contenido generado o manipulado se etiqueta visiblemente. La ciudadanía aprende a reconocer su origen. La confianza no vuelve enseguida, pero vuelve a ser verificable.",
+        "consequenceWrong": "La mitad de la población ignora un segundo anuncio supuestamente falso, esta vez sobre una evacuación. Era verdadero.",
+        "motivations": [
+          "Se difunde contenido generado o manipulado sin etiqueta: incumplimiento de transparencia según el artículo 50.",
+          "La generación de contenido por entidades públicas es una práctica prohibida.",
+          "La comunicación municipal no es fiable y debe reorganizarse."
+        ],
+        "debriefQuestions": [
+          "¿Por qué etiquetar contenido sintético es distinto de prohibirlo?",
+          "¿Puede un desmentido recuperar la confianza sin transparencia sobre el origen?",
+          "¿Pueden acumularse obligaciones de transparencia y otros regímenes de riesgo?"
+        ],
+        "epilogue": "La ciudad recuperó un criterio para distinguir lo real de lo generado, o lo perdió para siempre.",
+        "incident": {
+          "title": "SOLICITUD DE ACCESO A LA INFORMACIÓN",
+          "text": "Un periódico pide urgentemente los documentos sobre el origen de los anuncios. La prensa espera respuesta en una hora.",
+          "options": {
+            "document": "Informar y entregar los documentos solicitados",
+            "suspend": "Suspender las publicaciones e iniciar una revisión interna",
+            "minimize": "Ganar tiempo con una nota ambigua"
+          }
+        }
+      },
+      "case_scuola": {
+        "title": "El aula observada",
+        "scenario": "Una red escolar usa cámaras e IA en todas las aulas para inferir estados emocionales: estrés, aburrimiento, agresividad y «predisposición al fracaso». El alumnado se divide en grupos según esas inferencias. Una chica de trece años ha sido trasladada al «grupo de contención» porque el sistema interpreta su rostro como «hostil». Solo es muy tímida.",
+        "clues": [
+          {
+            "title": "Emociones inferidas del rostro",
+            "text": "El sistema deduce estados emocionales a partir del rostro y la postura. La correlación entre expresión y estado interno es científicamente frágil y culturalmente variable."
+          },
+          {
+            "title": "Sin posibilidad de recurso",
+            "text": "Las clasificaciones emocionales no se notifican ni pueden recurrirse. El alumnado descubre su «perfil» solo al cambiar de grupo."
+          },
+          {
+            "title": "Se penaliza a los más vulnerables",
+            "text": "El alumnado neurodivergente e introvertido acaba sistemáticamente en grupos «de riesgo». El sistema confunde diferencia con desviación."
+          }
+        ],
+        "noteCorrect": "Nota de investigación: inferir emociones en centros educativos es una práctica prohibida, salvo excepciones limitadas, como motivos médicos o de seguridad, que aquí no se aplican. Se desactiva.",
+        "notePartial": "Nota de investigación: supervisar una práctica prohibida no la convierte en lícita. Había que detener la vigilancia emocional en el aula.",
+        "noteWrong": "Nota de investigación: el expediente sigue abierto. Las cámaras continúan decidiendo quién está «en riesgo».",
+        "consequenceCorrect": "Se retiran las cámaras emocionales. Los grupos vuelven a decidirlos docentes que hablan con su alumnado. La chica de trece años regresa a su clase.",
+        "consequenceWrong": "El sistema se extiende a pasillos y comedor. El alumnado aprende a poner la cara «correcta» ocho horas al día. La ansiedad escolar se duplica. El panel informa: «Clima emocional: óptimo».",
+        "motivations": [
+          "Faltan registros adecuados y documentación técnica: hay que incorporarlos.",
+          "Inferencia de emociones en un centro educativo: práctica prohibida según el artículo 5, salvo excepciones que aquí no se aplican.",
+          "El sistema penaliza al alumnado más vulnerable y debe recalibrarse."
+        ],
+        "debriefQuestions": [
+          "¿Por qué se prohíbe inferir emociones en la escuela aunque la tecnología «funcionara»?",
+          "¿Qué excepciones admite la prohibición y por qué no se aplican aquí?",
+          "¿Qué diferencia hay entre prohibir una práctica y corregir sus fallos?"
+        ],
+        "epilogue": "Las aulas volvieron a estar sin cámaras emocionales, o el alumnado aprendió a representar la cara correcta."
+      },
+      "case_ospedale": {
+        "title": "El triaje invisible",
+        "scenario": "El hospital asigna prioridades de triaje con un modelo predictivo entrenado con datos históricos sesgados. Subestima sistemáticamente el riesgo de ciertas categorías de pacientes. El rendimiento agregado parece excelente. Los subgrupos vulnerables mueren esperando.",
+        "clues": [
+          {
+            "title": "Medias excelentes",
+            "text": "Precisión agregada: 94 %. Nadie ha desglosado los resultados por subgrupos."
+          },
+          {
+            "title": "Errores concentrados",
+            "text": "Las subestimaciones se concentran en mayores que viven solos, pacientes con historias clínicas fragmentadas y categorías poco representadas en los datos."
+          },
+          {
+            "title": "Confianza ciega",
+            "text": "El personal sigue la puntuación sin conocer sus límites. «Si el sistema dice verde, es verde»."
+          }
+        ],
+        "noteCorrect": "Nota de investigación: el triaje asistido puede salvar vidas, pero exige gestión de riesgos, datos representativos, vigilancia posterior y personal capaz de contradecir la puntuación.",
+        "notePartial": "Nota de investigación: medida mal ajustada. Ni puntuación ciega ni simple apagado: sin auditorías por subgrupos, calidad de datos y control humano efectivo, el triaje no se vuelve controlable.",
+        "noteWrong": "Nota de investigación: el expediente sigue abierto. Las medias siguen siendo excelentes. Los muertos quedan fuera de la media.",
+        "consequenceCorrect": "La auditoría por subgrupos revela la distorsión. Se reentrena el modelo, se forma al personal para cuestionarlo y cada decisión queda trazada y revisable.",
+        "consequenceWrong": "El modelo se extiende a tres hospitales. La estadística agregada mejora aún más. Una categoría de pacientes deja de acudir a urgencias: ha aprendido que el sistema no la ve.",
+        "motivations": [
+          "Triaje sanitario de alto riesgo: los datos no representativos y la supervisión ineficaz incumplen las obligaciones aplicables.",
+          "El personal confía demasiado en la puntuación y necesita más formación.",
+          "El triaje asistido por IA es una práctica prohibida en la sanidad."
+        ],
+        "debriefQuestions": [
+          "¿Por qué una alta precisión media puede ocultar daños graves a subgrupos?",
+          "¿Qué necesita el personal para contradecir realmente la puntuación?",
+          "¿Por qué desactivar el sistema sería exceso de cautela y no conformidad?"
+        ],
+        "epilogue": "El triaje ya es verificable por subgrupos, o las medias siguen ocultando a los muertos.",
+        "incident": {
+          "title": "PROTESTA DEL JEFE MÉDICO",
+          "text": "El jefe médico exige mantener el sistema: «Sin la puntuación, urgencias se colapsa en un turno».",
+          "options": {
+            "document": "Documentar el riesgo e informar a la dirección médica",
+            "suspend": "Suspender el modelo para los subgrupos en riesgo",
+            "minimize": "Tranquilizar al servicio y no cambiar nada"
+          }
+        }
+      },
+      "case_biometria": {
+        "title": "Rostros entre la multitud",
+        "scenario": "La policía municipal usa las cámaras de la ciudad para identificar en tiempo real, en plazas y estaciones, a «personas de interés» con fines de control y aplicación de la ley. Los falsos positivos son detenidos para identificarlos, registrados y a veces retenidos. Algunos barrios han dejado de salir a la calle.",
+        "clues": [
+          {
+            "title": "Controles sin explicación",
+            "text": "Se para a personas sin explicar por qué. «El sistema te ha señalado»."
+          },
+          {
+            "title": "Tiempo real, espacio público y fines policiales",
+            "text": "La identificación biométrica funciona en directo en plazas, estaciones y manifestaciones con fines policiales: es el ámbito de la prohibición, salvo excepciones exhaustivas y autorizadas."
+          },
+          {
+            "title": "Errores desproporcionados",
+            "text": "Los falsos positivos afectan de forma desproporcionada a determinadas categorías de personas. La tasa de error nunca se ha publicado."
+          }
+        ],
+        "noteCorrect": "Nota de investigación: debe detenerse el uso generalizado en tiempo real con fines policiales. Las excepciones son exhaustivas y exigen autorizaciones y garantías. Otros usos biométricos siguen regímenes distintos según finalidad y contexto.",
+        "notePartial": "Nota de investigación: una auditoría no hace lícita la identificación masiva permanente con fines policiales. Había que detener el uso generalizado.",
+        "noteWrong": "Nota de investigación: el expediente sigue abierto. La multitud ha dejado de ser anónima.",
+        "consequenceCorrect": "Se desactiva la identificación generalizada. Los casos excepcionales requieren autorizaciones y garantías específicas. Las plazas vuelven a llenarse.",
+        "consequenceWrong": "Se amplía el sistema. Las protestas caen un 70 %. El informe anual lo registra como «mejora del orden público».",
+        "motivations": [
+          "El sistema produce demasiados falsos positivos y debe comprobarse.",
+          "Debe mejorarse la precisión del reconocimiento para reducir errores.",
+          "La identificación biométrica remota en tiempo real en espacios públicos con fines policiales está prohibida por el artículo 5, salvo excepciones exhaustivas."
+        ],
+        "debriefQuestions": [
+          "¿Qué elementos activan la prohibición: la tecnología o el uso?",
+          "¿Por qué las excepciones son exhaustivas y están sujetas a autorización?",
+          "¿El mismo sistema en un centro comercial estaría sujeto al mismo régimen?"
+        ],
+        "epilogue": "Las plazas volvieron a ser anónimas, o la multitud aprendió a no reunirse."
+      },
+      "case_credito": {
+        "title": "Crédito cívico",
+        "scenario": "La Oficina de Bienestar adopta una plataforma de «fiabilidad cívica». Reúne datos administrativos, puntualidad de pagos, solicitudes de ayudas, historial de vivienda, avisos y amistades en una puntuación única. Esta determina prioridad y acceso a subvenciones, vivienda y servicios bonificados. Las familias que protestaron o tuvieron compañías «de riesgo» caen al final de las listas. Nadie explica por qué.",
+        "clues": [
+          {
+            "title": "Resolución de adjudicación",
+            "text": "La adjudicación declara finalidades legítimas: eficiencia, menos colas y prevención del fraude. Sobre el papel, nada extraño."
+          },
+          {
+            "title": "Manual del vendedor",
+            "text": "El manual insiste en que es «mero apoyo a la decisión» y que «la decisión siempre sigue siendo humana»."
+          },
+          {
+            "title": "Reclamación ciudadana",
+            "text": "Una madre perdió la prioridad de guardería: «Puntuación insuficiente», sin explicación ni recurso efectivo."
+          },
+          {
+            "title": "Tabla de datos del modelo",
+            "text": "El modelo pondera también avisos, amistades, actividad social y «reputación del barrio»: conducta social agregada e irrelevante para el servicio solicitado."
+          },
+          {
+            "title": "Nota interna",
+            "text": "Una nota admite que el personal «sigue la puntuación» para reducir expedientes pendientes. El control humano existe en el papel, no en la práctica."
+          },
+          {
+            "title": "Declaración pública",
+            "text": "El ayuntamiento habla de un «algoritmo justo y objetivo» sin explicar qué datos usa ni cómo recurrir la puntuación."
+          }
+        ],
+        "clueSources": [
+          "amministrativa",
+          "vendor",
+          "reclamo",
+          "tecnica",
+          "interna",
+          "pubblica"
+        ],
+        "noteCorrect": "Nota de investigación: no es una evaluación crediticia. El sistema agrega conducta social en una puntuación general que limita servicios esenciales en contextos ajenos. Está prohibido como puntuación social y debe detenerse.",
+        "notePartial": "Nota de investigación: auditorías y supervisión mitigan, pero una puntuación social general que decide el acceso a servicios no se subsana con un procedimiento. Había que detenerla.",
+        "noteWrong": "Nota de investigación: el expediente sigue abierto. La puntuación decide quién entra en las listas y quién no.",
+        "consequenceCorrect": "La puntuación cívica se desactiva. Las prioridades vuelven a criterios pertinentes, motivados y recurribles. Reabre la oficina de reclamaciones: lenta, humana y verificable.",
+        "consequenceWrong": "El crédito cívico se extiende a transporte y comedores. La eficiencia aumenta. Barrios enteros descienden al final de cada lista sin saber por qué.",
+        "motivations": [
+          "Es una herramienta normal de eficiencia administrativa: optimiza colas y prioridades.",
+          "La puntuación agrega conducta social y datos irrelevantes para limitar servicios esenciales en contextos ajenos: entra en la prohibición de puntuación social.",
+          "La ciudadanía no recibe explicaciones adecuadas sobre la puntuación."
+        ],
+        "debriefQuestions": [
+          "¿Por qué esta puntuación está prohibida en vez de ser una mera evaluación crediticia?",
+          "¿Qué datos convierten una valoración de fiabilidad económica en puntuación social prohibida?",
+          "¿Quién tiene la obligación principal: el vendedor de la plataforma o la entidad que la utiliza?"
+        ],
+        "epilogue": "El crédito cívico marca el límite: no toda puntuación está prohibida, pero esta agrega la vida social para decidir quién accede a servicios."
+      },
+      "case_chatbot": {
+        "title": "La ventanilla que siempre responde",
+        "scenario": "La ciudad abre una ventanilla digital. Un asistente automático responde sobre ayudas, plazos, requisitos y documentos. Cómodo, rápido y siempre disponible. Pero algunas respuestas son erróneas, nadie avisa de que responde una máquina y no resulta fácil contactar con una persona. La ciudadanía pierde oportunidades por información incorrecta.",
+        "clues": [
+          {
+            "title": "Anuncio público",
+            "text": "La ciudad anuncia «respuestas inmediatas y siempre actualizadas». No menciona los límites del sistema."
+          },
+          {
+            "title": "Registro de conversaciones",
+            "text": "El registro muestra respuestas equivocadas sobre requisitos y plazos de una ayuda. Los mismos errores se repiten a varias personas."
+          },
+          {
+            "title": "Nota del vendedor",
+            "text": "El manual insiste en que el sistema es «puramente informativo» y no sustituye a las oficinas. Una advertencia sobre el papel."
+          },
+          {
+            "title": "Reclamación ciudadana",
+            "text": "Una persona perdió el plazo de solicitud: «La ventanilla dijo que aún había tiempo». No tuvo una vía para corregirlo a tiempo."
+          },
+          {
+            "title": "Procedimiento interno",
+            "text": "No se prevé derivación a una persona: no hay escalado ni revisión de respuestas críticas."
+          },
+          {
+            "title": "Decreto de adopción",
+            "text": "El decreto presenta la ventanilla como servicio de eficiencia. Una finalidad legítima, sin nada extraño en sí misma."
+          }
+        ],
+        "clueSources": [
+          "pubblica",
+          "log",
+          "vendor",
+          "reclamo",
+          "interna",
+          "amministrativa"
+        ],
+        "noteCorrect": "Nota de investigación: no debe prohibirse la ventanilla, sino hacerla transparente y controlable. La ciudadanía debe saber que habla con una máquina, recibir información correcta y poder contactar con una persona. Se necesitan aviso claro, canal humano, auditoría de respuestas y registros respetuosos con la privacidad.",
+        "notePartial": "Nota de investigación: la dirección es correcta, pero incompleta. Sin transparencia y canal humano efectivo, el asistente sigue siendo una fuente frágil.",
+        "noteWrong": "Nota de investigación: el expediente sigue abierto. La ventanilla responde, a veces mal, y nadie asume la responsabilidad.",
+        "consequenceCorrect": "La ventanilla declara su automatización, indica límites y ofrece contacto humano. Las respuestas críticas se revisan y registran. La eficiencia se mantiene y se vuelve fiable.",
+        "consequenceWrong": "La ventanilla se extiende a más servicios. Las respuestas llegan cada vez más rápido. Más personas actúan con información que nadie ha comprobado.",
+        "motivations": [
+          "Es un simple servicio informativo: si falla, responde el ciudadano que confió en él.",
+          "El asistente genera confianza: necesita transparencia sobre ser una máquina, información correcta, canal humano y trazabilidad. La responsabilidad del uso corresponde a la entidad.",
+          "Es un problema técnico: basta con que el vendedor actualice el modelo."
+        ],
+        "debriefQuestions": [
+          "¿Cuándo se convierte un asistente automático en una fuente fiable para la ciudadanía?",
+          "¿Por qué aquí no basta la transparencia y también se necesita un canal humano?",
+          "¿Quién responde si el chatbot público informa mal: el vendedor o la entidad?"
+        ],
+        "epilogue": "La ventanilla automática no es el problema. Lo es cuando oculta ser automática, se equivoca y no deja ninguna puerta humana a la que llamar."
+      },
+      "case_procurement": {
+        "title": "La licitación opaca",
+        "scenario": "Una entidad pública compra IA para tramitar expedientes y prioridades. La licitación se cierra deprisa: pliego genérico, sin documentación técnica y criterios poco claros. Cuando la oficina pide acceso al funcionamiento, el vendedor se niega. «Está certificado», dice. Dentro de la entidad nadie puede explicar ni comprobar sus decisiones.",
+        "clues": [
+          {
+            "title": "Pliego de condiciones",
+            "text": "El pliego describe el servicio en general. No exige documentación, auditoría ni supervisión humana del sistema de IA."
+          },
+          {
+            "title": "Oferta del vendedor",
+            "text": "La oferta promete una «solución certificada, conforme y segura». No adjunta pruebas técnicas."
+          },
+          {
+            "title": "Acta interna",
+            "text": "El acta técnica admite: «No tenemos documentación técnica ni criterios para verificar el sistema»."
+          },
+          {
+            "title": "Cláusula contractual",
+            "text": "Una cláusula limita responsabilidad y acceso, con ambigüedad sobre propiedad y conocimientos técnicos. No queda claro quién puede comprobar qué."
+          },
+          {
+            "title": "Acceso denegado",
+            "text": "El vendedor rechaza el acceso al funcionamiento y los registros por ser «información confidencial»."
+          },
+          {
+            "title": "Nota del responsable de contratación",
+            "text": "El responsable advierte: «Si el sistema falla, no podríamos demostrar por qué ni corregirlo»."
+          }
+        ],
+        "clueSources": [
+          "amministrativa",
+          "vendor",
+          "interna",
+          "amministrativa",
+          "tecnica",
+          "amministrativa"
+        ],
+        "noteCorrect": "Nota de investigación: «El vendedor está certificado» no basta. Este sistema que influye en decisiones públicas es de alto riesgo: exige documentación técnica, criterios previos, derechos de acceso y auditoría, supervisión humana y responsabilidades contractuales claras. La entidad no puede comprar lo que no sabe explicar ni controlar.",
+        "notePartial": "Nota de investigación: el problema se comprende a medias. Sin documentación y derechos de acceso y auditoría, la gobernanza se queda en el papel y la entidad no controla realmente el sistema.",
+        "noteWrong": "Nota de investigación: el expediente sigue abierto. El sistema decide, la entidad no sabe cómo y el vendedor guarda la llave.",
+        "consequenceCorrect": "Se renegocia el suministro: documentación, derechos de auditoría y acceso, supervisión humana y responsabilidades definidas. La entidad vuelve a explicar y controlar lo comprado.",
+        "consequenceWrong": "El sistema se activa tal cual. Funciona hasta que falla. Cuando falla, nadie dentro de la entidad puede abrirlo, explicarlo o detenerlo.",
+        "motivations": [
+          "Compra opaca de un sistema de alto riesgo: faltan documentación, criterios de verificación, derechos de acceso y auditoría y responsabilidades. Responde la entidad que lo despliega.",
+          "La licitación es correcta: si el producto está certificado, la entidad no necesita pedir nada más.",
+          "Es un problema de transparencia con la ciudadanía: basta publicar los documentos de la licitación."
+        ],
+        "debriefQuestions": [
+          "¿Qué debe pedir una entidad pública antes de comprar un sistema de IA?",
+          "¿Por qué la certificación del vendedor no garantiza gobernanza y responsabilidad?",
+          "¿Qué cláusulas evitan la dependencia y permiten controlar el sistema?"
+        ],
+        "epilogue": "La gobernanza se gana o se pierde en la contratación. Quien no pide documentación y control antes no los obtiene después."
+      },
+      "case_edtech": {
+        "title": "El aula perfilada",
+        "scenario": "Una plataforma adaptativa crea perfiles del alumnado: asigna una «puntuación de riesgo de fracaso», sugiere itinerarios y señala a quién vigilar. Empieza como apoyo. Pero el profesorado sigue el panel más que su criterio: quienes aparecen «en riesgo» reciben menos oportunidades. Las familias no saben cómo funciona ni pueden recurrir.",
+        "clues": [
+          {
+            "title": "Panel de riesgo",
+            "text": "El panel asigna a cada estudiante un riesgo de fracaso y orienta grupos, itinerarios y prioridades de apoyo."
+          },
+          {
+            "title": "Mensaje a las familias",
+            "text": "La escuela presenta la plataforma como «herramienta neutral y objetiva» para personalizar la enseñanza. No detalla los criterios."
+          },
+          {
+            "title": "Descripción del algoritmo",
+            "text": "La ficha técnica indica que usa notas, asistencia, retrasos, comportamiento y datos de uso de la plataforma."
+          },
+          {
+            "title": "Nota de un docente",
+            "text": "Un docente escribe: «Seguimos la puntuación para decidir a quién apoyar; no hay tiempo para revisar cada caso». El control humano existe en el papel."
+          },
+          {
+            "title": "Reclamación familiar",
+            "text": "Una familia protesta: se excluyó al estudiante de un proyecto por estar «en riesgo». No hay explicación ni posibilidad de revisión."
+          },
+          {
+            "title": "Política de datos",
+            "text": "La política no aclara minimización, conservación y acceso. No se sabe qué datos son realmente necesarios."
+          }
+        ],
+        "clueSources": [
+          "tecnica",
+          "pubblica",
+          "tecnica",
+          "interna",
+          "reclamo",
+          "amministrativa"
+        ],
+        "noteCorrect": "Nota de investigación: no toda plataforma educativa está prohibida, pero esta afecta a oportunidades e itinerarios y es de alto riesgo. Necesita supervisión humana efectiva, minimización de datos, explicaciones a docentes y familias y una vía de recurso.",
+        "notePartial": "Nota de investigación: la clasificación se sostiene, la medida no. Sin control humano capaz de apartarse de la puntuación y sin explicaciones, decide la plataforma en vez del profesorado.",
+        "noteWrong": "Nota de investigación: el expediente sigue abierto. La puntuación decide quién recibe una oportunidad más y quién una menos.",
+        "consequenceCorrect": "La plataforma vuelve a apoyar, no a dictar veredictos. El profesorado puede apartarse justificadamente; las familias reciben explicaciones y pueden recurrir. Se recogen solo los datos necesarios.",
+        "consequenceWrong": "La puntuación se extiende a orientación y becas. La escuela es más «eficiente». Parte del alumnado sigue señalado sin saber por qué.",
+        "motivations": [
+          "Es solo un apoyo docente neutral: señalar riesgos únicamente ayuda al profesorado.",
+          "El problema es de comunicación: basta explicar mejor el funcionamiento a las familias.",
+          "La plataforma afecta a oportunidades educativas: es de alto riesgo y exige supervisión humana efectiva, minimización de datos, explicabilidad y recurso. Responde la escuela que la usa."
+        ],
+        "debriefQuestions": [
+          "¿Cuándo se convierte una recomendación didáctica en una decisión relevante para el estudiante?",
+          "¿Qué distingue el apoyo al docente de una automatización que decide en su lugar?",
+          "¿Cómo hacer una puntuación educativa explicable y recurrible para estudiantes y familias?"
+        ],
+        "epilogue": "El aula perfilada enseña el límite: la IA puede apoyar la enseñanza, no sustituir el juicio humano sobre las oportunidades de jóvenes."
+      },
+      "case_gpai": {
+        "title": "El modelo que hace de todo",
+        "scenario": "Una organización incorpora un modelo generativo de uso general: resume documentos, redacta decisiones, clasifica solicitudes y propone respuestas al personal. Cómodo y versátil. Pero algunos lo usan para decidir, no solo redactar. No se comprueban las salidas ni se controlan las instrucciones. Una invención acaba en un acto oficial.",
+        "clues": [
+          {
+            "title": "Política de uso de la entidad",
+            "text": "Una política genérica autoriza el modelo «para apoyar el trabajo». No limita su uso en decisiones."
+          },
+          {
+            "title": "Salida errónea",
+            "text": "Un borrador generado contiene una referencia jurídica inventada. Se incorporó casi sin cambios a una comunicación oficial."
+          },
+          {
+            "title": "Correo interno",
+            "text": "Un correo propone «dejar al modelo redactar los borradores de decisión; es más rápido». El generador entra en el fondo de las elecciones."
+          },
+          {
+            "title": "Nota de protección de datos",
+            "text": "El delegado advierte de riesgos en datos introducidos, verificación de salidas y trazabilidad de decisiones."
+          },
+          {
+            "title": "Registro de instrucciones",
+            "text": "El registro muestra instrucciones libres con datos y solicitudes de decisión, sin criterios, controles ni revisión humana documentada."
+          },
+          {
+            "title": "Documento del vendedor",
+            "text": "La ficha es genérica: «Modelo versátil para muchas tareas». No indica usos que deban evitarse."
+          }
+        ],
+        "clueSources": [
+          "amministrativa",
+          "log",
+          "interna",
+          "interna",
+          "log",
+          "vendor"
+        ],
+        "noteCorrect": "Nota de investigación: el modelo general no está prohibido por sí mismo ni es automáticamente de alto riesgo. El riesgo viene del uso: aquí interviene en decisiones relevantes sin control. Necesita revisión humana efectiva, trazabilidad, límites de uso, control de datos y avisos a usuarios. Responde la organización que lo utiliza.",
+        "notePartial": "Nota de investigación: se comprende el riesgo a medias. Sin verificación efectiva de salidas y control de instrucciones, sigue influyendo en decisiones que nadie controla.",
+        "noteWrong": "Nota de investigación: el expediente sigue abierto. El modelo escribe, alguien firma y nadie comprueba.",
+        "consequenceCorrect": "Se regula el uso: límites claros entre redactar y decidir, revisión humana efectiva, trazabilidad de instrucciones y salidas y control de datos. Sigue siendo útil y deja de decidir solo.",
+        "consequenceWrong": "El modelo se extiende a más procesos. Aumenta la productividad. De vez en cuando, una decisión se basa en algo que el modelo simplemente inventó.",
+        "motivations": [
+          "Un modelo general es solo una herramienta: su uso interno no necesita reglas particulares.",
+          "El modelo no está prohibido ni es automáticamente de alto riesgo, pero aquí interviene en decisiones sin control. Necesita revisión humana efectiva, trazabilidad, límites y datos permitidos. Responde quien lo despliega.",
+          "Basta un aviso que recuerde comprobar las respuestas."
+        ],
+        "debriefQuestions": [
+          "¿Quién responde si un modelo general se usa en un proceso concreto de decisión?",
+          "¿Qué cambia entre usarlo para redactar y usarlo para decidir?",
+          "¿Qué garantías se necesitan cuando GPAI entra en decisiones de una entidad?"
+        ],
+        "epilogue": "El modelo no es el problema. Lo es cuando pasa sin control de redactar a decidir."
+      }
+    },
+    "norms": {
+      "norm_bias_detection": {
+        "title": "Datos de categorías especiales para detectar sesgos",
+        "reference": "Reglamento de IA (UE) 2024/1689, modificado por el Reglamento (UE) 2026/1744 — art. 4 bis",
+        "explanation": "Para detectar que un sistema discrimina por origen étnico, religión o salud hay que tratar precisamente los datos que el RGPD protege como categorías especiales. El artículo 4 bis resuelve la contradicción: los proveedores de sistemas de alto riesgo pueden tratarlos excepcionalmente para detectar y corregir sesgos, en la medida estrictamente necesaria y con seis condiciones ACUMULATIVAS. Ningún otro dato sería suficiente; límites técnicos a la reutilización y seudonimización; controles de acceso documentados; ninguna transmisión a terceros; supresión tras corregir el sesgo; y motivos consignados en el registro de actividades de tratamiento.",
+        "notMeaning": "No permite recoger datos sensibles simplemente «por equidad». Es una excepción estrecha con seis garantías: cumplir cinco deja el tratamiento sin base jurídica. Tampoco significa lo contrario: el segundo apartado declara expresamente que nadie está obligado a buscar sesgos.",
+        "democraticFunction": "Permite detectar la discriminación sin convertir su búsqueda en un nuevo registro sobre las personas.",
+        "tags": [
+          "categorías especiales de datos",
+          "sesgo",
+          "alto riesgo",
+          "RGPD"
+        ]
+      },
+      "norm_predpol": {
+        "title": "Prohibición de la predicción policial individual",
+        "reference": "Reglamento de IA (UE) 2024/1689, modificado por el Reglamento (UE) 2026/1744 — art. 5.1.d",
+        "explanation": "Se prohíbe usar IA para predecir el riesgo de que una persona cometa un delito basándose únicamente en la elaboración de perfiles o en rasgos de personalidad.",
+        "notMeaning": "No prohíbe la IA en las investigaciones. El apoyo a la valoración humana basado en hechos objetivos relacionados con una actividad delictiva queda fuera de esta prohibición.",
+        "democraticFunction": "Evita tratar a las personas como sospechosas por lo que son, dónde viven o a quién conocen, en vez de por lo que hacen.",
+        "tags": [
+          "prácticas prohibidas",
+          "elaboración de perfiles",
+          "policía"
+        ]
+      },
+      "norm_frodi_welfare": {
+        "title": "Alto riesgo: acceso a prestaciones esenciales",
+        "reference": "Reglamento de IA (UE) 2024/1689, modificado por el Reglamento (UE) 2026/1744 — anexo III.5; arts. 14 y 26",
+        "explanation": "Los sistemas que valoran el acceso a prestaciones públicas esenciales son de alto riesgo. Requieren datos de calidad, trazabilidad y supervisión humana efectiva antes de producir efectos sobre las personas.",
+        "notMeaning": "Las administraciones pueden combatir el fraude. Una puntuación no puede suspender un derecho antes de que una persona verifique el expediente.",
+        "democraticFunction": "Protege del error automatizado a quienes dependen de ayudas. La obligación de verificar corresponde a la administración, no a la persona que recurre.",
+        "tags": [
+          "alto riesgo",
+          "prestaciones sociales",
+          "supervisión humana"
+        ]
+      },
+      "norm_social_scoring": {
+        "title": "Prohibición de la puntuación social",
+        "reference": "Reglamento de IA — art. 5, prácticas prohibidas",
+        "explanation": "Se prohíben los sistemas de IA que evalúan o clasifican a personas según su comportamiento social o características personales cuando la puntuación causa un trato perjudicial en contextos ajenos a la recogida de datos o un trato injustificado o desproporcionado.",
+        "democraticFunction": "Algunos usos de IA deben prohibirse, no solo mitigarse, porque son incompatibles con la dignidad, la igualdad y la libertad individual.",
+        "notMeaning": "No se prohíbe cualquier clasificación o prioridad. El problema es utilizar datos sociales y reputacionales de forma desproporcionada o irrelevante en contextos ajenos.",
+        "tags": [
+          "prohibición",
+          "puntuación social",
+          "servicios públicos"
+        ]
+      },
+      "norm_lavoro_alto_rischio": {
+        "title": "Sistemas de alto riesgo en el trabajo",
+        "reference": "Reglamento de IA — anexo III, empleo y gestión de trabajadores",
+        "explanation": "La IA usada en contratación, selección, evaluación y gestión de trabajadores se clasifica como de alto riesgo. Exige gestión de riesgos, calidad de datos, supervisión humana efectiva, registros e información a las personas afectadas.",
+        "democraticFunction": "El acceso al trabajo no puede depender de clasificaciones opacas que impidan comprender, progresar o recurrir.",
+        "notMeaning": "No se prohíbe toda herramienta digital de recursos humanos. Los sistemas que seleccionan, evalúan o gestionan personas requieren garantías sólidas.",
+        "tags": [
+          "alto riesgo",
+          "trabajo",
+          "supervisión"
+        ]
+      },
+      "norm_trasparenza_sintetici": {
+        "title": "Transparencia del contenido sintético",
+        "reference": "Reglamento de IA — art. 50, obligaciones de transparencia",
+        "explanation": "Dos obligaciones distintas: las personas que interactúan con IA deben saber que hablan con una máquina; y el contenido generado o manipulado artificialmente, incluidas las ultrasuplantaciones, debe ser reconocible como tal por actuación de quienes lo crean o difunden según sus obligaciones. Nota educativa: la transparencia puede acumularse con otras categorías de riesgo; aquí se presenta como categoría independiente solo con fines didácticos.",
+        "democraticFunction": "La transparencia protege la capacidad de distinguir comunicación pública, manipulación y contenido sintético.",
+        "notMeaning": "No todo contenido generado con IA es ilícito. En determinados casos, debe poder reconocerse como sintético o manipulado.",
+        "tags": [
+          "transparencia",
+          "ultrasuplantación",
+          "información"
+        ]
+      },
+      "norm_emotion_recognition": {
+        "title": "Prohibición de reconocer emociones en la escuela y el trabajo",
+        "reference": "Reglamento de IA — art. 5, prácticas prohibidas salvo excepciones",
+        "explanation": "Se prohíbe usar IA para inferir las emociones de las personas en lugares de trabajo y centros educativos, salvo las excepciones limitadas del reglamento, por ejemplo por motivos médicos o de seguridad.",
+        "democraticFunction": "Los entornos educativos y laborales no deben convertirse en espacios de vigilancia emocional permanente.",
+        "notMeaning": "No se prohíbe cualquier observación del comportamiento. El problema es inferir emociones automáticamente en la escuela o el trabajo, salvo las excepciones previstas.",
+        "tags": [
+          "prohibición",
+          "emociones",
+          "escuela",
+          "trabajo"
+        ]
+      },
+      "norm_alto_rischio_obblighi": {
+        "title": "Obligaciones de los sistemas de alto riesgo",
+        "reference": "Reglamento de IA — obligaciones de los sistemas de alto riesgo",
+        "explanation": "Los sistemas de alto riesgo deben cumplir requisitos sobre gestión de riesgos, calidad de datos, documentación técnica, registros, transparencia, supervisión humana, precisión, solidez y ciberseguridad. Esto incluye la fase posterior al despliegue y la vigilancia posterior a la comercialización.",
+        "democraticFunction": "Un sistema automatizado que afecta a la vida de las personas debe ser verificable también por sus efectos sobre colectivos vulnerables.",
+        "notMeaning": "No se prohíbe la IA sanitaria. Los sistemas que afectan a la salud, seguridad o derechos deben controlarse, documentarse y supervisarse.",
+        "tags": [
+          "alto riesgo",
+          "auditoría",
+          "datos",
+          "sanidad"
+        ]
+      },
+      "norm_biometria": {
+        "title": "Identificación biométrica remota",
+        "reference": "Reglamento de IA — art. 5 y disposiciones específicas de biometría",
+        "explanation": "La prohibición del artículo 5 afecta a la identificación biométrica remota en tiempo real en espacios de acceso público con fines policiales, salvo excepciones enumeradas de forma exhaustiva, sujetas a condiciones y autorizaciones muy restrictivas. Otros usos biométricos pueden encajar en regímenes distintos, incluido el alto riesgo, según el contexto y la finalidad.",
+        "democraticFunction": "El espacio público no puede convertirse en una zona de identificación automática permanente.",
+        "notMeaning": "No se prohíbe todo uso biométrico. El régimen depende de la finalidad, el contexto, quien despliega el sistema y las condiciones del reglamento.",
+        "tags": [
+          "prohibición",
+          "biometría",
+          "espacio público"
+        ]
+      },
+      "norm_credito": {
+        "title": "Puntuaciones sociales y acceso a servicios",
+        "reference": "Reglamento de IA — art. 5, puntuación social; véase anexo III",
+        "explanation": "Una puntuación que reúne comportamiento social y características personales y produce un trato perjudicial en contextos ajenos, o desproporcionado e injustificado, entra en la prohibición de puntuación social. Un sistema que evalúa el acceso a prestaciones o servicios esenciales sin esa generalización social prohibida puede ser de alto riesgo. Son decisivos la finalidad, los datos, el contexto y los efectos sobre los derechos.",
+        "notMeaning": "No se prohíbe todo sistema de puntuación. El régimen depende de su finalidad, datos, contexto de uso, efectos sobre los derechos y supervisión humana efectiva.",
+        "democraticFunction": "El acceso a servicios esenciales no puede depender de una reputación social calculada e imposible de recurrir.",
+        "tags": [
+          "prohibición",
+          "puntuación social",
+          "prestaciones",
+          "servicios"
+        ]
+      },
+      "norm_chatbot": {
+        "title": "Asistentes automáticos y transparencia para la ciudadanía",
+        "reference": "Reglamento de IA — art. 50, transparencia; véanse obligaciones del responsable del despliegue",
+        "explanation": "Quien interactúa con IA debe saber que habla con una máquina. En un asistente público, la transparencia es el mínimo: también importan información correcta, supervisión humana efectiva, acceso a una persona y trazabilidad. La responsabilidad del uso corresponde al responsable del despliegue y no se traslada al vendedor.",
+        "notMeaning": "No se prohíbe todo chatbot público. Debe ser transparente, supervisado y acompañado de un canal humano, especialmente cuando afecta a derechos u oportunidades.",
+        "democraticFunction": "La ciudadanía tiene derecho a saber cuándo la información pública procede de una máquina y a poder hablar con una persona.",
+        "tags": [
+          "transparencia",
+          "chatbot",
+          "servicios públicos",
+          "responsable del despliegue"
+        ]
+      },
+      "norm_procurement": {
+        "title": "Contratación pública de sistemas de IA",
+        "reference": "Reglamento de IA — obligaciones de alto riesgo, gobernanza y documentación",
+        "explanation": "Al comprar un sistema de IA que influye en decisiones relevantes, una administración no cumple las obligaciones de alto riesgo con un certificado. Necesita documentación técnica, criterios previos de verificación, derechos de acceso y auditoría, supervisión humana y responsabilidades contractuales claras. La responsabilidad sigue siendo de la entidad que lo utiliza.",
+        "notMeaning": "Comprar IA no es ilícito. Se necesitan documentación, gobernanza y responsabilidades verificables antes y después de la compra.",
+        "democraticFunction": "El gasto público en IA debe ser explicable y controlable: una entidad no puede usar lo que no puede examinar.",
+        "tags": [
+          "alto riesgo",
+          "contratación pública",
+          "gobernanza",
+          "documentación"
+        ]
+      },
+      "norm_edtech": {
+        "title": "Plataformas educativas y decisiones relevantes",
+        "reference": "Reglamento de IA — anexo III, educación y formación profesional",
+        "explanation": "Los sistemas de IA usados en educación para evaluar, orientar o decidir el acceso a itinerarios y oportunidades son de alto riesgo. Requieren supervisión humana efectiva, calidad y minimización de datos, explicaciones para docentes, estudiantes y familias y una vía para recurrir. Una ayuda didáctica no debe convertirse en un veredicto automático.",
+        "notMeaning": "No se prohíbe toda plataforma educativa. El régimen depende del efecto sobre las oportunidades del alumnado y de la existencia de control humano efectivo.",
+        "democraticFunction": "Las oportunidades educativas no pueden depender de una puntuación opaca que sigue el profesorado y que las familias no pueden recurrir.",
+        "tags": [
+          "alto riesgo",
+          "educación",
+          "supervisión humana",
+          "explicabilidad"
+        ]
+      },
+      "norm_gpai": {
+        "title": "Modelos de uso general y usos posteriores",
+        "reference": "Reglamento de IA — disposiciones sobre GPAI y obligaciones del responsable del despliegue",
+        "explanation": "Un modelo generativo de uso general no está prohibido por sí mismo ni es automáticamente de alto riesgo: depende del uso concreto. Si interviene en decisiones relevantes, necesita revisión humana efectiva, trazabilidad, límites claros de uso, control de los datos introducidos y transparencia. Las obligaciones del proveedor del modelo se añaden a la responsabilidad de quien lo utiliza.",
+        "notMeaning": "Usar un modelo general no está prohibido ni es siempre de alto riesgo. Importa cómo y dónde se utiliza y con qué garantías.",
+        "democraticFunction": "Un modelo que redacta decisiones debe ser verificable: ningún acto puede basarse en una salida sin comprobar.",
+        "tags": [
+          "GPAI",
+          "modelo generativo",
+          "uso posterior",
+          "responsable del despliegue"
+        ]
+      }
+    },
+    "endings": {
+      "ending_opaca": {
+        "title": "FINAL 1 — CIUDAD OPACA",
+        "text": "La ciudad es eficiente, pero la ciudadanía ya no puede comprender, recurrir ni corregir decisiones automáticas. Las colas avanzan, las puntuaciones se actualizan y las notificaciones llegan a tiempo. Ya nadie firma. Ya nadie responde."
+      },
+      "ending_fragile": {
+        "title": "FINAL 2 — GOBERNANZA FRÁGIL",
+        "text": "Se introdujeron algunas garantías, pero persisten opacidad, discriminación y automatización sin responsabilidad. Las reglas existen por partes: donde pasó la inspección, los sistemas responden; en otros lugares siguen decidiendo solos."
+      },
+      "ending_governata": {
+        "title": "FINAL 3 — INNOVACIÓN GOBERNADA",
+        "text": "La IA no se bloquea: se hace visible, documentable, recurrible y supervisable. La ciudad sigue automatizada, pero cada sistema tiene responsable, registro y una puerta a la que llamar."
+      },
+      "finalMessage": "El Reglamento de IA no elimina el riesgo. Lo hace visible, documentable, recurrible y controlable."
+    },
+    "caseLearning": {
+      "case_bias": {
+        "takeaway": "Las seis condiciones del artículo 4 bis son acumulativas. Corregir realmente un sesgo no subsana un tratamiento sin base jurídica.",
+        "teaches": "El límite entre lo permitido y cómo se hace, y la lectura de pruebas: una prueba verdadera, la corrección exitosa, puede despistar.",
+        "typicalMistake": "Responder «prohibido» por exceso de cautela o tomar el resultado como prueba de licitud y limitarse a completar el registro.",
+        "discussionQuestion": "No buscar sesgos es más seguro que buscarlos mal. ¿Es un efecto previsto o un defecto de la norma?",
+        "aiActConcepts": [
+          "Gobernanza de datos",
+          "Alto riesgo",
+          "Protección de datos desde el diseño"
+        ],
+        "understandingSignal": "El estudiante señala la transmisión a terceros o la falta de justificación como decisivas, no el informe de corrección exitosa.",
+        "classroomUse": "Relacionarlo con Reglamento de IA y RGPD: aquí ambos reglamentos realmente se conectan.",
+        "estimatedDebriefMinutes": 12
+      },
+      "case_predpol": {
+        "takeaway": "La precisión no legaliza una práctica prohibida. La predicción individual de delitos solo mediante perfiles queda excluida.",
+        "teaches": "El límite policial del artículo 5: perfiles frente a hechos objetivos, y por qué «apoyo a decisiones humanas» puede ser solo una etiqueta.",
+        "typicalMistake": "Clasificar como alto riesgo y ordenar auditoría o supervisión una práctica que el reglamento excluye.",
+        "discussionQuestion": "Si el sistema «funciona» al 92 %, ¿por qué prohibirlo y no mejorarlo?",
+        "aiActConcepts": [
+          "Prácticas prohibidas",
+          "Elaboración de perfiles",
+          "Enfoque basado en el riesgo"
+        ],
+        "understandingSignal": "El estudiante distingue un problema de calidad corregible de una prohibición de finalidad que no se corrige así.",
+        "classroomUse": "Debate de límites: media clase defiende al vendedor con el estudio del 92 % y la otra a la inspección con el artículo 5.",
+        "estimatedDebriefMinutes": 12
+      },
+      "case_frodi": {
+        "takeaway": "En las prestaciones importa CUÁNDO se hace la revisión humana. Revisar solo tras un recurso llega después del daño.",
+        "teaches": "Supervisión efectiva frente a formal en servicios esenciales, y lectura de pruebas: el análisis de errores pesa más que la publicidad del vendedor.",
+        "typicalMistake": "Bloquearlo todo o limitarse a informar a las familias sin cambiar la suspensión automática.",
+        "discussionQuestion": "¿Quién debe asumir el error: la administración que verifica antes o la persona que recurre después?",
+        "aiActConcepts": [
+          "Alto riesgo",
+          "Supervisión humana",
+          "Gobernanza de datos"
+        ],
+        "understandingSignal": "El estudiante identifica la suspensión automática como prueba decisiva, no solo la tasa de error.",
+        "classroomUse": "Compararlo con el crédito cívico: mismo sector, soluciones opuestas. ¿Por qué?",
+        "estimatedDebriefMinutes": 12
+      },
+      "case_scoring": {
+        "takeaway": "Una puntuación social generalizada no se arregla con más controles: está prohibida.",
+        "teaches": "Algunos usos de IA se prohíben en vez de mitigarse. La puntuación social afecta a dignidad e igualdad.",
+        "typicalMistake": "Tratar una prohibición como un sistema de alto riesgo controlable con auditorías y supervisión.",
+        "discussionQuestion": "¿Por qué se prohíben algunas prácticas en vez de regularlas?",
+        "aiActConcepts": [
+          "práctica prohibida, artículo 5",
+          "puntuación social",
+          "dignidad e igualdad"
+        ],
+        "understandingSignal": "El jugador reconoce la prohibición y ordena bloqueo, no auditoría.",
+        "classroomUse": "Abrir un debate sobre los límites no negociables del Reglamento de IA.",
+        "estimatedDebriefMinutes": 8
+      },
+      "case_lavoro": {
+        "takeaway": "La IA laboral necesita garantías reales: datos de calidad, supervisión efectiva y trazabilidad.",
+        "teaches": "Los sistemas que seleccionan y evalúan trabajadores son de alto riesgo y requieren garantías efectivas.",
+        "typicalMistake": "Conformarse con supervisión simbólica o solo informar a la persona.",
+        "discussionQuestion": "¿Qué obligaciones hacen controlable un sistema de alto riesgo laboral?",
+        "aiActConcepts": [
+          "alto riesgo, anexo III",
+          "calidad de datos",
+          "supervisión humana",
+          "registros"
+        ],
+        "understandingSignal": "El jugador ordena auditoría, supervisión y registros en vez de bloquear o ignorar.",
+        "classroomUse": "Relacionar el caso con selección y gestión de personal reales.",
+        "estimatedDebriefMinutes": 10
+      },
+      "case_media": {
+        "takeaway": "Las personas tienen derecho a saber cuándo un contenido es sintético. La etiqueta es el mínimo, no el final.",
+        "teaches": "La transparencia sobre contenido sintético es necesaria, pero no siempre suficiente.",
+        "typicalMistake": "Creer que etiquetar resuelve cualquier manipulación.",
+        "discussionQuestion": "¿Cuándo es necesario informar, pero no basta?",
+        "aiActConcepts": [
+          "transparencia, artículo 50",
+          "ultrasuplantación",
+          "contenido sintético"
+        ],
+        "understandingSignal": "El jugador ordena etiquetar y explica cómo protege la confianza pública.",
+        "classroomUse": "Debatir comunicación institucional y desinformación.",
+        "estimatedDebriefMinutes": 8
+      },
+      "case_scuola": {
+        "takeaway": "El aula no es un laboratorio de vigilancia emocional: inferir emociones en la escuela está prohibido.",
+        "teaches": "La inferencia de emociones en la escuela se prohíbe salvo excepciones limitadas. El aula no es un espacio de vigilancia emocional.",
+        "typicalMistake": "Tratar el reconocimiento emocional como sistema para auditar en vez de práctica para prohibir.",
+        "discussionQuestion": "¿Por qué recibe el contexto educativo una protección especial?",
+        "aiActConcepts": [
+          "práctica prohibida, artículo 5",
+          "reconocimiento de emociones",
+          "contexto educativo"
+        ],
+        "understandingSignal": "El jugador distingue observación lícita e inferencia automática de emociones.",
+        "classroomUse": "Reflexionar sobre vigilancia y bienestar escolar.",
+        "estimatedDebriefMinutes": 8
+      },
+      "case_ospedale": {
+        "takeaway": "Una media excelente puede ocultar errores graves en personas vulnerables. Revisa los subgrupos, no solo el total.",
+        "teaches": "La IA sanitaria no está prohibida: debe controlarse, documentarse y supervisarse, especialmente para grupos vulnerables.",
+        "typicalMistake": "Confiar en la media excelente e ignorar errores concentrados en subgrupos.",
+        "discussionQuestion": "¿Cómo controlar un sistema predictivo sin bloquearlo ni rendirse a él?",
+        "aiActConcepts": [
+          "alto riesgo",
+          "calidad de datos",
+          "supervisión humana",
+          "vigilancia posterior a la comercialización"
+        ],
+        "understandingSignal": "El jugador no desactiva todo: exige auditoría, registros y supervisión efectiva.",
+        "classroomUse": "Debatir sesgos clínicos y responsabilidad de quien despliega el sistema sanitario.",
+        "estimatedDebriefMinutes": 10
+      },
+      "case_biometria": {
+        "takeaway": "El reconocimiento facial en tiempo real en espacios públicos afecta al ámbito de una prohibición, no a un detalle técnico.",
+        "teaches": "La identificación biométrica remota en tiempo real en espacios públicos con fines policiales está prohibida salvo excepciones estrictas.",
+        "typicalMistake": "Suponer que todos los usos biométricos son iguales e ignorar finalidad y contexto.",
+        "discussionQuestion": "¿Dónde está el límite entre seguridad y vigilancia masiva?",
+        "aiActConcepts": [
+          "práctica prohibida, artículo 5",
+          "biometría remota",
+          "espacio público",
+          "finalidad policial"
+        ],
+        "understandingSignal": "El jugador identifica las condiciones: tiempo real, espacio público y aplicación de la ley.",
+        "classroomUse": "Debatir videovigilancia y libertad en espacios públicos.",
+        "estimatedDebriefMinutes": 9
+      },
+      "case_credito": {
+        "takeaway": "Importa el efecto sobre las personas, no el nombre: una «puntuación de fiabilidad» puede ser puntuación social.",
+        "teaches": "No toda puntuación está prohibida. Importan finalidad, datos, contexto, efectos y control humano efectivo.",
+        "typicalMistake": "Creer que la etiqueta «apoyo a la decisión» basta para hacer seguro el sistema.",
+        "discussionQuestion": "¿Cuándo se convierte una evaluación en trato perjudicial prohibido?",
+        "aiActConcepts": [
+          "puntuación social, artículo 5",
+          "alto riesgo, anexo III",
+          "supervisión humana",
+          "responsabilidad del despliegue"
+        ],
+        "understandingSignal": "El jugador distingue puntuación social prohibida y evaluación de alto riesgo.",
+        "classroomUse": "Límite entre crédito y prestaciones: caso espejo para cerrar el recorrido avanzado.",
+        "estimatedDebriefMinutes": 12
+      },
+      "case_chatbot": {
+        "takeaway": "Un canal automático que siempre responde no basta. Se necesitan transparencia y salida humana.",
+        "teaches": "Un asistente público debe ser transparente y tener canal humano, no prohibirse. Importa la confianza de la ciudadanía.",
+        "typicalMistake": "Creer que «puramente informativo» permite trasladar la responsabilidad al ciudadano o vendedor.",
+        "discussionQuestion": "¿Cuándo se convierte un asistente automático en una fuente fiable para la ciudadanía?",
+        "aiActConcepts": [
+          "transparencia, artículo 50",
+          "supervisión humana",
+          "responsabilidad del despliegue",
+          "chatbot público"
+        ],
+        "understandingSignal": "El jugador exige transparencia y canal humano en vez de prohibir o confiar ciegamente.",
+        "classroomUse": "Debatir servicios públicos digitales, confianza y derecho a una respuesta humana.",
+        "estimatedDebriefMinutes": 9
+      },
+      "case_procurement": {
+        "takeaway": "Comprar IA sin documentación es comprar un riesgo que no puedes controlar.",
+        "teaches": "Un certificado no compra el cumplimiento de alto riesgo. Hacen falta documentación, gobernanza y derechos de control.",
+        "typicalMistake": "Conformarse con la certificación del vendedor y renunciar a documentación, auditoría y acceso.",
+        "discussionQuestion": "¿Qué debe pedir una entidad pública antes de comprar IA?",
+        "aiActConcepts": [
+          "alto riesgo",
+          "contratación pública de IA",
+          "documentación técnica",
+          "rendición de cuentas",
+          "dependencia del proveedor"
+        ],
+        "understandingSignal": "El jugador exige documentación, derechos de auditoría y acceso y responsabilidades contractuales, no solo un certificado.",
+        "classroomUse": "Conectar gobernanza de IA y contratación real sin entrar en derecho de contratación.",
+        "estimatedDebriefMinutes": 11
+      },
+      "case_edtech": {
+        "takeaway": "Una plataforma que perfila alumnado y orienta decisiones educativas es de alto riesgo: hay que controlarla, no padecerla.",
+        "teaches": "No toda plataforma está prohibida. Si afecta a oportunidades e itinerarios, es de alto riesgo y necesita control humano efectivo.",
+        "typicalMistake": "Tratar la puntuación de riesgo como neutral y seguirla en vez del criterio docente.",
+        "discussionQuestion": "¿Cuándo se convierte una recomendación didáctica en una decisión relevante para el estudiante?",
+        "aiActConcepts": [
+          "alto riesgo, anexo III",
+          "educación",
+          "supervisión humana",
+          "minimización de datos",
+          "explicabilidad"
+        ],
+        "understandingSignal": "El jugador distingue apoyo didáctico y decisión relevante, y exige posibilidad de recurso.",
+        "classroomUse": "Reflexionar sobre perfiles, equidad y oportunidades educativas.",
+        "estimatedDebriefMinutes": 11
+      },
+      "case_gpai": {
+        "takeaway": "Lo decisivo no es el modelo general, sino controlar su uso posterior en decisiones reales.",
+        "teaches": "Un modelo general no está automáticamente prohibido ni es de alto riesgo. El riesgo depende del uso y debe controlarse en ese uso.",
+        "typicalMistake": "Creer que un aviso basta o dejar que decida sin verificación ni trazabilidad.",
+        "discussionQuestion": "¿Quién responde si se utiliza un modelo general en un proceso concreto de decisión?",
+        "aiActConcepts": [
+          "GPAI",
+          "modelo generativo",
+          "uso posterior",
+          "supervisión humana efectiva",
+          "gobernanza de datos"
+        ],
+        "understandingSignal": "El jugador distingue redactar y decidir e impone control del uso en vez de prohibir o ignorar.",
+        "classroomUse": "Debatir adopción de IA generativa en empresas y administraciones y responsabilidad del despliegue.",
+        "estimatedDebriefMinutes": 12
+      }
+    },
+    "glossary": {
+      "title": "GLOSARIO OPERATIVO",
+      "subtitle": "Entradas breves para jugar y comprender. No es un tratado.",
+      "back": "◂ ARCHIVO",
+      "whyLabel": "Por qué importa",
+      "relatedLabel": "Casos relacionados",
+      "cautionLabel": "Atención",
+      "prevButton": "◂ ANTERIOR",
+      "nextButton": "SIGUIENTE ▸",
+      "counter": "{index}/{total}",
+      "entries": {
+        "prohibited_practice": {
+          "term": "Práctica prohibida",
+          "definition": "Uso de IA incompatible con los derechos fundamentales, prohibido por el artículo 5 con independencia de auditorías o garantías.",
+          "whyItMatters": "Algunos riesgos no se controlan: se detienen.",
+          "caution": "No se prohíbe toda la IA, sino usos concretos."
+        },
+        "high_risk": {
+          "term": "Alto riesgo",
+          "definition": "Sistema que afecta a derechos, seguridad o acceso a servicios: permitido con obligaciones estrictas según el anexo III.",
+          "whyItMatters": "Hay que controlar el riesgo, no negarlo.",
+          "caution": "No significa prohibido, sino documentado, supervisado y verificable."
+        },
+        "transparency": {
+          "term": "Transparencia",
+          "definition": "Deber de hacer reconocibles la interacción con IA o los contenidos sintéticos, artículo 50.",
+          "whyItMatters": "Permite distinguir lo real de lo sintético.",
+          "caution": "Una etiqueta por sí sola no elimina el riesgo."
+        },
+        "challengeable": {
+          "term": "Recurrible",
+          "definition": "Una decisión puede ser correcta en el fondo y frágil por una justificación débil, pruebas insuficientes o responsabilidad mal atribuida.",
+          "whyItMatters": "Tener razón no basta: la orden debe sostenerse.",
+          "caution": "No significa incorrecta, sino susceptible de recurso."
+        },
+        "provider": {
+          "term": "Proveedor",
+          "definition": "Quien desarrolla o introduce el sistema de IA en el mercado.",
+          "whyItMatters": "Le corresponden obligaciones de diseño del sistema.",
+          "caution": "No responde de todo: quien lo utiliza también tiene deberes."
+        },
+        "deployer": {
+          "term": "Responsable del despliegue",
+          "definition": "Quien usa el sistema bajo su propia autoridad, por ejemplo una entidad pública.",
+          "whyItMatters": "Asume numerosas obligaciones durante el uso.",
+          "caution": "No puede trasladarlo todo al proveedor."
+        },
+        "human_oversight": {
+          "term": "Supervisión humana",
+          "definition": "Supervisión efectiva de decisiones automatizadas, no meramente formal.",
+          "whyItMatters": "Una persona que siempre sigue a la máquina no supervisa.",
+          "caution": "No basta una firma simbólica: debe poder cambiar algo."
+        },
+        "social_scoring": {
+          "term": "Puntuación social",
+          "definition": "Puntuación basada en conducta social que causa trato perjudicial en contextos ajenos o desproporcionados: prohibida.",
+          "whyItMatters": "Afecta a dignidad e igualdad.",
+          "caution": "No se prohíbe cualquier clasificación."
+        },
+        "biometrics": {
+          "term": "Biometría",
+          "definition": "Identificación remota mediante datos biométricos. En tiempo real, con fines policiales y en espacios públicos está prohibida salvo excepciones.",
+          "whyItMatters": "El espacio público no es una zona de identificación permanente.",
+          "caution": "No se prohíbe todo uso biométrico: importan finalidad y contexto."
+        },
+        "emotion_recognition": {
+          "term": "Reconocimiento de emociones",
+          "definition": "Inferencia automática de emociones. En escuela y trabajo está prohibida salvo excepciones limitadas.",
+          "whyItMatters": "Protege los espacios educativos y laborales frente a vigilancia emocional.",
+          "caution": "No se prohíbe cualquier observación de la conducta."
+        },
+        "deepfake": {
+          "term": "Ultrasuplantación",
+          "definition": "Contenido sintético que imita personas o acontecimientos reales. Debe hacerse reconocible según el artículo 50.",
+          "whyItMatters": "Defiende la confianza en la información.",
+          "caution": "No todo contenido generado por IA es ilícito."
+        },
+        "credit_welfare": {
+          "term": "Crédito y prestaciones",
+          "definition": "Evaluaciones que deciden acceso a prestaciones o servicios: pueden ser de alto riesgo o, si generalizan la vida social, puntuación social prohibida.",
+          "whyItMatters": "Es el límite entre evaluación lícita y puntuación social.",
+          "caution": "No se prohíbe toda puntuación económica."
+        },
+        "gpai": {
+          "term": "GPAI — IA de uso general",
+          "definition": "Modelos generales con obligaciones propias de transparencia y riesgo sistémico. El riesgo para usuarios depende del uso posterior concreto.",
+          "whyItMatters": "Son cada vez más centrales en el ecosistema de IA.",
+          "caution": "No todo modelo general es de alto riesgo."
+        },
+        "public_chatbot": {
+          "term": "Chatbot público",
+          "definition": "Asistente automático de una entidad que informa sobre servicios, requisitos o plazos.",
+          "whyItMatters": "Genera confianza: necesita transparencia y un canal humano.",
+          "caution": "No está prohibido: debe ser transparente y supervisado."
+        },
+        "human_escalation": {
+          "term": "Derivación a una persona",
+          "definition": "Vía efectiva para pasar de un sistema automático a una persona competente.",
+          "whyItMatters": "Sin ella, la automatización es un muro para la ciudadanía.",
+          "caution": "No exige hacerlo todo a mano, sino una puerta humana cuando sea necesaria."
+        },
+        "procurement_ai": {
+          "term": "Contratación pública de IA",
+          "definition": "La gobernanza de la IA comprada por una entidad se decide ya en la licitación y el contrato.",
+          "whyItMatters": "Quien no pide documentación y control antes no los consigue después.",
+          "caution": "Comprar IA no es ilícito: requiere garantías."
+        },
+        "technical_documentation": {
+          "term": "Documentación técnica",
+          "definition": "Información que describe sistema, datos, límites y controles, y permite verificarlo.",
+          "whyItMatters": "Sin documentación no puede explicarse ni recurrirse una decisión.",
+          "caution": "No es una pila de papeles: hace verificable el sistema."
+        },
+        "lock_in": {
+          "term": "Dependencia del proveedor",
+          "definition": "Dependencia que dificulta cambiar de sistema, acceder a datos o controlar el funcionamiento.",
+          "whyItMatters": "Reduce la capacidad de la entidad para controlar y corregir.",
+          "caution": "No todo suministro crea dependencia: importan cláusulas y derechos de acceso."
+        },
+        "adaptive_edtech": {
+          "term": "Plataforma educativa adaptativa",
+          "definition": "Sistema que crea perfiles del alumnado y adapta itinerarios, sugerencias o prioridades docentes.",
+          "whyItMatters": "Si afecta a oportunidades o evaluación, su uso es de alto riesgo.",
+          "caution": "No se prohíbe toda tecnología educativa: importa si decide o solo apoya."
+        },
+        "generative_model": {
+          "term": "Modelo generativo",
+          "definition": "Sistema que produce texto o contenido a petición. Puede equivocarse o inventar información.",
+          "whyItMatters": "Usado para decidir sin comprobar, introduce errores en actos oficiales.",
+          "caution": "No es siempre poco fiable: hay que verificarlo y controlar su uso."
+        },
+        "data_governance": {
+          "term": "Gobernanza de datos",
+          "definition": "Reglas sobre qué datos usar, conservar, quién accede y por qué, incluidas minimización y trazabilidad.",
+          "whyItMatters": "Mantiene los datos proporcionados a la finalidad y los sistemas verificables.",
+          "caution": "No significa recoger todo por si acaso, sino utilizar solo lo necesario."
+        }
+      }
+    },
+    "learningLayer": {
+      "notebook": {
+        "button": "CUADERNO",
+        "title": "CUADERNO DE INVESTIGACIÓN",
+        "intro": "Tus conclusiones reunidas: expedientes cerrados, responsables identificados, patrones confirmados y preguntas abiertas.",
+        "factsLabel": "Expedientes cerrados ({n})",
+        "factsEmpty": "Todavía no hay expedientes cerrados.",
+        "evidenceLine": "pruebas decisivas citadas: {cited}/{total}",
+        "trapSpotted": "también citaste la versión que minimizaba el problema",
+        "actorsLabel": "Quién resultó responsable",
+        "actorsEmpty": "Todavía no se ha identificado a ningún responsable.",
+        "patternsLabel": "Patrones por capítulo",
+        "patternConfirmed": "patrón confirmado",
+        "patternProgress": "{done}/{total} casos cerrados",
+        "openLabel": "Preguntas abiertas",
+        "openEmpty": "No queda nada pendiente.",
+        "openReasons": {
+          "unsure": "dijiste no estar seguro",
+          "revise": "querías revisarlo",
+          "miscalibrated": "mucha confianza y resultado con hallazgos: conviene releer"
+        },
+        "announce": "Cuaderno de investigación: {n} expedientes cerrados, {open} preguntas abiertas.",
+        "close": "Cerrar"
+      },
+      "chapters": {
+        "button": "CAPÍTULOS",
+        "title": "Capítulos del recorrido",
+        "intro": "Cuatro capítulos temáticos reúnen 11 casos. El orden es una recomendación, no un bloqueo: todos los expedientes siguen accesibles desde el mapa.",
+        "orderLabel": "Capítulo {order} de {total}",
+        "durationLabel": "~{minutes} min",
+        "completionLabel": "{done}/{total} casos cerrados",
+        "completeTag": "COMPLETO",
+        "debriefLabel": "Reflexión del capítulo",
+        "objectivesLabel": "Objetivos",
+        "close": "Cerrar",
+        "defs": {
+          "prohibited": {
+            "title": "Prácticas prohibidas",
+            "intro": "El límite que ninguna garantía subsana: puntuaciones sociales, emociones inferidas, rostros entre la multitud y crédito cívico.",
+            "debrief": "El hilo de los cuatro casos: cuando el propio funcionamiento condiciona derechos fundamentales, no basta ajustar la configuración. Hay que detenerlo."
+          },
+          "high_risk": {
+            "title": "Sistemas de alto riesgo",
+            "intro": "Permitidos con obligaciones estrictas: contratación, triaje clínico y plataformas adaptativas. Distingue prohibición de falta de control.",
+            "debrief": "El hilo de los tres casos: alto riesgo no prohíbe la tecnología. Exige datos de calidad, documentación y supervisión humana capaz de decir no."
+          },
+          "transparency": {
+            "title": "Transparencia",
+            "intro": "Contenido sintético y ventanillas automáticas: el problema es el engaño, no la tecnología. Las personas tienen derecho a saber con qué interactúan.",
+            "debrief": "El hilo de los dos casos: una etiqueta ausente parece un detalle, pero erosiona la confianza de todos en todo. Ese es el daño sistémico."
+          },
+          "governance": {
+            "title": "Gobernanza y GPAI",
+            "intro": "Contratación opaca y modelos versátiles reutilizados: casos ambiguos donde la responsabilidad se distribuye por la cadena.",
+            "debrief": "El hilo de los dos casos: comprar o reutilizar no transfiere toda la responsabilidad. La reparte por la cadena."
+          }
+        }
+      },
+      "objectives": {
+        "obj_prohibited_boundary": "Reconocer el límite de las prácticas prohibidas",
+        "obj_risk_classification": "Clasificar el riesgo de un sistema",
+        "obj_decisive_evidence": "Elegir las pruebas decisivas",
+        "obj_actor_responsibility": "Atribuir la responsabilidad correcta",
+        "obj_proportionate_measures": "Elegir medidas proporcionadas",
+        "obj_transparency_duties": "Aplicar las obligaciones de transparencia",
+        "obj_human_oversight": "Valorar la supervisión humana efectiva",
+        "obj_context_dependence": "Ponderar el contexto de uso",
+        "obj_gpai_downstream": "Controlar los usos posteriores de GPAI"
+      },
+      "confidence": {
+        "label": "Antes de firmar: ¿qué confianza tienes en tu informe?",
+        "optionalTag": "(opcional: no modifica la puntuación)",
+        "levels": {
+          "low": "poca",
+          "mid": "bastante",
+          "high": "mucha"
+        },
+        "keysHint": "Teclas 7–9",
+        "recorded": "Confianza anotada: {level}"
+      },
+      "metacognition": {
+        "label": "Calibración",
+        "line": "Confianza declarada: {confidence} · Resultado: {outcome}.",
+        "calibrated": "Confianza y resultado coinciden: buena calibración.",
+        "overconfident": "La confianza superó al resultado. Relee las pruebas decisivas en la reflexión.",
+        "underconfident": "El resultado fue mejor que la confianza declarada. Tu informe se sostuvo mejor de lo que esperabas en este caso."
+      },
+      "reflection": {
+        "label": "Reflexión opcional",
+        "prompt": "¿Resistiría tu informe un recurso?",
+        "options": {
+          "holds": "Sí, se sostiene",
+          "unsure": "No estoy seguro",
+          "revise": "Lo revisaría"
+        },
+        "thanks": "Anotado, solo en tu dispositivo."
+      },
+      "selfCheck": {
+        "titlePre": "Autoevaluación inicial",
+        "titlePost": "Autoevaluación final",
+        "buttonPre": "Autoevaluación inicial, opcional",
+        "buttonPost": "Autoevaluación final, opcional",
+        "formative": "Herramienta formativa LOCAL, no una evaluación certificada. Nunca se envía y se borra al reiniciar el juego.",
+        "questionLabel": "Pregunta {i} de {total}",
+        "skip": "Omitir",
+        "resultLine": "Respuestas correctas: {correct} de {total}.",
+        "compareLine": "Autoevaluación inicial: {correct} de {total}.",
+        "close": "Cerrar",
+        "questions": {
+          "sc_prohibited": {
+            "q": "¿Qué situación es una práctica PROHIBIDA por el Reglamento de IA?",
+            "options": [
+              "Un chatbot municipal responde preguntas sobre servicios",
+              "Una puntuación social pública condiciona el acceso a servicios",
+              "Un filtro antispam del correo electrónico"
+            ]
+          },
+          "sc_high_risk": {
+            "q": "¿Qué significa que un sistema sea de alto riesgo?",
+            "options": [
+              "Su uso está prohibido",
+              "Es experimental y no se ha probado",
+              "Está permitido, pero sujeto a obligaciones estrictas sobre datos, documentación y supervisión"
+            ]
+          },
+          "sc_transparency": {
+            "q": "Una entidad pública utiliza un chatbot. ¿Qué exige el Reglamento de IA?",
+            "options": [
+              "Que las personas sepan que interactúan con una máquina",
+              "Que se apague fuera del horario de oficina",
+              "Nada: los chatbots quedan fuera del reglamento"
+            ]
+          },
+          "sc_oversight": {
+            "q": "¿Cuándo es realmente efectiva la supervisión humana?",
+            "options": [
+              "Cuando una persona firma las decisiones del sistema",
+              "Cuando el sistema tiene mucha precisión",
+              "Cuando quien supervisa comprende el sistema y puede modificar el resultado"
+            ]
+          },
+          "sc_actor": {
+            "q": "¿Quién responde del USO correcto de IA comprada a un vendedor?",
+            "options": [
+              "Solo el vendedor que la desarrolló",
+              "También quien la utiliza, para el uso concreto",
+              "Nadie, si está certificada"
+            ]
+          },
+          "sc_context": {
+            "q": "¿Puede una misma tecnología cambiar de categoría de riesgo?",
+            "options": [
+              "Sí: depende del contexto de uso y de las personas afectadas",
+              "No: depende únicamente del algoritmo",
+              "Solo si cambia el vendedor"
+            ]
+          }
+        }
+      }
+    },
+    "a11y": {
+      "readingShow": "Texto en pantalla",
+      "readingHide": "Ocultar texto",
+      "readingNote": "Panel de solo lectura: las acciones se realizan en el juego con puntero o teclado.",
+      "mobileContinue": "Continuar de todos modos",
+      "outcomeAnnounced": "Resultado del informe: {outcome}.",
+      "mapTitle": "Mapa cívico",
+      "mapHint": "Las flechas recorren los expedientes abiertos. INTRO abre el seleccionado.",
+      "selectedCase": "Seleccionado: {name}",
+      "evidenceHint": "Teclas 1–{n}: abrir una prueba; vuelve a pulsar para citarla. INTRO continúa cuando sea posible.",
+      "evidenceCited": "citada en el informe",
+      "decisionTitle": "Decisión — {step}",
+      "reportTitle": "Informe de inspección",
+      "briefingTitle": "Información inicial",
+      "finaleTitle": "Informe final"
+    }
+  },
+  "guided": {
+    "entry": "RECORRIDO GUIADO",
+    "notebook": "NOTAS DE INVESTIGACIÓN",
+    "debrief": "REVISAR TU RAZONAMIENTO",
+    "finalDebrief": "REFLEXIÓN FINAL DEL RECORRIDO",
+    "introduction": "Antes de abrir las pruebas",
+    "argument": "Tu nota antes de firmar",
+    "privacy": "Notas opcionales en esta pestaña. Se borran al recargar o empezar otra partida. Evita nombres y datos personales.",
+    "colleague": "Se incorpora una compañera de inspección",
+    "purpose": "«Primero establece quién usa el sistema, para qué decisión y con qué consecuencias para las personas. La clasificación del riesgo ayuda a identificar qué normas, comprobaciones y medidas considerar».",
+    "categories": "Una práctica prohibida exige comprobar las condiciones de la prohibición. El alto riesgo depende de la finalidad prevista y de las obligaciones. La transparencia también abarca lo que las personas necesitan saber. Otros usos siguen exigiendo atención a las normas y los derechos aplicables.",
+    "demonstration": "«Un proveedor escribe: “Siempre revisa una persona”. Un registro muestra que quien revisa confirma decisiones sin acceder a los datos. Compara la promesa con el funcionamiento observado. ¿Qué documento ayudaría a saber si la revisión puede cambiar la decisión?»",
+    "mission": "Lee el caso y formula una hipótesis inicial. Podrás revisarla después de examinar las pruebas.",
+    "hypothesis": "Mi interpretación actual y su motivo",
+    "initial": "Mi hipótesis antes de las pruebas",
+    "evidence": "Qué fuentes relaciono y cómo sostienen o cuestionan el juicio",
+    "alternative": "Una interpretación alternativa y pruebas que permitirían distinguirla",
+    "uncertainty": "Qué falta y cómo limita una decisión que afecta a personas",
+    "reflection": "Qué mantengo o reviso después de los comentarios y por qué",
+    "reflectionPrompt": "Relee tu nota anterior al resultado. Explica qué información cambia tu interpretación o por qué la mantienes.",
+    "transferPrompt": "¿Qué comprobación de fuentes harías primero en el siguiente caso? Compara los motivos de tus elecciones con una persona facilitadora.",
+    "continue": "Ir a las pruebas",
+    "confirm": "Confirmar la nota y firmar",
+    "close": "Volver al caso",
+    "empty": "No se ha escrito ninguna nota en esta fase.",
+    "erase": "Borrar estas notas",
+    "next": "Continuar",
+    "previous": "Paso anterior",
+    "method": "MÉTODO DEL CASO",
+    "sources": "Explorar y evaluar fuentes",
+    "sourceAssessment": "¿Qué documenta esta fuente, qué intereses puede tener y qué límites reconoces?",
+    "relationTitle": "Relacionar dos fuentes",
+    "leftSource": "Primera fuente",
+    "rightSource": "Segunda fuente",
+    "relationKind": "La relación que propones",
+    "supports": "Se apoyan mutuamente",
+    "challenges": "Están en tensión",
+    "uncertain": "La relación necesita aclaración",
+    "relationReason": "¿Qué afirmación relacionas y por qué?",
+    "addRelation": "Registrar la relación",
+    "removeRelation": "Retirar la relación",
+    "relationRequired": "Elige dos fuentes distintas y explica la relación.",
+    "relationSaved": "Relación registrada en las notas de esta pestaña.",
+    "recordRevision": "Registrar esta revisión",
+    "revisionRequired": "Escribe la hipótesis y por qué la mantienes o modificas.",
+    "revisionSaved": "Revisión registrada en las notas de esta pestaña.",
+    "revisions": "Las revisiones que has explicado",
+    "revisionReason": "Qué prueba o motivo me lleva a mantener o cambiar la hipótesis",
+    "reasoning": "Cómo relaciono las pruebas con la clasificación, la medida propuesta y la responsabilidad",
+    "feedbackUse": "Qué parte de los comentarios contrasté con una prueba y qué descubrí",
+    "transferPlan": "Qué criterio usaré en otro caso y qué debo comprobar",
+    "sessionReflection": "Qué comprendí al comparar mis investigaciones",
+    "sessionTransferPlan": "Qué estrategia probaré fuera de estos casos",
+    "legalReference": "Norma e interpretación del caso",
+    "choices": "Las elecciones del informe",
+    "takeaway": "Un criterio para discutir",
+    "sourcesUnavailable": "Abre las pruebas en la escena de investigación para releerlas y evaluarlas aquí.",
+    "reread": "Releer la fuente",
+    "assessmentNote": "Estas notas apoyan la reflexión. Una persona facilitadora puede comentar contigo los motivos de tus elecciones.",
+    "openingStage": "Comprender la tarea",
+    "sourcesStage": "Preparar la investigación",
+    "hypothesisStage": "Formular una hipótesis",
+    "resume": "Volver a la decisión"
+  },
+  "inquiry": {
+    "case_scoring": {
+      "opening": "Tu compañera coloca dos solicitudes de vivienda en la mesa. «Antes de juzgar la puntuación, averigua qué decisión cambia para estas personas y qué datos se usan».",
+      "source": "¿Quién describe el funcionamiento de la puntuación y quién documenta sus efectos? Explica qué puede conocer directamente cada fuente.",
+      "relation": "Relaciona dos pruebas. ¿Los datos y efectos pertenecen al mismo contexto? Explica qué afirmación se sostiene o se cuestiona.",
+      "uncertainty": "¿Qué información ayudaría a explicar por qué una persona recibió un trato desfavorable?",
+      "debrief": "Distingue cómo funciona la puntuación y cómo se explicó la decisión. ¿Qué pregunta fundamentó tu informe?"
+    },
+    "case_lavoro": {
+      "opening": "Una candidata pregunta quién examinó su solicitud. Tu compañera propone reconstruir el camino del currículo a la decisión antes de atribuir responsabilidades.",
+      "source": "Distingue las afirmaciones del vendedor de lo que pueden observar quienes seleccionan o las personas rechazadas.",
+      "relation": "Compara dos fuentes sobre el paso de recomendación automática a decisión humana. ¿Qué muestran y qué dejan abierto?",
+      "uncertainty": "¿Qué documento mostraría si quien revisa puede cambiar realmente la decisión?",
+      "debrief": "Compara la revisión humana que imaginabas con la descrita en las pruebas. ¿Cómo afecta a tu medida?"
+    },
+    "case_media": {
+      "opening": "Una redacción cuestiona el origen de un contenido. «Antes de pedir una etiqueta, averigua qué ve el público y quién lo produjo», propone tu compañera.",
+      "source": "¿Quién puede establecer el origen? Distingue observaciones técnicas, afirmaciones editoriales e impresiones del público.",
+      "relation": "Relaciona el contenido con una fuente sobre su producción o presentación. ¿Aclara autenticidad, procedencia o comprensión del público?",
+      "uncertainty": "¿Qué detalle del uso real o del público destinatario podría cambiar tu juicio?",
+      "debrief": "Explica cómo distingues marcado técnico, información al público y fiabilidad del contenido."
+    },
+    "case_scuola": {
+      "opening": "Una docente pregunta qué dice saber el sistema sobre el alumnado. Tu compañera propone distinguir los datos recogidos de las interpretaciones atribuidas a personas.",
+      "source": "¿Qué datos sostienen cada afirmación? ¿Quién los recogió y quién interpretó la conducta del alumnado?",
+      "relation": "¿Dos documentos describen el mismo uso? Relaciona finalidad declarada, inferencia y consecuencia educativa.",
+      "uncertainty": "¿Qué detalle de finalidad o contexto permitiría valorar una interpretación alternativa?",
+      "debrief": "¿Cómo influyó en tu razonamiento distinguir la observación de conductas de la inferencia de un estado personal?"
+    },
+    "case_ospedale": {
+      "opening": "Una médica debe decidir cómo usar una recomendación. Tu compañera propone establecer su margen de intervención y las consecuencias posibles de un error.",
+      "source": "Distingue la descripción del producto de los registros de uso clínico. ¿Qué fuente muestra qué ocurre en la práctica?",
+      "relation": "Relaciona una promesa del sistema con una observación del trabajo. ¿Se refieren a la misma tarea y condiciones?",
+      "uncertainty": "¿Qué información falta sobre el uso previsto o la revisión clínica?",
+      "debrief": "Reconsidera tu propuesta según la función clínica real. ¿Cómo justificas supervisión y responsabilidad?"
+    },
+    "case_biometria": {
+      "opening": "Un operador señala una coincidencia del sistema. Tu compañera pregunta qué se compara, dónde ocurre y con qué objetivo.",
+      "source": "¿Qué fuentes describen la tecnología y cuáles a sus usuarios? ¿Una afirmación general explica también las condiciones de uso?",
+      "relation": "Compara dos fuentes sobre lugar, momento y finalidad. ¿Qué hecho distingue dos interpretaciones posibles?",
+      "uncertainty": "¿Qué autorización, condición o información sobre las personas afectadas querrías verificar?",
+      "debrief": "¿Qué condiciones concretas sostuvieron tu juicio más allá de la mera presencia de datos biométricos?"
+    },
+    "case_credito": {
+      "opening": "Una solicitud financiera se evalúa con un índice. «Rastrea el origen de los datos y su relación con la decisión», propone tu compañera.",
+      "source": "¿Qué fuente documenta los datos realmente usados? Distingue la finalidad del índice de la explicación dada a la persona.",
+      "relation": "Relaciona el origen de los datos con una consecuencia individual. ¿Por qué apoya o debilita una hipótesis?",
+      "uncertainty": "¿Qué necesitarías saber del contexto original de recogida y del motivo de una sanción?",
+      "debrief": "Explica por qué el sector o el nombre del producto no justifican por sí solos tu clasificación."
+    },
+    "case_chatbot": {
+      "opening": "Una persona relata una conversación con la ventanilla digital. Tu compañera pregunta qué pudo comprender durante la interacción.",
+      "source": "¿Qué documento muestra la experiencia de la persona usuaria? ¿Cuál describe intenciones o normas del servicio?",
+      "relation": "Compara los mensajes mostrados con las afirmaciones sobre el servicio. ¿Son comprensibles en el mismo momento de la interacción?",
+      "uncertainty": "¿Qué detalle de interfaz o momento del aviso querrías observar directamente?",
+      "debrief": "¿Qué diferencia hay entre conocer la tecnología usada y hacerla reconocible para quien interactúa?"
+    },
+    "case_procurement": {
+      "opening": "Una oficina compró un sistema a un proveedor externo. Tu compañera propone averiguar quién decide y quién conserva los documentos antes de buscar un único responsable.",
+      "source": "¿Quién redactó cada documento? ¿Qué establece un contrato y qué requiere pruebas del uso real?",
+      "relation": "Relaciona una promesa contractual con un procedimiento operativo. ¿Quién dispone de la información para comprobar su coherencia?",
+      "uncertainty": "¿Qué documento o aclaración falta sobre finalidad prevista y cadena de actores?",
+      "debrief": "¿Cómo distingues las responsabilidades de los actores más allá de que se comprara el sistema?"
+    },
+    "case_edtech": {
+      "opening": "Una estudiante recibe una evaluación vinculada a un sistema digital. Tu compañera propone distinguir apoyo al aprendizaje y decisión que afecta a su itinerario.",
+      "source": "Distingue la presentación de la plataforma de los documentos sobre evaluación, acceso y posibilidad de recurrir.",
+      "relation": "Relaciona una actividad del sistema con una consecuencia educativa. ¿Las dos fuentes describen la misma función o funciones diferentes?",
+      "uncertainty": "¿Qué información buscarías sobre el efecto de la recomendación y la revisión humana?",
+      "debrief": "¿Qué hecho distingue un apoyo opcional de un uso que influye en una decisión educativa?"
+    },
+    "case_gpai": {
+      "opening": "Un equipo incorpora un modelo general a un servicio. «Distingue lo que puede hacer el modelo de lo que el servicio le pide hacer», propone tu compañera.",
+      "source": "¿Qué fuentes describen el modelo y cuáles la aplicación? ¿Quién documenta las decisiones de integración?",
+      "relation": "Relaciona una capacidad general con un uso concreto. ¿Qué pasos intermedios necesitan pruebas antes de asignar riesgo o responsabilidad?",
+      "uncertainty": "¿Qué información falta sobre integración, finalidad y actores?",
+      "debrief": "¿Cómo cambia tu razonamiento al distinguir modelo, sistema y contexto de uso?"
+    },
+    "case_predpol": {
+      "opening": "Una alerta se asocia a un perfil individual. Tu compañera pregunta qué hechos verificables sostienen la sospecha y qué elementos son asociaciones.",
+      "source": "Distingue observaciones de hechos concretos, inferencias estadísticas y descripciones de características personales.",
+      "relation": "Relaciona dos fuentes para establecer si la conclusión se basa en hechos individuales o en una correlación. Explica el vínculo.",
+      "uncertainty": "¿Qué hecho podría apoyar o cuestionar la hipótesis sin repetir el perfil?",
+      "debrief": "¿Cómo usaste en el informe la diferencia entre predicción y prueba de hechos?"
+    },
+    "case_frodi": {
+      "opening": "Una solicitud de ayuda queda señalada para revisión. Tu compañera propone establecer qué ocurre con la persona después de la alerta.",
+      "source": "¿Qué fuente documenta la decisión sobre la prestación? ¿Cuál solo describe una predicción de irregularidad?",
+      "relation": "Relaciona el resultado automático con su revisión y efecto sobre la persona. ¿Dónde podría el procedimiento corregir un error?",
+      "uncertainty": "¿Qué información pedirías sobre revisión y posibilidad de recurrir?",
+      "debrief": "¿Cómo distingues una señal para investigar de una decisión que modifica el acceso a la ayuda?"
+    },
+    "case_bias": {
+      "opening": "Un equipo quiere comprobar si un sistema trata de modo diferente a las personas. Tu compañera pregunta qué datos son realmente necesarios y cómo se protegerán.",
+      "source": "Distingue la necesidad declarada de analizar de los documentos sobre alternativas y garantías efectivas.",
+      "relation": "Relaciona la finalidad de una auditoría con una protección concreta de los datos. ¿Documenta una condición o solo una intención?",
+      "uncertainty": "¿Qué información falta sobre acceso, reutilización, alternativas y supresión?",
+      "debrief": "¿Cómo justificas conjuntamente comprobar la discriminación y proteger los datos de las personas?"
+    }
+  }
+}

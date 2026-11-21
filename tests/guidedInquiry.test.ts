@@ -3,6 +3,7 @@ import { GuidedInquirySession } from '../src/game/systems/GuidedInquiry';
 import { GUIDED_COPY } from '../src/game/i18n/guidedInquiry';
 import { PLAYABLE_CASES } from '../src/game/data/cases';
 import { INQUIRY_CASES, INQUIRY_CASE_IDS } from '../src/game/i18n/inquiryCases';
+import { LANGUAGE_CODES } from '../src/game/i18n';
 
 describe('guided inquiry separates pre-feedback writing from reflection', () => {
   it('keeps the first hypothesis and the submitted argument while allowing later reflection', () => {
@@ -50,8 +51,8 @@ describe('guided inquiry separates pre-feedback writing from reflection', () => 
     expect(Object.keys(session.read('case_lavoro')!)).not.toContain('score');
   });
 
-  it('provides every label in all three playable languages', () => {
-    for (const language of ['it', 'en', 'fr'] as const) {
+  it('provides every label in every playable language', () => {
+    for (const language of LANGUAGE_CODES) {
       expect(Object.keys(GUIDED_COPY[language])).toEqual(Object.keys(GUIDED_COPY.it));
       for (const value of Object.values(GUIDED_COPY[language])) expect(value.length).toBeGreaterThan(5);
     }
@@ -110,7 +111,7 @@ describe('guided inquiry separates pre-feedback writing from reflection', () => 
 
   it('covers the complete catalog with contextual mediation in all playable languages', () => {
     expect([...INQUIRY_CASE_IDS].sort()).toEqual(PLAYABLE_CASES.map(data => data.id).sort());
-    for (const language of ['it', 'en', 'fr'] as const) {
+    for (const language of LANGUAGE_CODES) {
       expect(Object.keys(INQUIRY_CASES[language]).sort()).toEqual([...INQUIRY_CASE_IDS].sort());
       const openings = new Set<string>();
       for (const id of INQUIRY_CASE_IDS) {
