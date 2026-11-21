@@ -43,7 +43,10 @@ export default defineConfig({
   },
   server: {
     port: 5173,
-    host: true
+    host: true,
+    // Generated captures/downloads are not application source. On Windows,
+    // watching a Playwright download while it is being saved can raise EBUSY.
+    watch: { ignored: ['**/scripts/smoke/out/**', '**/graphify-out/**'] }
   },
   test: {
     environment: 'node',

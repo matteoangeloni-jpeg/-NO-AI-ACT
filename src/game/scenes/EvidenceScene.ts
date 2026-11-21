@@ -10,6 +10,7 @@ import { DossierCard } from '../ui/DossierCard';
 import { EvidenceCompareOverlay } from '../ui/EvidenceCompareOverlay';
 import { DESK_BOTTOM, InspectorDesk } from '../ui/InspectorDesk';
 import { NotebookOverlay } from '../ui/NotebookOverlay';
+import { inquiryActive, inquiryCopy, openGuidedInquiry } from '../ui/GuidedInquiryDialog';
 import { TOAST_HEIGHT, showToast } from '../ui/AlertToast';
 import { L, caseText, fmt } from '../i18n';
 import { ReadingLayer } from '../systems/ReadingLayer';
@@ -221,6 +222,11 @@ export class EvidenceScene extends Phaser.Scene {
     this.refreshProgressLine();
 
     this.backBtn = new Button(this, 90, GAME_HEIGHT - 36, L().ui.case.backToMap, () => this.scene.start('CityMap'), { width: 140, height: 36, fontSize: 12, variant: 'ghost' });
+    if (inquiryActive(this.caseData.id) && !StateManager.isReviewing) {
+      new Button(this, cx, GAME_HEIGHT - 36, inquiryCopy().notebook, () => {
+        if (!this.hasOpenOverlay()) openGuidedInquiry(this, this.caseData.id, 'investigation');
+      }, { width: 330, height: 36, fontSize: 12, variant: 'ghost' });
+    }
     // ESC chiude prima lo strumento aperto, altrimenti lascia il fascicolo.
     this.input.keyboard?.on('keydown-ESC', () => {
       if (this.contextOverlay.isOpen) this.contextOverlay.close();

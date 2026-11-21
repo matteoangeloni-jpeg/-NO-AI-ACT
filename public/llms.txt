@@ -10,7 +10,7 @@
 > to be governed, or compliant). It is an educational simulation about
 > algorithmic risk governance — not legal advice.
 
-- Version: v4.0.0
+- Version: v5.0.0
 - Status: published web version; tagged-release history is listed separately below.
 - Game languages: Italian, English and French.
 - Website languages: Italian, English and French; 16 introductory, practical and press resources each in German, Spanish and European Portuguese (pt-PT), including classroom workshops and recruitment cases. Press kits exist in all six website languages. New website languages do not imply a translated game or the full educational hub.
@@ -19,6 +19,14 @@
 - 14 playable cases; 155 indexable website URLs (33 IT, 37 EN, 37 FR, 16 DE, 16 ES, 16 PT).
 - Every public page shares a global navigation (Play · Education/Resources · Teachers · AI Act guide · Glossary · Privacy · language switch); the game and the education hub are reachable from every page, and the game links back to the site.
 - Best entry points: the home and education hub in the reader's language. Detailed lesson-plan and reference coverage varies by locale.
+
+## Guided inquiry in V5
+
+- All 14 cases offer optional case-specific mediation, source assessments, explained relations and hypothesis revisions.
+- A free argument is fixed before feedback; later reflection and final debrief stay distinct.
+- Guided notes are temporary in the tab and are excluded from saves, exports and analytics.
+- Study 02 is a separate local research tool, not included in the public game; rubrics and transfer tasks are preliminary.
+- Technical coverage does not establish educational effectiveness or critical-thinking competence.
 
 ## Key facts and limitations
 
@@ -136,7 +144,7 @@
 ## Project links
 
 - GitHub repository: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT
-- Last tagged release: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v2.2.0 (published 2026-09-16; recorded audio, keyboard access, adaptive resolution)
+- Last tagged release: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.0.0 (tagged 2026-11-21; guided inquiry and independent study tools)
 - Project brief: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/NO_AI_ACT_PROJECT_BRIEF.md
 - Teacher quick start: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/TEACHER_QUICK_START.md
 - Legal disclaimer: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/LEGAL_DISCLAIMER.md

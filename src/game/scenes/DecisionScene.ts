@@ -10,6 +10,8 @@ import { Button } from '../ui/Button';
 import { CaseContextOverlay } from '../ui/CaseContextOverlay';
 import { CaseNormOverlay } from '../ui/CaseNormOverlay';
 import { EvidenceCompareOverlay } from '../ui/EvidenceCompareOverlay';
+import { inquiryActive, inquiryCopy, openGuidedInquiry } from '../ui/GuidedInquiryDialog';
+import { GuidedInquiry } from '../systems/GuidedInquiry';
 import { InspectorDesk } from '../ui/InspectorDesk';
 import { NotebookOverlay } from '../ui/NotebookOverlay';
 import { NormCardView } from '../ui/NormCard';
@@ -198,6 +200,10 @@ export class DecisionScene extends Phaser.Scene {
       summary: () => this.showSummaryStep()
     };
     builders[this.resumeStep()]();
+    if (!StateManager.isReviewing && inquiryActive(this.caseData.id) && GuidedInquiry.needsDecisionSupport(this.caseData.id)) {
+      GuidedInquiry.acknowledgeDecisionSupport(this.caseData.id);
+      openGuidedInquiry(this, this.caseData.id, 'method');
+    }
   }
 
   private citedEvidenceReading(): { heading: string; items: string[] } {
@@ -260,8 +266,10 @@ export class DecisionScene extends Phaser.Scene {
   }
 
   private header(step: string, question: string, sidebar = true): void {
-    this.guideBtn = new Button(this, GAME_WIDTH - 190, GAME_HEIGHT - 36, L().gameplay.guide,
-      () => openInvestigationGuide(this, this.caseData.id, this.motivation === null ? 3 : 4),
+    const guided = inquiryActive(this.caseData.id) && !StateManager.isReviewing;
+    this.guideBtn = new Button(this, GAME_WIDTH - 190, GAME_HEIGHT - 36, guided ? inquiryCopy().method : L().gameplay.guide,
+      () => guided ? openGuidedInquiry(this, this.caseData.id, 'investigation')
+        : openInvestigationGuide(this, this.caseData.id, this.motivation === null ? 3 : 4),
       { width: 340, height: 36, fontSize: 12, variant: 'ghost' });
     // strato di lettura (§11.1): passo corrente e domanda, a ogni transizione
     // Il ritorno al passo precedente è annunciato qui e non nei tasti in
@@ -655,6 +663,10 @@ export class DecisionScene extends Phaser.Scene {
   private sign(): void {
     if (this.resolved) return;
     if (this.classification === null || this.measure === null || this.subject === null || this.motivation === null) return;
+    if (inquiryActive(this.caseData.id) && !StateManager.isReviewing) {
+      openGuidedInquiry(this, this.caseData.id, 'argument', () => this.resolve(this.motivation!));
+      return;
+    }
     this.resolve(this.motivation);
   }
 

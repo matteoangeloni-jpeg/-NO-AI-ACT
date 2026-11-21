@@ -21,6 +21,9 @@ function walk(dir: string): string[] {
   for (const e of readdirSync(resolve(root, dir))) {
     if (SKIP.has(e)) continue;
     const rel = dir === '.' ? e : join(dir, e);
+    // Local browser captures and synthetic downloads are not shipped source.
+    // Scanning the growing artifact tree both misstates coverage and can time out.
+    if (rel.replace(/\\/g, '/') === 'scripts/smoke/out') continue;
     if (statSync(resolve(root, rel)).isDirectory()) out.push(...walk(rel));
     else if (SHIPPED_EXT.test(rel)) out.push(rel.replace(/\\/g, '/'));
   }

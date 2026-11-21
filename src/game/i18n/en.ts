@@ -481,7 +481,7 @@ export const en: Locale = {
       learningReport: 'LEARNING REPORT ▸',
       privacyNote: {
         title: 'Privacy: everything stays in your browser',
-        text: 'This version embeds no external forms and collects no feedback or data: answers, reports and progress never leave your device.'
+        text: 'This version embeds no external forms. Answers, reports, progress and notes stay on your device; aggregate usage counters exclude free text and player identifiers.'
       }
     },
     debrief: {

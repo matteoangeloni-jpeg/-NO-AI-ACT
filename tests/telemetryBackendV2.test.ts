@@ -70,7 +70,7 @@ describe('telemetry schema v2 backend', () => {
     expect(response.headers.get('X-Game-Version')).toBe(ANALYTICS_GAME_VERSION);
     const text = await response.text();
     expect(text).toContain('telemetry_schema_version');
-    expect(text).toContain('"2","4.0.0"');
+    expect(text).toContain(`"2","${ANALYTICS_GAME_VERSION}"`);
     expect(text).not.toContain('undefined');
   });
 

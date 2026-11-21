@@ -40,7 +40,8 @@ export function prepareBeta(directory, { usage = false } = {}) {
   for (const name of ['sitemap.xml', 'sitemap-it.xml', 'sitemap-en.xml', 'sitemap-fr.xml', 'CNAME', 'llms.txt', 'llms-full.txt']) {
     const file = join(root, name); if (existsSync(file)) unlinkSync(file);
   }
-  copyFileSync('src/beta/shell.js', join(root, 'beta-shell.js'));
+  const version = JSON.parse(readFileSync('package.json', 'utf8')).version;
+  writeFileSync(join(root, 'beta-shell.js'), readFileSync('src/beta/shell.js', 'utf8').replaceAll('__NO_AI_ACT_VERSION__', version));
   copyFileSync('src/beta/shell.css', join(root, 'beta-shell.css'));
   copyFileSync('public/game-statistics.html', join(root, 'beta-statistics.html'));
   writeFileSync(join(root, 'robots.txt'), 'User-agent: *\nDisallow: /\n');

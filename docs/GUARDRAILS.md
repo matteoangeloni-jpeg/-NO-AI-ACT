@@ -143,10 +143,15 @@ Each smoke honours `BASE` (default `http://localhost:4200`) and
 `CHROMIUM_PATH` (to use a system Chromium instead of Playwright's download).
 
 These smokes are **enforced in CI**: `.github/workflows/deploy.yml` installs
-Chromium (`npx playwright install --with-deps chromium`) and runs
-`npm run smoke:all` after `verify:dist` and **before** the Pages artifact is
-uploaded — a smoke failure fails the workflow and blocks deployment.
-`tests/ciReproducibility.test.ts` guards this wiring.
+Chromium and partitions the complete catalog into `core`, `layout`, `visual`
+and `mobile` on independent runners. Each group runs sequentially after build
+and `verify:dist`. `SMOKE_GROUP` selects a group; an omitted value runs the
+entire catalog locally. Unknown groups or an incomplete/duplicate partition
+fail closed. `fail-fast: false` lets every group complete.
+
+Only `core` uploads the Pages artifact after its smoke gate. Deployment depends
+on the entire build matrix, so every group must succeed before publication.
+`tests/ciReproducibility.test.ts` guards the complete partition and this wiring.
 
 ## Before a feature PR — checklist
 1. `npm run typecheck` — clean.

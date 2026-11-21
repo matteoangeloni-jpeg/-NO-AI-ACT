@@ -559,7 +559,7 @@ export const fr = {
       learningReport: "RAPPORT D'APPRENTISSAGE ▸",
       privacyNote: {
         title: 'Confidentialité : tout reste dans votre navigateur',
-        text: "Cette version n'intègre aucun module externe et ne collecte ni retours ni données : réponses, rapports et progression ne quittent jamais votre appareil."
+        text: "Cette version n’intègre aucun module externe. Réponses, rapports, progression et notes restent sur l’appareil ; les compteurs agrégés excluent les textes libres et les identifiants des joueurs."
       }
     },
     debrief: {

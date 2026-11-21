@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { SITE_LANGUAGE_CODES } from './lib-inventory';
 import { CASES } from '../src/game/data/cases';
+import { ANALYTICS_GAME_VERSION, ANALYTICS_GAME_VERSIONS, validatePayload } from '../src/game/systems/analyticsSchema';
 
 /**
  * RELEASE-METADATA CONSISTENCY GUARD.
@@ -22,6 +23,17 @@ const readme = read('README.md');
 const llms = read('public/llms.txt');
 
 describe('release.config.json agrees with the executable source', () => {
+  it('labels aggregate counters with this release and accepts existing clients', () => {
+    expect(ANALYTICS_GAME_VERSION).toBe(pkg.version);
+    for (const gameVersion of ['4.0-candidate', '4.0.0', pkg.version]) {
+      expect(ANALYTICS_GAME_VERSIONS).toContain(gameVersion);
+      expect(validatePayload({ schemaVersion: 2, gameVersion, event: 'game_started',
+        properties: { language: 'it', mode: 'turno', phase: 'menu' } })).toBe(true);
+    }
+    expect(validatePayload({ schemaVersion: 2, gameVersion: 'unregistered-version', event: 'game_started',
+      properties: { language: 'it', mode: 'turno', phase: 'menu' } })).toBe(false);
+  });
+
   it('playableCases equals the real CASES data', () => {
     expect(cfg.playableCases).toBe(CASES.length);
   });
@@ -78,6 +90,13 @@ describe('documentation derives from the source of truth (no drift)', () => {
 
   it('llms.txt version line matches package.json', () => {
     expect(llms).toContain(`- Version: v${pkg.version}`);
+  });
+
+  it('the software citation identifies the actual version and release date', () => {
+    const citation = read('CITATION.cff');
+    expect(citation).toContain(`version: ${pkg.version}`);
+    expect(citation).toContain(`date-released: "${cfg.releaseDate}"`);
+    expect(citation).toContain('Italian, English and French');
   });
 
   it('README case count matches the data', () => {

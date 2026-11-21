@@ -4,6 +4,8 @@ import { buildSessionSummary, type SessionSummaryData } from '../systems/Session
 import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
 import { SelfCheckOverlay } from '../ui/SelfCheckOverlay';
+import { inquiryCopy, openGuidedInquiry } from '../ui/GuidedInquiryDialog';
+import { GuidedInquiry } from '../systems/GuidedInquiry';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { AnalyticsSystem } from '../systems/AnalyticsSystem';
 import { L, caseText, fmt, normText } from '../i18n';
@@ -186,6 +188,11 @@ export class SessionEndScene extends Phaser.Scene {
       [StateManager.isReviewing ? L().gameplay.exitReview : ui.toMap, () => fadeOutScene(this, 250, () => this.scene.start('CityMap'))],
       [ui.learningReport, () => fadeOutScene(this, 250, () => this.scene.start('LearningReport'))]
     ];
+    inquiryCopy();
+    const guidedCase = GuidedInquiry.caseIds().find(id => GuidedInquiry.submitted(id));
+    if (guidedCase) {
+      actions.push([inquiryCopy().finalDebrief, () => openGuidedInquiry(this, guidedCase, 'session')]);
+    }
     if (StateManager.teacherMode) {
       actions.push([ui.debrief, () => fadeOutScene(this, 250, () => this.scene.start('Debrief'))]);
     }

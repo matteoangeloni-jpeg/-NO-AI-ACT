@@ -1,6 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+// @ts-expect-error Shared Node smoke runner module.
+import { SMOKE_GROUPS, selectSmokes } from '../scripts/smoke/smoke-groups.mjs';
 
 /**
  * CI-REPRODUCIBILITY GUARD.
@@ -33,6 +35,19 @@ describe('browser smokes are reproducible from a clean clone', () => {
    */
   const orchestrator = read('scripts/smoke/run-all.mjs');
   const declaredSmokes = [...orchestrator.matchAll(/'([a-z-]+-smoke\.mjs)'/g)].map((m) => m[1]);
+
+  it('CI groups cover the entire local smoke catalog exactly once', () => {
+    const partition = Object.keys(SMOKE_GROUPS).flatMap(group => selectSmokes(declaredSmokes, group));
+    expect(partition.sort()).toEqual([...declaredSmokes].sort());
+    expect(new Set(partition).size).toBe(declaredSmokes.length);
+    expect(selectSmokes(declaredSmokes)).toEqual(declaredSmokes);
+  });
+
+  it('rejects unknown groups and any newly unmapped smoke instead of skipping tests', () => {
+    expect(() => selectSmokes(declaredSmokes, 'unknown')).toThrow('Unknown smoke group');
+    expect(() => selectSmokes([...declaredSmokes, 'new-smoke.mjs'])).toThrow('complete catalog exactly once');
+    expect(() => selectSmokes(declaredSmokes.slice(1))).toThrow('complete catalog exactly once');
+  });
 
   it('l\'orchestratore dichiara almeno gli smoke storici', () => {
     expect(declaredSmokes.length, 'nessuno smoke dichiarato in run-all.mjs?').toBeGreaterThanOrEqual(3);
@@ -72,6 +87,14 @@ describe('browser smokes are reproducible from a clean clone', () => {
 });
 
 describe('the Pages workflow actually enforces the browser smokes', () => {
+  it('runs every group and waits for the complete build matrix before deployment', () => {
+    const groups = workflow.match(/smoke_group:\s*\[([^\]]+)\]/)?.[1].split(',').map(s => s.trim()).sort();
+    expect(groups).toEqual(Object.keys(SMOKE_GROUPS).sort());
+    expect(workflow).toMatch(/fail-fast:\s*false/);
+    expect(workflow).toContain('SMOKE_GROUP: ${{ matrix.smoke_group }}');
+    expect(workflow).toMatch(/deploy:[\s\S]*?needs:\s*build/);
+    expect(workflow).toMatch(/upload-pages-artifact@v3\s+if: matrix\.smoke_group == 'core'/);
+  });
   it('installs the Playwright Chromium browser after npm ci', () => {
     expect(workflow).toMatch(/playwright install[^\n]*chromium/);
     expect(workflow.indexOf('npm ci')).toBeLessThan(workflow.search(/playwright install[^\n]*chromium/));

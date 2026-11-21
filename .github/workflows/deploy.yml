@@ -27,6 +27,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        smoke_group: [core, layout, visual, mobile]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -54,10 +58,20 @@ jobs:
           sudo rm -f /etc/apt/sources.list.d/google-chrome.list \
                      /etc/apt/sources.list.d/google-chrome.sources
           npx playwright install --with-deps chromium
+      - name: V5 guided inquiry browser gate
+        run: npm run smoke:guided-inquiry
+        env:
+          INQUIRY_ONLY: en-390
+      - name: Independent study lab and production exclusion gate
+        run: npm run smoke:study02
       - name: Browser smoke tests (gameplay, keyboard, layout)
         run: npm run smoke:all
+        env:
+          SMOKE_GROUP: ${{ matrix.smoke_group }}
       - uses: actions/configure-pages@v5
+        if: matrix.smoke_group == 'core'
       - uses: actions/upload-pages-artifact@v3
+        if: matrix.smoke_group == 'core'
         with:
           path: dist
 

@@ -1,4 +1,5 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { EU_EDITORIAL_OVERRIDES } from '../../src/site/eu-editorial-overrides.mjs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'parse5';
@@ -101,7 +102,7 @@ ${page.links?'':`  <section aria-labelledby="related-title"><div class="wrap"><h
   <script type="module" src="/src/scripts/nav.ts"></script>
 ${id==='home'?'  <script type="module" src="/src/scripts/press-carousel.ts"></script>':''}
 </body></html>\n`;
-    write(file(dir),html);
+    write(file(dir), EU_EDITORIAL_OVERRIDES[dir]?.replaceAll('__GAME_VERSION__', version) ?? html);
   }
 }
 
