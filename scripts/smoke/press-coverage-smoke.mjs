@@ -29,7 +29,14 @@ try {
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
       const track = section.locator('.press-track');
       await section.scrollIntoViewIfNeeded();
-      await page.waitForFunction(() => [...document.querySelectorAll('.press-media img')].every(img => img.complete && img.naturalWidth > 0));
+      // Lazy images outside the horizontal viewport load only when reached.
+      // Visit every card before checking the complete carousel asset inventory.
+      for (const image of await section.locator('.press-media img').all()) {
+        await image.scrollIntoViewIfNeeded();
+        await page.waitForFunction(img => img.complete && img.naturalWidth > 0, await image.elementHandle());
+      }
+      await track.focus(); await page.keyboard.press('Home');
+      await page.waitForFunction(() => document.getElementById('press-track').scrollLeft <= 3);
       assert.equal(await section.locator('.press-media img').count(), PRESS_COVERAGE.length);
       assert(await section.locator('.press-media img').evaluateAll(imgs => imgs.every(img => {
         const url = new URL(img.currentSrc); return url.origin === location.origin && url.pathname.startsWith('/assets/press/');
