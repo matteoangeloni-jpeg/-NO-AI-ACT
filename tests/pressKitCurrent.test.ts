@@ -15,6 +15,13 @@ describe('public press kit freshness', () => {
       expect(html).toContain('id="coverage-title"');
     } else expect(html).toContain('section-11');
     expect(html).toContain('/game-statistics.html#');
+    expect(html).toMatch(new RegExp(`<td>v?${version.replace(/\./g, '\\.')}</td>`));
+    // Search/social descriptions and table captions must identify the same
+    // current release as the factsheet; archived screenshot versions may differ.
+    for (const [, description] of html.matchAll(/<meta (?:name="description"|property="og:description"|name="twitter:description") content="([^"]+)"/g)) {
+      for (const [label] of description.matchAll(/NO AI ACT \d+(?:\.\d+){1,2}/g)) expect(label).toBe(`NO AI ACT ${version}`);
+    }
+    for (const [, captionVersion] of html.matchAll(/<caption>NO AI ACT (\d+(?:\.\d+){1,2})<\/caption>/g)) expect(captionVersion).toBe(version);
     expect(html).toContain('Global Privacy Control');
     expect(html).not.toMatch(/press candidate|candidate presse|Candidature presse|nessuna telemetria|no gameplay telemetry|ni télémétrie/);
     expect(html).toContain(`/assets/press/no-ai-act-v${screenshotVersion}-press-screenshots.zip`);
