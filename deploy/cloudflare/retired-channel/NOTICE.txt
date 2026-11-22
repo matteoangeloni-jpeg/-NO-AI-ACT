@@ -1,0 +1,2 @@
+Public preview channel retired. Use https://www.no-ai-act.eu/play/.
+This deployment contains no playable game or player data.

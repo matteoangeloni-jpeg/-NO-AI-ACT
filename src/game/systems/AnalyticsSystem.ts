@@ -3,6 +3,7 @@ import { ANALYTICS_SCHEMA_VERSION, ANALYTICS_GAME_VERSION, ANALYTICS_LIMITS, EVE
   type AnalyticsContext, type AnalyticsPhase, type AnalyticsPayload, type AnalyticsAggregate,
   type AnalyticsProperties, type AnalyticsEvent, type AnalyticsResult } from './analyticsSchema';
 import { usagePayload } from '../../../analytics/beta-usage';
+import { PRODUCTION_USAGE_ENDPOINT, LEGACY_USAGE_ENDPOINT } from '../../../analytics/endpoints';
 export { ANALYTICS_EVENTS, ALLOWED_PROPERTIES, sanitizeProperties } from './analyticsSchema';
 export type { AnalyticsEvent, AnalyticsProperties, AllowedProperty } from './analyticsSchema';
 
@@ -23,10 +24,10 @@ export interface AnalyticsConfig {
 }
 export type AnalyticsTransport = (url: string, body: Record<string, unknown>) => void | Promise<void>;
 const { cells: MAX_CELLS, count: MAX_COUNT } = ANALYTICS_LIMITS;
-const BETA_USAGE_ENDPOINT = 'https://beta.no-ai-act.eu/collect';
-const PUBLIC_USAGE_ENDPOINT = BETA_USAGE_ENDPOINT;
+const BETA_USAGE_ENDPOINT = LEGACY_USAGE_ENDPOINT;
+const PUBLIC_USAGE_ENDPOINT = PRODUCTION_USAGE_ENDPOINT;
 function endpoint(config: AnalyticsConfig): string | undefined {
-  if (config.provider === 'first-party') return config.origin === 'https://www.no-ai-act.eu' ? PUBLIC_USAGE_ENDPOINT : BETA_USAGE_ENDPOINT;
+  if (config.provider === 'first-party') return config.origin === 'https://www.no-ai-act.eu' && config.approvedEndpoints?.includes(PUBLIC_USAGE_ENDPOINT) ? PUBLIC_USAGE_ENDPOINT : BETA_USAGE_ENDPOINT;
   if (config.provider === 'plausible') return 'https://plausible.io/api/event';
   if (config.provider !== 'umami' || !config.umamiScriptUrl) return;
   try {
@@ -306,19 +307,7 @@ function envConfig(): AnalyticsConfig {
     releaseChannel: env.VITE_RELEASE_CHANNEL as string | undefined,
     origin: typeof location === 'undefined' ? undefined : location.origin,
     ...(env.VITE_ANALYTICS_PROVIDER === 'first-party' && ['beta', 'production'].includes(env.VITE_RELEASE_CHANNEL as string)
-      ? { remoteApproved: true, approvedEndpoints: [BETA_USAGE_ENDPOINT, PUBLIC_USAGE_ENDPOINT], collectionMode: 'automatic' as const }
+      ? { remoteApproved: true, approvedEndpoints: env.VITE_RELEASE_CHANNEL === 'production' ? [PUBLIC_USAGE_ENDPOINT] : [BETA_USAGE_ENDPOINT], collectionMode: 'automatic' as const }
       : { remoteApproved: false, approvedEndpoints: [] }) };
 }
 export const AnalyticsSystem = new Analytics(envConfig());
-export function betaUsagePrivacyNote(language: string): string | undefined {
-  if (import.meta.env.VITE_ANALYTICS_PROVIDER !== 'first-party') return;
-  const words: Record<string, string> = {
-    it: 'Salvataggi e risposte restano sul dispositivo. Sono attive statistiche aggregate su utilizzo e categorie di valutazione del gioco, senza nomi, testo libero o sequenze dettagliate; puoi disattivarle nella barra Informativa statistiche.',
-    en: 'Saves and answers stay on your device. Aggregate statistics cover usage and game-assessment categories, without names, free text or detailed sequences; you can disable them in the statistics notice bar.',
-    fr: 'Sauvegardes et reponses restent sur votre appareil. Les statistiques agregees couvrent l usage et les categories d evaluation du jeu, sans noms, texte libre ni sequences detaillees ; vous pouvez les desactiver dans la barre de confidentialite.',
-    de: 'Spielstände und Antworten bleiben auf Ihrem Gerät. Die aggregierte Statistik erfasst Nutzung und Bewertungskategorien des Spiels, ohne Namen, Freitexte oder detaillierte Abläufe. Sie können sie in der Statistikleiste deaktivieren.',
-    es: 'Las partidas guardadas y las respuestas permanecen en tu dispositivo. Las estadísticas agregadas cubren el uso y las categorías de evaluación del juego, sin nombres, texto libre ni secuencias detalladas. Puedes desactivarlas en la barra de estadísticas.',
-    pt: 'As gravações e respostas ficam no seu dispositivo. As estatísticas agregadas abrangem a utilização e as categorias de avaliação do jogo, sem nomes, texto livre ou sequências detalhadas. Pode desativá-las na barra de estatísticas.'
-  };
-  return words[language] ?? words.it;
-}

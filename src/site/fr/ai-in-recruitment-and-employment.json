@@ -1,7 +1,7 @@
 {
   "en": "en/ai-in-recruitment-and-employment",
   "slug": "ia-recrutement-emploi",
-  "sourceHash": "c8f7cb686299141b65356924ed5f94283bd5a2fdc0d940ba3a4c95ed6e4a0f5a",
+  "sourceHash": "7498a5df96d4923d371d742b8de975ebb769a14a2c9927ca02dee84b232d352f",
   "title": "IA, recrutement et emploi : risques et règles | NO AI ACT",
   "description": "Distinguer pratiques interdites et haut risque dans le recrutement et l'emploi : émotions, tri des candidatures, contrôle humain et responsabilités.",
   "blocks": [
@@ -25,7 +25,7 @@
     "Systèmes d'IA à haut risque",
     "<span class=\"num\">06</span>Sources officielles et transparence",
     "<strong>Responsabilité des contenus :</strong> projet NO AI ACT (Matteo Angeloni) ; révision éditoriale interne, sans révision juridique externe.",
-    "<strong>Publication de la source :</strong> juillet 2026 · <strong>Révision de la source :</strong> juillet 2026 (site v5.2.1) · Traduction française : octobre 2026.",
+    "<strong>Publication de la source :</strong> juillet 2026 · <strong>Révision de la source :</strong> juillet 2026 (site v5.2.2) · Traduction française : octobre 2026.",
     "<strong>Sources officielles :</strong> <a href=\"https://eur-lex.europa.eu/eli/reg/2024/1689/oj\">règlement (UE) 2024/1689 sur EUR-Lex</a> (article 5, paragraphe 1, point f ; annexe III, point 4 ; chapitre III) ; <a href=\"https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai\">cadre européen de réglementation de l'IA</a> ; <a href=\"https://digital-strategy.ec.europa.eu/en/policies/ai-office\">Bureau européen de l'IA</a>.",
     "<strong>Cas associés :</strong> « L'entretien qui n'a jamais eu lieu » (recrutement), « La classe observée » (surveillance), « Le crédit civique » (notation).",
     "<strong>Ressources enseignantes :</strong> <a href=\"../ai-act-for-teachers/\">AI Act pour les enseignants</a>, <a href=\"../classroom-activities/\">activités</a>, <a href=\"../ai-act-classroom-lab/\">atelier en classe</a>.",
