@@ -25,7 +25,7 @@ const llms = read('public/llms.txt');
 describe('release.config.json agrees with the executable source', () => {
   it('labels aggregate counters with this release and accepts existing clients', () => {
     expect(ANALYTICS_GAME_VERSION).toBe(pkg.version);
-    for (const gameVersion of ['4.0-candidate', '4.0.0', '5.0.0', '5.0.1', pkg.version]) {
+    for (const gameVersion of ['4.0-candidate', '4.0.0', '5.0.0', '5.0.1', '5.1.0', '5.2.0', pkg.version]) {
       expect(ANALYTICS_GAME_VERSIONS).toContain(gameVersion);
       expect(validatePayload({ schemaVersion: 2, gameVersion, event: 'game_started',
         properties: { language: 'it', mode: 'turno', phase: 'menu' } })).toBe(true);

@@ -10,6 +10,8 @@ Soltanto dopo il consenso di un maggiorenne: sessione casuale della scheda,
 versione, produzione/beta, lingua/modalità iniziali, difficoltà, percorso e
 pubblico scelti; eventi con UUID, sequenza, tentativo, caso, fase, ora dichiarata
 dal client, tempo trascorso e ora di ricezione sul server.
+È incluso il budget di minuti scelto per il percorso; non è il tempo realmente
+trascorso. La versione della sessione è quella iniziale.
 
 | Azione | Registro | Limite interpretativo |
 |---|---|---|
@@ -67,6 +69,13 @@ contatti sulle pagine autore. Cloudflare fornisce Workers/D1 e tratta metadati
 di connessione per erogazione e sicurezza. Il database esistente è configurato
 nella giurisdizione UE; questo non garantisce anonimato o assenza di trasferimenti
 dell’intera infrastruttura. [Informativa nelle sei lingue](https://www.no-ai-act.eu/game-statistics.html).
+
+La finalità è correggere e migliorare il percorso di gioco e i supporti
+formativi. La finestra di 90 giorni permette confronti tra iterazioni senza
+un archivio individuale indefinito. Il consenso non autorizza raccolte estranee
+o sproporzionate: EDPB 05/2020, paragrafo 5, mantiene necessità, proporzionalità
+e principi dell’articolo 5. Non si estende il registro a navigazione esterna,
+identificazione nominativa, fingerprinting o dati sensibili richiesti al giocatore.
 
 ## Contratto tecnico
 

@@ -1,7 +1,7 @@
 {
   "en": "en/ai-act-application-timeline",
   "slug": "calendrier-application-ai-act",
-  "sourceHash": "a74136141e8272186121d371c7978675c1c02404ed9b811d49f16a27091c4337",
+  "sourceHash": "d557ca028a918701ea4de1bfc822c4264f3af37e99752678aad9bd06631fd289",
   "title": "Calendrier d'application de l'AI Act | NO AI ACT",
   "description": "Entrée en vigueur et application de l'AI Act : étapes de 2024 à 2030, transparence, modèles à usage général et haut risque après le Digital Omnibus.",
   "blocks": [
@@ -47,7 +47,7 @@
     "Guide de l'AI Act",
     "<span class=\"num\">05</span>Sources officielles et transparence",
     "<strong>Responsabilité :</strong> projet NO AI ACT (Matteo Angeloni), révision éditoriale interne sans révision juridique externe.",
-    "<strong>Publication de la source :</strong> juillet 2026 · <strong>Révision de la source :</strong> septembre 2026 (v5.2.0) · Traduction : octobre 2026.",
+    "<strong>Publication de la source :</strong> juillet 2026 · <strong>Révision de la source :</strong> septembre 2026 (v5.2.1) · Traduction : octobre 2026.",
     "<strong>Sources :</strong> <a href=\"https://eur-lex.europa.eu/eli/reg/2024/1689/oj\">règlement (UE) 2024/1689</a> (article 113 ; articles 4 et 5 ; chapitres III et V), <a href=\"https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai\">cadre de la Commission</a> et <a href=\"https://digital-strategy.ec.europa.eu/en/policies/ai-office\">Bureau de l'IA</a>.",
     "<strong>Cas associés :</strong> « La ville des scores » (interdictions), « Le modèle qui fait tout » (usage général), « Le triage invisible » (haut risque).",
     "<strong>Supports :</strong> <a href=\"../lesson-plan-introduction-to-the-ai-act/\">séance introductive</a>, <a href=\"../ai-act-classroom-lab/\">atelier</a>, <a href=\"../glossary/\">glossaire</a>.",

@@ -12,6 +12,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { resolve, join, relative } from 'node:path';
 import { execSync } from 'node:child_process';
 import { publicRoutes, publishedLanguages } from '../../src/site/route-inventory.mjs';
+import { parse } from 'parse5';
 
 const root = process.cwd();
 const dist = resolve(root, 'dist');
@@ -164,6 +165,17 @@ try {
 // --- mojibake guard: never ship double-encoded / botched-dash text ---
 const MOJIBAKE = /Ã[\x80-\xbf]|â€|Â[\x80-\xbf]|"”|�/;
 const htmlFiles = files.filter((f) => f.endsWith('.html'));
+const htmlStructureFailures=[];
+for(const file of htmlFiles){
+  const raw=readFileSync(file,'utf8'),doc=parse(raw),all=[];
+  const visit=node=>{all.push(node);for(const child of node.childNodes??[])visit(child);};visit(doc);
+  const head=all.find(node=>node.tagName==='head'),inside=new Set();
+  const collect=node=>{inside.add(node);for(const child of node.childNodes??[])collect(child);};if(head)collect(head);
+  const outside=all.some(node=>{const a=Object.fromEntries((node.attrs??[]).map(a=>[a.name,a.value]));return(node.tagName==='title'||node.tagName==='meta'&&(a.charset||a.name||a.property)||node.tagName==='link'&&a.rel==='canonical')&&!inside.has(node);});
+  if(doc.mode!=='no-quirks'||raw.includes('\ufeff')||outside)htmlStructureFailures.push(relative(dist,file));
+}
+if(htmlStructureFailures.length)fail.push(`invalid document mode or metadata outside head: ${htmlStructureFailures.join(', ')}`);
+console.log(`  standards-mode HTML with metadata in head: ${htmlFiles.length-htmlStructureFailures.length}/${htmlFiles.length}`);
 const corrupt = htmlFiles.filter((f) => MOJIBAKE.test(readFileSync(f, 'utf8')));
 console.log(`  mojibake-free HTML: ${htmlFiles.length - corrupt.length}/${htmlFiles.length}`);
 if (corrupt.length) fail.push(`mojibake in dist HTML: ${corrupt.map((f) => relative(dist, f)).slice(0, 5).join(', ')}${corrupt.length > 5 ? ' …' : ''}`);

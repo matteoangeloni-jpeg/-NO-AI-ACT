@@ -9,7 +9,7 @@ function table(headers){const t=node('table'),head=node('thead'),tr=node('tr');f
 function save(data,name){const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})),a=node('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 function render(){
  list.replaceChildren();if(!rows.length){list.append(node('p','Nessuna sessione consensuale ricevuta nel periodo selezionato. Questo non equivale a nessun giocatore.'));return;}
- const {t,body}=table(['Inizio','Sessione','Versione / canale','Lingua / modalità','Eventi ricevuti','Testi autorizzati']);
+ const {t,body}=table(['Inizio','Sessione','Versione iniziale / canale','Lingua / modalità','Eventi ricevuti','Testi autorizzati']);
  for(const session of rows){const tr=node('tr');tr.append(node('td',date(session.created_at)));const cell=node('td'),open=node('button',session.id);open.type='button';open.addEventListener('click',()=>{void inspect(session.id);});cell.append(open);tr.append(cell,node('td',`${session.game_version} / ${session.channel}`),node('td',`${session.language} / ${session.mode}`),node('td',String(session.event_count)),node('td',session.qualitative?'Sì':'No'));body.append(tr);}list.append(t);
 }
 async function load(append=false){

@@ -1,7 +1,7 @@
 {
   "en": "en/how-to-cite",
   "slug": "comment-citer",
-  "sourceHash": "e58e5407f7bea50ad77a048e5ef46fb6dde37392f07b850309b62ecc8a88b0a9",
+  "sourceHash": "b7bc6e9b3b4345b04f7559f667769dc9e3a280e93c2a82456a0c084e894fea63",
   "title": "Comment citer NO AI ACT : APA, BibTeX et licences",
   "description": "Citer NO AI ACT dans une recherche ou un travail pédagogique : formats APA et BibTeX, version exacte, CITATION.cff, licences et limites méthodologiques.",
   "blocks": [
@@ -10,10 +10,10 @@
     "Si vous utilisez NO AI ACT dans un mémoire, un article, une étude en classe ou un travail dérivé, cette page fournit les formats de citation. Indiquez toujours la <strong>version exacte</strong> utilisée : le jeu évolue et les cas peuvent changer.",
     "<span class=\"num\">01</span>Citation APA",
     "Format APA (7e édition) pour un logiciel :",
-    "<code>Angeloni, M. (2026). <em>NO AI ACT — Simulatore di una società non regolata</em> (Version 5.2.0) [Logiciel]. https://www.no-ai-act.eu/</code>",
-    "Remplacez « 5.2.0 » par la version effectivement utilisée, indiquée dans le pied de page, sur l'écran titre du jeu et dans le fichier <code>package.json</code> du dépôt.",
+    "<code>Angeloni, M. (2026). <em>NO AI ACT — Simulatore di una società non regolata</em> (Version 5.2.1) [Logiciel]. https://www.no-ai-act.eu/</code>",
+    "Remplacez « 5.2.1 » par la version effectivement utilisée, indiquée dans le pied de page, sur l'écran titre du jeu et dans le fichier <code>package.json</code> du dépôt.",
     "<span class=\"num\">02</span>BibTeX",
-    "<code>@software{angeloni_no_ai_act_2026,\n  author = {Angeloni, Matteo},\n  title = {NO AI ACT --- Simulatore di una societ{\\`a} non regolata},\n  year = {2026},\n  version = {5.2.0},\n  url = {https://www.no-ai-act.eu/},\n  note = {Code source : https://github.com/matteoangeloni-jpeg/-NO-AI-ACT. Code sous GPL-3.0 ; contenus pédagogiques sous CC BY-SA 4.0.}\n}</code>",
+    "<code>@software{angeloni_no_ai_act_2026,\n  author = {Angeloni, Matteo},\n  title = {NO AI ACT --- Simulatore di una societ{\\`a} non regolata},\n  year = {2026},\n  version = {5.2.1},\n  url = {https://www.no-ai-act.eu/},\n  note = {Code source : https://github.com/matteoangeloni-jpeg/-NO-AI-ACT. Code sous GPL-3.0 ; contenus pédagogiques sous CC BY-SA 4.0.}\n}</code>",
     "<span class=\"num\">03</span>Pourquoi la version exacte compte",
     "<strong>Reproductibilité</strong> : cas, textes et règles d'évaluation sont associés à une version. Une étude doit pouvoir retrouver exactement ce qu'ont vu ses participants.",
     "<strong>Où la trouver</strong> : pied de page, <code>package.json</code> et versions étiquetées dans <a href=\"https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases\">GitHub Releases</a>.",
