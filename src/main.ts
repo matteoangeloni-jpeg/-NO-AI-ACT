@@ -58,7 +58,7 @@ const game = new Phaser.Game(gameConfig);
 sessionJournal.setContextProvider(() => {
   const scene=game.scene.getScenes(true)[0], data=scene?.sys.settings.data as {caseId?:string}|undefined;
   return {language:StateManager.language,mode:StateManager.gameMode,phase:phaseForScene(scene?.sys.settings.key??'Title'),
-    caseId:data?.caseId,difficulty:StateManager.difficulty,mission:StateManager.mission,audience:StateManager.audience};
+    caseId:data?.caseId,difficulty:StateManager.difficulty,mission:StateManager.mission,audience:StateManager.audience,sessionMinutes:StateManager.sessionMinutes};
 });
 AnalyticsSystem.setRawObserver(payload=>sessionJournal.observe(payload));
 sessionJournal.restore();

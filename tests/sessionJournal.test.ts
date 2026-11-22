@@ -20,7 +20,7 @@ function fixture(){
   return Response.json({session:{id:grant.sessionId},events:[]});
  });
  const config={enabled:true,endpoint:'https://beta.no-ai-act.eu/collect/v3',storage,fetch:send as typeof fetch,now:()=>now,privacyBlocked:()=>blocked};
- const create=()=>{const j=new SessionJournal(config);j.setContextProvider(()=>({language:'it',mode:'turno',phase:'evidence',caseId:'case_scoring',difficulty:'standard',mission:'full',audience:'casual'}));return j;};
+ const create=()=>{const j=new SessionJournal(config);j.setContextProvider(()=>({language:'it',mode:'turno',phase:'evidence',caseId:'case_scoring',difficulty:'standard',mission:'full',audience:'casual',sessionMinutes:30}));return j;};
  return {journal:create(),create,grant,calls,storage,map,send,advance:(n:number)=>{now+=n;},block:()=>{blocked=true;},fail:(v=true)=>{fail=v;},partial:()=>{partial=true;}};
 }
 const sent=(f:ReturnType<typeof fixture>)=>f.calls.filter(c=>c.operation==='events').flatMap(c=>c.body.events as JournalEvent[]);
@@ -32,7 +32,7 @@ describe('explicit adult session consent and independent writing consent',()=>{
  it('creates a session only after the grant and never adds writing without the separate permission',async()=>{
   const f=fixture();expect(await f.journal.start(true,false)).toBe(true);f.journal.recordWriting('case_scoring','argument',{hypothesis:'PRIVATE NOTE'});
   f.journal.record('draft_changed',{classification:'alto_rischio',email:'private@example.invalid',citedClues:[0,2]});expect(await f.journal.flush()).toBe(true);
-  expect(sent(f).some(e=>e.type==='draft_changed'&&e.properties.classification==='alto_rischio')).toBe(true);expect(JSON.stringify(sent(f))).not.toMatch(/PRIVATE NOTE|email|example.invalid/);
+  expect(sent(f).some(e=>e.type==='draft_changed'&&e.properties.classification==='alto_rischio'&&e.properties.sessionMinutes===30)).toBe(true);expect(JSON.stringify(sent(f))).not.toMatch(/PRIVATE NOTE|email|example.invalid/);
   expect(f.calls[0].body).toMatchObject({adultConfirmed:true,qualitative:false,policyVersion:JOURNAL_POLICY,gameVersion:ANALYTICS_GAME_VERSION});
  });
  it('shares bounded field snapshots rather than keystrokes and carries the event context',async()=>{

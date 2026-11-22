@@ -5,7 +5,7 @@ import { isCaseId, type AnalyticsPayload } from './analyticsSchema';
 import packageMetadata from '../../../package.json';
 
 export interface JournalStorage { getItem(key:string):string|null;setItem(key:string,value:string):void;removeItem(key:string):void; }
-export interface JournalMetadata extends JournalContext { difficulty:string;mission:string;audience:string; }
+export interface JournalMetadata extends JournalContext { difficulty:string;mission:string;audience:string;sessionMinutes?:number; }
 interface Grant {sessionId:string;token:string;policyVersion:string;qualitative:boolean;createdAt:number;activeUntil:number;expiresAt:number;}
 interface Persisted {grant:Grant;queue:JournalEvent[];seq:number;revoking:boolean;attempts:Record<string,string>;closed:string[];}
 export interface JournalConfig {
@@ -104,7 +104,7 @@ export class SessionJournal {
    if(caseId&&!this.attempts[caseId])this.attempts[caseId]=this.uuid();
    const event:JournalEvent={id:this.uuid(),seq:this.seq+1,type,at:this.clock(),elapsedMs:Math.max(0,Math.min(86400000,Math.floor(this.clock()-this.grant!.createdAt))),
     language:current.language,mode:current.mode,phase:current.phase,...(caseId?{caseId,attemptId:this.attempts[caseId]}:{}),
-    properties:cleanJournalProperties({difficulty:current.difficulty,mission:current.mission,audience:current.audience,...properties})};
+    properties:cleanJournalProperties({difficulty:current.difficulty,mission:current.mission,audience:current.audience,sessionMinutes:current.sessionMinutes,...properties})};
    if(writing&&this.qualitative&&journalWriting(writing))event.writing={...writing};
    if(!validJournalEvent(event)||bytes(event)>JOURNAL_BATCH_BYTES-512)return;
    if(bytes(this.queue)+bytes(event)>1400000){this.change('limit','queue_limit');return;}

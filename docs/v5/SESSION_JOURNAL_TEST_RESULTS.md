@@ -34,3 +34,11 @@ GitHub e nel dossier locale della pubblicazione. I controlli tecnici non
 dimostrano efficacia educativa, validità della rubrica, equivalenza linguistica
 specialistica o consegna completa di tutti gli eventi. Il dialogo non è stato
 collaudato con browser e tecnologie assistive reali in questa release.
+
+## Correzione V5.2.1
+
+La verifica online ha individuato un BOM serializzato nel corpo del documento di gioco, che rimuoveva il doctype e spostava i metadati fuori dalla testa. Il difetto è corretto. Aggiunti due test DOM sull’intero inventario e un controllo nel gate del dist: 157/157 documenti compilati sono ora in modalità standard con i metadati nella testa.
+
+La produzione del progetto beta usa il ramo beta; main crea una preview. Il comando beta:publish controlla versione, commit e stato dell’artefatto e imposta il ramo corretto. Tre test verificano questo percorso.
+
+Suite completa: **1.630 test superati, 102 file**. Build, typecheck e verifica dist superati. I client V5.2.0 rimangono accettati, i salvataggi non cambiano e non viene ruotata la chiave di cifratura. Nessun test browser.

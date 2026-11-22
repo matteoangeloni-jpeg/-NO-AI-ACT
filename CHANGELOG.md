@@ -1,5 +1,14 @@
 # CHANGELOG — NO AI ACT
 
+## [5.2.1] — 2026-11-22
+
+- Ripristinati doctype e metadati nella testa del documento di gioco dopo una
+  regressione di serializzazione del BOM; aggiunti controlli DOM alla suite e al dist.
+- Pubblicazione beta vincolata al ramo di produzione beta e all’artefatto verificato.
+- Registro dettagliato, sei lingue e client precedenti V5.2.0 mantenuti; nessuna
+  nuova raccolta identificativa e nessun test browser.
+
+
 ## [5.2.0] — 2026-11-22
 
 - Registro delle singole sessioni con consenso 18+, testi con consenso separato,
