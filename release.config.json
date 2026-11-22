@@ -5,8 +5,8 @@
   "tagline_en": "Simulator of an unregulated society",
   "domain": "https://www.no-ai-act.eu",
   "repository": "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT",
-  "versionTag": "v5.2.1",
-  "lastTaggedRelease": "v5.2.1",
+  "versionTag": "v5.2.2",
+  "lastTaggedRelease": "v5.2.2",
   "contentLastReviewed": "2026-11-22",
   "languages": [
     "it",
@@ -60,10 +60,11 @@
   ],
   "optionalAnalyticsEndpoints": {
     "betaUsage": "https://beta.no-ai-act.eu/collect",
-    "note": "Approved first-party counters and separately consented adult session journal; preview and local recording remain off. See game-statistics.html.",
+    "note": "Production service on telemetry.no-ai-act.eu; the retired beta collection address remains compatible with existing clients and private receipts. Public beta game publication is blocked.",
     "plausible": "https://plausible.io/api/event",
-    "publicUsage": "https://beta.no-ai-act.eu/collect",
-    "sessionJournal": "https://beta.no-ai-act.eu/collect/v3"
+    "publicUsage": "https://telemetry.no-ai-act.eu/collect",
+    "sessionJournal": "https://telemetry.no-ai-act.eu/collect/v3",
+    "legacySessionJournal": "https://beta.no-ai-act.eu/collect/v3"
   },
   "siteLanguages": [
     "it",
@@ -74,5 +75,11 @@
     "pt"
   ],
   "releaseDate": "2026-11-22",
-  "pressScreenshotVersion": "5.0.0"
+  "pressScreenshotVersion": "5.0.0",
+  "publicChannels": {
+    "production": "https://www.no-ai-act.eu/play/",
+    "retired": [
+      "https://beta.no-ai-act.eu/"
+    ]
+  }
 }

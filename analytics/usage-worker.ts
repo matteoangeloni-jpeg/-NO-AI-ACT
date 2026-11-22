@@ -1,10 +1,11 @@
 import { handle } from './worker';
 import type { Env } from './types';
+import { PRODUCTION_COLLECTOR_ORIGIN,LEGACY_COLLECTOR_ORIGIN } from './endpoints';
 
 export default {
   fetch(request: Request, env: Env): Promise<Response> | Response {
     const url = new URL(request.url);
-    if (url.hostname !== 'beta.no-ai-act.eu' || (url.pathname !== '/collect' && !url.pathname.startsWith('/collect/v3/'))) {
+    if (![new URL(PRODUCTION_COLLECTOR_ORIGIN).hostname,new URL(LEGACY_COLLECTOR_ORIGIN).hostname].includes(url.hostname) || (url.pathname !== '/collect' && !url.pathname.startsWith('/collect/v3/'))) {
       return new Response(null, { status: 404, headers: { 'Cache-Control': 'no-store' } });
     }
     const origin = request.headers.get('Origin');

@@ -3,12 +3,14 @@ import {readFileSync,mkdirSync,existsSync,copyFileSync} from 'node:fs';
 import {resolve,dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {execFileSync,spawnSync} from 'node:child_process';
+export function assertBetaPublicationEnabled(){throw new Error('Public beta retired. Publish the production site only.');}
 export function validateBetaArtifact(manifest,version,head){
  if(manifest.channel!=='beta'||manifest.gameVersion!==version||manifest.commit!==head||manifest.dirty!==false)throw new Error('Rebuild the beta from the clean release commit.');
  if(manifest.sessionJournal?.mode!=='adult-opt-in'||manifest.sessionJournal?.writing!=='separate-opt-in')throw new Error('Build the public beta with BETA_USAGE_COLLECTION=true.');
 }
 export function betaDeploymentArgs(directory,head){return ['pages','deploy',directory,'--project-name','no-ai-act-beta','--branch','beta','--commit-hash',head,'--commit-dirty=false'];}
 function main(){
+ assertBetaPublicationEnabled();
  const root=resolve(dirname(fileURLToPath(import.meta.url)),'../..'),head=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();
  const manifest=JSON.parse(readFileSync(resolve(root,'dist-beta/beta-release.json'),'utf8')),version=JSON.parse(readFileSync(resolve(root,'package.json'),'utf8')).version;
  validateBetaArtifact(manifest,version,head);

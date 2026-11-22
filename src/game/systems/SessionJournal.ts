@@ -3,13 +3,14 @@ import { cleanJournalProperties, JOURNAL_ACTIVE_HOURS, JOURNAL_BATCH_BYTES, JOUR
   type JournalContext, type JournalEvent, type JournalStart } from '../../../analytics/journal-schema';
 import { isCaseId, type AnalyticsPayload } from './analyticsSchema';
 import packageMetadata from '../../../package.json';
+import {PRODUCTION_JOURNAL_ENDPOINT,LEGACY_JOURNAL_ENDPOINT,LEGACY_COLLECTOR_ORIGIN} from '../../../analytics/endpoints';
 
 export interface JournalStorage { getItem(key:string):string|null;setItem(key:string,value:string):void;removeItem(key:string):void; }
 export interface JournalMetadata extends JournalContext { difficulty:string;mission:string;audience:string;sessionMinutes?:number; }
 interface Grant {sessionId:string;token:string;policyVersion:string;qualitative:boolean;createdAt:number;activeUntil:number;expiresAt:number;}
 interface Persisted {grant:Grant;queue:JournalEvent[];seq:number;revoking:boolean;attempts:Record<string,string>;closed:string[];}
 export interface JournalConfig {
- enabled:boolean;endpoint:string;storage?:JournalStorage;storageKey?:string;privacyBlocked?:()=>boolean;
+ enabled:boolean;endpoint:string;receiptEndpoints?:readonly string[];storage?:JournalStorage;storageKey?:string;privacyBlocked?:()=>boolean;
  now?:()=>number;uuid?:()=>string;fetch?:typeof fetch;notify?:()=>void;
 }
 export type JournalStatus='off'|'ready'|'recording'|'pending'|'retry'|'revoking'|'deleted'|'expired'|'limit'|'blocked';
@@ -173,7 +174,7 @@ export class SessionJournal {
  recoverReceipt(value:unknown):boolean{
   if(this.active||this.revoking||!value||typeof value!=='object')return false;
   const receipt=value as Record<string,unknown>;
-  if(receipt.privateReceipt!==true||receipt.endpoint!==this.config.endpoint||!journalUuid(receipt.sessionId)||!journalToken(receipt.token)
+  if(receipt.privateReceipt!==true||(receipt.endpoint!==this.config.endpoint&&!this.config.receiptEndpoints?.includes(String(receipt.endpoint)))||!journalUuid(receipt.sessionId)||!journalToken(receipt.token)
    ||receipt.policyVersion!==JOURNAL_POLICY||typeof receipt.expiresAt!=='number'||receipt.expiresAt<=this.clock())return false;
   this.grant={sessionId:receipt.sessionId,token:receipt.token,expiresAt:receipt.expiresAt,createdAt:0,activeUntil:0,qualitative:false,policyVersion:JOURNAL_POLICY};
   this.queue=[];this.seq=0;this.persist();this.change('expired');return true;
@@ -197,11 +198,11 @@ export function phaseForScene(scene:string):string{
 }
 function defaultConfig():JournalConfig{
  const env=import.meta.env??{},origin=typeof location==='undefined'?'':location.origin;
- const endpoint='https://beta.no-ai-act.eu/collect/v3';
+ const endpoint=PRODUCTION_JOURNAL_ENDPOINT;
  const enabled=env.VITE_SESSION_JOURNAL==='true'&&((env.VITE_RELEASE_CHANNEL==='production'&&origin==='https://www.no-ai-act.eu')
-  ||(env.VITE_RELEASE_CHANNEL==='beta'&&origin===new URL(endpoint).origin));
+  ||(env.VITE_RELEASE_CHANNEL==='beta'&&origin===LEGACY_COLLECTOR_ORIGIN));
  let storage:JournalStorage|undefined;try{if(typeof sessionStorage!=='undefined')storage=sessionStorage;}catch{/* browser storage denied */}
- return {enabled,endpoint,storage,storageKey:`no-ai-act-${String(env.VITE_RELEASE_CHANNEL)}-session-journal-v3`,
+ return {enabled,endpoint,receiptEndpoints:[LEGACY_JOURNAL_ENDPOINT],storage,storageKey:`no-ai-act-${String(env.VITE_RELEASE_CHANNEL)}-session-journal-v3`,
   privacyBlocked:()=>typeof navigator!=='undefined'&&(navigator.doNotTrack==='1'||(navigator as Navigator&{globalPrivacyControl?:boolean}).globalPrivacyControl===true),
   notify:()=>{if(typeof document!=='undefined')document.dispatchEvent(new CustomEvent('session-journal-status'));}};
 }

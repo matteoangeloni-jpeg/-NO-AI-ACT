@@ -42,3 +42,7 @@ La verifica online ha individuato un BOM serializzato nel corpo del documento di
 La produzione del progetto beta usa il ramo beta; main crea una preview. Il comando beta:publish controlla versione, commit e stato dell’artefatto e imposta il ramo corretto. Tre test verificano questo percorso.
 
 Suite completa: **1.630 test superati, 102 file**. Build, typecheck e verifica dist superati. I client V5.2.0 rimangono accettati, i salvataggi non cambiano e non viene ruotata la chiave di cifratura. Nessun test browser.
+
+## Canale unico V5.2.2
+
+Suite locale: **1.635 test superati, 103 file**. Cinque nuove verifiche coprono il redirect del canale ritirato, il blocco preventivo della pubblicazione beta, l’endpoint neutro, la separazione dalle API amministrative e l’importazione delle ricevute precedenti senza riprendere la registrazione. Typecheck del gioco e del Worker superati; audit SEO di 155 URL senza avvisi. Il primo tentativo della suite ha incontrato un percorso temporaneo incompatibile nel sandbox Windows; l’esecuzione completa è riuscita usando una directory temporanea del progetto. Nessun test smoke o browser.

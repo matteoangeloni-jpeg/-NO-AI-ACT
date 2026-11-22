@@ -1,7 +1,7 @@
 {
   "en": "en/press-kit",
   "slug": "dossier-de-presse",
-  "sourceHash": "7f93f0b27deaff828450b93c7428c78fa3bccdc9f2269649662432bf4b0fc5e7",
+  "sourceHash": "3c86dd4849d604a9f70e52250fc75986a444582caa4ac5de49dc91906737e43c",
   "title": "Dossier de presse NO AI ACT : textes, images et crédits",
   "description": "Présenter NO AI ACT : descriptions, fiche du jeu, biographie, captures Full HD, licences, crédits et déclaration sur la production audio avec ElevenLabs.",
   "attributes": {
@@ -10,7 +10,7 @@
   "blocks": [
     "Médias · Institutions · Lettres d'information",
     "Dossier de presse",
-    "Ressources officielles pour présenter NO AI ACT : descriptions, fiche du projet, images, crédits et références. <strong>Version publique v5.2.1</strong>. Dossier mis à jour le <time datetime=\"2026-11-22\">22 novembre 2026</time>. Textes et images du dossier réutilisables sous CC BY 4.0.",
+    "Ressources officielles pour présenter NO AI ACT : descriptions, fiche du projet, images, crédits et références. <strong>Version publique v5.2.2</strong>. Dossier mis à jour le <time datetime=\"2026-11-22\">22 novembre 2026</time>. Textes et images du dossier réutilisables sous CC BY 4.0.",
     "<span class=\"num\">01</span>Description courte",
     "<code>NO AI ACT est un serious game gratuit et open source sur l'AI Act européen. Sans compte, dans le navigateur, les joueurs enquêtent sur 14 systèmes d'IA d'une ville fictive non réglementée, examinent les preuves et classent les risques. Versions italienne, anglaise, française, allemande, espagnole et portugaise européenne.</code>",
     "<span class=\"num\">02</span>Description moyenne",
@@ -25,7 +25,7 @@
     "Nature",
     "Serious game d'enquête sur l'AI Act européen, dans le navigateur",
     "Version actuelle",
-    "v5.2.1",
+    "v5.2.2",
     "Statut",
     "Version publique jouable sur le site ; la version web n'implique pas une étiquette GitHub",
     "Genre",
@@ -57,7 +57,7 @@
     "Public",
     "Lycée, université, formation professionnelle, apprentissage autonome",
     "<span class=\"num\">05</span>Images, logo et captures",
-    "Images officielles réutilisables sous <strong>CC BY 4.0</strong>, avec attribution à « NO AI ACT — Matteo Angeloni ». Captures de la version 5.0.0 prises dans l'interface italienne ; cette archive de la publication initiale est conservée dans la correction 5.2.1. Textes alternatifs proposés :",
+    "Images officielles réutilisables sous <strong>CC BY 4.0</strong>, avec attribution à « NO AI ACT — Matteo Angeloni ». Captures de la version 5.0.0 prises dans l'interface italienne ; cette archive de la publication initiale est conservée dans la correction 5.2.2. Textes alternatifs proposés :",
     "<a href=\"/assets/social/no-ai-act-en-og.png\">Couverture anglaise (PNG 1200 × 630)</a> : « Couverture NO AI ACT, serious game pédagogique gratuit sur l'AI Act européen. »",
     "<a href=\"/assets/social/no-ai-act-og.png\">Couverture italienne (PNG 1200 × 630)</a> : « Couverture italienne de NO AI ACT. »",
     "<a href=\"/assets/social/no-ai-act-play-og.png\">Couverture du jeu (PNG 1200 × 630)</a> : « NO AI ACT, enquête jouable sur l'AI Act européen. »",

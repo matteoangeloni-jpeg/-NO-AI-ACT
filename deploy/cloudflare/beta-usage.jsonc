@@ -5,11 +5,11 @@
   "compatibility_date": "2026-10-01",
   "workers_dev": false,
   "preview_urls": false,
-  "routes": [{ "pattern": "beta.no-ai-act.eu/collect*", "zone_name": "no-ai-act.eu" }],
+  "routes": [{ "pattern": "beta.no-ai-act.eu/collect*", "zone_name": "no-ai-act.eu" }, {"pattern":"telemetry.no-ai-act.eu","custom_domain":true}],
   "observability": { "enabled": false },
   "vars": {
     "COLLECTION_ENABLED": "true", "USAGE_ONLY": "true", "DATA_CLASSIFICATION": "observed", "JOURNAL_ENABLED":"true",
-    "ALLOWED_ORIGIN": "https://beta.no-ai-act.eu", "COLLECTION_HOST": "beta.no-ai-act.eu",
+    "ALLOWED_ORIGIN": "https://www.no-ai-act.eu", "COLLECTION_HOST": "telemetry.no-ai-act.eu",
     "ADMIN_HOST": "insights.no-ai-act.eu"
   },
   "d1_databases": [{ "binding": "DB", "database_name": "no-ai-act-player-insights", "database_id": "f933794c-4df5-437f-88dd-3fc36da6b362", "migrations_dir": "../../analytics/migrations" }],

@@ -7,7 +7,7 @@ resta documentato nel dossier storico V5.0. Non cambia il protocollo Study 02.
 ## Evidenze disponibili
 
 Soltanto dopo il consenso di un maggiorenne: sessione casuale della scheda,
-versione, produzione/beta, lingua/modalità iniziali, difficoltà, percorso e
+versione, canale (produzione; beta nello storico), lingua/modalità iniziali, difficoltà, percorso e
 pubblico scelti; eventi con UUID, sequenza, tentativo, caso, fase, ora dichiarata
 dal client, tempo trascorso e ora di ricezione sul server.
 È incluso il budget di minuti scelto per il percorso; non è il tempo realmente
@@ -79,8 +79,8 @@ identificazione nominativa, fingerprinting o dati sensibili richiesti al giocato
 
 ## Contratto tecnico
 
-`/collect/v3/start`, `/events`, `/export`, `/revoke` sul collector esistente.
-Origin stabile/beta, POST JSON limitati, niente credenziali negli URL, niente
+`https://telemetry.no-ai-act.eu/collect/v3/start`, `/events`, `/export`, `/revoke` sul medesimo collector di produzione. Il precedente host `beta.no-ai-act.eu` mantiene soltanto la compatibilità API e le ricevute già scaricate; il gioco beta è ritirato e reindirizza allo stabile. Nessuna migrazione o cancellazione dei dati.
+Origin stabile e storico, POST JSON limitati, niente credenziali negli URL, niente
 cookie, logging dei payload disabilitato. La migrazione 0007 aggiunge quattro
 tabelle senza riscrivere i contatori precedenti. La credenziale privata ha solo
 un hash nel database. `JOURNAL_TEXT_KEY` rimane fuori dal codice, identico sui
