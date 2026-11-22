@@ -43,7 +43,7 @@ export const en: Locale = {
       language: 'LANGUAGE: ENGLISH',
       teacherOn: 'TEACHER MODE: ON',
       teacherOff: 'TEACHER MODE: OFF',
-      teacherScope: 'Local debrief: no classes, no accounts, no server.',
+      teacherScope: "The teacher report is local; manage the optional record in the game bar.",
       resetDone: 'Save data cleared.',
       teachers: 'TEACHERS & CLASSROOM',
       resources: 'RESOURCES',
@@ -52,12 +52,12 @@ export const en: Locale = {
     },
     titleGroups: {
       settingsTitle: 'Settings',
-      settingsPrivacy: 'Save data and preferences stay in your browser only: no account, nothing is sent anywhere.',
+      settingsPrivacy: "Local saves and optional aggregate statistics. Only with adult consent: a session record for 90 days; guided-path text requires separate consent. Withdraw, erase or export from the game bar.",
       teachersTitle: 'Teachers & classroom',
       classPreset: 'READY FOR THE CLASSROOM \u25b8',
       classPresetDone: 'Teacher mode on, text shown instantly.',
-      classPresetNote: 'Turns on the discussion pauses after each case and shows text without waiting. It adds no timer and compares no groups: the game does not measure your time and no data leaves the device.',
-      teachersNote: 'Teacher mode: discussion pauses after each case and a local debrief at the end. Classroom use: 20–40 minutes, no accounts, no data collected.',
+      classPresetNote: "Enables discussion pauses after each case and displays text immediately. No timer or group comparison. The optional session record requires consent in the game bar.",
+      teachersNote: "The teacher report is local; manage the optional record in the game bar.",
       resourcesTitle: 'Resources',
       resourcesNote: 'In-game archive and glossary, plus the site guides (new tab).',
       close: 'CLOSE'
@@ -176,7 +176,7 @@ export const en: Locale = {
     teacherGuide: {
       button: 'TEACHER GUIDE ▸',
       title: 'Using NO AI ACT in class',
-      intro: 'A suggested three-step structure. No accounts, no student data: everything stays local.',
+      intro: "The teacher report is local; manage the optional record in the game bar.",
       beforeTitle: 'Before the lesson',
       beforeText: 'Play one case yourself, pick the path (demo, lab or full) and set 2–3 objectives. The ready-made activities and the introductory lesson plan below give the AI Act framing before playing.',
       duringTitle: 'During',
@@ -485,13 +485,13 @@ export const en: Locale = {
       debrief: 'TEACHER DEBRIEF ▸',
       learningReport: 'LEARNING REPORT ▸',
       privacyNote: {
-        title: 'Privacy: everything stays in your browser',
-        text: 'This version embeds no external forms. Answers, reports, progress and notes stay on your device; aggregate usage counters exclude free text and player identifiers.'
+        title: "Session record",
+        text: "Local saves and optional aggregate statistics. Only with adult consent: a session record for 90 days; guided-path text requires separate consent. Withdraw, erase or export from the game bar."
       }
     },
     debrief: {
       title: 'TEACHER DEBRIEF — LOCAL REPORT',
-      subtitle: 'Local debrief support. It does not create classes, track students, or send results to a server.',
+      subtitle: "The teacher report is local; manage the optional record in the game bar.",
       casesLabel: 'CASES AND REPORTS',
       caseLine: '{title} — outcome: {outcome}',
       mainErrorLine: 'finding: {error}',
@@ -515,7 +515,7 @@ export const en: Locale = {
       notCompleted: 'case not completed',
       missionLine: 'Mission: {mission}',
       difficultyLine: 'Difficulty: {difficulty}',
-      privacyNote: 'The data shown stays on this device. Any export is local and does not include names, emails, class, or school.',
+      privacyNote: "The teacher report is local; manage the optional record in the game bar.",
       recommendedHeader: 'RECOMMENDED PATHS',
       recommendedLine: '{name} · {duration} · {goal}'
     },

@@ -7,10 +7,10 @@ import { resolveProvider } from '../src/game/systems/AnalyticsSystem';
 /**
  * PRIVACY / TELEMETRY GUARDRAILS (v1.x) — must hold through v1.2.
  *
- * The game sends nothing: no analytics in production, no direct network
- * primitives in game code (the single approved abstraction is
- * AnalyticsSystem, which resolves to `off` in production), and the only
- * external boundary is the voluntary, user-initiated Tally playtest form.
+ * The approved boundaries are aggregate counters and the separately consented
+ * adult session journal. Other game modules cannot open network transports.
+ * No external form service is embedded. Journal consent, writing scope and
+ * erasure are exercised against real SQLite in journalWorker.test.ts.
  */
 
 const root = resolve(__dirname, '..');
@@ -53,7 +53,7 @@ describe('no network primitives in game code outside the analytics abstraction',
    * scarica roba NOSTRA, dalla nostra origine. Il test subito dopo lo
    * verifica; senza quello questa eccezione sarebbe un buco.
    */
-  const NETWORK_EXCEPTIONS = ['systems/AnalyticsSystem.ts', 'systems/audioBank.ts'];
+  const NETWORK_EXCEPTIONS = ['systems/AnalyticsSystem.ts', 'systems/SessionJournal.ts', 'systems/audioBank.ts'];
 
   it('no fetch / XHR / sendBeacon / WebSocket / EventSource in src/game (except the named exceptions)', () => {
     const banned = /\bfetch\s*\(|XMLHttpRequest|sendBeacon|new WebSocket|new EventSource|navigator\.sendBeacon/;

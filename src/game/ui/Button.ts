@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { AudioSystem } from '../systems/AudioSystem';
 import { COLORS, COLOR_STR, textStyle } from './theme';
 import { ActionLayer, type ActionOwner, type ActionSource } from './ActionLayer';
+import { sessionJournal, phaseForScene } from '../systems/SessionJournal';
 
 export interface ButtonOptions {
   accessibleLabel?: string;
@@ -42,7 +43,14 @@ export class Button extends Phaser.GameObjects.Container implements ActionOwner 
       disabled: options.disabled ?? false
     };
     this.enabled = !this.opts.disabled;
-    this.onClick = onClick;
+    this.onClick = () => {
+      if(sessionJournal.active){
+        const key=scene.sys.settings.key;
+        const caseId=(scene.sys.settings.data as {caseId?:string}|undefined)?.caseId;
+        sessionJournal.record('ui_action',{scene:key,action:this.opts.accessibleLabel||this.label.text},{phase:phaseForScene(key),caseId});
+      }
+      onClick();
+    };
 
     const { width, height } = this.opts;
     this.bg = scene.add.rectangle(0, 0, width, height, this.fillColor(), 1);

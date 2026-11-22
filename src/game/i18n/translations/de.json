@@ -79,7 +79,7 @@
         "language": "SPRACHE: DEUTSCH",
         "teacherOn": "LEHRMODUS: EIN",
         "teacherOff": "LEHRMODUS: AUS",
-        "teacherScope": "Lokale Nachbesprechung: keine Klassenverwaltung, keine Konten, kein Server.",
+        "teacherScope": "Der Lehrbericht bleibt lokal; das freiwillige Protokoll wird in der Spielleiste verwaltet.",
         "resetDone": "Spielstand gelöscht.",
         "teachers": "LEHRKRÄFTE & UNTERRICHT",
         "resources": "MATERIALIEN",
@@ -88,12 +88,12 @@
       },
       "titleGroups": {
         "settingsTitle": "Einstellungen",
-        "settingsPrivacy": "Spielstand und Einstellungen bleiben im Browser: kein Konto, keine Übertragung dieser Daten.",
+        "settingsPrivacy": "Lokale Spielstände und abschaltbare aggregierte Statistik. Nur mit Einwilligung Erwachsener: Sitzungsprotokoll für 90 Tage; Texte des geführten Wegs mit gesonderter Einwilligung. Widerruf, Löschung und Export in der Spielleiste.",
         "teachersTitle": "Lehrkräfte & Unterricht",
         "classPreset": "BEREIT FÜR DEN UNTERRICHT ▸",
         "classPresetDone": "Lehrmodus aktiviert; Texte werden sofort angezeigt.",
-        "classPresetNote": "Aktiviert die Gesprächspausen nach jedem Fall und zeigt Texte ohne Wartezeit. Kein Timer und kein Gruppenvergleich: Spielstand und Antworten bleiben auf dem Gerät.",
-        "teachersNote": "Lehrmodus: Gesprächspausen nach jedem Fall und eine lokale Nachbesprechung am Ende. Unterricht: 20–40 Minuten, ohne Konten oder Erfassung von Schülerdaten.",
+        "classPresetNote": "Aktiviert Gesprächspausen nach jedem Fall und zeigt Text sofort an. Kein Timer und kein Gruppenvergleich. Das freiwillige Protokoll erfordert eine Einwilligung in der Spielleiste.",
+        "teachersNote": "Der Lehrbericht bleibt lokal; das freiwillige Protokoll wird in der Spielleiste verwaltet.",
         "resourcesTitle": "Materialien",
         "resourcesNote": "Archiv und Glossar im Spiel sowie Leitfäden auf der Website in einem neuen Tab.",
         "close": "SCHLIESSEN"
@@ -216,7 +216,7 @@
       "teacherGuide": {
         "button": "LEITFADEN FÜR LEHRKRÄFTE ▸",
         "title": "NO AI ACT im Unterricht",
-        "intro": "Ein Vorschlag in drei Phasen. Keine Konten oder Schülerdaten: Alles bleibt lokal.",
+        "intro": "Der Lehrbericht bleibt lokal; das freiwillige Protokoll wird in der Spielleiste verwaltet.",
         "beforeTitle": "Vor dem Unterricht",
         "beforeText": "Spielen Sie selbst einen Fall, wählen Sie einen Lernweg und legen Sie 2–3 Ziele fest. Die verlinkten Aktivitäten und Einführungen vermitteln den Rahmen der KI-Verordnung vor dem Spielen.",
         "duringTitle": "Währenddessen",
@@ -536,13 +536,13 @@
         "debrief": "NACHBESPRECHUNG FÜR LEHRKRÄFTE ▸",
         "learningReport": "LERNBERICHT ▸",
         "privacyNote": {
-          "title": "Datenschutz: Ihre Arbeit bleibt im Browser",
-          "text": "Diese Version bindet keine externen Formulare ein. Antworten, Berichte, Fortschritte und Notizen bleiben auf Ihrem Gerät; aggregierte Nutzungszähler enthalten weder Freitexte noch Spielerkennungen."
+          "title": "Sitzungsprotokoll",
+          "text": "Lokale Spielstände und abschaltbare aggregierte Statistik. Nur mit Einwilligung Erwachsener: Sitzungsprotokoll für 90 Tage; Texte des geführten Wegs mit gesonderter Einwilligung. Widerruf, Löschung und Export in der Spielleiste."
         }
       },
       "debrief": {
         "title": "NACHBESPRECHUNG FÜR LEHRKRÄFTE — LOKALER BERICHT",
-        "subtitle": "Lokale Gesprächshilfe. Keine Klassenverwaltung, keine Schülerverfolgung, keine Übertragung von Ergebnissen an einen Server.",
+        "subtitle": "Der Lehrbericht bleibt lokal; das freiwillige Protokoll wird in der Spielleiste verwaltet.",
         "casesLabel": "FÄLLE UND BERICHTE",
         "caseLine": "{title} — Ergebnis: {outcome}",
         "mainErrorLine": "Befund: {error}",
@@ -566,7 +566,7 @@
         "notCompleted": "Fall nicht abgeschlossen",
         "missionLine": "Lernweg: {mission}",
         "difficultyLine": "Schwierigkeit: {difficulty}",
-        "privacyNote": "Die angezeigten Daten bleiben auf diesem Gerät. Exporte sind lokal und enthalten weder Namen noch E-Mail-Adressen, Klasse oder Schule.",
+        "privacyNote": "Der Lehrbericht bleibt lokal; das freiwillige Protokoll wird in der Spielleiste verwaltet.",
         "recommendedHeader": "EMPFOHLENE LERNWEGE",
         "recommendedLine": "{name} · {duration} · {goal}"
       },
@@ -2151,7 +2151,7 @@
     "finalDebrief": "NACHBESPRECHUNG DES LERNWEGS",
     "introduction": "Bevor Sie die Beweisstücke öffnen",
     "argument": "Ihre Notiz vor der Unterschrift",
-    "privacy": "Freiwillige Notizen in diesem Tab. Neuladen oder ein neues Spiel löscht sie. Vermeiden Sie Namen und personenbezogene Angaben.",
+    "privacy": "Vorübergehende lokale Notizen. Mit zusätzlicher Texteinwilligung werden gespeicherte Notizen 90 Tage geteilt. Vermeide persönliche Daten. Verwaltung in der Spielleiste.",
     "colleague": "Eine Kollegin aus der Inspektion kommt dazu",
     "purpose": "„Klären Sie zuerst, wer das System für welche Entscheidung einsetzt und welche Folgen dies für Menschen hat. Die Risikoeinstufung hilft, relevante Regeln, Prüfungen und Maßnahmen zu bestimmen.“",
     "categories": "Bei einer verbotenen Praxis sind die Bedingungen des Verbots zu prüfen. Hohes Risiko hängt vom Verwendungszweck und den Pflichten ab. Transparenz betrifft auch das, was Menschen wissen müssen. Bei anderen Verwendungen bleiben geltende Regeln und Rechte zu beachten.",

@@ -79,7 +79,7 @@
         "language": "IDIOMA: PORTUGUÊS",
         "teacherOn": "MODO DOCENTE: ATIVADO",
         "teacherOff": "MODO DOCENTE: DESATIVADO",
-        "teacherScope": "Debrief local: sem gestão de turmas, contas ou servidor.",
+        "teacherScope": "O relatório docente é local; o registo facultativo gere-se na barra do jogo.",
         "resetDone": "Gravação apagada.",
         "teachers": "DOCENTES E SALA DE AULA",
         "resources": "RECURSOS",
@@ -88,12 +88,12 @@
       },
       "titleGroups": {
         "settingsTitle": "Definições",
-        "settingsPrivacy": "A gravação e as preferências ficam no navegador: sem conta nem envio destes dados.",
+        "settingsPrivacy": "Gravações locais e estatísticas agregadas que podes desativar. Só com consentimento de adultos: registo da sessão durante 90 dias; textos do percurso guiado com consentimento separado. Retirada, apagamento e exportação na barra do jogo.",
         "teachersTitle": "Docentes e sala de aula",
         "classPreset": "PRONTO PARA A AULA ▸",
         "classPresetDone": "Modo docente ativado e texto imediato.",
-        "classPresetNote": "Ativa as pausas de discussão após cada caso e mostra o texto sem espera. Não acrescenta um cronómetro nem compara grupos: a gravação e as respostas ficam no dispositivo.",
-        "teachersNote": "Modo docente: pausas de discussão após cada caso e debrief local no final. Utilização em aula: 20–40 minutos, sem contas nem recolha de dados dos alunos.",
+        "classPresetNote": "Ativa as pausas de discussão após cada caso e apresenta o texto de imediato. Sem temporizador nem comparação de grupos. O registo facultativo exige consentimento na barra.",
+        "teachersNote": "O relatório docente é local; o registo facultativo gere-se na barra do jogo.",
         "resourcesTitle": "Recursos",
         "resourcesNote": "Arquivo e glossário do jogo, além dos guias do sítio noutro separador.",
         "close": "FECHAR"
@@ -216,7 +216,7 @@
       "teacherGuide": {
         "button": "GUIA DOCENTE ▸",
         "title": "Utilizar NO AI ACT na aula",
-        "intro": "Uma estrutura sugerida em três momentos. Sem contas nem dados dos alunos: tudo fica no dispositivo.",
+        "intro": "O relatório docente é local; o registo facultativo gere-se na barra do jogo.",
         "beforeTitle": "Antes da aula",
         "beforeText": "Jogue um caso, escolha um percurso e defina 2–3 objetivos. As atividades e introduções indicadas apresentam o enquadramento do Regulamento da IA antes de jogar.",
         "duringTitle": "Durante",
@@ -536,13 +536,13 @@
         "debrief": "REFLEXÃO DOCENTE ▸",
         "learningReport": "RELATÓRIO DE APRENDIZAGEM ▸",
         "privacyNote": {
-          "title": "Privacidade: o seu trabalho fica no navegador",
-          "text": "Esta versão não integra formulários externos. As respostas, relatórios, progressão e notas ficam no dispositivo; os contadores agregados excluem texto livre e identificadores do jogador."
+          "title": "Registo da sessão",
+          "text": "Gravações locais e estatísticas agregadas que podes desativar. Só com consentimento de adultos: registo da sessão durante 90 dias; textos do percurso guiado com consentimento separado. Retirada, apagamento e exportação na barra do jogo."
         }
       },
       "debrief": {
         "title": "DEBRIEF DOCENTE — RELATÓRIO LOCAL",
-        "subtitle": "Apoio local à reflexão. Não cria turmas, não acompanha alunos nem envia resultados para um servidor.",
+        "subtitle": "O relatório docente é local; o registo facultativo gere-se na barra do jogo.",
         "casesLabel": "CASOS E RELATÓRIOS",
         "caseLine": "{title} — resultado: {outcome}",
         "mainErrorLine": "constatação: {error}",
@@ -566,7 +566,7 @@
         "notCompleted": "caso não concluído",
         "missionLine": "Percurso: {mission}",
         "difficultyLine": "Dificuldade: {difficulty}",
-        "privacyNote": "Os dados apresentados ficam neste dispositivo. As exportações são locais e não incluem nomes, endereços de correio eletrónico, turma ou escola.",
+        "privacyNote": "O relatório docente é local; o registo facultativo gere-se na barra do jogo.",
         "recommendedHeader": "PERCURSOS RECOMENDADOS",
         "recommendedLine": "{name} · {duration} · {goal}"
       },
@@ -2151,7 +2151,7 @@
     "finalDebrief": "REFLEXÃO FINAL DO PERCURSO",
     "introduction": "Antes de abrir as provas",
     "argument": "A sua nota antes de assinar",
-    "privacy": "Notas facultativas neste separador. Recarregar ou iniciar outra partida apaga-as. Evite nomes e dados pessoais.",
+    "privacy": "Notas locais temporárias. Com o consentimento adicional para textos, as notas guardadas são partilhadas durante 90 dias. Evita dados pessoais. Gere o registo na barra do jogo.",
     "colleague": "Uma colega da inspeção junta-se a si",
     "purpose": "«Comece por perceber quem utiliza o sistema, para que decisão e com que consequências para as pessoas. A classificação do risco ajuda a identificar as regras, verificações e medidas a considerar.»",
     "categories": "Uma prática proibida exige verificar as condições da proibição. O risco elevado depende da finalidade prevista e das obrigações. A transparência também abrange o que as pessoas precisam de saber. Outras utilizações continuam a exigir atenção às regras e aos direitos aplicáveis.",

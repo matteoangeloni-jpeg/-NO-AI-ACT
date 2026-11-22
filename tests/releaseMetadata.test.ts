@@ -69,10 +69,11 @@ describe('release.config.json agrees with the executable source', () => {
     for (const h of hosts) expect(cfg.runtimeHostAllowlist, `unlisted host ${h}`).toContain(h);
   });
 
-  it('privacy posture flags are all still true', () => {
-    expect(cfg.privacy.backend).toBe('aggregate usage counters only');
+  it('declares the consented pseudonymous journal without disguising personal data as anonymous', () => {
+    expect(cfg.privacy.backend).toBe('aggregate counters plus consented pseudonymous session journal');
     expect(cfg.privacy.externalForms).toBe(false);
-    expect(cfg.privacy.gameplayNetworkCalls).toBe('first-party aggregate usage only, no answers or player identifiers');
+    expect(cfg.privacy.personalDataCollection).toBe(true);
+    expect(cfg.privacy.gameplayNetworkCalls).toBe('first-party aggregate counters; adult opt-in session events and separately consented writing');
   });
 });
 

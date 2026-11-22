@@ -1,0 +1,16 @@
+.session-journal { box-sizing: border-box; width: min(760px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); overflow: auto; color: #f0f5f1; background: #15221e; border: 2px solid #9dc4ad; border-radius: 4px; padding: 24px; font: 16px/1.55 system-ui,sans-serif; z-index: 10001; }
+.session-journal::backdrop { background: #000c; }
+.session-journal h2 { font-size: 1.4rem; margin-top: 0; }
+.session-journal a { color: #c5f3db; }
+.session-journal fieldset { margin: 18px 0; border: 1px solid #9dc4ad; }
+.session-journal label { display: flex; gap: 12px; align-items: flex-start; margin: 14px 0; }
+.session-journal input[type=checkbox] { flex: 0 0 auto; width: 24px; height: 24px; margin-top: 2px; }
+.journal-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.session-journal button { flex: 1 1 220px; min-height: 48px; padding: 12px; font: inherit; color: inherit; background: #223e30; border: 1px solid #9dc4ad; cursor: pointer; }
+.session-journal button:disabled { opacity: .55; cursor: default; }
+.session-journal :focus-visible { outline: 3px solid #ffe073; outline-offset: 3px; }
+.session-journal [hidden] { display: none; }
+.session-journal .journal-recover { flex-direction: column; }
+.session-journal input[type=file] { max-width: 100%; font: inherit; }
+.session-journal [role=status] { overflow-wrap: anywhere; }
+@media (max-width: 600px) { .session-journal { padding: 16px; font-size: 15px; } }

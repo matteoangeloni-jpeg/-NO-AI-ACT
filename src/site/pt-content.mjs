@@ -6,7 +6,7 @@ export const UI = {
   disclaimer: 'NO AI ACT é um jogo educativo independente, gratuito e de código aberto. Estas explicações introduzem conceitos selecionados e não substituem o texto em vigor nem uma avaliação profissional. A sua eficácia educativa não foi demonstrada por um estudo controlado.',
   author: 'Desenvolvido por Matteo Angeloni', authorLink: 'Autor e metodologia (em inglês)',
   privacy: 'Estatísticas de utilização', privacyLink: 'Informação sobre as estatísticas',
-  screenshot: 'Imagem de arquivo do jogo, versão 3: investigação de um processo. A publicação atual é a versão 5.1.0.',
+  screenshot: "Imagem de arquivo do jogo, versão 3: investigação de um processo. A publicação atual é a versão 5.2.0.",
   disclosure: 'Conteúdo preparado com apoio de IA e revisão editorial; não é uma tradução oficial.', official: 'por'
 };
 export const PAGES = {
@@ -18,7 +18,7 @@ export const PAGES = {
     sections: [
       ['Uma cidade, catorze investigações', 'A história decorre em 2032, numa cidade fictícia onde o Regulamento IA nunca chegou a ser aplicado. Sistemas automatizados influenciam o emprego, os serviços públicos e as oportunidades das pessoas. Cada processo contém documentos, afirmações e indícios contraditórios. Esta distopia é uma construção narrativa, não uma descrição da situação jurídica real na Europa.'],
       ['Fundamentar, em vez de adivinhar', 'Escolhes uma classificação de risco, uma medida, o interveniente responsável e uma fundamentação apoiada em provas. Acertar numa categoria com indícios inadequados não equivale a construir uma decisão defensável. O relatório posterior explica essas diferenças e ajuda a perceber que informação importa examinar no caso seguinte.'],
-      ['Gratuito e sem registo', 'O jogo funciona no navegador e não exige uma conta. As respostas e os jogos guardados permanecem no teu dispositivo. Os contadores automáticos, que podem ser desativados, recolhem apenas eventos agregados limitados: não criam perfis individuais de aprendizagem nem demonstram resultados educativos. Estas páginas permitem preparar a atividade em português e escolher depois um dos idiomas disponíveis no jogo.']
+      ['Gratuito e sem registo', "O jogo funciona no navegador e não exige uma conta. As respostas e os jogos guardados permanecem no teu dispositivo. Os contadores automáticos, que podem ser desativados, recolhem apenas eventos agregados limitados: não criam perfis individuais de aprendizagem nem demonstram resultados educativos. Estas páginas permitem preparar a atividade em português e escolher depois um dos idiomas disponíveis no jogo."]
     ]
   },
   how: {
@@ -52,7 +52,7 @@ export const PAGES = {
       ['Analisar a utilização de IA na escola', 'Uma ferramenta de apoio à aprendizagem, um procedimento de admissão e a avaliação de exames têm finalidades diferentes. Identifica o que faz o sistema concreto, quem o disponibiliza, quem o utiliza sob a sua autoridade e quem é afetado. Depois verifica as condições aplicáveis no texto oficial. Nem todas as aplicações escolares pertencem automaticamente à mesma categoria de risco. A literacia em IA, a proteção de dados, a transparência e a supervisão humana colocam questões distintas que se podem complementar. Nem esta introdução nem uma partida certificam a legalidade de um produto ou o cumprimento de todas as obrigações da escola.'],
       ['Antes de jogar', 'Experimenta primeiro o caso que pretendes utilizar. Decide se a atividade se concentra nos riscos, na qualidade das provas ou nas responsabilidades. Explica os limites da simulação e verifica se os idiomas disponíveis no jogo são adequados ao grupo. A existência de recursos em português não significa que a interface do jogo já esteja traduzida para esse idioma.'],
       ['Durante a investigação', 'Podes projetar o processo ou trabalhar em pequenos grupos. Pede que relacionem cada conclusão com indícios concretos antes de assinarem o relatório. O modo docente facilita pausas para discussão. Respostas diferentes permitem rever pressupostos, em vez de apenas comparar quem escolheu a categoria esperada.'],
-      ['Depois do relatório', 'Utiliza a reflexão local para perguntar que prova foi decisiva, o que faltava e como verificar uma medida proposta. A exportação continua a ser uma escolha consciente de um ficheiro local. O projeto não necessita de contas ou nomes de alunos e não envia respostas individuais. Eventos agregados de utilização não comprovam competências pessoais nem eficácia pedagógica.']
+      ['Depois do relatório', "Utiliza a reflexão local para perguntar que prova foi decisiva, o que faltava e como verificar uma medida proposta. A exportação continua a ser uma escolha consciente de um ficheiro local. O projeto não necessita de contas ou nomes de alunos e não envia respostas individuais. Eventos agregados de utilização não comprovam competências pessoais nem eficácia pedagógica."]
     ]
   },
   guide: {
@@ -83,7 +83,7 @@ export const PAGES = {
     h1: 'Privacidade e estatísticas de utilização',
     lead: 'Os materiais de aprendizagem locais e a medição agregada do funcionamento têm finalidades diferentes. Explicamos expressamente essa distinção.',
     sections: [
-      ['Os jogos guardados ficam no dispositivo', 'Não precisas de uma conta ou de uma lista de participantes. As respostas, os jogos guardados e os relatórios locais permanecem no teu dispositivo. Descarregar um documento de feedback não o envia automaticamente ao projeto. Se decidires partilhá-lo, verifica antes se acrescentaste informação pessoal ou dados que não pretendes transmitir.'],
+      ['Os jogos guardados ficam no dispositivo', "Não precisas de uma conta ou de uma lista de participantes. Gravações locais e estatísticas agregadas que podes desativar. Só com consentimento de adultos: registo da sessão durante 90 dias; textos do percurso guiado com consentimento separado. Retirada, apagamento e exportação na barra do jogo. Descarregar um documento de feedback não o envia automaticamente ao projeto. Se decidires partilhá-lo, verifica antes se acrescentaste informação pessoal ou dados que não pretendes transmitir."],
       ['Contadores automáticos limitados', 'O jogo envia eventos agregados que podem ser desativados, como aberturas e conclusões de casos. Incluem categorias limitadas como idioma, versão e identificação do processo, não respostas individuais, nomes, endereços de correio eletrónico ou percursos pessoais de aprendizagem. Estes eventos não contam pessoas identificadas nem demonstram aprendizagem. A informação detalhada explica também a conservação e a entrega técnica.'],
       ['Controlos sem uma barra permanente', 'O aviso inicial desaparece após alguns segundos. O ícone de escudo permite abri-lo novamente e interromper os envios seguintes para a página atual. Ao recarregar, os contadores são reativados, salvo se uma preferência de privacidade compatível do navegador o impedir. O alojamento pode tratar dados de ligação; não prometemos anonimato absoluto de toda a infraestrutura.']
     ]

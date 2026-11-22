@@ -11,6 +11,8 @@ import { initMobilePresentation } from './game/ui/mobilePresentation';
 import { AnalyticsSystem } from './game/systems/AnalyticsSystem';
 import { installAnalyticsInstrumentation } from './game/systems/analyticsInstrumentation';
 import { initUsageNotice } from './game/ui/usageNotice';
+import { sessionJournal, phaseForScene } from './game/systems/SessionJournal';
+import { initSessionJournalNotice } from './game/ui/sessionJournalNotice';
 
 /**
  * Public landing handoff: the IT landing links to /play/?lang=it and the EN
@@ -53,6 +55,24 @@ if (import.meta.env.DEV) {
 }
 
 const game = new Phaser.Game(gameConfig);
+sessionJournal.setContextProvider(() => {
+  const scene=game.scene.getScenes(true)[0], data=scene?.sys.settings.data as {caseId?:string}|undefined;
+  return {language:StateManager.language,mode:StateManager.gameMode,phase:phaseForScene(scene?.sys.settings.key??'Title'),
+    caseId:data?.caseId,difficulty:StateManager.difficulty,mission:StateManager.mission,audience:StateManager.audience};
+});
+AnalyticsSystem.setRawObserver(payload=>sessionJournal.observe(payload));
+sessionJournal.restore();
+initSessionJournalNotice(AnalyticsSystem,()=>{
+  const states=game.scene.getScenes(true).map(scene=>({scene,pointer:scene.input.enabled,keyboard:scene.input.keyboard?.enabled}));
+  for(const {scene} of states){scene.input.enabled=false;if(scene.input.keyboard)scene.input.keyboard.enabled=false;}
+  return ()=>{for(const {scene,pointer,keyboard} of states){if(!scene.sys.isActive())continue;scene.input.enabled=pointer;if(scene.input.keyboard&&keyboard!==undefined)scene.input.keyboard.enabled=keyboard;}};
+});
+if(sessionJournal.supported){
+  for(const type of ['pointerdown','keydown','touchstart'])window.addEventListener(type,()=>sessionJournal.noteActivity(),{passive:true});
+  window.setInterval(()=>{sessionJournal.heartbeat(document.visibilityState==='visible',document.hasFocus());void sessionJournal.flush();},10000);
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){sessionJournal.record('ui_action',{action:'tab_hidden'});void sessionJournal.flush();}});
+  window.addEventListener('pagehide',()=>{sessionJournal.record('recording_stopped',{action:'pagehide'});void sessionJournal.flush();});
+}
 // Debug/test handle only — no data leaves the browser. Used by the opt-in
 // layout smoke to read real canvas-object bounds (buttons are drawn on the
 // canvas, not the DOM, so bounding-box checks need the live Phaser instance).

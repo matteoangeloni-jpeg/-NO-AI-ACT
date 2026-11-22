@@ -19,7 +19,7 @@ export function inquiryActive(caseId: string): boolean {
   return GuidedInquiry.active(caseId);
 }
 
-/** Player-authored, temporary notes. No observation log, grading or persistence. */
+/** Temporary notes; optional sharing is controlled by the separate session journal. */
 export function openGuidedInquiry(scene: Phaser.Scene, caseId: string, stage: InquiryStage, onConfirm?: () => void): void {
   if (document.querySelector('.guided-inquiry')) return;
   const ui = inquiryCopy();
@@ -175,6 +175,7 @@ export function openGuidedInquiry(scene: Phaser.Scene, caseId: string, stage: In
   let closed = false;
   const close = (): void => {
     if (closed) return; closed = true;
+    GuidedInquiry.recordNotes(caseId,stage);
     scene.events.off('shutdown', close); dialog.close(); dialog.remove();
     scene.input.enabled = wasPointerEnabled;
     if (keyboard) keyboard.enabled = wasEnabled;

@@ -79,7 +79,7 @@
         "language": "IDIOMA: ESPAÑOL",
         "teacherOn": "MODO DOCENTE: ACTIVADO",
         "teacherOff": "MODO DOCENTE: DESACTIVADO",
-        "teacherScope": "Debrief local: sin gestión de clases, cuentas ni servidor.",
+        "teacherScope": "El informe docente es local; el registro opcional se gestiona en la barra.",
         "resetDone": "Partida guardada borrada.",
         "teachers": "DOCENTES Y AULA",
         "resources": "RECURSOS",
@@ -88,12 +88,12 @@
       },
       "titleGroups": {
         "settingsTitle": "Ajustes",
-        "settingsPrivacy": "La partida guardada y las preferencias permanecen en el navegador: sin cuenta ni envío de estos datos.",
+        "settingsPrivacy": "Partidas guardadas locales y estadísticas agregadas desactivables. Solo con consentimiento de adultos: registro de sesión durante 90 días; textos del recorrido guiado con consentimiento aparte. Retirada, borrado y exportación en la barra del juego.",
         "teachersTitle": "Docentes y aula",
         "classPreset": "LISTO PARA EL AULA ▸",
         "classPresetDone": "Modo docente activado y texto inmediato.",
-        "classPresetNote": "Activa las pausas de discusión después de cada caso y muestra el texto sin espera. No añade un cronómetro ni compara grupos: la partida y las respuestas permanecen en el dispositivo.",
-        "teachersNote": "Modo docente: pausas de discusión tras cada caso y debrief local al final. Uso en clase: 20–40 minutos, sin cuentas ni recogida de datos del alumnado.",
+        "classPresetNote": "Activa las pausas de debate tras cada caso y muestra el texto al instante. Sin temporizador ni comparación de grupos. El registro opcional requiere consentimiento en la barra.",
+        "teachersNote": "El informe docente es local; el registro opcional se gestiona en la barra.",
         "resourcesTitle": "Recursos",
         "resourcesNote": "Archivo y glosario del juego, además de las guías del sitio en otra pestaña.",
         "close": "CERRAR"
@@ -216,7 +216,7 @@
       "teacherGuide": {
         "button": "GUÍA DOCENTE ▸",
         "title": "Usar NO AI ACT en clase",
-        "intro": "Una estructura sugerida en tres momentos. Sin cuentas ni datos del alumnado: todo permanece en el dispositivo.",
+        "intro": "El informe docente es local; el registro opcional se gestiona en la barra.",
         "beforeTitle": "Antes de la clase",
         "beforeText": "Juega un caso, elige un recorrido y fija 2–3 objetivos. Las actividades y las introducciones enlazadas presentan el marco del Reglamento de IA antes de jugar.",
         "duringTitle": "Durante",
@@ -536,13 +536,13 @@
         "debrief": "REFLEXIÓN DOCENTE ▸",
         "learningReport": "INFORME DE APRENDIZAJE ▸",
         "privacyNote": {
-          "title": "Privacidad: tu trabajo permanece en el navegador",
-          "text": "Esta versión no integra formularios externos. Las respuestas, informes, avances y notas permanecen en tu dispositivo; los contadores agregados excluyen el texto libre y los identificadores del jugador."
+          "title": "Registro de sesión",
+          "text": "Partidas guardadas locales y estadísticas agregadas desactivables. Solo con consentimiento de adultos: registro de sesión durante 90 días; textos del recorrido guiado con consentimiento aparte. Retirada, borrado y exportación en la barra del juego."
         }
       },
       "debrief": {
         "title": "DEBRIEF DOCENTE — INFORME LOCAL",
-        "subtitle": "Apoyo local para la reflexión. No crea clases, no sigue al alumnado ni envía resultados a un servidor.",
+        "subtitle": "El informe docente es local; el registro opcional se gestiona en la barra.",
         "casesLabel": "CASOS E INFORMES",
         "caseLine": "{title} — resultado: {outcome}",
         "mainErrorLine": "hallazgo: {error}",
@@ -566,7 +566,7 @@
         "notCompleted": "caso no completado",
         "missionLine": "Recorrido: {mission}",
         "difficultyLine": "Dificultad: {difficulty}",
-        "privacyNote": "Los datos mostrados permanecen en este dispositivo. La exportación es local y no incluye nombres, correos, clase ni centro educativo.",
+        "privacyNote": "El informe docente es local; el registro opcional se gestiona en la barra.",
         "recommendedHeader": "RECORRIDOS RECOMENDADOS",
         "recommendedLine": "{name} · {duration} · {goal}"
       },
@@ -2151,7 +2151,7 @@
     "finalDebrief": "REFLEXIÓN FINAL DEL RECORRIDO",
     "introduction": "Antes de abrir las pruebas",
     "argument": "Tu nota antes de firmar",
-    "privacy": "Notas opcionales en esta pestaña. Se borran al recargar o empezar otra partida. Evita nombres y datos personales.",
+    "privacy": "Notas locales temporales. Con el consentimiento adicional a los textos, las notas guardadas se comparten durante 90 días. Evita datos personales. Gestiona el registro en la barra.",
     "colleague": "Se incorpora una compañera de inspección",
     "purpose": "«Primero establece quién usa el sistema, para qué decisión y con qué consecuencias para las personas. La clasificación del riesgo ayuda a identificar qué normas, comprobaciones y medidas considerar».",
     "categories": "Una práctica prohibida exige comprobar las condiciones de la prohibición. El alto riesgo depende de la finalidad prevista y de las obligaciones. La transparencia también abarca lo que las personas necesitan saber. Otros usos siguen exigiendo atención a las normas y los derechos aplicables.",

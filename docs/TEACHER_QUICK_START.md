@@ -1,7 +1,7 @@
 # Teacher Quick Start — NO AI ACT
 
 A short guide to running NO AI ACT in a classroom or training session. No setup,
-no accounts, no student data. The game (v1.0.0) has **13 cases**, from prohibited
+no accounts. Individual recording is optional and restricted to consenting adults. The game (v5.2.0) has **14 cases**, from prohibited
 practices to high-risk and "to be governed" systems.
 
 - Play: <https://www.no-ai-act.eu/play/>
@@ -12,7 +12,7 @@ practices to high-risk and "to be governed" systems.
 
 1. Open the play link in a desktop or laptop browser (tablet in landscape also
    works; smartphones in portrait show a "rotate device" guard).
-2. Choose the language (IT / EN), a difficulty and a mission.
+2. Choose the language (IT / EN / FR / DE / ES / PT), a difficulty and a mission.
 3. Turn on **Teacher mode** for a local end-of-session debrief.
 4. Play one or more cases; discuss the inspection reports together.
 5. Export the debrief (`.txt` / `.json`) if you want a record — it is local and
@@ -51,7 +51,7 @@ practices to high-risk and "to be governed" systems.
 ## Privacy for the classroom
 
 - No accounts, no logins, no classroom dashboard.
-- No student data is collected or sent anywhere.
+- Basic counters remain separate from an optional adult-consented session record. Saved writing requires additional consent. Export, withdrawal and erasure are in the game bar.
 - Progress is stored only in the browser on the device used.
 - The teacher export is local and anonymous; share it at your discretion.
 

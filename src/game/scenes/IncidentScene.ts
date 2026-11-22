@@ -3,6 +3,7 @@ import { getCase } from '../data/cases';
 import type { CaseData, IncidentChoice } from '../data/types';
 import { AudioSystem } from '../systems/AudioSystem';
 import { StateManager } from '../systems/StateManager';
+import { sessionJournal } from '../systems/SessionJournal';
 import { ReadingLayer } from '../systems/ReadingLayer';
 import { Button } from '../ui/Button';
 import { Panel } from '../ui/Panel';
@@ -66,6 +67,7 @@ export class IncidentScene extends Phaser.Scene {
       if (this.answered) return;
       this.answered = true;
       const choice = CHOICES[i];
+      sessionJournal.record('ui_action',{caseId:this.caseData.id,action:'incident_choice',incidentChoice:choice},{caseId:this.caseData.id});
       const delta = this.caseData.incidentDeltas?.[choice];
       if (delta) StateManager.applyIndicatorDelta(delta);
       AudioSystem.confirm();

@@ -4,7 +4,7 @@ import { dirname } from 'node:path';
 import { prepareBeta } from './prepare.mjs';
 
 const usage = process.env.BETA_USAGE_COLLECTION === 'true';
-const env = { ...process.env, VITE_RELEASE_CHANNEL: 'beta', VITE_ANALYTICS_PROVIDER: usage ? 'first-party' : 'off' };
+const env = { ...process.env, VITE_RELEASE_CHANNEL: 'beta', VITE_ANALYTICS_PROVIDER: usage ? 'first-party' : 'off', VITE_SESSION_JOURNAL:usage?'true':'false' };
 for (const args of [['node_modules/typescript/bin/tsc', '--noEmit'],
   ['node_modules/vite/bin/vite.js', 'build', '--mode', 'beta', '--outDir', 'dist-beta']]) {
   const result = spawnSync(process.execPath, args, { stdio: 'inherit', env });
@@ -16,6 +16,7 @@ for (const name of ['THIRD_PARTY_LICENSES.md', 'LICENSE', 'CREDITS.md', 'LICENSE
 const pages = prepareBeta('dist-beta', { usage });
 writeFileSync('dist-beta/beta-release.json', JSON.stringify({ channel: 'beta', gameVersion: JSON.parse(readFileSync('package.json', 'utf8')).version,
   commit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
-  dirty: Boolean(execFileSync('git', ['status', '--porcelain'], { encoding: 'utf8' }).trim()),
-  builtAt: new Date().toISOString(), pages, analytics: usage ? 'first-party-aggregate-automatic' : 'off', saveKey: 'no-ai-act-beta-save-v2' }, null, 2));
+  dirty: Boolean(execFileSync('git', ['status', '--porcelain','--','.',':!graphify-out'], { encoding: 'utf8' }).trim()),
+  builtAt: new Date().toISOString(), pages, analytics: usage ? 'first-party-aggregate-automatic' : 'off',
+  sessionJournal:usage?{mode:'adult-opt-in',writing:'separate-opt-in',retentionDays:90,activeHours:24}:'off',saveKey: 'no-ai-act-beta-save-v2' }, null, 2));
 console.log(`Beta build: ${pages} HTML pages, noindex, usage ${usage ? 'AGGREGATE AUTOMATIC' : 'OFF'}, isolated saves. No upload performed.`);

@@ -10,7 +10,7 @@
 > to be governed, or compliant). It is an educational simulation about
 > algorithmic risk governance — not legal advice.
 
-- Version: v5.1.0
+- Version: v5.2.0
 - Status: published web version; tagged-release history is listed separately below.
 - Game languages: Italian, English, French, German, Spanish and European Portuguese (pt-PT).
 - Website languages: Italian, English and French; 16 introductory, practical and press resources each in German, Spanish and European Portuguese (pt-PT), including classroom workshops and recruitment cases. Press kits exist in all six website languages. The game supports the same six languages; editorial depth in the educational hub varies by locale.
@@ -24,7 +24,7 @@
 
 - All 14 cases offer optional case-specific mediation, source assessments, explained relations and hypothesis revisions.
 - A free argument is fixed before feedback; later reflection and final debrief stay distinct.
-- Guided notes are temporary in the tab and are excluded from saves, exports and analytics.
+- Guided notes remain temporary locally; sharing saved snapshots requires additional writing consent within the optional session record.
 - Study 02 is a separate local research tool, not included in the public game; rubrics and transfer tasks are preliminary.
 - Technical coverage does not establish educational effectiveness or critical-thinking competence.
 
@@ -34,8 +34,8 @@
 - NOT an official EU tool: independent project, not affiliated with or endorsed by the European institutions.
 - NOT legal advice and does not replace the regulation or a professional opinion.
 - NOT a compliance tool or certification: it grants no credits or attestations.
-- Local play: no account, no registration or player identifiers. A first-party backend stores aggregate usage counters only.
-- Automatic first-party usage counters (starts, completions and phases), without answers, outcomes, player IDs or analytics cookies. Disable through the shield/privacy controls; DNT/GPC respected. Saves, decisions and reports stay local. See /game-statistics.html.
+- Local play: no account, no registration. A first-party backend stores basic aggregates and separately consented pseudonymous session records.
+- Automatic first-party usage counters remain separate from optional adult-consented session events; guided writing requires separate consent. Pseudonymous tab code, 90-day retention, export and erasure. DNT/GPC respected. This is not a validated learning measure or Study 02. See /game-statistics.html.
 - Some public pages additionally use aggregate, cookie-free Cloudflare Web Analytics.
 - Teacher mode is local; its debrief export is local and anonymous.
 - No external forms are embedded; the public game requests no names or email addresses.
@@ -144,7 +144,7 @@
 ## Project links
 
 - GitHub repository: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT
-- Last tagged release: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.1.0 (tagged 2026-11-21; six playable languages)
+- Last tagged release: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.2.0 (tagged 2026-11-22; consented session journal)
 - Project brief: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/NO_AI_ACT_PROJECT_BRIEF.md
 - Teacher quick start: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/TEACHER_QUICK_START.md
 - Legal disclaimer: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/LEGAL_DISCLAIMER.md

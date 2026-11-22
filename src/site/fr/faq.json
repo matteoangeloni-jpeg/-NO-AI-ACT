@@ -22,7 +22,7 @@
     "Faut-il s'inscrire ?",
     "Non. Le jeu fonctionne dans le navigateur sans compte, adresse électronique ni identifiant. La progression est conservée uniquement dans le localStorage du navigateur.",
     "Les joueurs sont-ils suivis ?",
-    "Les joueurs ne sont pas profilés. Décisions, réponses, scores et rapports restent sur l'appareil. Le jeu transmet uniquement des catégories agrégées et limitées d'utilisation et d'évaluation produite par le jeu, sans cookies ni identifiant persistant ; ces compteurs peuvent être désactivés et respectent DNT/GPC.",
+    "Les joueurs ne sont pas profilés. Décisions, Sauvegardes locales et statistiques agrégées désactivables. Avec le consentement des adultes uniquement : registre de session pendant 90 jours ; accord distinct pour les textes du parcours guidé. Retrait, effacement et export dans la barre du jeu. Le jeu transmet uniquement des catégories agrégées et limitées d'utilisation et d'évaluation produite par le jeu, sans cookies ni identifiant persistant ; ces compteurs peuvent être désactivés et respectent DNT/GPC.",
     "Quelles langues sont disponibles ?",
     "L'italien, l'anglais et le français : le jeu complet et les ressources éducatives sont accessibles dans ces langues dans cette version.",
     "Le jeu couvre-t-il tout l'AI Act ?",

@@ -6,6 +6,7 @@ import { planGame, type GamePlan } from '../data/gameModes';
 import { DRAFT_SCHEMA, emptyDraft, hasProgress, isResumable, type CaseDraft } from './caseDraft';
 import { setLanguage } from '../i18n';
 import { SaveSystem } from './SaveSystem';
+import { sessionJournal } from './SessionJournal';
 
 /**
  * Stato globale di gioco (singleton). Ogni mutazione salva su localStorage
@@ -251,6 +252,8 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
   /** Archivia il rapporto ispettivo di un caso (per il debrief docente). */
   saveCaseReport(caseId: string, report: CaseReport): void {
     this.data.caseReports[caseId] = report;
+    sessionJournal.record('report_saved',{caseId,classification:report.classification,measure:report.measure,subject:report.subject,
+      motivation:report.motivationIndex,citedClues:report.citedClues,outcome:report.outcome,dominantError:report.dominantError??''},{caseId});
     this.persist();
   }
 
@@ -288,6 +291,10 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
     if (caseId in this.data.completedCases) return;
     const base = this.data.caseDrafts[caseId] ?? emptyDraft(caseId, Date.now());
     this.data.caseDrafts[caseId] = { ...base, ...patch, schema: DRAFT_SCHEMA, caseId, updatedAt: Date.now() };
+    const next=this.data.caseDrafts[caseId];
+    const changed=Object.keys(patch).some(key=>key!=='updatedAt'&&JSON.stringify(base[key as keyof CaseDraft])!==JSON.stringify(next[key as keyof CaseDraft]));
+    if(changed)sessionJournal.record('draft_changed',{caseId,stage:next.step,revealedClues:next.revealedClues,citedClues:next.citedClues,
+      classification:next.classification??'',measure:next.measure??'',subject:next.subject??'',motivation:next.motivation??-1,confidence:next.confidence??''},{caseId});
     this.persist();
   }
 
@@ -300,6 +307,7 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
 
   saveCaseMeta(caseId: string, meta: Partial<CaseMeta>): void {
     this.data.caseMeta[caseId] = { ...this.data.caseMeta[caseId], ...meta };
+    sessionJournal.record('reflection_saved',{caseId,...meta},{caseId});
     this.persist();
   }
 
@@ -310,6 +318,7 @@ class StateManagerImpl extends Phaser.Events.EventEmitter {
   /** Registra un autocontrollo locale facoltativo (formativo, cancellabile col reset). */
   recordSelfCheck(phase: SelfCheckPhase, result: SelfCheckResult): void {
     this.data.selfCheck = { ...this.data.selfCheck, [phase]: result };
+    sessionJournal.record('self_check_submitted',{stage:phase,correct:result.correct,total:result.total});
     this.persist();
   }
 

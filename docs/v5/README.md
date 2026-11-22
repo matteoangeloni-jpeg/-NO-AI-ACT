@@ -1,5 +1,10 @@
 # NO AI ACT V5 — Italiano · English · Français
 
+**Aggiornamento V5.2:** la successiva richiesta del proprietario amplia la
+raccolta pubblica a un registro facoltativo di maggiorenni, con consenso separato
+ai testi, export e cancellazione. Il vincolo precedente sui soli aggregati è
+storico. [Contratto attuale](SESSION_JOURNAL.md). Study 02 non cambia.
+
 Da V5.1.0 gioco e sito condividono **IT/EN/FR/DE/ES/PT**. Tutti i testi giocabili sono tradotti. [Copertura delle sei lingue e limiti](SIX_LANGUAGE_LOCALIZATION.md).
 
 [Note V5.1.0: Italiano](../RELEASE_NOTES_v5.1.0.md) · [English](../RELEASE_NOTES_v5.1.0.en.md) · [Français](../RELEASE_NOTES_v5.1.0.fr.md) · [Deutsch](../RELEASE_NOTES_v5.1.0.de.md) · [Español](../RELEASE_NOTES_v5.1.0.es.md) · [Português](../RELEASE_NOTES_v5.1.0.pt.md)

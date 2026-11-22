@@ -221,7 +221,7 @@ export const PAGINE = [
         blocchi: [
           {
             testo:
-              "La page <a href=\"{FR}ai-act-pour-enseignants/\">pour les enseignants</a> donne la structure en trois temps — avant, pendant, après — et le mode enseignant du jeu : pauses de discussion après chaque dossier, débriefing local exportable, aucune donnée d'élève."
+              "La page <a href=\"{FR}ai-act-pour-enseignants/\">pour les enseignants</a> donne la structure en trois temps — avant, pendant, après — et le mode enseignant du jeu : pauses de discussion après chaque dossier, débriefing local exportable ; registre facultatif avec le consentement des adultes."
           }
         ]
       },
@@ -285,7 +285,7 @@ export const PAGINE = [
         blocchi: [
           {
             lista: [
-              "Aucun compte, aucune classe à créer, aucune donnée d'élève : le débriefing est local et son export ne contient ni nom, ni adresse, ni établissement.",
+              "Aucun compte, aucune classe à créer ; registre facultatif avec le consentement des adultes : le débriefing est local et son export ne contient ni nom, ni adresse, ni établissement.",
               "<strong>Aucun minuteur et aucune comparaison entre groupes.</strong> Le jeu ne mesure pas le temps des élèves et ne les met pas en concurrence.",
               "Aucune note certifiée : l'autocontrôle est un outil formatif, pas une évaluation."
             ]
@@ -445,7 +445,7 @@ export const PAGINE = [
       "NO AI ACT : sans compte, reponses locales et statistiques agregees desactivables. Donnees conservees, fonctionnement et limites de la confidentialite.",
     ogTitle: 'Protection des données dès la conception',
     ogDescription:
-      "Aucun compte, aucun cookie de suivi, aucune donnée d'élève. Les choix techniques qui rendent la promesse vérifiable, et leurs limites.",
+      "Sauvegardes locales et statistiques agrégées désactivables. Avec le consentement des adultes uniquement : registre de session pendant 90 jours ; accord distinct pour les textes du parcours guidé. Retrait, effacement et export dans la barre du jeu.",
     breadcrumb: 'Protection dès la conception',
     eyebrow: 'ARCHITECTURE',
     h1: 'Protection des données dès la conception',
@@ -460,7 +460,7 @@ export const PAGINE = [
               "<strong>Aucun compte.</strong> Le jeu s'ouvre et se joue : rien à créer, rien à confirmer.",
               "<strong>Statistiques agregees de fonctionnement.</strong> Des compteurs sont envoyes automatiquement, sans reponses, resultats ou identifiants du joueur. Desactivation dans la barre du jeu ; DNT/GPC respectes. Sauvegardes locales.",
               "<strong>Aucun traceur publicitaire, aucun formulaire externe, aucune iframe de tiers.</strong>",
-              "<strong>Aucune donnée d'élève.</strong> Le mode enseignant produit un débriefing local ; son export ne contient ni nom, ni adresse électronique, ni classe, ni établissement."
+              "Sauvegardes locales et statistiques agrégées désactivables. Avec le consentement des adultes uniquement : registre de session pendant 90 jours ; accord distinct pour les textes du parcours guidé. Retrait, effacement et export dans la barre du jeu."
             ]
           }
         ]
