@@ -52,7 +52,7 @@ export const fr = {
       language: 'LANGUE : FRANÇAIS',
       teacherOn: 'MODE ENSEIGNANT : ACTIVÉ',
       teacherOff: 'MODE ENSEIGNANT : DÉSACTIVÉ',
-      teacherScope: 'Débriefing local : aucune classe, aucun compte, aucun serveur.',
+      teacherScope: "Le rapport enseignant est local ; gérez le registre facultatif dans la barre.",
       resetDone: 'Sauvegarde réinitialisée.',
       teachers: 'ENSEIGNANTS ET CLASSE',
       resources: 'RESSOURCES',
@@ -62,14 +62,14 @@ export const fr = {
     titleGroups: {
       settingsTitle: 'Paramètres',
       settingsPrivacy:
-        'Sauvegarde et préférences restent uniquement dans votre navigateur : aucun compte, aucune donnée envoyée.',
+        "Sauvegardes locales et statistiques agrégées désactivables. Avec le consentement des adultes uniquement : registre de session pendant 90 jours ; accord distinct pour les textes du parcours guidé. Retrait, effacement et export dans la barre du jeu.",
       teachersTitle: 'Enseignants et classe',
       classPreset: 'PRÊT POUR LA CLASSE ▸',
       classPresetDone: 'Mode enseignant actif et texte instantané.',
       classPresetNote:
-        "Active les pauses de discussion après chaque dossier et affiche le texte sans attente. N'ajoute aucun minuteur et ne compare aucun groupe : le jeu ne mesure pas votre temps et ne fait sortir aucune donnée de l'appareil.",
+        "Active les pauses de discussion après chaque dossier et affiche le texte immédiatement. Aucun compte à rebours ni comparaison de groupes. Le registre facultatif nécessite un accord dans la barre.",
       teachersNote:
-        'Mode enseignant : pauses de discussion après chaque dossier et débriefing local en fin de partie. Usage en classe : 20 à 40 minutes, aucun compte, aucune donnée collectée.',
+        "Le rapport enseignant est local ; gérez le registre facultatif dans la barre.",
       resourcesTitle: 'Ressources',
       resourcesNote: 'Archives et glossaire du jeu, plus les guides du site (nouvel onglet).',
       close: 'FERMER'
@@ -199,7 +199,7 @@ export const fr = {
       button: 'GUIDE ENSEIGNANT ▸',
       title: 'Utiliser NO AI ACT en classe',
       intro:
-        "Structure conseillée en trois temps. Aucun compte, aucune donnée d'élève : tout reste local.",
+        "Le rapport enseignant est local ; gérez le registre facultatif dans la barre.",
       beforeTitle: 'Avant le cours',
       beforeText:
         "Jouez un dossier seul, choisissez le parcours (démo, atelier ou complet) et fixez 2 ou 3 objectifs. Les activités prêtes et la leçon d'introduction ci-dessous donnent le cadre sur l'AI Act avant de jouer.",
@@ -563,14 +563,14 @@ export const fr = {
       debrief: 'DÉBRIEFING ENSEIGNANT ▸',
       learningReport: "RAPPORT D'APPRENTISSAGE ▸",
       privacyNote: {
-        title: 'Confidentialité : tout reste dans votre navigateur',
-        text: "Cette version n’intègre aucun module externe. Réponses, rapports, progression et notes restent sur l’appareil ; les compteurs agrégés excluent les textes libres et les identifiants des joueurs."
+        title: "Registre de session",
+        text: "Sauvegardes locales et statistiques agrégées désactivables. Avec le consentement des adultes uniquement : registre de session pendant 90 jours ; accord distinct pour les textes du parcours guidé. Retrait, effacement et export dans la barre du jeu."
       }
     },
     debrief: {
       title: 'DÉBRIEFING ENSEIGNANT — RAPPORT LOCAL',
       subtitle:
-        "Appui local pour le débriefing. Ne crée aucune classe, n'enregistre aucun élève, n'envoie aucun résultat à un serveur.",
+        "Le rapport enseignant est local ; gérez le registre facultatif dans la barre.",
       casesLabel: 'DOSSIERS ET RAPPORTS',
       caseLine: '{title} — issue : {outcome}',
       mainErrorLine: 'observation : {error}',
@@ -595,7 +595,7 @@ export const fr = {
       missionLine: 'Mission : {mission}',
       difficultyLine: 'Difficulté : {difficulty}',
       privacyNote:
-        "Les données affichées restent sur cet appareil. L'export éventuel est local et ne contient ni noms, ni adresses électroniques, ni classe, ni établissement.",
+        "Le rapport enseignant est local ; gérez le registre facultatif dans la barre.",
       recommendedHeader: 'PARCOURS CONSEILLÉS',
       recommendedLine: '{name} · {duration} · {goal}'
     },

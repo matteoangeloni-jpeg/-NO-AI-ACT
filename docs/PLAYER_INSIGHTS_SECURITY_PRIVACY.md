@@ -1,5 +1,8 @@
 # Player Insights - checklist sicurezza e privacy
 
+**Nota V5.2:** valutazione storica dei contatori. Contratto e controlli del nuovo
+registro facoltativo: [SESSION_JOURNAL.md](v5/SESSION_JOURNAL.md).
+
 Questa e una valutazione tecnica preliminare, non una certificazione o parere
 legale. La raccolta e disattivata e nessun account Cloudflare e stato modificato.
 

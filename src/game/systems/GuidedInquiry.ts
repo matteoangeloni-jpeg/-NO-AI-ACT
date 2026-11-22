@@ -1,3 +1,4 @@
+import { sessionJournal } from './SessionJournal';
 export interface InquiryNotes {
   initialHypothesis: string;
   hypothesis: string;
@@ -37,7 +38,7 @@ interface InquiryEntry {
   decisionSupportSeen: boolean;
 }
 
-/** Session-only writing aid. Deliberately independent of saves and analytics. */
+/** Writing aid outside saves and scoring. Sharing requires the separate journal consent. */
 export class GuidedInquirySession {
   private sessionId: number | null | undefined;
   private readonly entries = new Map<string, InquiryEntry>();
@@ -58,6 +59,7 @@ export class GuidedInquirySession {
       initialHypothesis: '', hypothesis: '', evidence: '', alternative: '', uncertainty: '', reflection: '',
       reasoning: '', revisionReason: '', feedbackUse: '', transferPlan: ''
     }, sources: {}, relations: [], revisions: [], decisionSupportSeen: false });
+    sessionJournal.record('inquiry_started',{caseId},{caseId});
   }
 
   active(caseId: string): boolean {
@@ -112,12 +114,18 @@ export class GuidedInquirySession {
     const index = entry.relations.findIndex(row => row.left === relation.left && row.right === relation.right);
     if (index >= 0) entry.relations[index] = stored;
     else if (entry.relations.length < 30) entry.relations.push(stored);
+    else return false;
+    sessionJournal.record('relation_added',{caseId,left:stored.left,right:stored.right,relation:stored.relation,relationCount:entry.relations.length},{caseId});
+    sessionJournal.recordWriting(caseId,'relation',{relationReason:stored.reason});
     return true;
   }
 
   removeRelation(caseId: string, index: number): void {
     const entry = this.entries.get(caseId);
-    if (entry && !entry.submitted && Number.isInteger(index) && index >= 0) entry.relations.splice(index, 1);
+    if (entry && !entry.submitted && Number.isInteger(index) && index >= 0 && index<entry.relations.length) {
+      const [removed]=entry.relations.splice(index,1);
+      sessionJournal.record('relation_removed',{caseId,left:removed.left,right:removed.right,relation:removed.relation,relationCount:entry.relations.length},{caseId});
+    }
   }
 
   revisions(caseId: string): HypothesisRevision[] {
@@ -132,6 +140,8 @@ export class GuidedInquirySession {
     if (last?.hypothesis === revision.hypothesis && last.reason === revision.reason) return true;
     if (entry.revisions.length >= 32) return false;
     entry.revisions.push(revision);
+    sessionJournal.record('hypothesis_revised',{caseId,revisionCount:entry.revisions.length},{caseId});
+    sessionJournal.recordWriting(caseId,'revision',{hypothesis:revision.hypothesis,revisionReason:revision.reason});
     return true;
   }
 
@@ -140,6 +150,8 @@ export class GuidedInquirySession {
     if (entry && !entry.submitted && !entry.introductionFinished) {
       entry.notes.initialHypothesis = entry.notes.hypothesis;
       entry.introductionFinished = true;
+      sessionJournal.record('hypothesis_saved',{caseId,filledFields:entry.notes.initialHypothesis.trim()?1:0},{caseId});
+      sessionJournal.recordWriting(caseId,'initial',{initialHypothesis:entry.notes.initialHypothesis});
     }
   }
 
@@ -153,6 +165,26 @@ export class GuidedInquirySession {
       relations: Object.freeze(entry.relations.map(relation => Object.freeze({ ...relation }))),
       revisions: Object.freeze(entry.revisions.map(revision => Object.freeze({ ...revision })))
     });
+    sessionJournal.record('argument_submitted',{caseId,filledFields:[hypothesis,evidence,alternative,uncertainty,reasoning,revisionReason].filter(s=>s.trim()).length,
+      sourceCount:Object.values(entry.sources).filter(s=>s.trim()).length,relationCount:entry.relations.length,revisionCount:entry.revisions.length},{caseId});
+    sessionJournal.recordWriting(caseId,'before_feedback',{hypothesis,evidence,alternative,uncertainty,reasoning,revisionReason,
+      ...Object.fromEntries(Object.entries(entry.sources).map(([index,text])=>[`source_${index}`,text]))});
+  }
+
+  recordNotes(caseId:string,stage:string):void {
+    const entry=this.entries.get(caseId);if(!entry)return;
+    const {reflection,feedbackUse,transferPlan}=entry.notes;
+    if(stage==='reflection'){
+      sessionJournal.record('reflection_saved',{caseId,stage,filledFields:[reflection,feedbackUse,transferPlan].filter(s=>s.trim()).length},{caseId});
+      sessionJournal.recordWriting(caseId,'after_feedback',{reflection,feedbackUse,transferPlan});
+    }else if(stage==='session'){
+      sessionJournal.record('reflection_saved',{stage,filledFields:[this.sessionReflection,this.sessionTransferPlan].filter(s=>s.trim()).length});
+      sessionJournal.recordWriting(caseId,'session_debrief',{reflection:this.sessionReflection,transferPlan:this.sessionTransferPlan});
+    }else if(stage!=='argument'){
+      const {hypothesis,evidence,alternative,uncertainty,reasoning,revisionReason}=entry.notes;
+      sessionJournal.recordWriting(caseId,stage,{hypothesis,evidence,alternative,uncertainty,reasoning,revisionReason,
+        ...Object.fromEntries(Object.entries(entry.sources).map(([index,text])=>[`source_${index}`,text]))});
+    }
   }
 
   submitted(caseId: string): ArgumentSnapshot | undefined {

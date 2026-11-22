@@ -5,9 +5,9 @@
   "tagline_en": "Simulator of an unregulated society",
   "domain": "https://www.no-ai-act.eu",
   "repository": "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT",
-  "versionTag": "v5.1.0",
-  "lastTaggedRelease": "v5.1.0",
-  "contentLastReviewed": "2026-11-21",
+  "versionTag": "v5.2.0",
+  "lastTaggedRelease": "v5.2.0",
+  "contentLastReviewed": "2026-11-22",
   "languages": [
     "it",
     "en",
@@ -46,12 +46,12 @@
     }
   },
   "privacy": {
-    "backend": "aggregate usage counters only",
+    "backend": "aggregate counters plus consented pseudonymous session journal",
     "accounts": false,
-    "personalDataCollection": false,
+    "personalDataCollection": true,
     "externalForms": false,
-    "gameplayNetworkCalls": "first-party aggregate usage only, no answers or player identifiers",
-    "analytics": "Automatic first-party aggregate usage, visible notice and per-page opt-out; DNT/GPC respected. Public pages also use cookie-free Cloudflare Web Analytics."
+    "gameplayNetworkCalls": "first-party aggregate counters; adult opt-in session events and separately consented writing",
+    "analytics": "Basic aggregate counters with opt-out; separate adult session consent, optional writing, 90-day retention, export and erasure; DNT/GPC respected. Public pages use Cloudflare Web Analytics."
   },
   "externalLinkAllowlist": [
     "https://www.unitus.it/post-laurea/dottorati-di-ricerca/corsi-di-dottorato-attivi/societa-in-mutamento-politiche-diritti-e-sicurezza/",
@@ -60,9 +60,10 @@
   ],
   "optionalAnalyticsEndpoints": {
     "betaUsage": "https://beta.no-ai-act.eu/collect",
-    "note": "First-party aggregate collection authorized for beta and production only. Preview and unspecified providers stay off. See game-statistics.html.",
+    "note": "Approved first-party counters and separately consented adult session journal; preview and local recording remain off. See game-statistics.html.",
     "plausible": "https://plausible.io/api/event",
-    "publicUsage": "https://beta.no-ai-act.eu/collect"
+    "publicUsage": "https://beta.no-ai-act.eu/collect",
+    "sessionJournal": "https://beta.no-ai-act.eu/collect/v3"
   },
   "siteLanguages": [
     "it",
@@ -72,6 +73,6 @@
     "es",
     "pt"
   ],
-  "releaseDate": "2026-11-21",
+  "releaseDate": "2026-11-22",
   "pressScreenshotVersion": "5.0.0"
 }

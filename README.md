@@ -6,7 +6,7 @@
 [![Contenuti: CC BY-SA 4.0](https://img.shields.io/badge/contenuti-CC%20BY--SA%204.0-5d7fb8)](LICENSE)
 [![Stack](https://img.shields.io/badge/stack-TypeScript%20%2B%20Phaser%203%20%2B%20Vite-101a30)](#stack)
 [![Test](https://img.shields.io/badge/test-Vitest-d9a521)](tests/)
-[![Stato](https://img.shields.io/badge/stato-v5.1.0-3fa66a)](#stato-release)
+[![Stato](https://img.shields.io/badge/stato-v5.2.0-3fa66a)](#stato-release)
 [![Lingue](https://img.shields.io/badge/lingue-IT%20EN%20FR%20DE%20ES%20PT-d8d6cd)](#lingue)
 
 **Serious game investigativo sull'AI Act europeo · browser, audio originale, salvataggio locale**
@@ -51,10 +51,10 @@ Questo gioco **non costituisce consulenza legale**.
 | **A chi serve** | Studenti (14+), docenti, formazione professionale, PA, cittadinanza digitale |
 | **Durata** | Da ~10–15 min (demo) a ~60–75 min (percorso avanzato) |
 | **Lingue del gioco** | Italiano / English / Français / Deutsch / Español / Português (PT) |
-| **Account / dati** | Nessun account; risposte locali; contatori aggregati disattivabili |
+| **Account / dati** | Nessun account; contatori di base e registro facoltativo con consenso 18+ |
 | **Autore** | [Matteo Angeloni](https://www.no-ai-act.eu/matteo-angeloni/) — ideazione, game design, sviluppo e contenuti educativi |
 
-## Stato attuale del codice (v5.1.0)
+## Stato attuale del codice (v5.2.0)
 
 Gioco e sito condividono sei lingue: italiano, inglese, francese, tedesco, spagnolo
 e portoghese europeo. Tutti i 14 casi, le prove, le motivazioni, i feedback, il
@@ -62,13 +62,13 @@ percorso guidato, il glossario e i report sono tradotti. Il selettore dispone
 di sei pulsanti su due righe; salvataggi v2 e migrazione v1 restano compatibili.
 
 Il dossier metodologico storico e il laboratorio locale Study 02 restano in
-IT/EN/FR e separati dalla build pubblica. Il gioco non acquisisce dati
-individuali né assegna punteggi automatici al pensiero critico. La validazione
+IT/EN/FR e separati dalla build pubblica. Salvataggi locali e statistiche aggregate disattivabili. Solo con consenso dei maggiorenni: registro della sessione per 90 giorni; testi del percorso guidato con consenso separato. Revoca, cancellazione ed export dalla barra del gioco.
+Non assegna punteggi automatici al pensiero critico. La validazione
 umana delle traduzioni e dell'efficacia educativa resta da svolgere.
 
 Restano 155 URL pubblici in sei lingue, con diversa profondità editoriale per
 lingua. [Copertura e verifiche](docs/v5/SIX_LANGUAGE_LOCALIZATION.md).
-Note: [RELEASE_NOTES_v5.1.0.md](docs/RELEASE_NOTES_v5.1.0.md).
+Note: [RELEASE_NOTES_v5.2.0.md](docs/RELEASE_NOTES_v5.2.0.md).
 
 ## Novità in v1.0.0 — Prima release pubblica stabile (storico)
 
@@ -89,8 +89,7 @@ di gioco: la 1.0 è una release di stabilizzazione e pubblicazione.
 Dettagli: [`docs/RELEASE_NOTES_v1.0.0.md`](docs/RELEASE_NOTES_v1.0.0.md) ·
 contenuti v0.6: [`docs/RELEASE_NOTES_v0.6.0.md`](docs/RELEASE_NOTES_v0.6.0.md).
 
-> **Aggregate usage counters only · No accounts · No classroom dashboard · No personal data
-> collection.** Teacher mode is local debrief support. Educational simulation,
+> **Optional consented session records · No accounts · No classroom dashboard.** Teacher mode is local debrief support. Educational simulation,
 > not legal advice.
 
 ## Obiettivo didattico
@@ -203,29 +202,16 @@ indicatori, tempo, domande di discussione) consultabile a schermo, con export
 
 ## Dati e privacy
 
-> 🇮🇹 NO AI ACT è una demo pubblica accessibile tramite GitHub Pages. Il gioco
-> non richiede account, non chiede nome, email, scuola o classe, e non salva
-> risultati su server. La modalità docente produce solo un debrief locale.
-> Eventuali export sono generati sul dispositivo dell'utente e possono essere
-> condivisi manualmente. Le pagine pubbliche usano statistiche aggregate e
-> privacy-friendly (Cloudflare Web Analytics, senza cookie né dati personali);
-> il gioco invia automaticamente solo contatori aggregati di utilizzo,
-> disattivabili nella barra del gioco. Risposte, risultati e report restano locali.
->
-> 🇬🇧 NO AI ACT is a public demo available through GitHub Pages. The game does
-> not require an account, does not ask for names, emails, school, or class, and
-> does not store results on a server. Teacher mode only produces a local
-> debrief. Any exports are generated on the user's device and can be shared
-> manually. The public pages use aggregate, privacy-friendly statistics
-> (Cloudflare Web Analytics); the game automatically sends first-party aggregate
-> usage counters with opt-out. Answers, results and reports stay local.
+Salvataggi locali e statistiche aggregate disattivabili. Solo con consenso dei maggiorenni: registro della sessione per 90 giorni; testi del percorso guidato con consenso separato. Revoca, cancellazione ed export dalla barra del gioco.
 
-Telemetria opzionale privacy-by-design (`AnalyticsSystem`): eventi di gameplay
-aggregati con allowlist rigida; **niente** nomi, email, IP nel payload, free
-text, cookie, fingerprinting, session replay o identificativi persistenti.
-In produzione: **contatori aggregati automatici**, disattivabili; rispetta DNT/GPC. Adapter opzionali per
-Plausible/Umami via variabili `VITE_*`. Dettagli e nota GDPR:
-[`docs/ANALYTICS.md`](docs/ANALYTICS.md).
+Il registro è pseudonimo, senza nomi, email, IP applicativi o collegamenti tra visite.
+Consenso 18+, sessione della stessa scheda per 24 ore, conservazione 90 giorni,
+coda con conferme e tentativi di reinvio. I testi sono cifrati nel database.
+L’export docente rimane locale. Nessuno scoring del pensiero critico e nessuna
+attivazione dello studio accademico Study 02.
+
+[Informativa](https://www.no-ai-act.eu/game-statistics.html) ·
+[Contratto, limiti e test](docs/v5/SESSION_JOURNAL.md).
 
 ## Stack
 
@@ -328,12 +314,10 @@ struttura, segnaposto e indici dei casi fra tutti i sei dizionari.
   strutturale e non viene dichiarata una conformità WCAG completa.
 - Contenuto giuridico in **versione didattica semplificata**: non sostituisce il
   testo del regolamento né una consulenza legale.
-- **Telemetria first-party aggregata e disattivabile**: schema chiuso, nessun
+- **Telemetria first-party**: contatori di base e registro con consenso 18+ separato; nessun
   cookie o identificatore persistente del giocatore, rispetto DNT/GPC; nessun
   account, nessuna dashboard classe, nessun registro studenti.
-- Dimensioni build: fonte autorevole `npm run report:dist` (ultimo report di
-  release verificato: dist ~6,52 MB; bundle di gioco ~423 KB gzip; landing
-  ~9 KB gzip).
+- Dimensioni build: fonte autorevole `npm run report:dist`, calcolate nuovamente a ogni rilascio.
 - **Il carico cognitivo dell'interfaccia è misurato, non validato.**
   `npm run diag:density` dice *dove* si concentra — e ha già portato a due
   correzioni — ma se quel carico sia tollerabile lo dicono le persone. Le
@@ -427,20 +411,18 @@ struttura, segnaposto e indici dei casi fra tutti i sei dizionari.
 
 Fonte machine-readable: [`release.config.json`](release.config.json)
 (coerenza garantita da test automatici).
-Note di rilascio: [`docs/RELEASE_NOTES_v5.1.0.md`](docs/RELEASE_NOTES_v5.1.0.md).
+Note di rilascio: [`docs/RELEASE_NOTES_v5.2.0.md`](docs/RELEASE_NOTES_v5.2.0.md).
 
-- **Versione**: v5.1.0 (fonte: `package.json`)
-- **Tag della versione**: `v5.1.0` — **pubblicato**
-- **Ultima release effettivamente taggata**: `v5.1.0`
+- **Versione**: v5.2.0 (fonte: `package.json`)
+- **Tag della versione**: `v5.2.0` — **pubblicato**
+- **Ultima release effettivamente taggata**: `v5.2.0`
 - **Nota**: il tag software e lo stato del deploy web sono verifiche distinte; l’efficacia educativa resta da validare.
 - **Casi giocabili**: 14
 - **Lingue**: italiano, inglese, francese, tedesco, spagnolo e portoghese europeo
 - **URL pubblici**: 155 (33 IT + 37 EN + 37 FR + 16 DE + 16 ES + 16 PT)
 - **Localizzazioni del sito**: tedesco, spagnolo e portoghese europeo (`pt-PT`), 16 risorse introduttive, pratiche e stampa per lingua, inclusi laboratori e casi sul reclutamento. Gioco e press kit sono disponibili in tutte e sei le lingue. [Contenuti, fonti e verifiche](docs/seo/CONTENT_CAMPAIGN_2026-10-18.md).
 - **Salvataggi**: schema v2, con migrazione testata dei salvataggi v1
-- **Backend applicativo/account**: nessuno · **Identificatori persistenti del
-  giocatore nel payload**: nessuno · **Analytics**: contatori aggregati first-party,
-  disattivabili e soggetti a soglia di pubblicazione
+- **Backend**: Cloudflare Workers/D1 · **Account giocatore**: nessuno · **Registro**: pseudonimo e facoltativo con consenso 18+, nessun collegamento tra visite; retention 90 giorni, export e cancellazione. Lo storico aggregato resta separato
 - **DOI**: non ancora disponibile (previsto via Zenodo dopo il tag)
 - **Efficacia didattica**: non ancora validata empiricamente
 - **Test / build**: suite Vitest completa + build + verifiche dist verdi in CI
@@ -520,10 +502,10 @@ optional **local self-check**, a **confidence and reflection layer**, and a
 with aria-live announcements and a keyboard path through a full case) support
 learning and accessibility. Three difficulty modes, mission paths, IT/EN/FR/DE/ES/PT.
 
-No account or player identifiers; only aggregate usage calls during
+No accounts; basic aggregate counters and consented pseudonymous session records during
 gameplay: graphics are procedural and recorded audio has a local synthetic
 fallback; saves stay in `localStorage`. **Teacher mode** is local debrief
-support only, with on-device `.txt`/`.json` exports. Version **5.1.0** adds guided inquiry across all 14 cases. The latest tagged release is **v5.1.0**.
+support only, with on-device `.txt`/`.json` exports. Version **5** provides guided inquiry across all 14 cases; **5.2.0** adds optional consented session records. The latest tagged release is **v5.2.0**.
 Educational simplification of the AI Act, not legal advice. Its educational effectiveness has **not yet been empirically
 validated**. Code: GPL-3.0-or-later · narrative and didactic content: CC BY-SA 4.0.
 

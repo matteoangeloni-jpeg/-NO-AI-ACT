@@ -6,6 +6,7 @@ import { ReadingLayer } from '../systems/ReadingLayer';
 import { Button } from './Button';
 import { Panel } from './Panel';
 import { InvestigationGuide } from '../systems/InvestigationGuide';
+import { sessionJournal } from '../systems/SessionJournal';
 import { COLORS, COLOR_STR, GAME_HEIGHT, GAME_WIDTH, textStyle } from './theme';
 
 type CloseKey = 'compareCloseEvidence' | 'compareCloseDecision';
@@ -71,6 +72,7 @@ export class EvidenceCompareOverlay {
     const texts = caseText(this.caseId);
     const data = getCase(this.caseId);
     const [leftIndex, rightIndex] = this.pairs[this.pairCursor];
+    sessionJournal.record('evidence_compared',{caseId:this.caseId,left:leftIndex,right:rightIndex},{caseId:this.caseId});
     const cx = GAME_WIDTH / 2;
     const cy = GAME_HEIGHT / 2;
     const panelW = 1160;

@@ -3,6 +3,7 @@ import { aggregateCountsCsv, compositeCsv, csv, DailyQuotaExceeded, ingest, LIMI
 import type { CompositeReport } from './types';
 import type { Env } from './types';
 import { validateUsageBatch } from './beta-usage';
+import { handleJournalAdmin, handleJournalCollector, purgeJournal } from './journal-worker';
 
 const headers = {
   'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'no-referrer',
@@ -34,8 +35,10 @@ export async function handle(request: Request, env: Env): Promise<Response> {
   const url = new URL(request.url);
   try {
     // The same Worker can serve Insights and only /collect on the beta host.
-    if (url.pathname === '/collect' && env.COLLECTION_HOST && url.hostname !== env.COLLECTION_HOST) return response({ error: 'not_found' }, 404);
-    if (url.pathname !== '/collect' && env.ADMIN_HOST && url.hostname !== env.ADMIN_HOST) return response({ error: 'not_found' }, 404);
+    const collector = url.pathname === '/collect' || url.pathname.startsWith('/collect/v3/');
+    if (collector && env.COLLECTION_HOST && url.hostname !== env.COLLECTION_HOST) return response({ error: 'not_found' }, 404);
+    if (!collector && env.ADMIN_HOST && url.hostname !== env.ADMIN_HOST) return response({ error: 'not_found' }, 404);
+    if (url.pathname.startsWith('/collect/v3/')) return await handleJournalCollector(request, env);
     if (url.pathname === '/collect') {
       if (env.COLLECTION_ENABLED !== 'true') return response({ error: 'collection_disabled' }, 503);
       if (!env.ALLOWED_ORIGIN || request.headers.get('Origin') !== env.ALLOWED_ORIGIN || url.search) return response({ error: 'forbidden' }, 403);
@@ -63,6 +66,8 @@ export async function handle(request: Request, env: Env): Promise<Response> {
     if (!await authorized(request, env)) return response({ error: 'authentication_required' }, 401,
       env.LOCAL_TEST === 'true' ? { 'WWW-Authenticate': 'Basic realm="Player Insights local test", charset="UTF-8"' } : {});
     if (!env.ADMIN_LIMITER || !(await env.ADMIN_LIMITER.limit({ key: 'admin-global' })).success) return response({ error: 'admin_rate_limited' }, 429);
+    const journal = await handleJournalAdmin(request, env);
+    if (journal) return journal;
     const compositeExports: Record<string, { report: CompositeReport; filename: string }> = {
       '/api/export/case-performance.csv': { report: 'case_performance', filename: 'player-insights-case-performance.csv' },
       '/api/export/decision-evidence.csv': { report: 'decision_evidence', filename: 'player-insights-decision-evidence.csv' },
@@ -86,7 +91,7 @@ export async function handle(request: Request, env: Env): Promise<Response> {
         'X-Retention-From': coverage.retainedFrom, 'X-Retention-Clipped': String(coverage.clipped) } });
       return response({ classification, collectionEnabled: env.COLLECTION_ENABLED === 'true', localEnvironment: env.LOCAL_TEST === 'true', query, threshold: LIMITS.threshold, rows, generatedAt: new Date(now).toISOString(), dayBasis: 'UTC receipt day', retentionDays: LIMITS.retentionDays, retentionWindow: coverage });
     }
-    if (url.pathname.startsWith('/api/') || !['/', '/dashboard.js', '/forecast.js', '/dashboard.css'].includes(url.pathname)) return response({ error: 'not_found' }, 404);
+    if (url.pathname.startsWith('/api/') || !['/', '/dashboard.js', '/forecast.js', '/dashboard.css', '/journal.js'].includes(url.pathname)) return response({ error: 'not_found' }, 404);
     if (!env.ASSETS) return response({ error: 'assets_unavailable' }, 503);
     const asset = await env.ASSETS.fetch(request);
     const result = new Response(request.method === 'HEAD' ? null : asset.body, asset);
@@ -94,10 +99,13 @@ export async function handle(request: Request, env: Env): Promise<Response> {
     return result;
   } catch {
     // Deliberately do not log incoming bodies, credentials or exception SQL.
-    return response({ error: 'temporarily_unavailable' }, 503);
+    const origin=request.headers.get('Origin');
+    return response({ error: 'temporarily_unavailable' }, 503,
+      url.pathname.startsWith('/collect/v3/')&&origin&&['https://www.no-ai-act.eu','https://beta.no-ai-act.eu'].includes(origin)
+        ? {'Access-Control-Allow-Origin':origin,'Vary':'Origin'}:{});
   }
 }
 export default {
   fetch: handle,
-  async scheduled(_event: unknown, env: Env): Promise<void> { await purge(env.DB); }
+  async scheduled(_event: unknown, env: Env): Promise<void> { await purge(env.DB); await purgeJournal(env.DB); }
 };

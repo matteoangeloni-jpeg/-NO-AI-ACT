@@ -1,5 +1,9 @@
 # Analytics e telemetria aggregata
 
+**V5.2, 22 novembre 2026:** questo documento descrive il protocollo aggregato
+precedente. È ora affiancato dal [registro di sessione con consenso](v5/SESSION_JOURNAL.md),
+che registra dati pseudonimi individuali solo per maggiorenni consenzienti.
+
 Stato documentale: 30 ottobre 2026. Il codice supporta contatori locali e un
 trasporto first-party aggregato. Il template Worker nel repository mantiene
 `COLLECTION_ENABLED: false`; build beta/produzione possono configurare il client

@@ -11,6 +11,7 @@ import * as pt from '../../src/site/pt-content.mjs';
 import { PRACTICAL_PAGES, HUB_PATHS } from '../../src/site/eu-practical-content.mjs';
 import { PRESS_PAGES } from '../../src/site/eu-press-content.mjs';
 import { renderPressCoverage, renderPressReferences } from '../../src/site/press-coverage.mjs';
+import { JOURNAL_SUMMARY } from '../../src/site/journal-summary.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const read = file => readFileSync(resolve(root, file), 'utf8');
@@ -102,7 +103,8 @@ ${page.links?'':`  <section aria-labelledby="related-title"><div class="wrap"><h
   <script type="module" src="/src/scripts/nav.ts"></script>
 ${id==='home'?'  <script type="module" src="/src/scripts/press-carousel.ts"></script>':''}
 </body></html>\n`;
-    write(file(dir), EU_EDITORIAL_OVERRIDES[dir]?.replaceAll('__GAME_VERSION__', version) ?? html);
+    const rendered=EU_EDITORIAL_OVERRIDES[dir]?.replaceAll('__GAME_VERSION__', version) ?? html;
+    write(file(dir),rendered.replace('</footer>',`<p class="session-record-policy">${escape(JOURNAL_SUMMARY[lang])} <a href="/game-statistics.html#${lang}">${ui.privacyLink}</a></p></footer>`));
   }
 }
 

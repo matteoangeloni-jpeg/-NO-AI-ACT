@@ -36,4 +36,6 @@ export interface Env {
   LOCAL_PASSWORD?: string;
   DATA_CLASSIFICATION?: string;
   ASSETS?: { fetch(request: Request): Promise<Response> };
+  JOURNAL_ENABLED?: string;
+  JOURNAL_TEXT_KEY?: string;
 }

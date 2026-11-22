@@ -1,4 +1,5 @@
 import type { Analytics } from '../systems/AnalyticsSystem';
+import { sessionJournal } from '../systems/SessionJournal';
 import { createIcons, ShieldCheck, X } from 'lucide';
 import './usageNotice.css';
 
@@ -31,7 +32,7 @@ export function initUsageNotice(analytics: Analytics): void {
     reopen.title = w[2]; reopen.setAttribute('aria-label', w[2]);
   };
   toggle.addEventListener('click', () => {
-    if (analytics.isEnabled()) analytics.disable();
+    if (analytics.isEnabled()) { analytics.disable(); void sessionJournal.revoke(); }
     else { analytics.enable(); analytics.track('game_opened'); }
     update();
   });

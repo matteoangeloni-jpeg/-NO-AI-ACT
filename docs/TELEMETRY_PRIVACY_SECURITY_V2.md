@@ -1,5 +1,8 @@
 # Telemetry v2 privacy and security review
 
+V5.2 update: this historical aggregate review is superseded for the separately
+consented session record by [the current contract](v5/SESSION_JOURNAL.md).
+
 Status: technical review draft, not legal advice, a DPIA, a certification, or a
 statement that collection is lawful. Human privacy/legal review remains required
 before changing purposes, fields, recipients, activation, retention or access.

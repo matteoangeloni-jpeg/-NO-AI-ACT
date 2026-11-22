@@ -235,9 +235,10 @@ describe('public static files', () => {
     expect(llms).toContain('v2.0.0');
     expect(llms).toContain('14 playable cases');
     expect(lower).toContain('not legal advice');
-    expect(lower).toContain('aggregate usage counters only');
+    expect(lower).toContain('optional adult-consented session events');
     expect(lower).toContain('no account');
-    expect(lower).toContain('no registration or player identifiers');
+    expect(lower).toContain('no registration');
+    expect(lower).toContain('pseudonymous tab code');
     expect(lower).toContain('no external forms'); // Tally removed from the product
     expect(llms).toContain(`${SITE}play/`);
     expect(llms).toContain(`${SITE}en/`);
@@ -344,13 +345,16 @@ describe('public landing — analytics privacy wording', () => {
   it('the IT privacy text cites Cloudflare and separates page stats from game data', () => {
     expect(itHtml).toContain('Cloudflare Web Analytics');
     expect(itHtml).toMatch(/statistiche aggregate/i);
-    expect(itHtml).toMatch(/non invia risultati, risposte o report/i);
+    expect(itHtml).toMatch(/registro.*consenso.*90 giorni|consenso.*registro.*90 giorni/i);
+    expect(itHtml).not.toMatch(/non invia risultati, risposte o report/i);
   });
 
   it('the EN privacy text cites Cloudflare and separates page stats from game data', () => {
     expect(enHtml).toContain('Cloudflare Web Analytics');
-    expect(enHtml).toMatch(/aggregate, privacy-friendly statistics/i);
-    expect(enHtml).toMatch(/does not send results, answers or inspection reports/i);
+    expect(enHtml).toMatch(/aggregate statistics/i);
+    expect(enHtml).toMatch(/adult consent/i);
+    expect(enHtml).toMatch(/separate consent/i);
+    expect(enHtml).not.toMatch(/does not send results, answers or inspection reports/i);
   });
 
   it('llms.txt mentions Cloudflare Web Analytics without false "no analytics" claims', () => {

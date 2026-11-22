@@ -1,7 +1,7 @@
 {
   "en": "en/research-and-methodology",
   "slug": "recherche-methodologie",
-  "sourceHash": "653191df174d965970b3460ea13e7018f7d02bc97dc4af5adc1a0a67512f0b70",
+  "sourceHash": "d4fd70e3ff15cf9ced0cc4234548adcace9de4ec8f7face138a513a4000d33f2",
   "title": "Recherche et méthodologie de NO AI ACT",
   "description": "Objectifs pédagogiques, mécanismes, sources juridiques, confidentialité et état de validation de NO AI ACT : un cadre transparent pour étudier le jeu.",
   "blocks": [
@@ -46,12 +46,12 @@
     "<a href=\"../eu-ai-act-guide/\">Guide de l'AI Act</a>",
     "Les classifications sont traçables cas par cas dans les données ouvertes du jeu. Les scénarios ambigus restent <em>contestables</em>. Une révision juridique externe est recommandée avant un usage institutionnel formel.",
     "<span class=\"num\">05</span>Architecture de confidentialité",
-    "Le produit est conçu pour être étudié <strong>sans collecte de données personnelles</strong> : sans compte ni identifiant de joueur ; compteurs agreges automatiques desactivables dans la barre du jeu ; sauvegardes dans le localStorage du navigateur. Les pages publiques utilisent seulement Cloudflare Web Analytics, agrégé et sans cookies. Voir <a href=\"../privacy-by-design/\">protection dès la conception</a> pour vérifier ce fonctionnement.",
+    "Le produit public peut être étudié avec des limites explicites de collecte : aucun compte ; un code pseudonyme seulement avec le consentement d’un adulte. Les sauvegardes restent locales. Certaines pages utilisent Cloudflare Web Analytics sans cookies. Sauvegardes locales et statistiques agrégées désactivables. Avec le consentement des adultes uniquement : registre de session pendant 90 jours ; accord distinct pour les textes du parcours guidé. Retrait, effacement et export dans la barre du jeu. <a href=\"../privacy-by-design/\">Protection dès la conception</a>.",
     "Conséquence méthodologique : questionnaires et pré/post-tests restent <strong>hors du jeu</strong>, sous la responsabilité éthique de l'équipe de recherche. Le jeu n'intègre pas d'enquêtes.",
     "<span class=\"num\">06</span>Validation : ce qui est démontré et ce qui ne l'est pas",
     "Démontré",
     "Propriétés logicielles vérifiables",
-    "Comportements vérifiables dans le code et les tests : absence d'appels réseau pendant le jeu, sauvegardes locales, contenus et évaluation versionnés, dictionnaires italien, anglais, français, allemand, espagnol et portugais européen. Les résultats de tests de cette candidature sont consignés dans le dépôt.",
+    "Comportements vérifiables par le code et les tests : compteurs de base et registre séparé avec consentement pendant le jeu, sauvegardes locales, contenu et règles identifiés par version, six langues jouables.",
     "Non démontré",
     "Efficacité pédagogique",
     "L'efficacité pédagogique <strong>n'a pas encore été validée empiriquement</strong> : aucune étude contrôlée de l'apprentissage ou du transfert n'est disponible. Les usages informels en classe ont seulement alimenté les itérations de conception.",

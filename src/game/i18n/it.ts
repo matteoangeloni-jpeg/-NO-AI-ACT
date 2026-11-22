@@ -42,7 +42,7 @@ export const it = {
       language: 'LINGUA: ITALIANO',
       teacherOn: 'MODALITÀ DOCENTE: ON',
       teacherOff: 'MODALITÀ DOCENTE: OFF',
-      teacherScope: 'Debrief locale: niente classi, niente account, niente server.',
+      teacherScope: "Il report docente è locale; il registro facoltativo si gestisce dalla barra.",
       resetDone: 'Salvataggio azzerato.',
       teachers: 'DOCENTI E CLASSE',
       resources: 'RISORSE',
@@ -51,12 +51,12 @@ export const it = {
     },
     titleGroups: {
       settingsTitle: 'Impostazioni',
-      settingsPrivacy: 'Salvataggio e preferenze restano solo nel tuo browser: nessun account, nessun dato inviato.',
+      settingsPrivacy: "Salvataggi locali e statistiche aggregate disattivabili. Solo con consenso dei maggiorenni: registro della sessione per 90 giorni; testi del percorso guidato con consenso separato. Revoca, cancellazione ed export dalla barra del gioco.",
       teachersTitle: 'Docenti e classe',
       classPreset: 'PRONTI PER LA CLASSE ▸',
       classPresetDone: 'Modalità docente attiva e testo istantaneo.',
-      classPresetNote: 'Attiva le pause di discussione dopo ogni caso e mostra il testo senza attesa. Non introduce timer e non confronta gruppi: il gioco non misura il tuo tempo e non fa uscire dati dal dispositivo.',
-      teachersNote: 'Modalità docente: pause di discussione dopo ogni caso e debrief locale a fine partita. Uso in classe: 20–40 minuti, nessun account, nessun dato raccolto.',
+      classPresetNote: "Attiva le pause di discussione dopo ogni caso e mostra subito il testo. Nessun timer o confronto tra gruppi. Il registro facoltativo richiede consenso dalla barra.",
+      teachersNote: "Il report docente è locale; il registro facoltativo si gestisce dalla barra.",
       resourcesTitle: 'Risorse',
       resourcesNote: 'Archivio e glossario del gioco, più le guide del sito (nuova scheda).',
       close: 'CHIUDI'
@@ -175,7 +175,7 @@ export const it = {
     teacherGuide: {
       button: 'GUIDA DOCENTE ▸',
       title: 'Usare NO AI ACT in aula',
-      intro: 'Struttura consigliata in tre tempi. Nessun account, nessun dato degli studenti: tutto resta locale.',
+      intro: "Il report docente è locale; il registro facoltativo si gestisce dalla barra.",
       beforeTitle: 'Prima della lezione',
       beforeText: "Prova un caso da solo, scegli il percorso (demo, laboratorio o completo) e fissa 2–3 obiettivi. Le attività pronte e la lezione introduttiva qui sotto danno la cornice sull'AI Act prima di giocare.",
       duringTitle: 'Durante',
@@ -501,13 +501,13 @@ export const it = {
       debrief: 'DEBRIEF DOCENTE ▸',
       learningReport: 'RAPPORTO DI APPRENDIMENTO ▸',
       privacyNote: {
-        title: 'Privacy: tutto resta nel tuo browser',
-        text: 'Questa versione non incorpora moduli esterni. Risposte, rapporti, progressi e appunti restano sul dispositivo; i contatori aggregati di utilizzo escludono testi e identificativi del giocatore.'
+        title: "Registro della sessione",
+        text: "Salvataggi locali e statistiche aggregate disattivabili. Solo con consenso dei maggiorenni: registro della sessione per 90 giorni; testi del percorso guidato con consenso separato. Revoca, cancellazione ed export dalla barra del gioco."
       }
     },
     debrief: {
       title: 'DEBRIEF DOCENTE — REPORT LOCALE',
-      subtitle: 'Supporto locale per il debrief. Non crea classi, non registra studenti, non invia risultati a server.',
+      subtitle: "Il report docente è locale; il registro facoltativo si gestisce dalla barra.",
       casesLabel: 'CASI E RAPPORTI',
       caseLine: '{title} — esito: {outcome}',
       mainErrorLine: 'rilievo: {error}',
@@ -531,7 +531,7 @@ export const it = {
       notCompleted: 'caso non completato',
       missionLine: 'Missione: {mission}',
       difficultyLine: 'Difficoltà: {difficulty}',
-      privacyNote: 'I dati mostrati restano su questo dispositivo. L\'eventuale export è locale e non contiene nomi, email, classe o scuola.',
+      privacyNote: "Il report docente è locale; il registro facoltativo si gestisce dalla barra.",
       recommendedHeader: 'PERCORSI CONSIGLIATI',
       recommendedLine: '{name} · {duration} · {goal}'
     },

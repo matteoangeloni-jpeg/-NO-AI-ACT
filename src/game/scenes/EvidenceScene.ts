@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { sessionJournal } from '../systems/SessionJournal';
 import { MIN_CITED_CLUES, getCase } from '../data/cases';
 import { contradictionPairs } from '../data/learningModel';
 import type { CaseData } from '../data/types';
@@ -175,6 +176,7 @@ export class EvidenceScene extends Phaser.Scene {
       const stance = this.caseData.clueStances?.[i];
       const card = new DossierCard(this, x, y, cardW, cardH, clue, i, () => {
         const current = this.cards[i];
+        sessionJournal.record('evidence_interaction',{caseId:this.caseData.id,evidenceIndex:i,opened:current.isRevealed,cited:current.isCited},{caseId:this.caseData.id});
         AnalyticsSystem.evidenceAction(this.caseData.id, i, current.isRevealed, current.isCited);
         this.refreshState();
       }, sourceLabel, stance, src);

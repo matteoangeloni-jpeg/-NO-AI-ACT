@@ -1,11 +1,12 @@
 const $=id=>document.getElementById(id),form=$('filters'),fmt=new Intl.NumberFormat('it-IT');
 const core=['all','language','mode','caseId','phase','result','durationBucket','hintUsed','tutorialVersion'];
-const optional=['classificationPair','caseEvidenceQuality','caseDecisionQuality','caseFinalEvaluation','caseDuration','caseRevision','abandonmentPhase','technicalError','accessibilitySetting','selfReport','externallyValidatedMeasure'];
-const label={it:'Italiano',en:'Inglese',fr:'Francese',turno:'Turno',libera:'Libera',sorpresa:'Sorpresa',ripasso:'Ripasso',correct:'Corretta',partial:'Parziale',wrong:'Errata',true:'Sì',false:'No',under_1m:'Meno di 1 min','1_to_5m':'1–5 min','5_to_15m':'5–15 min','15_to_30m':'15–30 min','30m_plus':'30 min o più'};
+const optional=['classificationPair','caseEvidenceQuality','caseDecisionQuality','caseFinalEvaluation','caseDuration','caseRevision','abandonmentPhase','technicalError','accessibilitySetting',];
+const label={it:'Italiano',en:'Inglese',fr:'Francese',de:'Tedesco',es:'Spagnolo',pt:'Portoghese (PT)',turno:'Turno',libera:'Libera',sorpresa:'Sorpresa',ripasso:'Ripasso',correct:'Corretta',partial:'Parziale',wrong:'Errata',true:'Sì',false:'No',under_1m:'Meno di 1 min','1_to_5m':'1–5 min','5_to_15m':'5–15 min','15_to_30m':'15–30 min','30m_plus':'30 min o più'};
 const today=new Date(),iso=d=>d.toISOString().slice(0,10);form.elements.to.value=iso(today);form.elements.from.value=iso(new Date(today.valueOf()-13*86400000));
 let data={},provenance,applied,loading=false,failed=false;
 function el(tag,text,cls){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n}
-function rows(d){return data[d]??[]}
+const eventAliases={usage_case_completed:'case_completed',usage_case_left:'case_abandoned',usage_session_completed:'session_completed'};
+function rows(d){return (data[d]??[]).map(row=>({...row,event:eventAliases[row.event]??row.event}))}
 function filtered(d){
   let list=rows(d);
   if(['classificationPair','caseEvidenceQuality','caseDecisionQuality','caseFinalEvaluation','caseDuration','caseRevision','abandonmentPhase','technicalError'].includes(d)){

@@ -88,7 +88,7 @@ describe('Open Graph — complete on every page + the play shell', () => {
         // dichiarati siano locale validi.
         void altro;
       }
-      const alternates = [...html.matchAll(/<meta property="og:locale:alternate" content="([^"]+)" \/>/g)].map(([, v]) => v);
+      const alternates = [...html.matchAll(/<meta property="og:locale:alternate" content="([^"]+)"\s*\/?>/g)].map(([, v]) => v);
       expect(alternates.length, `${d}: nessun og:locale:alternate`).toBeGreaterThanOrEqual(1);
       for (const a of alternates) {
         expect(Object.values(LOCALE), `${d}: alternate sconosciuto ${a}`).toContain(a);

@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 import { PAGINE, NAV, SITE } from '../../src/site/fr-content.mjs';
 import { translatedPages } from './fr-translations.mjs';
 import { renderPressCoverage } from '../../src/site/press-coverage.mjs';
+import { JOURNAL_SUMMARY } from '../../src/site/journal-summary.mjs';
 
 /**
  * L'IMMAGINE SOCIALE VIENE DALLA MAPPATURA, non da una costante.
@@ -223,6 +224,7 @@ ${p.sezioni?.map(sezione).join('\n\n')}
       <p><a href="{FR}education/">Ressources éducatives</a> · <a href="{FR}comment-ca-marche/">Comment ça marche</a> · <a href="{FR}ai-act-pour-enseignants/">Pour les enseignants</a> · <a href="{FR}glossaire/">Glossaire</a> ${p.it === null ? '' : `· <a href="{ROOT}${p.it}" hreflang="it">Version italienne</a>`} · <a href="{ROOT}${p.en}" hreflang="en">English version</a></p>
       <p class="credit">Conçu et développé par <a href="{FR}matteo-angeloni/">Matteo Angeloni</a> · v${versione} · <span class="ai-disclosure">Fait avec l'IA, non par l'IA</span><br /><span class="credit-affil">Doctorant en <a href="https://www.unitus.it/post-laurea/dottorati-di-ricerca/corsi-di-dottorato-attivi/societa-in-mutamento-politiche-diritti-e-sicurezza/">Società in mutamento: politiche, diritti e sicurezza</a> · <a href="https://www.unitus.it/">Università degli Studi della Tuscia</a> — projet indépendant, sans caractère officiel pour l'université</span></p>
     </div>
+    <p class="session-record-policy">${JOURNAL_SUMMARY.fr} <a href="/game-statistics.html#fr">Information et contact</a></p>
   </footer>
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7c85578fc8ad4488a54c6bc670a10dcf"}'></script><!-- End Cloudflare Web Analytics -->
   <script type="module" src="/src/scripts/nav.ts"></script>${p.slug === '' ? '\n  <script type="module" src="/src/scripts/press-carousel.ts"></script>' : ''}

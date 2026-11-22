@@ -1,5 +1,17 @@
 # CHANGELOG — NO AI ACT
 
+## [5.2.0] — 2026-11-22
+
+- Registro delle singole sessioni con consenso 18+, testi con consenso separato,
+  coda per scheda, invii idempotenti, export e cancellazione; retention di 90 giorni.
+- Dashboard privata con timeline, tentativi, filtri congiunti ed export JSON/CSV.
+  Corrette le etichette degli eventi storici che nascondevano i casi completati.
+- Consenso, informativa, gioco, sito e note di rilascio nelle sei lingue.
+  I 14 casi e le migrazioni dei salvataggi sono conservati.
+- Nessuno smoke test richiesto. Nessuna ricostruzione di percorsi storici, garanzia
+  di consegna completa, misura validata del pensiero critico o attivazione di Study 02.
+  [Contratto e limiti](docs/v5/SESSION_JOURNAL.md).
+
 ## [5.1.0] — 2026-11-21
 
 - Gioco completo in DE/ES/PT europeo, allineato alle sei lingue del sito: tutti i

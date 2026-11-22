@@ -44,19 +44,21 @@ It is an **educational simulation**, not legal advice and not a compliance tool.
 - Missions of varying length (demo / short lab / full / advanced).
 - Teacher mode with a **local, anonymous** end-of-session debrief and `.txt` /
   `.json` export.
-- Two languages: Italian (default) and English, full parity.
+- Six game/site languages: Italian, English, French, German, Spanish and European Portuguese.
 
 ## What it is NOT
 
 - Not legal advice or a substitute for the AI Act text.
 - Not a compliance, audit or certification tool.
-- Not a data-collecting product: no backend, no account, no classroom dashboard.
+- No player account or classroom dashboard. Cloudflare Workers/D1 supports basic counters and optional consented session records.
   Public pages use aggregate, privacy-friendly Cloudflare Web Analytics (no
   cookies, no personal data); the game itself sends no analytics or game data.
 
+Current V5.2 recording contract: [SESSION_JOURNAL.md](v5/SESSION_JOURNAL.md).
+
 ## Privacy by design
 
-No personal data leaves the device. Progress and settings live only in the
+Session recording requires adult consent; sharing saved writing requires separate consent. Progress and settings live only in the
 browser's `localStorage`. The teacher debrief export is local and anonymous.
 
 ## Technology

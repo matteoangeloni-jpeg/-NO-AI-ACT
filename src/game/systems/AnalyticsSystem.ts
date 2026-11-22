@@ -72,6 +72,9 @@ interface Attempt {
 
 /** Closed, bounded counters. No raw timeline, persistent identifiers or automatic flush. */
 export class Analytics {
+  private rawObserver?: (payload: AnalyticsPayload) => void;
+  /** Consented journal observes validated events before aggregate minimisation. */
+  setRawObserver(observer: (payload: AnalyticsPayload) => void): void { this.rawObserver = observer; }
   readonly provider: AnalyticsProvider;
   private enabled: boolean;
   private readonly cells = new Map<string, AnalyticsAggregate>();
@@ -209,6 +212,7 @@ export class Analytics {
     const payload: AnalyticsPayload = { schemaVersion: ANALYTICS_SCHEMA_VERSION, gameVersion: ANALYTICS_GAME_VERSION,
       event, properties: props as unknown as AnalyticsProperties };
     if (!validatePayload(payload)) { this.diagnostics.rejected++; return; }
+    try { this.rawObserver?.({ ...payload, properties: { ...payload.properties } }); } catch { /* telemetry cannot interrupt play */ }
     const seen = r.once === 'document' ? this.documentOnce : r.once === 'session' ? this.sessionOnce : r.once === 'case' ? a?.once : undefined;
     if (seen?.has(event)) { this.diagnostics.duplicates++; return; }
     if (event === 'language_selected' || event === 'mode_selected') {

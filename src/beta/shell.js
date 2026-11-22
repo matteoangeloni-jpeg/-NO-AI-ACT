@@ -18,12 +18,12 @@
   const stable = create('a', { href: 'https://www.no-ai-act.eu/', rel: 'noreferrer' });
   banner.append(badge, open, stable);
   const usageWords = {
-    it: ['Statistiche aggregate', 'Informativa statistiche', 'Statistiche aggregate automatiche, disattivabili nella barra del gioco. Risposte e salvataggi restano locali.'],
-    en: ['Aggregate statistics', 'Statistics privacy notice', 'Automatic aggregate statistics can be disabled in the game bar. Answers and saves stay local.'],
-    fr: ['Statistiques agregees', 'Confidentialite des statistiques', 'Statistiques agregees automatiques, desactivables dans la barre du jeu. Reponses et sauvegardes restent locales.'],
-    de: ['Aggregierte Statistik', 'Datenschutzhinweise zur Statistik', 'Die automatische aggregierte Statistik lässt sich in der Spielleiste deaktivieren. Antworten und Spielstände bleiben lokal.'],
-    es: ['Estadísticas agregadas', 'Privacidad de las estadísticas', 'Las estadísticas agregadas automáticas pueden desactivarse en la barra del juego. Las respuestas y partidas guardadas permanecen en el dispositivo.'],
-    pt: ['Estatísticas agregadas', 'Informação sobre as estatísticas', 'Pode desativar as estatísticas agregadas automáticas na barra do jogo. As respostas e gravações ficam no dispositivo.']
+    it: ['Statistiche aggregate', 'Informativa statistiche', 'Statistiche aggregate automatiche, disattivabili nella barra del gioco. Registro facoltativo della sessione con consenso 18+ separato.'],
+    en: ['Aggregate statistics', 'Statistics privacy notice', 'Automatic aggregate statistics can be disabled in the game bar. Optional session record with separate adult consent.'],
+    fr: ['Statistiques agregees', 'Confidentialite des statistiques', 'Statistiques agregees automatiques, desactivables dans la barre du jeu. Registre facultatif avec consentement distinct des adultes.'],
+    de: ['Aggregierte Statistik', 'Datenschutzhinweise zur Statistik', 'Die automatische aggregierte Statistik lässt sich in der Spielleiste deaktivieren. Freiwilliges Sitzungsprotokoll mit gesonderter Einwilligung Erwachsener.'],
+    es: ['Estadísticas agregadas', 'Privacidad de las estadísticas', 'Las estadísticas agregadas automáticas pueden desactivarse en la barra del juego. Registro opcional con consentimiento separado de adultos.'],
+    pt: ['Estatísticas agregadas', 'Informação sobre as estatísticas', 'Pode desativar as estatísticas agregadas automáticas na barra do jogo. Registo facultativo com consentimento separado de adultos.']
   };
   const policy = create('a', { href: '/game-statistics.html', target: '_blank', rel: 'noopener noreferrer' });
   const usageBuild = document.querySelector('meta[name="no-ai-act-usage"]')?.content === 'automatic';
