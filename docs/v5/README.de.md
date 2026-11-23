@@ -21,4 +21,4 @@ Study 02 ist ein lokales Labor außerhalb der öffentlichen Anwendung mit zwei A
 
 Der Fortschritt bleibt im Browser. Aggregierte Zähler lassen sich deaktivieren. Nur Erwachsene können einem pseudonymen Sitzungsprotokoll mit 90 Tagen Aufbewahrung zustimmen; Texte des begleiteten Wegs erfordern eine weitere, zunächst nicht ausgewählte Einwilligung. Widerruf, Löschung und Export sind über die Spielleiste erreichbar. DNT/GPC werden berücksichtigt. Keine Konten, Werbeprofile oder Verknüpfungen zwischen Besuchen. Die Erfassung nutzt telemetry.no-ai-act.eu; frühere APIs bleiben mit bestehenden Belegen und Exporten kompatibel.
 
-[Aktueller Vertrag des Sitzungsprotokolls](de/SESSION_JOURNAL.md) · [Daten und Datenschutz](https://www.no-ai-act.eu/game-statistics.html#de) · [v5.3.0](../RELEASE_NOTES_v5.3.0.de.md)
+[Aktueller Vertrag des Sitzungsprotokolls](de/SESSION_JOURNAL.md) · [Daten und Datenschutz](https://www.no-ai-act.eu/game-statistics.html#de) · [v5.3.1](../RELEASE_NOTES_v5.3.1.de.md)

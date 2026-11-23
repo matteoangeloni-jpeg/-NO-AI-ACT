@@ -21,4 +21,4 @@ Study 02 es un laboratorio local fuera de la versión pública, con dos formas y
 
 El progreso queda en el navegador. Los contadores agregados pueden desactivarse. Solo las personas adultas pueden consentir un registro pseudónimo de sesión conservado durante 90 días; los textos del recorrido guiado requieren otro consentimiento, inicialmente sin seleccionar. Retirada, supresión y exportación están disponibles en la barra del juego. Se respetan DNT/GPC. Sin cuentas, perfiles publicitarios ni vínculos entre visitas. La recogida usa telemetry.no-ai-act.eu; las API anteriores mantienen la compatibilidad con recibos y exportaciones existentes.
 
-[Contrato actual del registro de sesión](es/SESSION_JOURNAL.md) · [Datos y privacidad](https://www.no-ai-act.eu/game-statistics.html#es) · [v5.3.0](../RELEASE_NOTES_v5.3.0.es.md)
+[Contrato actual del registro de sesión](es/SESSION_JOURNAL.md) · [Datos y privacidad](https://www.no-ai-act.eu/game-statistics.html#es) · [v5.3.1](../RELEASE_NOTES_v5.3.1.es.md)

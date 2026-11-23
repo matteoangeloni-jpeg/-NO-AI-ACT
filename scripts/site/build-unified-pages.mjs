@@ -25,7 +25,11 @@ const dictionaries=Object.fromEntries(['it','fr','de','es','pt'].map(lang=>[lang
 const normal=text=>text.replaceAll(version,'__GAME_VERSION__').replaceAll('5.2.2','__GAME_VERSION__');
 const get=(text,lang,required=true)=>{
  const key=text.trim(),value=dictionaries[lang]?.[normal(key)]??dictionaries[lang]?.[key];
- if(value!==undefined)return text.replace(key,value.replaceAll('__GAME_VERSION__',version).replaceAll('5.2.2',version));
+ if(value!==undefined){
+  const expected=normal(key).split('__GAME_VERSION__').length-1,actual=value.split('__GAME_VERSION__').length-1;
+  if(expected!==actual)throw new Error(`Release version must stay literal [${lang}]: ${key}`);
+  return text.replace(key,value.replaceAll('__GAME_VERSION__',version).replaceAll('5.2.2',version));
+ }
  if(required&&/[A-Za-z]/.test(key)&&!/^https?:|^NO AI ACT$|^Matteo Angeloni$/.test(key))throw new Error(`Missing editorial translation [${lang}]: ${key}`);
  return text;
 };
