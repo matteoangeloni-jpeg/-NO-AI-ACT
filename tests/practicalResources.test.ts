@@ -20,7 +20,7 @@ describe('Published practical resources, not keyword doorway pages', () => {
         const topic = TOPICS.find((t: any) => t[0] === id);
         const dir = topicDir(topic, lang);
         const group = routeGroups(cfg).find((g: any) => g.en === topic[1]);
-        expect(Object.keys(group)).toHaveLength(6);
+        expect(Object.keys(group)).toHaveLength(LANGUAGE_CODES.length);
         expect(page.sections).toHaveLength(7);
         expect(page.sections.map((s: string[]) => s[1]).join(' ').split(/\s+/).length).toBeGreaterThan(400);
         expect(page.title.length).toBeLessThanOrEqual(60);
@@ -44,9 +44,9 @@ describe('Published practical resources, not keyword doorway pages', () => {
       });
     }
   }
-  it('connects all six education hubs to existing workshop and recruitment owners', () => {
+  it('connects all seven education hubs to existing workshop and recruitment owners', () => {
     const groups = routeGroups(cfg);
-    for (const lang of ['it', 'en', 'fr', 'de', 'es', 'pt']) {
+    for (const lang of ['it', 'en', 'fr', 'de', 'es', 'pt', 'nl']) {
       const hub = groups.find((g: any) => g.en === 'en/education')[lang];
       const html = readFileSync(`${hub}/index.html`, 'utf8');
       for (const en of ['en/ai-act-classroom-lab', 'en/ai-in-recruitment-and-employment']) {

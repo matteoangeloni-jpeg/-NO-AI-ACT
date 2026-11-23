@@ -1,8 +1,8 @@
 # NO AI ACT V5 — methodischer Entwurf
 
-[Italiano](../METHODOLOGY.md) · [English](../en/METHODOLOGY.md) · [Français](../fr/METHODOLOGY.md) · [Deutsch](../de/METHODOLOGY.md) · [Español](../es/METHODOLOGY.md) · [Português](../pt/METHODOLOGY.md)
+[Italiano](../METHODOLOGY.md) · [English](../en/METHODOLOGY.md) · [Français](../fr/METHODOLOGY.md) · [Deutsch](../de/METHODOLOGY.md) · [Español](../es/METHODOLOGY.md) · [Português](../pt/METHODOLOGY.md) · [Nederlands](../nl/METHODOLOGY.md)
 
-> Sprachausgabe V5.3.0 · 23. November 2026. Das Dossier und die lokalen Materialien für Study 02 liegen jetzt in sechs Sprachen vor. Daten, Zahlen und Ergebnisse des Prototyps dokumentieren frühere Ausführungen. Der aktuelle Vertrag für das freiwillige Sitzungsprotokoll für Erwachsene steht in SESSION_JOURNAL.md und ersetzt die frühere Beschränkung auf aggregierte Daten. Übersetzungen belegen weder die Gleichwertigkeit der Instrumente noch Bildungswirksamkeit oder Rubrikvalidität. Für diese Inhaltsaktualisierung wurden keine neuen Tests ausgeführt.
+> Sprachausgabe V5.4.0 · 23. November 2026. Das Dossier und die lokalen Materialien für Study 02 liegen jetzt in sieben Sprachen vor. Daten, Zahlen und Ergebnisse des Prototyps dokumentieren frühere Ausführungen. Der aktuelle Vertrag für das freiwillige Sitzungsprotokoll für Erwachsene steht in SESSION_JOURNAL.md und ersetzt die frühere Beschränkung auf aggregierte Daten. Übersetzungen belegen weder die Gleichwertigkeit der Instrumente noch Bildungswirksamkeit oder Rubrikvalidität. Für diese Inhaltsaktualisierung wurden keine neuen Tests ausgeführt.
 
 
 Revision vom 21. November 2026. Baseline überprüft auf der lokalen Zweigstelle von Main 527fde5. Einsatz von PR 128 erfolgreich abgeschlossen. Der Eigentümer hat anschließend die Veröffentlichung als V5.0.0 genehmigt; Release Notes und Status sind in [RELEASE_NOTES_v5.0.0.en.md](../../RELEASE_NOTES_v5.0.0.en.md) und im GitHub-Release verfügbar.

@@ -1,8 +1,8 @@
 # C. Dossiers, droit, médiation et débriefing
 
+[Italiano](../LEGAL_LEARNING_MATRIX.md) · [English](../en/LEGAL_LEARNING_MATRIX.md) · [Français](../fr/LEGAL_LEARNING_MATRIX.md) · [Deutsch](../de/LEGAL_LEARNING_MATRIX.md) · [Español](../es/LEGAL_LEARNING_MATRIX.md) · [Português](../pt/LEGAL_LEARNING_MATRIX.md) · [Nederlands](../nl/LEGAL_LEARNING_MATRIX.md)
 
-> Édition linguistique V5.3.0 · 23 novembre 2026. Le dossier et les matériaux locaux de Study 02 sont désormais disponibles dans les six langues. Les dates, nombres et résultats du prototype décrivent les exécutions historiques. Le contrat actuel du registre facultatif réservé aux adultes figure dans SESSION_JOURNAL.md et remplace la restriction antérieure aux seuls agrégats. Les traductions ne démontrent ni équivalence des instruments, ni efficacité éducative, ni validité de la grille. Aucun nouveau test pour cette mise à jour des contenus.
-
+> Édition linguistique V5.4.0 · 23 novembre 2026. Le dossier et les matériaux locaux de Study 02 sont désormais disponibles dans les sept langues. Les dates, nombres et résultats du prototype décrivent les exécutions historiques. Le contrat actuel du registre facultatif réservé aux adultes figure dans SESSION_JOURNAL.md et remplace la restriction antérieure aux seuls agrégats. Les traductions ne démontrent ni équivalence des instruments, ni efficacité éducative, ni validité de la grille. Aucun nouveau test pour cette mise à jour des contenus.
 
 
 Vérification documentaire du 21 novembre 2026 à partir du texte consolidé EUR-Lex du 27 juillet 2026. Ces lignes constituent une carte de conception et de révision. L'interprétation des circonstances de chaque dossier exige encore une révision juridique humaine. Cet incrément ne modifie ni les réponses juridiques ni les scores des dossiers.

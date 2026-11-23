@@ -1,9 +1,11 @@
 import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
 import {PUBLIC_COPY} from '../../docs/public-copy.mjs';
+import {SITE_LANGUAGES} from '../../src/site/route-inventory.mjs';
+import {LANGUAGE_NAMES} from '../../src/site/language-names.mjs';
 const cfg=JSON.parse(readFileSync('scripts/seo/routes.config.json','utf8'));
 const release=JSON.parse(readFileSync('release.config.json','utf8'));
 const version=JSON.parse(readFileSync('package.json','utf8')).version;
-const languages=['it','en','fr','de','es','pt'],names={it:'Italiano',en:'English',fr:'Français',de:'Deutsch',es:'Español',pt:'Português'};
+const languages=SITE_LANGUAGES,names=LANGUAGE_NAMES;
 const families=['METHODOLOGY','LEGAL_LEARNING_MATRIX','COVERAGE_COMPLETION','ARGUMENTATION_STUDY02','METHODOLOGY_TEST_PLAN','METHODOLOGY_IMPLEMENTATION','TEST_RESULTS','SESSION_JOURNAL'];
 const readme=lang=>`README${lang==='it'?'':'.'+lang}.md`;
 const nav=prefix=>languages.map(lang=>`[${names[lang]}](${prefix}${readme(lang)})`).join(' · ');
@@ -24,11 +26,11 @@ for(const lang of languages){
  mkdirSync('public/assets/press',{recursive:true});writeFileSync(`public/assets/press/no-ai-act-v${version}-${lang}.md`,press);
  const target=cfg.pairs.find(g=>g.en==='en/press-kit')[lang]+'/index.html';let html=readFileSync(target,'utf8');
  html=html.replace(/<section id="localized-materials"[\s\S]*?<\/section>/g,'');
- const heading={it:'Materiali aggiornati nelle sei lingue',en:'Current materials in six languages',fr:'Matériaux actualisés dans les six langues',de:'Aktuelle Materialien in sechs Sprachen',es:'Materiales actualizados en seis idiomas',pt:'Materiais atualizados nas seis línguas'}[lang];
- const archiveNote={it:'Le dieci immagini originali sono della V5.0.0 in italiano; restano nell’archivio storico con la loro versione.',en:'The ten original screenshots show V5.0.0 in Italian; their historical archive retains that version.',fr:'Les dix captures originales montrent la V5.0.0 en italien ; leur archive historique conserve cette version.',de:'Die zehn ursprünglichen Screenshots zeigen V5.0.0 auf Italienisch; das historische Archiv behält diese Versionsangabe.',es:'Las diez capturas originales muestran la V5.0.0 en italiano; su archivo histórico conserva esa versión.',pt:'As dez capturas originais mostram a V5.0.0 em italiano; o arquivo histórico mantém essa versão.'}[lang];
+ const heading={it:'Materiali aggiornati nelle sette lingue',en:'Current materials in seven languages',fr:'Matériaux actualisés dans les sept langues',de:'Aktuelle Materialien in sieben Sprachen',es:'Materiales actualizados en siete idiomas',pt:'Materiais atualizados nas sete línguas',nl:'Actuele materialen in zeven talen'}[lang];
+ const archiveNote={it:'Le dieci immagini originali sono della V5.0.0 in italiano; restano nell’archivio storico con la loro versione.',en:'The ten original screenshots show V5.0.0 in Italian; their historical archive retains that version.',fr:'Les dix captures originales montrent la V5.0.0 en italien ; leur archive historique conserve cette version.',de:'Die zehn ursprünglichen Screenshots zeigen V5.0.0 auf Italienisch; das historische Archiv behält diese Versionsangabe.',es:'Las diez capturas originales muestran la V5.0.0 en italiano; su archivo histórico conserva esa versión.',pt:'As dez capturas originais mostram a V5.0.0 em italiano; o arquivo histórico mantém essa versão.',nl:'De tien oorspronkelijke schermafbeeldingen tonen V5.0.0 in het Italiaans. Het historische archief behoudt die versieaanduiding.'}[lang];
  const block=`<section id="localized-materials" aria-labelledby="localized-materials-title"><div class="wrap"><h2 id="localized-materials-title">${heading} · v${version}</h2><p>${escape(c.coverageText)}</p><p><a href="/assets/press/no-ai-act-v${version}-${lang}.md" download>${c.tagline} · ${names[lang]} · Markdown</a> · <a href="/assets/press/no-ai-act-v${version}-${lang}-materials.zip" download>${names[lang]} · ZIP</a></p><p>${archiveNote}</p><p><a href="https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/v5/${readme(lang)}">${c.method}</a></p></div></section>`;
  writeFileSync(target,html.replace('</main>',block+'\n</main>'));
 }
 const body=languages.map(lang=>`## ${names[lang]}\n\n${PUBLIC_COPY[lang].changes.map(item=>'- '+item).join('\n')}\n\n[${PUBLIC_COPY[lang].site}](${release.domain}/${lang==='it'?'':lang+'/'}) · [README](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/${readme(lang)}) · [${PUBLIC_COPY[lang].method}](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/v5/${readme(lang)})`).join('\n\n');
 writeFileSync(`docs/GITHUB_RELEASE_BODY_v${version}.md`,body+'\n');
-console.log('Published-source copy generated: six full READMEs, dossier indexes, release notes and press fact sheets.');
+console.log(`Generated current READMEs, dossier indexes, release notes and press fact sheets in ${languages.length} languages.`);

@@ -1,3 +1,5 @@
+import {SITE_LANGUAGES} from './route-inventory.mjs';
+import {DUTCH_TOPICS} from './nl-topics.mjs';
 // Full topic equivalents. Existing public slugs remain unchanged.
 // English is the shared editorial reference for the new translations.
 export const ADDITIONAL_EQUIVALENTS = [
@@ -27,6 +29,7 @@ export function completeTopicGroups(groups) {
  return groups.map(original=>{
   const group={...original},entry=ADDITIONAL_EQUIVALENTS.find(row=>row[0]===group.en);
   if(entry){for(const [index,lang] of [[1,'de'],[2,'es'],[3,'pt']])group[lang]??=`${lang}/${entry[index]}`;if(entry[4])group.it??=entry[4];}
-  return Object.fromEntries(['it','en','fr','de','es','pt'].map(lang=>{if(typeof group[lang]!=='string')throw new Error(`Missing ${lang} equivalent: ${group.en}`);return[lang,group[lang]];}));
+  if(SITE_LANGUAGES.includes('nl'))group.nl??=DUTCH_TOPICS[group.en];
+  return Object.fromEntries(SITE_LANGUAGES.map(lang=>{if(typeof group[lang]!=='string')throw new Error(`Missing ${lang} equivalent: ${group.en}`);return[lang,group[lang]];}));
  });
 }

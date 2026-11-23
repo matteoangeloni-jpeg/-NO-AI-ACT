@@ -219,7 +219,8 @@ export const fr = {
         lesson_fr: "Leçon d'introduction (FR)",
         activities_de: 'Activités pédagogiques (DE)', lesson_de: 'Introduction pour enseignants (DE)',
         activities_es: 'Activités pédagogiques (ES)', lesson_es: 'Introduction pour enseignants (ES)',
-        activities_pt: 'Activités pédagogiques (PT)', lesson_pt: 'Introduction pour enseignants (PT)'
+        activities_pt: 'Activités pédagogiques (PT)', lesson_pt: 'Introduction pour enseignants (PT)',
+        activities_nl: 'Activités pédagogiques (NL)', lesson_nl: 'Introduction pour enseignants (NL)'
       },
       close: 'Fermer'
     },

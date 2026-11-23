@@ -1,0 +1,2345 @@
+{
+  "locale": {
+    "gameplay": {
+      "details": "RECHTSREGEL EN REFLECTIE",
+      "overview": "BEVINDING EN BEWIJS",
+      "guide": "ONDERZOEKSGIDS",
+      "close": "TERUG NAAR HET DOSSIER",
+      "skip": "DOORGAAN ZONDER GIDS",
+      "guideTitle": "PROTOCOL VOOR HET EERSTE DOSSIER",
+      "steps": [
+        "Onderzoek: open een bewijsstuk en lees wat het documenteert, wie het heeft aangeleverd en wie gevolgen ondervindt.",
+        "Haal aan: selecteer een geopend bewijsstuk opnieuw om het in het verslag op te nemen. Openen is niet hetzelfde als aanhalen. Je kunt een verwijzing weer intrekken.",
+        "Vergelijk: haal minstens twee bewijsstukken aan en open Vergelijken bij het bureau. Zoek bevestigingen of tegenstrijdigheden, niet alleen overeenkomende woorden.",
+        "Beslis: kies classificatie, maatregel, verantwoordelijke partij en argumentatie. Verbind je argumentatie met de feiten in de aangehaalde bewijsstukken.",
+        "Onderteken: controleer het concept. Vóór ondertekening kun je terug; bevindingen en gevolgen volgen daarna."
+      ],
+      "evaluation": "De beoordeling houdt rekening met classificatie, maatregel, verantwoordelijke partij, argumentatie en bewijs. Een juiste uitkomst volstaat niet wanneer argumentatie of bewijsstukken die niet ondersteunen.",
+      "evidenceLink": "Controleer of de aangehaalde bewijsstukken je gekozen argumentatie ondersteunen. Vergelijken blijft beschikbaar bij het bureau.",
+      "changes": "GEVOLGEN VAN HET VERSLAG",
+      "before": "Voor",
+      "after": "Na de les",
+      "delta": "Verschil",
+      "review": "FOUTEN HERHALEN",
+      "exitReview": "TERUG NAAR VOORTGANG",
+      "reviewNote": "Tijdelijke herhaling van gedeeltelijke of onjuiste casussen. Oorspronkelijke verslagen en voortgang blijven behouden; na sluiten van de browser keer je terug naar het oorspronkelijke spel.",
+      "reviewEmpty": "Geen gedeeltelijke of onjuiste casussen om te herhalen.",
+      "assistance": {
+        "base": "Ondersteuning: contextuele aanwijzingen en uitgebreide bevindingen.",
+        "standard": "Ondersteuning: bevindingen na ondertekening, geen gerichte aanwijzingen.",
+        "expert": "Ondersteuning: geen gerichte aanwijzingen, beknopte bevindingen."
+      },
+      "modes": {
+        "turno": "Onderzoek toegewezen dossiers in volgorde. De dienst eindigt wanneer je de dossiers uit het plan sluit.",
+        "libera": "Kies dossiers op de kaart. Aanbevelingen beperken je niet: bepaal op de kaart wanneer je stopt.",
+        "sorpresa": "Onderzoek willekeurig gerangschikte dossiers, aanvankelijk op niveau Expert. Sluit het plan om te eindigen.",
+        "ripasso": "Herhaal gedeeltelijke of onjuiste casussen uit het plan. De herhaling eindigt na afronding, zonder de oorspronkelijke verslagen te vervangen."
+      },
+      "timeNote": "De duur is een schatting, geen aftelling. Je kunt de moeilijkheidsgraad nog steeds in de instellingen veranderen."
+    },
+    "mobile": {
+      "open": "OPEN DOCUMENT",
+      "uncite": "CITATIE OPHEFFEN",
+      "search": "Het archief doorzoeken",
+      "close": "SLUITEN"
+    },
+    "ui": {
+      "gameTitle": "NO AI ACT",
+      "gameSubtitle": "Simulator van een ongereguleerde samenleving",
+      "titleTagline": "Beoordeel toepassingen van AI. Elke beslissing beïnvloedt vertrouwen, innovatie en rechten. Zoek een houdbaar evenwicht.",
+      "titleHeader": "GEAUTOMATISEERDE GEMEENTEREPUBLIEK — JAAR 2032",
+      "textSpeed": {
+        "label": "TEKST: {value}",
+        "modes": {
+          "slow": "langzaam",
+          "normal": "normaal",
+          "instant": "direct"
+        }
+      },
+      "typewriterHint": "Klik, SPACE of ENTER om de hele tekst tegelijk te tonen",
+      "footerDisclaimer": "Vereenvoudigde educatieve versie van de AI-verordening (Reg. EU 2024/1689, zoals gewijzigd bij Reg. EU 2026/1744). Dit is geen juridisch advies.",
+      "menu": {
+        "continue": "ONDERZOEK HERVATTEN",
+        "newGame": "NIEUW SPEL",
+        "archive": "REGELARCHIEF",
+        "credits": "MAKERS EN LICENTIES",
+        "reset": "OPGESLAGEN GEGEVENS WISSEN",
+        "audioOn": "AUDIO: AAN",
+        "audioOff": "AUDIO: UIT",
+        "motionFull": "ANIMATIES: VOLLEDIG",
+        "motionReduced": "ANIMATIES: VERMINDERD",
+        "crtOn": "CRT-EFFECT: AAN",
+        "crtOff": "CRT-EFFECT: UIT",
+        "music": "MUZIEK: {value}",
+        "musicOn": "MUZIEK: AAN",
+        "musicOff": "MUZIEK: UIT",
+        "sfx": "GELUIDSEFFECTEN: {value}",
+        "sfxOn": "GELUIDSEFFECTEN: AAN",
+        "sfxOff": "GELUIDSEFFECTEN: UIT",
+        "language": "TAAL: NEDERLANDS",
+        "teacherOn": "DOCENTMODUS: AAN",
+        "teacherOff": "DOCENTMODUS: UIT",
+        "teacherScope": "Het docentenverslag blijft lokaal. Beheer de vrijwillige sessieregistratie via de spelbalk.",
+        "resetDone": "Opgeslagen gegevens gewist.",
+        "teachers": "DOCENTEN EN ONDERWIJS",
+        "resources": "LEERMATERIALEN",
+        "settings": "INSTELLINGEN",
+        "resetConfirm": "WISSEN BEVESTIGEN?"
+      },
+      "titleGroups": {
+        "settingsTitle": "Instellingen",
+        "settingsPrivacy": "Voortgang wordt lokaal opgeslagen. Geaggregeerde statistieken kun je uitschakelen. Alleen na toestemming van volwassenen: sessieregistratie gedurende 90 dagen; teksten van het begeleide traject vereisen afzonderlijke toestemming. Intrekken, wissen en exporteren kan via de spelbalk.",
+        "teachersTitle": "Docenten en onderwijs",
+        "classPreset": "KLAAR VOOR DE LES",
+        "classPresetDone": "Docentmodus aan; tekst verschijnt direct.",
+        "classPresetNote": "Schakelt besprekingspauzes na elke casus in en toont tekst direct. Geen timer of groepsvergelijking. De vrijwillige sessieregistratie vereist toestemming via de spelbalk.",
+        "teachersNote": "Het docentenverslag blijft lokaal. Beheer de vrijwillige sessieregistratie via de spelbalk.",
+        "resourcesTitle": "Leermaterialen",
+        "resourcesNote": "Archief en begrippenlijst in het spel, plus gidsen op de website (nieuw tabblad).",
+        "close": "SLUITEN"
+      },
+      "preload": {
+        "systemName": "GEÏNTEGREERD STEDELIJK SYSTEEM",
+        "steps": [
+          "Stadskaart genereren…",
+          "Bewegwijzering samenstellen…",
+          "Achtergrondruis afstemmen…",
+          "Dossierarchief openen…"
+        ],
+        "accessGranted": "Inspectietoegang: verleend"
+      },
+      "map": {
+        "header": "KAART VAN HET STEDELIJKE NETWERK VAN GEAUTOMATISEERDE SYSTEMEN",
+        "progress": "INSPECTEUR AX · DOSSIERS GESLOTEN: {done}/{total}",
+        "statusOpen": "[INCIDENT OPEN]",
+        "statusDraft": "[HERVATTEN · {taken}/{total} keuzes]",
+        "statusDraftEvidence": "[HERVATTEN · bewijsstukken geopend]",
+        "statusClosed": "[DOSSIER GESLOTEN]",
+        "statusNonCompliant": "[GESLOTEN · NIET CONFORM]",
+        "statusSealed": "[DOSSIER VERZEGELD]",
+        "sealedToast": "Het dossier is verzegeld. Toegang geweigerd.",
+        "alreadyClosedToast": "{code}: dossier is al gesloten.",
+        "finaleReadyToast": "Minstens vier dossiers zijn gesloten. Het eindverslag is beschikbaar.",
+        "finaleButton": "EINDVERSLAG",
+        "menuButton": "MENU"
+      },
+      "case": {
+        "fileLabel": "DOSSIER {code}",
+        "examineButton": "BEWIJSSTUKKEN ONDERZOEKEN",
+        "backToMap": "KAART"
+      },
+      "context": {
+        "button": "CONTEXT BEKIJKEN",
+        "title": "Achtergrond van de casus",
+        "scenarioLabel": "Samenvatting van de casus",
+        "objectiveLabel": "Doel",
+        "objective": "Classificeer het systeemrisico volgens de AI-verordening en bepaal een passende maatregel.",
+        "note": "Dit paneel toont alleen de casus. Het verandert het verslag of de classificatie niet.",
+        "closeToDecision": "TERUG NAAR BESLISSING",
+        "closeToEvidence": "TERUG NAAR BEWIJSSTUKKEN"
+      },
+      "inspectorDesk": {
+        "evidencePhase": "INSPECTIEBUREAU · BEWIJSSTUKKEN BEOORDELEN",
+        "decisionPhase": "INSPECTIEBUREAU · CONCEPTVERSLAG",
+        "fileLabel": "DOSSIER {code}",
+        "evidenceStatus": "GEOPEND {opened}/{total} · AANGEHAALD {cited}",
+        "citedStatus": "AANGEHAALD BEWIJS: {cited}",
+        "context": "DOSSIER",
+        "compare": "VERGELIJKEN [X]",
+        "norm": "RECHTSREGEL",
+        "normLocked": "RECHTSREGEL BIJ DE UITSLAG",
+        "archive": "ARCHIEF",
+        "notebook": "NOTITIEBOEK",
+        "terms": "BEGRIPPEN",
+        "compareTitle": "BEWIJSSTUKKEN VERGELIJKEN",
+        "compareIntro": "Twee aangehaalde bewijsstukken naast elkaar. Vergelijken markeert geen van beide als juist of onjuist.",
+        "compareCounter": "PAAR {current} VAN {total}",
+        "compareSource": "BRON",
+        "compareFunction": "FUNCTIE",
+        "compareUnknownSource": "niet vermeld",
+        "compareUnknownFunction": "te beoordelen",
+        "compareHint": "Onderzoek wat elkaar bevestigt of tegenspreekt en welke bron het verslag beter kan onderbouwen.",
+        "comparePrev": "VORIG PAAR",
+        "compareNext": "VOLGEND PAAR",
+        "compareCloseEvidence": "TERUG NAAR BEWIJSSTUKKEN",
+        "compareCloseDecision": "TERUG NAAR BESLISSING",
+        "compareEmpty": "Haal minstens twee bewijsstukken aan voordat je ze vergelijkt."
+      },
+      "caseNorm": {
+        "button": "RECHTSREGEL BIJ DE CASUS",
+        "supportNote": "Een relevante rechtsregel om je redenering te begeleiden. Raadplegen verandert het verslag of de beslissing niet.",
+        "relevantLabel": "Relevante rechtsregel",
+        "referenceLabel": "Juridische verwijzing",
+        "inShortLabel": "In het kort",
+        "whyLabel": "Waarom dit bij deze casus van belang is",
+        "whyFallback": "Deze rechtsregel helpt de casus te beoordelen, maar de eindbeslissing hangt af van het bewijs in het dossier.",
+        "continuityNote": "Gebruik de rechtsregel om je redenering te begeleiden en keer dan terug naar je beslissing en de bewijsstukken.",
+        "close": "TERUG NAAR BESLISSING"
+      },
+      "concepts": {
+        "risk_based_approach": "risicogebaseerde aanpak",
+        "prohibited_practices": "verboden praktijken",
+        "high_risk": "systemen met een hoog risico",
+        "transparency": "transparantie",
+        "gpai": "AI voor algemene doeleinden (GPAI)",
+        "human_oversight": "menselijk toezicht",
+        "data_governance": "gegevensbeheer",
+        "privacy_by_design": "privacy door ontwerp",
+        "ai_literacy": "AI-geletterdheid"
+      },
+      "learningReport": {
+        "header": "WAT JE UIT DIT ONDERZOEK MEENEEMT",
+        "title": "Leerverslag",
+        "intro": "Een educatieve samenvatting van je beslissingen: waar je stevig staat en wat je verder kunt lezen. Dit verslag blijft op je apparaat en wordt niet verstuurd.",
+        "scoreLabel": "Uitkomsten per casus",
+        "scoreLine": "{correct} juist · {partial} gedeeltelijk · {wrong} te herzien · {completed} van {total} casussen afgerond",
+        "conceptsLabel": "Begrippen uit de AI-verordening die aan bod kwamen",
+        "strongestLabel": "Sterkste gebied",
+        "reviewLabel": "Gebied om te herhalen",
+        "allSolid": "Geen specifiek gebied: je beslissingen houden stand. Probeer een hogere moeilijkheidsgraad of een ander traject.",
+        "noneYet": "Nog geen casus afgerond in deze sessie.",
+        "recommendedLabel": "Drie aanbevolen teksten op de website (gratis, in een nieuw tabblad)",
+        "linkFor": "Lees meer: {concept}",
+        "generalLinkLabels": [
+          "Onderwijshub",
+          "Gids voor de EU-AI-verordening",
+          "Begrippenlijst"
+        ],
+        "performance": {
+          "strong": "stevig",
+          "mixed": "verder versterken",
+          "weak": "te herzien"
+        },
+        "disclaimer": "NO AI ACT is een educatieve simulatie en vereenvoudigt Verordening (EU) 2024/1689, zoals gewijzigd bij Verordening (EU) 2026/1744: dit rapport beschrijft uw pad in het spel, geen gecertificeerde competentie, en het is geen juridisch advies.",
+        "back": "TERUG NAAR HET EINDVERSLAG"
+      },
+      "teacherGuide": {
+        "button": "DOCENTENGIDS ▸",
+        "title": "NO AI ACT in de les gebruiken",
+        "intro": "Het docentenverslag blijft lokaal. Beheer de vrijwillige sessieregistratie via de spelbalk.",
+        "beforeTitle": "Vóór de les",
+        "beforeText": "Speel zelf één casus, kies het traject (demo, workshop of volledig) en bepaal 2–3 leerdoelen. De lesactiviteiten en het inleidende lesplan hieronder geven vóór het spelen het kader van de AI-verordening.",
+        "duringTitle": "Tijdens de les",
+        "duringText": "Projecteer het spel of laat leerlingen in tweetallen spelen. In docentmodus verschijnt na elke casus een besprekingspauze met vragen voor de klas. Vergelijk beslissingen voordat je verdergaat.",
+        "afterTitle": "Na de les",
+        "afterText": "Open de nabespreking voor docenten vanuit het eindverslag: een samenvatting van beslissingen, behandelde begrippen en vragen. Exporteer deze als tekst of JSON voor schriftelijke reflectie of formatieve beoordeling.",
+        "resourcesLabel": "Gerelateerde materialen (nieuw tabblad)",
+        "links": {
+          "activities_it": "Lesactiviteiten (IT)",
+          "lesson_it": "Inleidend lesplan (IT)",
+          "activities_en": "Lesactiviteiten (EN)",
+          "lesson_en": "Inleidend lesplan (EN)",
+          "activities_fr": "Lesactiviteiten (FR)",
+          "lesson_fr": "Inleidend lesplan (FR)",
+          "activities_de": "Lesactiviteiten (DE)",
+          "lesson_de": "Inleidend lesplan (DE)",
+          "activities_es": "Lesactiviteiten (ES)",
+          "lesson_es": "Inleidend lesplan (ES)",
+          "activities_pt": "Lesactiviteiten (PT)",
+          "lesson_pt": "Inleidend lesplan (PT)",
+          "activities_nl": "Lesactiviteiten (NL)",
+          "lesson_nl": "Inleiding voor docenten (NL)"
+        },
+        "close": "SLUITEN"
+      },
+      "siteLinks": {
+        "button": "SITE & RESULTATEN",
+        "title": "Website en educatieve middelen",
+        "intro": "De site secties, met opzet. Ze openen in een nieuw tabblad: het spel blijft open en er wordt niets opgenomen. Je bent altijd vrij om het spel te verlaten.",
+        "play": "Hoe het spel werkt",
+        "hub": "Onderwijshub",
+        "teacher": "Lerarenhulpbronnen",
+        "guide": "AI-verordening-handleiding",
+        "glossary": "Begrippenlijst",
+        "privacy": "Privacy",
+        "backToSite": "Terug naar de site",
+        "close": "SLUITEN"
+      },
+      "discussionPause": {
+        "button": "BESPREKINGSPAUZE",
+        "title": "Pauze voor bespreking",
+        "intro": "Vragen voor de klas over deze casus. De antwoorden op deze gespreksvragen worden niet geregistreerd; bespreek ze vóór het volgende dossier.",
+        "close": "HERVATTEN"
+      },
+      "decisionDebrief": {
+        "button": "BESLISSING BESPREKEN",
+        "title": "Nabespreking van de beslissing",
+        "intro": "Dit paneel verduidelijkt de argumentatie zonder de score of het verslag te veranderen.",
+        "yourChoiceLabel": "Jouw keuze",
+        "whyLabel": "Waarom is dit niet helemaal juist?",
+        "observeLabel": "Wat je kunt onderzoeken",
+        "normLabel": "Gerelateerde rechtsregel",
+        "howToLabel": "Hoe je bij de volgende casus kunt redeneren",
+        "correctTitle": "Samenhangende beslissing",
+        "keyElementLabel": "Waargenomen sleutelelement",
+        "whyCorrect": "De beslissing sluit aan bij het dossier en de relevante rechtsregel.",
+        "whyPartialWrong": "De beslissing sluit niet volledig aan bij het dossier. Bekijk het doorslaggevende bewijs, de relevante rechtsregel en de benodigde redeneerstap.",
+        "observeFallback": "Bekijk het relevante bewijs opnieuw: de beslissing hangt af van de waargenomen aanwijzingen, niet alleen van de abstracte categorie.",
+        "howToFallback": "Begin bij het concrete AI-systeem, bepaal wie gevolgen ondervindt, verbind bewijs met de rechtsregel en kies dan pas classificatie, maatregel, verantwoordelijke partij en argumentatie.",
+        "conceptLabel": "AI-verordeningsbegrip in deze casus",
+        "takeawayLabel": "Wat je hiervan meeneemt",
+        "axes": {
+          "label": "Gevolgen van je beslissing",
+          "legal": {
+            "correct": "volledig juridisch houdbaar",
+            "partial": "gedeeltelijk juridisch houdbaar",
+            "wrong": "juridisch niet houdbaar"
+          },
+          "rights": {
+            "strengthened": "rechten versterkt",
+            "mixed": "rechten in evenwicht",
+            "weakened": "rechten verzwakt"
+          },
+          "institution": {
+            "strengthened": "publiek vertrouwen groeit",
+            "mixed": "publiek vertrouwen stabiel",
+            "weakened": "publiek vertrouwen daalt"
+          }
+        },
+        "learnMore": "MEER LEZEN OP DE WEBSITE",
+        "close": "SLUITEN"
+      },
+      "evidence": {
+        "header": "DOSSIER {code} · BEWIJSSTUKKEN",
+        "instruction": "Onderzoek elk bewijsstuk en haal daarna de stukken aan die de classificatie onderbouwen (minstens 2).",
+        "citeNote": "Aanhalen voegt een bewijsstuk toe aan het verslag; het bepaalt nog niet de uiteindelijke risicoclassificatie.",
+        "exhibit": "BEWIJSSTUK {num}",
+        "sealed": "Klik om te onderzoeken",
+        "cite": "AANHALEN IN VERSLAG",
+        "cited": "Aangehaald in het verslag",
+        "allRevealedToast": "Bewijsstukken onderzocht. Haal minstens 2 bewijsstukken aan om door te gaan.",
+        "contradictionButton": "TEGENSTRIJDIGHEID ZOEKEN [C]",
+        "contradictionFound": "Tegenstrijdige documenten: «{a}» spreekt «{b}» tegen.",
+        "contradictionNone": "Geen herkende tegenstrijdigheid tussen de aangehaalde bewijsstukken. Vergelijk wat elke bron beweert.",
+        "progress": "Onderzochte bewijsstukken: {opened} van {total} · geciteerd: {cited} (ten minste {min} nodig)",
+        "progressReady": "Je hebt genoeg om mee te werken: je kunt naar de classificatie.",
+        "citedBecause": "„{title}” aangehaald · {stance}",
+        "proceedButton": "NAAR CLASSIFICATIE",
+        "backToEvidence": "BEWIJSSTUKKEN",
+        "sourceLabel": "BRON",
+        "sources": {
+          "amministrativa": "administratieve bron",
+          "tecnica": "technische bron",
+          "vendor": "verklaring van de leverancier",
+          "reclamo": "klacht van een burger",
+          "pubblica": "publieke communicatie",
+          "log": "systeemlogboek",
+          "interna": "interne notitie"
+        },
+        "stances": {
+          "supports_risk": "toont het risico",
+          "minimizes_risk": "bagatelliseert het risico",
+          "ambiguous": "dubbelzinnig",
+          "contextual": "context",
+          "concrete_effect": "concreet gevolg",
+          "decisive": "doorslaggevend bewijs"
+        }
+      },
+      "decision": {
+        "stepBack": "STAP TERUG",
+        "stepBackHint": "BACKSPACE gaat één stap terug en maakt de keuze weer bewerkbaar.",
+        "step1": "BESLISSING 1 VAN 5",
+        "step2": "BESLISSING 2 VAN 5 — CORRIGERENDE MAATREGEL",
+        "step3": "BESLISSING 3 VAN 5",
+        "step4": "BESLISSING 4 VAN 5",
+        "step5": "BESLISSING 5 VAN 5",
+        "question5": "Controleer het verslag voordat je het ondertekent.",
+        "cityState": "TOESTAND VAN DE STAD",
+        "cityStateNote": "De huidige toestand. Het spel toont vooraf niet wat elke keuze zou veranderen.",
+        "sidebar": {
+          "cited": "AANGEHAALDE BEWIJSSTUKKEN",
+          "soFar": "KEUZES TOT NU TOE",
+          "pending": "nog te kiezen"
+        },
+        "summary": {
+          "classification": "Classificatie",
+          "measure": "Maatregel",
+          "subject": "Verantwoordelijke partij",
+          "motivation": "Argumentatie",
+          "clues": "Aangehaalde bewijsstukken"
+        },
+        "sign": "VERSLAG ONDERTEKENEN",
+        "signHint": "ENTER ondertekent het verslag. BACKSPACE gaat terug naar de argumentatie.",
+        "signNote": "Ondertekenen betekent niet dat je antwoord juist is: de beoordeling volgt daarna. Tot de ondertekening kun je elke keuze wijzigen.",
+        "question1": "Hoe wordt dit systeem volgens de AI-verordening geclassificeerd?",
+        "question2": "Welke maatregel legt de inspectie op?",
+        "question3": "Aan wie wijs je de belangrijkste verplichtingen toe?",
+        "question4": "Met welke argumentatie onderbouw je het verslag?",
+        "contextNote": "Volgens de verordening hangt het risico samen met technologie, gebruikscontext, doel en gevolgen voor mensen.",
+        "processNote": "Eindbeslissing: classificeer het risico en kies daarna maatregel, verantwoordelijke partij en motivering.",
+        "recorded": "Classificatie vastgelegd: {value}",
+        "keys5": "toetsenbord: toetsen 1–5 om te selecteren",
+        "keys7": "toetsenbord: toetsen 1–7 om te selecteren",
+        "keys3": "toetsenbord: toetsen 1–3 om te selecteren",
+        "normsButton": "RECHTSREGELS RAADPLEGEN",
+        "normsHint": "alleen lezen · klik erbuiten of druk op ESC om te sluiten",
+        "normsEmpty": "Nog geen rechtsregel vrijgespeeld.",
+        "termsButton": "WAT BETEKENT DIT?",
+        "termsTitle": "BEGRIPPEN BIJ DEZE KEUZE",
+        "termsHint": "Alleen lezen. Sluit om terug te keren naar je beslissing. Dit paneel wijst het antwoord niet aan.",
+        "termsNoEntry": "Geen in de verordening gedefinieerde categorie: deze keuze omvat wat buiten de andere categorieën valt."
+      },
+      "subjects": {
+        "provider": "Aanbieder (die het systeem ontwikkelt)",
+        "deployer": "Gebruiksverantwoordelijke (die het systeem inzet)",
+        "autorita": "Overheidsinstantie die het systeem gebruikt",
+        "responsabile_umano": "Aangewezen menselijke toezichthouder",
+        "fornitore_esterno": "Externe leverancier"
+      },
+      "report": {
+        "title": "INSPECTIEVERSLAG",
+        "evidenceLabel": "AANGEHAALD BEWIJS",
+        "decisionLabel": "BESLISSING",
+        "subjectLabel": "VERANTWOORDELIJKE PARTIJ",
+        "motivationLabel": "ARGUMENTATIE",
+        "incidentLabel": "VASTGESTELDE PROBLEMEN",
+        "dominantLabel": "BELANGRIJKSTE BEVINDING",
+        "secondaryLabel": "OVERIGE BEVINDINGEN",
+        "continueButton": "DOORGAAN",
+        "noEvidence": "geen bewijs aangehaald",
+        "decisiveEvidenceLabel": "DOORSLAGGEVEND BEWIJS",
+        "decisiveEvidenceOk": "de aangehaalde bewijsstukken ondersteunen de classificatie",
+        "decisiveEvidenceWeak": "de aangehaalde bewijsstukken ondersteunen de classificatie onvoldoende",
+        "reasonLabel": "Reden voor de uitkomst",
+        "reasons": {
+          "grounded": "het aangehaalde bewijs ondersteunt de classificatie en de maatregel is evenredig",
+          "classificazione": "het systeem is onder het verkeerde regime ingedeeld",
+          "prove": "het besluit is betwistbaar doordat de bewijsbasis onvolledig is",
+          "misura_insufficiente": "de voorgestelde maatregel pakt het belangrijkste risico onvoldoende aan",
+          "eccesso_cautela": "de classificatie klopt, maar volledige stopzetting gaat verder dan nodig",
+          "soggetto": "de classificatie klopt, maar de verkeerde partij is verantwoordelijk gesteld",
+          "trasparenza": "de vereiste transparantie ontbreekt: burgers kunnen het systeem of de inhoud niet herkennen",
+          "motivazione": "de beslissing klopt, maar de argumentatie is zwak"
+        },
+        "registry": {
+          "officeLabel": "UITVAARDIGENDE DIENST",
+          "fileLabel": "DOSSIERCODE",
+          "protocolLabel": "REGISTRATIENUMMER",
+          "dateLabel": "REGISTRATIEDATUM",
+          "statusLabel": "CLASSIFICATIE",
+          "status": "DEFINITIEF BESLUIT · NIET GECLASSIFICEERD",
+          "draftStatus": "CONCEPT · NOG NIET INGEDIEND",
+          "stripNote": "registratiestrook: het registratienummer als streepjescode"
+        },
+        "lessonLabel": "LES UIT DE CASUS",
+        "analysisLabel": "ANALYSE VAN DE BESLISSING",
+        "analysis": {
+          "conforme": "De beslissing houdt stand: classificatie, maatregel, verantwoordelijke partij en argumentatie worden door het doorslaggevende bewijs ondersteund.",
+          "parziale": "De beslissing herkent het kernprobleem, maar blijft onvolledig",
+          "contestabile": "De beslissing kan worden aangevochten.",
+          "non_conforme": "De beslissing houdt geen stand."
+        },
+        "issues": {
+          "wrong_classification": "de classificatie houdt onvoldoende rekening met de gebruikscontext.",
+          "insufficient_measure": "de voorgestelde maatregel vermindert het risico, maar pakt het onvoldoende aan.",
+          "excessive_measure": "de classificatie klopt, maar de maatregel gaat verder dan nodig.",
+          "wrong_responsible_subject": "de verkeerde partij is verantwoordelijk gesteld.",
+          "weak_motivation": "de argumentatie wordt niet ondersteund door het aangehaalde bewijs.",
+          "weak_evidence": "het aangehaalde bewijs ondersteunt de classificatie onvoldoende.",
+          "formal_human_oversight": "het menselijk toezicht blijft formeel en is niet effectief.",
+          "missing_transparency": "de transparantie die het systeem herkenbaar zou maken, ontbreekt.",
+          "context_misread": "de gebruikscontext is verkeerd begrepen.",
+          "proportionality_problem": "de maatregel is niet evenredig aan het werkelijke risico."
+        }
+      },
+      "states": {
+        "sigillato": "VERZEGELD",
+        "aperto": "GEOPEND",
+        "citato": "AANGEHAALD",
+        "prova_decisiva": "DOORSLAGGEVEND BEWIJS",
+        "contraddizione": "TEGENSTRIJDIGHEID",
+        "procedibile": "KLAAR VOOR BEHANDELING"
+      },
+      "normIdentities": {
+        "vietata": "VERBODEN PRAKTIJK",
+        "alto": "HOOG RISICO",
+        "trasparenza": "TRANSPARANTIE",
+        "biometria": "TOEGEVOEGD OP VOORWAARDEN",
+        "gpai": "GPAI-MODEL"
+      },
+      "outcomes": {
+        "conforme": "CONFORM",
+        "parziale": "GEDEELTELIJK CONFORM",
+        "contestabile": "BETWISTBAAR",
+        "non_conforme": "NIET CONFORM"
+      },
+      "errors": {
+        "classificazione": "De classificatie past niet bij het regime dat de verordening voorschrijft.",
+        "prove": "Het aangehaalde bewijs onderbouwt de classificatie niet: het besluit kan worden aangevochten.",
+        "misura_insufficiente": "De maatregel behandelt het symptoom: het systeem blijft beslissen.",
+        "eccesso_cautela": "Je zette stop wat beter beheer vereiste. De dienst stopt, het probleem verplaatst zich.",
+        "soggetto": "Verplichtingen zijn toegewezen aan iemand die ze niet kon vervullen: niemand legt verantwoording af.",
+        "trasparenza": "Maatregelen getroffen, burgers in het ongewisse: zo herstelt vertrouwen niet.",
+        "motivazione": "De argumentatie houdt geen stand: de beslissing klopt, de onderbouwing niet."
+      },
+      "cityDossier": {
+        "title": "STADSDOSSIER",
+        "subtitle": "Systemische gevolgen van beslissingen. Geen score: trends.",
+        "updatedLabel": "Stadsdossier bijgewerkt",
+        "emptyHint": "Nog geen zaak gesloten: het dossier blijft stabiel.",
+        "openButton": "STADSDOSSIER",
+        "indicators": {
+          "publicTrust": "Publiek vertrouwen",
+          "fundamentalRights": "Grondrechten",
+          "administrativeOpacity": "Administratieve ondoorzichtigheid",
+          "litigationRisk": "Litigatierisico",
+          "serviceEfficiency": "Dienstefficiëntie"
+        },
+        "trends": {
+          "improving": "verbetering",
+          "worsening": "verergering",
+          "stable": "stabiel",
+          "watch": "onder toezicht"
+        }
+      },
+      "incident": {
+        "header": "DRINGEND TELEXBERICHT",
+        "hint": "toetsenbord: toetsen 1–3 om te reageren",
+        "logged": "Reactie vastgelegd: {value}"
+      },
+      "consequence": {
+        "qualityCorrect": "CONFORM BESLUIT",
+        "qualityPartial": "GEDEELTELIJK CONFORM BESLUIT",
+        "qualityWrong": "NIET-CONFORM BESLUIT",
+        "summary": "Classificatie: {classification} · Maatregel: {measure}",
+        "territoryLabel": "BETROKKEN GEBIED",
+        "noteLabel": "INSPECTIENOTITIE",
+        "cityLabel": "TOESTAND VAN DE STAD",
+        "cluesMismatch": "De aangehaalde bewijsstukken ondersteunen de classificatie niet: het besluit kan worden aangevochten.",
+        "nextCorrect": "RECHTSREGEL VRIJGESPEELD",
+        "nextWrong": "RECHTSREGEL RAADPLEGEN"
+      },
+      "normCard": {
+        "democraticFunctionLabel": "DEMOCRATISCHE FUNCTIE",
+        "unlocked": "RECHTSREGEL TOEGEVOEGD AAN HET ARCHIEF",
+        "subCorrect": "Deze bepaling had de schade kunnen voorkomen of beheersen.",
+        "subWrong": "De rechtsregel bestond. In een ander Europa had iemand die toegepast.",
+        "backToMap": "TERUG NAAR DE KAART",
+        "endOfShift": "DIENST BEËINDIGEN",
+        "nextCase": "VOLGENDE CASUS",
+        "disclaimer": "Vereenvoudigde educatieve versie"
+      },
+      "archive": {
+        "title": "ARCHIEF VAN DE AI-VERORDENING",
+        "subtitle": "Vrijgespeelde bepalingen: {done}/{total} · vereenvoudigde educatieve versie",
+        "locked": "RECHTSREGEL NOG NIET VRIJGESPEELD",
+        "hint": "klik buiten de kaart of druk op ESC om te sluiten",
+        "searchIdle": "Zoek in het archief: typ een trefwoord (ESC om te stoppen)",
+        "searchResults": "«{query}» — normen: {n} · begrippen: {g} · dossiers: {c}",
+        "searchNone": "Geen resultaten voor «{query}» (BACKSPACE om te wijzigen)",
+        "back": "TERUG"
+      },
+      "finale": {
+        "header": "EINDVERSLAG VAN DE INSPECTIE",
+        "cityLabel": "EINDTOESTAND VAN DE STAD",
+        "newGame": "NIEUW SPEL",
+        "archive": "REGELARCHIEF",
+        "credits": "MAKERS",
+        "debrief": "NABESPREKING VOOR DOCENTEN",
+        "learningReport": "LEERVERSLAG",
+        "privacyNote": {
+          "title": "Sessieregistratie",
+          "text": "Voortgang wordt lokaal opgeslagen. Geaggregeerde statistieken kun je uitschakelen. Alleen na toestemming van volwassenen: sessieregistratie gedurende 90 dagen; teksten van het begeleide traject vereisen afzonderlijke toestemming. Intrekken, wissen en exporteren kan via de spelbalk."
+        }
+      },
+      "debrief": {
+        "title": "NABESPREKING VOOR DOCENTEN · LOKAAL VERSLAG",
+        "subtitle": "Het docentenverslag blijft lokaal. Beheer de vrijwillige sessieregistratie via de spelbalk.",
+        "casesLabel": "CASUSSEN EN VERSLAGEN",
+        "caseLine": "{title} · uitkomst: {outcome}",
+        "mainErrorLine": "bevinding: {error}",
+        "noError": "geen bevinding",
+        "anatomyLabel": "Opbouw van de casus",
+        "anatomySignal": "doorslaggevend signaal",
+        "anatomyTrap": "valkuil van bagatellisering",
+        "anatomyTrapNone": "geen bagatelliserende voorstelling in dit dossier",
+        "normsLine": "Rechtsregels vrijgespeeld: {done}/{total}",
+        "timeLine": "Afrondingstijd: {minutes} min",
+        "timeUnknown": "Afrondingstijd: niet beschikbaar",
+        "indicatorsLabel": "EINDINDICATOREN",
+        "conceptsLabel": "BEGRIPPEN UIT DE AI-VERORDENING",
+        "questionsLabel": "BESPREKINGSVRAGEN",
+        "reviewLabel": "ADVIES VOOR HERHALING",
+        "reviewLine": "Lees de rechtsregelkaarten opnieuw bij casussen met een niet-conforme of betwistbare uitkomst.",
+        "downloadJson": "DOWNLOAD .JSON",
+        "downloadTxt": "DOWNLOAD .TXT",
+        "print": "AFDRUKKEN",
+        "back": "TERUG NAAR HET VERSLAG",
+        "notCompleted": "casus niet afgerond",
+        "missionLine": "Missie: {mission}",
+        "difficultyLine": "Moeilijkheidsgraad: {difficulty}",
+        "privacyNote": "Het docentenverslag blijft lokaal. Beheer de vrijwillige sessieregistratie via de spelbalk.",
+        "recommendedHeader": "AANBEVOLEN TRAJECTEN",
+        "recommendedLine": "{name} · {duration} · {goal}"
+      },
+      "sessionEnd": {
+        "title": "Einde van de dienst",
+        "subtitle": "{mode} · {count} dossiers · ongeveer {minutes} min",
+        "subtitleOne": "{mode} · één dossier · ongeveer {minutes} min",
+        "countCorrectOne": "één correct afgerond",
+        "countCorrect": "{n} correct afgerond",
+        "countPartialOne": "één gedeeltelijk afgerond",
+        "countPartial": "{n} gedeeltelijk afgerond",
+        "countWrongOne": "één onjuist afgerond",
+        "countWrong": "{n} onjuist afgerond",
+        "recurring": "Dezelfde fout {times} keer. {error}",
+        "noRecurring": "Geen fout kwam herhaaldelijk voor in deze dienst.",
+        "normsTouched": "Behandelde artikelen: {norms}",
+        "incompleteOne": "Eén dossier uit het plan bleef open. Het blijft op de kaart beschikbaar.",
+        "incomplete": "{count} dossiers uit het plan bleven open. Ze blijven op de kaart beschikbaar.",
+        "quality": {
+          "correct": "correct afgerond",
+          "partial": "gedeeltelijk afgerond",
+          "wrong": "onjuist afgerond"
+        },
+        "open": "open",
+        "toMap": "TERUG NAAR DE KAART",
+        "learningReport": "LEERVERSLAG",
+        "debrief": "NABESPREKING VOOR DOCENTEN",
+        "note": "Samenvatting van de zojuist gespeelde dienst. Deze blijft op je apparaat, zonder account of verzending."
+      },
+      "newGamePanel": {
+        "title": "NIEUW SPEL",
+        "subtitle": "Kies hoe je wilt spelen en hoeveel tijd je hebt. Hieronder verschijnt vóór de start een aanbevolen plan.",
+        "modeLabel": "MODUS: {value}",
+        "audienceLabel": "PROFIEL: {value}",
+        "durationLabel": "DUUR: {value} min",
+        "planLine": "{count} dossiers · ongeveer {minutes} min · moeilijkheid: {difficulty}",
+        "planLineOne": "één dossier · ongeveer {minutes} min · moeilijkheid: {difficulty}",
+        "planLineFree": "open kaart · {count} voorgestelde dossiers · ongeveer {minutes} min",
+        "planLineFreeOne": "open kaart · één voorgesteld dossier · ongeveer {minutes} min",
+        "overBudget": "Het eerste dossier vraagt ongeveer {minutes} min: meer dan de gekozen tijd.",
+        "nothingToReview": "Niets om te herhalen: nog geen onjuist of gedeeltelijk afgerond dossier. Kies een andere modus om te beginnen.",
+        "note": "De tijd is een schatting voor de samenstelling van de sessie. Het spel meet of beperkt je werkelijke speeltijd niet.",
+        "reroll": "OPNIEUW LOTEN",
+        "start": "STARTEN",
+        "modes": {
+          "turno": {
+            "name": "Inspectiedienst",
+            "desc": "De dossiers voor je profiel, in volgorde. De klassieke route: één bureau, één rij dossiers."
+          },
+          "libera": {
+            "name": "Vrij onderzoek",
+            "desc": "De stad ligt open: behandel dossiers in elke volgorde. De duur geeft alleen aan hoeveel dossiers worden aanbevolen."
+          },
+          "sorpresa": {
+            "name": "Verrassingsinspectie",
+            "desc": "Willekeurige dossiers uit het volledige aanbod, moeilijkheid Expert en geen aanwijzingen op de kaart."
+          },
+          "ripasso": {
+            "name": "Fouten herhalen",
+            "desc": "Alleen dossiers die je onjuist of gedeeltelijk afrondde. Beschikbaar zodra er minstens één is."
+          }
+        }
+      },
+      "audience": {
+        "modes": {
+          "casual": {
+            "name": "Zelf ontdekken",
+            "desc": "Je werkt niet op dit gebied en wilt de AI-verordening begrijpen. Casussen gekozen om hun duidelijkheid, niet voor een beroepsrol."
+          },
+          "pa": {
+            "name": "Openbaar bestuur",
+            "desc": "Loketten, inkoop en fraudebestrijding: beslissen met een systeem dat je niet zelf hebt ontwikkeld."
+          },
+          "scuola": {
+            "name": "Onderwijs en opleiding",
+            "desc": "Emotieherkenning in de klas, adaptieve platforms en modellen voor algemene doeleinden."
+          },
+          "hr": {
+            "name": "Personeelszaken",
+            "desc": "Werving, rangschikking en modellen voor algemene doeleinden in verdere toepassingen."
+          }
+        }
+      },
+      "missions": {
+        "title": "Kies een pad",
+        "subtitle": "Een pad suggereert aanbevolen gevallen. Je kunt ze nog steeds allemaal spelen.",
+        "recommendedTag": "AANBEVOLEN",
+        "durationLabel": "duur",
+        "start": "START PATH",
+        "modes": {
+          "demo": {
+            "name": "Snelle demo",
+            "duration": "10–15 min.",
+            "goal": "Begrijp de logica van het inspectierapport."
+          },
+          "lab": {
+            "name": "Kort lab",
+            "duration": "25–35 min.",
+            "goal": "Vertel verboden, hoog risico en transparantie uit elkaar."
+          },
+          "full": {
+            "name": "Volledig pad",
+            "duration": "45–60 min.",
+            "goal": "Audit, verantwoordingsplicht, maatregelen en redenering."
+          },
+          "advanced": {
+            "name": "Geavanceerd pad",
+            "duration": "60–75 min.",
+            "goal": "Ambitieuze gevallen en regelgevingsgrenzen (met inbegrip van burgerkrediet)."
+          },
+          "pack": {
+            "name": "Voorafgaande zaken",
+            "duration": "75–90 min.",
+            "goal": "Meer dubbelzinnige gevallen: publieke chatbot, inkoop, EdTech en GPAI."
+          }
+        }
+      },
+      "difficulty": {
+        "title": "MOEILIJKHEIDSGRAAD",
+        "label": "MOEILIJKHEID: {value}",
+        "modes": {
+          "base": {
+            "name": "Basisniveau",
+            "desc": "Expliciete instructies, aanwijzingen na fouten en een mildere beoordeling."
+          },
+          "standard": {
+            "name": "Standaard",
+            "desc": "Volledig verslag en evenwichtige feedback. Aanbevolen voor de demo."
+          },
+          "expert": {
+            "name": "Expert",
+            "desc": "Weinig aanwijzingen, beknopte feedback en strenge eisen aan verantwoordelijkheid en argumentatie."
+          }
+        },
+        "hintLabel": "HEROVERWEEG",
+        "hints": {
+          "classificazione": "Heroverweeg de classificatie: vergelijk doel en gebruikscontext.",
+          "prove": "Bekijk de aangehaalde bewijsstukken opnieuw: ondersteunen ze de classificatie werkelijk?",
+          "misura_insufficiente": "Is de maatregel evenredig aan het belangrijkste risico?",
+          "eccesso_cautela": "Misschien is stopzetting niet nodig: het systeem kan beter beheer vereisen.",
+          "soggetto": "Controleer de verantwoordelijke partij: wie draagt de belangrijkste verplichting?",
+          "trasparenza": "Controleer de transparantie: kunnen burgers het systeem herkennen?",
+          "motivazione": "Houdt de argumentatie stand tegenover de aangehaalde bewijsstukken?"
+        }
+      },
+      "mobileGuard": {
+        "message": "NO AI ACT is geoptimaliseerd voor computers en tablets in liggende stand. Draai je apparaat of gebruik een computer voor de beste ervaring."
+      },
+      "creditsScene": {
+        "title": "MAKERS",
+        "heading": "NO AI ACT",
+        "roleLabel": "Concept en wetenschappelijke richting",
+        "author": "Matteo Angeloni",
+        "affiliation": "Promovendus — Universiteit van Tuscia",
+        "note": "MADE MET AI, NIET DOOR AI ... vrijwillige openbaarmaking: ontwikkeld met AI-assistenten, onder de redactionele en wetenschappelijke verantwoordelijkheid van één persoon. Procedurele graphics en audio. Volledige licenties in de projectbestanden.",
+        "phdProgramme": "Samenleving in verandering: beleid, rechten en veiligheid",
+        "phdLink": "Promotieprogramma (EN) ▸",
+        "universityLink": "Universiteit van Tuscia ▸",
+        "independence": "Onafhankelijk project: geen officieel product van de universiteit.",
+        "back": "◂ TERUG NAAR HET TITELSCHERM"
+      },
+      "toastPrefixes": {
+        "info": "MEDEDELING",
+        "warning": "WAARSCHUWING",
+        "alert": "ALERT",
+        "ok": "VASTGELEGD"
+      },
+      "levels": {
+        "vietata": "Verboden praktijk",
+        "alto": "Hoog risico",
+        "trasparenza": "Transparantie",
+        "restrittivo": "Beperkende voorwaarden"
+      }
+    },
+    "briefing": {
+      "header": "INSPECTIE VOOR ALGORITMISCHE INCIDENTEN",
+      "sub": "VERTROUWELIJKE BRIEFING · DOSSIER AX/2032",
+      "body": "Het jaar is 2032. In deze stad is de AI-verordening nooit in werking getreden. De stad werkt. Wachtrijen bestaan niet, formulieren vullen zichzelf in en beslissingen komen vóór de vragen. Niemand weet nog wie beslist. Niemand kan bezwaar maken. Algoritmische incidenten stapelen zich in het archief op als onbeantwoorde dossiers. Jij bent de inspecteur. Je opdracht: onderzoek de incidenten, classificeer de systemen en leg maatregelen op. Na elk gesloten dossier brengt het archief de rechtsregel terug die dit elders, in een ander Europa, had kunnen voorkomen. De stad wacht op je. Probeer niet aan de efficiëntie te wennen.",
+      "how": "Zo speel je: open de bewijsstukken, haal bewijs aan, classificeer het risico en dien je verslag in. Na elke beslissing volgt uitleg over de argumentatie. Voortgang blijft lokaal; beheer de statistieken en de vrijwillige sessieregistratie via de spelbalk. Dit is een educatieve simulatie, geen juridisch advies.",
+      "ctaFirstCase": "EERSTE DOSSIER OPENEN",
+      "cta": "NAAR DE STADSKAART"
+    },
+    "classifications": {
+      "vietata": "Verboden praktijk",
+      "alto_rischio": "Systeem met een hoog risico",
+      "trasparenza": "Transparantieverplichting",
+      "basso_rischio": "Laag risico",
+      "non_rilevante": "Niet relevant voor de AI-verordening"
+    },
+    "measures": {
+      "blocco": "Systeem stopzetten",
+      "oversight": "Menselijk toezicht invoeren",
+      "audit": "Audits en risicobeheer instellen",
+      "informare": "Gebruikers informeren",
+      "etichettare": "AI-gegenereerde inhoud labelen",
+      "dati_logging": "Gegevenskwaliteit en logboeken verbeteren",
+      "nessuna": "Geen maatregel"
+    },
+    "indicators": {
+      "labels": {
+        "efficienza": "EFFICIËNTIE",
+        "controllo": "SOCIALE CONTROLE",
+        "diritti": "GRONDRECHTEN",
+        "fiducia": "PUBLIEKE VERTROUWEN"
+      },
+      "comments": {
+        "correct": [
+          "Tegen de beslissing kan beroep worden ingesteld. Daarom is het legitiem.",
+          "Sommige processen vertragen. Sommige mensen ademen.",
+          "Het systeem moet zich nu verklaren. Het is een begin."
+        ],
+        "partial": [
+          "Een administratieve patch. Het probleem blijft onder de oppervlakte.",
+          "Beter dan niets. Maar \"beter dan niets\" is geen bestuur.",
+          "De maatregel behandelt het symptoom, niet de oorzaak."
+        ],
+        "wrong": [
+          "De dashboards verbeteren. De mensen niet.",
+          "Record efficiency. Niemand weet meer wie de beslissing neemt.",
+          "Het systeem zegt dank je wel. De burgers kunnen dat niet."
+        ]
+      }
+    },
+    "locations": {
+      "commissariato": "Politiebureau van het district",
+      "sussidi": "Voordelenkantoor",
+      "osservatorio": "Arbeidswaarnemingspost",
+      "municipio": "Centraal stadhuis",
+      "lavoro": "Werkgelegenheidsagentschap",
+      "media": "Civic Media Center",
+      "scuola": "School of Emotions",
+      "ospedale": "Predictief ziekenhuis",
+      "sorveglianza": "Stadssurveillancecentrum",
+      "welfare": "Bureau voor Welzijn en Diensten",
+      "sportello": "Civic Bureau",
+      "appalti": "Bureau voor overheidsopdrachten",
+      "campus": "Adaptieve campus",
+      "modelli": "Modelcentrum"
+    },
+    "cases": {
+      "case_predpol": {
+        "title": "De gemarkeerde wijk",
+        "scenario": "De gemeentepolitie neemt een systeem in gebruik dat elke inwoner een „score voor criminele neiging” toekent op basis van adres, kennissen, familiegeschiedenis en contacten met sociale diensten. Elke ochtend krijgen patrouilles de hoogst gerangschikte namen. In de westelijke wijk zijn de staandehoudingen verdrievoudigd; niemand weet dat die op de lijst staat, of waarom.",
+        "clues": [
+          {
+            "title": "Generatielogboek",
+            "text": "Het technische logboek toont dat de scores uitsluitend op profileringscategorieën zijn gebaseerd: buurt, sociaal netwerk en familiegeschiedenis. Geen concreet feit dat verband houdt met enig strafbaar feit."
+          },
+          {
+            "title": "Dienstorder",
+            "text": "Een interne circulaire: „Prioriteitscontroles volgen de door het systeem opgestelde lijst; individuele beoordeling van de namen is niet vereist.” De ranglijst bepaalt wie wordt staandegehouden."
+          },
+          {
+            "title": "Onderzoek van de leverancier",
+            "text": "De leverancier presenteert een studie: „92% van de als hoog risico aangemerkte personen had binnen 5 jaar minstens één contact met rechtshandhaving.” Hij noemt het systeem „wetenschappelijke ondersteuning voor menselijke beslissingen”."
+          }
+        ],
+        "clueSources": [
+          "log",
+          "interna",
+          "vendor"
+        ],
+        "noteCorrect": "Het voorspellen van iemands risico op crimineel gedrag uitsluitend op basis van profilering is verboden. Stopzetting is daarom de enige passende maatregel.",
+        "notePartial": "Je zag het probleem, maar een verboden praktijk behandelen als een kwestie van beheer laat de wijk onder surveillance die geen audit kan rechtvaardigen.",
+        "noteWrong": "Het verslag houdt geen stand: de praktijk valt onder het verbod van artikel 5, en geen enkele organisatorische maatregel maakt het legaal.",
+        "consequenceCorrect": "Het systeem wordt stopgezet. Controles vertrekken weer vanuit feiten, niet vanuit ranglijsten. In de westelijke wijk begint het vertrouwen in de instellingen langzaam te herstellen.",
+        "consequenceWrong": "De lijst blijft bepalen wie wordt staandegehouden. Wie erin wordt geboren, komt er nooit uit: de wijk leert dat een adres zwaarder weegt dan gedrag.",
+        "motivations": [
+          "Het systeem is onnauwkeurig en moet worden opgeschort totdat de leverancier voldoende nauwkeurigheid in de praktijk aantoont.",
+          "Het voorspellen van iemands risico op een strafbaar feit uitsluitend op basis van profilering is verboden. Nauwkeurigheid maakt niet rechtmatig wat de verordening verbiedt.",
+          "De politie mag elk ondersteunend instrument gebruiken: de uiteindelijke beslissing blijft bij een menselijke agent."
+        ],
+        "debriefQuestions": [
+          "Waarom verbiedt de verordening individuele criminaliteitsvoorspelling op basis van profilering in plaats van die als hoog risico te reguleren?",
+          "Is de studie van de leverancier met de 92% bewijs vóór of tegen het systeem? Wat vermeldt ze niet?",
+          "Wat onderscheidt rechtmatige ondersteuning van opsporingsonderzoek van het systeem in deze casus?"
+        ],
+        "epilogue": "De leiding ontmantelt de ranglijst en publiceert de controlecriteria. Sommige agenten protesteren: „Het werkte.” De vraag, legt de inspectie uit, is niet of het werkte, maar waardoor het werkte."
+      },
+      "case_bias": {
+        "title": "De bias die ze corrigeerden",
+        "scenario": "Het regionale arbeidsbureau screent sollicitaties met een geautomatiseerd systeem. De aanbieder meldt een bias tegen sollicitanten van buitenlandse afkomst te hebben gevonden en gecorrigeerd. Daarvoor moest hij de gegevens verwerken die deze bias zichtbaar maakten: etnische afkomst en gezondheid. Artikel 4 bis van de AI-verordening staat dit bij uitzondering toe, onder zes voorwaarden. Die moeten allemaal tegelijk zijn vervuld.",
+        "clues": [
+          {
+            "title": "Verwerkingsregister",
+            "text": "Het register vermeldt de verwerking van bijzondere categorieën persoonsgegevens, maar motiveert niet waarom die strikt noodzakelijk waren en evenmin waarom andere gegevens — synthetische of geanonimiseerde — niet zouden volstaan. Beide schriftelijke motiveringen die artikel 4 bis vereist, ontbreken."
+          },
+          {
+            "title": "Contract met de externe analist",
+            "text": "De analyse is uitbesteed aan een adviesbureau. De steekproef met gegevens over etnische afkomst en gezondheid is onversleuteld doorgestuurd. Artikel 4 bis verbiedt doorgifte aan en toegankelijkheid voor andere partijen: hier is beide gebeurd."
+          },
+          {
+            "title": "Correctierapport",
+            "text": "De bias was reëel en is verdwenen: het verschil in afwijzingspercentage tussen groepen daalde van veertien naar twee procentpunten. Een onafhankelijke hertelling bevestigt dat resultaat. Het werk is gedaan, en goed gedaan."
+          }
+        ],
+        "clueSources": [
+          "interna",
+          "amministrativa",
+          "tecnica"
+        ],
+        "noteCorrect": "De zes voorwaarden van artikel 4 bis gelden cumulatief. Als er twee ontbreken, heeft de verwerking geen rechtsgrond. Het systeem is hoog risico en blijft werken; de manier waarop de bias werd gecorrigeerd moet aan de voorwaarden voldoen.",
+        "notePartial": "Je vond het juiste gebied, maar niet het doorslaggevende punt. Zolang bijzondere persoonsgegevens naar een derde partij gaan en de noodzaak niet is vastgelegd, helpt het aanvullen van de administratie niet.",
+        "noteWrong": "Het verslag houdt geen stand: artikel 4 bis staat deze verwerking uitdrukkelijk toe en de tweede alinea verduidelijkt dat niemand verplicht is bias op te sporen. Stopzetting bestraft juist de aanbieder die onderzoek deed.",
+        "consequenceCorrect": "De steekproef keert terug naar de omgeving van de aanbieder en wordt verwijderd zodra de bias is gecorrigeerd. Het register motiveert waarom juist deze gegevens nodig waren. De correctie blijft behouden, nu met een rechtsgrond.",
+        "consequenceWrong": "De aanbieder leert de verkeerde les: de volgende keer zoekt hij helemaal niet naar bias. Het verschil keert terug naar veertien procentpunten en deze keer meet niemand het.",
+        "motivations": [
+          "Artikel 4 bis staat verwerking van bijzondere persoonsgegevens toe om bias op te sporen, maar onder zes cumulatieve voorwaarden. Doorgifte aan een derde partij en ontbrekende vastlegging van de noodzaak schenden er twee. De verwerking is onrechtmatig, ook als de correctie werkte.",
+          "De aanbieder verwerkte gegevens over etnische afkomst en gezondheid van sollicitanten. Het systeem moet worden geblokkeerd totdat uitsluitend methoden zonder gevoelige gegevens worden gebruikt.",
+          "De bias is gecorrigeerd en de kloof is verdwenen. Dat resultaat toont aan dat de verwerking evenredig was; het aanvullen van het register volstaat."
+        ],
+        "debriefQuestions": [
+          "Als de zes voorwaarden alternatieven waren in plaats van cumulatieve eisen, zou deze aanbieder eraan voldoen. Waarom verlangt de wetgever ze allemaal tegelijk?",
+          "De correctie heeft echt gewerkt. Waar accepteren we nog meer dat een goed resultaat de manier waarop het is verkregen niet rechtvaardigt, en waarom geldt dat ook hier?",
+          "Artikel 4 bis verplicht niemand bias op te sporen. Een aanbieder die nooit zoekt, loopt minder risico dan een die onzorgvuldig zoekt: is dat een beoogd effect of een tekortkoming van de regel?"
+        ],
+        "epilogue": "Het bureau behoudt het gecorrigeerde systeem en herschrijft het adviescontract: de analyse draait op de servers van de aanbieder en de gegevens blijven daar. De ontbrekende motivering komt in het register. De functionaris voor gegevensbescherming merkt op: „Jullie hebben de bias gevonden. Dat was het enige waar niemand over twijfelde.”"
+      },
+      "case_frodi": {
+        "title": "Het algoritme van de verdenking",
+        "scenario": "Het uitkeringskantoor voert een „frauderisicoscore” in voor inkomensondersteuningsdossiers. Gemarkeerde uitkeringen worden automatisch opgeschort in afwachting van controle. Een menselijke controle vindt echter alleen plaats als de burger bezwaar maakt. Gezinnen ontdekken de opschorting aan de balie, terwijl hun uitkering al is geblokkeerd.",
+        "clues": [
+          {
+            "title": "Foutenanalyse",
+            "text": "71% van de gemarkeerde dossiers wordt afgesloten zonder vastgestelde fraude. De meldingen concentreren zich bij eenoudergezinnen en gezinnen van buitenlandse afkomst: het model gebruikt indirecte kenmerken die steeds dezelfde profielen raken."
+          },
+          {
+            "title": "Interne werkprocedure",
+            "text": "De procedure: bij een melding wordt de uitkering automatisch opgeschort; een ambtenaar herbeoordeelt het dossier alleen na een formeel bezwaar. Menselijke beoordeling bestaat, maar pas nadat de schade is ontstaan."
+          },
+          {
+            "title": "Informatieblad van de leverancier",
+            "text": "De leverancier meldt „12 miljoen teruggevorderd en gehalveerde controletijden”. Geen gegevens over fout-positieven en geen informatie over de gevolgen van opschortingen voor gezinnen."
+          }
+        ],
+        "clueSources": [
+          "tecnica",
+          "interna",
+          "vendor"
+        ],
+        "noteCorrect": "Een systeem dat beslist over toegang tot essentiële uitkeringen heeft een hoog risico. Het mag alleen werken met effectief menselijk toezicht VÓÓR de gevolgen, aangevuld met audit en traceerbaarheid.",
+        "notePartial": "Je vond het juiste gebied, maar het doorslaggevende probleem bleef bestaan: automatische opschorting vóór enige menselijke controle. Daardoor blijft het systeem schade veroorzaken.",
+        "noteWrong": "Het verslag houdt geen stand: het gedocumenteerde probleem is niet het instrument zelf, maar het gebruik ervan zonder effectief toezicht en met onevenredige gevolgen.",
+        "consequenceCorrect": "Automatische opschortingen stoppen: geen uitkering wordt ingetrokken voordat een mens het dossier heeft bekeken. Het aantal fout-positieven daalt sterk.",
+        "consequenceWrong": "Opschortingen blijven vóór iedere controle plaatsvinden. Wie van de uitkering afhankelijk is, leert een brief meer te vrezen dan een inspectie.",
+        "motivations": [
+          "Het systeem maakt te veel fouten en moet worden opgeschort totdat de nauwkeurigheid verbetert.",
+          "Beslissen over essentiële uitkeringen is hoog risico. Effectief menselijk toezicht is nodig vóór de gevolgen, met audit en traceerbaarheid; alleen controle na bezwaar volstaat niet.",
+          "De dienst moet fraude kunnen bestrijden. Wie niets te verbergen heeft, hoeft niet bang te zijn voor een extra controle."
+        ],
+        "debriefQuestions": [
+          "Waarom is menselijke herbeoordeling „alleen na bezwaar” geen effectief toezicht? Wie draagt intussen de kosten van de fout?",
+          "De foutenanalyse toont gevolgen die zich bij bepaalde profielen concentreren. Wanneer zou dit aanleiding zijn om naast hoog risico ook verboden praktijken te onderzoeken?",
+          "Deze casus lijkt op „Maatschappelijk krediet”, maar heeft een andere oplossing. Wat verschilt er?"
+        ],
+        "epilogue": "Het kantoor herstelt voorafgaande controle en publiceert foutenpercentages per profiel. De terugvordering van fraude daalt licht; het aantal bezwaren daalt sterk. De directeur erkent: „We maten de besparingen, niet de fouten.”"
+      },
+      "case_scoring": {
+        "title": "De stad van de scores",
+        "scenario": "De gemeente kent elke burger een „index voor maatschappelijke betrouwbaarheid” toe. De score bepaalt de prioriteit bij toegang tot diensten, uitkeringen, wachtlijsten en huisvesting. Onlineprotesten, oude schulden, „risicovolle kennissen” en gedrag zonder verband met de gevraagde dienst leveren strafpunten op. Deze week verloren drie gezinnen hun sociale huurwoning. Geen van hen begreep waarom.",
+        "clues": [
+          {
+            "title": "Irrelevante gegevens",
+            "text": "De huisvestingsscore omvat de geschiedenis op sociale media, verkeersboetes en telefooncontacten. Die hebben niets te maken met het recht op huisvesting."
+          },
+          {
+            "title": "Straffen die zich verspreiden",
+            "text": "Een onlineprotest uit 2029 verlaagde de scores van een burger voor zorg, school en huisvesting. De benadeling verspreidt zich naar contexten zonder verband met de oorspronkelijke context."
+          },
+          {
+            "title": "Geen uitleg",
+            "text": "De officiële kennisgeving luidt: „Onvoldoende score. Code E-77.” Geen burger heeft ooit een begrijpelijke uitleg of een mogelijkheid tot bezwaar gekregen."
+          }
+        ],
+        "noteCorrect": "Inspectienotitie: dit systeem kan niet met een aanpassing worden rechtgezet. Het benadeelt mensen in niet-gerelateerde contexten en zonder rechtvaardiging. Het moet worden uitgeschakeld.",
+        "notePartial": "Inspectienotitie: audits en toezicht zijn onvoldoende. Algemene sociale scoring blijft onverenigbaar met waardigheid en gelijkheid. Het systeem had moeten worden stopgezet.",
+        "noteWrong": "Inspectienotitie: het dossier blijft open. De score blijft bepalen wie recht heeft op een woning.",
+        "consequenceCorrect": "Het systeem wordt uitgeschakeld. Wachtlijsten volgen weer relevante, controleerbare criteria. Het bezwaarloket heropent: traag, menselijk en met aanvechtbare beslissingen.",
+        "consequenceWrong": "De index voor maatschappelijke betrouwbaarheid wordt uitgebreid naar openbaar vervoer en schoolkantines. De administratieve efficiëntie stijgt. Woningaanvragen van gemarkeerde gezinnen verdwijnen stilletjes uit de wachtrijen.",
+        "motivations": [
+          "Het systeem is ondoorzichtig: burgers krijgen geen begrijpelijke uitleg.",
+          "De score veroorzaakt nadelige behandeling in een context die losstaat van de verzameling van de gegevens. Dit is verboden sociale scoring, artikel 5.",
+          "Het systeem verzamelt te veel gegevens. Het moet worden afgeslankt en efficiënter worden gemaakt."
+        ],
+        "debriefQuestions": [
+          "Waarom wordt algemene sociale scoring verboden in plaats van alleen gereguleerd?",
+          "Wat is het verschil tussen gegevens gebruiken binnen en buiten hun oorspronkelijke context?",
+          "Zou een vergelijkbare score van een particulier bedrijf op dezelfde manier worden behandeld?"
+        ],
+        "epilogue": "De index voor maatschappelijke betrouwbaarheid is de proef op de som voor het verbod: óf de stad schakelt hem uit, óf hij bestuurt de stad."
+      },
+      "case_lavoro": {
+        "title": "Het sollicitatiegesprek dat niet bestaat",
+        "scenario": "Bedrijven in de stad screenen kandidaten met een AI-systeem dat cv’s, video-interviews, stemgebruik, micro-expressies, pauzes en loopbanen analyseert. Binnen 40 seconden volgt de uitslag: „Profiel niet passend.” Een ingenieur met twaalf jaar ervaring is 217 keer afgewezen. Geen mens heeft ooit zijn cv gelezen.",
+        "clues": [
+          {
+            "title": "Geen uitleg",
+            "text": "De melding is voor iedereen identiek: „Profiel niet passend.” Geen betekenisvolle individuele uitleg en geen verwijzing naar de gebruikte criteria."
+          },
+          {
+            "title": "Afwijkende loopbanen bestraft",
+            "text": "Het model benadeelt loopbaanonderbrekingen, ouderschapsverlof en overstappen naar andere sectoren. Het herhaalt de discriminatie in historische wervingsgegevens."
+          },
+          {
+            "title": "Toezicht als façade",
+            "text": "Eén medewerker „valideert” 1.400 uitkomsten per dag: 20 seconden per dossier. Menselijk toezicht bestaat op papier, niet in de praktijk."
+          }
+        ],
+        "noteCorrect": "Inspectienotitie: automatische werving is mogelijk, maar met controleerbare verplichtingen: risicobeheer, gegevenskwaliteit, effectief menselijk toezicht, logboeken en informatie aan sollicitanten.",
+        "notePartial": "Inspectienotitie: de maatregel past niet bij het probleem. Een hoogrisicosysteem mag niet half beheerd blijven, maar hoeft evenmin eenvoudig te worden uitgezet. Audits, effectief toezicht en gegevenskwaliteit zijn nodig.",
+        "noteWrong": "Inspectienotitie: het dossier blijft open. Mensen blijven afgewezen door een systeem dat niemand kan bevragen.",
+        "consequenceCorrect": "De audit toont bias tegen afwijkende loopbanen. Het systeem wordt opnieuw afgestemd, recruiters lezen grensgevallen weer zelf en kandidaten krijgen uitleg en een bezwaarkanaal.",
+        "consequenceWrong": "Ook de overheid gaat het filter voor stages gebruiken. Bij mensen met loopbaanonderbrekingen voor zorgtaken bereikt het percentage „niet passend” 81%. Niemand merkt het: er zijn geen logboeken.",
+        "motivations": [
+          "Automatische selectie van sollicitanten is op zichzelf een verboden praktijk.",
+          "Sollicitanten krijgen onvoldoende uitleg over de uitkomsten.",
+          "Een systeem voor personeelsselectie is hoog risico, bijlage III. Vertekende gegevens en slechts schijnbaar toezicht schenden de verplichtingen."
+        ],
+        "debriefQuestions": [
+          "Wie moet de gegevenskwaliteit waarborgen: de bouwer van het systeem of degene die het gebruikt?",
+          "Wanneer is menselijk toezicht effectief en wanneer slechts formeel?",
+          "Was het beter geweest het systeem volledig uit te schakelen? Waarom niet?"
+        ],
+        "epilogue": "Het filter bepaalde loopbanen in 40 seconden. Nu heeft elke uitkomst een verantwoordelijke — of nog steeds niemand.",
+        "incident": {
+          "title": "De Vendor loopt weg.",
+          "text": "De leverancier van het systeem verklaart schriftelijk: \"Alle verantwoordelijkheid voor het gebruik ligt bij de gebruiker.\" HR-afdelingen vragen onmiddellijke instructies.",
+          "options": {
+            "document": "Zet het op record en meld verplichtingen aan zowel verkoper als gebruiker",
+            "suspend": "De screening onderbreken in afwachting van een audit",
+            "minimize": "Let op en laat het doorgaan."
+          }
+        }
+      },
+      "case_media": {
+        "title": "De synthetische stad",
+        "scenario": "De gemeente maakt met AI video’s, audio en persberichten zonder dat te vermelden. Gisteravond kondigde een vals „institutioneel” videobericht vervuiling van het drinkwater aan: paniek, lege supermarkten, drie gewonden. De officiële ontkenning kwam vier uur later. Ook die was gegenereerd. Niemand geloofde haar.",
+        "clues": [
+          {
+            "title": "Geen label",
+            "text": "De synthetische inhoud van de gemeente is niet van echt te onderscheiden: geen label, geen watermerk en geen vermelding van de herkomst."
+          },
+          {
+            "title": "Schijnbare authenticiteit",
+            "text": "Het valse bericht gebruikte de officiële vormgeving, een synthetische stem en beelden. De institutionele bron oogt authentiek, ook wanneer de inhoud is gemanipuleerd."
+          },
+          {
+            "title": "Vertrouwen laat zich niet herstellen",
+            "text": "Enquête na het incident: 64% van de burgers zegt „geen enkele aankondiging meer te geloven, waar of onwaar”. Ontkenningen herstellen het vertrouwen niet."
+          }
+        ],
+        "noteCorrect": "Inspectienotitie: niet het genereren op zichzelf is het probleem, maar dat echt en synthetisch niet meer te onderscheiden zijn. Herkenbare labels voor synthetische inhoud zijn een minimale voorwaarde voor publieke communicatie.",
+        "notePartial": "Inspectienotitie: zonder zichtbare labels op gegenereerde inhoud blijven burgers ook na andere maatregelen echt en synthetisch door elkaar halen.",
+        "noteWrong": "Inspectienotitie: het dossier blijft open. De stad weet niet meer wat echt is.",
+        "consequenceCorrect": "Elke gegenereerde of gemanipuleerde inhoud krijgt een zichtbaar label. Burgers leren de herkomst van berichten herkennen. Vertrouwen keert niet direct terug, maar kan weer op controleerbaarheid berusten.",
+        "consequenceWrong": "Een tweede misleidend vormgegeven aankondiging, deze keer over een evacuatie, wordt door de helft van de bevolking genegeerd. De inhoud was waar.",
+        "motivations": [
+          "Gegenereerde of gemanipuleerde inhoud wordt zonder aanduiding verspreid. Dat schendt de transparantieverplichtingen van artikel 50.",
+          "Het genereren van inhoud door overheidsinstanties is een verboden praktijk.",
+          "De communicatie van de gemeente is onbetrouwbaar en moet worden gereorganiseerd."
+        ],
+        "debriefQuestions": [
+          "Waarom is synthetische inhoud labelen iets anders dan die verbieden?",
+          "Kan een ontkenning vertrouwen herstellen zonder transparantie over de herkomst van de inhoud?",
+          "Kunnen transparantieverplichtingen naast andere risicoregimes gelden?"
+        ],
+        "epilogue": "De stad hervond een criterium om echt van gegenereerd te onderscheiden — of verloor het voorgoed.",
+        "incident": {
+          "title": "VRIJHEID VAN INFORMATIE",
+          "text": "Een krant vraagt dringend om toegang tot de gegevens over de oorsprong van de aankondigingen. De pers verwacht een antwoord binnen het uur.",
+          "options": {
+            "document": "Communiceren en overhandigen van de gevraagde gegevens",
+            "suspend": "Publicaties opschorten en een interne evaluatie openen",
+            "minimize": "Stal met een niet-committale noot"
+          }
+        }
+      },
+      "case_scuola": {
+        "title": "De geobserveerde klas",
+        "scenario": "Een scholennetwerk gebruikt webcams en AI in elke klas om emotionele en affectieve toestanden af te leiden: stress, verveling, agressiviteit en „neiging tot falen”. Op basis van die afleidingen worden leerlingen in niveaugroepen ingedeeld. Een meisje van dertien is naar de „beheersgroep” verplaatst omdat het systeem haar gezicht als „vijandig” leest. Ze is alleen erg verlegen.",
+        "clues": [
+          {
+            "title": "Emoties afgeleid uit het gezicht",
+            "text": "Het systeem leidt emotionele toestanden af uit gezicht en houding. Het verband tussen uitdrukking en innerlijke toestand is wetenschappelijk kwetsbaar en cultureel variabel."
+          },
+          {
+            "title": "Geen mogelijkheid tot bezwaar",
+            "text": "De emotionele classificaties worden niet meegedeeld en kunnen niet worden aangevochten. Leerlingen ontdekken hun eigen „profiel” pas wanneer ze van groep veranderen."
+          },
+          {
+            "title": "De kwetsbaarsten worden benadeeld",
+            "text": "Neurodivergente en introverte leerlingen belanden stelselmatig in risicogroepen. Het systeem verwart verschillen met afwijkend gedrag."
+          }
+        ],
+        "noteCorrect": "Inspectienotitie: het afleiden van emoties in onderwijsinstellingen is verboden, behoudens beperkte uitzonderingen, bijvoorbeeld voor medische of veiligheidsdoeleinden. Die zijn hier niet van toepassing. Het systeem wordt uitgeschakeld.",
+        "notePartial": "Inspectienotitie: toezicht maakt een verboden praktijk niet rechtmatig. Emotionele surveillance in de klas had moeten worden gestopt.",
+        "noteWrong": "Inspectienotitie: het dossier blijft open. De camera’s blijven bepalen wie als „risico” geldt.",
+        "consequenceCorrect": "De emotiecamera’s worden verwijderd. Docenten bepalen groepen weer door met hun leerlingen te praten. Het meisje van dertien keert terug naar haar klas.",
+        "consequenceWrong": "Het systeem wordt uitgebreid naar gangen en kantine. Leerlingen leren acht uur per dag het „juiste” gezicht op te zetten. Angstklachten op school verdubbelen. Het dashboard meldt: „Emotioneel klimaat: optimaal.”",
+        "motivations": [
+          "Er ontbreken voldoende logboeken en technische documentatie. Die moeten worden toegevoegd.",
+          "Emoties afleiden in een onderwijsinstelling is verboden, artikel 5. De uitzonderingen zijn hier niet van toepassing.",
+          "Het systeem benadeelt de kwetsbaarste leerlingen en moet opnieuw worden afgesteld."
+        ],
+        "debriefQuestions": [
+          "Waarom raakt het verbod emotieafleiding op school, zelfs als de technologie „werkt”?",
+          "Welke uitzonderingen kent het verbod en waarom gelden ze hier niet?",
+          "Wat is het verschil tussen een praktijk verbieden en de gebreken ervan herstellen?"
+        ],
+        "epilogue": "De klaslokalen werden weer vrij van emotiecamera’s — of leerlingen leerden het juiste gezicht op te zetten."
+      },
+      "case_ospedale": {
+        "title": "Onzichtbare triage",
+        "scenario": "Het ziekenhuis bepaalt triageprioriteiten met een voorspellend model dat op vertekende historische gegevens is getraind. Het onderschat stelselmatig het risico voor bepaalde patiëntengroepen. Gemiddeld lijken de prestaties uitstekend. Kwetsbare subgroepen sterven terwijl ze wachten.",
+        "clues": [
+          {
+            "title": "Uitstekende gemiddelden",
+            "text": "Geaggregeerde nauwkeurigheid: 94%. Niemand heeft de resultaten ooit naar subgroep uitgesplitst."
+          },
+          {
+            "title": "Geconcentreerde fouten",
+            "text": "Onderschattingen concentreren zich bij alleenwonende ouderen, patiënten met een versnipperde medische voorgeschiedenis en groepen die in de gegevens ondervertegenwoordigd zijn."
+          },
+          {
+            "title": "Blind vertrouwen",
+            "text": "Het personeel volgt de score zonder de beperkingen ervan te kennen. „Als het systeem groen zegt, is het groen.”"
+          }
+        ],
+        "noteCorrect": "Inspectienotitie: ondersteunde triage kan levens redden, maar vereist risicobeheer, representatieve gegevens, monitoring na ingebruikname en personeel dat de score kan tegenspreken.",
+        "notePartial": "Inspectienotitie: de maatregel past niet. Blind de score volgen en eenvoudig uitschakelen zijn beide onvoldoende. Zonder audits per subgroep, gegevenskwaliteit en effectief menselijk toezicht wordt triage niet beheersbaar.",
+        "noteWrong": "Inspectienotitie: het dossier blijft open. De gemiddelden blijven uitstekend. De doden vallen buiten het gemiddelde.",
+        "consequenceCorrect": "De audit per subgroep brengt de vertekening aan het licht. Het model wordt opnieuw getraind, medewerkers leren het tegen te spreken en elke beslissing wordt traceerbaar en herbeoordeelbaar.",
+        "consequenceWrong": "Het model wordt naar drie ziekenhuizen uitgebreid. De geaggregeerde statistieken verbeteren verder. Eén patiëntengroep komt niet meer naar de spoedzorg: zij heeft geleerd dat het systeem haar niet ziet.",
+        "motivations": [
+          "Triage met een hoog risico in de zorg: niet-representatieve gegevens en ineffectief toezicht schenden de toepasselijke verplichtingen.",
+          "Het personeel vertrouwt te veel op de score en heeft betere scholing nodig.",
+          "AI-ondersteunde triage is een verboden praktijk in de zorg."
+        ],
+        "debriefQuestions": [
+          "Waarom kan een hoge gemiddelde nauwkeurigheid ernstige schade voor subgroepen verbergen?",
+          "Wat heeft het personeel nodig om de score werkelijk tegen te spreken?",
+          "Waarom zou uitschakeling hier overmatige voorzichtigheid zijn in plaats van een passende maatregel?"
+        ],
+        "epilogue": "Triage is nu controleerbaar per subgroep — of de gemiddelden blijven de doden verbergen.",
+        "incident": {
+          "title": "DE HOOFDFYSISCHE BESCHERMINGEN",
+          "text": "De hoofdarts eist dat het systeem blijft werken: \"zonder de score stort de ER binnen één ploeg in.\"",
+          "options": {
+            "document": "Documenteer het risico en licht de medische richting in",
+            "suspend": "Het model voor de risicosubgroepen onderbreken",
+            "minimize": "Maak de afdeling veilig en raak niets aan."
+          }
+        }
+      },
+      "case_biometria": {
+        "title": "Gezichten in de menigte",
+        "scenario": "De gemeentepolitie gebruikt het stedelijke cameranetwerk om mensen die als „personen van belang” worden beschouwd in realtime te identificeren op pleinen en stations, voor toezicht en rechtshandhaving. Mensen die ten onrechte worden herkend, worden staandegehouden, geregistreerd en soms vastgehouden. In sommige wijken durven mensen niet meer de straat op.",
+        "clues": [
+          {
+            "title": "Staandehoudingen zonder uitleg",
+            "text": "Mensen worden staandegehouden zonder te weten waarom. „Het systeem heeft je gemarkeerd.”"
+          },
+          {
+            "title": "Realtime, openbare ruimte, rechtshandhaving",
+            "text": "Biometrische identificatie gebeurt live op pleinen, stations en tijdens demonstraties, voor politiedoeleinden. Dat valt binnen het verbod, behoudens de limitatief omschreven en toegestane uitzonderingen."
+          },
+          {
+            "title": "Ongelijk verdeelde fouten",
+            "text": "Fout-positieven raken bepaalde groepen onevenredig. Het foutenpercentage is nooit gepubliceerd."
+          }
+        ],
+        "noteCorrect": "Inspectienotitie: algemeen gebruik in real time voor rechtshandhaving moet stoppen. De uitzonderingen zijn limitatief en vereisen toestemmingen en waarborgen. Andere biometrische toepassingen volgen andere regels, afhankelijk van doel en context.",
+        "notePartial": "Inspectienotitie: een audit maakt permanente massale identificatie voor politiedoeleinden niet rechtmatig. Dit algemene gebruik had moeten worden gestopt.",
+        "noteWrong": "Inspectienotitie: het dossier blijft open. De menigte is niet langer anoniem.",
+        "consequenceCorrect": "Algemene identificatie wordt uitgeschakeld. Bijzondere gevallen vereisen specifieke toestemming en waarborgen. De pleinen lopen weer vol.",
+        "consequenceWrong": "Het systeem wordt uitgebreid. Het aantal demonstraties daalt met 70%. Het jaarverslag noemt dit een „verbetering van de openbare orde”.",
+        "motivations": [
+          "Het systeem geeft te veel fout-positieve resultaten en moet worden gecontroleerd.",
+          "De herkenningsnauwkeurigheid moet worden verbeterd om fouten te verminderen.",
+          "Biometrische identificatie op afstand in real time, in voor het publiek toegankelijke ruimten en voor rechtshandhaving, is verboden volgens artikel 5, behoudens limitatieve uitzonderingen."
+        ],
+        "debriefQuestions": [
+          "Welke elementen leiden tot het verbod: de technologie of het gebruik?",
+          "Waarom zijn de uitzonderingen limitatief omschreven en aan toestemming gebonden?",
+          "Zou hetzelfde systeem van een winkelcentrum onder hetzelfde regime vallen?"
+        ],
+        "epilogue": "De pleinen werden weer anoniem — of de menigte leerde niet meer samen te komen."
+      },
+      "case_credito": {
+        "title": "Maatschappelijk krediet",
+        "scenario": "Het sociale loket gebruikt een platform voor „maatschappelijke betrouwbaarheid” dat administratieve gegevens, betaalgedrag, uitkeringsaanvragen, woongeschiedenis, meldingen en kennissen in één score samenvoegt. De score bepaalt prioriteit en toegang tot tegemoetkomingen, huisvesting en gesubsidieerde diensten. Gezinnen die protesteerden of „risicovolle” kennissen hebben, zakken naar de onderkant van de lijst. Niemand kan uitleggen waarom.",
+        "clues": [
+          {
+            "title": "Gunningsbesluit",
+            "text": "Het gunningsbesluit noemt legitieme doelen: efficiëntie, kortere wachtrijen en fraudepreventie. Op papier niets ongewoons."
+          },
+          {
+            "title": "Handleiding van de leverancier",
+            "text": "De handleiding benadrukt dat het systeem „alleen beslisondersteuning” biedt en dat „de beslissing altijd bij een mens blijft”."
+          },
+          {
+            "title": "Klacht van een burger",
+            "text": "Een moeder verloor haar voorrang voor kinderopvang: „onvoldoende score”, geen uitleg en geen effectief bezwaar."
+          },
+          {
+            "title": "Tabel met modelgegevens",
+            "text": "Het model weegt ook meldingen, kennissen, sociale activiteit en „buurtreputatie” mee: samengevoegd sociaal gedrag dat niet relevant is voor de gevraagde dienst."
+          },
+          {
+            "title": "Interne notitie",
+            "text": "Een notitie erkent dat medewerkers „de score volgen” om de achterstand weg te werken. Menselijk toezicht bestaat op papier, niet in de praktijk."
+          },
+          {
+            "title": "Publieke verklaring",
+            "text": "De gemeente spreekt van een „eerlijk, objectief algoritme” zonder uit te leggen welke gegevens het gebruikt of hoe de score kan worden aangevochten."
+          }
+        ],
+        "clueSources": [
+          "amministrativa",
+          "vendor",
+          "reclamo",
+          "tecnica",
+          "interna",
+          "pubblica"
+        ],
+        "noteCorrect": "Inspectienotitie: dit is geen kredietwaardigheidsbeoordeling. Het systeem voegt sociaal gedrag samen tot een algemene score die toegang tot essentiële diensten beperkt in niet-gerelateerde contexten. Het valt onder het verbod op sociale scoring en moet stoppen.",
+        "notePartial": "Inspectienotitie: audits en toezicht beperken schade, maar een algemene sociale score die toegang tot diensten bepaalt, wordt niet rechtmatig door een procedure. Het systeem had moeten stoppen.",
+        "noteWrong": "Inspectienotitie: het dossier blijft open. De score blijft bepalen wie op de lijst komt en wie niet.",
+        "consequenceCorrect": "De maatschappelijke score wordt uitgeschakeld. Prioriteiten volgen weer relevante, gemotiveerde en aanvechtbare criteria. Het bezwaarloket heropent: traag, menselijk, controleerbaar.",
+        "consequenceWrong": "Maatschappelijk krediet wordt uitgebreid naar vervoer en kantines. De efficiëntie stijgt. Hele wijken zakken naar de onderkant van elke lijst zonder te weten waarom.",
+        "motivations": [
+          "Dit is een normaal instrument voor bestuurlijke efficiëntie: het optimaliseert wachtrijen en prioriteiten.",
+          "De score combineert sociaal gedrag en niet-relevante gegevens om toegang tot essentiële diensten te beperken in niet-gerelateerde contexten. Dit valt onder verboden sociale scoring.",
+          "Burgers krijgen onvoldoende uitleg over de score."
+        ],
+        "debriefQuestions": [
+          "Waarom valt deze score onder het verbod in plaats van onder gewone kredietbeoordeling?",
+          "Welke gegevens maken een beoordeling van financiële betrouwbaarheid tot verboden sociale scoring?",
+          "Wie draagt de belangrijkste verplichting: de platformverkoper of de instantie die het gebruikt?"
+        ],
+        "epilogue": "Maatschappelijk krediet markeert de grens: niet elke score is verboden, maar deze voegt het sociale leven samen om te bepalen wie toegang krijgt tot diensten."
+      },
+      "case_chatbot": {
+        "title": "Het loket dat altijd antwoordt",
+        "scenario": "De stad opent een digitaal loket: een geautomatiseerde assistent beantwoordt vragen over tegemoetkomingen, termijnen, voorwaarden en documenten. Handig, snel en altijd beschikbaar. Maar sommige antwoorden zijn onjuist, niemand meldt dat een machine antwoordt en een mens bereiken is lastig. Sommige burgers lopen kansen mis door verkeerde informatie.",
+        "clues": [
+          {
+            "title": "Publieke aankondiging",
+            "text": "De stad adverteert met „directe, altijd actuele antwoorden”. Geen vermelding van de beperkingen van het systeem."
+          },
+          {
+            "title": "Gesprekslogboek",
+            "text": "Het logboek toont onjuiste antwoorden over voorwaarden en termijnen van een tegemoetkoming: dezelfde fouten worden bij verschillende burgers herhaald."
+          },
+          {
+            "title": "Notitie van de leverancier",
+            "text": "De handleiding benadrukt dat „het systeem uitsluitend informatief is” en de bevoegde diensten niet vervangt. Op papier een voorbehoud."
+          },
+          {
+            "title": "Klacht van een burger",
+            "text": "Iemand miste de aanvraagtermijn: „Het loket zei dat er nog tijd was.” Er was geen kanaal om de fout tijdig te herstellen."
+          },
+          {
+            "title": "Interne procedure",
+            "text": "De procedure voorziet niet in doorverwijzing naar een medewerker: geen escalatie en geen herbeoordeling van kritieke antwoorden."
+          },
+          {
+            "title": "Besluit tot ingebruikname",
+            "text": "Het besluit omschrijft het loket als een dienst voor meer efficiëntie. Een legitiem doel, op zichzelf niets vreemds."
+          }
+        ],
+        "clueSources": [
+          "pubblica",
+          "log",
+          "vendor",
+          "reclamo",
+          "interna",
+          "amministrativa"
+        ],
+        "noteCorrect": "Inspectienotitie: het loket hoeft niet te worden verboden, maar moet transparant en beheerst functioneren. Burgers moeten weten dat zij met een machine praten, juiste informatie krijgen en een mens kunnen bereiken. Nodig zijn een duidelijke melding, een menselijk contactkanaal, controle van antwoorden en privacybewuste logboeken.",
+        "notePartial": "Inspectienotitie: de richting klopt, maar de maatregel is half uitgevoerd. Zonder transparantie en een effectief menselijk contactkanaal blijft de assistent een onzekere bron waarop burgers vertrouwen.",
+        "noteWrong": "Inspectienotitie: het dossier blijft open. Het loket blijft antwoorden, soms onjuist, en niemand neemt verantwoordelijkheid.",
+        "consequenceCorrect": "Het loket meldt dat het geautomatiseerd is, legt beperkingen uit en biedt menselijk contact. Kritieke antwoorden worden gecontroleerd en vastgelegd. De efficiëntie blijft, maar wordt betrouwbaar.",
+        "consequenceWrong": "Het loket wordt naar meer diensten uitgebreid. Antwoorden komen steeds sneller. Steeds meer mensen handelen op informatie die niemand heeft gecontroleerd.",
+        "motivations": [
+          "Het is een eenvoudige informatiedienst. Als die zich vergist, is de burger die erop vertrouwde verantwoordelijk.",
+          "De automatische assistent wekt vertrouwen. Nodig zijn transparantie over de machine, juiste informatie, menselijk contact en traceerbaarheid. De instantie blijft verantwoordelijk voor het gebruik.",
+          "Dit is uitsluitend een technisch probleem. De leverancier hoeft alleen het model bij te werken."
+        ],
+        "debriefQuestions": [
+          "Wanneer wordt een geautomatiseerde assistent een bron waarop de burger vertrouwt?",
+          "Waarom volstaat transparantie hier niet en is ook een menselijk kanaal nodig?",
+          "Wie is verantwoordelijk als de publieke chatbot verkeerde informatie geeft: de verkoper of de instantie?"
+        ],
+        "epilogue": "Het geautomatiseerde loket is niet het probleem. Het wordt een probleem wanneer het zijn automatisering verbergt, fouten maakt en geen deur naar een mens openlaat."
+      },
+      "case_procurement": {
+        "title": "De ondoorzichtige aanbesteding",
+        "scenario": "Een overheidsinstantie koopt een AI-systeem om dossiers en prioriteiten te verwerken. De aanbesteding wordt snel afgerond: algemene specificaties, geen technische documentatie en onduidelijke criteria. Wanneer de instantie inzicht in de werking vraagt, weigert de verkoper. „Het is gecertificeerd”, zeggen ze. Maar niemand binnen de instantie kan de beslissingen uitleggen of controleren.",
+        "clues": [
+          {
+            "title": "Aanbestedingsspecificatie",
+            "text": "De specificatie beschrijft de dienst in algemene termen: geen eis voor documentatie, audit of menselijk toezicht op het AI-systeem."
+          },
+          {
+            "title": "Aanbod van de leverancier",
+            "text": "Het aanbod staat vol beweringen: „gecertificeerde, conforme, veilige oplossing”. Geen technische onderbouwing."
+          },
+          {
+            "title": "Interne notulen",
+            "text": "De notulen van de technische afdeling erkennen: „We hebben noch de technische documentatie, noch criteria om het systeem te controleren.”"
+          },
+          {
+            "title": "Contractclausule",
+            "text": "Een clausule beperkt aansprakelijkheid en toegang met dubbelzinnige formuleringen over eigendom en knowhow. Het is moeilijk vast te stellen wie wat kan controleren."
+          },
+          {
+            "title": "Toegang geweigerd",
+            "text": "De leverancier wijst het verzoek om toegang tot de werking en logboeken van het systeem af wegens „vertrouwelijke informatie”."
+          },
+          {
+            "title": "Notitie van de aanbestedende dienst",
+            "text": "De verantwoordelijke medewerker wijst op het risico: „Als het systeem fouten maakt, kunnen we niet aantonen waarom en ze evenmin corrigeren.”"
+          }
+        ],
+        "clueSources": [
+          "amministrativa",
+          "vendor",
+          "interna",
+          "amministrativa",
+          "tecnica",
+          "amministrativa"
+        ],
+        "noteCorrect": "Inspectienotitie: «de leverancier is gecertificeerd» volstaat niet. Een systeem dat overheidsbesluiten beïnvloedt heeft een hoog risico. Nodig zijn technische documentatie, vooraf bepaalde controlecriteria, toegangs- en auditrechten, menselijk toezicht en duidelijke contractuele verantwoordelijkheden. Een instantie kan geen systeem inkopen dat zij niet kan uitleggen of controleren.",
+        "notePartial": "Inspectienotitie: het probleem is slechts half begrepen. Zonder documentatie en toegangs- en auditrechten blijft governance op papier staan en heeft de instantie geen werkelijke controle.",
+        "noteWrong": "Inspectienotitie: het dossier blijft open. Het systeem beslist, de instantie weet niet hoe en de verkoper bezit de sleutel.",
+        "consequenceCorrect": "De levering wordt opnieuw overeengekomen: technische documentatie, audit- en toegangsrechten, menselijk toezicht en vastgelegde verantwoordelijkheden. De instantie kan weer uitleggen en controleren wat zij kocht.",
+        "consequenceWrong": "Het systeem gaat ongewijzigd in gebruik. Het werkt, totdat het fouten maakt. En dan kan niemand binnen de instantie het openen, uitleggen of stoppen.",
+        "motivations": [
+          "Ondoorzichtige inkoop van een hoogrisicosysteem: documentatie, controlecriteria, toegangs- en auditrechten en verantwoordelijkheden ontbreken. De instantie die het systeem gebruikt, blijft verantwoording verschuldigd.",
+          "De aanbesteding is in orde. Als het product gecertificeerd is, hoeft de instantie niets meer te vragen.",
+          "Het is een transparantieprobleem voor burgers. Publicatie van de aanbestedingsstukken volstaat."
+        ],
+        "debriefQuestions": [
+          "Wat moet een overheidsinstantie vragen vóór de aankoop van een AI-systeem?",
+          "Waarom waarborgt „de verkoper is gecertificeerd” geen beheer en verantwoording?",
+          "Welke clausules voorkomen leveranciersafhankelijkheid en houden de instantie in staat het systeem te controleren?"
+        ],
+        "epilogue": "Bij inkoop wordt grip gewonnen of verloren: wie vooraf geen documentatie en controle verlangt, krijgt die later niet vanzelf."
+      },
+      "case_edtech": {
+        "title": "De geprofileerde klas",
+        "scenario": "Een adaptief leerplatform profileert leerlingen: het kent een „score voor risico op onvoldoende leerresultaten” toe, stelt leertrajecten voor en markeert wie aandacht nodig heeft. Het begint als ondersteuning. Maar docenten volgen het dashboard steeds meer dan hun eigen oordeel: wie als „risico” is gemarkeerd, krijgt minder kansen. Gezinnen weten niet hoe het werkt en kunnen het niet aanvechten.",
+        "clues": [
+          {
+            "title": "Risicodashboard",
+            "text": "Een dashboard geeft elke leerling een score voor risico op onvoldoende leerresultaten en stuurt keuzes over groepen, leertrajecten en ondersteuningsprioriteiten."
+          },
+          {
+            "title": "Bericht aan gezinnen",
+            "text": "De school presenteert het platform als een „neutraal, objectief hulpmiddel” voor gepersonaliseerd onderwijs. Geen details over de criteria."
+          },
+          {
+            "title": "Algoritmebeschrijving",
+            "text": "De technische fiche vermeldt dat het model cijfers, aanwezigheid, te laat komen, gedrag en gegevens over platformgebruik benut."
+          },
+          {
+            "title": "Notitie van een docent",
+            "text": "Een docent schrijft: „We volgen de score om te bepalen wie ondersteuning krijgt; er is geen tijd voor individuele beoordeling.” Menselijk toezicht bestaat op papier."
+          },
+          {
+            "title": "Klacht van een gezin",
+            "text": "Een gezin maakt bezwaar: de leerling werd vanwege „risico” van een project uitgesloten. Geen uitleg en geen mogelijkheid om de beslissing te herzien."
+          },
+          {
+            "title": "Gegevensbeleid",
+            "text": "Het beleid is onvolledig: het verduidelijkt gegevensminimalisatie, bewaring en toegang niet. Het is moeilijk vast te stellen welke gegevens werkelijk nodig zijn."
+          }
+        ],
+        "clueSources": [
+          "tecnica",
+          "pubblica",
+          "tecnica",
+          "interna",
+          "reclamo",
+          "amministrativa"
+        ],
+        "noteCorrect": "Inspectienotitie: niet elk leerplatform is verboden. Dit platform beïnvloedt echter onderwijskansen en leertrajecten en heeft daarom een hoog risico. Nodig zijn effectief menselijk toezicht dat van de score kan afwijken, gegevensminimalisatie, uitleg aan docenten en gezinnen en een mogelijkheid tot bezwaar.",
+        "notePartial": "Inspectienotitie: de classificatie klopt, de maatregel niet. Zonder menselijke controle die werkelijk van de score kan afwijken, en zonder uitleg, stuurt het platform de beslissingen in plaats van de docenten.",
+        "noteWrong": "Inspectienotitie: het dossier blijft open. De score blijft bepalen wie een kans extra krijgt en wie een kans minder.",
+        "consequenceCorrect": "Het platform wordt weer ondersteuning in plaats van een oordeel: docenten kunnen afwijken en moeten dat motiveren, gezinnen krijgen uitleg en kunnen bezwaar maken, en gegevensverzameling wordt tot het noodzakelijke beperkt.",
+        "consequenceWrong": "De risicoscore verspreidt zich naar begeleiding en beurzen. De school wordt efficiënter. Sommige leerlingen blijven gemarkeerd zonder te weten waarom.",
+        "motivations": [
+          "Het is slechts een neutraal leerhulpmiddel. Een risico signaleren helpt docenten alleen maar.",
+          "Het probleem is communicatie. Een betere uitleg aan gezinnen over de werking volstaat.",
+          "Het platform beïnvloedt onderwijskansen. Het heeft een hoog risico en vereist effectief menselijk toezicht, gegevensminimalisatie, uitleg en bezwaar. De school die het gebruikt, blijft verantwoordelijk."
+        ],
+        "debriefQuestions": [
+          "Wanneer wordt een onderwijsaanbeveling een beslissing met gevolgen voor de leerling?",
+          "Wat onderscheidt ondersteuning van een docent van automatisering die in diens plaats beslist?",
+          "Hoe maak je een onderwijsscore uitlegbaar en aanvechtbaar voor leerlingen en gezinnen?"
+        ],
+        "epilogue": "De geprofileerde klas laat de grens zien: AI kan onderwijs ondersteunen, maar mag menselijk oordeel over de kansen van jongeren niet vervangen."
+      },
+      "case_gpai": {
+        "title": "Het model dat alles doet",
+        "scenario": "Een organisatie integreert een generatief model voor algemene doeleinden in interne werkprocessen: het vat documenten samen, schrijft conceptbesluiten, classificeert verzoeken en stelt antwoorden voor personeel voor. Handig en veelzijdig. Maar sommigen gebruiken het om te beslissen, niet alleen om concepten te schrijven. Uitvoer wordt niet gecontroleerd, prompts worden niet beheerd en een verzonnen bewering belandt in een officieel besluit.",
+        "clues": [
+          {
+            "title": "Organisatiebeleid voor gebruik",
+            "text": "Een algemeen beleid staat gebruik van het generatieve model toe „ter ondersteuning van het werk”. Geen grenzen voor gebruik bij besluitvorming."
+          },
+          {
+            "title": "Onjuiste uitvoer",
+            "text": "Een gegenereerd concept bevat een verzonnen juridische verwijzing. De tekst is vrijwel ongewijzigd in een officiële mededeling opgenomen."
+          },
+          {
+            "title": "Interne e-mail",
+            "text": "Een e-mail moedigt collega’s aan: „Laat het model de conceptbesluiten schrijven, dat gaat sneller.” De generator beïnvloedt zo de inhoud van keuzes."
+          },
+          {
+            "title": "Notitie van de functionaris voor gegevensbescherming",
+            "text": "De functionaris voor gegevensbescherming signaleert risico’s rond gegevens in prompts, controle van de uitvoer en traceerbaarheid van beslissingen."
+          },
+          {
+            "title": "Promptlogboek",
+            "text": "Het logboek toont vrij geformuleerde prompts met gegevens en verzoeken om beslissingen, zonder criteria, controles of gedocumenteerde menselijke beoordeling."
+          },
+          {
+            "title": "Document van de leverancier",
+            "text": "Het verkoopblad blijft algemeen: „veelzijdig model voor tal van taken”. Geen aanwijzing welke toepassingen moeten worden vermeden."
+          }
+        ],
+        "clueSources": [
+          "amministrativa",
+          "log",
+          "interna",
+          "interna",
+          "log",
+          "vendor"
+        ],
+        "noteCorrect": "Inspectienotitie: een algemeen model is niet op zichzelf verboden en niet automatisch hoog risico. Het concrete gebruik bepaalt het risico. Hier beïnvloedt het relevante beslissingen zonder controle. Nodig zijn effectieve menselijke beoordeling, traceerbaarheid, een gebruiksbeleid met duidelijke grenzen, controle van ingevoerde gegevens en informatie aan gebruikers. De organisatie die het inzet, blijft verantwoordelijk.",
+        "notePartial": "Inspectienotitie: het risico is slechts half begrepen. Zonder effectieve controle van uitvoer en beheer van prompts blijft het model beslissingen beïnvloeden die niemand controleert.",
+        "noteWrong": "Inspectienotitie: het dossier blijft open. Het model schrijft, iemand tekent en niemand controleert.",
+        "consequenceCorrect": "Het modelgebruik krijgt regels: duidelijke grenzen tussen concepten schrijven en beslissen, effectieve menselijke beoordeling, traceerbare prompts en uitvoer, en controle van ingevoerde gegevens. Het blijft nuttig en stopt met zelfstandig beslissen.",
+        "consequenceWrong": "Het model dat alles doet verspreidt zich naar meer processen. De productiviteit stijgt. Af en toe berust een beslissing op iets wat het model eenvoudigweg heeft verzonnen.",
+        "motivations": [
+          "Een algemeen model is slechts een hulpmiddel. Voor intern gebruik zijn geen bijzondere regels nodig.",
+          "Het algemene model is niet verboden en niet automatisch hoog risico. Hier beïnvloedt het relevante beslissingen zonder controle. Nodig is gebruiksgovernance: effectieve menselijke beoordeling, traceerbaarheid, grenzen en toegestane gegevens. De gebruiksverantwoordelijke blijft verantwoordelijk.",
+          "Een disclaimer dat antwoorden moeten worden gecontroleerd, is voldoende."
+        ],
+        "debriefQuestions": [
+          "Wie is verantwoordelijk wanneer een model voor algemene doeleinden in een concreet besluitvormingsproces wordt gebruikt?",
+          "Wat verandert tussen het model gebruiken voor een concept en het gebruiken om te beslissen?",
+          "Welke waarborgen zijn nodig wanneer GPAI in het besluitvormingsproces van een instantie terechtkomt?"
+        ],
+        "epilogue": "Het model dat alles doet is niet het probleem. Het wordt een probleem wanneer het ongecontroleerd van concepten schrijven naar beslissen verschuift."
+      }
+    },
+    "norms": {
+      "norm_bias_detection": {
+        "title": "Bijzondere persoonsgegevens om bias op te sporen",
+        "reference": "AI-verordening — Verordening (EU) 2024/1689, gewijzigd bij Verordening (EU) 2026/1744, artikel 4 bis",
+        "explanation": "Om discriminatie op grond van etnische afkomst, godsdienst of gezondheid te ontdekken, moeten juist die gegevens worden verwerkt. De AVG beschermt ze als bijzondere categorieën persoonsgegevens. Artikel 4 bis biedt een beperkte uitzondering: aanbieders van AI-systemen met een hoog risico mogen deze gegevens verwerken om bias op te sporen en te corrigeren, uitsluitend voor zover strikt noodzakelijk en onder zes CUMULATIEVE voorwaarden: andere gegevens volstaan niet; technische beperkingen op hergebruik en pseudonimisering; gedocumenteerde toegangscontroles; geen doorgifte aan derden; verwijdering zodra de bias is gecorrigeerd; en vastlegging van de redenen in het verwerkingsregister.",
+        "notMeaning": "Dit geeft geen algemene toestemming om gevoelige gegevens te verzamelen «voor eerlijkheid». Het is een beperkte uitzondering met zes sloten: wie er vijf opent, verwerkt bijzondere persoonsgegevens zonder rechtsgrond. Het omgekeerde geldt evenmin: het tweede lid zegt uitdrukkelijk dat niemand verplicht is bias op te sporen.",
+        "democraticFunction": "Discriminatie kan worden opgespoord zonder dat die zoektocht zelf een nieuw persoonsregister wordt.",
+        "tags": [
+          "bijzondere persoonsgegevens",
+          "bias",
+          "hoog risico",
+          "AVG"
+        ]
+      },
+      "norm_predpol": {
+        "title": "Verbod op individuele voorspellende politiezorg",
+        "reference": "AI-verordening — Verordening (EU) 2024/1689, gewijzigd bij Verordening (EU) 2026/1744, artikel 5, lid 1, punt d",
+        "explanation": "Het is verboden AI-systemen te gebruiken om het risico te voorspellen dat iemand een strafbaar feit pleegt, uitsluitend op basis van profilering of persoonlijkheidskenmerken.",
+        "notMeaning": "AI is daarmee niet volledig uitgesloten van strafrechtelijk onderzoek. Ondersteuning van een menselijke beoordeling op basis van objectieve feiten die verband houden met criminele activiteiten valt buiten dit verbod.",
+        "democraticFunction": "Mensen mogen niet als verdachte worden behandeld vanwege wie zij zijn, waar zij wonen of wie zij kennen, in plaats van vanwege wat zij doen.",
+        "tags": [
+          "verboden praktijken",
+          "profilering",
+          "politiezorg"
+        ]
+      },
+      "norm_frodi_welfare": {
+        "title": "Hoog risico: toegang tot essentiële uitkeringen",
+        "reference": "AI-verordening — bijlage III, punt 5; artikelen 14 en 26",
+        "explanation": "Systemen die de toegang tot essentiële overheidsuitkeringen beoordelen, hebben een hoog risico. Ze vereisen gegevenskwaliteit, traceerbaarheid en effectief menselijk toezicht voordat de gevolgen mensen raken.",
+        "notMeaning": "Instanties mogen fraude blijven bestrijden. Een score mag echter niet zelfstandig een recht opschorten voordat een mens het dossier heeft gecontroleerd.",
+        "democraticFunction": "Mensen die afhankelijk zijn van sociale voorzieningen worden beschermd tegen automatische fouten. De overheid moet de controle uitvoeren; die last ligt niet bij de burger die bezwaar maakt.",
+        "tags": [
+          "hoog risico",
+          "sociale voorzieningen",
+          "menselijk toezicht"
+        ]
+      },
+      "norm_social_scoring": {
+        "title": "Verbod op sociale scoring",
+        "reference": "AI-verordening — artikel 5, verboden praktijken",
+        "explanation": "AI-systemen die mensen beoordelen of indelen op basis van sociaal gedrag of persoonlijke kenmerken zijn verboden wanneer de score leidt tot nadelige behandeling in een context die losstaat van die waarin de gegevens zijn verzameld, of tot een anderszins ongerechtvaardigde of onevenredige behandeling.",
+        "democraticFunction": "Sommige AI-praktijken vragen om een verbod, omdat zij onverenigbaar zijn met waardigheid, gelijkheid en individuele vrijheid.",
+        "notMeaning": "Niet elke rangschikking of prioriteitsregeling is verboden. Het probleem is het onevenredige of niet-relevante gebruik van sociale en reputatiegegevens in een andere context.",
+        "tags": [
+          "verbod",
+          "scoring",
+          "overheidsdiensten"
+        ]
+      },
+      "norm_lavoro_alto_rischio": {
+        "title": "AI-systemen met een hoog risico op het werk",
+        "reference": "AI-verordening — bijlage III, werkgelegenheid en personeelsbeheer",
+        "explanation": "AI-systemen voor werving, selectie, beoordeling en aansturing van werknemers worden als hoog risico ingedeeld. Ze vereisen risicobeheer, gegevenskwaliteit, effectief menselijk toezicht, logboeken en informatie voor de betrokken personen.",
+        "democraticFunction": "Toegang tot werk mag niet afhangen van ondoorzichtige indelingen die begrip, mobiliteit en bezwaar onmogelijk maken.",
+        "notMeaning": "Niet elk digitaal HR-instrument is verboden. Systemen die mensen selecteren, beoordelen of aansturen, vereisen stevige waarborgen.",
+        "tags": [
+          "hoog risico",
+          "werk",
+          "toezicht"
+        ]
+      },
+      "norm_trasparenza_sintetici": {
+        "title": "Transparantie over synthetische inhoud",
+        "reference": "AI-verordening — artikel 50, transparantieverplichtingen",
+        "explanation": "Twee afzonderlijke verplichtingen: (1) wie met een AI-systeem communiceert, moet weten dat het een machine is; (2) kunstmatig gegenereerde of gemanipuleerde inhoud, waaronder deepfakes, moet als zodanig herkenbaar zijn door toedoen van degenen die deze maken of verspreiden. Didactische toelichting: transparantieverplichtingen kunnen samenlopen met andere risicocategorieën. Alleen voor de uitleg in dit spel worden ze als afzonderlijke categorie weergegeven.",
+        "democraticFunction": "Transparantie helpt publieke communicatie, manipulatie en synthetische inhoud van elkaar te onderscheiden.",
+        "notMeaning": "AI-gegenereerde inhoud is niet automatisch onrechtmatig. In bepaalde gevallen moet wel herkenbaar zijn dat de inhoud synthetisch of gemanipuleerd is.",
+        "tags": [
+          "transparantie",
+          "deepfake",
+          "informatie"
+        ]
+      },
+      "norm_emotion_recognition": {
+        "title": "Verbod op emotieherkenning op school en op het werk",
+        "reference": "AI-verordening — artikel 5, verboden praktijken met beperkte uitzonderingen",
+        "explanation": "Het gebruik van AI-systemen om emoties van mensen af te leiden op het werk en in onderwijsinstellingen is verboden, behoudens de beperkte uitzonderingen in de verordening, bijvoorbeeld voor medische of veiligheidsdoeleinden.",
+        "democraticFunction": "Onderwijs en werk mogen geen omgeving van permanente emotionele surveillance worden.",
+        "notMeaning": "Niet elke waarneming van gedrag is verboden. Het gaat om automatische afleiding van emoties op school of op het werk, met de uitzonderingen die de verordening bepaalt.",
+        "tags": [
+          "verbod",
+          "emoties",
+          "school",
+          "werk"
+        ]
+      },
+      "norm_alto_rischio_obblighi": {
+        "title": "Verplichtingen voor AI-systemen met een hoog risico",
+        "reference": "AI-verordening — verplichtingen voor AI-systemen met een hoog risico",
+        "explanation": "AI-systemen met een hoog risico moeten voldoen aan eisen voor risicobeheer, gegevenskwaliteit, technische documentatie, logboeken, transparantie, menselijk toezicht, nauwkeurigheid, robuustheid en cyberbeveiliging. Deze verplichtingen gelden ook na ingebruikname, onder meer via monitoring na het in de handel brengen.",
+        "democraticFunction": "Een automatisch systeem dat ingrijpt in mensenlevens moet ook controleerbaar zijn op zijn gevolgen voor kwetsbare groepen.",
+        "notMeaning": "AI in de zorg is niet verboden. Systemen die gezondheid, veiligheid of rechten beïnvloeden, moeten worden beheerd, gedocumenteerd en gecontroleerd.",
+        "tags": [
+          "hoog risico",
+          "audit",
+          "gegevens",
+          "zorg"
+        ]
+      },
+      "norm_biometria": {
+        "title": "Biometrische identificatie op afstand",
+        "reference": "AI-verordening — artikel 5 en specifieke bepalingen over biometrie",
+        "explanation": "Het verbod van artikel 5 betreft biometrische identificatie op afstand in real time, in voor het publiek toegankelijke ruimten en voor rechtshandhavingsdoeleinden. Alleen limitatief opgesomde uitzonderingen zijn mogelijk, onder zeer strenge voorwaarden en met vereiste toestemmingen. Voor andere biometrische toepassingen kunnen andere regels gelden, waaronder de regels voor hoog risico, afhankelijk van context en doel.",
+        "democraticFunction": "De openbare ruimte mag geen gebied van permanente automatische identificatie worden.",
+        "notMeaning": "Niet elke biometrische toepassing is verboden. Het regime hangt af van het doel, de context, de gebruiksverantwoordelijke en de voorwaarden uit de verordening.",
+        "tags": [
+          "verbod",
+          "biometrie",
+          "openbare ruimte"
+        ]
+      },
+      "norm_credito": {
+        "title": "Sociale scores en toegang tot diensten",
+        "reference": "AI-verordening — artikel 5, verboden sociale scoring; vergelijk bijlage III",
+        "explanation": "Een score die sociaal gedrag en persoonlijke kenmerken samenvoegt en leidt tot nadelige behandeling in een niet-gerelateerde context, of tot onevenredige en ongerechtvaardigde behandeling, valt onder het verbod op sociale scoring van artikel 5. Een systeem dat toegang tot essentiële uitkeringen of diensten beoordeelt zonder verboden sociale generalisatie, kan daarentegen hoog risico zijn volgens bijlage III. Doel, gebruikte gegevens, context en gevolgen voor rechten zijn doorslaggevend.",
+        "notMeaning": "Niet elk scoresysteem is verboden. Het regime hangt af van doel, gebruikte gegevens, gebruikscontext, gevolgen voor rechten en effectief menselijk toezicht.",
+        "democraticFunction": "Toegang tot essentiële diensten mag niet afhangen van een berekende sociale reputatie waartegen geen bezwaar mogelijk is.",
+        "tags": [
+          "verbod",
+          "scoring",
+          "sociale voorzieningen",
+          "diensten"
+        ]
+      },
+      "norm_chatbot": {
+        "title": "Automatische assistenten en transparantie voor burgers",
+        "reference": "AI-verordening — artikel 50, transparantieverplichtingen; verplichtingen van de gebruiksverantwoordelijke",
+        "explanation": "Wie met een AI-systeem communiceert, moet weten dat het een machine is (artikel 50). Voor een publieke assistent is transparantie een minimum: ook juiste informatie, effectief menselijk toezicht, contact met een mens en traceerbaarheid zijn belangrijk. De gebruiksverantwoordelijke blijft verantwoordelijk voor het gebruik; die verantwoordelijkheid verdwijnt niet bij de leverancier.",
+        "notMeaning": "Niet elke publieke chatbot is verboden. De inzet moet transparant zijn, onder toezicht staan en een menselijk contactkanaal bieden, vooral wanneer rechten of kansen worden geraakt.",
+        "democraticFunction": "Burgers moeten weten wanneer overheidsinformatie van een machine komt en een mens kunnen spreken.",
+        "tags": [
+          "transparantie",
+          "chatbot",
+          "overheidsdiensten",
+          "gebruiksverantwoordelijke"
+        ]
+      },
+      "norm_procurement": {
+        "title": "Publieke inkoop van AI-systemen",
+        "reference": "AI-verordening — verplichtingen voor hoog risico, governance en documentatie",
+        "explanation": "Wanneer een overheidsinstantie AI koopt die relevante beslissingen beïnvloedt, vervangt een certificaat de hoogrisicoverplichtingen niet. Technische documentatie, vooraf bepaalde controlecriteria, toegangs- en auditrechten, menselijk toezicht en duidelijke contractuele verantwoordelijkheden blijven nodig. De instantie die het systeem gebruikt, blijft daarvoor verantwoording verschuldigd.",
+        "notMeaning": "AI inkopen is niet onrechtmatig. Documentatie, governance en controleerbare verantwoordelijkheden zijn nodig vóór en na de aankoop.",
+        "democraticFunction": "Overheidsuitgaven aan AI moeten uitlegbaar en controleerbaar blijven. Een instantie moet inzicht hebben in het systeem dat zij gebruikt.",
+        "tags": [
+          "hoog risico",
+          "inkoop",
+          "governance",
+          "documentatie"
+        ]
+      },
+      "norm_edtech": {
+        "title": "Leerplatforms en beslissingen met gevolgen",
+        "reference": "AI-verordening — bijlage III, onderwijs en beroepsopleiding",
+        "explanation": "AI-systemen die in het onderwijs worden gebruikt om te beoordelen, te begeleiden of te beslissen over toegang tot leertrajecten en kansen, hebben een hoog risico. Zij vereisen effectief menselijk toezicht, gegevenskwaliteit en gegevensminimalisatie, uitleg aan docenten, leerlingen en gezinnen en een mogelijkheid tot bezwaar. Een leerhulpmiddel mag geen automatisch oordeel worden.",
+        "notMeaning": "Niet elk leerplatform is verboden. Het regime hangt af van de gevolgen voor onderwijskansen en van effectief menselijk toezicht.",
+        "democraticFunction": "Onderwijskansen mogen niet afhangen van een ondoorzichtige score die docenten volgen en waartegen gezinnen geen bezwaar kunnen maken.",
+        "tags": [
+          "hoog risico",
+          "onderwijs",
+          "menselijk toezicht",
+          "uitlegbaarheid"
+        ]
+      },
+      "norm_gpai": {
+        "title": "AI-modellen voor algemene doeleinden en toepassing ervan",
+        "reference": "AI-verordening — bepalingen over AI voor algemene doeleinden (GPAI) en verplichtingen van de gebruiksverantwoordelijke",
+        "explanation": "Een generatief model voor algemene doeleinden is op zichzelf niet verboden en niet automatisch hoog risico. Het concrete gebruik bepaalt het risico. Bij relevante beslissingen zijn effectieve menselijke controle, traceerbaarheid, een gebruiksbeleid met duidelijke grenzen, controle op ingevoerde gegevens en transparantie voor gebruikers nodig. De verplichtingen van de aanbieder van het model komen naast de verantwoordelijkheid van de gebruiksverantwoordelijke voor de toepassing.",
+        "notMeaning": "Het gebruik van een algemeen model is niet verboden en is evenmin altijd hoog risico. Doorslaggevend zijn hoe en waar het model wordt gebruikt en welke waarborgen er zijn.",
+        "democraticFunction": "Een model dat beslissingen voorbereidt, moet controleerbaar blijven. Een besluit mag niet steunen op ongecontroleerde uitvoer.",
+        "tags": [
+          "GPAI",
+          "generatief model",
+          "toepassing",
+          "gebruiksverantwoordelijke"
+        ]
+      }
+    },
+    "endings": {
+      "ending_opaca": {
+        "title": "1: OPAQUE CITY",
+        "text": "De stad is efficiënt, maar burgers kunnen geen automatische beslissingen meer begrijpen, aanspreken of corrigeren. De wachtrijen stromen, de scores bijwerken, de meldingen komen op tijd. Niemand tekent nog iets. Niemand neemt nog ergens voor op."
+      },
+      "ending_fragile": {
+        "title": "BEËINDIGING VAN DE 2 FRAGILE GOVERNANCE",
+        "text": "Er werden enkele waarborgen ingevoerd, maar de stad blijft kwetsbaar voor ondoorzichtigheid, discriminatie en onverantwoorde automatisering. De regels bestaan in patches: waar de inspectie is geslaagd, antwoorden de systemen; elders beslissen ze nog steeds zelf."
+      },
+      "ending_governata": {
+        "title": "BEËINDIGING 3",
+        "text": "AI is niet geblokkeerd, maar zichtbaar, documenteerbaar, aanspreekbaar en toezichtbaar gemaakt. De stad is nog steeds geautomatiseerd, maar elk systeem heeft iemand verantwoordelijk, een register en een deur om op te kloppen."
+      },
+      "finalMessage": "De AI-verordening elimineert risico's niet. Het maakt risico zichtbaar, documenteerbaar, betwistbaar en bestuurbaar."
+    },
+    "caseLearning": {
+      "case_bias": {
+        "takeaway": "De zes voorwaarden van artikel 4 bis zijn cumulatief: een werkelijk gecorrigeerd vooroordeel geneest de verwerking niet zonder rechtsgrondslag.",
+        "teaches": "De lijn tussen wat de regel toestaat en hoe het wordt gedaan, en hoe om bewijs te lezen: een ware expositie",
+        "typicalMistake": "Antwoorden \"verboden\" uit overdreven voorzichtigheid, of het nemen van het resultaat als bewijs van rechtmatigheid en afwikkeling voor \"laten we de administratie voltooien.\"",
+        "discussionQuestion": "Een aanbieder die nooit naar bias zoekt, loopt minder risico dan een die onzorgvuldig zoekt. Is dat een beoogd effect of een tekortkoming van de regel?",
+        "aiActConcepts": [
+          "Gegevensbeheer",
+          "Hoog risico",
+          "Privacy door ontwerp"
+        ],
+        "understandingSignal": "De student noemt de overdracht aan een derde partij of de stille gegevens als doorslaggevend, niet als het succesvolle correctierapport.",
+        "classroomUse": "Paar het met \"de AI-verordening en de AVG\": dit is het geval waar de twee verordeningen eigenlijk aanraken, in plaats van naast elkaar te zitten.",
+        "estimatedDebriefMinutes": 12
+      },
+      "case_predpol": {
+        "takeaway": "Nauwkeurigheid legaliseert een verboden praktijk niet: individuele misdaadvoorspelling op basis van profilering wordt aan de wortel uitgesloten.",
+        "teaches": "De grens van artikel 5 bij politie: profileren tegen objectieve feiten, en waarom \"ondersteuning voor menselijke beslissingen\" slechts een label kan zijn.",
+        "typicalMistake": "Het classificeren van het hoog risico en het voorschrijven van audit/overzicht, behandelen als bestuurlijk een praktijk die de verordening sluit uit.",
+        "discussionQuestion": "Als het systeem \"werkt\" op 92%, waarom het verbieden in plaats van het verbeteren?",
+        "aiActConcepts": [
+          "Verboden praktijken",
+          "Profilering",
+          "Risicogebaseerde aanpak"
+        ],
+        "understandingSignal": "De student onderscheidt een kwaliteitsprobleem (fixeerbaar) van een doelverbod (niet fixeerbaar).",
+        "classroomUse": "Geweldig voor een grensdebat: de helft van de klas verdedigt de leverancier met de 92% studie, de helft van de inspectie met Art. 5.",
+        "estimatedDebriefMinutes": 12
+      },
+      "case_frodi": {
+        "takeaway": "In het welzijn, hoog risico draait op WANNEER de menselijke controle gebeurt: een beoordeling alleen op beroep na de schade arriveert.",
+        "teaches": "Effectief vs formeel toezicht op essentiële diensten, en bewijslezing: de foutanalyse weegt op tegen het persbericht van de verkoper.",
+        "typicalMistake": "Het blokkeren van alles (over-verzachting) of stoppen bij \"informeer de families\" zonder de automatische ophanging aan te raken.",
+        "discussionQuestion": "Wie moet de kosten van de fout van het systeem dragen: de administratie die eerst controleert, of de burger die daarna beroep aantekent?",
+        "aiActConcepts": [
+          "Hoog risico",
+          "Menselijk toezicht",
+          "Gegevensbeheer"
+        ],
+        "understandingSignal": "De student wijst op de workflow (automatische schorsing) als doorslaggevend bewijs, niet alleen het foutenpercentage.",
+        "classroomUse": "Paar het met \"civic krediet\": hetzelfde gebied (welzijn), tegenovergestelde oplossingen Waarom?",
+        "estimatedDebriefMinutes": 12
+      },
+      "case_scoring": {
+        "takeaway": "Een algemene sociale score wordt niet vastgesteld met meer controles: het is verboden.",
+        "teaches": "Sommige toepassingen van AI zijn niet beperkt maar verboden. Sociale scoren is een toppunt van waardigheid en gelijkheid.",
+        "typicalMistake": "Behandeling van een verbod als een hoogrisicosysteem dat moet worden beheerd met audits en toezicht.",
+        "discussionQuestion": "Waarom zijn sommige praktijken verboden in plaats van simpelweg gereguleerd?",
+        "aiActConcepts": [
+          "verboden praktijken (art. 5)",
+          "sociale score",
+          "waardigheid en gelijkheid"
+        ],
+        "understandingSignal": "De speler erkent het verbod en bestelt een blok, geen audit.",
+        "classroomUse": "Open een discussie over de niet-onderhandelbare drempels van de AI-verordening.",
+        "estimatedDebriefMinutes": 8
+      },
+      "case_lavoro": {
+        "takeaway": "AI op het werk is alleen aanvaardbaar met echte waarborgen: kwaliteitsgegevens, effectief toezicht, traceerbaarheid.",
+        "teaches": "Systemen die werknemers selecteren en beoordelen zijn zeer riskant: zij vereisen doeltreffende waarborgen.",
+        "typicalMistake": "Bestellen voor menselijk toezicht of voor het alleen melden van de persoon.",
+        "discussionQuestion": "Welke verplichtingen maken een systeem met een hoog risico op het werk bestuurbaar?",
+        "aiActConcepts": [
+          "hoog risico (bijlage III)",
+          "gegevenskwaliteit",
+          "menselijk toezicht",
+          "loggen"
+        ],
+        "understandingSignal": "De speler bestelt audit, toezicht en logging in plaats van blokkeren of negeren.",
+        "classroomUse": "Verbind de zaak met echte rekrutering en personeelsbeheer.",
+        "estimatedDebriefMinutes": 10
+      },
+      "case_media": {
+        "takeaway": "Mensen hebben het recht om te weten wanneer inhoud synthetisch is: het label is het minimum, niet het einde van het verhaal.",
+        "teaches": "Transparantie over synthetische inhoud is noodzakelijk, maar niet altijd voldoende.",
+        "typicalMistake": "Geloven dat etikettering inhoud elk manipulatieprobleem oplost.",
+        "discussionQuestion": "Wanneer is het nodig de gebruiker te informeren, maar niet genoeg?",
+        "aiActConcepts": [
+          "transparantie (art. 50)",
+          "deepfake",
+          "synthetische inhoud"
+        ],
+        "understandingSignal": "De speler bestelt etikettering en legt uit waarom het het vertrouwen van het publiek beschermt.",
+        "classroomUse": "Bespreek institutionele communicatie en desinformatie.",
+        "estimatedDebriefMinutes": 8
+      },
+      "case_scuola": {
+        "takeaway": "Een klaslokaal is geen lab voor emotionele surveillance: emoties op school is verboden.",
+        "teaches": "Emoties op school is verboden, behalve voor kleine uitzonderingen: het klaslokaal is geen ruimte voor emotionele surveillance.",
+        "typicalMistake": "Emotieherkenning behandelen als een systeem om te controleren in plaats van te verbieden.",
+        "discussionQuestion": "Waarom krijgt de onderwijscontext speciale bescherming?",
+        "aiActConcepts": [
+          "verboden praktijken (art. 5)",
+          "emotieherkenning",
+          "educatieve context"
+        ],
+        "understandingSignal": "De speler onderscheidt rechtmatige observatie van geautomatiseerde emotie-invloeden.",
+        "classroomUse": "Denk na over surveillance en welzijn op school.",
+        "estimatedDebriefMinutes": 8
+      },
+      "case_ospedale": {
+        "takeaway": "Een uitstekend gemiddelde kan ernstige fouten op de meest kwetsbaren verbergen: controleer de subgroepen, niet het totaal.",
+        "teaches": "AI in de gezondheidszorg is niet verboden: het moet worden bestuurd, gedocumenteerd en gecontroleerd, vooral voor kwetsbare groepen.",
+        "typicalMistake": "Vertrouwen op de uitstekende gemiddelde en negerende fouten concentreerde zich op subgroepen.",
+        "discussionQuestion": "Hoe bestuur je een voorspellend systeem zonder het te blokkeren of je daaraan over te geven?",
+        "aiActConcepts": [
+          "hoog risico",
+          "gegevenskwaliteit",
+          "menselijk toezicht",
+          "Monitoring na het in de handel brengen"
+        ],
+        "understandingSignal": "De speler sluit niet alles af: bestelt audit, logging en effectief toezicht.",
+        "classroomUse": "Bespreek klinische vooroordelen en de verantwoordelijkheid van de zorgverlener.",
+        "estimatedDebriefMinutes": 10
+      },
+      "case_biometria": {
+        "takeaway": "Real-time gezichtsherkenning in openbare ruimtes is de omtrek van een verbod, geen technisch detail.",
+        "teaches": "Real-time biometrische identificatie op afstand in openbare ruimtes voor rechtshandhavingsdoeleinden is verboden, met uitzondering van strikt genoemde uitzonderingen.",
+        "typicalMistake": "Ervan uitgaande dat elk biometrisch gebruik hetzelfde is, het negeren van doel en context.",
+        "discussionQuestion": "Waar is de grens tussen beveiliging en massabewaking?",
+        "aiActConcepts": [
+          "verboden praktijken (art. 5)",
+          "biometrie op afstand",
+          "openbare ruimte",
+          "rechtshandhavingsdoel"
+        ],
+        "understandingSignal": "De speler identificeert de ban perimeter: real time, openbare ruimte, rechtshandhaving.",
+        "classroomUse": "Bespreek videobewaking en vrijheid in openbare ruimtes.",
+        "estimatedDebriefMinutes": 9
+      },
+      "case_credito": {
+        "takeaway": "Waar het om gaat is het effect op mensen, niet op de naam van het systeem: een betrouwbaarheidsscore kan een sociale score zijn.",
+        "teaches": "Niet elke score is verboden: doel, data, context, effecten en effectieve menselijke controle zijn wat er toe doet.",
+        "typicalMistake": "Geloven dat het label 'beslissondersteuning' voldoende is om het systeem veilig te maken.",
+        "discussionQuestion": "Wanneer wordt een beoordelingssysteem een verbod op schadelijke behandeling?",
+        "aiActConcepts": [
+          "sociale score (art. 5)",
+          "hoog risico (bijlage III)",
+          "menselijk toezicht",
+          "verantwoordelijkheid van de gebruiksverantwoordelijke"
+        ],
+        "understandingSignal": "De speler onderscheidt verboden sociale scores van hoogrisicobeoordeling.",
+        "classroomUse": "Credit/welfare grens: spiegel geval om het geavanceerde pad te sluiten.",
+        "estimatedDebriefMinutes": 12
+      },
+      "case_chatbot": {
+        "takeaway": "Een geautomatiseerd kanaal dat altijd antwoordt is niet genoeg: gebruikers hebben transparantie nodig en een menselijke uitweg.",
+        "teaches": "Een publieke assistent moet niet worden verboden, maar transparant worden gemaakt en gekoppeld worden aan een menselijk kanaal: het vertrouwen van de burger is belangrijk.",
+        "typicalMistake": "Denken dat het label \"zuiver informatief\" voldoende is om de verantwoordelijkheid op de burger of de verkoper af te schuiven.",
+        "discussionQuestion": "Wanneer wordt een geautomatiseerde assistent een bron waarop de burger vertrouwt?",
+        "aiActConcepts": [
+          "transparantie (art. 50)",
+          "menselijk toezicht",
+          "verantwoordelijkheid van de gebruiksverantwoordelijke",
+          "publieke chatbot"
+        ],
+        "understandingSignal": "De speler bestelt transparantie en een menselijk kanaal in plaats van blind te verbieden of te vertrouwen.",
+        "classroomUse": "Bespreek digitale openbare diensten, vertrouwen en het recht op een menselijk antwoord.",
+        "estimatedDebriefMinutes": 9
+      },
+      "case_procurement": {
+        "takeaway": "Het kopen van een AI-systeem zonder documentatie betekent het kopen van een risico dat u niet kunt regeren.",
+        "teaches": "Verplichtingen met een hoog risico worden niet gekocht met een certificaat: documentatie, governance en controlerechten zijn nodig.",
+        "typicalMistake": "Het instellen voor \"de verkoper is gecertificeerd\" en het opgeven van documentatie, audit en toegang.",
+        "discussionQuestion": "Wat moet een overheidsinstantie vragen vóór de aankoop van een AI-systeem?",
+        "aiActConcepts": [
+          "hoog risico",
+          "overheidsopdrachten AI",
+          "technische documentatie",
+          "verantwoordingsplicht",
+          "leveranciersafhankelijkheid"
+        ],
+        "understandingSignal": "De speler vraagt om documentatie, audit/toegangsrechten en contractuele verantwoordelijkheden, niet alleen een certificaat.",
+        "classroomUse": "Sluit AI-governance en echte overheidsopdrachten aan, zonder het aanbestedingsrecht in te voeren.",
+        "estimatedDebriefMinutes": 11
+      },
+      "case_edtech": {
+        "takeaway": "Een platform dat studenten profileert en onderwijsbeslissingen stuurt, is een hoog risico: het moet worden bestuurd, niet verdragen.",
+        "teaches": "Niet elk leerplatform is verboden, maar als het kansen en paden beïnvloedt is het een hoog risico en heeft het een effectieve menselijke controle nodig.",
+        "typicalMistake": "Het behandelen van een student risico score als neutraal en het volgen ervan in plaats van het oordeel van de leraar.",
+        "discussionQuestion": "Wanneer wordt een onderwijsaanbeveling een beslissing met gevolgen voor de leerling?",
+        "aiActConcepts": [
+          "hoog risico (bijlage III)",
+          "onderwijs",
+          "menselijk toezicht",
+          "gegevensminimalisatie",
+          "uitlegbaarheid"
+        ],
+        "understandingSignal": "De speler onderscheidt het lesgeven van een relevante beslissing, en vraagt uitdaging.",
+        "classroomUse": "Denk na over profilering, eerlijkheid en onderwijsmogelijkheden.",
+        "estimatedDebriefMinutes": 11
+      },
+      "case_gpai": {
+        "takeaway": "Het algemene model is niet het punt: het downstreamgebruik in echte beslissingen is wat bestuur nodig heeft.",
+        "teaches": "Een algemeen model is niet automatisch verboden of een hoog risico: het risico is afhankelijk van concreet gebruik en moet stroomafwaarts worden geregeld.",
+        "typicalMistake": "Een disclaimer geloven is genoeg, of het model gebruiken om te beslissen zonder verificatie of traceerbaarheid.",
+        "discussionQuestion": "Wie is verantwoordelijk wanneer een model voor algemene doeleinden in een concreet besluitvormingsproces wordt gebruikt?",
+        "aiActConcepts": [
+          "GPAI",
+          "generatief model",
+          "toepassing",
+          "effectief menselijk toezicht",
+          "gegevensbeheer"
+        ],
+        "understandingSignal": "De speler onderscheidt het opstellen van besluiten, en legt gebruiksbestuur op in plaats van het verbieden of negeren.",
+        "classroomUse": "Bespreek de invoering van generatieve AI in bedrijven/overheidsinstanties en de verantwoordelijkheid van de employé.",
+        "estimatedDebriefMinutes": 12
+      }
+    },
+    "glossary": {
+      "title": "OPERATIONELE GLOSSARIUM",
+      "subtitle": "Korte inzendingen om te spelen en te begrijpen. Geen verhandeling.",
+      "back": "◂ ARCHIEF",
+      "whyLabel": "Waarom het belangrijk is",
+      "relatedLabel": "Aanverwante zaken",
+      "cautionLabel": "Voorzichtigheid",
+      "prevButton": "◂ VORIGE",
+      "nextButton": "VOLGENDE ▸",
+      "counter": "{index}/{total}",
+      "entries": {
+        "prohibited_practice": {
+          "term": "Verboden praktijk",
+          "definition": "Een gebruik van AI onverenigbaar met de grondrechten, verboden bij art. 5, ongeacht audits of waarborgen.",
+          "whyItMatters": "Sommige risico's worden niet beheerst maar gestopt.",
+          "caution": "Het betekent niet dat alle AI verboden is: het verbod richt zich op specifieke toepassingen."
+        },
+        "high_risk": {
+          "term": "Hoog risico",
+          "definition": "Een systeem dat van invloed is op rechten, veiligheid of toegang tot diensten: toegestaan, maar onderworpen aan strenge verplichtingen (bijlage III).",
+          "whyItMatters": "Risico's moeten worden beheerst, niet ontkend.",
+          "caution": "Het betekent niet verboden: het betekent gedocumenteerd, gecontroleerd en verifieerbaar."
+        },
+        "transparency": {
+          "term": "Transparantie",
+          "definition": "De plicht om interactie met AI, of synthetische inhoud, herkenbaar te maken (art. 50).",
+          "whyItMatters": "Het laat mensen echt zien van synthetisch.",
+          "caution": "Het betekent niet dat een etiket alleen het risico verwijdert."
+        },
+        "challengeable": {
+          "term": "Open voor uitdagingen",
+          "definition": "Een besluit kan inhoudelijk correct zijn, maar toch kwetsbaar omdat het slecht gemotiveerd is, gebaseerd is op zwak bewijsmateriaal, of aan het verkeerde onderwerp is toegewezen.",
+          "whyItMatters": "Het leert dat goed zijn niet genoeg is: de orde moet behouden blijven.",
+          "caution": "Het betekent niet verkeerd: het betekent aantrekkelijk."
+        },
+        "provider": {
+          "term": "Aanbieder",
+          "definition": "Wie ontwikkelt of plaatst het AI-systeem op de markt.",
+          "whyItMatters": "Het stelt de ontwerpverplichtingen van het systeem vast.",
+          "caution": "Dit betekent niet dat de aanbieder voor alles verantwoordelijk is: ook de gebruiksverantwoordelijke heeft verplichtingen."
+        },
+        "deployer": {
+          "term": "Gebruiksverantwoordelijke",
+          "definition": "Wie gebruikt het systeem onder eigen gezag (bv. een openbaar lichaam).",
+          "whyItMatters": "Veel gebruikstijd verplichtingen landen hier.",
+          "caution": "Het betekent niet dat het alles kan uitladen op de leverancier."
+        },
+        "human_oversight": {
+          "term": "Menselijk toezicht",
+          "definition": "Doeltreffende menselijke controle op geautomatiseerde beslissingen, niet alleen formeel.",
+          "whyItMatters": "Een mens die altijd de machine volgt is geen overstuur.",
+          "caution": "Het betekent niet dat er een teken moet zijn: het moet een verschil kunnen maken."
+        },
+        "social_scoring": {
+          "term": "Sociale score",
+          "definition": "Een score die mensen beoordeelt op sociaal gedrag en schadelijke behandeling in niet-gerelateerde of onevenredige contexten veroorzaakt: verboden.",
+          "whyItMatters": "Het raakt waardigheid en gelijkheid.",
+          "caution": "Het betekent niet dat elke rangschikking verboden is."
+        },
+        "biometrics": {
+          "term": "Biometrie",
+          "definition": "Identificatie op afstand via biometrische gegevens; in real-time voor rechtshandhaving in openbare ruimtes is het verboden, met uitzondering van uitzonderingen.",
+          "whyItMatters": "Publieke ruimte is geen zone van permanente identificatie.",
+          "caution": "Het betekent niet dat elk biometrisch gebruik verboden is: doel en context."
+        },
+        "emotion_recognition": {
+          "term": "Emotieherkenning",
+          "definition": "Geautomatiseerde gevolgtrekking van emoties; op school en op het werk is het verboden, behalve voor enge uitzonderingen.",
+          "whyItMatters": "Het beschermt onderwijs- en werkplekruimtes tegen emotionele bewaking.",
+          "caution": "Het betekent niet dat elke waarneming van gedrag verboden is."
+        },
+        "deepfake": {
+          "term": "Deepfake",
+          "definition": "Synthetische inhoud die echte mensen of gebeurtenissen imiteert; het moet herkenbaar worden gemaakt (art. 50).",
+          "whyItMatters": "Het verdedigt vertrouwen in informatie.",
+          "caution": "Het betekent niet dat elke AI-gegenereerde inhoud onwettig is."
+        },
+        "credit_welfare": {
+          "term": "Krediet / welzijn",
+          "definition": "Beoordelingen die beslissen over de toegang tot uitkeringen of diensten: ze kunnen een hoog risico zijn of, als ze het sociale leven generaliseren, sociaal scoren verboden zijn.",
+          "whyItMatters": "Het is de grens tussen wettelijke beoordeling en sociale scores.",
+          "caution": "Het betekent niet dat elke economische score wordt verboden."
+        },
+        "gpai": {
+          "term": "GPAI andere algemene AI-toepassingen",
+          "definition": "AI-modellen voor algemeen gebruik met hun eigen transparantie- en systeemrisicoverplichtingen. Het risico voor de gebruikers hangt af van het concrete downstreamgebruik.",
+          "whyItMatters": "Steeds centraler in het AI ecosysteem.",
+          "caution": "Dit betekent niet dat elk algemeen model een hoog risico is."
+        },
+        "public_chatbot": {
+          "term": "Publieke chatbot",
+          "definition": "Een geautomatiseerde assistent van een orgaan die burgers informeert over diensten, vereisten of deadlines.",
+          "whyItMatters": "Het creëert vertrouwen: het heeft transparantie en een menselijk kanaal nodig.",
+          "caution": "Het betekent niet dat het verboden is: het moet transparant en gecontroleerd worden."
+        },
+        "human_escalation": {
+          "term": "Menselijke escalatie",
+          "definition": "Een effectieve manier om van een geautomatiseerd systeem over te stappen naar een competent persoon.",
+          "whyItMatters": "Zonder dat wordt automatisering een muur voor de burger.",
+          "caution": "Het betekent niet alles met de hand opnieuw doen: het betekent een menselijke deur wanneer dat nodig is."
+        },
+        "procurement_ai": {
+          "term": "Aanbestedingen AI",
+          "definition": "Overheidsopdrachten voor AI-systemen: het bestuur is al besloten in de aanbesteding en het contract.",
+          "whyItMatters": "Wie niet eerst om documentatie en controle vraagt, krijgt ze niet later.",
+          "caution": "Het betekent niet dat het kopen van AI onwettig is: het moet worden gedaan met waarborgen."
+        },
+        "technical_documentation": {
+          "term": "Technische documentatie",
+          "definition": "De informatie die het systeem, de gegevens, grenzen en controles beschrijft, zodat de verificatie ervan mogelijk is.",
+          "whyItMatters": "Zonder documentatie kan een beslissing niet worden uitgelegd of aangevochten.",
+          "caution": "Het betekent niet een stapel papier: het maakt het systeem verifieerbaar."
+        },
+        "lock_in": {
+          "term": "Leveranciersafhankelijkheid",
+          "definition": "Afhankelijkheid van een leverancier die het moeilijk maakt om van systeem te wisselen, toegang tot gegevens of controle over hoe het werkt.",
+          "whyItMatters": "Het vermindert het vermogen van het lichaam om te regeren en te corrigeren.",
+          "caution": "Het betekent niet dat elke levering lock-in creëert: het hangt af van clausules en toegangsrechten."
+        },
+        "adaptive_edtech": {
+          "term": "Adaptief leerplatform",
+          "definition": "Een systeem dat studenten profileert en paden, suggesties of onderwijsprioriteiten aanpast.",
+          "whyItMatters": "Als het de kansen of beoordeling beïnvloedt, wordt het een hoog risico.",
+          "caution": "Het betekent niet dat elke EdTech verboden is: het gaat erom of het besluit of alleen maar steunt."
+        },
+        "generative_model": {
+          "term": "Genererend model",
+          "definition": "Een systeem dat tekst of inhoud op verzoek produceert; het kan fout gaan of \"hallucineren.\"",
+          "whyItMatters": "Vroeger zonder verificatie te beslissen, brengt het fouten in officiële handelingen.",
+          "caution": "Het betekent niet dat het altijd onbetrouwbaar is: het moet worden gecontroleerd en bestuurd in gebruik."
+        },
+        "data_governance": {
+          "term": "Gegevensbeheer",
+          "definition": "Regels over welke gegevens worden gebruikt, hoe deze worden bewaard, wie er toegang toe heeft en waarom, met inbegrip van mobilisatie en traceerbaarheid.",
+          "whyItMatters": "Het houdt gegevens in verhouding tot het doel en de systemen verifieerbaar.",
+          "caution": "Het betekent niet alles \"voor het geval\" verzamelen: het betekent alleen gebruiken wat nodig is."
+        }
+      }
+    },
+    "learningLayer": {
+      "notebook": {
+        "button": "NOTITIEBOEK",
+        "title": "ONDERZOEKSNOTITIEBOEK",
+        "intro": "Wat je al hebt vastgesteld op één plek: gesloten dossiers, verantwoordelijke partijen, bevestigde patronen en vragen die openbleven.",
+        "factsLabel": "Gesloten dossiers ({n})",
+        "factsEmpty": "Nog geen dossiers gesloten.",
+        "evidenceLine": "doorslaggevend bewijs aangehaald: {cited}/{total}",
+        "trapSpotted": "je haalde ook de voorstelling aan die het probleem bagatelliseerde",
+        "actorsLabel": "Wie verantwoordelijk bleek",
+        "actorsEmpty": "Nog geen verantwoordelijke partij vastgesteld.",
+        "patternsLabel": "Patronen per hoofdstuk",
+        "patternConfirmed": "patroon bevestigd",
+        "patternProgress": "{done}/{total} casussen afgerond",
+        "openLabel": "Open vragen",
+        "openEmpty": "Geen open vragen.",
+        "openReasons": {
+          "unsure": "je gaf aan onzeker te zijn",
+          "revise": "je wilde dit opnieuw bekijken",
+          "miscalibrated": "veel vertrouwen, maar een uitkomst met een bevinding: lees het dossier opnieuw"
+        },
+        "announce": "Onderzoeksnotitieboek: {n} gesloten dossiers, {open} open vragen.",
+        "close": "SLUITEN"
+      },
+      "chapters": {
+        "button": "HOOFDSTUKKEN",
+        "title": "Hoofdstukken van de reis",
+        "intro": "Vier thematische hoofdstukken groeperen de 11 casussen. De volgorde is aanbevolen, niet verplicht: elk dossier blijft vrij toegankelijk via de kaart.",
+        "orderLabel": "Hoofdstuk {order} van {total}",
+        "durationLabel": "{minutes} min",
+        "completionLabel": "{done}/{total} casussen afgerond",
+        "completeTag": "Voltooid",
+        "debriefLabel": "Nabespreking van het hoofdstuk",
+        "objectivesLabel": "Doelstellingen",
+        "close": "SLUITEN",
+        "defs": {
+          "prohibited": {
+            "title": "Verboden praktijken",
+            "intro": "Waar de lijn loopt die geen bescherming kan herstellen: sociale scores, emoties, gezichten in de menigte, burgerlijk krediet.",
+            "debrief": "De draad over de vier gevallen: wanneer een systeem voorwaarden fundamentele rechten door hoe het werkt . . niet door hoe het is geconfigureerd . . het antwoord is niet om het af te stemmen, maar om te stoppen."
+          },
+          "high_risk": {
+            "title": "systemen met een hoog risico",
+            "intro": "Toegestaan maar onder strikte verplichtingen: inhuren, medische triage, adaptieve onderwijsplatforms. Hier leer je te scheiden van slecht bestuurd.",
+            "debrief": "De draad over de drie gevallen: hoog risico niet verbieden van de technologie, vereist kwaliteit gegevens, documentatie en menselijk toezicht in staat om nee te zeggen."
+          },
+          "transparency": {
+            "title": "Transparantie",
+            "intro": "Synthetische inhoud en geautomatiseerde tellers: misleiding, niet technologie, is het probleem. Mensen hebben het recht om te weten waar ze mee te maken hebben.",
+            "debrief": "De draad over de twee gevallen: een ontbrekend label ziet eruit als een detail, maar het ondermijnt ieders vertrouwen in alles wat de systemische schade is."
+          },
+          "governance": {
+            "title": "Bestuur en GPAI",
+            "intro": "Ondoorzichtige inkoop en doe-alles modellen hergebruikt downstream: de meest dubbelzinnige gevallen, waar verantwoordelijkheid verspreid over de keten.",
+            "debrief": "De draad over de twee gevallen: kopen of hergebruiken van een systeem draagt geen verantwoordelijkheid over en vermenigvuldigt het langs de keten."
+          }
+        }
+      },
+      "objectives": {
+        "obj_prohibited_boundary": "De grenzen van verboden praktijken erkennen",
+        "obj_risk_classification": "Het risico van een systeem classificeren",
+        "obj_decisive_evidence": "Selecteer het beslissende bewijs",
+        "obj_actor_responsibility": "De juiste verantwoordelijkheid toekennen",
+        "obj_proportionate_measures": "Kies evenredige maatregelen",
+        "obj_transparency_duties": "Toepassing van de transparantieverplichtingen",
+        "obj_human_oversight": "Effectieve menselijke controle beoordelen",
+        "obj_context_dependence": "De context van het gebruik wegen",
+        "obj_gpai_downstream": "Government GPAI-modellen stroomafwaarts"
+      },
+      "confidence": {
+        "label": "Vóór ondertekening: hoeveel vertrouwen heb je in je verslag?",
+        "optionalTag": "(optioneel — verandert de score niet)",
+        "levels": {
+          "low": "Niet erg",
+          "mid": "Redelijk",
+          "high": "Erg"
+        },
+        "keysHint": "Toetsen 7–9",
+        "recorded": "Vertrouwen genoteerd: {level}"
+      },
+      "metacognition": {
+        "label": "Kalibratie",
+        "line": "Opgegeven vertrouwen: {confidence} · Uitkomst: {outcome}.",
+        "calibrated": "Vertrouwen en uitkomst komen overeen: goed gekalibreerd.",
+        "overconfident": "Je vertrouwen lag boven de uitkomst: lees het doorslaggevende bewijs in de nabespreking opnieuw.",
+        "underconfident": "De uitkomst is beter dan je verwachte vertrouwen: je redenering houdt meer stand dan je dacht."
+      },
+      "reflection": {
+        "label": "Reflectie (optioneel)",
+        "prompt": "Zou je verslag standhouden bij bezwaar?",
+        "options": {
+          "holds": "Ja, het houdt stand",
+          "unsure": "Ik weet het niet zeker",
+          "revise": "Ik zou het herzien"
+        },
+        "thanks": "Genoteerd, alleen op je apparaat."
+      },
+      "selfCheck": {
+        "titlePre": "Zelfcontrole vooraf",
+        "titlePost": "Zelfcontrole achteraf",
+        "buttonPre": "Zelfcontrole vooraf (optioneel)",
+        "buttonPost": "Zelfcontrole achteraf (optioneel)",
+        "formative": "Een LOKAAL formatief hulpmiddel: geen gecertificeerde beoordeling, wordt niet verstuurd en wordt gewist wanneer je het spel opnieuw instelt.",
+        "questionLabel": "Vraag {i} van {total}",
+        "skip": "Overslaan",
+        "resultLine": "Correcte antwoorden: {correct} van {total}.",
+        "compareLine": "Eerste zelfcontrole: {correct} van {total}.",
+        "close": "SLUITEN",
+        "questions": {
+          "sc_prohibited": {
+            "q": "Welke situatie is volgens de AI-verordening een VERBODEN praktijk?",
+            "options": [
+              "Een gemeentelijke chatbot die vragen over diensten beantwoordt",
+              "Een publieke sociale score die toegang tot diensten bepaalt",
+              "Een antispamfilter in een e-mailprogramma"
+            ]
+          },
+          "sc_high_risk": {
+            "q": "Wat betekent het dat een systeem „hoog risico” heeft?",
+            "options": [
+              "Het gebruik is verboden",
+              "Het is experimenteel en niet getest",
+              "Het is toegestaan onder strikte verplichtingen voor gegevens, documentatie en toezicht"
+            ]
+          },
+          "sc_transparency": {
+            "q": "Een overheidsinstantie gebruikt een chatbot voor burgers. Wat vereist de AI-verordening?",
+            "options": [
+              "Dat mensen weten dat zij met een machine communiceren",
+              "Dat de chatbot buiten kantooruren wordt uitgeschakeld",
+              "Niets: chatbots vallen niet onder de verordening"
+            ]
+          },
+          "sc_oversight": {
+            "q": "Wanneer is menselijk toezicht werkelijk „effectief”?",
+            "options": [
+              "Wanneer een mens de systeembeslissingen ondertekent",
+              "Wanneer het systeem zeer nauwkeurig is",
+              "Wanneer de toezichthouder het systeem begrijpt en van de uitvoer kan afwijken"
+            ]
+          },
+          "sc_actor": {
+            "q": "Wie draagt verantwoordelijkheid voor juist gebruik van een gekocht AI-systeem?",
+            "options": [
+              "Alleen de verkoper die het heeft gebouwd",
+              "Ook degene die het inzet, de gebruiksverantwoordelijke, voor het concrete gebruik",
+              "Niemand, als het systeem gecertificeerd is"
+            ]
+          },
+          "sc_context": {
+            "q": "Kan dezelfde technologie in een andere risicocategorie vallen?",
+            "options": [
+              "Ja: dat hangt af van de gebruikscontext en wie de gevolgen ondervindt",
+              "Nee: de categorie hangt alleen af van het algoritme",
+              "Alleen als de verkoper verandert"
+            ]
+          }
+        }
+      }
+    },
+    "a11y": {
+      "readingShow": "TEKST TONEN",
+      "readingHide": "TEKST VERBERGEN",
+      "readingNote": "Paneel om te lezen: voer acties in het spel uit met aanwijzer of toetsenbord.",
+      "mobileContinue": "Toch doorgaan",
+      "outcomeAnnounced": "Uitkomst van het verslag: {outcome}.",
+      "mapTitle": "Stadskaart",
+      "mapHint": "Gebruik de pijltjestoetsen om toegankelijke dossiers te doorlopen; ENTER opent het geselecteerde dossier.",
+      "selectedCase": "Geselecteerd: {name}",
+      "evidenceHint": "Toetsen 1–{n}: open een bewijsstuk en druk opnieuw om het aan te halen. ENTER gaat verder wanneer dat mogelijk is.",
+      "evidenceCited": "aangehaald in het verslag",
+      "decisionTitle": "Beslissing {step}",
+      "reportTitle": "Inspectieverslag",
+      "briefingTitle": "Eerste briefing",
+      "finaleTitle": "Eindverslag"
+    }
+  },
+  "guided": {
+    "entry": "BEGELEID TRAJECT",
+    "notebook": "ONDERZOEKSNOTITIES",
+    "debrief": "HEROVERWEEG JE ARGUMENTATIE",
+    "finalDebrief": "NABESPREKING VAN HET TRAJECT",
+    "introduction": "Voordat je de bewijsstukken opent",
+    "argument": "Je toelichting vóór ondertekening",
+    "privacy": "Tijdelijke lokale notities. Alleen met aparte toestemming voor tekst worden opgeslagen notities gedurende 90 dagen gedeeld. Vermijd persoonsgegevens. Beheer de registratie via de spelbalk.",
+    "colleague": "Een collega-inspecteur schuift aan.",
+    "purpose": "Stel eerst vast wie het systeem gebruikt, voor welke beslissing en met welke gevolgen voor mensen. De risicoclassificatie helpt bepalen welke regels, controles en maatregelen moeten worden overwogen.",
+    "categories": "Bij een verboden praktijk moet je de voorwaarden van het verbod controleren. Hoog risico hangt samen met het beoogde gebruik en de verplichtingen. Transparantie gaat ook over wat mensen moeten weten. Andere toepassingen vragen nog steeds aandacht voor toepasselijke regels en rechten.",
+    "demonstration": "Een aanbieder schrijft: „Een mens controleert altijd.” Uit een logboek blijkt dat de beoordelaar beslissingen bevestigt zonder toegang tot de gegevens. Vergelijk de belofte met de waargenomen werkwijze. Welk document kan aantonen of een herbeoordeling de beslissing kan veranderen?",
+    "mission": "Lees de casus en vorm een eerste hypothese. Na onderzoek van de bewijsstukken kun je die herzien.",
+    "hypothesis": "Mijn huidige interpretatie en de reden daarvoor",
+    "initial": "Mijn hypothese vóór het bekijken van de bewijsstukken",
+    "evidence": "Welke bronnen ik verbind en hoe ze het oordeel ondersteunen of tegenspreken",
+    "alternative": "Een alternatieve interpretatie en bewijs waarmee ik die kan onderscheiden",
+    "uncertainty": "Wat ontbreekt en hoe dat een beslissing met gevolgen voor mensen beperkt",
+    "reflection": "Wat ik na de feedback behoud of herzie, en waarom",
+    "reflectionPrompt": "Herlees je toelichting van vóór de uitslag. Leg uit welke informatie je interpretatie verandert, of waarom je die handhaaft.",
+    "transferPrompt": "Welke broncontrole zou je bij de volgende casus als eerste uitvoeren? Bespreek met een begeleider de redenen voor je keuzes.",
+    "continue": "Naar de bewijsstukken",
+    "confirm": "Notitie bevestigen en ondertekenen",
+    "close": "Terug naar het dossier",
+    "empty": "In deze fase is geen notitie geschreven.",
+    "erase": "Deze notities wissen",
+    "next": "Doorgaan",
+    "previous": "Vorige stap",
+    "method": "ONDERZOEKSMETHODE",
+    "sources": "Bronnen onderzoeken en beoordelen",
+    "sourceAssessment": "Wat voor brondocument is dit, welke belangen kunnen een rol spelen en welke beperkingen herken je?",
+    "relationTitle": "Verbind twee bronnen",
+    "leftSource": "Eerste bron",
+    "rightSource": "Tweede bron",
+    "relationKind": "Het verband dat je voorstelt",
+    "supports": "Ze ondersteunen elkaar.",
+    "challenges": "Ze spreken elkaar tegen.",
+    "uncertain": "Het verband moet worden verduidelijkt.",
+    "relationReason": "Welke beweringen verbind je en waarom?",
+    "addRelation": "Verband vastleggen",
+    "removeRelation": "Verband verwijderen",
+    "relationRequired": "Kies twee verschillende bronnen en licht het verband toe.",
+    "relationSaved": "Verband opgeslagen in de notities van dit tabblad.",
+    "recordRevision": "Deze herziening vastleggen",
+    "revisionRequired": "Schrijf de hypothese op en leg uit waarom je die behoudt of verandert.",
+    "revisionSaved": "Herziening opgeslagen in dit tabblad.",
+    "revisions": "De herzieningen die je hebt toegelicht",
+    "revisionReason": "Welk bewijs of argument mij ertoe brengt de hypothese te behouden of te veranderen",
+    "reasoning": "Hoe ik bewijs verbind met classificatie, voorgestelde maatregel en verantwoordelijkheid",
+    "feedbackUse": "Welk deel van de feedback ik aan het bewijs heb getoetst en wat ik vaststelde",
+    "transferPlan": "Welk criterium ik in een andere casus zal gebruiken en wat ik moet controleren",
+    "sessionReflection": "Wat ik begreep door mijn onderzoeken te vergelijken",
+    "sessionTransferPlan": "Welke strategie ik buiten deze casussen zal uitproberen",
+    "legalReference": "Rechtsregel en interpretatie van de casus",
+    "choices": "De keuzes in het verslag",
+    "takeaway": "Een criterium om te bespreken",
+    "sourcesUnavailable": "Open bewijsstukken in het dossier om ze hier opnieuw te lezen en te beoordelen.",
+    "reread": "Bron opnieuw lezen",
+    "assessmentNote": "Deze notities ondersteunen reflectie. Een begeleider kan de redenen voor je keuzes met je bespreken.",
+    "openingStage": "Begrijp de opdracht",
+    "sourcesStage": "Bereid het onderzoek voor",
+    "hypothesisStage": "Vorm een hypothese",
+    "resume": "Terug naar de beslissing"
+  },
+  "inquiry": {
+    "case_scoring": {
+      "opening": "Je collega legt twee woningaanvragen op het bureau. „Stel vóór je de score beoordeelt vast welke beslissing voor deze mensen verandert en welke gegevens worden gebruikt.”",
+      "source": "Wie beschrijft hoe de score werkt? Wie documenteert de gevolgen? Leg uit wat elke bron rechtstreeks kan weten.",
+      "relation": "Verbind twee bewijsstukken. Gaan de gegevens en gevolgen over dezelfde context? Leg uit welke bewering wordt ondersteund of tegengesproken.",
+      "uncertainty": "Welke informatie zou helpen verklaren waarom iemand ongunstig werd behandeld?",
+      "debrief": "Onderscheid de werking van de score van de manier waarop de beslissing is uitgelegd. Op welke vraag berustte je verslag?"
+    },
+    "case_lavoro": {
+      "opening": "Een sollicitante vraagt wie haar sollicitatie heeft beoordeeld. Je collega stelt voor de weg van cv naar beslissing te volgen voordat je verantwoordelijkheid toewijst.",
+      "source": "Onderscheid beweringen van de verkoper van wat recruiters of afgewezen sollicitanten kunnen waarnemen.",
+      "relation": "Vergelijk twee bronnen over de stap van geautomatiseerde aanbeveling naar menselijke beslissing. Wat tonen ze aan en wat blijft open?",
+      "uncertainty": "Welk document zou aantonen of de beoordelaar de beslissing daadwerkelijk kan veranderen?",
+      "debrief": "Vergelijk de menselijke herbeoordeling die je voor ogen had met die in de bewijsstukken. Welke invloed heeft dat op je voorgestelde maatregel?"
+    },
+    "case_media": {
+      "opening": "Een redactie betwijfelt de herkomst van een mediabericht. „Stel vóór je om een label vraagt vast wat het publiek ziet en wie het heeft gemaakt”, stelt je collega voor.",
+      "source": "Wie kan de herkomst van het materiaal vaststellen? Onderscheid technische waarnemingen, redactionele beweringen en indrukken van het publiek.",
+      "relation": "Verbind het materiaal met een bron over de productie of presentatie ervan. Verduidelijkt het verband de authenticiteit, de herkomst of het begrip van het publiek?",
+      "uncertainty": "Welk detail over het werkelijke gebruik of het beoogde publiek zou je oordeel kunnen veranderen?",
+      "debrief": "Leg uit hoe je technische markeringen, informatie voor het publiek en betrouwbaarheid van de inhoud onderscheidt."
+    },
+    "case_scuola": {
+      "opening": "Een docent vraagt wat het systeem over leerlingen beweert te weten. Je collega stelt voor verzamelde gegevens te onderscheiden van interpretaties die aan mensen worden toegeschreven.",
+      "source": "Welke gegevens ondersteunen elke bewering? Wie heeft ze verzameld en wie heeft het gedrag van de leerlingen geïnterpreteerd?",
+      "relation": "Beschrijven twee documenten hetzelfde gebruik? Verbind het aangegeven doel, de afleiding en het gevolg voor het onderwijs.",
+      "uncertainty": "Welk detail over doel of context zou helpen om een alternatieve interpretatie te beoordelen?",
+      "debrief": "Welke invloed had het verschil tussen gedrag waarnemen en een persoonlijke toestand afleiden op je redenering?"
+    },
+    "case_ospedale": {
+      "opening": "Een arts moet beslissen hoe een aanbeveling te gebruiken. Je collega stelt voor vast te stellen welke ruimte er is om in te grijpen en wat de mogelijke gevolgen van een fout zijn.",
+      "source": "Onderscheid de productbeschrijving van registraties van het klinische gebruik. Welke bron kan laten zien wat in de praktijk gebeurt?",
+      "relation": "Verbind een belofte over het systeem met een waarneming van het werkproces. Gaan ze over dezelfde taak en omstandigheden?",
+      "uncertainty": "Welke informatie over beoogd gebruik of klinische herbeoordeling ontbreekt?",
+      "debrief": "Heroverweeg je voorstel in het licht van de werkelijke klinische rol van het systeem. Hoe onderbouw je toezicht en verantwoordelijkheid?"
+    },
+    "case_biometria": {
+      "opening": "Een medewerker wijst op een overeenkomst die het systeem heeft gevonden. Je collega vraagt wat wordt vergeleken, waar dat gebeurt en met welk doel.",
+      "source": "Welke bronnen beschrijven de technologie en welke documenteren de gebruikers ervan? Verklaart een algemene bewering ook de gebruiksomstandigheden?",
+      "relation": "Vergelijk twee bronnen over plaats, tijdstip en doel. Welk feit onderscheidt twee mogelijke interpretaties?",
+      "uncertainty": "Welke toestemming, voorwaarde of informatie over betrokken mensen zou je willen controleren?",
+      "debrief": "Welke specifieke voorwaarden ondersteunden je oordeel, naast de enkele aanwezigheid van biometrische gegevens?"
+    },
+    "case_credito": {
+      "opening": "Een financiële aanvraag wordt via een index beoordeeld. „Volg de gegevens terug naar hun oorsprong en vraag hoe ze met de beslissing samenhangen”, stelt je collega voor.",
+      "source": "Welke bron documenteert de werkelijk gebruikte gegevens? Onderscheid het doel van de index van de uitleg aan de betrokkene.",
+      "relation": "Verbind de oorsprong van de gegevens met een individueel gevolg. Waarom ondersteunt of verzwakt dit verband een hypothese?",
+      "uncertainty": "Wat zou je moeten weten over de oorspronkelijke verzamelcontext en de reden voor een benadeling?",
+      "debrief": "Leg uit waarom de sector of productnaam op zichzelf je classificatie niet kan rechtvaardigen."
+    },
+    "case_chatbot": {
+      "opening": "Iemand beschrijft een gesprek met een digitaal loket. Je collega vraagt wat de gebruiker tijdens de interactie kon begrijpen.",
+      "source": "Welk document toont de ervaring van de gebruiker? Welk beschrijft de bedoelingen of regels van de dienst?",
+      "relation": "Vergelijk getoonde berichten met beweringen over de dienst. Zijn ze in dezelfde fase van de interactie begrijpelijk?",
+      "uncertainty": "Welk interfacedetail of moment van bekendmaking zou je rechtstreeks willen waarnemen?",
+      "debrief": "Wat is het verschil tussen zelf weten welke technologie wordt gebruikt en die herkenbaar maken voor degene die ermee communiceert?"
+    },
+    "case_procurement": {
+      "opening": "Een kantoor heeft een systeem van een externe leverancier gekocht. Je collega stelt voor na te gaan wie beslist en wie de registraties bezit, voordat je één verantwoordelijke zoekt.",
+      "source": "Wie schreef elk document? Wat legt een contract vast en wat vereist bewijs van werkelijk gebruik?",
+      "relation": "Verbind een contractuele belofte met een operationele procedure. Wie heeft de informatie om de overeenstemming te controleren?",
+      "uncertainty": "Welk document of welke toelichting over beoogd gebruik en de keten van betrokken partijen ontbreekt?",
+      "debrief": "Hoe onderscheid je de verantwoordelijkheden van de partijen, voorbij het enkele feit dat het systeem is gekocht?"
+    },
+    "case_edtech": {
+      "opening": "Een leerling krijgt een beoordeling die samenhangt met een digitaal systeem. Je collega stelt voor leerondersteuning te onderscheiden van een beslissing die iemands onderwijsloopbaan beïnvloedt.",
+      "source": "Onderscheid de presentatie van het platform van documenten over beoordeling, toegang en mogelijkheden om beslissingen aan te vechten.",
+      "relation": "Verbind een systeemactiviteit met een gevolg voor het onderwijs. Beschrijven twee bronnen dezelfde rol of verschillende rollen?",
+      "uncertainty": "Welke informatie over de invloed van de aanbeveling en menselijke herbeoordeling zou je zoeken?",
+      "debrief": "Welk feit onderscheidt vrijblijvende ondersteuning van gebruik dat een onderwijsbeslissing beïnvloedt?"
+    },
+    "case_gpai": {
+      "opening": "Een team integreert een AI-model voor algemene doeleinden in een dienst. „Onderscheid wat het model kan van wat de dienst het laat doen”, stelt je collega voor.",
+      "source": "Welke bronnen beschrijven het model en welke de toepassing? Wie kan de integratiekeuzes documenteren?",
+      "relation": "Verbind een algemene capaciteit met een specifiek gebruik. Voor welke tussenstappen is bewijs nodig voordat je risico of verantwoordelijkheid toewijst?",
+      "uncertainty": "Welke informatie over integratie, doel en betrokken partijen ontbreekt?",
+      "debrief": "Hoe verandert je redenering wanneer je model, systeem en gebruikscontext onderscheidt?"
+    },
+    "case_predpol": {
+      "opening": "Een waarschuwing is gekoppeld aan een individueel profiel. Je collega vraagt welke controleerbare feiten de verdenking ondersteunen en welke gegevens slechts samenhangen laten zien.",
+      "source": "Onderscheid waarnemingen van concrete gebeurtenissen, statistische afleidingen en beschrijvingen van persoonlijke kenmerken.",
+      "relation": "Verbind twee bronnen om vast te stellen of een conclusie op individuele feiten of op een correlatie berust. Licht het verband toe.",
+      "uncertainty": "Welk feitelijk element kan de hypothese ondersteunen of tegenspreken zonder het profiel te herhalen?",
+      "debrief": "Hoe heb je het verschil tussen voorspelling en feitelijk bewijs in je verslag gebruikt?"
+    },
+    "case_frodi": {
+      "opening": "Een aanvraag voor ondersteuning krijgt een melding voor nader onderzoek. Je collega stelt voor vast te stellen wat er na de melding met de betrokkene gebeurt.",
+      "source": "Welke bron documenteert de beslissing over de uitkering? Welke beschrijft alleen een voorspelling van onregelmatigheid?",
+      "relation": "Verbind de geautomatiseerde uitkomst met herbeoordeling en het gevolg voor de betrokkene. Waar kan de procedure een fout corrigeren?",
+      "uncertainty": "Welke informatie over herbeoordeling en mogelijkheden om de beslissing aan te vechten zou je opvragen?",
+      "debrief": "Hoe onderscheid je een signaal om te onderzoeken van een beslissing die toegang tot ondersteuning verandert?"
+    },
+    "case_bias": {
+      "opening": "Een team wil controleren of een systeem mensen verschillend behandelt. Je collega vraagt welke gegevens werkelijk nodig zijn en hoe ze worden beschermd.",
+      "source": "Onderscheid de beweerde noodzaak van de analyse van documentatie over alternatieven en effectieve waarborgen.",
+      "relation": "Verbind een auditdoel met een concrete gegevenswaarborg. Documenteert dit verband een vervulde voorwaarde of slechts een voornemen?",
+      "uncertainty": "Welke informatie over toegang, hergebruik, alternatieven en verwijdering ontbreekt?",
+      "debrief": "Hoe onderbouw je zowel het onderzoek naar discriminatie als de bescherming van persoonsgegevens?"
+    }
+  },
+  "sessionJournal": {
+    "button": "Sessieregistratie",
+    "title": "Wil je deze sessie delen?",
+    "purpose": "Help het spel te verbeteren door het verloop van dit tabblad te delen: dossiers, keuzes, geopende en geciteerde bewijsstukken, vergelijkingen, herzieningen, hulp, feedback, taal en geschatte actieve tijd. De registratie begint alleen met jouw toestemming en kan na herladen van hetzelfde tabblad gedurende 24 uur worden hervat.",
+    "scope": "Matteo Angeloni is de verwerkingsverantwoordelijke. Cloudflare verwerkt gegevens voor de dienstverlening; de database bevindt zich in de EU. Er wordt een willekeurige sessiecode gebruikt, zonder naam, e-mailadres, door het spel vastgelegd IP-adres of identificatie tussen bezoeken. De gegevens zijn gepseudonimiseerd, niet gegarandeerd anoniem. Bewaartermijn: 90 dagen. De geaggregeerde basisstatistieken blijven gescheiden.",
+    "rights": "Deelname is vrijwillig en verandert het spel niet. Je kunt weigeren, toestemming intrekken, de registratie wissen, je gegevens exporteren of een privébewijs bewaren om na het sluiten van het tabblad toegang te houden. Offline of onderbroken verzendingen kunnen ontbreken. Een sessieregistratie bewijst op zichzelf geen leren of kritisch denken.",
+    "adult": "Ik bevestig dat ik minstens 18 jaar ben en geef toestemming voor de sessieregistratie.",
+    "writing": "Ik geef daarnaast toestemming voor het delen van teksten die ik in het begeleide traject opsla: hypothesen, bronnen, redenen en reflecties. Dit is vrijwillig; vermijd persoonsgegevens en gevoelige informatie. Teksten worden op de server versleuteld.",
+    "accept": "Toestemmen en inschakelen",
+    "decline": "Verder zonder registratie",
+    "close": "Terug naar het spel",
+    "erase": "Toestemming intrekken en wissen",
+    "export": "Mijn gegevens downloaden",
+    "receipt": "Privébewijs opslaan",
+    "recover": "Privébewijs openen",
+    "policy": "Privacyverklaring en contact",
+    "pending": "Gebeurtenissen wachten op bevestiging van de server",
+    "failure": "De handeling is niet bevestigd. Probeer opnieuw zodra je online bent.",
+    "privateWarning": "Het privébewijs bevat een toegangssleutel voor jouw gegevens. Bewaar het vertrouwelijk. Zonder dit bewijs kunnen we jouw registratie na het sluiten van dit tabblad mogelijk niet terugvinden.",
+    "status": {
+      "off": "Registratie is hier niet beschikbaar",
+      "ready": "Registratie staat uit",
+      "recording": "Registratie is actief",
+      "pending": "Registratie actief: verzending in behandeling",
+      "retry": "Verzending niet bevestigd: nieuwe poging gepland",
+      "revoking": "Registratie gestopt; wissen op de server is in behandeling",
+      "deleted": "Registratie gewist op de server",
+      "expired": "Registratie beëindigd; exporteren en wissen blijven mogelijk",
+      "limit": "Limiet bereikt; registratie is onvolledig",
+      "blocked": "Registratie geblokkeerd door het privacysignaal van de browser"
+    }
+  }
+}

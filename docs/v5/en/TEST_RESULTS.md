@@ -1,8 +1,8 @@
 # Final verification of V5 methodological coverage
 
+[Italiano](../TEST_RESULTS.md) · [English](../en/TEST_RESULTS.md) · [Français](../fr/TEST_RESULTS.md) · [Deutsch](../de/TEST_RESULTS.md) · [Español](../es/TEST_RESULTS.md) · [Português](../pt/TEST_RESULTS.md) · [Nederlands](../nl/TEST_RESULTS.md)
 
-> V5.3.0 language edition · 23 November 2026. The dossier and local Study 02 materials now have six language versions. Prototype dates, counts and outcomes describe historical executions. The current optional adult journal contract is in SESSION_JOURNAL.md and supersedes the earlier aggregates-only restriction. Translations do not establish instrument equivalence, educational effectiveness or rubric validity. No new tests were run for this content update.
-
+> V5.4.0 language edition · 23 November 2026. The dossier and local Study 02 materials now have seven language versions. Prototype dates, counts and outcomes describe historical executions. The current optional adult journal contract is in SESSION_JOURNAL.md and supersedes the earlier aggregates-only restriction. Translations do not establish instrument equivalence, educational effectiveness or rubric validity. No new tests were run for this content update.
 
 
 21 November 2026. Prototype report preceding the V5.0.0 release. Tests began after implementing the entire operational list in COVERAGE_COMPLETION.md; corrections were followed by new runs. These results concern the local clone. Publication checks are documented separately in the release. This translation records those earlier executions; it is not a new smoke-test run for V5.0.1.

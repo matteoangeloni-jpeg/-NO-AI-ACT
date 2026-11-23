@@ -5,15 +5,17 @@ import {routeGroups,languageCode,SITE_LANGUAGES} from '../../src/site/route-inve
 import {completeTopicGroups} from '../../src/site/unified-topics.mjs';
 import {renderPressCoverage,renderPressReferences} from '../../src/site/press-coverage.mjs';
 import {PAGINE} from '../../src/site/fr-content.mjs';
+import {LANGUAGE_NAMES,SOCIAL_LOCALES} from '../../src/site/language-names.mjs';
+import {currentAvailability,currentDictionary} from '../../src/site/language-availability.mjs';
 
 const read=file=>readFileSync(file,'utf8').replace(/^\uFEFF/,'');
 const write=(file,value)=>{mkdirSync(dirname(file),{recursive:true});writeFileSync(file,value);};
 const config=JSON.parse(read('scripts/seo/routes.config.json'));
 config.pairs=completeTopicGroups(routeGroups(config));config.enOnly=[];config.frForEn={};
-config.$comment='37 complete topic groups in IT/EN/FR/DE/ES/PT (pt-PT); every language has the same editorial coverage. Existing URLs preserved. /play/ is noindex.';
+config.$comment='Complete topic equivalents in every declared site language. Existing URLs preserved. /play/ is noindex.';
 const groups=config.pairs,origin=config.site.replace(/\/$/,''),version=JSON.parse(read('package.json')).version;
-const names={it:'Italiano',en:'English',fr:'Français',de:'Deutsch',es:'Español',pt:'Português'};
-const locale={it:'it_IT',en:'en_GB',fr:'fr_FR',de:'de_DE',es:'es_ES',pt:'pt_PT'};
+const names=LANGUAGE_NAMES;
+const locale=SOCIAL_LOCALES;
 const labels={it:['Lingue','Menu','Gioca','Impara','Docenti','AI Act','Organizzazioni','Privacy'],en:['Languages','Menu','Play','Learn','Teachers','AI Act','Organisations','Privacy'],fr:['Langues','Menu','Jouer','Apprendre','Enseignants','AI Act','Organisations','Confidentialité'],de:['Sprachen','Menü','Spielen','Lernen','Lehrkräfte','KI-Verordnung','Organisationen','Datenschutz'],es:['Idiomas','Menú','Jugar','Aprender','Docentes','Reglamento de IA','Organizaciones','Privacidad'],pt:['Idiomas','Menu','Jogar','Aprender','Docentes','Regulamento de IA','Organizações','Privacidade']};
 const attr=(node,key)=>node.attrs?.find(a=>a.name===key)?.value;
 const flatten=(node,out=[])=>{out.push(node);for(const child of node.childNodes??[])flatten(child,out);return out;};
@@ -21,7 +23,8 @@ const escape=text=>String(text).replaceAll('&','&amp;').replaceAll('<','&lt;').r
 const file=dir=>dir?`${dir}/index.html`:'index.html';
 const href=dir=>`/${dir?`${dir}/`:''}`;
 const canonical=dir=>origin+href(dir);
-const dictionaries=Object.fromEntries(['it','fr','de','es','pt'].map(lang=>[lang,JSON.parse(read(`src/site/unified/${lang}.json`))]));
+labels.nl=['Talen','Menu','Spelen','Leren','Docenten','AI-verordening','Organisaties','Privacy'];
+const dictionaries=Object.fromEntries(['it',...SITE_LANGUAGES.filter(lang=>!['it','en'].includes(lang))].map(lang=>[lang,currentDictionary(JSON.parse(read(`src/site/unified/${lang}.json`)),lang)]));
 const normal=text=>text.replaceAll(version,'__GAME_VERSION__').replaceAll('5.2.2','__GAME_VERSION__');
 const get=(text,lang,required=true)=>{
  const key=text.trim(),value=dictionaries[lang]?.[normal(key)]??dictionaries[lang]?.[key];
@@ -59,7 +62,7 @@ function ownLink(value,base,lang,absolute=false,multi=false){
   return url.href;
  }
  if(url.hostname==='eur-lex.europa.eu'){
-  const code={it:'ita',en:'eng',fr:'fra',de:'deu',es:'spa',pt:'por'}[lang];
+  const code={it:'ita',en:'eng',fr:'fra',de:'deu',es:'spa',pt:'por',nl:'nld'}[lang];
   url.pathname=url.pathname.replace(/\/legal-content\/(EN|IT|FR|DE|ES|PT)\//,`/legal-content/${lang.toUpperCase()}/`).replace(/\/oj(?:\/(?:eng|ita|fra|deu|spa|por))?$/,`/oj/${code}`).replace(/\/2026-07-27\/(?:eng|ita|fra|deu|spa|por)(?=\/|$)/,`/2026-07-27/${code}`);
   return url.href;
  }
@@ -100,6 +103,9 @@ function translate(source,base,lang,{italianShell=false}={}){
  let html=source;for(const edit of edits.sort((a,b)=>b.start-a.start))html=html.slice(0,edit.start)+edit.text+html.slice(edit.end);return html;
 }
 
+// Existing source articles carry current availability, while the immutable
+// release notes and the research dossier retain their historical counts.
+for(const group of groups)for(const lang of ['it','en','fr'])if(existsSync(file(group[lang])))write(file(group[lang]),currentAvailability(read(file(group[lang])),lang));
 // Fill the four Italian equivalents without replacing the existing 33 articles.
 const italianTemplate=read('ai-act-per-docenti/index.html');
 for(const group of groups.filter(g=>!existsSync(file(g.it)))){
@@ -107,7 +113,7 @@ for(const group of groups.filter(g=>!existsSync(file(g.it)))){
  for(const tag of ['header','footer'])source=source.replace(new RegExp(`<${tag}\\b[\\s\\S]*?<\\/${tag}>`),italianTemplate.match(new RegExp(`<${tag}\\b[\\s\\S]*?<\\/${tag}>`))[0].replace(/(?:href|src)="(\.\.[^"]+)"/g,(match,value)=>match.replace(value,ownLink(value,canonical('ai-act-per-docenti'),'it'))));
  write(file(group.it),translate(source,canonical(group.en),'it',{italianShell:true}));
 }
-for(const group of groups)for(const lang of ['de','es','pt'])write(file(group[lang]),translate(read(file(group.en)).replace(/<section id="localized-materials"[\s\S]*?<\/section>/g,'').replace(/<p class="shared-play-languages"[\s\S]*?<\/p>/g,''),canonical(group.en),lang));
+for(const group of groups)for(const lang of SITE_LANGUAGES.filter(lang=>!['it','en','fr'].includes(lang)))write(file(group[lang]),translate(read(file(group.en)).replace(/<section id="localized-materials"[\s\S]*?<\/section>/g,'').replace(/<p class="shared-play-languages"[\s\S]*?<\/p>/g,''),canonical(group.en),lang));
 // The former thirteen French summaries now carry the complete English
 // reference content. Preserve the other 24 full editorial translations.
 for(const page of PAGINE){
@@ -131,7 +137,7 @@ for(const group of groups)for(const lang of SITE_LANGUAGES){
  let html=read(file(group[lang]));const ui=labels[lang],current=group[lang];
  const header=`<header class="topbar"><div class="wrap"><a class="brand" href="${href(groups[0][lang])}">NO AI ACT</a><nav class="site-nav" aria-label="${ui[1]}"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="${ui[1]}">${ui[1]}</button><ul class="nav-menu" id="site-menu">${navGroups.map((routes,index)=>`<li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-${index}">${ui[index+2]}</button><ul class="nav-sub" id="topics-${index}">${routes.map(en=>{const destination=groups.find(g=>g.en===en)[lang];return`<li><a href="${href(destination)}"${destination===current?' aria-current="page"':''}>${escape(titles[destination])}</a></li>`;}).join('')}</ul></li>`).join('')}<li><a href="${href(groups.find(g=>g.en==='en/privacy-by-design')[lang])}">${ui[7]}</a></li></ul></nav></div></header>`;
  html=html.replace(/<header\b[\s\S]*?<\/header>/,header);
- const switcher=`<nav class="locale-links" aria-label="${ui[0]}"><div class="wrap">${SITE_LANGUAGES.map(code=>`<a href="${href(group[code])}" hreflang="${languageCode(code)}" lang="${languageCode(code)}"${code===lang?' aria-current="page"':''}><img src="/assets/flags/${code==='en'?'gb':code}.png" width="28" height="20" alt="" /><span>${names[code]}</span></a>`).join('')}</div></nav>`;
+ const switcher=`<nav class="locale-links" aria-label="${ui[0]}"><div class="wrap">${SITE_LANGUAGES.map(code=>`<a href="${href(group[code])}" hreflang="${languageCode(code)}" lang="${languageCode(code)}"${code===lang?' aria-current="page"':''}><img src="/assets/flags/${code==='en'?'gb':code}.${code==='nl'?'svg':'png'}" width="28" height="20" alt="" /><span>${names[code]}</span></a>`).join('')}</div></nav>`;
  html=html.replace(/<nav class="locale-links"[\s\S]*?<\/nav>/g,'').replace('</header>','</header>\n'+switcher);
  html=html.replace(/\s*<link\b(?=[^>]*\brel="alternate")(?=[^>]*\bhreflang=)[^>]+>/g,'');
  const alternates=SITE_LANGUAGES.map(code=>`  <link rel="alternate" hreflang="${languageCode(code)}" href="${canonical(group[code])}" />`).join('\n')+`\n  <link rel="alternate" hreflang="x-default" href="${canonical(group.it)}" />\n`;
@@ -147,5 +153,10 @@ for(const group of groups)for(const lang of SITE_LANGUAGES)social.pageCategory[g
 write('scripts/social/meta.config.json',JSON.stringify(social,null,2)+'\n');
 write('scripts/seo/routes.config.json',JSON.stringify(config,null,2)+'\n');
 for(const lang of SITE_LANGUAGES)write(`public/sitemap-${lang}.xml`,`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${groups.map(g=>`  <url><loc>${canonical(g[lang])}</loc><lastmod>2026-11-23</lastmod></url>`).join('\n')}\n</urlset>\n`);
+write('public/sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${SITE_LANGUAGES.map(lang=>`  <sitemap><loc>${origin}/sitemap-${lang}.xml</loc><lastmod>2026-11-23</lastmod></sitemap>`).join('\n')}\n</sitemapindex>\n`);
 const release=JSON.parse(read('release.config.json'));release.publicUrls={...Object.fromEntries(SITE_LANGUAGES.map(lang=>[lang,groups.length])),total:groups.length*SITE_LANGUAGES.length};write('release.config.json',JSON.stringify(release,null,2)+'\n');
+const {DUTCH_PRIVACY_SECTION}=await import('../../src/site/nl-privacy.mjs');
+let privacy=read('public/game-statistics.html').replace(/<section id="nl"[\s\S]*?<\/section>/g,'');
+if(!privacy.includes('href="#nl"'))privacy=privacy.replace('<a href="/play/">NO AI ACT</a>','<a href="#nl">Nederlands</a><a href="/play/">NO AI ACT</a>');
+write('public/game-statistics.html',privacy.replace('</body>',DUTCH_PRIVACY_SECTION+'\n</body>'));
 console.log(`Generated shared content: ${groups.length} full sections in each of ${SITE_LANGUAGES.length} languages; ${release.publicUrls.total} public URLs.`);

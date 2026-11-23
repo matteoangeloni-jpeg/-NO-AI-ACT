@@ -1,8 +1,8 @@
 # Cobertura operacional de los comentarios
 
-[Italiano](../COVERAGE_COMPLETION.md) · [English](../en/COVERAGE_COMPLETION.md) · [Français](../fr/COVERAGE_COMPLETION.md) · [Deutsch](../de/COVERAGE_COMPLETION.md) · [Español](../es/COVERAGE_COMPLETION.md) · [Português](../pt/COVERAGE_COMPLETION.md)
+[Italiano](../COVERAGE_COMPLETION.md) · [English](../en/COVERAGE_COMPLETION.md) · [Français](../fr/COVERAGE_COMPLETION.md) · [Deutsch](../de/COVERAGE_COMPLETION.md) · [Español](../es/COVERAGE_COMPLETION.md) · [Português](../pt/COVERAGE_COMPLETION.md) · [Nederlands](../nl/COVERAGE_COMPLETION.md)
 
-> Edición lingüística V5.3.0 · 23 de noviembre de 2026. El dossier y los materiales locales de Study 02 están disponibles en seis idiomas. Las fechas, cifras y resultados del prototipo corresponden a ejecuciones históricas. El contrato actual del registro voluntario para adultos figura en SESSION_JOURNAL.md y sustituye la restricción anterior a datos agregados. Las traducciones no demuestran equivalencia de los instrumentos, eficacia educativa ni validez de la rúbrica. No se ejecutaron nuevas pruebas para esta actualización de contenidos.
+> Edición lingüística V5.4.0 · 23 de noviembre de 2026. El dossier y los materiales locales de Study 02 están disponibles en siete idiomas. Las fechas, cifras y resultados del prototipo corresponden a ejecuciones históricas. El contrato actual del registro voluntario para adultos figura en SESSION_JOURNAL.md y sustituye la restricción anterior a datos agregados. Las traducciones no demuestran equivalencia de los instrumentos, eficacia educativa ni validez de la rúbrica. No se ejecutaron nuevas pruebas para esta actualización de contenidos.
 
 
 Incremento solicitado por el propietario el 21 de noviembre de 2026. Esta lista define el trabajo a implementar antes de iniciar la nueva verificación final.

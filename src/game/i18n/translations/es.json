@@ -236,7 +236,9 @@
           "activities_es": "Actividades de aula (ES)",
           "lesson_es": "Introducción para docentes (ES)",
           "activities_pt": "Actividades de aula (PT)",
-          "lesson_pt": "Introducción para docentes (PT)"
+          "lesson_pt": "Introducción para docentes (PT)",
+          "activities_nl": "Actividades didácticas (NL)",
+          "lesson_nl": "Introducción para docentes (NL)"
         },
         "close": "Cerrar"
       },

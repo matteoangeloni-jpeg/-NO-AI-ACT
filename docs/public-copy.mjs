@@ -1,3 +1,5 @@
+import {DUTCH_PUBLIC_COPY} from './public-copy.nl.mjs';
+import {currentAvailability} from '../src/site/language-availability.mjs';
 // Parallel current project descriptions. Counts and version come from release.config.
 export const PUBLIC_COPY = {
  it: {
@@ -148,5 +150,40 @@ for(const[language,title,changes]of [
   'Os números de versão mantêm-se como valores literais comuns: corrigidos o rodapé francês e as referências de versão nos textos traduzidos.',
   'Revistos títulos de início e créditos do autor em francês, alemão, espanhol e português. Mesma cobertura: 37 secções por língua, 222 páginas e 14 casos jogáveis nas seis línguas.',
   'README, kits de imprensa e materiais descarregáveis atualizados para 5.3.1. Preservados gravações, dados e consentimentos existentes. Compilação concluída; sem novos testes unitários ou smoke tests, conforme solicitado.'
+ ]]
+]){PUBLIC_COPY[language].releaseTitle=title;PUBLIC_COPY[language].changes=changes;}
+PUBLIC_COPY.nl=DUTCH_PUBLIC_COPY;
+const currentText=(value,language)=>typeof value==='string'?currentAvailability(value,language):Array.isArray(value)?value.map(item=>currentText(item,language)):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).map(([key,child])=>[key,currentText(child,language)])):value;
+for(const language of ['it','en','fr','de','es','pt'])PUBLIC_COPY[language]=currentText(PUBLIC_COPY[language],language);
+for(const[language,title,changes]of [
+ ['it','L’olandese entra nel gioco completo',[
+  'Aggiunto Nederlands a tutti i 14 casi, tutorial, percorso guidato, reperti, rapporti, debriefing e comandi accessibili. Accesso diretto con ?lang=nl e persistenza della lingua.',
+  'Anche sito, README, dossier metodologico, materiali locali Study 02, informativa e press kit in olandese. Stessa copertura nelle sette lingue: 37 sezioni ciascuna, 259 pagine.',
+  'Selettori e collegamenti aggiornati per sette lingue. Compatibilità di salvataggi, dati e consensi preservata. Build di produzione eseguita; nessun nuovo test unitario o smoke test, come richiesto.'
+ ]],
+ ['en','Dutch joins the complete game',[
+  'Added Nederlands to all 14 cases, tutorial, guided inquiry, exhibits, reports, debriefing and accessible controls. Direct access with ?lang=nl and persisted language selection.',
+  'Dutch also covers the website, README, methodology dossier, local Study 02 materials, privacy notice and press kit. Matching coverage across seven languages: 37 sections each, 259 pages.',
+  'Selectors and links updated for seven languages. Save, data and consent compatibility preserved. Production build completed; no new unit or smoke tests, as requested.'
+ ]],
+ ['fr','Le néerlandais rejoint le jeu complet',[
+  'Nederlands ajouté aux 14 dossiers, tutoriel, enquête guidée, pièces, rapports, débriefing et commandes accessibles. Accès direct avec ?lang=nl et choix de langue conservé.',
+  'Site, README, dossier méthodologique, matériaux locaux Study 02, information de confidentialité et dossier de presse également en néerlandais. Même couverture dans les sept langues : 37 sections chacune, soit 259 pages.',
+  'Sélecteurs et liens adaptés aux sept langues. Compatibilité des sauvegardes, données et consentements préservée. Compilation de production terminée ; aucun nouveau test unitaire ni smoke test, conformément à la demande.'
+ ]],
+ ['de','Niederländisch für das vollständige Spiel',[
+  'Nederlands für alle 14 Fälle, Tutorial, begleitete Untersuchung, Belege, Berichte, Nachbesprechung und barrierearme Bedienung ergänzt. Direkter Einstieg mit ?lang=nl und gespeicherte Sprachwahl.',
+  'Auch Website, README, Methodendossier, lokale Study-02-Materialien, Datenschutzhinweise und Pressemappe auf Niederländisch. Gleicher Umfang in sieben Sprachen: je 37 Bereiche, insgesamt 259 Seiten.',
+  'Sprachwahl und Links für sieben Sprachen aktualisiert. Spielstände, Daten und Einwilligungen bleiben kompatibel. Produktionsbuild abgeschlossen; auf Wunsch keine neuen Unit- oder Smoke-Tests.'
+ ]],
+ ['es','El neerlandés llega al juego completo',[
+  'Nederlands añadido a los 14 casos, tutorial, recorrido guiado, pruebas, informes, reflexión final y controles accesibles. Acceso directo con ?lang=nl y conservación de la lengua elegida.',
+  'También sitio, README, dossier metodológico, materiales locales Study 02, información de privacidad y kit de prensa en neerlandés. Misma cobertura en siete idiomas: 37 secciones cada uno, 259 páginas.',
+  'Selectores y enlaces actualizados para siete lenguas. Compatibilidad de partidas, datos y consentimientos conservada. Compilación de producción completada; sin nuevas pruebas unitarias ni smoke tests, según lo solicitado.'
+ ]],
+ ['pt','O neerlandês chega ao jogo completo',[
+  'Nederlands acrescentado aos 14 casos, tutorial, percurso guiado, provas, relatórios, reflexão final e controlos acessíveis. Acesso direto com ?lang=nl e conservação da língua escolhida.',
+  'Também sítio, README, dossier metodológico, materiais locais Study 02, informação de privacidade e kit de imprensa em neerlandês. Mesma cobertura nas sete línguas: 37 secções em cada uma, 259 páginas.',
+  'Seletores e ligações atualizados para sete línguas. Compatibilidade de gravações, dados e consentimentos preservada. Compilação de produção concluída; sem novos testes unitários ou smoke tests, conforme solicitado.'
  ]]
 ]){PUBLIC_COPY[language].releaseTitle=title;PUBLIC_COPY[language].changes=changes;}

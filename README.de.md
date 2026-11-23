@@ -1,16 +1,16 @@
-# NO AI ACT · v5.3.1
+# NO AI ACT · v5.4.0
 
-[Italiano](README.md) · [English](README.en.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Português](README.pt.md)
+[Italiano](README.md) · [English](README.en.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Português](README.pt.md) · [Nederlands](README.nl.md)
 
 **Investigatives Serious Game zur europäischen KI-Verordnung**
 
-[▶ Spielen](https://www.no-ai-act.eu/play/?lang=de) · [Website und Materialien](https://www.no-ai-act.eu/de/) · [Stabile Version](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.3.1)
+[▶ Spielen](https://www.no-ai-act.eu/play/?lang=de) · [Website und Materialien](https://www.no-ai-act.eu/de/) · [Stabile Version](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.4.0)
 
 Im Jahr 2032 liegt eine fiktive europäische Stadt vor Ihnen, in der die KI-Verordnung nie in Kraft getreten ist. Als Inspektor rekonstruieren Sie den Einsatz von KI-Systemen anhand von Dokumenten, Aussagen und Protokollen. Das kostenlose Open-Source-Spiel läuft ohne Konto im Browser.
 
 ## Umfang
 
-Spiel, Website, Lernmaterialien, Pressemappen, README-Dateien und Methodendossier sind in denselben Sprachen verfügbar: Italienisch, Englisch, Französisch, Deutsch, Spanisch und europäisches Portugiesisch (pt-PT). Jede Sprache umfasst alle 14 Fälle und dieselben 37 Websitebereiche. Bestehende URLs bleiben erhalten.
+Spiel, Website, Lernmaterialien, Pressemappen, README-Dateien und Methodendossier sind in denselben Sprachen verfügbar: Italienisch, Englisch, Französisch, Deutsch, Spanisch, europäisches Portugiesisch (pt-PT) und Niederländisch. Jede Sprache umfasst alle 14 Fälle und dieselben 37 Websitebereiche. Bestehende URLs bleiben erhalten.
 
 ## Der Spielablauf
 
@@ -34,7 +34,7 @@ Der Fortschritt bleibt im Browser. Aggregierte Zähler lassen sich deaktivieren.
 
 ## Forschungsmaterialien
 
-Study 02 ist ein lokales Labor außerhalb der öffentlichen Anwendung mit zwei Aufgabenformen und einer menschlich codierten Rubrik in sechs Sprachen. Es startet keine Studie mit Teilnehmenden. Sprachliche Gleichwertigkeit, Rubrikvalidität und Bildungswirksamkeit müssen weiterhin mit Menschen untersucht werden. Prüfergebnisse im Dossier dokumentieren frühere Ausführungen.
+Study 02 ist ein lokales Labor außerhalb der öffentlichen Anwendung mit zwei Aufgabenformen und einer menschlich codierten Rubrik in sieben Sprachen. Es startet keine Studie mit Teilnehmenden. Sprachliche Gleichwertigkeit, Rubrikvalidität und Bildungswirksamkeit müssen weiterhin mit Menschen untersucht werden. Prüfergebnisse im Dossier dokumentieren frühere Ausführungen.
 
 [Rubrik und Transferaufgabe Study 02](docs/v5/de/ARGUMENTATION_STUDY02.md) · [Study 02](research/study02/)
 
@@ -66,4 +66,4 @@ Code: GPL-3.0-or-later; Inhalte: CC BY-SA 4.0. Namensnennungen und Komponenten s
 
 ## Technische Dokumentation und Versionsgeschichte
 
-[Stabile Version](docs/RELEASE_NOTES_v5.3.1.de.md) · [Methode und Grenzen](docs/v5/README.de.md) · [Press kit](https://www.no-ai-act.eu/de/pressemappe/) · [GDD](docs/GDD.md) · [README < v5.3.0](docs/archive/README_pre_v5.3.0.it.md)
+[Stabile Version](docs/RELEASE_NOTES_v5.4.0.de.md) · [Methode und Grenzen](docs/v5/README.de.md) · [Press kit](https://www.no-ai-act.eu/de/pressemappe/) · [GDD](docs/GDD.md) · [README < v5.3.0](docs/archive/README_pre_v5.3.0.it.md)

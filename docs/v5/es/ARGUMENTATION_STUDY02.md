@@ -1,8 +1,8 @@
 # Rúbrica preliminar y tarea de transferencia Study 02
 
-[Italiano](../ARGUMENTATION_STUDY02.md) · [English](../en/ARGUMENTATION_STUDY02.md) · [Français](../fr/ARGUMENTATION_STUDY02.md) · [Deutsch](../de/ARGUMENTATION_STUDY02.md) · [Español](../es/ARGUMENTATION_STUDY02.md) · [Português](../pt/ARGUMENTATION_STUDY02.md)
+[Italiano](../ARGUMENTATION_STUDY02.md) · [English](../en/ARGUMENTATION_STUDY02.md) · [Français](../fr/ARGUMENTATION_STUDY02.md) · [Deutsch](../de/ARGUMENTATION_STUDY02.md) · [Español](../es/ARGUMENTATION_STUDY02.md) · [Português](../pt/ARGUMENTATION_STUDY02.md) · [Nederlands](../nl/ARGUMENTATION_STUDY02.md)
 
-> Edición lingüística V5.3.0 · 23 de noviembre de 2026. El dossier y los materiales locales de Study 02 están disponibles en seis idiomas. Las fechas, cifras y resultados del prototipo corresponden a ejecuciones históricas. El contrato actual del registro voluntario para adultos figura en SESSION_JOURNAL.md y sustituye la restricción anterior a datos agregados. Las traducciones no demuestran equivalencia de los instrumentos, eficacia educativa ni validez de la rúbrica. No se ejecutaron nuevas pruebas para esta actualización de contenidos.
+> Edición lingüística V5.4.0 · 23 de noviembre de 2026. El dossier y los materiales locales de Study 02 están disponibles en siete idiomas. Las fechas, cifras y resultados del prototipo corresponden a ejecuciones históricas. El contrato actual del registro voluntario para adultos figura en SESSION_JOURNAL.md y sustituye la restricción anterior a datos agregados. Las traducciones no demuestran equivalencia de los instrumentos, eficacia educativa ni validez de la rúbrica. No se ejecutaron nuevas pruebas para esta actualización de contenidos.
 
 
 Versión de trabajo del 21 de noviembre de 2026. Diseño propuesto; no se ha realizado ningún estudio. La rúbrica requiere validación con los evaluadores humanos y los participantes del público previsto.

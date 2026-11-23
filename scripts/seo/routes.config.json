@@ -1,5 +1,5 @@
 {
-  "$comment": "37 complete topic groups in IT/EN/FR/DE/ES/PT (pt-PT); every language has the same editorial coverage. Existing URLs preserved. /play/ is noindex.",
+  "$comment": "Complete topic equivalents in every declared site language. Existing URLs preserved. /play/ is noindex.",
   "site": "https://www.no-ai-act.eu/",
   "pairs": [
     {
@@ -8,7 +8,8 @@
       "fr": "fr",
       "de": "de",
       "es": "es",
-      "pt": "pt"
+      "pt": "pt",
+      "nl": "nl"
     },
     {
       "it": "come-funziona",
@@ -16,7 +17,8 @@
       "fr": "fr/comment-ca-marche",
       "de": "de/so-funktioniert-es",
       "es": "es/como-funciona",
-      "pt": "pt/como-funciona"
+      "pt": "pt/como-funciona",
+      "nl": "nl/zo-werkt-het"
     },
     {
       "it": "per-docenti",
@@ -24,7 +26,8 @@
       "fr": "fr/pour-les-formateurs",
       "de": "de/fuer-lehrende",
       "es": "es/para-formadores",
-      "pt": "pt/para-formadores"
+      "pt": "pt/para-formadores",
+      "nl": "nl/voor-opleiders"
     },
     {
       "it": "ai-act-serious-game",
@@ -32,7 +35,8 @@
       "fr": "fr/serious-game-ai-act",
       "de": "de/serious-game-ki-verordnung",
       "es": "es/juego-serio-reglamento-ia",
-      "pt": "pt/jogo-serio-regulamento-ia"
+      "pt": "pt/jogo-serio-regulamento-ia",
+      "nl": "nl/serious-game-ai-verordening"
     },
     {
       "it": "privacy-by-design",
@@ -40,7 +44,8 @@
       "fr": "fr/protection-des-donnees-des-la-conception",
       "de": "de/datenschutz",
       "es": "es/privacidad",
-      "pt": "pt/privacidade"
+      "pt": "pt/privacidade",
+      "nl": "nl/privacy-door-ontwerp"
     },
     {
       "it": "educazione",
@@ -48,7 +53,8 @@
       "fr": "fr/education",
       "de": "de/bildung",
       "es": "es/educacion",
-      "pt": "pt/educacao"
+      "pt": "pt/educacao",
+      "nl": "nl/onderwijs"
     },
     {
       "it": "ai-act-per-docenti",
@@ -56,7 +62,8 @@
       "fr": "fr/ai-act-pour-enseignants",
       "de": "de/ki-verordnung-fuer-lehrkraefte",
       "es": "es/reglamento-ia-para-docentes",
-      "pt": "pt/regulamento-ia-para-docentes"
+      "pt": "pt/regulamento-ia-para-docentes",
+      "nl": "nl/ai-verordening-voor-docenten"
     },
     {
       "it": "alfabetizzazione-ai",
@@ -64,7 +71,8 @@
       "fr": "fr/maitrise-de-l-ia",
       "de": "de/ki-kompetenz",
       "es": "es/alfabetizacion-ia",
-      "pt": "pt/literacia-ia"
+      "pt": "pt/literacia-ia",
+      "nl": "nl/ai-geletterdheid"
     },
     {
       "it": "guida-ai-act",
@@ -72,7 +80,8 @@
       "fr": "fr/guide-ai-act",
       "de": "de/ki-verordnung-leitfaden",
       "es": "es/guia-reglamento-ia",
-      "pt": "pt/guia-regulamento-ia"
+      "pt": "pt/guia-regulamento-ia",
+      "nl": "nl/gids-ai-verordening"
     },
     {
       "it": "categorie-rischio-ai-act",
@@ -80,7 +89,8 @@
       "fr": "fr/categories-de-risque-ai-act",
       "de": "de/ki-risikokategorien",
       "es": "es/categorias-riesgo-ia",
-      "pt": "pt/categorias-risco-ia"
+      "pt": "pt/categorias-risco-ia",
+      "nl": "nl/risicocategorieen-ai"
     },
     {
       "it": "pratiche-vietate-ai-act",
@@ -88,7 +98,8 @@
       "fr": "fr/pratiques-interdites-ai-act",
       "de": "de/verbotene-ki-praktiken",
       "es": "es/practicas-ia-prohibidas",
-      "pt": "pt/praticas-ia-proibidas"
+      "pt": "pt/praticas-ia-proibidas",
+      "nl": "nl/verboden-ai-praktijken"
     },
     {
       "it": "sistemi-ai-ad-alto-rischio",
@@ -96,7 +107,8 @@
       "fr": "fr/systemes-ia-a-haut-risque",
       "de": "de/hochrisiko-ki-systeme",
       "es": "es/sistemas-ia-alto-riesgo",
-      "pt": "pt/sistemas-ia-risco-elevado"
+      "pt": "pt/sistemas-ia-risco-elevado",
+      "nl": "nl/ai-systemen-hoog-risico"
     },
     {
       "it": "obblighi-trasparenza-ai-act",
@@ -104,7 +116,8 @@
       "fr": "fr/obligations-de-transparence",
       "de": "de/ki-transparenzpflichten",
       "es": "es/obligaciones-transparencia-ia",
-      "pt": "pt/obrigacoes-transparencia-ia"
+      "pt": "pt/obrigacoes-transparencia-ia",
+      "nl": "nl/transparantieverplichtingen"
     },
     {
       "it": "ai-generativa-e-gpai",
@@ -112,7 +125,8 @@
       "fr": "fr/ia-a-usage-general",
       "de": "de/ki-modelle-allgemeiner-verwendungszweck",
       "es": "es/modelos-ia-uso-general",
-      "pt": "pt/modelos-ia-finalidade-geral"
+      "pt": "pt/modelos-ia-finalidade-geral",
+      "nl": "nl/ai-modellen-algemene-doeleinden"
     },
     {
       "it": "provider-deployer-ai-act",
@@ -120,7 +134,8 @@
       "fr": "fr/fournisseur-deployeur-ai-act",
       "de": "de/anbieter-betreiber-ki-verordnung",
       "es": "es/proveedor-responsable-despliegue-ia",
-      "pt": "pt/prestador-responsavel-implantacao"
+      "pt": "pt/prestador-responsavel-implantacao",
+      "nl": "nl/aanbieder-gebruiksverantwoordelijke"
     },
     {
       "it": "ai-act-pubblica-amministrazione",
@@ -128,7 +143,8 @@
       "fr": "fr/ai-act-administration-publique",
       "de": "de/ki-oeffentliche-verwaltung",
       "es": "es/ia-administracion-publica",
-      "pt": "pt/ia-administracao-publica"
+      "pt": "pt/ia-administracao-publica",
+      "nl": "nl/ai-overheid"
     },
     {
       "it": "ai-act-per-le-aziende",
@@ -136,7 +152,8 @@
       "fr": "fr/ai-act-entreprises",
       "de": "de/ki-verordnung-unternehmen",
       "es": "es/reglamento-ia-empresas",
-      "pt": "pt/regulamento-ia-empresas"
+      "pt": "pt/regulamento-ia-empresas",
+      "nl": "nl/ai-verordening-bedrijven"
     },
     {
       "it": "sanzioni-ai-act",
@@ -144,7 +161,8 @@
       "fr": "fr/sanctions-ai-act",
       "de": "de/ki-verordnung-sanktionen",
       "es": "es/sanciones-reglamento-ia",
-      "pt": "pt/sancoes-regulamento-ia"
+      "pt": "pt/sancoes-regulamento-ia",
+      "nl": "nl/sancties-ai-verordening"
     },
     {
       "it": "ai-act-e-gdpr",
@@ -152,7 +170,8 @@
       "fr": "fr/ai-act-et-rgpd",
       "de": "de/ki-verordnung-dsgvo",
       "es": "es/reglamento-ia-rgpd",
-      "pt": "pt/regulamento-ia-rgpd"
+      "pt": "pt/regulamento-ia-rgpd",
+      "nl": "nl/ai-verordening-avg"
     },
     {
       "it": "fria-ai-act-valutazione-diritti-fondamentali",
@@ -160,7 +179,8 @@
       "fr": "fr/analyse-impact-droits-fondamentaux-ai-act",
       "de": "de/grundrechte-folgenabschaetzung-ki",
       "es": "es/evaluacion-impacto-derechos-fundamentales-ia",
-      "pt": "pt/avaliacao-impacto-direitos-fundamentais-ia"
+      "pt": "pt/avaliacao-impacto-direitos-fundamentais-ia",
+      "nl": "nl/grondrechteneffectbeoordeling-ai"
     },
     {
       "it": "apprendimento-privacy-consapevole",
@@ -168,7 +188,8 @@
       "fr": "fr/apprentissage-respectueux-vie-privee",
       "de": "de/datenschutzbewusstes-lernen",
       "es": "es/aprendizaje-respetuoso-privacidad",
-      "pt": "pt/aprendizagem-respeitadora-privacidade"
+      "pt": "pt/aprendizagem-respeitadora-privacidade",
+      "nl": "nl/privacybewust-leren"
     },
     {
       "it": "serious-game-regolazione-ai",
@@ -176,7 +197,8 @@
       "fr": "fr/serious-games-reglementation-ia",
       "de": "de/serious-games-ki-regulierung",
       "es": "es/juegos-serios-regulacion-ia",
-      "pt": "pt/jogos-serios-regulacao-ia"
+      "pt": "pt/jogos-serios-regulacao-ia",
+      "nl": "nl/serious-games-ai-regulering"
     },
     {
       "it": "attivita-didattiche",
@@ -184,7 +206,8 @@
       "fr": "fr/activites-pedagogiques",
       "de": "de/unterrichtsaktivitaeten",
       "es": "es/actividades-didacticas",
-      "pt": "pt/atividades-pedagogicas"
+      "pt": "pt/atividades-pedagogicas",
+      "nl": "nl/lesactiviteiten"
     },
     {
       "it": "lezione-introduzione-ai-act",
@@ -192,7 +215,8 @@
       "fr": "fr/seance-introduction-ai-act",
       "de": "de/unterrichtsplan-ki-einstieg",
       "es": "es/plan-clase-introduccion-ia",
-      "pt": "pt/plano-aula-introducao-ia"
+      "pt": "pt/plano-aula-introducao-ia",
+      "nl": "nl/lesplan-inleiding-ai"
     },
     {
       "it": "glossario",
@@ -200,7 +224,8 @@
       "fr": "fr/glossaire",
       "de": "de/ki-verordnung-glossar",
       "es": "es/glosario-ia",
-      "pt": "pt/glossario-ia"
+      "pt": "pt/glossario-ia",
+      "nl": "nl/begrippenlijst"
     },
     {
       "it": "come-citare",
@@ -208,7 +233,8 @@
       "fr": "fr/comment-citer",
       "de": "de/richtig-zitieren",
       "es": "es/como-citar",
-      "pt": "pt/como-citar"
+      "pt": "pt/como-citar",
+      "nl": "nl/citeren"
     },
     {
       "it": "ricerca-e-metodologia",
@@ -216,7 +242,8 @@
       "fr": "fr/recherche-methodologie",
       "de": "de/forschung-methodik",
       "es": "es/investigacion-metodologia",
-      "pt": "pt/investigacao-metodologia"
+      "pt": "pt/investigacao-metodologia",
+      "nl": "nl/onderzoek-en-methodologie"
     },
     {
       "it": "matteo-angeloni",
@@ -224,7 +251,8 @@
       "fr": "fr/matteo-angeloni",
       "de": "de/matteo-angeloni",
       "es": "es/matteo-angeloni",
-      "pt": "pt/matteo-angeloni"
+      "pt": "pt/matteo-angeloni",
+      "nl": "nl/matteo-angeloni"
     },
     {
       "it": "press-kit",
@@ -232,7 +260,8 @@
       "fr": "fr/dossier-de-presse",
       "de": "de/pressemappe",
       "es": "es/kit-de-prensa",
-      "pt": "pt/kit-de-imprensa"
+      "pt": "pt/kit-de-imprensa",
+      "nl": "nl/persmap"
     },
     {
       "it": "tempi-applicazione-ai-act",
@@ -240,7 +269,8 @@
       "fr": "fr/calendrier-application-ai-act",
       "de": "de/ki-verordnung-zeitplan",
       "es": "es/calendario-reglamento-ia",
-      "pt": "pt/calendario-regulamento-ia"
+      "pt": "pt/calendario-regulamento-ia",
+      "nl": "nl/tijdlijn-ai-verordening"
     },
     {
       "it": "deepfake-e-trasparenza",
@@ -248,7 +278,8 @@
       "fr": "fr/hypertrucages-transparence",
       "de": "de/deepfakes-transparenz",
       "es": "es/deepfakes-transparencia",
-      "pt": "pt/deepfakes-transparencia"
+      "pt": "pt/deepfakes-transparencia",
+      "nl": "nl/deepfakes-en-transparantie"
     },
     {
       "it": "ai-nel-lavoro-e-selezione",
@@ -256,7 +287,8 @@
       "fr": "fr/ia-recrutement-emploi",
       "de": "de/ki-personalauswahl",
       "es": "es/ia-seleccion-personal",
-      "pt": "pt/ia-recrutamento"
+      "pt": "pt/ia-recrutamento",
+      "nl": "nl/ai-werving-en-werk"
     },
     {
       "it": "laboratorio-ai-act-in-classe",
@@ -264,7 +296,8 @@
       "fr": "fr/atelier-ai-act-en-classe",
       "de": "de/ai-act-unterrichtseinheit",
       "es": "es/taller-ai-act-aula",
-      "pt": "pt/atividade-ai-act-sala-aula"
+      "pt": "pt/atividade-ai-act-sala-aula",
+      "nl": "nl/ai-lesworkshop"
     },
     {
       "it": "cittadinanza-digitale-regolazione-ia",
@@ -272,7 +305,8 @@
       "fr": "fr/citoyennete-numerique-reglementation-ia",
       "de": "de/digitale-buergerschaft-ki-regulierung",
       "es": "es/ciudadania-digital-regulacion-ia",
-      "pt": "pt/cidadania-digital-regulacao-ia"
+      "pt": "pt/cidadania-digital-regulacao-ia",
+      "nl": "nl/digitaal-burgerschap-ai-regulering"
     },
     {
       "it": "lezione-approccio-rischio",
@@ -280,7 +314,8 @@
       "fr": "fr/seance-approche-par-les-risques",
       "de": "de/unterrichtsplan-risiko",
       "es": "es/plan-clase-riesgo",
-      "pt": "pt/plano-aula-risco"
+      "pt": "pt/plano-aula-risco",
+      "nl": "nl/lesplan-risicobenadering"
     },
     {
       "it": "lezione-trasparenza-utenti",
@@ -288,7 +323,8 @@
       "fr": "fr/seance-transparence-utilisateurs",
       "de": "de/unterrichtsplan-transparenz",
       "es": "es/plan-clase-transparencia",
-      "pt": "pt/plano-aula-transparencia"
+      "pt": "pt/plano-aula-transparencia",
+      "nl": "nl/lesplan-transparantie"
     },
     {
       "it": "faq",
@@ -296,7 +332,8 @@
       "fr": "fr/faq",
       "de": "de/faq",
       "es": "es/preguntas-frecuentes",
-      "pt": "pt/perguntas-frequentes"
+      "pt": "pt/perguntas-frequentes",
+      "nl": "nl/veelgestelde-vragen"
     }
   ],
   "enOnly": [],

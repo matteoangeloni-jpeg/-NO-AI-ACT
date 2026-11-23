@@ -1,16 +1,16 @@
-# NO AI ACT · v5.3.1
+# NO AI ACT · v5.4.0
 
-[Italiano](README.md) · [English](README.en.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Português](README.pt.md)
+[Italiano](README.md) · [English](README.en.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Português](README.pt.md) · [Nederlands](README.nl.md)
 
 **Serious game d’enquête sur le règlement européen sur l’IA**
 
-[▶ Jouer](https://www.no-ai-act.eu/play/?lang=fr) · [Site et ressources](https://www.no-ai-act.eu/fr/) · [Version stable](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.3.1)
+[▶ Jouer](https://www.no-ai-act.eu/play/?lang=fr) · [Site et ressources](https://www.no-ai-act.eu/fr/) · [Version stable](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.4.0)
 
 En 2032, dans une ville européenne fictive où l’AI Act n’est jamais entré en vigueur, vous êtes inspecteur. Reconstituez l’utilisation des systèmes d’IA à partir de documents, de témoignages et de registres. Le jeu est gratuit, open source et fonctionne dans le navigateur sans compte.
 
 ## Couverture
 
-Les mêmes langues couvrent le jeu, le site, les ressources pédagogiques, les dossiers de presse, les README et le dossier méthodologique : italien, anglais, français, allemand, espagnol et portugais européen (pt-PT). Chaque langue comprend les 14 cas et les mêmes 37 sections du site. Les URL existantes sont conservées.
+Les mêmes langues couvrent le jeu, le site, les ressources pédagogiques, les dossiers de presse, les README et le dossier méthodologique : italien, anglais, français, allemand, espagnol, portugais européen (pt-PT) et néerlandais. Chaque langue comprend les 14 cas et les mêmes 37 sections du site. Les URL existantes sont conservées.
 
 ## Le parcours de jeu
 
@@ -34,7 +34,7 @@ La progression reste dans le navigateur. Les compteurs agrégés peuvent être d
 
 ## Matériaux de recherche
 
-Study 02 est un laboratoire local absent de la version publique, avec deux formes et une grille codée par des personnes dans les six langues. Il n’active aucune étude avec participants. Équivalence linguistique, validité de la grille et efficacité éducative restent à évaluer avec des personnes. Les résultats de vérification du dossier sont historiques.
+Study 02 est un laboratoire local absent de la version publique, avec deux formes et une grille codée par des personnes dans les sept langues. Il n’active aucune étude avec participants. Équivalence linguistique, validité de la grille et efficacité éducative restent à évaluer avec des personnes. Les résultats de vérification du dossier sont historiques.
 
 [Grille et transfert Study 02](docs/v5/fr/ARGUMENTATION_STUDY02.md) · [Study 02](research/study02/)
 
@@ -66,4 +66,4 @@ Code GPL-3.0-or-later ; contenus CC BY-SA 4.0. Voir LICENSE, CREDITS et THIRD_PA
 
 ## Documentation technique et historique
 
-[Version stable](docs/RELEASE_NOTES_v5.3.1.fr.md) · [Méthode et limites](docs/v5/README.fr.md) · [Press kit](https://www.no-ai-act.eu/fr/dossier-de-presse/) · [GDD](docs/GDD.md) · [README < v5.3.0](docs/archive/README_pre_v5.3.0.it.md)
+[Version stable](docs/RELEASE_NOTES_v5.4.0.fr.md) · [Méthode et limites](docs/v5/README.fr.md) · [Press kit](https://www.no-ai-act.eu/fr/dossier-de-presse/) · [GDD](docs/GDD.md) · [README < v5.3.0](docs/archive/README_pre_v5.3.0.it.md)

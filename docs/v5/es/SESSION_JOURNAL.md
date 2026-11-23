@@ -1,8 +1,8 @@
 # V5.2 - Diario voluntario de sesión individual
 
-[Italiano](../SESSION_JOURNAL.md) · [English](../en/SESSION_JOURNAL.md) · [Français](../fr/SESSION_JOURNAL.md) · [Deutsch](../de/SESSION_JOURNAL.md) · [Español](../es/SESSION_JOURNAL.md) · [Português](../pt/SESSION_JOURNAL.md)
+[Italiano](../SESSION_JOURNAL.md) · [English](../en/SESSION_JOURNAL.md) · [Français](../fr/SESSION_JOURNAL.md) · [Deutsch](../de/SESSION_JOURNAL.md) · [Español](../es/SESSION_JOURNAL.md) · [Português](../pt/SESSION_JOURNAL.md) · [Nederlands](../nl/SESSION_JOURNAL.md)
 
-> Edición lingüística V5.3.0 · 23 de noviembre de 2026. El dossier y los materiales locales de Study 02 están disponibles en seis idiomas. Las fechas, cifras y resultados del prototipo corresponden a ejecuciones históricas. El contrato actual del registro voluntario para adultos figura en SESSION_JOURNAL.md y sustituye la restricción anterior a datos agregados. Las traducciones no demuestran equivalencia de los instrumentos, eficacia educativa ni validez de la rúbrica. No se ejecutaron nuevas pruebas para esta actualización de contenidos.
+> Edición lingüística V5.4.0 · 23 de noviembre de 2026. El dossier y los materiales locales de Study 02 están disponibles en siete idiomas. Las fechas, cifras y resultados del prototipo corresponden a ejecuciones históricas. El contrato actual del registro voluntario para adultos figura en SESSION_JOURNAL.md y sustituye la restricción anterior a datos agregados. Las traducciones no demuestran equivalencia de los instrumentos, eficacia educativa ni validez de la rúbrica. No se ejecutaron nuevas pruebas para esta actualización de contenidos.
 
 
 22 de noviembre de 2026. Implementa la solicitud posterior del propietario para ampliar la colección más allá de los agregados. La restricción anterior a los datos agregados permanece en el expediente histórico V5.0. El protocolo Study 02 es invariable. Esta traducción describe el mismo servicio existente, sin extender su colección.
@@ -39,7 +39,7 @@ El retiro de inmediato detiene la colección. El borrado sin conexión se muestr
 
 Los registros se vuelven inaccesibles 90 días después del consentimiento y se eliminan por limpieza diaria. El retiro elimina todos los eventos y el registro de la sesión. Sólo queda un recibo técnico hasta la misma expiración: UUID, hah credencial, revocación y fecha de vencimiento, para rechazar las remisiones retrasadas.
 
-Base jurídica: consentimiento en virtud del artículo 6 1) a) del RGPD. Controlador: Matteo Angeloni; los contactos aparecen en las páginas del autor. Cloudflare proporciona metadatos de conexión de trabajadores/D1 y procesos para la entrega y seguridad. La base de datos existente está configurada en la jurisdicción de la UE; eso no garantiza el anonimato ni la ausencia de transferencias en toda la infraestructura. [Nota de privacidad de seis idiomas](https://www.no-ai-act.eu/game-statistics.html).
+Base jurídica: consentimiento en virtud del artículo 6 1) a) del RGPD. Controlador: Matteo Angeloni; los contactos aparecen en las páginas del autor. Cloudflare proporciona metadatos de conexión de trabajadores/D1 y procesos para la entrega y seguridad. La base de datos existente está configurada en la jurisdicción de la UE; eso no garantiza el anonimato ni la ausencia de transferencias en toda la infraestructura. [Nota de privacidad de siete idiomas](https://www.no-ai-act.eu/game-statistics.html).
 
 El propósito es corregir y mejorar los soportes de juego y aprendizaje. La ventana de 90 días soporta comparaciones entre iteraciones sin un archivo individual indefinido. El consentimiento no autoriza una colección no relacionada o desproporcionada: las Directrices de la EDPB 05/2020, párrafo 5, conservan la necesidad, la proporcionalidad y los principios del artículo 5 del RGPD. La colección no se extiende a la navegación externa, identificación nombrada, huella dactilar o solicitudes de datos de reproductores sensibles.
 

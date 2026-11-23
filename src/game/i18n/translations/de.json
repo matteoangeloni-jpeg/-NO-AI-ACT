@@ -236,7 +236,9 @@
           "activities_es": "Unterrichtsaktivitäten (ES)",
           "lesson_es": "Einführung für Lehrkräfte (ES)",
           "activities_pt": "Unterrichtsaktivitäten (PT)",
-          "lesson_pt": "Einführung für Lehrkräfte (PT)"
+          "lesson_pt": "Einführung für Lehrkräfte (PT)",
+          "activities_nl": "Unterrichtsaktivitäten (NL)",
+          "lesson_nl": "Einführung für Lehrkräfte (NL)"
         },
         "close": "Schließen"
       },

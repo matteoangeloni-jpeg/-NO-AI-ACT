@@ -28,6 +28,18 @@ export const PRESS_COVERAGE = [
 ];
 
 const copy = {
+  nl: {
+    title: 'In de media', previous: 'Vorig bericht', next: 'Volgend bericht',
+    types: ['Artikel · Italiaans', 'Interview · Italiaans', 'Bijdrage van de maker · Engels', 'Verhaal van de ontwikkelaar · Engels', 'Gameplayvideo · Italiaans', 'Recensie · Italiaans'],
+    descriptions: [
+      'Een introductie tot het spel, de spelmodi en de beperkingen, op basis van de inzending en het openbare materiaal van de ontwikkelaar.',
+      'Een interview met Matteo Angeloni, de maker en ontwikkelaar van NO AI ACT.',
+      'Een bijdrage van Matteo Angeloni over het project en mogelijke toepassingen in het onderwijs; geen onafhankelijke recensie.',
+      'Matteo Angeloni vertelt over het ontstaan en de ontwikkeling van het spel; geen onafhankelijke recensie.',
+      'Een becommentarieerde speelsessie in het Italiaans van 3 oktober 2026, opgenomen vóór versie 4 en 5.',
+      'De recensie van Absolute Gamer over het onderzoekende serious game.'
+    ]
+  },
   it: {
     title: 'Parlano di noi.', previous: 'Contenuto precedente', next: 'Contenuto successivo',
     types: ['Articolo · italiano', 'Intervista · italiano', 'Contributo dell’autore · inglese', 'Racconto dello sviluppatore · inglese', 'Video gameplay · italiano', 'Recensione · italiano'],

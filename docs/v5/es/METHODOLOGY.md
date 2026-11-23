@@ -1,11 +1,11 @@
 # NO AI ACT V5 — diseño metodológico
 
-[Italiano](../METHODOLOGY.md) · [English](../en/METHODOLOGY.md) · [Français](../fr/METHODOLOGY.md) · [Deutsch](../de/METHODOLOGY.md) · [Español](../es/METHODOLOGY.md) · [Português](../pt/METHODOLOGY.md)
+[Italiano](../METHODOLOGY.md) · [English](../en/METHODOLOGY.md) · [Français](../fr/METHODOLOGY.md) · [Deutsch](../de/METHODOLOGY.md) · [Español](../es/METHODOLOGY.md) · [Português](../pt/METHODOLOGY.md) · [Nederlands](../nl/METHODOLOGY.md)
 
-> Edición lingüística V5.3.0 · 23 de noviembre de 2026. El dossier y los materiales locales de Study 02 están disponibles en seis idiomas. Las fechas, cifras y resultados del prototipo corresponden a ejecuciones históricas. El contrato actual del registro voluntario para adultos figura en SESSION_JOURNAL.md y sustituye la restricción anterior a datos agregados. Las traducciones no demuestran equivalencia de los instrumentos, eficacia educativa ni validez de la rúbrica. No se ejecutaron nuevas pruebas para esta actualización de contenidos.
+> Edición lingüística V5.4.0 · 23 de noviembre de 2026. El dossier y los materiales locales de Study 02 están disponibles en siete idiomas. Las fechas, cifras y resultados del prototipo corresponden a ejecuciones históricas. El contrato actual del registro voluntario para adultos figura en SESSION_JOURNAL.md y sustituye la restricción anterior a datos agregados. Las traducciones no demuestran equivalencia de los instrumentos, eficacia educativa ni validez de la rúbrica. No se ejecutaron nuevas pruebas para esta actualización de contenidos.
 
 
-Revisión del 21 de noviembre de 2026. Base de referencia comprobada en la rama local desde el 527fde5 principal. El despliegue de la PR 128 se completó con éxito. El propietario posteriormente autorizó la publicación como V5.0.0; notas de lanzamiento y estado están disponibles en [RELEASE_NOTES_v5.0.0.en.md](../././RELEASE_NOTES_v5.0.0.en.md) y la versión GitHub.
+Revisión del 21 de noviembre de 2026. Base de referencia comprobada en la rama local desde el 527fde5 principal. El despliegue de la PR 128 se completó con éxito. El propietario posteriormente autorizó la publicación como V5.0.0; notas de lanzamiento y estado están disponibles en [RELEASE_NOTES_v5.0.0.en.md](../../RELEASE_NOTES_v5.0.0.en.md) y la versión GitHub.
 
 ## Design decision
 

@@ -36,19 +36,20 @@ export const CONCEPT_IDS: ConceptId[] = [
  * L'esistenza di ogni pagina è verificata dai test (tests/learningExperience).
  */
 export const CONCEPT_LINKS: Record<ConceptId, Record<LanguageCode, string>> = {
-  risk_based_approach: { it: '/categorie-rischio-ai-act/', en: '/en/ai-act-risk-categories/', fr: '/fr/categories-de-risque-ai-act/', de: '/de/ki-risikokategorien/', es: '/es/categorias-riesgo-ia/', pt: '/pt/categorias-risco-ia/' },
-  prohibited_practices: { it: '/pratiche-vietate-ai-act/', en: '/en/prohibited-ai-practices/', fr: '/fr/pratiques-interdites-ai-act/', de: '/de/verbotene-ki-praktiken/', es: '/es/practicas-ia-prohibidas/', pt: '/pt/praticas-ia-proibidas/' },
-  high_risk: { it: '/sistemi-ai-ad-alto-rischio/', en: '/en/high-risk-ai-systems/', fr: '/fr/systemes-ia-a-haut-risque/', de: '/de/hochrisiko-ki-systeme/', es: '/es/sistemas-ia-alto-riesgo/', pt: '/pt/sistemas-ia-risco-elevado/' },
-  transparency: { it: '/obblighi-trasparenza-ai-act/', en: '/en/transparency-obligations/', fr: '/fr/obligations-de-transparence/', de: '/de/ki-transparenzpflichten/', es: '/es/obligaciones-transparencia-ia/', pt: '/pt/obrigacoes-transparencia-ia/' },
-  gpai: { it: '/ai-generativa-e-gpai/', en: '/en/general-purpose-ai/', fr: '/fr/ia-a-usage-general/', de: '/de/ki-modelle-allgemeiner-verwendungszweck/', es: '/es/modelos-ia-uso-general/', pt: '/pt/modelos-ia-finalidade-geral/' },
-  human_oversight: { it: '/guida-ai-act/', en: '/en/eu-ai-act-guide/', fr: '/fr/guide-ai-act/', de: '/de/ki-verordnung-leitfaden/', es: '/es/guia-reglamento-ia/', pt: '/pt/guia-regulamento-ia/' },
-  data_governance: { it: '/glossario/', en: '/en/glossary/', fr: '/fr/glossaire/', de: '/de/ki-verordnung-glossar/', es: '/es/glosario-ia/', pt: '/pt/glossario-ia/' },
-  privacy_by_design: { it: '/privacy-by-design/', en: '/en/privacy-by-design/', fr: '/fr/protection-des-donnees-des-la-conception/', de: '/de/datenschutz/', es: '/es/privacidad/', pt: '/pt/privacidade/' },
-  ai_literacy: { it: '/alfabetizzazione-ai/', en: '/en/ai-literacy/', fr: '/fr/maitrise-de-l-ia/', de: '/de/ki-kompetenz/', es: '/es/alfabetizacion-ia/', pt: '/pt/literacia-ia/' }
+  risk_based_approach: { it: '/categorie-rischio-ai-act/', en: '/en/ai-act-risk-categories/', fr: '/fr/categories-de-risque-ai-act/', de: '/de/ki-risikokategorien/', es: '/es/categorias-riesgo-ia/', pt: '/pt/categorias-risco-ia/', nl: '/nl/risicocategorieen-ai/' },
+  prohibited_practices: { it: '/pratiche-vietate-ai-act/', en: '/en/prohibited-ai-practices/', fr: '/fr/pratiques-interdites-ai-act/', de: '/de/verbotene-ki-praktiken/', es: '/es/practicas-ia-prohibidas/', pt: '/pt/praticas-ia-proibidas/', nl: '/nl/verboden-ai-praktijken/' },
+  high_risk: { it: '/sistemi-ai-ad-alto-rischio/', en: '/en/high-risk-ai-systems/', fr: '/fr/systemes-ia-a-haut-risque/', de: '/de/hochrisiko-ki-systeme/', es: '/es/sistemas-ia-alto-riesgo/', pt: '/pt/sistemas-ia-risco-elevado/', nl: '/nl/ai-systemen-hoog-risico/' },
+  transparency: { it: '/obblighi-trasparenza-ai-act/', en: '/en/transparency-obligations/', fr: '/fr/obligations-de-transparence/', de: '/de/ki-transparenzpflichten/', es: '/es/obligaciones-transparencia-ia/', pt: '/pt/obrigacoes-transparencia-ia/', nl: '/nl/transparantieverplichtingen/' },
+  gpai: { it: '/ai-generativa-e-gpai/', en: '/en/general-purpose-ai/', fr: '/fr/ia-a-usage-general/', de: '/de/ki-modelle-allgemeiner-verwendungszweck/', es: '/es/modelos-ia-uso-general/', pt: '/pt/modelos-ia-finalidade-geral/', nl: '/nl/ai-modellen-algemene-doeleinden/' },
+  human_oversight: { it: '/guida-ai-act/', en: '/en/eu-ai-act-guide/', fr: '/fr/guide-ai-act/', de: '/de/ki-verordnung-leitfaden/', es: '/es/guia-reglamento-ia/', pt: '/pt/guia-regulamento-ia/', nl: '/nl/gids-ai-verordening/' },
+  data_governance: { it: '/glossario/', en: '/en/glossary/', fr: '/fr/glossaire/', de: '/de/ki-verordnung-glossar/', es: '/es/glosario-ia/', pt: '/pt/glossario-ia/', nl: '/nl/begrippenlijst/' },
+  privacy_by_design: { it: '/privacy-by-design/', en: '/en/privacy-by-design/', fr: '/fr/protection-des-donnees-des-la-conception/', de: '/de/datenschutz/', es: '/es/privacidad/', pt: '/pt/privacidade/', nl: '/nl/privacy-door-ontwerp/' },
+  ai_literacy: { it: '/alfabetizzazione-ai/', en: '/en/ai-literacy/', fr: '/fr/maitrise-de-l-ia/', de: '/de/ki-kompetenz/', es: '/es/alfabetizacion-ia/', pt: '/pt/literacia-ia/', nl: '/nl/ai-geletterdheid/' }
 };
 
 /** Pagine consigliate quando non ci sono concetti deboli da approfondire. */
 export const FALLBACK_LINKS: Record<LanguageCode, string[]> = {
+  nl: ['/nl/onderwijs/', '/nl/gids-ai-verordening/', '/nl/begrippenlijst/'],
   it: ['/educazione/', '/guida-ai-act/', '/glossario/'],
   en: ['/en/education/', '/en/eu-ai-act-guide/', '/en/glossary/'],
   fr: ['/fr/education/', '/fr/guide-ai-act/', '/fr/glossaire/'],
@@ -74,7 +75,9 @@ export const TEACHER_RESOURCES: { id: string; url: string }[] = [
   { id: 'activities_es', url: '/es/actividades-didacticas/' },
   { id: 'lesson_es', url: '/es/plan-clase-introduccion-ia/' },
   { id: 'activities_pt', url: '/pt/atividades-pedagogicas/' },
-  { id: 'lesson_pt', url: '/pt/plano-aula-introducao-ia/' }
+  { id: 'lesson_pt', url: '/pt/plano-aula-introducao-ia/' },
+  { id: 'activities_nl', url: '/nl/lesactiviteiten/' },
+  { id: 'lesson_nl', url: '/nl/lesplan-inleiding-ai/' }
 ];
 
 export function conceptLink(id: ConceptId, lang: LanguageCode): string {
@@ -99,6 +102,10 @@ export interface SiteLinkSet {
 }
 
 export const SITE_LINKS: Record<LanguageCode, SiteLinkSet> = {
+  nl: {
+    play: '../nl/zo-werkt-het/', hub: '../nl/onderwijs/', teacher: '../nl/ai-verordening-voor-docenten/',
+    guide: '../nl/gids-ai-verordening/', glossary: '../nl/begrippenlijst/', privacy: '../nl/privacy-door-ontwerp/', home: '../nl/'
+  },
   it: {
     play: '../come-funziona/',
     hub: '../educazione/',

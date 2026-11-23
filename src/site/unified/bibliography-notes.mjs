@@ -1,6 +1,17 @@
 // Commentary is translated; publication titles, author names and identifiers
 // remain original. Access limits describe the historical review of 21 Nov.
 export const BIBLIOGRAPHY_NOTES={
+ nl:[
+  'OpenEdition toonde een controle tegen bots. De modelstructuur is ook beschreven in de institutionele DRANE-bron en in de RIHM-publicatie van de auteur uit 2019, die gedeeltelijk via indexering toegankelijk was. Deze toegangsbeperking blijft uitdrukkelijk gelden voor het gebruik bij het ontwerp.',
+  'Metadata en samenvatting gecontroleerd in het Heriot-Watt-repositorium. Het manuscript bij TU Eindhoven gaf HTTP 403. Dit onderzoek uit het Europese GALA-netwerk ondersteunt de traceerbare koppeling tussen leerdoelen en spelmechanieken.',
+  'De open tekst in het Twente-repositorium is geraadpleegd, vooral de inleiding en discussie. Het overzicht van 56 studies naar beroepscompetenties bespreekt risico’s voor de validiteit, authenticiteit en adaptiviteit. De invloed van feedback op prestaties onderbouwt de scheiding tussen leerbegeleiding en onafhankelijke meting.',
+  'Het officiële record en de JRC-descriptoren zijn gecontroleerd; het record vermeldt 27 november 2025. De speldoelen zijn een bewerking door de maker, geen certificering door de Commissie.',
+  'De artikelen 4 en 4 bis, verboden, verplichtingen en bijlage III vormen de basis van de juridische matrix. Artikel 4 verlangt dat aanbieders en gebruiksverantwoordelijken maatregelen nemen ter ondersteuning van de AI-geletterdheid van hun personeel, rekening houdend met kennis, context en betrokken personen; het verlangt geen garantie van een bepaald individueel niveau. De Commissie en de lidstaten ondersteunen deze inspanningen. De termijnen van artikel 113 moeten worden onderscheiden van het fictieve jaar 2032.',
+  'De tekst van het Comité van Ministers en de institutionele pagina zijn gecontroleerd. Rechten, autonomie en reflectieve praktijk onderbouwen vragen over betrokken personen en de grenzen van een oordeel. Deze aanbeveling van de Raad van Europa verschilt institutioneel en juridisch van de EU-verordening.',
+  'Metadata gecontroleerd; de uitgever bood geen toegang tot de volledige tekst. De bron onderbouwt uitsluitend een controle van de leerondersteuning. Effectgroottes worden niet overgenomen voor dit spel.',
+  'Metadata en samenvatting gecontroleerd in het Twente-repositorium. Het vakgebied en de steekproef beperken de generaliseerbaarheid. De studie onderbouwt een vergelijking tussen een zelfstandige toelichting en een begeleide discussie.',
+  'Metadata en samenvatting gecontroleerd in het Wageningen-repositorium. Het overzicht behandelt voorwaarden, omgeving, processen en resultaten. Toepassing op een individueel notitieboek vraagt voorzichtigheid, omdat het overzicht samenwerkingssituaties betreft. De aanwijzingen en rubric zijn een lokaal voorstel dat nog moet worden gevalideerd.'
+ ],
  de:[
   'OpenEdition zeigte eine Bot-Prüfung. Die Modellstruktur ist außerdem in der institutionellen DRANE-Ressource und in der RIHM-Publikation des Autors von 2019 dokumentiert, die teilweise über die Indexierung zugänglich war. Diese Zugriffsbeschränkung gilt ausdrücklich auch für die Verwendung im Entwurf.',
   'Metadaten und Abstract wurden im Heriot-Watt-Repositorium geprüft. Das Manuskript bei TU Eindhoven lieferte HTTP 403. Diese Arbeit aus dem europäischen GALA-Netzwerk unterstützt die Nachverfolgbarkeit zwischen Lernzielen und Spielmechaniken.',

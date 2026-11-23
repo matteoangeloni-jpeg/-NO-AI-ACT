@@ -12,10 +12,11 @@ const routes = [
   ['fr', 'fr/index.html', 'fr/dossier-de-presse/index.html'],
   ['de', 'de/index.html', 'de/pressemappe/index.html'],
   ['es', 'es/index.html', 'es/kit-de-prensa/index.html'],
-  ['pt', 'pt/index.html', 'pt/kit-de-imprensa/index.html']
+  ['pt', 'pt/index.html', 'pt/kit-de-imprensa/index.html'],
+  ['nl', 'nl/index.html', 'nl/persmap/index.html']
 ];
 
-describe('verified media coverage in six languages', () => {
+describe('verified media coverage in seven languages', () => {
   it('keeps six distinct original sources with local credited assets and verified dates', () => {
     expect(PRESS_COVERAGE).toHaveLength(6);
     expect(new Set(PRESS_COVERAGE.map((p: any) => p.href)).size).toBe(6);

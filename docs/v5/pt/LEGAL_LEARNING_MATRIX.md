@@ -1,8 +1,8 @@
 # C. Casos, direito, mediação e reflexão final
 
-[Italiano](../LEGAL_LEARNING_MATRIX.md) · [English](../en/LEGAL_LEARNING_MATRIX.md) · [Français](../fr/LEGAL_LEARNING_MATRIX.md) · [Deutsch](../de/LEGAL_LEARNING_MATRIX.md) · [Español](../es/LEGAL_LEARNING_MATRIX.md) · [Português](../pt/LEGAL_LEARNING_MATRIX.md)
+[Italiano](../LEGAL_LEARNING_MATRIX.md) · [English](../en/LEGAL_LEARNING_MATRIX.md) · [Français](../fr/LEGAL_LEARNING_MATRIX.md) · [Deutsch](../de/LEGAL_LEARNING_MATRIX.md) · [Español](../es/LEGAL_LEARNING_MATRIX.md) · [Português](../pt/LEGAL_LEARNING_MATRIX.md) · [Nederlands](../nl/LEGAL_LEARNING_MATRIX.md)
 
-> Edição linguística V5.3.0 · 23 de novembro de 2026. O dossier e os materiais locais de Study 02 estão disponíveis em seis línguas. As datas, contagens e resultados do protótipo descrevem execuções históricas. O contrato atual do registo facultativo para adultos está em SESSION_JOURNAL.md e substitui a anterior restrição aos agregados. As traduções não demonstram equivalência dos instrumentos, eficácia educativa ou validade da rubrica. Não foram executados novos testes nesta atualização de conteúdos.
+> Edição linguística V5.4.0 · 23 de novembro de 2026. O dossier e os materiais locais de Study 02 estão disponíveis em sete línguas. As datas, contagens e resultados do protótipo descrevem execuções históricas. O contrato atual do registo facultativo para adultos está em SESSION_JOURNAL.md e substitui a anterior restrição aos agregados. As traduções não demonstram equivalência dos instrumentos, eficácia educativa ou validade da rubrica. Não foram executados novos testes nesta atualização de conteúdos.
 
 
 Verificação documental de 21 de novembro de 2026 com a versão consolidada do EUR-Lex de 27 de julho de 2026. A matriz apoia a conceção e a revisão. A interpretação jurídica das circunstâncias de cada caso continua a exigir revisão humana especializada. Esta ampliação não altera as soluções jurídicas nem as pontuações do jogo.

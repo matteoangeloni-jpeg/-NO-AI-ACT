@@ -10,3 +10,7 @@ Wikimedia Commons vectors. No project authorship of the flag designs is claimed.
 Assets are served locally, without contacting a third-party CDN at runtime.
 Flags are decorative cues alongside written language names, not standalone
 language identifiers. GB accompanies English; PT accompanies European Portuguese.
+
+NL is a local SVG implementation of the Dutch tricolour, a public-domain flag
+design. It accompanies the written endonym Nederlands and makes no runtime
+request to a third-party image service.

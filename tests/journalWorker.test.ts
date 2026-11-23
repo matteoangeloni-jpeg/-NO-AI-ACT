@@ -102,14 +102,14 @@ describe('idempotence, erasure, encryption and private access',()=>{
  });
 });
 describe('all playable languages and cases traverse the actual client/server boundary',()=>{
- it('records all 14 case IDs in six languages with version, channel and case filters, without thresholds',async()=>{
+ it('records all 14 case IDs in seven languages with version, channel and case filters, without thresholds',async()=>{
   const {env,db}=fixture();
   for(const language of LANGUAGE_CODES){const origin=language==='it'?'https://www.no-ai-act.eu':'https://beta.no-ai-act.eu';
    const journal=new SessionJournal({enabled:true,endpoint:'https://beta.no-ai-act.eu/collect/v3',now:()=>NOW,fetch:(async(input,init)=>handleJournalCollector(new Request(String(input),{...init,headers:{'Content-Type':'application/json',Origin:origin}}),env,NOW)) as typeof fetch});
    journal.setContextProvider(()=>({language,mode:'turno',phase:'evidence',difficulty:'standard',mission:'full',audience:'casual'}));expect(await journal.start(true,false)).toBe(true);
    for(const c of PLAYABLE_CASES)journal.record('evidence_interaction',{evidenceIndex:0,opened:true,cited:false},{caseId:c.id});expect(await journal.flush()).toBe(true);
   }
-  expect(count(db,'journal_sessions')).toBe(6);expect(count(db,'journal_events')).toBe(6*15);
+  expect(count(db,'journal_sessions')).toBe(LANGUAGE_CODES.length);expect(count(db,'journal_events')).toBe(LANGUAGE_CODES.length*15);
   const result=await (await handleJournalAdmin(admin(`/api/journal/sessions?caseId=case_bias&language=de&version=${ANALYTICS_GAME_VERSION}&channel=beta`),env,NOW))!.json();expect(result.sessions).toHaveLength(1);expect(result.sessions[0].language).toBe('de');expect(result.sessions[0].event_count).toBe(15);
   expect((await handleJournalAdmin(admin('/api/journal/sessions?caseId=bad'),env,NOW))!.status).toBe(400);
   expect((await handleJournalAdmin(admin('/api/journal/sessions?from=2026-02-30&to=2026-03-01'),env,NOW))!.status).toBe(400);

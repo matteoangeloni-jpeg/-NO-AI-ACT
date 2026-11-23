@@ -17,17 +17,17 @@ function nodes(n: any): any[] { return [n, ...(n.childNodes ?? []).flatMap(nodes
 
 describe('European website localization aligned with gameplay', () => {
   it('has the same complete topic coverage per language and no phantom translations', () => {
-    expect(SITE_LANGUAGE_CODES).toEqual(['it', 'en', 'fr', 'de', 'es', 'pt']);
+    expect(SITE_LANGUAGE_CODES).toEqual(['it', 'en', 'fr', 'de', 'es', 'pt', 'nl']);
     expect(LANGUAGE_CODES).toEqual(SITE_LANGUAGE_CODES);
     expect(INVENTORY_DIRS).toHaveLength(config.pairs.length * SITE_LANGUAGE_CODES.length);
-    for (const lang of ['de', 'es', 'pt']) {
+    for (const lang of ['de', 'es', 'pt', 'nl']) {
       const dirs = INVENTORY_DIRS.filter(d => d === lang || d.startsWith(`${lang}/`));
       expect(new Set(dirs)).toEqual(new Set(config.pairs.map((group: any) => group[lang])));
       expect(dirs).toHaveLength(config.pairs.length);
     }
   });
 
-  for (const route of publicRoutes(config).filter((r: any) => ['de', 'es', 'pt'].includes(r.lang))) {
+  for (const route of publicRoutes(config).filter((r: any) => ['de', 'es', 'pt', 'nl'].includes(r.lang))) {
     it(`${route.dir}: localized document, readable content and honest game links`, () => {
       const html = read(`${route.dir}/index.html`);
       const all = nodes(parse(html));
@@ -59,7 +59,7 @@ describe('European website localization aligned with gameplay', () => {
       for (const [lang, dir] of Object.entries(route.group)) {
         const link = links.find(n => attr(n, 'hreflang') === languageCode(lang));
         const flag = nodes(link).find(n => n.tagName === 'img');
-        expect(attr(flag, 'src')).toBe(`/assets/flags/${lang === 'en' ? 'gb' : lang}.png`);
+        expect(attr(flag, 'src')).toBe(`/assets/flags/${lang === 'en' ? 'gb' : lang}.${lang === 'nl' ? 'svg' : 'png'}`);
         expect(attr(flag, 'alt')).toBe('');
         expect(attr(link, 'href')).toBe(dir ? `/${dir}/` : '/');
         expect(attr(link, 'aria-current')).toBe(lang === route.lang ? 'page' : undefined);

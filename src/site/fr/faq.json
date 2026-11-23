@@ -1,7 +1,7 @@
 {
   "en": "en/faq",
   "slug": "faq",
-  "sourceHash": "051f1b811ad7aabc88b21a31b1c9a8bc0eb41335e8ffa11659e5195a89a12f4b",
+  "sourceHash": "0bb38b354a01b45d3567c623b7a0f3c7c065052e1d86a290dfb4f05c6839e678",
   "title": "Questions fréquentes sur NO AI ACT",
   "description": "Réponses sur la gratuité, les langues, les licences, la confidentialité, les usages pédagogiques et les limites du serious game NO AI ACT.",
   "blocks": [
@@ -24,7 +24,7 @@
     "Les joueurs sont-ils suivis ?",
     "Les compteurs agrégés peuvent être désactivés. Les adultes peuvent consentir séparément à un registre de session pseudonyme conservé 90 jours ; les textes du parcours guidé nécessitent un accord supplémentaire. Retrait du consentement, effacement et export sont disponibles dans la barre du jeu. Aucun profil publicitaire ni suivi entre visites ne sont ajoutés. DNT/GPC sont respectés.",
     "Quelles langues sont disponibles ?",
-    "Italien, anglais, français, allemand, espagnol et portugais européen : les 14 cas, 37 sections du site par langue, les dossiers de presse et le dossier méthodologique. Les matériaux locaux de Study 02 existent également dans les six langues ; leur équivalence reste à valider avec des personnes.",
+    "Italien, anglais, français, allemand, espagnol, portugais européen et néerlandais : les 14 cas, 37 sections du site par langue, les dossiers de presse et le dossier méthodologique. Les matériaux locaux de Study 02 existent également dans les sept langues ; leur équivalence reste à valider avec des personnes.",
     "Le jeu couvre-t-il tout l'AI Act ?",
     "Non. Il aborde les concepts structurants (catégories de risque, pratiques interdites, transparence, IA à usage général, contrôle humain, responsabilité) à travers 14 cas et les pages associées.",
     "Peut-il servir à une formation à la conformité ?",

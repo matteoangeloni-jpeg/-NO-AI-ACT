@@ -1,8 +1,8 @@
 # NO AI ACT V5 — conception méthodologique
 
+[Italiano](../METHODOLOGY.md) · [English](../en/METHODOLOGY.md) · [Français](../fr/METHODOLOGY.md) · [Deutsch](../de/METHODOLOGY.md) · [Español](../es/METHODOLOGY.md) · [Português](../pt/METHODOLOGY.md) · [Nederlands](../nl/METHODOLOGY.md)
 
-> Édition linguistique V5.3.0 · 23 novembre 2026. Le dossier et les matériaux locaux de Study 02 sont désormais disponibles dans les six langues. Les dates, nombres et résultats du prototype décrivent les exécutions historiques. Le contrat actuel du registre facultatif réservé aux adultes figure dans SESSION_JOURNAL.md et remplace la restriction antérieure aux seuls agrégats. Les traductions ne démontrent ni équivalence des instruments, ni efficacité éducative, ni validité de la grille. Aucun nouveau test pour cette mise à jour des contenus.
-
+> Édition linguistique V5.4.0 · 23 novembre 2026. Le dossier et les matériaux locaux de Study 02 sont désormais disponibles dans les sept langues. Les dates, nombres et résultats du prototype décrivent les exécutions historiques. Le contrat actuel du registre facultatif réservé aux adultes figure dans SESSION_JOURNAL.md et remplace la restriction antérieure aux seuls agrégats. Les traductions ne démontrent ni équivalence des instruments, ni efficacité éducative, ni validité de la grille. Aucun nouveau test pour cette mise à jour des contenus.
 
 
 Révision du 21 novembre 2026. Base vérifiée dans la branche locale depuis main 527fde5. Le déploiement de la PR 128 a réussi. Le propriétaire a ensuite autorisé V5.0.0 ; notes et état du déploiement figurent dans [RELEASE_NOTES_v5.0.0.fr.md](../../RELEASE_NOTES_v5.0.0.fr.md) et la release GitHub.

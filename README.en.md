@@ -1,16 +1,16 @@
-# NO AI ACT · v5.3.1
+# NO AI ACT · v5.4.0
 
-[Italiano](README.md) · [English](README.en.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Português](README.pt.md)
+[Italiano](README.md) · [English](README.en.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Português](README.pt.md) · [Nederlands](README.nl.md)
 
 **Investigative serious game about the European AI Act**
 
-[▶ Play](https://www.no-ai-act.eu/play/?lang=en) · [Website and resources](https://www.no-ai-act.eu/en/) · [Stable release](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.3.1)
+[▶ Play](https://www.no-ai-act.eu/play/?lang=en) · [Website and resources](https://www.no-ai-act.eu/en/) · [Stable release](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.4.0)
 
 It is 2032 in a fictional European city where the AI Act never entered into force. As an inspector, reconstruct how AI systems are used through documents, testimony and logs. The game is free, open source and runs in the browser without an account.
 
 ## Coverage
 
-The same languages cover the game, website, learning resources, press kits, READMEs and methodology dossier: Italian, English, French, German, Spanish and European Portuguese (pt-PT). Every language includes all 14 cases and the same 37 website sections. Existing URLs are preserved.
+The same languages cover the game, website, learning resources, press kits, READMEs and methodology dossier: Italian, English, French, German, Spanish, European Portuguese (pt-PT) and Dutch. Every language includes all 14 cases and the same 37 website sections. Existing URLs are preserved.
 
 ## The game journey
 
@@ -34,7 +34,7 @@ Progress stays in the browser. Aggregate counters can be disabled. Adults alone 
 
 ## Research materials
 
-Study 02 is a local laboratory outside the public build, with two forms and a human-coded rubric in six languages. It does not activate participant research. Linguistic equivalence, rubric validity and educational effectiveness still require human evaluation. Verification results in the dossier are historical records.
+Study 02 is a local laboratory outside the public build, with two forms and a human-coded rubric in seven languages. It does not activate participant research. Linguistic equivalence, rubric validity and educational effectiveness still require human evaluation. Verification results in the dossier are historical records.
 
 [Rubric and Study 02 transfer task](docs/v5/en/ARGUMENTATION_STUDY02.md) · [Study 02](research/study02/)
 
@@ -66,4 +66,4 @@ Code: GPL-3.0-or-later; content: CC BY-SA 4.0. See LICENSE, CREDITS and THIRD_PA
 
 ## Technical documentation and history
 
-[Stable release](docs/RELEASE_NOTES_v5.3.1.en.md) · [Method and limits](docs/v5/README.en.md) · [Press kit](https://www.no-ai-act.eu/en/press-kit/) · [GDD](docs/GDD.md) · [README < v5.3.0](docs/archive/README_pre_v5.3.0.it.md)
+[Stable release](docs/RELEASE_NOTES_v5.4.0.en.md) · [Method and limits](docs/v5/README.en.md) · [Press kit](https://www.no-ai-act.eu/en/press-kit/) · [GDD](docs/GDD.md) · [README < v5.3.0](docs/archive/README_pre_v5.3.0.it.md)
