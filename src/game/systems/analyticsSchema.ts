@@ -2,6 +2,9 @@ import { PLAYABLE_CASES } from '../data/cases';
 import { en } from '../i18n/en';
 import type { Classification, Measure, ResponsibleSubject } from '../data/types';
 import packageMetadata from '../../../package.json';
+// @ts-expect-error Shared ESM release and route inventory.
+import { PLAYABLE_LANGUAGES } from '../../site/route-inventory.mjs';
+import type { LanguageCode } from '../data/types';
 
 export const ANALYTICS_SCHEMA_VERSION = 2 as const;
 export const ANALYTICS_SCHEMA_VERSIONS = Object.freeze([1, ANALYTICS_SCHEMA_VERSION] as const);
@@ -10,7 +13,7 @@ export const ANALYTICS_GAME_VERSION = packageMetadata.version;
 export const ANALYTICS_GAME_VERSIONS = Object.freeze([...new Set(['4.0-candidate', '4.0.0', '5.0.0', '5.0.1', '5.1.0', '5.2.0', '5.2.1', ANALYTICS_GAME_VERSION])]);
 export const TUTORIAL_VERSION = 'investigation-v1' as const;
 export const ANALYTICS_LIMITS = Object.freeze({ cells: 512, count: 1_000_000 });
-export const LANGUAGES = Object.freeze(['it', 'en', 'fr', 'de', 'es', 'pt'] as const);
+export const LANGUAGES = Object.freeze([...PLAYABLE_LANGUAGES] as LanguageCode[]);
 export const MODES = Object.freeze(['turno', 'libera', 'sorpresa', 'ripasso'] as const);
 export const PHASES = Object.freeze(['menu', 'briefing', 'map', 'case', 'evidence', 'incident', 'decision', 'report',
   'consequence', 'norm', 'archive', 'glossary', 'session_end', 'finale', 'learning', 'credits'] as const);

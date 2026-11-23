@@ -38,9 +38,8 @@ const dates = new Map([...previous.matchAll(/<url>\s*<loc>([^<]+)<\/loc>\s*<last
 const today = new Date().toISOString().slice(0, 10);
 save('public/sitemap-fr.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${french.map(d => {const url = `${cfg.site}${d}/`; return `  <url>\n    <loc>${url}</loc>\n    <lastmod>${dates.get(url) ?? today}</lastmod>\n  </url>`;}).join('\n')}\n</urlset>\n`);
 const release = JSON.parse(read('release.config.json'));
-release.languages = ['it', 'en', 'fr'];
 release.publicUrls.fr = french.length;
-release.siteLanguages = publishedLanguages(cfg);
+if (JSON.stringify(release.siteLanguages) !== JSON.stringify(publishedLanguages(cfg))) throw new Error('Declared site languages disagree with the route inventory.');
 release.publicUrls.total = publicRoutes(cfg).length;
 save('release.config.json', JSON.stringify(release, null, 2) + '\n');
 console.log(`Inventory synchronized: ${french.length} FR pages.`);

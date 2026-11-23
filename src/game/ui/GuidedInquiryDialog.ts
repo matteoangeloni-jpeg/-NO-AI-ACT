@@ -1,7 +1,7 @@
 import type Phaser from 'phaser';
 import { getCase } from '../data/cases';
 import { caseLearning } from '../data/learning';
-import { L, caseText, normText } from '../i18n';
+import { L, caseText, normText, languageTag } from '../i18n';
 import { GUIDED_COPY } from '../i18n/guidedInquiry';
 import { caseInquiry } from '../i18n/inquiryCases';
 import { GuidedInquiry, type ArgumentField, type PostFeedbackField, type SourceRelation } from '../systems/GuidedInquiry';
@@ -34,7 +34,7 @@ export function openGuidedInquiry(scene: Phaser.Scene, caseId: string, stage: In
   if (keyboard) keyboard.enabled = false;
   const dialog = document.createElement('dialog');
   dialog.className = 'guided-inquiry';
-  dialog.lang = StateManager.language;
+  dialog.lang = languageTag(StateManager.language);
   dialog.dataset.stage = stage;
   dialog.dataset.case = caseId;
   dialog.setAttribute('aria-labelledby', 'inquiry-title');

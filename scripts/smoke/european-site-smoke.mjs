@@ -6,7 +6,7 @@ import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
 import { publicRoutes, languageCode } from '../../src/site/route-inventory.mjs';
 
 const cfg = JSON.parse(readFileSync('scripts/seo/routes.config.json', 'utf8'));
-const routes = publicRoutes(cfg).filter(r => ['de', 'es', 'pt'].includes(r.lang));
+const routes = publicRoutes(cfg).filter(r => process.argv.includes('--all-languages') || ['de', 'es', 'pt'].includes(r.lang));
 const base = process.env.BASE ?? 'http://localhost:4218';
 const out = 'artifacts/european-localization';
 mkdirSync(out, { recursive: true });
@@ -33,7 +33,7 @@ try {
   for (const width of [1440, 390, 320]) {
     await page.setViewportSize({ width, height: 900 });
     for (const route of routes) {
-      await page.goto(`${base}/${route.dir}/`);
+      await page.goto(`${base}${route.dir ? '/'+route.dir+'/' : '/'}`);
       await page.locator('img').evaluateAll(async images => {
         await Promise.all(images.map(async image => { image.loading = 'eager'; await image.decode(); }));
       });
@@ -62,13 +62,13 @@ try {
       await page.keyboard.press('Escape');
       assert.equal(await menu.getAttribute('aria-expanded'), 'false');
       if (width < 600) await page.keyboard.press('Escape');
-      if (route.dir === route.lang) {
+      if (route.dir === route.lang || route.dir === '') {
         const track = page.locator('.press-track');
         await track.scrollIntoViewIfNeeded();
         await page.locator('[data-press-next]').click();
         await page.waitForTimeout(500);
         assert(await track.evaluate(el => el.scrollLeft > 0), `${route.dir}: carousel did not move`);
-        await page.goto(`${base}/${route.dir}/`);
+        await page.goto(`${base}${route.dir ? '/'+route.dir+'/' : '/'}`);
         await page.screenshot({ path: `${out}/${route.lang}-${width}.png`, fullPage: true, animations: 'disabled' });
       }
       results.push({ route: route.dir, width, ...state });

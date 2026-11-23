@@ -8,7 +8,7 @@
   "versionTag": "v5.2.2",
   "lastTaggedRelease": "v5.2.2",
   "contentLastReviewed": "2026-11-22",
-  "languages": [
+  "playableLanguages": [
     "it",
     "en",
     "fr",
@@ -67,6 +67,22 @@
     "legacySessionJournal": "https://beta.no-ai-act.eu/collect/v3"
   },
   "siteLanguages": [
+    "it",
+    "en",
+    "fr",
+    "de",
+    "es",
+    "pt"
+  ],
+  "caseLocalizationStatus": {
+    "it": "complete",
+    "en": "complete",
+    "fr": "complete",
+    "de": "complete",
+    "es": "complete",
+    "pt": "complete"
+  },
+  "learningResourcesLanguages": [
     "it",
     "en",
     "fr",

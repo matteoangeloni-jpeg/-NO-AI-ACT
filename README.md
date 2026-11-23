@@ -69,7 +69,8 @@ Non assegna punteggi automatici al pensiero critico. La validazione
 umana delle traduzioni e dell'efficacia educativa resta da svolgere.
 
 Restano 155 URL pubblici in sei lingue, con diversa profondità editoriale per
-lingua. [Copertura e verifiche](docs/v5/SIX_LANGUAGE_LOCALIZATION.md).
+lingua. [Audit linguistico del 23 novembre 2026](docs/v5/LOCALIZATION_AUDIT_2026-11-23.md)
+su ramo dedicato, non ancora pubblicato; [dossier storico V5.1](docs/v5/SIX_LANGUAGE_LOCALIZATION.md).
 Note: [RELEASE_NOTES_v5.2.2.md](docs/RELEASE_NOTES_v5.2.2.md).
 
 ## Novità in v1.0.0 — Prima release pubblica stabile (storico)
@@ -281,6 +282,15 @@ ipotesi che le misure hanno **smentito**.
 Localizzazione **IT/EN/FR/DE/ES/PT** completa: sistema i18n tipato (`src/game/i18n/`),
 selettore nel menu, lingua persistita. Una suite di test garantisce la parità di
 struttura, segnaposto e indici dei casi fra tutti i sei dizionari.
+
+`release.config.json` distingue `siteLanguages`, `playableLanguages`,
+`caseLocalizationStatus` e `learningResourcesLanguages`. Runtime, selettore,
+inventario del portale e validatore dei contatori usano questo registro. I
+generatori editoriali non possono ridurre le lingue del gioco. Il portale ha
+33 pagine IT, 37 EN, 37 FR e 16 per DE/ES/PT; il dossier metodologico e Study 02
+restano in IT/EN/FR. `npm run audit:localization` controlla tutte le 155 pagine
+e i collegamenti alle lingue giocabili; i test browser sono documentati nel
+rapporto di audit.
 
 ## Accessibilità
 

@@ -7,6 +7,7 @@ import { chromium } from 'playwright';
 import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
 import { prepareEvidenceWithKeyboard } from './lib-evidence.mjs';
 import { completeDecisionWithKeyboard } from './lib-decision.mjs';
+import { PLAYABLE_LANGUAGES } from '../../src/site/route-inventory.mjs';
 
 const compiled=ts.transpileModule(readFileSync('src/game/data/cases.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText;
 const sandbox={exports:{}};vm.runInNewContext(compiled,sandbox);const cases=sandbox.exports.PLAYABLE_CASES;assert.equal(cases.length,14);
@@ -26,13 +27,15 @@ try {
   const deadline=Date.now()+30000;
   while(true){try{if((await fetch(base)).ok)break;}catch{}if(Date.now()>deadline)throw new Error('RC dev preview unavailable');await new Promise(r=>setTimeout(r,100));}
   browser=await chromium.launch(smokeBrowserLaunchOptions());
-  for(const language of ['it','en','fr']) {
+  for(const language of PLAYABLE_LANGUAGES) {
     const context=await browser.newContext({viewport:{width:390,height:844},hasTouch:true,reducedMotion:'reduce'});
     await context.route('**/*',r=>{const u=new URL(r.request().url());if(u.origin!==base || r.request().method()==='POST'){requests.push({language,url:r.request().url()});return r.abort();}return r.continue();});
     await context.addInitScript(lang=>{if(!localStorage.getItem('no-ai-act-save-v2'))localStorage.setItem('no-ai-act-save-v2',JSON.stringify({version:2,language:lang,briefingSeen:true,reducedMotion:true,audioMuted:true,musicEnabled:false,sfxEnabled:false,gameMode:'libera'}));},language);
     const p=await context.newPage();current=p;p.on('pageerror',e=>errors.push(String(e)));p.setDefaultTimeout(30000);
     await p.goto(`${base}/play/?lang=${language}`);await scene(p,'Title');
-    await activate(p,/NUOVA PARTITA|NEW GAME|NOUVELLE PARTIE/);await activate(p,/^(INIZIA|START|COMMENCER)/);
+    const ui=await p.evaluate(async()=>(await import('/src/game/i18n/index.ts')).L().ui);
+    const changeUi=await p.evaluate(async()=>(await import('/src/game/i18n/index.ts')).L().gameplay);
+    await activate(p,ui.menu.newGame);await activate(p,ui.newGamePanel.start);
     await p.waitForFunction(()=>window.game.scene.isActive('CityMap')||window.game.scene.isActive('Case')||window.game.scene.isActive('Briefing'));
     await p.waitForFunction(()=>window.playerTelemetry.snapshot().some(r=>r.event==='pageview'&&['map','case','briefing'].includes(r.properties.phase)));
     // Fixture selection isolates each catalog entry. No mutation of its solution, report or evaluation.
@@ -51,13 +54,14 @@ try {
         const s=window.game.scene.getScene('Report');return {quality:s.params.result.quality,saved:StateManager.completedCases[id],report:StateManager.caseReports[id]};
       },data.id);
       assert.equal(report.quality,'correct',`${language} ${data.id}: evaluation`);assert.equal(report.saved,'correct',`${language} ${data.id}: saved outcome`);assert(report.report);
-      await activate(p,/DEBRIEF.*DECISION|DECISION DEBRIEF|DÉBRIEF.*DÉCISION/);
+      await activate(p,ui.decisionDebrief.button);
       assert((await p.locator('#reading-layer').innerText()).length>100);
       const closeName=await p.evaluate(async()=>(await import('/src/game/i18n/index.ts')).L().ui.decisionDebrief.close);
       await activate(p,closeName);
       if(data.id==='case_media'||data.id==='case_biometria')await p.screenshot({path:`${out}/${language}-${data.id}-report.png`});
-      await activate(p,/^PROSEGUI|^CONTINUE|^POURSUIVRE|^CONTINUER/);await scene(p,'Consequence');
-      assert.match(await p.locator('#reading-layer').innerText(),language==='it'?/Prima.*Dopo.*Variazione/s:language==='en'?/Before.*After.*Change/s:/Avant.*Après.*Variation/s);
+      await activate(p,ui.report.continueButton);await scene(p,'Consequence');
+      const consequence=await p.locator('#reading-layer').innerText();
+      assert(consequence.includes(changeUi.before)&&consequence.includes(changeUi.after)&&consequence.includes(changeUi.delta),`${language}: localized consequence`);
       await p.keyboard.press('Enter');await scene(p,'NormCard');
       const norm=await p.evaluate(async id=>(await import('/src/game/systems/StateManager.ts')).StateManager.unlockedNorms.includes(id),data.normId);assert(norm);
       const backName=await p.evaluate(async()=>(await import('/src/game/i18n/index.ts')).L().ui.normCard.backToMap);
@@ -78,7 +82,8 @@ try {
     await context.close();
   }
   assert.deepEqual(errors,[]);assert.deepEqual(requests,[]);
-  writeFileSync(`${out}/cases-results.json`,JSON.stringify({results,errors,requests,telemetry,limitations:['Catalog entries selected by fixture, not 42 independent human map journeys','Automation is not a human playtest']},null,2));
-  console.log('RC 42 case/language journeys PASS; saved reports restore in all languages.');
+  assert.equal(results.length,PLAYABLE_LANGUAGES.length*cases.length);
+  writeFileSync(`${out}/cases-results.json`,JSON.stringify({results,errors,requests,telemetry,limitations:['Catalog entries selected by fixture; decisions use the real UI','Automation is not a human playtest']},null,2));
+  console.log(`RC ${results.length} case/language journeys PASS; saved reports restore in all languages.`);
 }catch(error){if(current&&!current.isClosed())await current.screenshot({path:`${out}/cases-failure.png`}).catch(()=>{});throw error;}
 finally{await browser?.close();server.kill();if(server.exitCode===null)await new Promise(r=>server.once('exit',r));}

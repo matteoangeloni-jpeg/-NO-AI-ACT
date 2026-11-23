@@ -1,4 +1,4 @@
-import { L } from '../i18n';
+import { L, languageTag } from '../i18n';
 import { StateManager } from './StateManager';
 
 /**
@@ -118,7 +118,7 @@ function render(title: string, sections: ReadingSection[]): void {
   }
   current = { title, sections };
   updateToggleLabel();
-  const documentLanguage = StateManager.language === 'pt' ? 'pt-PT' : StateManager.language;
+  const documentLanguage = languageTag(StateManager.language);
   if (typeof document !== 'undefined') {
     document.documentElement.lang = documentLanguage;
     document.title = `${L().ui.gameTitle} — ${L().ui.gameSubtitle}`;

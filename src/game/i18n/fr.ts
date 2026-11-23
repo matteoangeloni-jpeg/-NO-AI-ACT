@@ -756,7 +756,7 @@ export const fr = {
       heading: 'NO AI ACT',
       roleLabel: 'Conception et direction scientifique',
       author: 'Matteo Angeloni',
-      affiliation: 'PhD Student — Università degli Studi della Tuscia',
+      affiliation: 'Doctorant — Università degli Studi della Tuscia',
       note:
         "FAIT AVEC L'IA, NON PAR L'IA — déclaration volontaire : développé avec\n" +
         "des assistants d'IA, sous la responsabilité éditoriale et scientifique d'une personne.\n" +

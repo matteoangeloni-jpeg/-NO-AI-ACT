@@ -149,7 +149,7 @@ for (const lang of languages) {
   write(path,`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${publicRoutes(config).filter(r=>r.lang===lang).map(r=>`  <url>\n    <loc>${url(r.dir)}</loc>\n    <lastmod>${dates.get(url(r.dir))??today}</lastmod>\n  </url>`).join('\n')}\n</urlset>\n`);
 }
 const release=JSON.parse(read('release.config.json'));
-release.siteLanguages=languages; // release.languages remains the playable languages.
+if(JSON.stringify(release.siteLanguages)!==JSON.stringify(languages))throw new Error('Declared site languages disagree with the route inventory.');
 for (const lang of languages) release.publicUrls[lang]=publicRoutes(config).filter(r=>r.lang===lang).length;
 release.publicUrls.total=publicRoutes(config).length;
 write('release.config.json',JSON.stringify(release,null,2)+'\n');

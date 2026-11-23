@@ -2,10 +2,10 @@ import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { sourceMain, sourceHash, blocks } from '../site/translation-blocks.mjs';
 import { EU_EDITORIAL_OVERRIDES } from '../../src/site/eu-editorial-overrides.mjs';
+import { PLAYABLE_LANGUAGES as LANGUAGES } from '../../src/site/route-inventory.mjs';
 
 const VERSION = '5.1.0';
 const TAG = `v${VERSION}`;
-const LANGUAGES = ['it', 'en', 'fr', 'de', 'es', 'pt'];
 const read = file => readFileSync(file, 'utf8').replaceAll('\r\n', '\n');
 const write = (file, text) => { if (read(file) !== text) writeFileSync(file, text); };
 const cfg = JSON.parse(read('release.config.json'));
@@ -95,7 +95,7 @@ for(const [path,html] of Object.entries(overrides)) {
 write('src/site/eu-editorial-overrides.mjs','// Reviewed editorial pages retained as full-document overrides.\nexport const EU_EDITORIAL_OVERRIDES = '+JSON.stringify(overrides,null,2)+';\n');
 const pkg=JSON.parse(read('package.json'));pkg.version=VERSION;write('package.json',JSON.stringify(pkg,null,2)+'\n');
 const lock=JSON.parse(read('package-lock.json'));lock.version=VERSION;lock.packages[''].version=VERSION;write('package-lock.json',JSON.stringify(lock,null,2)+'\n');
-cfg.versionTag=TAG;cfg.languages=LANGUAGES;cfg.contentLastReviewed='2026-11-21';
+cfg.versionTag=TAG;cfg.contentLastReviewed='2026-11-21';
 write('release.config.json',JSON.stringify(cfg,null,2)+'\n');
 write('CITATION.cff',read('CITATION.cff').replace(/^version: .+$/m,`version: ${VERSION}`).replace('Italian, English and French, requires no account', 'Italian, English, French, German, Spanish and European Portuguese, requires no account'));
 let readme=read('README.md').replaceAll('5.0.1',VERSION)

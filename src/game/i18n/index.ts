@@ -5,6 +5,8 @@ import { fr } from './fr';
 import { de } from './de';
 import { es } from './es';
 import { pt } from './pt';
+// @ts-expect-error Shared ESM release and route inventory.
+import { PLAYABLE_LANGUAGES, languageCode } from '../../site/route-inventory.mjs';
 
 /**
  * Sistema i18n minimale e tipato.
@@ -22,7 +24,7 @@ import { pt } from './pt';
 export type Locale = typeof it;
 
 /**
- * LE LINGUE PUBBLICATE, E L'UNICO POSTO IN CUI SONO ELENCATE.
+ * Registered dictionaries must match release.config.json playableLanguages.
  *
  * `Record<LanguageCode, Locale>` lega questo oggetto al tipo dichiarato in
  * data/types.ts in entrambe le direzioni: una lingua dichiarata e non
@@ -39,14 +41,12 @@ export type Locale = typeof it;
 export const LOCALES: Record<LanguageCode, Locale> = { it, en, fr, de, es, pt };
 
 /**
- * DERIVATO da LOCALES, non trascritto. La versione precedente lo scriveva a
- * mano (`['it', 'en']`) accanto a un `isLanguageCode` che riscriveva la stessa
- * coppia una terza volta: tre elenchi della stessa cosa, e due da ricordarsi
- * di aggiornare. Il secondo era il più insidioso, perché la sua dimenticanza
- * non rompe niente — fa solo rifiutare `?lang=<nuova>` in silenzio, e il
- * giocatore arriva nella lingua sbagliata senza un messaggio.
+ * The release inventory is shared with the portal and validation schemas.
+ * Content completeness and exact registry equality are required by the tests.
  */
-export const LANGUAGE_CODES: LanguageCode[] = Object.keys(LOCALES) as LanguageCode[];
+export const LANGUAGE_CODES: LanguageCode[] = [...PLAYABLE_LANGUAGES];
+/** BCP 47 tag for documents; save and query keys stay unchanged. */
+export function languageTag(language: LanguageCode): string { return languageCode(language); }
 
 /**
  * LINGUE IN LAVORAZIONE, dichiarate e non pubblicate.

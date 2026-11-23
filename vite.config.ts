@@ -46,7 +46,7 @@ export default defineConfig({
     host: true,
     // Generated captures/downloads are not application source. On Windows,
     // watching a Playwright download while it is being saved can raise EBUSY.
-    watch: { ignored: ['**/scripts/smoke/out/**', '**/graphify-out/**'] }
+    watch: { ignored: ['**/scripts/smoke/out/**', '**/graphify-out/**', '**/.infrastructure/**'] }
   },
   test: {
     environment: 'node',
