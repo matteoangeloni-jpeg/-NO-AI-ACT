@@ -51,8 +51,8 @@ Estes objectivos são a nossa operacionalização. O desempenho no jogo não atr
 |---|---|---|
 | LO1.2.02 | Básico | Distinguir fonte do conteúdo em uma exposição |
 | LO1.2.07 | Básico | Expresse uma avaliação inicial de confiabilidade com o colega |
-| LO1.2.21 | Intermediário | Compare a confiabilidade e os interesses de diferentes fontes |
-| LO2.3.15 | Intermediário | Reconhecer os direitos e responsabilidades relevantes para o caso |
+| LO1.2.21 | Intermédio | Compare a confiabilidade e os interesses de diferentes fontes |
+| LO2.3.15 | Intermédio | Reconhecer os direitos e responsabilidades relevantes para o caso |
 | LO2.3.25 | Avançado | Distinguir a proibição e as condições de risco elevado; esta demanda complexa já existe no jogo e precisa de mediação para iniciantes |
 
 A orientação suporta o acesso a uma tarefa avançada. Adicionar uma dica não transforma esse desempenho em competência básica. Os códigos referem-se ao texto original do CCI, anexo 2, impresso pp. 88–94. As formulações locais são adaptações de projectos pelas quais a Comissão Europeia não é responsável.
@@ -75,9 +75,9 @@ CEPAJe cruza contexto, professor, pedagogia, aprendiz e jogo com introdução, a
 | Dimensão | Introdução | Inquérito | reflexão final e transferência | Risco de análise |
 |---|---|---|---|---|
 | Contexto | Duração, dispositivo, idioma e acesso às regras | Pausas compatíveis com ruído e trabalho individual/par | Tempo de escrita e discussão protegido | A aprendizagem escolar e auto-dirigida oferecem diferentes mediações |
-| Professor | Objetivo e regras atuais sem revelar respostas | Perguntar que evidência mudaria a hipótese | Facilitar a discussão de razões e limites | Um prompt no jogo não substitui a mediação humana |
+| Docente | Objetivo e regras atuais sem revelar respostas | Perguntar que evidência mudaria a hipótese | Facilitar a discussão de razões e limites | Um prompt no jogo não substitui a mediação humana |
 | Pedagogia | Objectivos explícitos com um exemplo | Hipóteses revisíveis e comparação de fontes | Nota antes do feedback, em seguida, reworking | Sequência poderia tornar-se um formulário para preencher |
-| Aluno | Conhecimento prévio e familiaridade de leitura estabelecida externamente | Suporte opcional e saltos permitidos | Explicar as estratégias através de modalidades acessíveis | A escrita e a linguagem podem mascarar o raciocínio |
+| Aprendente | Conhecimento prévio e familiaridade de leitura estabelecida externamente | Suporte opcional e saltos permitidos | Explicar as estratégias através de modalidades acessíveis | A escrita e a linguagem podem mascarar o raciocínio |
 | Jogo | Preservar papel, atmosfera e caso | A exploração e as consequências continuam a ser fundamentais | Reutilizar o relatório e a revisão | Muitas interrupções reduzem a agência e o ritmo |
 
 Esta decisão provisória deve ser contestada nos concursos. Se a mediação parecer uma lição separada, reduza-a e conecte-a a um documento selecionado. Se livres blocos de escrita jogar, permitir pular e fornecer respostas orais mediadas. Se todos repetirem dicas, reduza o andaime na tarefa independente. Se os iniciantes permanecerem desorientados, altere o exemplo e teste a compreensão antes de adicionar mais texto.

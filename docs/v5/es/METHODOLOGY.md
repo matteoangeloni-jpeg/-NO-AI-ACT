@@ -51,9 +51,9 @@ Estos objetivos son nuestra puesta en práctica. El rendimiento en el juego no a
 |---|---|---|
 | LO1.2.02 | Básico | Fuente distinguida del contenido en una exposición |
 | LO1.2.07 | Básico | Expresar una evaluación inicial de la fiabilidad con el colega |
-| LO1.2.21 | Intermediato | Compara la fiabilidad y los intereses de las diferentes fuentes |
-| LO2.3.15 | Intermediato | Reconocimiento de los derechos y responsabilidades pertinentes al caso |
-| LO2.3.25 | Avances | Distinguir la prohibición y las condiciones de alto riesgo; esta demanda compleja ya existe en el juego y necesita mediación para principiantes |
+| LO1.2.21 | Intermedio | Compara la fiabilidad y los intereses de las diferentes fuentes |
+| LO2.3.15 | Intermedio | Reconocimiento de los derechos y responsabilidades pertinentes al caso |
+| LO2.3.25 | Avanzado | Distinguir la prohibición y las condiciones de alto riesgo; esta demanda compleja ya existe en el juego y necesita mediación para principiantes |
 
 La orientación apoya el acceso a una tarea avanzada. Añadiendo un indicio no convierte ese desempeño en competencia básica. Los códigos se refieren al texto original de la JRC, anexo 2, impreso pp. 88-94. Las formulaciones locales son adaptaciones de proyectos para las que la Comisión Europea no es responsable.
 
@@ -75,9 +75,9 @@ CEPAJe crosses context, profesor, pedagogía, estudiante y juego con introducci�
 | Dimension | Introducción | Investigación | Debrief and transfer | Riesgo para examinar |
 |---|---|---|---|---|
 | Contexto | Duración, dispositivo, idioma y acceso a las reglas | Pausas compatibles con el ruido y el trabajo individual/pair | Tiempo de escritura y discusión protegido | La escuela y el aprendizaje autodirigido ofrecen una mediación diferente |
-| Maestro | Propósito y reglas actuales sin respuestas reveladoras | Pregunta qué evidencia cambiaría la hipótesis | Facilitar el debate de las razones y los límites | Un impulso en el juego no reemplaza la mediación humana |
+| Docente | Propósito y reglas actuales sin respuestas reveladoras | Pregunta qué evidencia cambiaría la hipótesis | Facilitar el debate de las razones y los límites | Un impulso en el juego no reemplaza la mediación humana |
 | Pedagogía | Objetivos de explotación con un ejemplo | Hipótesis revisables y comparación de fuentes | Nota antes de la retroalimentación, luego reelaboración | Secuencia podría convertirse en un formulario para rellenar |
-| Learner | Conocimientos previos y conocimiento de lectura establecidos externamente | Soporte opcional y saltos permitidos | Explicar estrategias mediante modalidades accesibles | La escritura y el lenguaje pueden ocultar el razonamiento |
+| Aprendiz | Conocimientos previos y conocimiento de lectura establecidos externamente | Soporte opcional y saltos permitidos | Explicar estrategias mediante modalidades accesibles | La escritura y el lenguaje pueden ocultar el razonamiento |
 | Juego | Preserve role, atmosphere and case | La exploración y las consecuencias siguen siendo fundamentales | Reuse debrief and review | Demasiadas interrupciones reducen la agencia y el pacing |
 
 Esta decisión provisional debe impugnarse en las pruebas de juego. Si la mediación se siente como una lección separada, acortarla y conectarla a un documento seleccionado. Si los bloques de escritura gratis juegan, permiten saltar y proporcionar respuestas orales mediadas. Si todo el mundo repite indicios, reduzca el andamio en la tarea independiente. Si los principiantes permanecen desorientados, cambia el ejemplo y prueba de comprensión antes de añadir más texto.

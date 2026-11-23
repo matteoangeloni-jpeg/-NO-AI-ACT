@@ -16,5 +16,9 @@ for(const language of LANGUAGE_CODES){
  put(`press/${language}.md`,readFileSync(`public/assets/press/no-ai-act-v${version}-${language}.md`,'utf8'));
  put(`game-texts/${language}.json`,JSON.stringify({version,language,locale:LOCALES[language],guided:GUIDED_COPY[language],inquiry:INQUIRY_CASES[language],sessionJournal:JOURNAL_COPY[language]},null,2)+'\n');
 }
+// Archive aliases keep the Italian link stable when a language-specific ZIP
+// presents its own README as the default file.
+for(const language of LANGUAGE_CODES){const name=`README${language==='it'?'':'.'+language}.md`;put(name,readFileSync(name,'utf8').replace('[Italiano](README.md)','[Italiano](README.it.md)'));}
+put('README.it.md',readFileSync('README.md','utf8').replace('[Italiano](README.md)','[Italiano](README.it.md)'));
 put('CONTENTS.txt',`NO AI ACT v${version}\nSix complete language versions: IT EN FR DE ES PT (pt-PT).\n37 website topics and 14 game cases per language.\nCurrent README, press copy, eight methodology documents, release notes and complete playable text dictionaries.\nHistorical screenshots remain in the separately labelled V5.0.0 archive.\nResearch documents are preliminary; translations are not scientific validation.\nNo participant data, credentials or private correspondence in this archive.\n`);
 console.log('Prepared current six-language materials at '+stage);

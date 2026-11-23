@@ -51,8 +51,8 @@ Diese Ziele sind unsere Operationalisierung. Die Leistung im Spiel weist kein Di
 |---|---|---|
 | LO1.2.02 | Grundstufe | Unterscheiden Sie die Quelle von Inhalten in einem Exponat |
 | LO1.2.07 | Grundstufe | Drücken Sie eine erste Zuverlässigkeitsbewertung mit dem Kollegen aus |
-| LO1.2.21 | Zwischenprodukt | Vergleichen Sie die Zuverlässigkeit und Interessen verschiedener Quellen |
-| LO2.3.15 | Zwischenprodukt | Anerkennung der für den Fall relevanten Rechte und Pflichten |
+| LO1.2.21 | Mittelstufe | Vergleichen Sie die Zuverlässigkeit und Interessen verschiedener Quellen |
+| LO2.3.15 | Mittelstufe | Anerkennung der für den Fall relevanten Rechte und Pflichten |
 | LO2.3.25 | Fortgeschritten | Unterscheiden Sie Verbote und Hochrisikobedingungen; diese komplexe Forderung besteht bereits im Spiel und bedarf der Vermittlung für Anfänger |
 
 Guidance unterstützt den Zugang zu einer fortgeschrittenen Aufgabe. Das Hinzufügen eines Hinweises macht diese Leistung nicht zu einer grundlegenden Kompetenz. Codes beziehen sich auf den ursprünglichen Text der GFS, Anhang 2, gedruckt S. 88-94. Die lokalen Formulierungen sind Projektanpassungen, für die die Europäische Kommission nicht verantwortlich ist.
@@ -75,9 +75,9 @@ CEPAJe kreuzt Kontext, Lehrer, Pädagogik, Lernende und Spiel mit Einführung, A
 | Dimension | Einleitung | Untersuchung | Debriefing und Transfer | Risiko zu untersuchen |
 |---|---|---|---|---|
 | Kontext | Dauer, Gerät, Sprache und Zugang zu Regeln | Pausen, die mit Lärm und Einzel- / Paararbeit kompatibel sind | Geschützte Schreib- und Diskussionszeit | Schule und selbstgesteuertes Lernen bieten unterschiedliche Lernbegleitung |
-| Lehrer | Präsentieren Sie Zweck und Regeln, ohne Antworten zu enthüllen | Fragen Sie, welche Beweise die Hypothese ändern würden | Erleichtern Sie die Diskussion über Gründe und Grenzen | Eine In-Game-Eingabeaufforderung ersetzt keine menschliche Lernbegleitung |
+| Lehrkraft | Präsentieren Sie Zweck und Regeln, ohne Antworten zu enthüllen | Fragen Sie, welche Beweise die Hypothese ändern würden | Erleichtern Sie die Diskussion über Gründe und Grenzen | Eine In-Game-Eingabeaufforderung ersetzt keine menschliche Lernbegleitung |
 | Pädagogik | Explizite Ziele mit einem Beispiel | Überprüfbare Hypothesen und Quellenvergleich | Hinweis vor dem Feedback, dann Nacharbeiten | Sequenz könnte ein Formular zum Ausfüllen werden |
-| Lernender | Vorkenntnisse und Lektüre Vertrautheit nach außen etabliert | Optionale Unterstützung und erlaubte Überspringungen | Erklären Sie Strategien durch zugängliche Modalitäten | Schreiben und Sprache können Argumentation maskieren |
+| Lernende Person | Vorkenntnisse und Lektüre Vertrautheit nach außen etabliert | Optionale Unterstützung und erlaubte Überspringungen | Erklären Sie Strategien durch zugängliche Modalitäten | Schreiben und Sprache können Argumentation maskieren |
 | Spiel | Rolle, Atmosphäre und Fall bewahren | Exploration und Folgen bleiben zentral | Reuse Debriefing und Review | Zu viele Unterbrechungen reduzieren Agentur und Pacing |
 
 Diese vorläufige Entscheidung muss in Playtests angefochten werden. Wenn sich die Lernbegleitung wie eine separate Lektion anfühlt, verkürzen Sie sie und verbinden Sie sie mit einem ausgewählten Dokument. Wenn kostenlose Schreibblöcke abgespielt werden, erlauben Sie das Überspringen und geben Sie vermittelte mündliche Antworten. Wenn alle Hinweise wiederholen, reduzieren Sie das Gerüst in der unabhängigen Aufgabe. Wenn Anfänger desorientiert bleiben, ändern Sie das Beispiel und testen Sie das Verständnis, bevor Sie mehr Text hinzufügen.

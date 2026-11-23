@@ -36,7 +36,7 @@ Primäre Frage: Unterstützt der geführte Pfad dokumentierte Argumente in einem
 
 Empfohlenes Design. Vergleichen Sie mit der Standardversion mit äquivalentem Inhalt und individueller Zufallszuweisung, wenn der Kontext dies zulässt. Für die Zuweisung auf Klassenebene sind die Abhängigkeit innerhalb der Klasse und die effektive Stichprobengröße zu berücksichtigen. Notieren Sie erste rechtliche Vertrautheit und Lesefähigkeiten. Präzisieren Sie Ergebnisse, Vergleich und Analyse vor der Sammlung. Die Stichprobengröße erfordert eine Leistungsbegründung und einen vom Forschungsteam vereinbarten relevanten Mindesteffekt.
 
-| Gelegenheiten | Verfahren | Nachweise | Schutzmaßnahmen |
+| Gelegenheiten | Verfahren | Belege | Schutzmaßnahmen |
 |---|---|---|---|
 | PRE | Parallele Aufgabe A oder B, 10-15 Minuten vor dem Spiel | Erste Argumentation und Wissen | Gegengewichtsformeln |
 | Spiel | Äquivalente Einzelsitzungen in beiden Gruppen, strukturierte Beobachtung | Beratung, Retouren, erläuterte Zusammenhänge, Hilfe angefordert | Behandeln Sie Gerüste und Feedback als Teil der Intervention |
