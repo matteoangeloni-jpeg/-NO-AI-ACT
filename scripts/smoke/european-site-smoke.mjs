@@ -54,14 +54,16 @@ try {
       await page.keyboard.press('Enter');
       assert.equal(await page.evaluate(() => location.hash), '#main');
       if (width < 600) await page.locator('.nav-toggle').click();
-      const menu = page.locator('.nav-sub-btn');
-      await menu.focus();
-      await page.keyboard.press('Enter');
-      assert.equal(await menu.getAttribute('aria-expanded'), 'true');
-      assert(!await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), `${route.dir}: open menu overflow at ${width}`);
-      await page.keyboard.press('Escape');
-      assert.equal(await menu.getAttribute('aria-expanded'), 'false');
-      if (width < 600) await page.keyboard.press('Escape');
+      for (const menu of await page.locator('.nav-sub-btn').all()) {
+        if (width < 600 && await page.locator('.nav-toggle').getAttribute('aria-expanded') !== 'true') await page.locator('.nav-toggle').click();
+        await menu.focus();
+        await page.keyboard.press('Enter');
+        assert.equal(await menu.getAttribute('aria-expanded'), 'true');
+        assert(!await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), `${route.dir}: open menu overflow at ${width}`);
+        await page.keyboard.press('Escape');
+        assert.equal(await menu.getAttribute('aria-expanded'), 'false');
+      }
+      if (width < 600 && await page.locator('.nav-toggle').getAttribute('aria-expanded') === 'true') await page.keyboard.press('Escape');
       if (route.dir === route.lang || route.dir === '') {
         const track = page.locator('.press-track');
         await track.scrollIntoViewIfNeeded();

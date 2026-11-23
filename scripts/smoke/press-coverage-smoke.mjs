@@ -25,7 +25,9 @@ try {
       assert.equal(await section.locator('time[datetime="2026-10-03"]').count(), 1);
       assert.equal(await section.locator('time[datetime="2026-10-26"]').count(), 2);
       assert.equal(await section.locator('time[datetime="2026-10-30"]').count(), 1);
-      assert.match(await section.innerText(), /4\.0/);
+      const historical = section.locator('.press-item').filter({has:page.locator('time[datetime="2026-10-03"]')});
+      assert.match(await historical.innerText(), /\b4\b[\s\S]{0,20}\b5\b/);
+      assert.doesNotMatch(await historical.innerText(), /\bbeta\b|\bbêta\b/iu);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
       const track = section.locator('.press-track');
       await section.scrollIntoViewIfNeeded();
