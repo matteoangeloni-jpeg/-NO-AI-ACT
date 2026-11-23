@@ -1,4 +1,8 @@
 export const FRENCH_REVISIONS={
+ '· v__GAME_VERSION__ ·':'· v__GAME_VERSION__ ·',
+ 'NO AI ACT: an AI Act serious game.':'NO AI ACT : un jeu d’enquête sur le règlement européen sur l’IA.',
+ 'Investigate the consequences.':'Enquêtez sur les conséquences.',
+ 'PhD candidate in':'Doctorant en',
  'Article 4 does not prescribe one standard course or a universal certificate. It asks providers and deployers to adopt proportionate measures for the people who operate AI systems on their behalf. The obligation has applied since 2 February 2025; supervision and enforcement apply from 2 August 2026, the regulation\'s general application date.':'L’article 4 ne prescrit ni cours uniforme ni certificat universel. Il demande aux fournisseurs et aux déployeurs de prendre des mesures proportionnées pour les personnes qui exploitent ou utilisent des systèmes d’IA pour leur compte. L’obligation s’applique depuis le 2 février 2025 ; la supervision et l’application du règlement, depuis sa date générale d’application, le 2 août 2026.',
  'Transparency is not one undifferentiated duty: it changes with what the system does and who puts it into use. This is the simplified reading we use in class — the reference text is Article 50 of':'La transparence n’est pas une obligation uniforme : elle dépend de la fonction du système et du rôle de la personne qui l’utilise. Cette lecture pédagogique est simplifiée ; la référence juridique est l’article 50 du',
  ': public space, real time and law-enforcement purpose are the three elements that trigger the prohibition (with narrow, authorised exceptions).':': espaces accessibles au public, temps réel et finalités répressives sont les trois éléments qui déclenchent l’interdiction, avec des exceptions limitées et autorisées.',

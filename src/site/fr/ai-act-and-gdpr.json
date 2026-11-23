@@ -1,7 +1,7 @@
 {
   "en": "en/ai-act-and-gdpr",
   "slug": "ai-act-et-rgpd",
-  "sourceHash": "3427ccb56cf07f5be72c7d9c60fe00bb46786fe50e4d21758aaae23a038bbb10",
+  "sourceHash": "81074b8360776ef02ddb5808f4d3311eda7b08c79cd5210730266c018b222b45",
   "title": "AI Act et RGPD : obligations et articulation | NO AI ACT",
   "description": "AI Act et RGPD s'appliquent ensemble : découvrez leurs champs, les rôles des acteurs et les différences entre analyses d'impact, à partir de cas concrets.",
   "attributes": {
@@ -71,7 +71,7 @@
     "Catégories de risque",
     "<span class=\"num\">08</span>Sources officielles et transparence",
     "<strong>Responsabilité éditoriale</strong> : le projet NO AI ACT, Matteo Angeloni ; révision éditoriale interne, sans expertise juridique indépendante.",
-    "<strong>Première publication</strong> : septembre 2026 · <strong>Dernière révision de la source</strong> : septembre 2026, site v5.3.0 · Traduction française : octobre 2026.",
+    "<strong>Première publication</strong> : septembre 2026 · <strong>Dernière révision de la source</strong> : septembre 2026, site v5.3.1 · Traduction française : octobre 2026.",
     "<strong>Sources officielles</strong> : <a href=\"https://eur-lex.europa.eu/eli/reg/2024/1689/oj/fra\" hreflang=\"fr\">règlement (UE) 2024/1689 sur EUR-Lex</a> ; <a href=\"https://eur-lex.europa.eu/eli/reg/2016/679/oj/fra\" hreflang=\"fr\">règlement (UE) 2016/679, RGPD</a> ; <a href=\"https://www.edpb.europa.eu/\" hreflang=\"en\">Comité européen de la protection des données</a> ; <a href=\"https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai\" hreflang=\"en\">cadre réglementaire européen pour l'IA</a>.",
     "<strong>Avertissement</strong> : cette page propose une lecture pédagogique simplifiée de l'articulation entre deux règlements. Elle ne constitue pas un conseil juridique et ne remplace pas l'analyse d'une situation concrète par un professionnel.",
     "<a href=\"/fr/glossaire/\">Glossaire</a> · <a href=\"/fr/ai-act-entreprises/\">AI Act pour les entreprises</a> · <a href=\"/fr/sanctions-ai-act/\">Sanctions de l'AI Act</a>"

@@ -21,4 +21,4 @@ Study 02 is a local laboratory outside the public build, with two forms and a hu
 
 Progress stays in the browser. Aggregate counters can be disabled. Adults alone may consent to a pseudonymous session journal retained for 90 days; guided-path writing requires additional consent, initially unselected. Withdrawal, erasure and export are available in the game bar. DNT/GPC are respected. No accounts, advertising profiles or links between visits. Production collection uses telemetry.no-ai-act.eu; previous APIs remain compatible with existing receipts and exports.
 
-[Current session-journal contract](en/SESSION_JOURNAL.md) · [Data and privacy](https://www.no-ai-act.eu/game-statistics.html#en) · [v5.3.0](../RELEASE_NOTES_v5.3.0.en.md)
+[Current session-journal contract](en/SESSION_JOURNAL.md) · [Data and privacy](https://www.no-ai-act.eu/game-statistics.html#en) · [v5.3.1](../RELEASE_NOTES_v5.3.1.en.md)

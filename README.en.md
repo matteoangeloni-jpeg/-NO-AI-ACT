@@ -1,10 +1,10 @@
-# NO AI ACT · v5.3.0
+# NO AI ACT · v5.3.1
 
 [Italiano](README.md) · [English](README.en.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Português](README.pt.md)
 
 **Investigative serious game about the European AI Act**
 
-[▶ Play](https://www.no-ai-act.eu/play/?lang=en) · [Website and resources](https://www.no-ai-act.eu/en/) · [Stable release](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.3.0)
+[▶ Play](https://www.no-ai-act.eu/play/?lang=en) · [Website and resources](https://www.no-ai-act.eu/en/) · [Stable release](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.3.1)
 
 It is 2032 in a fictional European city where the AI Act never entered into force. As an inspector, reconstruct how AI systems are used through documents, testimony and logs. The game is free, open source and runs in the browser without an account.
 
@@ -66,4 +66,4 @@ Code: GPL-3.0-or-later; content: CC BY-SA 4.0. See LICENSE, CREDITS and THIRD_PA
 
 ## Technical documentation and history
 
-[Stable release](docs/RELEASE_NOTES_v5.3.0.en.md) · [Method and limits](docs/v5/README.en.md) · [Press kit](https://www.no-ai-act.eu/en/press-kit/) · [GDD](docs/GDD.md) · [README < v5.3.0](docs/archive/README_pre_v5.3.0.it.md)
+[Stable release](docs/RELEASE_NOTES_v5.3.1.en.md) · [Method and limits](docs/v5/README.en.md) · [Press kit](https://www.no-ai-act.eu/en/press-kit/) · [GDD](docs/GDD.md) · [README < v5.3.0](docs/archive/README_pre_v5.3.0.it.md)

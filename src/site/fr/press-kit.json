@@ -1,7 +1,7 @@
 {
   "en": "en/press-kit",
   "slug": "dossier-de-presse",
-  "sourceHash": "c0fe5245583f627f9bd709bcc42ce5fbf3085317edd313231244208bc7d22b48",
+  "sourceHash": "5d5f29dba739698df809a0cef60599c08975bc049216d3ddb2ba45707400335f",
   "title": "Dossier de presse NO AI ACT : textes, images et crédits",
   "description": "Présenter NO AI ACT : descriptions, fiche du jeu, biographie, captures Full HD, licences, crédits et déclaration sur la production audio avec ElevenLabs.",
   "attributes": {
@@ -20,7 +20,7 @@
   "blocks": [
     "Médias · Institutions · Lettres d'information",
     "Dossier de presse",
-    "Ressources officielles pour présenter NO AI ACT : descriptions, fiche du projet, images, crédits et références. <strong>Version publique v5.3.0</strong>. Dossier mis à jour le <time datetime=\"2026-11-22\">22 novembre 2026</time>. Textes et images du dossier réutilisables sous CC BY 4.0.",
+    "Ressources officielles pour présenter NO AI ACT : descriptions, fiche du projet, images, crédits et références. <strong>Version publique v5.3.1</strong>. Dossier mis à jour le <time datetime=\"2026-11-22\">22 novembre 2026</time>. Textes et images du dossier réutilisables sous CC BY 4.0.",
     "<span class=\"num\">01</span>Description courte",
     "<code>NO AI ACT est un serious game gratuit et open source sur l'AI Act européen. Sans compte, dans le navigateur, les joueurs enquêtent sur 14 systèmes d'IA d'une ville fictive non réglementée, examinent les preuves et classent les risques. Versions italienne, anglaise, française, allemande, espagnole et portugaise européenne.</code>",
     "<span class=\"num\">02</span>Description moyenne",
@@ -35,7 +35,7 @@
     "Nature",
     "Serious game d'enquête sur l'AI Act européen, dans le navigateur",
     "Version actuelle",
-    "v5.3.0",
+    "v5.3.1",
     "Statut",
     "Version publique jouable sur le site ; la version web n'implique pas une étiquette GitHub",
     "Genre",
@@ -67,7 +67,7 @@
     "Public",
     "Lycée, université, formation professionnelle, apprentissage autonome",
     "<span class=\"num\">05</span>Images, logo et captures",
-    "Images officielles réutilisables sous <strong>CC BY 4.0</strong>, avec attribution à « NO AI ACT — Matteo Angeloni ». Captures de la version 5.0.0 prises dans l'interface italienne ; cette archive de la publication initiale est conservée dans la correction 5.3.0. Textes alternatifs proposés :",
+    "Images officielles réutilisables sous <strong>CC BY 4.0</strong>, avec attribution à « NO AI ACT — Matteo Angeloni ». Captures de la version 5.0.0 prises dans l'interface italienne ; cette archive de la publication initiale est conservée dans la correction 5.3.1. Textes alternatifs proposés :",
     "<a href=\"/assets/social/no-ai-act-en-og.png\">Couverture anglaise (PNG 1200 × 630)</a> : « Couverture NO AI ACT, serious game pédagogique gratuit sur l'AI Act européen. »",
     "<a href=\"/assets/social/no-ai-act-og.png\">Couverture italienne (PNG 1200 × 630)</a> : « Couverture italienne de NO AI ACT. »",
     "<a href=\"/assets/social/no-ai-act-play-og.png\">Couverture du jeu (PNG 1200 × 630)</a> : « NO AI ACT, enquête jouable sur l'AI Act européen. »",
@@ -113,7 +113,7 @@
     "<a href=\"/game-statistics.html#fr\">Détails sur les compteurs, la conservation et la désactivation</a>.",
     "Essayer le jeu",
     "Protection dès la conception",
-    "<span class=\"num\">11</span>Version 5.3.0 et ressources pédagogiques",
+    "<span class=\"num\">11</span>Version 5.3.1 et ressources pédagogiques",
     "Quatre modes utilisent les mêmes 14 dossiers : un parcours de service selon le profil ; une enquête libre depuis la carte ; une inspection surprise qui change l'ordre des dossiers ; une révision des dossiers mal clôturés, disponible seulement lorsqu'il y en a. La durée choisie est un budget indicatif, pas un compte à rebours.",
     "Le mode enseignant et les supports téléchargeables accompagnent une discussion guidée, pas un tableau de bord de classe. Guides, glossaires, activités, plans de séance, ateliers, dossiers de presse et dossier méthodologique sont disponibles en italien, anglais, français, allemand, espagnol et portugais européen. Chaque langue couvre les 37 sections du site et les 14 cas du jeu.",
     "<a href=\"/play/?lang=fr\">Jouer à la version publique</a>",
@@ -127,9 +127,9 @@
     "<a href=\"https://www.youtube.com/watch?v=BJO6aiElmrY\" hreflang=\"it\" lang=\"it\" rel=\"noopener external\">Videogiochi italiani — Abbiamo Giocato a NO AI ACT: Un’Europa Senza Regole sull’AI!</a> · <time datetime=\"2026-10-03\">2026-10-03</time>. Une partie commentée en italien du 3 octobre 2026, antérieure aux versions 4 et 5.",
     "<a href=\"https://www.absolutegamer.it/no-ai-act-serious-game-gratuito-ai-act-europeo/\" hreflang=\"it\" lang=\"it\" rel=\"noopener external\">Absolute Gamer — NO AI ACT, il serious game gratuito sull’AI Act europeo</a> · <time datetime=\"2026-07-24\">2026-07-24</time>. La critique du serious game d’enquête par Absolute Gamer.",
     "Pour la presse et les entretiens : <a href=\"/fr/matteo-angeloni/\">profil et contacts de Matteo Angeloni</a>. Projet indépendant : l'affiliation universitaire de l'auteur ne constitue ni promotion ni approbation institutionnelle du jeu.",
-    "Matériaux actualisés dans les six langues · v5.3.0",
+    "Matériaux actualisés dans les six langues · v5.3.1",
     "Les mêmes langues couvrent le jeu, le site, les ressources pédagogiques, les dossiers de presse, les README et le dossier méthodologique : italien, anglais, français, allemand, espagnol et portugais européen (pt-PT). Chaque langue comprend les 14 cas et les mêmes 37 sections du site. Les URL existantes sont conservées.",
-    "<a href=\"/assets/press/no-ai-act-v5.3.0-fr.md\" download=\"\">Serious game d’enquête sur le règlement européen sur l’IA · Français · Markdown</a> · <a href=\"/assets/press/no-ai-act-v5.3.0-fr-materials.zip\" download=\"\">Français · ZIP</a>",
+    "<a href=\"/assets/press/no-ai-act-v5.3.1-fr.md\" download=\"\">Serious game d’enquête sur le règlement européen sur l’IA · Français · Markdown</a> · <a href=\"/assets/press/no-ai-act-v5.3.1-fr-materials.zip\" download=\"\">Français · ZIP</a>",
     "Les dix captures originales montrent la V5.0.0 en italien ; leur archive historique conserve cette version.",
     "<a href=\"https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/v5/README.fr.md\">Méthode et limites</a>"
   ]

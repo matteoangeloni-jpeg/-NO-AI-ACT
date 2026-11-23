@@ -1,10 +1,10 @@
-# NO AI ACT · v5.3.0
+# NO AI ACT · v5.3.1
 
 [Italiano](README.md) · [English](README.en.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Português](README.pt.md)
 
 **Investigatives Serious Game zur europäischen KI-Verordnung**
 
-[▶ Spielen](https://www.no-ai-act.eu/play/?lang=de) · [Website und Materialien](https://www.no-ai-act.eu/de/) · [Stabile Version](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.3.0)
+[▶ Spielen](https://www.no-ai-act.eu/play/?lang=de) · [Website und Materialien](https://www.no-ai-act.eu/de/) · [Stabile Version](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.3.1)
 
 Im Jahr 2032 liegt eine fiktive europäische Stadt vor Ihnen, in der die KI-Verordnung nie in Kraft getreten ist. Als Inspektor rekonstruieren Sie den Einsatz von KI-Systemen anhand von Dokumenten, Aussagen und Protokollen. Das kostenlose Open-Source-Spiel läuft ohne Konto im Browser.
 
@@ -66,4 +66,4 @@ Code: GPL-3.0-or-later; Inhalte: CC BY-SA 4.0. Namensnennungen und Komponenten s
 
 ## Technische Dokumentation und Versionsgeschichte
 
-[Stabile Version](docs/RELEASE_NOTES_v5.3.0.de.md) · [Methode und Grenzen](docs/v5/README.de.md) · [Press kit](https://www.no-ai-act.eu/de/pressemappe/) · [GDD](docs/GDD.md) · [README < v5.3.0](docs/archive/README_pre_v5.3.0.it.md)
+[Stabile Version](docs/RELEASE_NOTES_v5.3.1.de.md) · [Methode und Grenzen](docs/v5/README.de.md) · [Press kit](https://www.no-ai-act.eu/de/pressemappe/) · [GDD](docs/GDD.md) · [README < v5.3.0](docs/archive/README_pre_v5.3.0.it.md)

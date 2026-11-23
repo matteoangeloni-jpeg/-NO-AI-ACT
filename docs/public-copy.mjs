@@ -117,3 +117,36 @@ Object.assign(PUBLIC_COPY,{
   releaseTitle:'Gleicher Inhaltsumfang in sechs Sprachen',changes:['Vollständige Website: 37 Bereiche je Sprache, insgesamt 222 Seiten. Vier italienische Seiten sowie jeweils 21 Seiten auf DE/ES/PT ergänzt; die bisherigen 13 französischen Kurzfassungen zu vollständigen Beiträgen erweitert.','README-Dateien, Methodendossier, lokale Study-02-Materialien und Pressemappen bieten denselben Sprachumfang.','Navigation, Links aus dem Spiel, FAQ, Metadaten, Sitemaps und Versionsangaben aktualisiert. Originaltitel der Publikationen bleiben erhalten.','Alle 14 Fälle, Spielstandmigration und Einwilligungsvertrag bleiben erhalten. Auf Wunsch keine neuen Tests oder Smoke-Tests für diese Inhaltsaktualisierung. Der Build erstellt die veröffentlichbaren Dateien.']
  }
 });
+// Current stable patch. The V5.3.0 release notes and archives remain historical.
+for(const[language,title,changes]of [
+ ['it','Allineamento finale delle versioni linguistiche',[
+  'Numeri di versione conservati come valori letterali comuni: corretti footer francese e riferimenti di versione nei testi tradotti.',
+  'Rivisti titoli delle home e crediti dell’autore in francese, tedesco, spagnolo e portoghese. Confermata la stessa copertura: 37 sezioni per lingua, 222 pagine e 14 casi giocabili nelle sei lingue.',
+  'README, press kit e materiali scaricabili aggiornati alla 5.3.1. Preservati salvataggi, dati e consensi esistenti. Build completata; nessun nuovo test unitario o smoke test, come richiesto.'
+ ]],
+ ['en','Final language-version alignment',[
+  'Release numbers remain shared literal values: corrected the French footer and version references in translated text.',
+  'Revised home-page titles and author credits in French, German, Spanish and Portuguese. Coverage remains the same: 37 sections per language, 222 pages and 14 playable cases in all six languages.',
+  'READMEs, press kits and downloadable materials updated to 5.3.1. Existing saves, data and consent preserved. Build completed; no new unit or smoke tests, as requested.'
+ ]],
+ ['fr','Alignement final des versions linguistiques',[
+  'Les numéros de version restent des valeurs littérales communes : correction du pied de page français et des références de version dans les traductions.',
+  'Titres des accueils et crédits de l’auteur révisés en français, allemand, espagnol et portugais. Même couverture : 37 sections par langue, 222 pages et 14 cas jouables dans les six langues.',
+  'README, dossiers de presse et matériaux téléchargeables actualisés en 5.3.1. Sauvegardes, données et consentements existants préservés. Compilation terminée ; aucun nouveau test unitaire ni smoke test, conformément à la demande.'
+ ]],
+ ['de','Abschließende Angleichung der Sprachversionen',[
+  'Versionsnummern bleiben gemeinsame unveränderte Werte: französische Fußzeile und Versionsverweise in übersetzten Texten korrigiert.',
+  'Startseitentitel und Autorenangaben auf Französisch, Deutsch, Spanisch und Portugiesisch überarbeitet. Gleicher Umfang: 37 Bereiche je Sprache, 222 Seiten und 14 spielbare Fälle in allen sechs Sprachen.',
+  'README-Dateien, Pressemappen und Downloads auf 5.3.1 aktualisiert. Bestehende Spielstände, Daten und Einwilligungen bleiben erhalten. Build abgeschlossen; auf Wunsch keine neuen Unit- oder Smoke-Tests.'
+ ]],
+ ['es','Alineación final de las versiones lingüísticas',[
+  'Los números de versión se conservan como valores literales comunes: corregidos el pie francés y las referencias de versión en las traducciones.',
+  'Revisados títulos de inicio y créditos del autor en francés, alemán, español y portugués. Misma cobertura: 37 secciones por idioma, 222 páginas y 14 casos jugables en las seis lenguas.',
+  'README, kits de prensa y materiales descargables actualizados a 5.3.1. Se conservan partidas, datos y consentimientos existentes. Compilación completada; sin nuevas pruebas unitarias ni smoke tests, según lo solicitado.'
+ ]],
+ ['pt','Alinhamento final das versões linguísticas',[
+  'Os números de versão mantêm-se como valores literais comuns: corrigidos o rodapé francês e as referências de versão nos textos traduzidos.',
+  'Revistos títulos de início e créditos do autor em francês, alemão, espanhol e português. Mesma cobertura: 37 secções por língua, 222 páginas e 14 casos jogáveis nas seis línguas.',
+  'README, kits de imprensa e materiais descarregáveis atualizados para 5.3.1. Preservados gravações, dados e consentimentos existentes. Compilação concluída; sem novos testes unitários ou smoke tests, conforme solicitado.'
+ ]]
+]){PUBLIC_COPY[language].releaseTitle=title;PUBLIC_COPY[language].changes=changes;}
