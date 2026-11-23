@@ -1,12 +1,86 @@
-<!doctype html>
-<html lang="pt-PT"><head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <title>IA no recrutamento: riscos e casos práticos</title>
-  <meta name="description" content="Analisa filtros de candidaturas, listas de seleção e revisão humana com um caso fictício. Introdução ao Regulamento IA, sem certificações." />
-  <meta name="author" content="Matteo Angeloni" />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
-  <link rel="canonical" href="https://www.no-ai-act.eu/pt/ia-recrutamento/" />
+<!DOCTYPE html><html lang="pt-PT"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="https://www.no-ai-act.eu/favicon.svg">
+
+  <title>AI em matéria de recrutamento e de emprego — Lei AI no local de trabalho</title>
+  <meta name="description" content="Rastreamento CV, avaliação de desempenho e reconhecimento de emoções: o que a AI Act proíbe no trabalho, o que trata como de risco elevado e quem é responsável.">
+  <meta name="author" content="NO AI ACT">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <link rel="canonical" href="https://www.no-ai-act.eu/pt/ia-recrutamento/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="NO AI ACT">
+  <meta property="og:locale" content="pt_PT">
+  <meta property="og:title" content="AI no trabalho e na contratação: regras da AI Act">
+  <meta property="og:description" content="Reconhecimento de emoções proibido, sistemas de contratação de risco elevado, supervisão humana eficaz: as regras da UE em matéria de IA no local de trabalho explicaram simplesmente.">
+  <meta property="og:url" content="https://www.no-ai-act.eu/pt/ia-recrutamento/">
+  <meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png">
+  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="NO AI ACT: guia em língua simples do Acto da União Europeia sobre a AI.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI no trabalho e na contratação: regras da AI Act">
+  <meta name="twitter:description" content="Reconhecimento de emoções proibido, sistemas de contratação de risco elevado, supervisão humana eficaz: as regras da UE em matéria de IA no local de trabalho explicaram simplesmente.">
+  <meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png">
+  <meta name="twitter:image:alt" content="NO AI ACT: guia em língua simples do Acto da União Europeia sobre a AI.">
+  <link rel="stylesheet" href="https://www.no-ai-act.eu/src/styles/landing.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "NO AI ACT",
+      "item": "https://www.no-ai-act.eu/pt/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guia da AI da UE",
+      "item": "https://www.no-ai-act.eu/pt/guia-regulamento-ia/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "IA no trabalho",
+      "item": "https://www.no-ai-act.eu/pt/ia-recrutamento/"
+    }
+  ]
+}
+</script>
+  <script>document.documentElement.classList.add('has-js');</script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NO AI ACT",
+  "url": "https://www.no-ai-act.eu/pt/",
+  "description": "Jogo educativo de investigação gratuito e recursos pedagógicos sobre o Regulamento europeu da Inteligência Artificial.",
+  "logo": "https://www.no-ai-act.eu/favicon.svg",
+  "sameAs": [
+    "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"
+  ]
+}
+</script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://www.no-ai-act.eu/pt/ia-recrutamento/#webpage",
+  "url": "https://www.no-ai-act.eu/pt/ia-recrutamento/",
+  "name": "AI em matéria de recrutamento e de emprego — Lei AI no local de trabalho",
+  "description": "Rastreamento CV, avaliação de desempenho e reconhecimento de emoções: o que a AI Act proíbe no trabalho, o que trata como de risco elevado e quem é responsável.",
+  "inLanguage": "pt-PT"
+}
+</script>
   <link rel="alternate" hreflang="it" href="https://www.no-ai-act.eu/ai-nel-lavoro-e-selezione/" />
   <link rel="alternate" hreflang="en" href="https://www.no-ai-act.eu/en/ai-in-recruitment-and-employment/" />
   <link rel="alternate" hreflang="fr" href="https://www.no-ai-act.eu/fr/ia-recrutement-emploi/" />
@@ -14,46 +88,100 @@
   <link rel="alternate" hreflang="es" href="https://www.no-ai-act.eu/es/ia-seleccion-personal/" />
   <link rel="alternate" hreflang="pt-PT" href="https://www.no-ai-act.eu/pt/ia-recrutamento/" />
   <link rel="alternate" hreflang="x-default" href="https://www.no-ai-act.eu/ai-nel-lavoro-e-selezione/" />
-  <meta property="og:type" content="website" /><meta property="og:site_name" content="NO AI ACT" />
-  <meta property="og:locale" content="pt_PT" />
   <meta property="og:locale:alternate" content="it_IT" />
   <meta property="og:locale:alternate" content="en_GB" />
   <meta property="og:locale:alternate" content="fr_FR" />
   <meta property="og:locale:alternate" content="de_DE" />
   <meta property="og:locale:alternate" content="es_ES" />
-  <meta property="og:title" content="IA no recrutamento: riscos e casos práticos" /><meta property="og:description" content="Analisa filtros de candidaturas, listas de seleção e revisão humana com um caso fictício. Introdução ao Regulamento IA, sem certificações." />
-  <meta property="og:url" content="https://www.no-ai-act.eu/pt/ia-recrutamento/" /><meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
-  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" /><meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta property="og:image:alt" content="IA no recrutamento: do filtro de candidaturas à responsabilidade" />
-  <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="IA no recrutamento: riscos e casos práticos" />
-  <meta name="twitter:description" content="Analisa filtros de candidaturas, listas de seleção e revisão humana com um caso fictício. Introdução ao Regulamento IA, sem certificações." /><meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" /><meta name="twitter:image:alt" content="IA no recrutamento: do filtro de candidaturas à responsabilidade" />
-  <link rel="stylesheet" href="/src/styles/landing.css" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"NO AI ACT","item":"https://www.no-ai-act.eu/pt/"},{"@type":"ListItem","position":2,"name":"IA no recrutamento: do filtro de candidaturas à responsabilidade","item":"https://www.no-ai-act.eu/pt/ia-recrutamento/"}]}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"IA no recrutamento: do filtro de candidaturas à responsabilidade","url":"https://www.no-ai-act.eu/pt/ia-recrutamento/","inLanguage":"pt-PT","isAccessibleForFree":true,"learningResourceType":"Reading","image":"https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png"}</script>
-  <script>document.documentElement.classList.add('has-js');</script>
-</head><body class="eu-site">
+</head>
+<body>
   <a class="skip-link" href="#main">Saltar para o conteúdo</a>
-  <header class="topbar"><div class="wrap"><a class="brand" href="/pt/">NO AI ACT</a>
-    <nav class="site-nav" aria-label="Navegação"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Navegação">Navegação</button>
-    <ul class="nav-menu" id="site-menu"><li><a href="#play-languages">Jogar: escolher idioma</a></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="eu-topics">Temas</button><ul class="nav-sub" id="eu-topics"><li><a href="/pt/">Início</a></li><li><a href="/pt/como-funciona/">Como funciona NO AI ACT</a></li><li><a href="/pt/educacao/">Recursos educativos sobre o Regulamento IA</a></li><li><a href="/pt/regulamento-ia-para-docentes/">O Regulamento IA na escola: usos e responsabilidades</a></li><li><a href="/pt/guia-regulamento-ia/">Guia introdutório do Regulamento IA</a></li><li><a href="/pt/glossario-ia/">Glossário do Regulamento IA</a></li><li><a href="/pt/privacidade/">Privacidade e estatísticas de utilização</a></li><li><a href="/pt/categorias-risco-ia/">Como interpretar as categorias de risco</a></li><li><a href="/pt/praticas-ia-proibidas/">Práticas de inteligência artificial proibidas</a></li><li><a href="/pt/sistemas-ia-risco-elevado/">Sistemas de IA de risco elevado</a></li><li><a href="/pt/obrigacoes-transparencia-ia/">Obrigações de transparência em IA</a></li><li><a href="/pt/modelos-ia-finalidade-geral/">Modelos de IA de finalidade geral</a></li><li><a href="/pt/literacia-ia/">Literacia em inteligência artificial</a></li><li><a href="/pt/atividade-ai-act-sala-aula/">AI Act na sala de aula: investigar casos e fundamentar decisões</a></li><li><a href="/pt/ia-recrutamento/" aria-current="page">IA no recrutamento: do filtro de candidaturas à responsabilidade</a></li><li><a href="/pt/kit-de-imprensa/">NO AI ACT – Kit de imprensa</a></li></ul></li></ul></nav>
-  </div></header>
+  <header class="topbar"><div class="wrap"><a class="brand" href="/pt/">NO AI ACT</a><nav class="site-nav" aria-label="Menu"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">Menu</button><ul class="nav-menu" id="site-menu"><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-0">Jogar</button><ul class="nav-sub" id="topics-0"><li><a href="/pt/">NO AI ACT</a></li><li><a href="/pt/como-funciona/">Como funciona o NO AI ACT</a></li><li><a href="/pt/para-formadores/">NO AI ACT para educadores</a></li><li><a href="/pt/jogo-serio-regulamento-ia/">Um jogo sério sobre o AI Act da UE</a></li><li><a href="/pt/kit-de-imprensa/">Kit de imprensa</a></li><li><a href="/pt/como-citar/">Como citar NO AI ACT</a></li><li><a href="/pt/matteo-angeloni/">Matteo Angeloni</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-1">Aprender</button><ul class="nav-sub" id="topics-1"><li><a href="/pt/educacao/">Centro de educação da AI Act</a></li><li><a href="/pt/literacia-ia/">Literacia da IA e artigo 4.º do AI Act da UE</a></li><li><a href="/pt/cidadania-digital-regulacao-ia/">Cidadania digital e regulamentação da IA</a></li><li><a href="/pt/jogos-serios-regulacao-ia/">Jogos sérios para regulamentação de IA</a></li><li><a href="/pt/investigacao-metodologia/">Investigação e metodologia</a></li><li><a href="/pt/aprendizagem-respeitadora-privacidade/">Aprendizagem consciente da privacidade</a></li><li><a href="/pt/perguntas-frequentes/">Perguntas mais frequentes</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-2">Docentes</button><ul class="nav-sub" id="topics-2"><li><a href="/pt/regulamento-ia-para-docentes/">A legislação comunitária em matéria de IA para os professores</a></li><li><a href="/pt/atividades-pedagogicas/">Actividades de sala de aula</a></li><li><a href="/pt/plano-aula-introducao-ia/">Plano de aulas: uma introdução ao AI Act</a></li><li><a href="/pt/plano-aula-risco/">Plano de aulas: abordagem baseada no risco</a></li><li><a href="/pt/plano-aula-transparencia/">Plano de aulas: transparência e utilizadores</a></li><li><a href="/pt/atividade-ai-act-sala-aula/">O laboratório de sala de aula do AI Act</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-3">Regulamento de IA</button><ul class="nav-sub" id="topics-3"><li><a href="/pt/guia-regulamento-ia/">A legislação da UE em matéria de IA explica-se de forma simples:</a></li><li><a href="/pt/categorias-risco-ia/">Categorias de risco da AI Act</a></li><li><a href="/pt/praticas-ia-proibidas/">Práticas de IA proibidas</a></li><li><a href="/pt/sistemas-ia-risco-elevado/">Sistemas de IA de risco elevado</a></li><li><a href="/pt/obrigacoes-transparencia-ia/">Obrigações em matéria de transparência</a></li><li><a href="/pt/modelos-ia-finalidade-geral/">IA de finalidade geral</a></li><li><a href="/pt/sancoes-regulamento-ia/">Sanções AI Act: montantes, que estão expostos, de quando</a></li><li><a href="/pt/regulamento-ia-rgpd/">A AI Act e o GDPR: quando cada um se aplica, e quando ambos</a></li><li><a href="/pt/glossario-ia/">Glossário da AI Act</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-4">Organizações</button><ul class="nav-sub" id="topics-4"><li><a href="/pt/regulamento-ia-empresas/">AI Act for business: que obrigações e o que fazer</a></li><li><a href="/pt/ia-administracao-publica/">Lei AI da UE relativa à administração pública e à contratação de IA</a></li><li><a href="/pt/prestador-responsavel-implantacao/">Prestador/instalador ao abrigo do AI Act da UE</a></li><li><a href="/pt/ia-recrutamento/" aria-current="page">IA no recrutamento e no emprego</a></li><li><a href="/pt/avaliacao-impacto-direitos-fundamentais-ia/">AI Act FRIA: avaliação do impacto dos direitos fundamentais</a></li><li><a href="/pt/deepfakes-transparencia/">Fakes profundos e transparência</a></li><li><a href="/pt/calendario-regulamento-ia/">A linha do tempo da aplicação AI Act</a></li></ul></li><li><a href="/pt/privacidade/">Privacidade</a></li></ul></nav></div></header>
 <nav class="locale-links" aria-label="Idiomas"><div class="wrap"><a href="/ai-nel-lavoro-e-selezione/" hreflang="it" lang="it"><img src="/assets/flags/it.png" width="28" height="20" alt="" /><span>Italiano</span></a><a href="/en/ai-in-recruitment-and-employment/" hreflang="en" lang="en"><img src="/assets/flags/gb.png" width="28" height="20" alt="" /><span>English</span></a><a href="/fr/ia-recrutement-emploi/" hreflang="fr" lang="fr"><img src="/assets/flags/fr.png" width="28" height="20" alt="" /><span>Français</span></a><a href="/de/ki-personalauswahl/" hreflang="de" lang="de"><img src="/assets/flags/de.png" width="28" height="20" alt="" /><span>Deutsch</span></a><a href="/es/ia-seleccion-personal/" hreflang="es" lang="es"><img src="/assets/flags/es.png" width="28" height="20" alt="" /><span>Español</span></a><a href="/pt/ia-recrutamento/" hreflang="pt-PT" lang="pt-PT" aria-current="page"><img src="/assets/flags/pt.png" width="28" height="20" alt="" /><span>Português</span></a></div></nav>
-  <main id="main"><section class="hero" aria-labelledby="page-title"><div class="wrap"><p class="stamp">NO AI ACT · Português</p><h1 id="page-title">IA no recrutamento: do filtro de candidaturas à responsabilidade</h1><p class="lead">Agendar entrevistas, ordenar currículos e avaliar trabalhadores não são a mesma função. Esta introdução propõe perguntas e um caso prático para compreender como a utilização concreta influencia a análise do Regulamento Inteligência Artificial.</p><p class="cta-row"><a class="btn btn-primary" href="#play-languages">Jogar: escolher idioma</a></p></div></section>
-<section aria-labelledby="section-0"><div class="wrap"><h2 id="section-0"><span class="num">01</span>Descrever a decisão antes de escolher uma categoria</h2><p>Começa por uma frase concreta: o sistema organiza ficheiros, recomenda candidaturas ou influencia quem chega a uma entrevista? Chamar-lhe «assistente» não resolve a questão. Uma recomendação pode ter muito peso quando ninguém lê os documentos excluídos. Desenha o percurso desde a receção da candidatura até à decisão final. Distingue o resultado técnico da ferramenta da ação da pessoa que a utiliza e pergunta em que momento deixa de ser possível identificar ou corrigir um erro.</p></div></section>
-<section aria-labelledby="section-1"><div class="wrap"><h2 id="section-1"><span class="num">02</span>O ponto de partida no regulamento</h2><p>O anexo III, ponto 4, contempla determinadas utilizações de IA no recrutamento, na seleção e na gestão de trabalhadores. A classificação exige também analisar as condições e exceções do artigo 6. Por isso, nem toda a ferramenta digital usada pelos recursos humanos é automaticamente um sistema de IA de risco elevado. Também não basta chamar «indicativa» à recomendação para encerrar a análise. A finalidade prevista e as condições concretas de utilização são essenciais. As fontes oficiais no final da página permitem aprofundar a verificação jurídica.</p></div></section>
-<section aria-labelledby="section-2"><div class="wrap"><h2 id="section-2"><span class="num">03</span>Caso fictício: só cinco candidaturas são lidas</h2><p>Uma empresa recebe 30 candidaturas e usa uma lista ordenada para selecionar entrevistas. A pessoa responsável lê apenas as primeiras cinco. Uma candidata que interrompeu a atividade para cuidar de um familiar surge mais abaixo; os documentos não explicam que peso teve essa interrupção. Ainda não sabemos se existe uma penalização sistemática: faltam provas. Importa perguntar que dados são utilizados, como a ordenação influencia o acesso à entrevista e quem pode corrigi-la. O caso não descreve um empregador nem um produto real.</p></div></section>
-<section aria-labelledby="section-3"><div class="wrap"><h2 id="section-3"><span class="num">04</span>Que documentos ajudariam a esclarecer o caso?</h2><p>Seriam úteis uma descrição da finalidade prevista, informação sobre os critérios utilizados, resultados de testes e um procedimento claro para tratar erros. Pergunta o que acontece perante uma reclamação: quem consegue ler os documentos originais, afastar a recomendação e rever a decisão? Uma promessa comercial de precisão não responde a todas estas questões. Numa atividade em grupo, cada par pode indicar que documento permitiria verificar uma afirmação e que incerteza continuaria a existir mesmo depois de o obter.</p></div></section>
-<section aria-labelledby="section-4"><div class="wrap"><h2 id="section-4"><span class="num">05</span>Revisão humana ou simples confirmação?</h2><p>Distingue entre aprovar uma lista por rotina e dispor de informação, tempo e autoridade para a questionar. A pessoa que revê a proposta conhece as limitações do sistema? Tem acesso às candidaturas que ficaram de fora? Pode alterar a recomendação? Uma assinatura, por si só, não demonstra que tenha havido uma revisão substancial. Estas são perguntas para analisar o cenário, não uma lista completa de cumprimento. Em situações reais podem ainda ser relevantes a proteção de dados, o direito laboral e as garantias contra a discriminação.</p></div></section>
-<section aria-labelledby="section-5"><div class="wrap"><h2 id="section-5"><span class="num">06</span>Separar questões que podem coexistir</h2><p>A possível classificação como risco elevado, uma prática proibida e uma obrigação de transparência não são respostas intercambiáveis. Informar que se utiliza IA não torna automaticamente um procedimento lícito. Do mesmo modo, uma falha organizacional não prova, só por si, a violação de uma proibição específica. Relaciona cada conclusão com os factos e com a regra que está a ser examinada. Para exceções, prazos e decisões reais, consulta o texto em vigor e, quando necessário, aconselhamento especializado.</p></div></section>
-<section aria-labelledby="section-6"><div class="wrap"><h2 id="section-6"><span class="num">07</span>Uma conclusão que possa ser discutida</h2><p>Escreve três pequenos parágrafos: o que sabemos, o que supomos e o que precisamos de verificar antes de decidir. Liga a medida proposta ao problema identificado. «Mais transparência» é insuficiente se a dúvida é saber se alguém revê as candidaturas excluídas. Trabalha apenas com documentos inventados e permite que outra pessoa questione a conclusão. O exercício não comprova a conformidade de um processo de recrutamento nem atribui uma qualificação profissional. O seu objetivo é tornar visível a ligação entre provas, incerteza e decisão.</p></div></section>
 
-<section aria-label="NO AI ACT"><div class="wrap"><figure class="resource-figure"><a href="/assets/press/screenshots/03-evidence-desk.jpg" target="_blank" rel="noopener"><img src="/assets/press/screenshots/03-evidence-desk.jpg" width="1920" height="1080" alt="Imagem de arquivo do jogo, versão 3: investigação de um processo. A publicação atual é a versão 5.2.0." loading="lazy" decoding="async" /></a><figcaption>Imagem de arquivo do jogo, versão 3: investigação de um processo. A publicação atual é a versão 5.2.0.</figcaption></figure></div></section>
-<section aria-labelledby="next-reading-title"><div class="wrap"><h2 id="next-reading-title">Continuar a leitura</h2><ul class="plain"><li><a href="/pt/sistemas-ia-risco-elevado/">Sistemas de IA de risco elevado</a></li><li><a href="/pt/obrigacoes-transparencia-ia/">Distinguir obrigações de transparência</a></li><li><a href="/pt/atividade-ai-act-sala-aula/">Atividade para trabalhar o caso na sala de aula</a></li></ul></div></section>
-<section aria-labelledby="source-reading-title"><div class="wrap"><h2 id="source-reading-title">Texto jurídico oficial da UE</h2><ul class="plain"><li><a href="https://eur-lex.europa.eu/legal-content/PT/TXT/HTML/?uri=CELEX:02024R1689-20260727">Texto consolidado: artigo 6 e anexo III, ponto 4</a></li></ul></div></section>
+  <nav class="breadcrumbs" aria-label="Milho-de-pão">
+    <div class="wrap">
+      <ol>
+        <li><a href="/pt/">NO AI ACT</a></li>
+        <li><a href="/pt/guia-regulamento-ia/">Guia da AI da UE</a></li>
+        <li aria-current="page">IA no trabalho</li>
+      </ol>
+    </div>
+  </nav>
 
-  <section aria-labelledby="play-languages"><div class="wrap"><h2 id="play-languages">Jogar: escolher idioma</h2><p>O jogo está disponível em italiano, inglês, francês, alemão, espanhol e português europeu. Estas páginas estão em português europeu; as opções seguintes abrem o jogo no idioma indicado.</p><p class="eu-play-links"><a href="/play/?lang=it" hreflang="it">Italiano</a> · <a href="/play/?lang=en" hreflang="en">Inglês</a> · <a href="/play/?lang=fr" hreflang="fr">Francês</a> · <a href="/play/?lang=de" hreflang="de">Alemão</a> · <a href="/play/?lang=es" hreflang="es">Espanhol</a> · <a href="/play/?lang=pt" hreflang="pt-PT">Português</a></p></div></section>
+  <main id="main">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="wrap">
+        <p class="kicker">AI Act · Emprego · Alto risco</p>
+        <h1 id="page-title">IA no recrutamento e no emprego</h1>
+        <p class="lead">Um algoritmo que rejeita seu CV, software que pontua sua produtividade, uma câmera que &quot;leia&quot; seu humor em uma entrevista: o AI Act trata esses três cenários de forma muito diferente. Esta página explica onde a linha corre entre proibido, de risco elevado e permitido — e quem responde para cada um.</p>
+      </div>
+    </section>
 
-  </main><footer aria-labelledby="footer-title"><div class="wrap"><h2 id="footer-title" class="stamp">Simplificação educativa, não aconselhamento jurídico</h2><p>NO AI ACT é um jogo educativo independente, gratuito e de código aberto. Estas explicações introduzem conceitos selecionados e não substituem o texto em vigor nem uma avaliação profissional. A sua eficácia educativa não foi demonstrada por um estudo controlado.</p><p><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/por" hreflang="pt-PT">Texto jurídico oficial da UE</a> · <a href="/en/research-and-methodology/" hreflang="en" lang="en">Autor e metodologia (em inglês)</a> · <a href="/game-statistics.html#pt" hreflang="pt-PT">Informação sobre as estatísticas</a></p><p class="credit">Desenvolvido por Matteo Angeloni · v5.2.2<br />Conteúdo preparado com apoio de IA e revisão editorial; não é uma tradução oficial.</p></div><p class="session-record-policy">Gravações locais e estatísticas agregadas que podes desativar. Só com consentimento de adultos: registo da sessão durante 90 dias; textos do percurso guiado com consentimento separado. Retirada, apagamento e exportação na barra do jogo. <a href="/game-statistics.html#pt">Informação sobre as estatísticas</a></p></footer>
+    <section aria-labelledby="brief-title">
+      <div class="wrap">
+        <h2 id="brief-title"><span class="num">01</span>Síntese</h2>
+        <p class="section-intro">No trabalho, o AI Act desenha duas linhas. <strong>Proibido</strong>: inferindo as emoções dos trabalhadores e estudantes a partir de seus dados biométricos, exceto por razões médicas ou de segurança (Art. 5). <strong>Alto risco</strong>: sistemas que analisam os candidatos, alocam tarefas, avaliam o desempenho ou decidem promoções e terminações (anexo III, ponto 4) — permitidos, mas sob obrigações estritas de supervisão humana, transparência e governação dos dados.</p>
+      </div>
+    </section>
+    <section aria-labelledby="banned-title">
+      <div class="wrap">
+        <h2 id="banned-title"><span class="num">02</span>O que é proibido no local de trabalho</h2>
+        <p class="section-intro">O reconhecimento da emoção no local de trabalho é uma prática proibida: o software que afirma medir o &quot;entusiasmo&quot; ou a &quot;confiança&quot; dos movimentos faciais em uma entrevista de vídeo não é um sistema de risco elevado que precise de melhor papelada — é fora do que é legal. A lógica: a relação de trabalho é assimétrica, e alguém que depende de um julgamento não pode optar por não ser observado. Mais em <a href="/pt/praticas-ia-proibidas/">práticas proibidas</a>.</p>
+      </div>
+    </section>
+    <section aria-labelledby="highrisk-title">
+      <div class="wrap">
+        <h2 id="highrisk-title"><span class="num">03</span>O que é de risco elevado (e por que não é proibido)</h2>
+        <ul class="plain">
+          <li><strong>Recrutamento e contratação</strong>: Triagem CV, filtragem de aplicações, sistemas de classificação de candidatos.</li>
+          <li><strong>Gestão da relação</strong>: atribuição de tarefas, acompanhamento e avaliação do desempenho, decisões sobre promoção e rescisão.</li>
+        </ul>
+        <p>&quot;Alto risco&quot; não significa &quot;proibido&quot;: significa que o sistema só pode funcionar com requisitos de qualidade dos dados, documentação, informação do trabalhador e <strong>supervisão humana efetiva</strong> — uma pessoa que possa compreender o sistema e inverter a sua produção, e não um carimbo de borracha sobre as decisões já tomadas. <a href="/pt/sistemas-ia-risco-elevado/">Sistemas de IA de risco elevado</a>.</p>
+        <p>O GDPR não pára aqui: decisões automatizadas e informar os trabalhadores permanecem seu território. <a href="/pt/regulamento-ia-rgpd/">A lei AI e o RGPD</a>.</p>
+      </div>
+    </section>
+    <section aria-labelledby="who-title">
+      <div class="wrap">
+        <h2 id="who-title"><span class="num">04</span>Quem é o responsável?</h2>
+        <p class="section-intro">A <strong>prestador</strong> (que constrói e vende o sistema) respostas para o design, dados e documentação; <strong>responsável pela implantação</strong> — neste caso, a entidade patronal — respostas para uma utilização concreta: o funcionamento do sistema segundo as instruções, a supervisão, a informação dos trabalhadores. &quot;O algoritmo decidido&quot; não move a responsabilidade em nenhum lugar: ele apenas atribui-lo mal.</p>
+      </div>
+    </section>
+    <section aria-labelledby="game-title">
+      <div class="wrap">
+        <h2 id="game-title"><span class="num">05</span>No jogo: &quot;A entrevista que nunca aconteceu&quot;</h2>
+        <p class="section-intro">No caso <em>A entrevista que nunca aconteceu</em> você inspeciona um sistema automatizado de contratação: você deve separar o que é proibido (a análise de emoção) do que é &quot;mera&quot; mal governado de risco elevado, e atribuir responsabilidade entre o construtor e o utilizador do sistema. O contraste com <em>A sala de aula observada</em> (monitoramento de menores na escola) mostra como a mesma ferramenta muda de peso quando o contexto muda.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/play/?lang=pt">Jogar o caso</a>
+          <a class="btn btn-ghost" href="/pt/sistemas-ia-risco-elevado/">Sistemas de IA de risco elevado</a>
+        </div>
+      </div>
+    </section>
+    <section aria-labelledby="sources-title">
+      <div class="wrap">
+        <h2 id="sources-title"><span class="num">06</span>Fontes oficiais e transparência</h2>
+        <ul class="plain">
+          <li><strong>Responsabilidade pelo conteúdo</strong>: o projeto NO AI ACT (Matteo Angeloni); revisão editorial interna, sem revisão jurídica de terceiros.</li>
+          <li><strong>Primeira publicação</strong>: Julho de 2026 · <strong>Última revisão</strong>: Julho de 2026 (site v5.2.).</li>
+          <li><strong>Fontes oficiais</strong>: <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/por">Regulamento (UE) 2024/1689 relativo ao EUR-Lex</a> [n.º 1, alínea f), do artigo 5.º]; ponto 4 do anexo III; capítulo III para as obrigações; <a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai">Quadro regulamentar da UE para a IA (Comissão Europeia)</a>; <a href="https://digital-strategy.ec.europa.eu/en/policies/ai-office">Gabinete Europeu de IA</a>.</li>
+          <li><strong>Casos de jogo relacionados</strong>: &quot;A entrevista que nunca aconteceu&quot; (recrutamento), &quot;A sala de aula observada&quot; (monitoramento), &quot;Crédito civil&quot; (coragem).</li>
+          <li><strong>Recursos de professores relacionados</strong>: <a href="/pt/regulamento-ia-para-docentes/">AI Act para professores</a>, <a href="/pt/atividades-pedagogicas/">atividades em sala de aula</a>, <a href="/pt/atividade-ai-act-sala-aula/">guia de laboratório de sala de aula</a>.</li>
+          <li><strong>Limitação de responsabilidade</strong>: esta página é uma simplificação educacional, não aconselhamento jurídico.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer aria-labelledby="footer-title">
+    <div class="wrap">
+      <h2 id="footer-title" class="stamp">Simulação educacional — não aconselhamento jurídico</h2>
+      <p>NO AI ACT é uma ferramenta educacional. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/por" hreflang="pt-PT">Regulamento (UE) 2024/1689 (Lei AI)</a> e não substitui o texto legal ou o conselho profissional.</p>
+      <p><a href="/pt/">Principal</a> · <a href="/pt/sistemas-ia-risco-elevado/">Sistemas de IA de risco elevado</a> · <a href="/pt/praticas-ia-proibidas/">Práticas proibidas</a> · <a href="/pt/educacao/">Centro de educação</a> · <a href="/pt/ia-recrutamento/" hreflang="it">Versão italiana</a></p>
+      <p class="credit">Projetado e desenvolvido por <a href="/pt/matteo-angeloni/">Matteo Angeloni</a> · v5.3.0 · <span class="ai-disclosure">Feita com IA, não por IA</span><br><span class="credit-affil">Candidato a doutoramento em <a href="https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/">Società in mutamento: politiche, diritti e sicurezza</a> · <a href="https://www.unitus.it/">Universidade de Tuscia</a> — projecto independente, não uma produção oficial da universidade</span></p>
+    </div>
+  <p class="session-record-policy">Poupanças locais e estatísticas agregadas opcionais. Somente com o consentimento do adulto: registo de sessão por 90 dias; texto de trajeto guiado requer consentimento separado. Retirar, apagar ou exportar da barra de jogo. <a href="/game-statistics.html#pt">Aviso de privacidade e contato</a></p><p class="shared-play-languages">Jogar: <a href="/play/?lang=it" hreflang="it" lang="it">Italiano</a> · <a href="/play/?lang=en" hreflang="en" lang="en">English</a> · <a href="/play/?lang=fr" hreflang="fr" lang="fr">Français</a> · <a href="/play/?lang=de" hreflang="de" lang="de">Deutsch</a> · <a href="/play/?lang=es" hreflang="es" lang="es">Español</a> · <a href="/play/?lang=pt" hreflang="pt-PT" lang="pt-PT">Português</a></p></footer>
+  <!-- Cloudflare Web Analytics --><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;7c85578fc8ad4488a54c6bc670a10dcf&quot;}"></script><!-- End Cloudflare Web Analytics -->
   <script type="module" src="/src/scripts/nav.ts"></script>
 
 </body></html>

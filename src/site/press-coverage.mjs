@@ -36,7 +36,7 @@ const copy = {
       'Intervista a Matteo Angeloni, autore e sviluppatore di NO AI ACT.',
       'Un contributo firmato da Matteo Angeloni sul progetto e sulle sue possibili applicazioni educative, non una recensione indipendente.',
       'Matteo Angeloni racconta la nascita e lo sviluppo del gioco, non una recensione indipendente.',
-      'Una partita commentata in italiano, registrata prima della nuova beta e della versione 4.0.',
+      'Una partita commentata in italiano del 3 ottobre 2026, precedente alle versioni 4 e 5.',
       'La recensione di Absolute Gamer dedicata al serious game investigativo.'
     ]
   },
@@ -48,7 +48,7 @@ const copy = {
       'An interview with Matteo Angeloni, the creator and developer of NO AI ACT.',
       'A contribution by Matteo Angeloni about the project and its potential educational uses, not an independent review.',
       'Matteo Angeloni tells the story of the game’s creation and development, not an independent review.',
-      'A narrated playthrough in Italian, recorded before the new beta and version 4.0.',
+      'A narrated playthrough in Italian from 3 October 2026, recorded before versions 4 and 5.',
       'Absolute Gamer’s review of the investigative serious game.'
     ]
   },
@@ -60,7 +60,7 @@ const copy = {
       'Entretien avec Matteo Angeloni, créateur et développeur de NO AI ACT.',
       'Une contribution signée Matteo Angeloni sur le projet et ses usages éducatifs possibles, et non une critique indépendante.',
       'Matteo Angeloni raconte la création et le développement du jeu ; il ne s’agit pas d’une critique indépendante.',
-      'Une partie commentée en italien, enregistrée avant la nouvelle bêta et la version 4.0.',
+      'Une partie commentée en italien du 3 octobre 2026, antérieure aux versions 4 et 5.',
       'La critique du serious game d’enquête par Absolute Gamer.'
     ]
   },
@@ -72,7 +72,7 @@ const copy = {
       'Interview mit Matteo Angeloni, dem Autor und Entwickler von NO AI ACT.',
       'Ein Beitrag von Matteo Angeloni über das Projekt und mögliche Bildungsanwendungen, keine unabhängige Rezension.',
       'Matteo Angeloni berichtet über die Entstehung und Entwicklung des Spiels, keine unabhängige Rezension.',
-      'Kommentiertes Gameplay auf Italienisch, aufgenommen vor der neuen Beta und Version 4.0.',
+      'Kommentiertes Gameplay auf Italienisch vom 3. Oktober 2026, vor den Versionen 4 und 5 aufgenommen.',
       'Die Rezension des investigativen Lernspiels von Absolute Gamer.'
     ]
   },
@@ -84,7 +84,7 @@ const copy = {
       'Entrevista con Matteo Angeloni, creador y desarrollador de NO AI ACT.',
       'Una contribución firmada por Matteo Angeloni sobre el proyecto y sus posibles usos educativos, no una reseña independiente.',
       'Matteo Angeloni relata la creación y el desarrollo del juego; no es una reseña independiente.',
-      'Una partida comentada en italiano, grabada antes de la nueva beta y de la versión 4.0.',
+      'Una partida comentada en italiano del 3 de octubre de 2026, anterior a las versiones 4 y 5.',
       'La reseña del serious game de investigación publicada por Absolute Gamer.'
     ]
   },
@@ -96,7 +96,7 @@ const copy = {
       'Entrevista com Matteo Angeloni, autor e programador de NO AI ACT.',
       'Um contributo assinado por Matteo Angeloni sobre o projeto e possíveis utilizações educativas, não uma análise independente.',
       'Matteo Angeloni relata a criação e o desenvolvimento do jogo; não é uma análise independente.',
-      'Uma partida comentada em italiano, gravada antes da nova beta e da versão 4.0.',
+      'Uma partida comentada em italiano de 3 de outubro de 2026, anterior às versões 4 e 5.',
       'A análise do serious game de investigação publicada pela Absolute Gamer.'
     ]
   }

@@ -1,7 +1,7 @@
 {
   "en": "en/faq",
   "slug": "faq",
-  "sourceHash": "1e82044a3d9bbcaed2a4f88be402215b1ed0496a93afc0aefc8793d045526f61",
+  "sourceHash": "051f1b811ad7aabc88b21a31b1c9a8bc0eb41335e8ffa11659e5195a89a12f4b",
   "title": "Questions fréquentes sur NO AI ACT",
   "description": "Réponses sur la gratuité, les langues, les licences, la confidentialité, les usages pédagogiques et les limites du serious game NO AI ACT.",
   "blocks": [
@@ -20,11 +20,11 @@
     "Les enseignants peuvent-ils l'utiliser en classe ?",
     "Oui, c'est un usage central. Commencez par le guide enseignant et les activités pédagogiques : aucun compte ni installation n'est nécessaire.",
     "Faut-il s'inscrire ?",
-    "Non. Le jeu fonctionne dans le navigateur sans compte, adresse électronique ni identifiant. La progression est conservée uniquement dans le localStorage du navigateur.",
+    "Aucun compte ni adresse électronique ne sont nécessaires. La progression est sauvegardée dans le navigateur. Le registre facultatif réservé aux adultes utilise un identifiant de session aléatoire uniquement après consentement.",
     "Les joueurs sont-ils suivis ?",
-    "Les joueurs ne sont pas profilés. Décisions, Sauvegardes locales et statistiques agrégées désactivables. Avec le consentement des adultes uniquement : registre de session pendant 90 jours ; accord distinct pour les textes du parcours guidé. Retrait, effacement et export dans la barre du jeu. Le jeu transmet uniquement des catégories agrégées et limitées d'utilisation et d'évaluation produite par le jeu, sans cookies ni identifiant persistant ; ces compteurs peuvent être désactivés et respectent DNT/GPC.",
+    "Les compteurs agrégés peuvent être désactivés. Les adultes peuvent consentir séparément à un registre de session pseudonyme conservé 90 jours ; les textes du parcours guidé nécessitent un accord supplémentaire. Retrait du consentement, effacement et export sont disponibles dans la barre du jeu. Aucun profil publicitaire ni suivi entre visites ne sont ajoutés. DNT/GPC sont respectés.",
     "Quelles langues sont disponibles ?",
-    "L'italien, l'anglais et le français : le jeu complet et les ressources éducatives sont accessibles dans ces langues dans cette version.",
+    "Italien, anglais, français, allemand, espagnol et portugais européen : les 14 cas, 37 sections du site par langue, les dossiers de presse et le dossier méthodologique. Les matériaux locaux de Study 02 existent également dans les six langues ; leur équivalence reste à valider avec des personnes.",
     "Le jeu couvre-t-il tout l'AI Act ?",
     "Non. Il aborde les concepts structurants (catégories de risque, pratiques interdites, transparence, IA à usage général, contrôle humain, responsabilité) à travers 14 cas et les pages associées.",
     "Peut-il servir à une formation à la conformité ?",
@@ -36,6 +36,6 @@
     "Comment citer ou partager le jeu ?",
     "Créez un lien vers le site ou une page précise. Les contenus sont sous CC BY-SA 4.0, avec attribution à « NO AI ACT — no-ai-act.eu ». Le dépôt est public sur GitHub.",
     "<span class=\"num\">02</span>Pour aller plus loin",
-    "Le déroulement du jeu : <a href=\"../how-it-works/\">comment ça marche</a>. Ce qu'il peut enseigner : <a href=\"../ai-literacy/\">maîtrise de l'IA</a>. Les données collectées et les limites vérifiables : <a href=\"../privacy-by-design/\">protection dès la conception</a>."
+    "Le déroulement du jeu : <a href=\"/fr/comment-ca-marche/\">comment ça marche</a>. Ce qu'il peut enseigner : <a href=\"/fr/maitrise-de-l-ia/\">maîtrise de l'IA</a>. Les données collectées et les limites vérifiables : <a href=\"/fr/protection-des-donnees-des-la-conception/\">protection dès la conception</a>."
   ]
 }

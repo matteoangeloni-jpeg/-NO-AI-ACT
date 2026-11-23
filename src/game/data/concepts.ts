@@ -69,12 +69,12 @@ export const TEACHER_RESOURCES: { id: string; url: string }[] = [
   { id: 'lesson_en', url: '/en/lesson-plan-introduction-to-the-ai-act/' },
   { id: 'activities_fr', url: '/fr/activites-pedagogiques/' },
   { id: 'lesson_fr', url: '/fr/seance-introduction-ai-act/' },
-  { id: 'activities_de', url: '/de/ai-act-unterrichtseinheit/' },
-  { id: 'lesson_de', url: '/de/ki-verordnung-fuer-lehrkraefte/' },
-  { id: 'activities_es', url: '/es/taller-ai-act-aula/' },
-  { id: 'lesson_es', url: '/es/reglamento-ia-para-docentes/' },
-  { id: 'activities_pt', url: '/pt/atividade-ai-act-sala-aula/' },
-  { id: 'lesson_pt', url: '/pt/regulamento-ia-para-docentes/' }
+  { id: 'activities_de', url: '/de/unterrichtsaktivitaeten/' },
+  { id: 'lesson_de', url: '/de/unterrichtsplan-ki-einstieg/' },
+  { id: 'activities_es', url: '/es/actividades-didacticas/' },
+  { id: 'lesson_es', url: '/es/plan-clase-introduccion-ia/' },
+  { id: 'activities_pt', url: '/pt/atividades-pedagogicas/' },
+  { id: 'lesson_pt', url: '/pt/plano-aula-introducao-ia/' }
 ];
 
 export function conceptLink(id: ConceptId, lang: LanguageCode): string {

@@ -33,7 +33,7 @@ describe('the complete game and website share six published languages', () => {
     const cfg = JSON.parse(read('release.config.json'));
     expect(LANGUAGE_CODES).toEqual(['it', 'en', 'fr', 'de', 'es', 'pt']);
     expect(LANGUAGE_CODES).toEqual(SITE_LANGUAGE_CODES);
-    expect(LANGUAGE_CODES).toEqual(cfg.languages);
+    expect(LANGUAGE_CODES).toEqual(cfg.playableLanguages);
     expect(LANGUAGE_CODES).toEqual(cfg.siteLanguages);
     expect(LANGUAGE_CODES).toEqual(LANGUAGES);
   });

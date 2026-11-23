@@ -45,7 +45,7 @@ export type ErrorType =
 /** Scelte disponibili durante un evento imprevisto. */
 export type IncidentChoice = 'document' | 'suspend' | 'minimize';
 
-/** Lingue supportate. Estensione futura: 'fr' | 'es'. */
+/** Compile-time dictionary keys; runtime availability comes from release.config.json. */
 export type LanguageCode = 'it' | 'en' | 'fr' | 'de' | 'es' | 'pt';
 
 export type NormLevel = 'vietata' | 'alto' | 'trasparenza' | 'restrittivo';

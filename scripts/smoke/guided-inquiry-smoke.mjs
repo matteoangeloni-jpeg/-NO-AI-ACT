@@ -5,13 +5,14 @@ import { createServer } from 'vite';
 import { prepareEvidenceWithKeyboard } from './lib-evidence.mjs';
 import { completeDecisionWithKeyboard } from './lib-decision.mjs';
 import { smokeBrowserLaunchOptions } from './lib-browser.mjs';
+import { PLAYABLE_LANGUAGES, languageCode } from '../../src/site/route-inventory.mjs';
 
 const port = Number(process.env.INQUIRY_PORT || 4245);
 const base = 'http://127.0.0.1:' + port;
 const out = 'scripts/smoke/out/guided-inquiry';
 mkdirSync(out, { recursive: true });
 const server = await createServer({
-  server: { host: '127.0.0.1', port, strictPort: true, watch: { ignored: ['**/graphify-out/**', '**/scripts/smoke/out/**'] } },
+  server: { host: '127.0.0.1', port, strictPort: true, watch: { ignored: ['**/graphify-out/**', '**/scripts/smoke/out/**', '**/.infrastructure/**'] } },
   mode: 'test', define: { 'import.meta.env.VITE_ANALYTICS_PROVIDER': JSON.stringify('console') }
 });
 await server.listen();
@@ -34,7 +35,8 @@ async function openCase(page, caseId) {
   await scene(page, 'Case');
 }
 const profiles = [
-  ['it', 1920, 1080, true], ['en', 390, 844, true], ['fr', 390, 844, true],
+  ...PLAYABLE_LANGUAGES.map(language => [language, 390, 844, true]),
+  ['it', 1920, 1080, false],
   ['it', 320, 800, false], ['fr', 3840, 2160, false], ['en', 640, 360, false]
 ];
 try {
@@ -69,7 +71,8 @@ try {
     });
     const newGame = await page.evaluate(async () => (await import('/src/game/i18n/index.ts')).L().ui.menu.newGame);
     await activate(page, newGame);
-    const start = page.getByRole('button', { name: /^(INIZIA|START|COMMENCER)/ }).first();
+    const startLabel = await page.evaluate(async () => (await import('/src/game/i18n/index.ts')).L().ui.newGamePanel.start);
+    const start = page.getByRole('button', { name: startLabel, exact: true }).first();
     await start.focus(); await page.keyboard.press('Enter');
     await page.waitForFunction(() => ['Case', 'Briefing', 'CityMap'].some(key => window.game.scene.isActive(key)));
     const ui = await page.evaluate(async () => {
@@ -83,7 +86,7 @@ try {
       const caseId = data.id; const marker = `PRIVATE_${language}_${width}_${caseId}`;
       await openCase(page, caseId); await activate(page, ui.entry);
       const dialog = page.getByRole('dialog'); await dialog.waitFor();
-      assert.equal(await dialog.getAttribute('lang'), language);
+      assert.equal(await dialog.getAttribute('lang'), languageCode(language));
       const scaffold = await page.evaluate(async id => {
         const { StateManager } = await import('/src/game/systems/StateManager.ts');
         return (await import('/src/game/i18n/inquiryCases.ts')).caseInquiry(id, StateManager.language);
@@ -190,8 +193,8 @@ try {
     assert.deepEqual(requests, []); await context.close(); await browser.close(); browser = undefined;
   }
   assert.deepEqual(errors, []);
-  const expected = process.env.INQUIRY_CASE ? (process.env.INQUIRY_ONLY ? 1 : 6)
-    : process.env.INQUIRY_ONLY ? (profiles.find(p => p[0] + '-' + p[1] === process.env.INQUIRY_ONLY)?.[3] ? 14 : 1) : 45;
+  const selectedProfiles=profiles.filter(p=>!process.env.INQUIRY_ONLY||process.env.INQUIRY_ONLY===p[0]+'-'+p[1]);
+  const expected=selectedProfiles.reduce((sum,p)=>sum+(process.env.INQUIRY_CASE?1:p[3]?14:1),0);
   assert.equal(results.length, expected, 'expected complete catalog and profile coverage');
   writeFileSync(out + '/results.json', JSON.stringify({ results, errors, externalRequests: 0, humanValidation: false }, null, 2));
 } catch (error) {

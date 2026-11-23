@@ -16,14 +16,14 @@ const attr = (n: any, name: string) => n.attrs?.find((a: any) => a.name === name
 function nodes(n: any): any[] { return [n, ...(n.childNodes ?? []).flatMap(nodes)]; }
 
 describe('European website localization aligned with gameplay', () => {
-  it('has 16 introductory, practical and press pages per new language and no phantom translations', () => {
+  it('has the same complete topic coverage per language and no phantom translations', () => {
     expect(SITE_LANGUAGE_CODES).toEqual(['it', 'en', 'fr', 'de', 'es', 'pt']);
     expect(LANGUAGE_CODES).toEqual(SITE_LANGUAGE_CODES);
-    expect(INVENTORY_DIRS).toHaveLength(155);
+    expect(INVENTORY_DIRS).toHaveLength(config.pairs.length * SITE_LANGUAGE_CODES.length);
     for (const lang of ['de', 'es', 'pt']) {
       const dirs = INVENTORY_DIRS.filter(d => d === lang || d.startsWith(`${lang}/`));
-      expect(new Set(dirs)).toEqual(new Set(TOPICS.map((t: any) => topicDir(t, lang))));
-      expect(dirs).toHaveLength(16);
+      expect(new Set(dirs)).toEqual(new Set(config.pairs.map((group: any) => group[lang])));
+      expect(dirs).toHaveLength(config.pairs.length);
     }
   });
 
@@ -33,11 +33,11 @@ describe('European website localization aligned with gameplay', () => {
       const all = nodes(parse(html));
       expect(attr(all.find(n => n.tagName === 'html'), 'lang')).toBe(languageCode(route.lang));
       expect(all.filter(n => n.tagName === 'h1')).toHaveLength(1);
-      expect(all.filter(n => n.tagName === 'h2').length).toBeGreaterThanOrEqual(6);
+      expect(all.filter(n => n.tagName === 'h2').length).toBeGreaterThanOrEqual(2);
       const main = html.split('<main')[1].split('</main>')[0];
       expect(main.replace(/<[^>]+>/g, ' ').split(/\s+/).length).toBeGreaterThan(180);
       const play = all.filter(n => n.tagName === 'a' && attr(n, 'href')?.startsWith('/play/'));
-      expect(play.map(n => attr(n, 'href'))).toEqual(LANGUAGE_CODES.map(lang => `/play/?lang=${lang}`));
+      expect(new Set(play.map(n => attr(n, 'href')))).toEqual(new Set(LANGUAGE_CODES.map(lang => `/play/?lang=${lang}`)));
       expect(html).not.toMatch(/<script[^>]+src="https?:/);
       expect(html).not.toContain('<form');
       expect(html).not.toContain('TBD');

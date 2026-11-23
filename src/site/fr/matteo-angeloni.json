@@ -1,7 +1,7 @@
 {
   "en": "en/matteo-angeloni",
   "slug": "matteo-angeloni",
-  "sourceHash": "6552f5f38bc59a238095e7fc4844dfe29d4edef64e8c0d70c83a407647eb31d8",
+  "sourceHash": "b3f90fced8c41816213c122e3ed63bd81d55a37dd75365e8c9c9892faefc8133",
   "title": "Matteo Angeloni, auteur de NO AI ACT",
   "description": "Profil de Matteo Angeloni, auteur et développeur de NO AI ACT : recherche sur l'IA, formation, responsabilité éditoriale et indépendance du projet.",
   "blocks": [
@@ -28,7 +28,7 @@
     "<strong>Corrections traçables :</strong> code et contenus publics, versionnés et couverts par des tests ; signalements et propositions passent par le dépôt.",
     "<strong>Limites déclarées :</strong> efficacité pédagogique non encore validée empiriquement ; les pages ne déterminent pas les obligations d'un cas particulier.",
     "<strong>Indépendance :</strong> NO AI ACT est un projet personnel, pas une publication officielle de l'Université de la Tuscia.",
-    "Voir aussi <a href=\"../research-and-methodology/\">recherche et méthodologie</a>, <a href=\"../how-to-cite/\">comment citer</a> et le <a href=\"https://github.com/matteoangeloni-jpeg/-NO-AI-ACT\">dépôt public</a>.",
+    "Voir aussi <a href=\"/fr/recherche-methodologie/\">recherche et méthodologie</a>, <a href=\"/fr/comment-citer/\">comment citer</a> et le <a href=\"https://github.com/matteoangeloni-jpeg/-NO-AI-ACT\">dépôt public</a>.",
     "<span class=\"num\">05</span>Profils et contact",
     "<a href=\"https://www.unitus.it/post-laurea/dottorati-di-ricerca/corsi-di-dottorato-attivi/societa-in-mutamento-politiche-diritti-e-sicurezza/\">Doctorat à l'Université de la Tuscia</a> · <a href=\"https://it.linkedin.com/in/matteo-angeloni\">LinkedIn</a> · <a href=\"https://github.com/matteoangeloni-jpeg\">GitHub</a>",
     "Pour les corrections, collaborations ou propositions de recherche pédagogique, utilisez les <a href=\"https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/issues\">issues publiques du projet</a>."

@@ -1,6 +1,9 @@
 # C. Cases, law, mediation and debriefing
 
-[Italiano](../LEGAL_LEARNING_MATRIX.md) · [English](LEGAL_LEARNING_MATRIX.md) · [Français](../fr/LEGAL_LEARNING_MATRIX.md)
+
+> V5.3.0 language edition · 23 November 2026. The dossier and local Study 02 materials now have six language versions. Prototype dates, counts and outcomes describe historical executions. The current optional adult journal contract is in SESSION_JOURNAL.md and supersedes the earlier aggregates-only restriction. Translations do not establish instrument equivalence, educational effectiveness or rubric validity. No new tests were run for this content update.
+
+
 
 Documentary verification of 21 November 2026 against the EUR-Lex consolidation of 27 July 2026. These rows support design and review. Interpreting the circumstances of each case still requires a human legal reviewer. This increment changes neither the cases' legal answers nor their scores.
 

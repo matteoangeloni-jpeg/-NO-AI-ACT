@@ -1,6 +1,9 @@
 # NO AI ACT V5 — methodological design
 
-[Italiano](../METHODOLOGY.md) · [English](METHODOLOGY.md) · [Français](../fr/METHODOLOGY.md)
+
+> V5.3.0 language edition · 23 November 2026. The dossier and local Study 02 materials now have six language versions. Prototype dates, counts and outcomes describe historical executions. The current optional adult journal contract is in SESSION_JOURNAL.md and supersedes the earlier aggregates-only restriction. Translations do not establish instrument equivalence, educational effectiveness or rubric validity. No new tests were run for this content update.
+
+
 
 Revision of 21 November 2026. Baseline checked on the local branch from main 527fde5. PR 128 deployment completed successfully. The owner subsequently authorised publication as V5.0.0; release notes and status are available in [RELEASE_NOTES_v5.0.0.en.md](../../RELEASE_NOTES_v5.0.0.en.md) and the GitHub release.
 

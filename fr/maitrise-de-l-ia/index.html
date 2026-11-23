@@ -1,75 +1,108 @@
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+<!DOCTYPE html><html lang="fr"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="https://www.no-ai-act.eu/favicon.svg">
 
-  <title>Maîtrise de l'IA : connaître les modèles et leurs règles</title>
-  <meta name="description" content="La maîtrise de l'IA selon l'article 4 de l'AI Act : ce que l'obligation demande vraiment, ce qu'elle ne garantit pas, et pourquoi connaître la règle en fait partie." />
-  <meta name="author" content="NO AI ACT" />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <title>Alphabétisation en matière d'IA et article 4 de la loi de l'UE sur l'IA</title>
+  <meta name="description" content="Ce que l’article 4 exige pour la maîtrise de l’IA, qui doit prendre des mesures et comment fonction, contexte et risque orientent la formation.">
+  <meta name="author" content="Matteo Angeloni">
+  <meta name="robots" content="index, follow, max-image-preview:large">
 
-  <link rel="canonical" href="https://www.no-ai-act.eu/fr/maitrise-de-l-ia/" />
+  <link rel="canonical" href="https://www.no-ai-act.eu/fr/maitrise-de-l-ia/">
 
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="NO AI ACT" />
-  <meta property="og:locale" content="fr_FR" />
-  <meta property="og:locale:alternate" content="it_IT" />
-  <meta property="og:locale:alternate" content="en_GB" />
-  <meta property="og:title" content="La maîtrise de l'IA" />
-  <meta property="og:description" content="Savoir comment fonctionne un modèle ne suffit pas : savoir ce qui est permis, interdit ou conditionné fait partie de la compétence." />
-  <meta property="og:url" content="https://www.no-ai-act.eu/fr/maitrise-de-l-ia/" />
-  <meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-education-og.png" />
-  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-education-og.png" />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Couverture NO AI ACT : serious game pédagogique gratuit sur l'AI Act européen." />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="La maîtrise de l'IA" />
-  <meta name="twitter:description" content="Savoir comment fonctionne un modèle ne suffit pas : savoir ce qui est permis, interdit ou conditionné fait partie de la compétence." />
-  <meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-education-og.png" />
-  <meta name="twitter:image:alt" content="Couverture NO AI ACT : serious game pédagogique gratuit sur l'AI Act européen." />
-  <link rel="stylesheet" href="/src/styles/landing.css" />
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="NO AI ACT">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Alphabétisation en matière d'IA et article 4 de la loi de l'UE sur l'IA">
+  <meta property="og:description" content="Ce que l’article 4 exige pour la maîtrise de l’IA, qui doit prendre des mesures et comment fonction, contexte et risque orientent la formation.">
+  <meta property="og:url" content="https://www.no-ai-act.eu/fr/maitrise-de-l-ia/">
+  <meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png">
+  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Couverture NO AI ACT: jeu sérieux éducatif gratuit sur la loi de l'UE sur l'IA.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Alphabétisation en matière d'IA et article 4 de la loi de l'UE sur l'IA">
+  <meta name="twitter:description" content="Ce que l’article 4 exige pour la maîtrise de l’IA, qui doit prendre des mesures et comment fonction, contexte et risque orientent la formation.">
+  <meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png">
+  <meta name="twitter:image:alt" content="Couverture NO AI ACT: jeu sérieux éducatif gratuit sur la loi de l'UE sur l'IA.">
+  <link rel="stylesheet" href="https://www.no-ai-act.eu/src/styles/landing.css">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "NO AI ACT",
-        "item": "https://www.no-ai-act.eu/fr/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Maîtrise de l'IA",
-        "item": "https://www.no-ai-act.eu/fr/maitrise-de-l-ia/"
-      }
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LearningResource",
-    "name": "La maîtrise de l'IA",
-    "url": "https://www.no-ai-act.eu/fr/maitrise-de-l-ia/",
-    "image": "https://www.no-ai-act.eu/assets/social/no-ai-act-education-og.png",
-    "inLanguage": "fr",
-    "learningResourceType": "Reading",
-    "isAccessibleForFree": true,
-    "about": {
-      "@type": "Thing",
-      "name": "Maîtrise de l'IA"
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "NO AI ACT",
+      "item": "https://www.no-ai-act.eu/fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "maîtrise de l'IA",
+      "item": "https://www.no-ai-act.eu/fr/maitrise-de-l-ia/"
     }
+  ]
+}
+</script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "AI literacy and the EU AI Act",
+  "url": "https://www.no-ai-act.eu/fr/maitrise-de-l-ia/",
+  "image": "https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png",
+  "inLanguage": "fr",
+  "learningResourceType": "Reading",
+  "isAccessibleForFree": true,
+  "about": {
+    "@type": "Thing",
+    "name": "maîtrise de l'IA"
   }
-  </script>
+}
+</script>
   <script>document.documentElement.classList.add('has-js');</script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NO AI ACT",
+  "url": "https://www.no-ai-act.eu/fr/",
+  "description": "Jeu éducatif d’enquête gratuit et ressources pédagogiques sur le règlement européen sur l’intelligence artificielle.",
+  "logo": "https://www.no-ai-act.eu/favicon.svg",
+  "sameAs": [
+    "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"
+  ],
+  "dateModified": "2026-11-22T00:00:00Z"
+}
+</script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "AI literacy and the EU AI Act",
+  "description": "Why understanding AI rules belongs within AI literacy and how scenario-based learning supports it.",
+  "inLanguage": "fr",
+  "mainEntityOfPage": "https://www.no-ai-act.eu/fr/maitrise-de-l-ia/",
+  "author": {
+    "@type": "Person",
+    "name": "Matteo Angeloni",
+    "url": "https://www.no-ai-act.eu/fr/matteo-angeloni/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "NO AI ACT",
+    "url": "https://www.no-ai-act.eu/fr/",
+    "description": "Jeu éducatif d’enquête gratuit et ressources pédagogiques sur le règlement européen sur l’intelligence artificielle."
+  },
+  "dateModified": "2026-11-22T00:00:00Z"
+}
+</script>
   <link rel="alternate" hreflang="it" href="https://www.no-ai-act.eu/alfabetizzazione-ai/" />
   <link rel="alternate" hreflang="en" href="https://www.no-ai-act.eu/en/ai-literacy/" />
   <link rel="alternate" hreflang="fr" href="https://www.no-ai-act.eu/fr/maitrise-de-l-ia/" />
@@ -77,150 +110,108 @@
   <link rel="alternate" hreflang="es" href="https://www.no-ai-act.eu/es/alfabetizacion-ia/" />
   <link rel="alternate" hreflang="pt-PT" href="https://www.no-ai-act.eu/pt/literacia-ia/" />
   <link rel="alternate" hreflang="x-default" href="https://www.no-ai-act.eu/alfabetizzazione-ai/" />
+  <meta property="og:locale:alternate" content="it_IT" />
+  <meta property="og:locale:alternate" content="en_GB" />
+  <meta property="og:locale:alternate" content="de_DE" />
+  <meta property="og:locale:alternate" content="es_ES" />
+  <meta property="og:locale:alternate" content="pt_PT" />
 </head>
 <body>
-  <a class="skip-link" href="#main">Aller au contenu</a>
-  <header class="topbar">
-    <div class="wrap">
-      <a class="brand" href="../">NO AI ACT</a>
-      <nav class="site-nav" aria-label="Navigation principale">
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu de navigation">Menu</button>
-        <ul class="nav-menu" id="site-menu">
-          <li><a href="../../play/?lang=fr">Jouer</a></li>
-          <li class="has-sub">
-            <button class="nav-sub-btn is-current" type="button" aria-expanded="false" aria-controls="sub-0">Ressources</button>
-            <ul class="nav-sub" id="sub-0">
-              <li><a href="../education/">Ressources éducatives</a></li>
-              <li><a href="../maitrise-de-l-ia/" aria-current="page">Maîtrise de l'IA</a></li>
-              <li><a href="../ai-act-pour-enseignants/">Pour les enseignants</a></li>
-              <li><a href="../comment-ca-marche/">Comment ça marche</a></li>
-            </ul>
-          </li>
-          <li class="has-sub">
-            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-1">AI Act</button>
-            <ul class="nav-sub" id="sub-1">
-              <li><a href="../guide-ai-act/">Guide de l'AI Act</a></li>
-              <li><a href="../categories-de-risque-ai-act/">Catégories de risque</a></li>
-              <li><a href="../pratiques-interdites-ai-act/">Pratiques interdites</a></li>
-              <li><a href="../systemes-ia-a-haut-risque/">Systèmes à haut risque</a></li>
-              <li><a href="../obligations-de-transparence/">Transparence</a></li>
-              <li><a href="../ia-a-usage-general/">IA à usage général</a></li>
-              <li><a href="../glossaire/">Glossaire</a></li>
-            </ul>
-          </li>
-          <li class="has-sub">
-            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-2">Confidentialité</button>
-            <ul class="nav-sub" id="sub-2">
-              <li><a href="../protection-des-donnees-des-la-conception/">Protection dès la conception</a></li>
-            </ul>
-          </li>
-          <li class="has-sub">
-            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-3">Pédagogie</button>
-            <ul class="nav-sub" id="sub-3">
-              <li><a href="../atelier-ai-act-en-classe/">Atelier AI Act en classe : 30, 60 ou 90 minutes</a></li>
-              <li><a href="../serious-game-ai-act/">Un serious game sur l'AI Act européen</a></li>
-              <li><a href="../activites-pedagogiques/">Activités pédagogiques et fiches AI Act</a></li>
-              <li><a href="../citoyennete-numerique-reglementation-ia/">Citoyenneté numérique et réglementation de l'IA</a></li>
-              <li><a href="../pour-les-formateurs/">NO AI ACT pour les formateurs et les enseignants</a></li>
-              <li><a href="../seance-introduction-ai-act/">Séance d'introduction à l'AI Act : 60–90 min</a></li>
-              <li><a href="../seance-approche-par-les-risques/">Séance : l'approche fondée sur les risques</a></li>
-              <li><a href="../seance-transparence-utilisateurs/">Séance : transparence et utilisateurs de l'IA</a></li>
-              <li><a href="../apprentissage-respectueux-vie-privee/">Apprentissage respectueux de la vie privée</a></li>
-              <li><a href="../serious-games-reglementation-ia/">Serious games et réglementation de l'IA</a></li>
-            </ul>
-          </li>
-          <li class="has-sub">
-            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-4">En pratique</button>
-            <ul class="nav-sub" id="sub-4">
-              <li><a href="../ai-act-et-rgpd/">AI Act et RGPD : obligations et articulation</a></li>
-              <li><a href="../calendrier-application-ai-act/">Calendrier d'application de l'AI Act</a></li>
-              <li><a href="../ai-act-entreprises/">AI Act pour les entreprises : rôles et obligations</a></li>
-              <li><a href="../sanctions-ai-act/">Sanctions de l'AI Act : montants et calendrier</a></li>
-              <li><a href="../ai-act-administration-publique/">AI Act, administration publique et achats d'IA</a></li>
-              <li><a href="../ia-recrutement-emploi/">IA, recrutement et emploi : risques et règles</a></li>
-              <li><a href="../hypertrucages-transparence/">Hypertrucages et transparence : article 50</a></li>
-              <li><a href="../analyse-impact-droits-fondamentaux-ai-act/">AI Act : analyse d'impact sur les droits fondamentaux</a></li>
-              <li><a href="../fournisseur-deployeur-ai-act/">Fournisseur ou déployeur selon l'AI Act ?</a></li>
-            </ul>
-          </li>
-          <li class="has-sub">
-            <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-5">Projet</button>
-            <ul class="nav-sub" id="sub-5">
-              <li><a href="../faq/">Questions fréquentes sur NO AI ACT</a></li>
-              <li><a href="../comment-citer/">Comment citer NO AI ACT : APA, BibTeX et licences</a></li>
-              <li><a href="../matteo-angeloni/">Matteo Angeloni, auteur de NO AI ACT</a></li>
-              <li><a href="../dossier-de-presse/">Dossier de presse NO AI ACT : textes, images et crédits</a></li>
-              <li><a href="../recherche-methodologie/">Recherche et méthodologie de NO AI ACT</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <a class="skip-link" href="#main">Passer au contenu</a>
+  <header class="topbar"><div class="wrap"><a class="brand" href="/fr/">NO AI ACT</a><nav class="site-nav" aria-label="Menu"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">Menu</button><ul class="nav-menu" id="site-menu"><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-0">Jouer</button><ul class="nav-sub" id="topics-0"><li><a href="/fr/">NO AI ACT</a></li><li><a href="/fr/comment-ca-marche/">Comment NO AI ACT fonctionne</a></li><li><a href="/fr/pour-les-formateurs/">NO AI ACT pour les enseignants et formateurs</a></li><li><a href="/fr/serious-game-ai-act/">Un serious game sur l'AI Act européen</a></li><li><a href="/fr/dossier-de-presse/">Dossier de presse</a></li><li><a href="/fr/comment-citer/">Comment citer NO AI ACT</a></li><li><a href="/fr/matteo-angeloni/">Matteo Angeloni</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-1">Apprendre</button><ul class="nav-sub" id="topics-1"><li><a href="/fr/education/">Point central de l'éducation de la loi sur l'IA</a></li><li><a href="/fr/maitrise-de-l-ia/" aria-current="page">Alphabétisation en matière d'IA et article 4 de la loi de l'UE sur l'IA</a></li><li><a href="/fr/citoyennete-numerique-reglementation-ia/">Citoyenneté numérique et réglementation de l'IA</a></li><li><a href="/fr/serious-games-reglementation-ia/">Serious games pour la réglementation de l'IA</a></li><li><a href="/fr/recherche-methodologie/">Recherche et méthodologie</a></li><li><a href="/fr/apprentissage-respectueux-vie-privee/">Apprendre dans le respect de la vie privée</a></li><li><a href="/fr/faq/">Questions fréquentes</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-2">Enseignants</button><ul class="nav-sub" id="topics-2"><li><a href="/fr/ai-act-pour-enseignants/">La loi de l'UE sur l'IA pour les enseignants</a></li><li><a href="/fr/activites-pedagogiques/">Activités pédagogiques</a></li><li><a href="/fr/seance-introduction-ai-act/">Une séance d'introduction à l'AI Act</a></li><li><a href="/fr/seance-approche-par-les-risques/">Séance : l'approche fondée sur les risques</a></li><li><a href="/fr/seance-transparence-utilisateurs/">Séance : transparence et utilisateurs</a></li><li><a href="/fr/atelier-ai-act-en-classe/">L'atelier AI Act en classe</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-3">AI Act</button><ul class="nav-sub" id="topics-3"><li><a href="/fr/guide-ai-act/">La loi de l'UE sur l'IA, expliquée simplement</a></li><li><a href="/fr/categories-de-risque-ai-act/">Catégories de risque de la Loi sur l'IA</a></li><li><a href="/fr/pratiques-interdites-ai-act/">Pratiques interdites en matière d'IA</a></li><li><a href="/fr/systemes-ia-a-haut-risque/">Systèmes d'IA à haut risque</a></li><li><a href="/fr/obligations-de-transparence/">Obligations en matière de transparence</a></li><li><a href="/fr/ia-a-usage-general/">AI à usage général</a></li><li><a href="/fr/sanctions-ai-act/">Sanctions de l'AI Act : montants, acteurs concernés et calendrier</a></li><li><a href="/fr/ai-act-et-rgpd/">AI Act et RGPD : quand chacun s'applique, et quand les deux</a></li><li><a href="/fr/glossaire/">Glossaire de la loi sur l'IA</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-4">Organisations</button><ul class="nav-sub" id="topics-4"><li><a href="/fr/ai-act-entreprises/">AI Act pour les entreprises : quelles obligations, quelles actions ?</a></li><li><a href="/fr/ai-act-administration-publique/">AI Act pour l'administration publique et les achats d'IA</a></li><li><a href="/fr/fournisseur-deployeur-ai-act/">Fournisseur et déployeur dans l'AI Act européen</a></li><li><a href="/fr/ia-recrutement-emploi/">L'IA dans le recrutement et l'emploi</a></li><li><a href="/fr/analyse-impact-droits-fondamentaux-ai-act/">AI Act : analyse d'impact sur les droits fondamentaux</a></li><li><a href="/fr/hypertrucages-transparence/">Hypertrucages et transparence</a></li><li><a href="/fr/calendrier-application-ai-act/">Le calendrier d'application de l'AI Act</a></li></ul></li><li><a href="/fr/protection-des-donnees-des-la-conception/">Confidentialité</a></li></ul></nav></div></header>
 <nav class="locale-links" aria-label="Langues"><div class="wrap"><a href="/alfabetizzazione-ai/" hreflang="it" lang="it"><img src="/assets/flags/it.png" width="28" height="20" alt="" /><span>Italiano</span></a><a href="/en/ai-literacy/" hreflang="en" lang="en"><img src="/assets/flags/gb.png" width="28" height="20" alt="" /><span>English</span></a><a href="/fr/maitrise-de-l-ia/" hreflang="fr" lang="fr" aria-current="page"><img src="/assets/flags/fr.png" width="28" height="20" alt="" /><span>Français</span></a><a href="/de/ki-kompetenz/" hreflang="de" lang="de"><img src="/assets/flags/de.png" width="28" height="20" alt="" /><span>Deutsch</span></a><a href="/es/alfabetizacion-ia/" hreflang="es" lang="es"><img src="/assets/flags/es.png" width="28" height="20" alt="" /><span>Español</span></a><a href="/pt/literacia-ia/" hreflang="pt-PT" lang="pt-PT"><img src="/assets/flags/pt.png" width="28" height="20" alt="" /><span>Português</span></a></div></nav>
 
-  <main id="main">
+  <main id="main"><span id="s0-title" aria-hidden="true"></span><span id="s1-title" aria-hidden="true"></span><span id="s2-title" aria-hidden="true"></span><span id="s3-title" aria-hidden="true"></span>
     <section class="hero" aria-labelledby="page-title">
       <div class="wrap">
-        <p class="stamp">ARTICLE 4</p>
-        <h1 id="page-title">La maîtrise de l'IA</h1>
-        <p class="lead">Comprendre un modèle et comprendre son encadrement sont deux compétences. Le règlement demande les deux, et il le demande avec prudence.</p>
+        <p class="kicker">Connaissance de l'IA · Citoyenneté numérique</p>
+        <h1 id="page-title">Alphabétisation en matière d'IA et article 4 de la loi de l'UE sur l'IA</h1>
+        <p class="lead"><strong>L'article 4 exige des fournisseurs et des déployants qu'ils prennent des mesures pour favoriser le développement de l'alphabétisation en matière d'IA</strong> parmi le personnel et d'autres personnes qui exploitent des systèmes d'IA en leur nom. Des mesures efficaces devraient refléter le rôle, les connaissances, l'expérience, le contexte et les risques créés par le système.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/play/?lang=fr">Apprendre en jouant</a>
+          <a class="btn btn-ghost" href="/fr/guide-ai-act/">Guide en langage clair</a>
+        </div>
       </div>
     </section>
 
-    <section aria-labelledby="s0-title">
+    <div class="wrap">
+      <div class="inbrief" aria-label="En bref">
+        <span class="inbrief-label">En bref</span>
+        <p>La littératie en matière d'IA est la capacité de comprendre comment fonctionnent les systèmes d'IA, où ils sont utilisés et comment ils sont gouvernés, et cela inclut la connaissance de la logique fondamentale de la loi sur l'IA de l'UE. Cette page explique pourquoi l'alphabétisation en matière de réglementation fait partie de l'alphabétisation en matière d'IA et de la citoyenneté numérique, et comment l'apprentissage basé sur des scénarios aide. Il énonce clairement ce que le jeu sérieux peut et ne peut pas enseigner.</p>
+      </div>
+    </div>
+
+    <section aria-labelledby="article4-title">
       <div class="wrap">
-        <h2 id="s0-title"><span class="num">01</span>Ce que l'article 4 demande, exactement</h2>
-        <p>Fournisseurs et déployeurs prennent des mesures pour <strong>soutenir le développement</strong> d'un niveau suffisant de maîtrise de l'IA chez leur personnel. Le règlement (UE) 2026/1744 a précisé la formulation, et la précision compte : <strong>l'obligation ne consiste pas à garantir le niveau d'une personne donnée</strong>.</p>
-        <div class="callout">C'est une limite à ce qu'on peut exiger, pas une remise sur l'obligation. Une page qui écrit « l'article 4 impose de garantir » enseigne un devoir plus large que le texte — et l'erreur a été commise sur ce site avant d'être corrigée.</div>
+        <h2 id="article4-title"><span class="num">01</span>Ce que l'article 4 exige</h2>
+        <p class="section-intro">L’article 4 ne prescrit ni cours uniforme ni certificat universel. Il demande aux fournisseurs et aux déployeurs de prendre des mesures proportionnées pour les personnes qui exploitent ou utilisent des systèmes d’IA pour leur compte. L’obligation s’applique depuis le 2 février 2025 ; la supervision et l’application du règlement, depuis sa date générale d’application, le 2 août 2026.</p>
+        <p>Le règlement (UE) 2026/1744 a précisé que l'obligation n'oblige pas une organisation à garantir qu'une personne atteigne un niveau d'alphabétisation spécifique. Cela limite le résultat promis, et non le devoir d'agir: les organisations ont encore besoin de mesures appropriées, adaptées au rôle, au contexte et au risque.</p>
       </div>
     </section>
-
-    <section aria-labelledby="s1-title">
+    <section aria-labelledby="def-title">
       <div class="wrap">
-        <h2 id="s1-title"><span class="num">02</span>Pourquoi la règle fait partie de la compétence</h2>
-        <p>On peut savoir exactement comment un modèle de classification fonctionne et ne pas voir qu'en filtrant des candidatures il devient un système à haut risque. La compétence technique ne dit pas où passent les frontières : ce sont deux savoirs différents, et le second est rarement enseigné.</p>
+        <h2 id="def-title"><span class="num">02</span>Qu'est-ce que la connaissance de l'IA?</h2>
+
+        <p class="section-intro">Cadres d'organismes tels que: <a href="https://www.unesco.org/en/artificial-intelligence">Organisation des Nations Unies pour le développement industriel</a> et les <a href="https://www.oecd.org/en/topics/artificial-intelligence.html">OCDE</a> Converger sur quelques compétences : une compréhension de base du fonctionnement des systèmes d'IA, la capacité à les utiliser efficacement, et le jugement à remettre en question leurs résultats et leurs effets.</p>
+        <p>Dans la pratique: savoir qu'un modèle prédit plutôt que sait; reconnaître où les systèmes automatisés façonnent vos options; et demander qui bénéficie, qui est touché et qui est responsable.</p>
+      </div>
+    </section>
+    <section aria-labelledby="rules-title">
+      <div class="wrap">
+        <h2 id="rules-title"><span class="num">03</span>Pourquoi l'alphabétisation en matière de réglementation appartient à l'alphabétisation en matière d'IA</h2>
+
+        <p class="section-intro">Un citoyen qui comprend l'intégration, mais pas ses droits devant un rejet automatisé, n'est qu'un demi-littéralement. La loi sur l'IA de l'UE encode les réponses actuelles de la société aux questions difficiles — qui sont inacceptables, qui exigent des garanties, quand les gens doivent être informés.</p>
+        <p>Il ne s'agit pas de mémoriser des articles, mais de savoir qu'un <a href="/fr/categories-de-risque-ai-act/">Cadre fondé sur les risques</a> existe, à peu près comment il trie les systèmes, et quelles questions il vous permet de poser.</p>
+      </div>
+    </section>
+    <section aria-labelledby="citizenship-title">
+      <div class="wrap">
+        <h2 id="citizenship-title"><span class="num">04</span>La connexion numérique de la citoyenneté</h2>
+
+        <p class="section-intro">Les droits et les responsabilités liés aux systèmes automatisés sont une question civique : la contestabilité des décisions, la transparence en matière d'interaction des machines, la responsabilité des institutions qui déploient l'IA. C'est le territoire de <a href="/fr/citoyennete-numerique-reglementation-ia/">citoyenneté numérique et réglementation de l'IA</a>.</p>
+      </div>
+    </section>
+    <section aria-labelledby="scenario-title">
+      <div class="wrap">
+        <h2 id="scenario-title"><span class="num">05</span>Pourquoi l'apprentissage basé sur les scénarios fonctionne ici</h2>
+
+        <p class="section-intro">Les règles s'appliquent lorsqu'elles sont nécessaires, et non lorsqu'elles sont énumérées. L'apprentissage basé sur des scénarios place l'apprenant dans une situation — un filtre d'embauche opaque, un quartier marqué — où les concepts du règlement deviennent des outils plutôt que des trivias. L'argument complet est dans <a href="/fr/serious-games-reglementation-ia/">des jeux sérieux pour la réglementation de l'IA</a>.</p>
+        <p>NO AI ACT s'applique à ceci: <a href="/play/?lang=fr">jeu</a> vous classez 14 systèmes à partir de preuves, et chaque concept — déploiement, supervision, transparence — gagne sa place en étant utilisé.</p>
+      </div>
+    </section>
+    <section aria-labelledby="canteach-title">
+      <div class="wrap">
+        <h2 id="canteach-title"><span class="num">06</span>Ce qu'un jeu peut et ne peut pas enseigner</h2>
+
         <ul class="plain">
-          <li>Reconnaître le <strong>contexte d'usage</strong> comme ce qui détermine le régime.</li>
-          <li>Distinguer un problème de <strong>qualité</strong>, qui se corrige, d'un <strong>interdit de finalité</strong>, qui ne se corrige pas.</li>
-          <li>Savoir qui porte l'obligation, et que « le fournisseur est certifié » ne répond pas de l'usage.</li>
+          <li><strong>Peut :</strong> la logique fondée sur le risque, l'habitude de la classification fondée sur des données probantes, le vocabulaire en contexte, le sentiment que le contexte d'utilisation change tout.</li>
+          <li><strong>Impossible:</strong> le texte juridique, la jurisprudence, la procédure de conformité ou tout autre élément exigeant un jugement professionnel. Une simulation motive et structure; elle ne remplace pas l'étude — voir <a href="/fr/guide-ai-act/">guide</a> et <a href="/fr/glossaire/">glossaire</a> pour la couche suivante.</li>
         </ul>
       </div>
     </section>
-
-    <section aria-labelledby="s2-title">
+    <section aria-labelledby="literacy-activity-title">
       <div class="wrap">
-        <h2 id="s2-title"><span class="num">03</span>Une activité de maîtrise de l’IA fondée sur les preuves</h2>
-        <p>Pour une courte discussion en binôme, choisissez un dossier du jeu et préparez quatre colonnes sur une feuille : usage du système, personnes concernées, preuves disponibles et informations manquantes. Utilisez uniquement le cas fictif, sans ajouter de données personnelles réelles.</p>
-        <ul class="plain">
-          <li>Avant de classer le système, identifiez une décision automatisée et une personne qui pourrait en subir les conséquences.</li>
-          <li>Comparez deux documents du dossier : lequel soutient votre interprétation et lequel la remet en question ?</li>
-          <li>Proposez une mesure et précisez le problème auquel elle répond. Votre partenaire recherche une information manquante qui pourrait modifier votre décision.</li>
-        </ul>
-        <p>Terminez par deux phrases : « La preuve décisive est… » et « Je changerais d’avis si… ». Consultez le <a href="../pour-les-formateurs/">guide d’animation pour les formateurs</a> et les <a href="../categories-de-risque-ai-act/">exemples de catégories de risque</a>. Cet exercice ne certifie ni une compétence ni la conformité réglementaire.</p>
-      </div>
-    </section>
-
-    <section aria-labelledby="s3-title">
-      <div class="wrap">
-        <h2 id="s3-title"><span class="num">04</span>Apprendre en décidant</h2>
-        <p>C'est le pari de ce projet : une règle devient compréhensible quand il faut l'appliquer à un cas concret et en assumer l'issue. Les <a href="../../play/?lang=fr">quatorze dossiers</a> servent à cela, et le <a href="../glossaire/">glossaire</a> à y revenir.</p>
-        <p><strong>Ce que ce projet ne démontre pas :</strong> que cette méthode fonctionne mieux qu'une autre. L'efficacité pédagogique n'a pas été validée empiriquement, et il n'existe pas d'étude contrôlée sur l'apprentissage ou le transfert.</p>
-        <div class="callout">Lecture pédagogique simplifiée. Pour une appréciation formelle de conformité, consultez un professionnel.</div>
+        <h2 id="literacy-activity-title"><span class="num">07</span>Une activité d'alphabétisation à l'IA en classe fondée sur des données probantes</h2>
+        <p>Pour une courte discussion jumelée, choisissez un dossier de jeu et faites quatre colonnes sur papier: l'utilisation du système, les personnes touchées, les preuves disponibles et les informations manquantes. Travailler avec le cas fictif seulement, sans ajouter de vraies données personnelles.</p>
+        <ol class="plain">
+          <li>Avant de classer le système, identifiez une décision automatisée et une personne qui pourrait être touchée par celle-ci.</li>
+          <li>Comparez deux documents dans le dossier : qui soutient votre interprétation et qui le défie ?</li>
+          <li>Proposer une mesure et expliquer le problème spécifique qu'elle aborde. Votre partenaire identifie les informations manquantes qui pourraient modifier la décision.</li>
+        </ol>
+        <p>Terminer par deux phrases : -La preuve décisive est... - et -Je changerais d'avis si... - <a href="/fr/pour-les-formateurs/">Guide de la session de l'enseignant</a> pour la facilitation et <a href="/fr/categories-de-risque-ai-act/">Exemples de catégorie de risque</a> Cet exercice n'atteste pas la compétence ou la conformité réglementaire.</p>
       </div>
     </section>
   </main>
 
   <footer aria-labelledby="footer-title">
     <div class="wrap">
-      <h2 id="footer-title" class="stamp">Simulation pédagogique — pas un conseil juridique</h2>
-      <p>NO AI ACT est un outil pédagogique indépendant et open source. Il simplifie délibérément le <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" hreflang="fr">règlement (UE) 2024/1689 (AI Act)</a> et ne remplace ni le texte juridique ni l'avis d'un professionnel.</p>
-      <p><a href="../education/">Ressources éducatives</a> · <a href="../comment-ca-marche/">Comment ça marche</a> · <a href="../ai-act-pour-enseignants/">Pour les enseignants</a> · <a href="../glossaire/">Glossaire</a> · <a href="../../alfabetizzazione-ai/" hreflang="it">Version italienne</a> · <a href="../../en/ai-literacy/" hreflang="en">English version</a></p>
-      <p class="credit">Conçu et développé par <a href="../matteo-angeloni/">Matteo Angeloni</a> · v5.2.2 · <span class="ai-disclosure">Fait avec l'IA, non par l'IA</span><br /><span class="credit-affil">Doctorant en <a href="https://www.unitus.it/post-laurea/dottorati-di-ricerca/corsi-di-dottorato-attivi/societa-in-mutamento-politiche-diritti-e-sicurezza/">Società in mutamento: politiche, diritti e sicurezza</a> · <a href="https://www.unitus.it/">Università degli Studi della Tuscia</a> — projet indépendant, sans caractère officiel pour l'université</span></p>
+      <h2 id="footer-title" class="stamp">Simulation éducative — pas d'avis juridique</h2>
+      <p>NO AI ACT est un outil éducatif indépendant et ouvert. Il simplifie délibérément <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/fra" hreflang="fr">Règlement (UE) 2024/1689 (loi sur l'accès à l'information)</a> et ne remplace pas le texte juridique ou l'avis professionnel.</p>
+      <p><a href="/fr/education/">Centre pour l ' éducation</a> · <a href="/fr/comment-ca-marche/">Comment ça marche</a> · <a href="/fr/pour-les-formateurs/">Pour les éducateurs</a> · <a href="/fr/glossaire/">Glossaire</a> · <a href="/fr/maitrise-de-l-ia/" hreflang="it">Version italienne</a></p>
+      <p class="credit">Conçu et développé par <a href="/fr/matteo-angeloni/">Matteo Angeloni</a> · v53.0 · <span class="ai-disclosure">Fabriqué avec l'IA, pas par l'IA</span><br><span class="credit-affil">Candidate au doctorat <a href="https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/">Società in mutamento: politiche, diritti e sicurezza</a> · <a href="https://www.unitus.it/">Université de Tuscia</a> — projet indépendant, non pas une production officielle de l'université</span></p>
     </div>
-    <p class="session-record-policy">Sauvegardes locales et statistiques agrégées désactivables. Avec le consentement des adultes uniquement : registre de session pendant 90 jours ; accord distinct pour les textes du parcours guidé. Retrait, effacement et export dans la barre du jeu. <a href="/game-statistics.html#fr">Information et contact</a></p>
-  </footer>
-  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7c85578fc8ad4488a54c6bc670a10dcf"}'></script><!-- End Cloudflare Web Analytics -->
+  <p class="session-record-policy">Économies locales et statistiques agrégées facultatives. Seulement avec le consentement de l'adulte: un enregistrement de session pendant 90 jours; le texte du chemin guidé nécessite un consentement séparé. Retirez, effacez ou exportez de la barre de jeu. <a href="/game-statistics.html#fr">Avis de confidentialité et contact</a></p><p class="shared-play-languages">Jouer: <a href="/play/?lang=it" hreflang="it" lang="it">Italiano</a> · <a href="/play/?lang=en" hreflang="en" lang="en">English</a> · <a href="/play/?lang=fr" hreflang="fr" lang="fr">Français</a> · <a href="/play/?lang=de" hreflang="de" lang="de">Deutsch</a> · <a href="/play/?lang=es" hreflang="es" lang="es">Español</a> · <a href="/play/?lang=pt" hreflang="pt-PT" lang="pt-PT">Português</a></p></footer>
+  <!-- Cloudflare Web Analytics --><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;7c85578fc8ad4488a54c6bc670a10dcf&quot;}"></script><!-- End Cloudflare Web Analytics -->
   <script type="module" src="/src/scripts/nav.ts"></script>
-</body>
-</html>
+
+</body></html>

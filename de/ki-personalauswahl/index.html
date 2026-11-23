@@ -1,12 +1,86 @@
-<!doctype html>
-<html lang="de"><head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <title>KI in der Personalauswahl: Risiken und Fallbeispiele</title>
-  <meta name="description" content="KI in der Personalauswahl verstehen: Bewerbungsfilter, Ranglisten, menschliche Prüfung und offene Fragen anhand eines fiktiven Falls untersuchen." />
-  <meta name="author" content="Matteo Angeloni" />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
-  <link rel="canonical" href="https://www.no-ai-act.eu/de/ki-personalauswahl/" />
+<!DOCTYPE html><html lang="de"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="https://www.no-ai-act.eu/favicon.svg">
+
+  <title>KI in Rekrutierung und Beschäftigung - das KI-Gesetz gilt bei der Arbeit</title>
+  <meta name="description" content="CV-Screening, Leistungsbewertung und Emotionserkennung: Was das KI-Gesetz bei der Arbeit verbietet, was es als hohes Risiko behandelt und wer dafür verantwortlich ist.">
+  <meta name="author" content="NO AI ACT">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <link rel="canonical" href="https://www.no-ai-act.eu/de/ki-personalauswahl/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="NO AI ACT">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="AI bei der Arbeit und bei der Einstellung: die AI Act Regeln">
+  <meta property="og:description" content="Verbotene Emotionserkennung, hochriskante Einstellungssysteme, effektive menschliche Aufsicht: Die EU-Vorschriften für KI am Arbeitsplatz einfach erklärt.">
+  <meta property="og:url" content="https://www.no-ai-act.eu/de/ki-personalauswahl/">
+  <meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png">
+  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="NO AI ACT: Klartext-Leitfaden zum EU AI Act.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI bei der Arbeit und bei der Einstellung: die AI Act Regeln">
+  <meta name="twitter:description" content="Verbotene Emotionserkennung, hochriskante Einstellungssysteme, effektive menschliche Aufsicht: Die EU-Vorschriften für KI am Arbeitsplatz einfach erklärt.">
+  <meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png">
+  <meta name="twitter:image:alt" content="NO AI ACT: Klartext-Leitfaden zum EU AI Act.">
+  <link rel="stylesheet" href="https://www.no-ai-act.eu/src/styles/landing.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "NO AI ACT",
+      "item": "https://www.no-ai-act.eu/de/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "EU AI Act Guide",
+      "item": "https://www.no-ai-act.eu/de/ki-verordnung-leitfaden/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "KI am Arbeitsplatz",
+      "item": "https://www.no-ai-act.eu/de/ki-personalauswahl/"
+    }
+  ]
+}
+</script>
+  <script>document.documentElement.classList.add('has-js');</script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NO AI ACT",
+  "url": "https://www.no-ai-act.eu/de/",
+  "description": "Kostenloses investigatives Lernspiel und Lernmaterialien zur europäischen KI-Verordnung.",
+  "logo": "https://www.no-ai-act.eu/favicon.svg",
+  "sameAs": [
+    "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"
+  ]
+}
+</script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://www.no-ai-act.eu/de/ki-personalauswahl/#webpage",
+  "url": "https://www.no-ai-act.eu/de/ki-personalauswahl/",
+  "name": "KI in Rekrutierung und Beschäftigung - das KI-Gesetz gilt bei der Arbeit",
+  "description": "CV-Screening, Leistungsbewertung und Emotionserkennung: Was das KI-Gesetz bei der Arbeit verbietet, was es als hohes Risiko behandelt und wer dafür verantwortlich ist.",
+  "inLanguage": "de"
+}
+</script>
   <link rel="alternate" hreflang="it" href="https://www.no-ai-act.eu/ai-nel-lavoro-e-selezione/" />
   <link rel="alternate" hreflang="en" href="https://www.no-ai-act.eu/en/ai-in-recruitment-and-employment/" />
   <link rel="alternate" hreflang="fr" href="https://www.no-ai-act.eu/fr/ia-recrutement-emploi/" />
@@ -14,46 +88,100 @@
   <link rel="alternate" hreflang="es" href="https://www.no-ai-act.eu/es/ia-seleccion-personal/" />
   <link rel="alternate" hreflang="pt-PT" href="https://www.no-ai-act.eu/pt/ia-recrutamento/" />
   <link rel="alternate" hreflang="x-default" href="https://www.no-ai-act.eu/ai-nel-lavoro-e-selezione/" />
-  <meta property="og:type" content="website" /><meta property="og:site_name" content="NO AI ACT" />
-  <meta property="og:locale" content="de_DE" />
   <meta property="og:locale:alternate" content="it_IT" />
   <meta property="og:locale:alternate" content="en_GB" />
   <meta property="og:locale:alternate" content="fr_FR" />
   <meta property="og:locale:alternate" content="es_ES" />
   <meta property="og:locale:alternate" content="pt_PT" />
-  <meta property="og:title" content="KI in der Personalauswahl: Risiken und Fallbeispiele" /><meta property="og:description" content="KI in der Personalauswahl verstehen: Bewerbungsfilter, Ranglisten, menschliche Prüfung und offene Fragen anhand eines fiktiven Falls untersuchen." />
-  <meta property="og:url" content="https://www.no-ai-act.eu/de/ki-personalauswahl/" /><meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
-  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" /><meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta property="og:image:alt" content="KI in der Personalauswahl: vom Bewerbungsfilter zur Verantwortung" />
-  <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="KI in der Personalauswahl: Risiken und Fallbeispiele" />
-  <meta name="twitter:description" content="KI in der Personalauswahl verstehen: Bewerbungsfilter, Ranglisten, menschliche Prüfung und offene Fragen anhand eines fiktiven Falls untersuchen." /><meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" /><meta name="twitter:image:alt" content="KI in der Personalauswahl: vom Bewerbungsfilter zur Verantwortung" />
-  <link rel="stylesheet" href="/src/styles/landing.css" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"NO AI ACT","item":"https://www.no-ai-act.eu/de/"},{"@type":"ListItem","position":2,"name":"KI in der Personalauswahl: vom Bewerbungsfilter zur Verantwortung","item":"https://www.no-ai-act.eu/de/ki-personalauswahl/"}]}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"KI in der Personalauswahl: vom Bewerbungsfilter zur Verantwortung","url":"https://www.no-ai-act.eu/de/ki-personalauswahl/","inLanguage":"de","isAccessibleForFree":true,"learningResourceType":"Reading","image":"https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png"}</script>
-  <script>document.documentElement.classList.add('has-js');</script>
-</head><body class="eu-site">
-  <a class="skip-link" href="#main">Zum Inhalt</a>
-  <header class="topbar"><div class="wrap"><a class="brand" href="/de/">NO AI ACT</a>
-    <nav class="site-nav" aria-label="Navigation"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Navigation">Navigation</button>
-    <ul class="nav-menu" id="site-menu"><li><a href="#play-languages">Spielen – Sprache wählen</a></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="eu-topics">Themen</button><ul class="nav-sub" id="eu-topics"><li><a href="/de/">Startseite</a></li><li><a href="/de/so-funktioniert-es/">So funktioniert NO AI ACT</a></li><li><a href="/de/bildung/">Bildungsressourcen zur KI-Verordnung</a></li><li><a href="/de/ki-verordnung-fuer-lehrkraefte/">KI-Verordnung für Schulen und Lehrkräfte</a></li><li><a href="/de/ki-verordnung-leitfaden/">Ein Leitfaden zur EU-KI-Verordnung</a></li><li><a href="/de/ki-verordnung-glossar/">Glossar zur KI-Verordnung</a></li><li><a href="/de/datenschutz/">Datenschutz und Nutzungsstatistik</a></li><li><a href="/de/ki-risikokategorien/">Die Risikokategorien richtig einordnen</a></li><li><a href="/de/verbotene-ki-praktiken/">Verbotene KI-Praktiken</a></li><li><a href="/de/hochrisiko-ki-systeme/">Hochrisiko-KI-Systeme</a></li><li><a href="/de/ki-transparenzpflichten/">Transparenzpflichten für KI</a></li><li><a href="/de/ki-modelle-allgemeiner-verwendungszweck/">KI-Modelle mit allgemeinem Verwendungszweck</a></li><li><a href="/de/ki-kompetenz/">KI-Kompetenz im konkreten Einsatz</a></li><li><a href="/de/ai-act-unterrichtseinheit/">AI Act im Unterricht: Fälle prüfen und Entscheidungen begründen</a></li><li><a href="/de/ki-personalauswahl/" aria-current="page">KI in der Personalauswahl: vom Bewerbungsfilter zur Verantwortung</a></li><li><a href="/de/pressemappe/">NO AI ACT – Pressemappe</a></li></ul></li></ul></nav>
-  </div></header>
+</head>
+<body>
+  <a class="skip-link" href="#main">Überspringen zum Inhalt</a>
+  <header class="topbar"><div class="wrap"><a class="brand" href="/de/">NO AI ACT</a><nav class="site-nav" aria-label="Menü"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menü">Menü</button><ul class="nav-menu" id="site-menu"><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-0">Spielen</button><ul class="nav-sub" id="topics-0"><li><a href="/de/">NO AI ACT</a></li><li><a href="/de/so-funktioniert-es/">Wie NO AI ACT funktioniert</a></li><li><a href="/de/fuer-lehrende/">NO AI ACT für Erzieher</a></li><li><a href="/de/serious-game-ki-verordnung/">Ein ernstes Spiel über den EU AI Act</a></li><li><a href="/de/pressemappe/">Druckkästchen</a></li><li><a href="/de/richtig-zitieren/">Wie zu zitieren NO AI ACT</a></li><li><a href="/de/matteo-angeloni/">Matteo Angeloni</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-1">Lernen</button><ul class="nav-sub" id="topics-1"><li><a href="/de/bildung/">AI Act Bildungszentrum</a></li><li><a href="/de/ki-kompetenz/">KI-Kompetenz und Artikel 4 des EU AI Act</a></li><li><a href="/de/digitale-buergerschaft-ki-regulierung/">Digital Citizenship und KI-Regulierung</a></li><li><a href="/de/serious-games-ki-regulierung/">Serious Games für KI-Regulierung</a></li><li><a href="/de/forschung-methodik/">Forschung und Methodik</a></li><li><a href="/de/datenschutzbewusstes-lernen/">Datenschutzbewusstes Lernen</a></li><li><a href="/de/faq/">Häufig gestellte Fragen</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-2">Lehrkräfte</button><ul class="nav-sub" id="topics-2"><li><a href="/de/ki-verordnung-fuer-lehrkraefte/">Das EU AI Act für Lehrer</a></li><li><a href="/de/unterrichtsaktivitaeten/">Unterrichtsräume</a></li><li><a href="/de/unterrichtsplan-ki-einstieg/">Lesson Plan: Eine Einführung in den AI Act</a></li><li><a href="/de/unterrichtsplan-risiko/">Lesson Plan: Der risikobasierte Ansatz</a></li><li><a href="/de/unterrichtsplan-transparenz/">Lesson Plan: Transparenz und Nutzer</a></li><li><a href="/de/ai-act-unterrichtseinheit/">Das AI Act Klassenzimmerlabor</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-3">KI-Verordnung</button><ul class="nav-sub" id="topics-3"><li><a href="/de/ki-verordnung-leitfaden/">Das EU-KI-Gesetz, einfach erklärt</a></li><li><a href="/de/ki-risikokategorien/">Risikokategorien des AI Act</a></li><li><a href="/de/verbotene-ki-praktiken/">Verbotene KI-Praxis</a></li><li><a href="/de/hochrisiko-ki-systeme/">Hochriskante KI-Systeme</a></li><li><a href="/de/ki-transparenzpflichten/">Transparenzverpflichtungen</a></li><li><a href="/de/ki-modelle-allgemeiner-verwendungszweck/">Allzweck-KI</a></li><li><a href="/de/ki-verordnung-sanktionen/">AI Act Strafen: Beträge, wer ausgesetzt ist, ab wann</a></li><li><a href="/de/ki-verordnung-dsgvo/">Das KI-Gesetz und die DSGVO: wenn jeder gilt und wenn beides gilt</a></li><li><a href="/de/ki-verordnung-glossar/">AI Act Glossar</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-4">Organisationen</button><ul class="nav-sub" id="topics-4"><li><a href="/de/ki-verordnung-unternehmen/">AI Act for Business: Welche Verpflichtungen und was zu tun ist</a></li><li><a href="/de/ki-oeffentliche-verwaltung/">EU-KI-Gesetz für öffentliche Verwaltung und Beschaffung von KI</a></li><li><a href="/de/anbieter-betreiber-ki-verordnung/">Provider vs Deployter nach EU AI Act</a></li><li><a href="/de/ki-personalauswahl/" aria-current="page">KI in Rekrutierung und Beschäftigung</a></li><li><a href="/de/grundrechte-folgenabschaetzung-ki/">AI Act FRIA: Grundrechtsfolgenabschätzung</a></li><li><a href="/de/deepfakes-transparenz/">Deepfakes und Transparenz</a></li><li><a href="/de/ki-verordnung-zeitplan/">Die AI Act Anwendung Timeline</a></li></ul></li><li><a href="/de/datenschutz/">Datenschutz</a></li></ul></nav></div></header>
 <nav class="locale-links" aria-label="Sprachen"><div class="wrap"><a href="/ai-nel-lavoro-e-selezione/" hreflang="it" lang="it"><img src="/assets/flags/it.png" width="28" height="20" alt="" /><span>Italiano</span></a><a href="/en/ai-in-recruitment-and-employment/" hreflang="en" lang="en"><img src="/assets/flags/gb.png" width="28" height="20" alt="" /><span>English</span></a><a href="/fr/ia-recrutement-emploi/" hreflang="fr" lang="fr"><img src="/assets/flags/fr.png" width="28" height="20" alt="" /><span>Français</span></a><a href="/de/ki-personalauswahl/" hreflang="de" lang="de" aria-current="page"><img src="/assets/flags/de.png" width="28" height="20" alt="" /><span>Deutsch</span></a><a href="/es/ia-seleccion-personal/" hreflang="es" lang="es"><img src="/assets/flags/es.png" width="28" height="20" alt="" /><span>Español</span></a><a href="/pt/ia-recrutamento/" hreflang="pt-PT" lang="pt-PT"><img src="/assets/flags/pt.png" width="28" height="20" alt="" /><span>Português</span></a></div></nav>
-  <main id="main"><section class="hero" aria-labelledby="page-title"><div class="wrap"><p class="stamp">NO AI ACT · Deutsch</p><h1 id="page-title">KI in der Personalauswahl: vom Bewerbungsfilter zur Verantwortung</h1><p class="lead">Ein Terminassistent, ein Bewerbungsranking und ein Werkzeug zur Bewertung von Beschäftigten erfüllen unterschiedliche Aufgaben. Diese Einführung zeigt, welche Fragen eine Fallanalyse zum EU AI Act zuerst beantworten sollte, bevor sie eine rechtliche Einordnung versucht.</p><p class="cta-row"><a class="btn btn-primary" href="#play-languages">Spielen – Sprache wählen</a></p></div></section>
-<section aria-labelledby="section-0"><div class="wrap"><h2 id="section-0"><span class="num">01</span>Welche Entscheidung wird tatsächlich beeinflusst?</h2><p>Beginne mit einem Satz über die Funktion: Ordnet das System Dokumente, empfiehlt es Bewerbungen oder beeinflusst es, wer überhaupt zu einem Gespräch eingeladen wird? Das Wort „Assistent“ beantwortet diese Frage nicht. Auch ein Vorschlag kann erheblichen Einfluss haben, wenn Menschen die übrigen Unterlagen nicht mehr ansehen. Beschreibe deshalb den vollständigen Arbeitsablauf vom Eingang der Bewerbung bis zur Entscheidung. Trenne dabei das technische Ergebnis des Systems von der Handlung der Person, die es verwendet.</p></div></section>
-<section aria-labelledby="section-1"><div class="wrap"><h2 id="section-1"><span class="num">02</span>Der rechtliche Ausgangspunkt</h2><p>Anhang III Nummer 4 nennt bestimmte KI-Anwendungen bei Einstellung, Personalauswahl und Beschäftigtenmanagement. Für die Einordnung sind außerdem die Voraussetzungen und Ausnahmen des Artikels 6 zu prüfen. Nicht jedes digitale Werkzeug einer Personalabteilung ist deshalb automatisch ein Hochrisiko-KI-System. Umgekehrt reicht die Bezeichnung „unverbindliche Empfehlung“ nicht aus, um die Prüfung zu beenden. Für die Rechtslage zählt der konkrete Verwendungszweck mit seinen Bedingungen, nicht allein die Bezeichnung des Produkts. Die amtlichen Quellen sind unten verlinkt.</p></div></section>
-<section aria-labelledby="section-2"><div class="wrap"><h2 id="section-2"><span class="num">03</span>Fiktiver Fall: nur fünf Bewerbungen werden gelesen</h2><p>Ein Betrieb erhält 30 Bewerbungen und lässt eine Rangliste erstellen. Die verantwortliche Person prüft nur die ersten fünf Einträge. Eine Bewerberin mit einer längeren Betreuungspause landet weiter unten; die Unterlagen erklären nicht, wie diese Pause gewichtet wurde. Die offene Frage lautet nicht, ob jede Lücke benachteiligt wird: Dafür fehlen Belege. Prüfe stattdessen, welche Daten verwendet werden, ob der Rang den Zugang zum Gespräch steuert und welche Möglichkeit zur Korrektur besteht. Das Beispiel beschreibt weder einen realen Arbeitgeber noch ein geprüftes Produkt.</p></div></section>
-<section aria-labelledby="section-3"><div class="wrap"><h2 id="section-3"><span class="num">04</span>Welche Unterlagen würden die Einschätzung ändern?</h2><p>Hilfreich wären eine Beschreibung der vorgesehenen Verwendung, die Erklärung der verwendeten Merkmale, Informationen zu Prüfungen des Systems und eine nachvollziehbare Zuständigkeit für Fehler. Fragt auch nach dem Ablauf bei einer Beschwerde: Welche Person kann die Originalunterlagen ansehen, den Vorschlag verwerfen und die Entscheidung neu treffen? Ein Werbeversprechen über Genauigkeit ersetzt diese Informationen nicht. Im Unterricht können Gruppen für jedes fehlende Dokument notieren, welche Behauptung sich damit prüfen ließe und welche Frage trotzdem offen bliebe.</p></div></section>
-<section aria-labelledby="section-4"><div class="wrap"><h2 id="section-4"><span class="num">05</span>Menschliche Prüfung ist mehr als ein Häkchen</h2><p>Unterscheide zwischen einer Person, die lediglich eine Liste bestätigt, und einer Person, die die Grundlage der Empfehlung verstehen und ihr widersprechen kann. Für eine Fallanalyse sind Zeit, Zugriff auf Unterlagen und tatsächlicher Handlungsspielraum wichtige Fragen. Ein Prüfvermerk beweist allein noch nicht, dass eine Bewerbung inhaltlich gelesen wurde. Diese Beobachtungen sind Kriterien für die Diskussion, keine vollständige Umsetzungsliste für Organisationen. Reale Verfahren können zusätzlich Datenschutz-, Arbeits- und Antidiskriminierungsrecht berühren.</p></div></section>
-<section aria-labelledby="section-5"><div class="wrap"><h2 id="section-5"><span class="num">06</span>Nicht alles ist dieselbe Risikofrage</h2><p>Eine Einordnung als hochriskant, eine mögliche verbotene Praxis und eine Informationspflicht beantworten unterschiedliche Fragen. Ein Hinweis auf KI macht eine Entscheidung nicht automatisch zulässig. Ebenso kann ein organisatorischer Fehler bestehen, ohne dass dadurch bereits eine bestimmte Verbotsnorm nachgewiesen ist. Haltet bei jeder Behauptung fest, welcher Sachverhalt sie trägt und welche Vorschrift ihr tatsächlich prüft. Für Sonderfälle, Fristen und Ausnahmen ist die jeweils geltende Rechtsgrundlage maßgeblich; diese Einführung ersetzt keine Beratung.</p></div></section>
-<section aria-labelledby="section-6"><div class="wrap"><h2 id="section-6"><span class="num">07</span>Eine überprüfbare Schlussfolgerung formulieren</h2><p>Schreibt zum Abschluss drei kurze Absätze: Was wissen wir? Was vermuten wir? Was müssten wir vor einer Entscheidung noch prüfen? Verbindet eine vorgeschlagene Maßnahme mit dem konkret festgestellten Problem. „Mehr Transparenz“ ist zu unbestimmt, wenn eigentlich ungeklärt ist, ob abgelehnte Bewerbungen je von einem Menschen gelesen werden. Nutzt im Unterricht nur erfundene Unterlagen. Die Durchführung der Übung bescheinigt weder die Konformität eines Personalverfahrens noch einen Lernerfolg oder eine berufliche Qualifikation.</p></div></section>
 
-<section aria-label="NO AI ACT"><div class="wrap"><figure class="resource-figure"><a href="/assets/press/screenshots/03-evidence-desk.jpg" target="_blank" rel="noopener"><img src="/assets/press/screenshots/03-evidence-desk.jpg" width="1920" height="1080" alt="Archivaufnahme des Spiels, Version 3: Untersuchung eines Falldossiers. Die aktuelle Veröffentlichung ist Version 5.2.0." loading="lazy" decoding="async" /></a><figcaption>Archivaufnahme des Spiels, Version 3: Untersuchung eines Falldossiers. Die aktuelle Veröffentlichung ist Version 5.2.0.</figcaption></figure></div></section>
-<section aria-labelledby="next-reading-title"><div class="wrap"><h2 id="next-reading-title">Weiterlesen</h2><ul class="plain"><li><a href="/de/hochrisiko-ki-systeme/">Hochrisiko-KI genauer einordnen</a></li><li><a href="/de/ki-transparenzpflichten/">Transparenzpflichten unterscheiden</a></li><li><a href="/de/ai-act-unterrichtseinheit/">Unterrichtseinheit mit Arbeitsblatt</a></li></ul></div></section>
-<section aria-labelledby="source-reading-title"><div class="wrap"><h2 id="source-reading-title">Offizieller EU-Rechtstext</h2><ul class="plain"><li><a href="https://ai-act-service-desk.ec.europa.eu/de/ai-act/annex-3">Anhang III: Beschäftigung</a></li><li><a href="https://eur-lex.europa.eu/legal-content/DE/TXT/HTML/?uri=CELEX:02024R1689-20260727">Konsolidierter Text: insbesondere Artikel 6 und Anhang III</a></li></ul></div></section>
+  <nav class="breadcrumbs" aria-label="Brotkrume">
+    <div class="wrap">
+      <ol>
+        <li><a href="/de/">NO AI ACT</a></li>
+        <li><a href="/de/ki-verordnung-leitfaden/">EU AI Act Guide</a></li>
+        <li aria-current="page">KI am Arbeitsplatz</li>
+      </ol>
+    </div>
+  </nav>
 
-  <section aria-labelledby="play-languages"><div class="wrap"><h2 id="play-languages">Spielen – Sprache wählen</h2><p>Das Spiel ist auf Italienisch, Englisch, Französisch, Deutsch, Spanisch und europäischem Portugiesisch verfügbar. Diese Seiten sind auf Deutsch; die Auswahl unten öffnet das Spiel in der angegebenen Sprache.</p><p class="eu-play-links"><a href="/play/?lang=it" hreflang="it">Italienisch</a> · <a href="/play/?lang=en" hreflang="en">Englisch</a> · <a href="/play/?lang=fr" hreflang="fr">Französisch</a> · <a href="/play/?lang=de" hreflang="de">Deutsch</a> · <a href="/play/?lang=es" hreflang="es">Spanisch</a> · <a href="/play/?lang=pt" hreflang="pt-PT">Portugiesisch</a></p></div></section>
+  <main id="main">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="wrap">
+        <p class="kicker">AI Act · Beschäftigung · Hohes Risiko</p>
+        <h1 id="page-title">KI in Rekrutierung und Beschäftigung</h1>
+        <p class="lead">Ein Algorithmus, der Ihren Lebenslauf ablehnt, eine Software, die Ihre Produktivität bewertet, eine Kamera, die Ihre Stimmung im Interview &quot;liest&quot;: Der KI Act behandelt diese drei Szenarien sehr unterschiedlich. Diese seite erklärt, wo die linie zwischen verboten, risikoreich und erlaubt verläuft - und wer für jeden antwortet.</p>
+      </div>
+    </section>
 
-  </main><footer aria-labelledby="footer-title"><div class="wrap"><h2 id="footer-title" class="stamp">Didaktische Vereinfachung, keine Rechtsberatung</h2><p>NO AI ACT ist ein unabhängiges, kostenloses Open-Source-Lernspiel. Die Erläuterungen führen in ausgewählte Begriffe ein und ersetzen weder den geltenden Rechtstext noch eine fachliche Prüfung. Die pädagogische Wirksamkeit wurde nicht durch eine kontrollierte Studie nachgewiesen.</p><p><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/deu" hreflang="de">Offizieller EU-Rechtstext</a> · <a href="/en/research-and-methodology/" hreflang="en" lang="en">Autor und Methodik (Englisch)</a> · <a href="/game-statistics.html#de" hreflang="de">Informationen zur Statistik</a></p><p class="credit">Entwickelt von Matteo Angeloni · v5.2.2<br />Mit KI-Unterstützung erstellt und redaktionell bearbeitet; keine amtliche Übersetzung.</p></div><p class="session-record-policy">Lokale Spielstände und abschaltbare aggregierte Statistik. Nur mit Einwilligung Erwachsener: Sitzungsprotokoll für 90 Tage; Texte des geführten Wegs mit gesonderter Einwilligung. Widerruf, Löschung und Export in der Spielleiste. <a href="/game-statistics.html#de">Informationen zur Statistik</a></p></footer>
+    <section aria-labelledby="brief-title">
+      <div class="wrap">
+        <h2 id="brief-title"><span class="num">01</span>Kurz gesagt</h2>
+        <p class="section-intro">Bei der Arbeit zieht der AI Act zwei Linien. <strong>Verboten</strong>: Rückschlüsse auf die Emotionen von Arbeitnehmern und Studenten aus ihren biometrischen Daten, außer aus medizinischen oder Sicherheitsgründen (Art. 5). <strong>Hohes Risiko</strong>: Systeme zur Überprüfung von Kandidaten, zur Zuweisung von Aufgaben, zur Leistungsbewertung oder zur Entscheidung über Beförderungen und Kündigungen (Anhang III Nummer 4) — zulässig, jedoch unter strikter menschlicher Aufsicht, Transparenz und Data Governance.</p>
+      </div>
+    </section>
+    <section aria-labelledby="banned-title">
+      <div class="wrap">
+        <h2 id="banned-title"><span class="num">02</span>Was am Arbeitsplatz verboten ist</h2>
+        <p class="section-intro">Emotionserkennung am Arbeitsplatz ist eine verbotene Praxis: Software, die behauptet, &quot;Enthusiasmus&quot; oder &quot;Zuverlässigkeit&quot; von Gesichtsbewegungen in einem Videointerview zu messen, ist kein Hochrisikosystem, das besseren Papierkram benötigt - es ist außerhalb dessen, was rechtmäßig ist. Die Logik: Das Arbeitsverhältnis ist asymmetrisch, und jemand, der auf ein Urteil angewiesen ist, kann sich nicht dagegen aussprechen, beobachtet zu werden. Mehr in <a href="/de/verbotene-ki-praktiken/">verbotene Praktiken</a>.</p>
+      </div>
+    </section>
+    <section aria-labelledby="highrisk-title">
+      <div class="wrap">
+        <h2 id="highrisk-title"><span class="num">03</span>Was ist ein hohes Risiko (und warum es nicht verboten ist)</h2>
+        <ul class="plain">
+          <li><strong>Einstellung und Einstellung</strong>: CV-Screening, Anwendungsfilterung, Kandidaten-Ranking-Systeme.</li>
+          <li><strong>Verwaltung der Beziehung</strong>: Aufgabenzuweisung, Überwachung und Bewertung der Leistung, Entscheidungen über Beförderung und Beendigung.</li>
+        </ul>
+        <p>&quot;Hochrisiko&quot; bedeutet nicht &quot;verboten&quot;: Es bedeutet, dass das System nur mit Anforderungen an Datenqualität, Dokumentation, Mitarbeiterinformationen und <strong>wirksame menschliche Aufsicht</strong> - eine Person, die das System verstehen und seine Ergebnisse umkehren kann, nicht ein Absegnungsstempel für bereits getroffene Entscheidungen. <a href="/de/hochrisiko-ki-systeme/">Hochriskante KI-Systeme</a>.</p>
+        <p>Die DSGVO hört hier nicht auf: automatisierte Entscheidungen und die Information der Arbeitnehmer bleiben ihr Territorium. <a href="/de/ki-verordnung-dsgvo/">das KI-Gesetz und die DSGVO</a>.</p>
+      </div>
+    </section>
+    <section aria-labelledby="who-title">
+      <div class="wrap">
+        <h2 id="who-title"><span class="num">04</span>Wer ist verantwortlich</h2>
+        <p class="section-intro">Die <strong>Anbieter</strong> (wer baut und verkauft das System) Antworten für Design, Daten und Dokumentation; die <strong>Betreiber</strong> - hier der Arbeitgeber - Antworten für den konkreten Gebrauch: das System wie angewiesen betreiben, Aufsicht gewährleisten, Arbeitnehmer informieren. &quot;Der Algorithmus entschieden&quot; verschiebt die Verantwortung nirgends: Er weist sie nur schlecht zu.</p>
+      </div>
+    </section>
+    <section aria-labelledby="game-title">
+      <div class="wrap">
+        <h2 id="game-title"><span class="num">05</span>Im Spiel: &quot;Das Interview, das nie passiert ist&quot;</h2>
+        <p class="section-intro">In dem Fall <em>Das Interview, das nie stattgefunden hat</em> Sie inspizieren ein automatisiertes Einstellungssystem: Sie müssen trennen, was verboten ist (die Emotionsanalyse) von dem, was &quot;nur&quot; schlecht geregeltes hohes Risiko ist, und die Verantwortung zwischen dem Erbauer und dem Benutzer des Systems zuweisen. Der Kontrast mit <em>Das überwachte Klassenzimmer</em> (Überwachung von minderjährigen in der schule) zeigt, wie das gleiche werkzeug gewicht ändert, wenn sich der kontext ändert.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/play/?lang=de">Spielen Sie den Fall</a>
+          <a class="btn btn-ghost" href="/de/hochrisiko-ki-systeme/">Hochriskante KI-Systeme</a>
+        </div>
+      </div>
+    </section>
+    <section aria-labelledby="sources-title">
+      <div class="wrap">
+        <h2 id="sources-title"><span class="num">06</span>Offizielle Quellen und Transparenz</h2>
+        <ul class="plain">
+          <li><strong>Inhaltsverantwortung</strong>: das Projekt NO AI ACT (Matteo Angeloni); interne redaktionelle Überprüfung, keine rechtliche Überprüfung durch Dritte.</li>
+          <li><strong>Erstmals veröffentlicht</strong>Juli 2026 · <strong>Zuletzt überprüft</strong>: Juli 2026 (Site v5.3.0).</li>
+          <li><strong>Offizielle Quellen</strong>: <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/deu">Verordnung (EU) 2024/1689 über EUR-Lex</a> (Artikel 5 Absatz 1 Buchstabe f); Anhang III Nummer 4; Kapitel III für die Verpflichtungen; <a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai">EU-Rechtsrahmen für KI (Europäische Kommission)</a>; <a href="https://digital-strategy.ec.europa.eu/en/policies/ai-office">Europäisches AI-Büro</a>.</li>
+          <li><strong>Verwandte Spielfälle</strong>: &quot;Das Interview, das nie passiert ist&quot; (Rekrutierung), &quot;Das beobachtete Klassenzimmer&quot; (Monitoring), &quot;Zivilkredit&quot; (Scoring).</li>
+          <li><strong>Verwandte Lehrerressourcen</strong>: <a href="/de/ki-verordnung-fuer-lehrkraefte/">AI Act für Lehrer</a>, <a href="/de/unterrichtsaktivitaeten/">Unterrichtstätigkeiten</a>, <a href="/de/ai-act-unterrichtseinheit/">Klassenraum Lab Guide</a>.</li>
+          <li><strong>Disclaimer</strong>: Diese Seite ist eine pädagogische Vereinfachung, keine Rechtsberatung.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer aria-labelledby="footer-title">
+    <div class="wrap">
+      <h2 id="footer-title" class="stamp">Pädagogische Simulation – keine Rechtsberatung</h2>
+      <p>NO AI ACT ist ein pädagogisches Werkzeug. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/deu" hreflang="de">Verordnung (EU) 2024/1689 (KI-Gesetz)</a> und ersetzt nicht den Rechtstext oder die professionelle Beratung.</p>
+      <p><a href="/de/">Zuhause</a> · <a href="/de/hochrisiko-ki-systeme/">Hochriskante KI-Systeme</a> · <a href="/de/verbotene-ki-praktiken/">Verbotene Praktiken</a> · <a href="/de/bildung/">Bildungszentrum</a> · <a href="/de/ki-personalauswahl/" hreflang="it">Versione italiana</a></p>
+      <p class="credit">Entworfen und entwickelt von <a href="/de/matteo-angeloni/">Matteo Angeloni</a> · v5.3.0 · <span class="ai-disclosure">Hergestellt mit AI, nicht von AI</span><br><span class="credit-affil">PhD-Kandidat in <a href="https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/">Società in mutamento: politiche, diritti e sicurezza</a> · <a href="https://www.unitus.it/">Universität von Tuscia</a> — unabhängiges Projekt, kein offizielles Ergebnis der Universität</span></p>
+    </div>
+  <p class="session-record-policy">Lokale Speicher und optionale aggregierte Statistiken. Nur mit Zustimmung von Erwachsenen: ein Sitzungsprotokoll für 90 Tage; Guided-Path-Text erfordert eine separate Zustimmung. Ziehen, löschen oder exportieren Sie aus der Spielleiste. <a href="/game-statistics.html#de">Datenschutzhinweis und Kontakt</a></p><p class="shared-play-languages">Spielen: <a href="/play/?lang=it" hreflang="it" lang="it">Italiano</a> · <a href="/play/?lang=en" hreflang="en" lang="en">English</a> · <a href="/play/?lang=fr" hreflang="fr" lang="fr">Français</a> · <a href="/play/?lang=de" hreflang="de" lang="de">Deutsch</a> · <a href="/play/?lang=es" hreflang="es" lang="es">Español</a> · <a href="/play/?lang=pt" hreflang="pt-PT" lang="pt-PT">Português</a></p></footer>
+  <!-- Cloudflare Web Analytics --><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;7c85578fc8ad4488a54c6bc670a10dcf&quot;}"></script><!-- End Cloudflare Web Analytics -->
   <script type="module" src="/src/scripts/nav.ts"></script>
 
 </body></html>

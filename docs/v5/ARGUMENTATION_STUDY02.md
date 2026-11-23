@@ -1,6 +1,9 @@
 # Rubrica preliminare e prova di trasferimento Study 02
 
-[Italiano](ARGUMENTATION_STUDY02.md) · [English](en/ARGUMENTATION_STUDY02.md) · [Français](fr/ARGUMENTATION_STUDY02.md)
+
+> Edizione linguistica V5.3.0 · 23 novembre 2026. Il dossier e i materiali locali di Study 02 sono ora disponibili in sei lingue. Date, conteggi e risultati del prototipo descrivono le esecuzioni storiche. Il contratto attuale del registro facoltativo per maggiorenni è in SESSION_JOURNAL.md e supera il precedente vincolo dei soli aggregati. Le traduzioni non dimostrano equivalenza degli strumenti, efficacia educativa o validità della rubrica. Non sono stati eseguiti nuovi test per questo aggiornamento dei contenuti.
+
+
 
 Versione di lavoro del 21 novembre 2026. Disegno proposto, nessuno studio eseguito. Rubrica da validare con valutatori umani e partecipanti del pubblico previsto.
 

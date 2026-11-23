@@ -1,0 +1,528 @@
+<div align="center">
+
+![NO AI ACT — Simulatore di una società non regolata](docs/banner.svg)
+
+[![Licenza codice: GPL-3.0](https://img.shields.io/badge/codice-GPL--3.0-3fa66a)](LICENSE)
+[![Contenuti: CC BY-SA 4.0](https://img.shields.io/badge/contenuti-CC%20BY--SA%204.0-5d7fb8)](LICENSE)
+[![Stack](https://img.shields.io/badge/stack-TypeScript%20%2B%20Phaser%203%20%2B%20Vite-101a30)](#stack)
+[![Test](https://img.shields.io/badge/test-Vitest-d9a521)](tests/)
+[![Stato](https://img.shields.io/badge/stato-v5.2.2-3fa66a)](#stato-release)
+[![Lingue](https://img.shields.io/badge/lingue-IT%20EN%20FR%20DE%20ES%20PT-d8d6cd)](#lingue)
+
+**Serious game investigativo sull'AI Act europeo · browser, audio originale, salvataggio locale**
+
+### ▶ [GIOCA ORA / PLAY NOW](https://www.no-ai-act.eu/play/)
+
+Sito pubblico in sei lingue: `https://www.no-ai-act.eu/`
+· Gioco: `https://www.no-ai-act.eu/play/`
+
+[Come si gioca](#come-si-gioca) ·
+[Uso didattico](#uso-didattico) ·
+[Modalità docente](#modalità-docente) ·
+[Dati e privacy](#dati-e-privacy) ·
+[Autore](#autore-e-responsabilità-editoriale) ·
+[Game Design Document](docs/GDD.md) ·
+[Dossier V5 · IT/EN/FR](docs/v5/README.md) ·
+[Licenze](#licenze)
+
+</div>
+
+---
+
+> Anno 2032. In una città europea alternativa l'AI Act non è mai entrato in vigore.
+> La città è efficiente, automatizzata, predittiva. Nessuno riesce più a capire,
+> contestare o correggere le decisioni algoritmiche. **Tu sei l'Ispettore.**
+
+**NO AI ACT** è un serious game investigativo per browser. Ogni caso è una
+catastrofe algoritmica plausibile; risolverlo significa raccogliere i reperti,
+classificare il sistema secondo la piramide del rischio dell'AI Act, imporre la
+misura corretta e firmare un **rapporto ispettivo** motivato. Ogni fascicolo
+chiuso sblocca la **carta norma** che — in un'altra Europa — avrebbe prevenuto
+il danno.
+
+**⚖️ Versione didattica semplificata** del Regolamento (UE) 2024/1689 (AI Act).
+Questo gioco **non costituisce consulenza legale**.
+
+| | |
+|---|---|
+| **Cos'è** | Serious game investigativo sull'AI Act, giocabile in browser |
+| **Dove si gioca** | Sito in sei lingue: <https://www.no-ai-act.eu/> · Gioco: <https://www.no-ai-act.eu/play/> (GitHub Pages) |
+| **Cosa insegna** | La logica *risk-based* dell'AI Act: pratiche vietate, alto rischio, trasparenza, basso rischio — e perché la regola non "blocca" ma rende governabile |
+| **A chi serve** | Studenti (14+), docenti, formazione professionale, PA, cittadinanza digitale |
+| **Durata** | Da ~10–15 min (demo) a ~60–75 min (percorso avanzato) |
+| **Lingue del gioco** | Italiano / English / Français / Deutsch / Español / Português (PT) |
+| **Account / dati** | Nessun account; contatori di base e registro facoltativo con consenso 18+ |
+| **Autore** | [Matteo Angeloni](https://www.no-ai-act.eu/matteo-angeloni/) — ideazione, game design, sviluppo e contenuti educativi |
+
+## Stato attuale del codice (v5.2.2)
+
+Unico canale pubblico: [versione stabile](https://www.no-ai-act.eu/play/). Il precedente beta reindirizza allo stabile; il comando di pubblicazione beta è disabilitato.
+
+Gioco e sito condividono sei lingue: italiano, inglese, francese, tedesco, spagnolo
+e portoghese europeo. Tutti i 14 casi, le prove, le motivazioni, i feedback, il
+percorso guidato, il glossario e i report sono tradotti. Il selettore dispone
+di sei pulsanti su due righe; salvataggi v2 e migrazione v1 restano compatibili.
+
+Il dossier metodologico storico e il laboratorio locale Study 02 restano in
+IT/EN/FR e separati dalla build pubblica. Salvataggi locali e statistiche aggregate disattivabili. Solo con consenso dei maggiorenni: registro della sessione per 90 giorni; testi del percorso guidato con consenso separato. Revoca, cancellazione ed export dalla barra del gioco.
+Non assegna punteggi automatici al pensiero critico. La validazione
+umana delle traduzioni e dell'efficacia educativa resta da svolgere.
+
+Restano 155 URL pubblici in sei lingue, con diversa profondità editoriale per
+lingua. [Audit linguistico del 23 novembre 2026](docs/v5/LOCALIZATION_AUDIT_2026-11-23.md)
+su ramo dedicato, non ancora pubblicato; [dossier storico V5.1](docs/v5/SIX_LANGUAGE_LOCALIZATION.md).
+Note: [RELEASE_NOTES_v5.2.2.md](docs/RELEASE_NOTES_v5.2.2.md).
+
+## Novità in v1.0.0 — Prima release pubblica stabile (storico)
+
+La v1.0.0 consolida i contenuti della v0.6 (11 casi giocabili IT/EN) in una
+release pubblica stabile pensata per l'uso didattico. Nessun nuovo contenuto
+di gioco: la 1.0 è una release di stabilizzazione e pubblicazione.
+
+- **Landing pubblica IT/EN** rinnovata: nuove sezioni ("Perché esiste NO AI
+  ACT", "Un serious game, non un quiz", "Prime reazioni"), FAQ ampliate,
+  screenshot reale di gioco.
+- **Visual bug pass** completo pre-release: archivio norme scrollabile (tutte
+  le 11 norme raggiungibili), overlay coerenti in Evidence/Decision, toast e
+  pannello imprevisti corretti.
+- **Suite di test completa verde** (274 alla data della release); scoring, casi, norme e salvataggi invariati
+  rispetto alla v0.6 (salvataggi compatibili).
+- **Nessuna nuova raccolta dati**: identica impostazione privacy-by-design.
+
+Dettagli: [`docs/RELEASE_NOTES_v1.0.0.md`](docs/RELEASE_NOTES_v1.0.0.md) ·
+contenuti v0.6: [`docs/RELEASE_NOTES_v0.6.0.md`](docs/RELEASE_NOTES_v0.6.0.md).
+
+> **Optional consented session records · No accounts · No classroom dashboard.** Teacher mode is local debrief support. Educational simulation,
+> not legal advice.
+
+## Obiettivo didattico
+
+- Comprendere la logica *risk-based* dell'AI Act: pratiche vietate, alto rischio,
+  obblighi di trasparenza, basso rischio.
+- Collegare casi concreti (scoring sociale, recruiting opaco, deepfake
+  istituzionali, emotion recognition a scuola, triage predittivo, biometria
+  negli spazi pubblici, credito/welfare) alle disposizioni che li governano.
+- Mostrare che la regolazione non "blocca l'innovazione": la rende visibile,
+  documentabile, contestabile e governabile.
+
+**Messaggio guida:** *l'AI Act non elimina il rischio, ma lo rende visibile,
+documentabile, contestabile e governabile.*
+
+## Come si gioca
+
+Catastrofe → fascicolo → reperti (con etichetta-fonte) → citazione di almeno 2
+reperti → classificazione → misura correttiva → soggetto responsabile →
+motivazione → **rapporto ispettivo** con esito → carta AI Act → conseguenza →
+aggiornamento città → finale.
+
+Il rapporto ispettivo ha quattro esiti: **CONFORME / PARZIALMENTE CONFORME /
+CONTESTABILE / NON CONFORME**. Una decisione giusta ma mal motivata (reperti non
+pertinenti, soggetto errato, motivazione debole) è **contestabile**, mai
+conforme: non basta indovinare, bisogna *documentare*.
+
+Quattro indicatori (0–100) reagiscono a ogni decisione: **Efficienza**,
+**Controllo sociale**, **Diritti fondamentali**, **Fiducia pubblica**. Dopo 4
+casi chiusi si genera il rapporto finale: *Città opaca*, *Governance fragile* o
+*Innovazione governata*.
+
+## Casi implementati
+
+| # | Luogo | Caso | Tema AI Act | Stato |
+|---|---|---|---|---|
+| 1 | Municipio Centrale | La città dei punteggi | art. 5 — social scoring | ✅ giocabile |
+| 2 | Agenzia del Lavoro | Il colloquio che non esiste | Allegato III — lavoro | ✅ giocabile |
+| 3 | Media Center Civico | La città sintetica | art. 50 — trasparenza | ✅ giocabile |
+| 4 | Scuola delle Emozioni | La classe osservata | art. 5 — emotion recognition | ✅ giocabile |
+| 5 | Ospedale Predittivo | Triage invisibile | obblighi alto rischio | ✅ giocabile |
+| 6 | Centro di Sorveglianza | Volti nella folla | art. 5 — biometria (finalità di contrasto) | ✅ giocabile |
+| 7 | Ufficio Welfare e Servizi | Il credito civico | art. 5 / Allegato III — social scoring vs welfare/credito | ✅ giocabile |
+| 8 | Sportello Civico | Lo sportello che risponde sempre | art. 50 — trasparenza, chatbot pubblico | ✅ giocabile (v0.6) |
+| 9 | Ufficio Appalti | La gara opaca | alto rischio — procurement AI, governance | ✅ giocabile (v0.6) |
+| 10 | Campus Adattivo | La classe profilata | Allegato III — EdTech adattiva | ✅ giocabile (v0.6) |
+| 11 | Centro Modelli | Il modello tuttofare | GPAI / uso a valle del modello generale | ✅ giocabile (v0.6) |
+| 12 | Commissariato di zona | Il quartiere segnato | art. 5 — polizia predittiva individuale | ✅ giocabile (2.0) |
+| 13 | Ufficio Sussidi | L'algoritmo del sospetto | Allegato III — prestazioni essenziali, supervisione | ✅ giocabile (2.0) |
+| 14 | Agenzia regionale per il lavoro | Il pregiudizio corretto | art. 4a — rilevazione e correzione dei bias con categorie particolari di dati | ✅ giocabile (3.0) |
+
+**14 casi giocabili** (7 base + 4 avanzati della v0.6 + 2 del pack 2.0 + 1 sull'articolo 4a, inserito nell'AI Act dal Digital Omnibus). Il caso 7 ("Il credito
+civico") è un *caso-specchio* sul confine social scoring vietato / alto rischio;
+i casi 8–11 (chatbot pubblico, procurement, EdTech, GPAI) sono **casi avanzati**:
+non necessariamente vietati, ma da governare in base al contesto d'uso e
+all'effetto sui diritti.
+
+## Difficoltà e percorsi
+
+**Difficoltà selezionabili:**
+
+- **Base** — istruzioni esplicite, suggerimento mirato dopo un errore,
+  valutazione più indulgente sui vizi lievi di fondamento.
+- **Standard** — rapporto completo, feedback equilibrato (consigliata per la demo).
+- **Esperto** — pochi suggerimenti, feedback asciutto, severità su soggetto
+  responsabile e motivazione.
+
+**Percorsi / missioni** (nessun caso è bloccato; la mappa evidenzia i consigliati):
+
+| Percorso | Durata | Obiettivo |
+|---|---|---|
+| Demo rapida | ~10–15 min | Capire la logica del rapporto ispettivo |
+| Laboratorio breve | ~25–35 min | Distinguere pratica vietata, alto rischio e trasparenza |
+| Percorso completo | ~45–60 min | Audit, responsabilità, misure e motivazione |
+| Percorso avanzato | ~60–75 min | Casi ambigui e confini normativi (include il credito civico) |
+
+## Uso didattico
+
+NO AI ACT è pensato per essere usato **in autonomia** o **in aula**:
+
+- **Pubblico**: studenti di scuola superiore e università, formazione
+  professionale, funzionari PA, introduzione divulgativa all'AI Act.
+- **Proiettato in classe**: il docente conduce un caso alla LIM/proiettore e
+  guida la discussione (consigliato l'**EFFETTO CRT: OFF** per i proiettori).
+- **Laboratorio individuale**: ogni studente gioca un percorso e poi si confronta.
+- **Percorso consigliato per la prima volta**: difficoltà *Standard*,
+  Laboratorio breve o Percorso completo.
+
+La **modalità docente** aggiunge un debrief locale a fine partita con domande di
+discussione (vedi sotto e [`docs/TEACHER_MODE.md`](docs/TEACHER_MODE.md)).
+Protocollo press candidate:
+[`docs/PRESS_PLAYTEST_PROTOCOL_v2.3.md`](docs/PRESS_PLAYTEST_PROTOCOL_v2.3.md).
+Guida rapida generale: [`docs/PLAYTEST_QUICK_START.md`](docs/PLAYTEST_QUICK_START.md).
+
+## Modalità docente
+
+La modalità docente è un **supporto locale per il debrief**. Non crea classi,
+non registra studenti, non invia risultati a server.
+
+> 🇮🇹 La modalità docente è un supporto locale per il debrief. Non crea classi,
+> non registra studenti, non invia risultati a server.
+>
+> 🇬🇧 Teacher mode is local debrief support. It does not create classes, track
+> students, or send results to a server.
+
+A fine partita genera un debrief (esiti per caso, rilievi, norme acquisite,
+indicatori, tempo, domande di discussione) consultabile a schermo, con export
+`.txt`/`.json` e stampa **generati sul dispositivo**. Dettagli:
+[`docs/TEACHER_MODE.md`](docs/TEACHER_MODE.md).
+
+## Dati e privacy
+
+Salvataggi locali e statistiche aggregate disattivabili. Solo con consenso dei maggiorenni: registro della sessione per 90 giorni; testi del percorso guidato con consenso separato. Revoca, cancellazione ed export dalla barra del gioco.
+
+Il registro è pseudonimo, senza nomi, email, IP applicativi o collegamenti tra visite.
+Consenso 18+, sessione della stessa scheda per 24 ore, conservazione 90 giorni,
+coda con conferme e tentativi di reinvio. I testi sono cifrati nel database.
+L’export docente rimane locale. Nessuno scoring del pensiero critico e nessuna
+attivazione dello studio accademico Study 02.
+
+[Informativa](https://www.no-ai-act.eu/game-statistics.html) ·
+[Contratto, limiti e test](docs/v5/SESSION_JOURNAL.md).
+
+## Stack
+
+| Componente | Scelta | Perché |
+|---|---|---|
+| Build | Vite 8 | dev server istantaneo, build statica |
+| Linguaggio | TypeScript (strict) | dati di gioco tipati, refactoring sicuro |
+| Engine | Phaser 3 | scene manager, tween, input e particles integrati |
+| Audio | Audio registrato + Web Audio API | loop ed effetti originali con fallback sintetico locale |
+| Grafica | Canvas/SVG procedurale | tutti gli asset generati a runtime |
+| Persistenza | localStorage | salvataggio automatico, solo sul dispositivo |
+| Test | Vitest | suite automatizzata su dati, logica, i18n, report, analytics |
+
+Niente backend e niente account. Grafica e variazioni visive sono generate
+proceduralmente; musica ed effetti registrati hanno un fallback sintetico
+locale (vedi `ASSET_REGISTER.md`).
+
+## Landing pubblica (SEO/GEO)
+
+Sopra al gioco c'è un livello pubblico di presentazione, costruito come pagine
+statiche dallo stesso build Vite multipagina:
+
+- `/` — landing italiana (default), `/en/` — landing inglese, con SEO
+  (canonical, hreflang it/en/x-default) e dati strutturati schema.org
+  (`WebSite`, `SoftwareApplication`, `LearningResource`, `FAQPage`).
+- `/play/` — il gioco Phaser (comportamento invariato). Le CTA delle landing
+  passano la lingua: `/play/?lang=it` apre in italiano, `/play/?lang=en` in
+  inglese; `/play/` senza query mantiene la lingua salvata.
+- `/robots.txt`, `/sitemap.xml`, `/llms.txt` serviti dalla root (da `public/`),
+  più i documenti AI-readable in `docs/` (`NO_AI_ACT_PROJECT_BRIEF.md`,
+  `TEACHER_QUICK_START.md`, `LEGAL_DISCLAIMER.md`).
+- **Nessun modulo esterno incorporato**: la versione pubblica non include form
+  di feedback di terze parti e non raccoglie dati (i moduli Tally del periodo
+  di playtest sono stati rimossi).
+
+## Installazione e avvio
+
+```bash
+npm install
+npm run dev        # http://localhost:5173
+npm run build      # build di produzione in dist/
+npm run preview    # serve la build
+npm test           # suite automatizzata (Vitest)
+npm run typecheck  # controllo dei tipi
+```
+
+Strumenti di misura, non cancelli — girano a richiesta e non fanno parte della CI:
+
+```bash
+npm run diag:density              # densità e gerarchia dell'interfaccia di gioco
+LANG_CODE=en npm run diag:density # la stessa misura in inglese
+npm run insight                   # struttura e collegamenti del sito editoriale
+```
+
+`diag:density` gioca una partita vera e misura undici schermate: blocchi di
+prosa che competono, caratteri a video, azioni disponibili, superficie
+occupata, testi sovrapposti e corpo dei testi. Serve a rispondere con numeri a
+un feedback come «l'interfaccia è *crowded*», invece che con un'impressione. La
+diagnosi e le correzioni che ne sono seguite stanno in
+[`docs/UI_DENSITY_DIAGNOSIS.md`](docs/UI_DENSITY_DIAGNOSIS.md), incluse le tre
+ipotesi che le misure hanno **smentito**.
+
+## <a name="lingue"></a>Lingue
+
+Localizzazione **IT/EN/FR/DE/ES/PT** completa: sistema i18n tipato (`src/game/i18n/`),
+selettore nel menu, lingua persistita. Una suite di test garantisce la parità di
+struttura, segnaposto e indici dei casi fra tutti i sei dizionari.
+
+`release.config.json` distingue `siteLanguages`, `playableLanguages`,
+`caseLocalizationStatus` e `learningResourcesLanguages`. Runtime, selettore,
+inventario del portale e validatore dei contatori usano questo registro. I
+generatori editoriali non possono ridurre le lingue del gioco. Il portale ha
+33 pagine IT, 37 EN, 37 FR e 16 per DE/ES/PT; il dossier metodologico e Study 02
+restano in IT/EN/FR. `npm run audit:localization` controlla tutte le 155 pagine
+e i collegamenti alle lingue giocabili; i test browser sono documentati nel
+rapporto di audit.
+
+## Accessibilità
+
+- **Strato di lettura semantico**: le scene principali del gioco sono
+  sincronizzate con un livello HTML parallelo (testo reale, non pixel su
+  canvas) esposto alle tecnologie assistive; un toggle di **modalità lettura**
+  lo rende visibile anche a schermo.
+- **Annunci `aria-live`**: gli esiti (rapporto ispettivo, sblocco norme) sono
+  annunciati da una regione live dedicata.
+- **Percorso da tastiera**: dalla mappa della città fino alla chiusura completa
+  di un caso (verificato da uno smoke test automatico in CI). Limite attuale:
+  il menu del titolo richiede ancora una interazione con il puntatore.
+- Contrasto AA: il testo rosso usa una variante chiara (~5.5:1 su fondo scuro).
+- Font monospace ≥ 12px, valori numerici sempre accanto alle barre.
+- L'informazione non è mai affidata al solo colore (etichette testuali ovunque).
+- Toggle "ANIMAZIONI: RIDOTTE" (persistito): disattiva typewriter, glitch, shake e pulse.
+- Toggle "EFFETTO CRT" separato (persistito): rimuove scanline/vignettatura — pensato
+  per proiettori e aule.
+- Tastiera: tasti numerici per le decisioni, ESC per tornare indietro.
+- Audio disattivabile e persistito; click per saltare i testi.
+- **Limite strutturale**: il rendering resta su canvas Phaser; lo strato
+  semantico attenua ma non elimina il limite. **Non viene dichiarata una
+  conformità WCAG completa.**
+
+## Limiti noti
+
+- **Ottimizzato per desktop e tablet in orizzontale.** Su smartphone in
+  portrait un avviso compatto e **chiudibile** ("mobile guard") invita a
+  ruotare il dispositivo e offre un fallback compatto: non è un'esperienza
+  mobile-first.
+- Il rendering è su **canvas Phaser**: lo strato di lettura semantico fornisce
+  testo reale alle tecnologie assistive, ma il canvas resta un limite
+  strutturale e non viene dichiarata una conformità WCAG completa.
+- Contenuto giuridico in **versione didattica semplificata**: non sostituisce il
+  testo del regolamento né una consulenza legale.
+- **Telemetria first-party**: contatori di base e registro con consenso 18+ separato; nessun
+  cookie o identificatore persistente del giocatore, rispetto DNT/GPC; nessun
+  account, nessuna dashboard classe, nessun registro studenti.
+- Dimensioni build: fonte autorevole `npm run report:dist`, calcolate nuovamente a ogni rilascio.
+- **Il carico cognitivo dell'interfaccia è misurato, non validato.**
+  `npm run diag:density` dice *dove* si concentra — e ha già portato a due
+  correzioni — ma se quel carico sia tollerabile lo dicono le persone. Le
+  soglie del protocollo di playtest
+  ([`docs/PRESS_PLAYTEST_PROTOCOL_v2.3.md`](docs/PRESS_PLAYTEST_PROTOCOL_v2.3.md))
+  non sono **mai state misurate**: il riscontro d'uso da persone esterne al
+  progetto è **uno**
+  ([`docs/EXTERNAL_FEEDBACK_LEDGER.md`](docs/EXTERNAL_FEEDBACK_LEDGER.md)).
+- **Efficacia didattica non ancora validata empiricamente**: il quadro
+  metodologico per studiarla è in `docs/RESEARCH_VALIDATION_FRAMEWORK.md`.
+
+## Roadmap
+
+**v4.0.0 — Interfaccia mobile, tutorial, debrief e statistiche aggregate**
+- Percorso investigativo piu chiaro, quattro modalita, IT/EN/FR e presentazione mobile HTML.
+- Tutorial contestuale, spiegazioni delle valutazioni, debrief e ripasso.
+- Contatori aggregati automatici disattivabili; nessuna risposta o esito inviato.
+- Note: [docs/RELEASE_NOTES_v4.0.0.md](docs/RELEASE_NOTES_v4.0.0.md).
+
+**v3.0.0 — L'AI Act come modificato, e il quattordicesimo caso**
+- Prima versione che insegna il Reg. (UE) 2024/1689 **come modificato** dal
+  Digital Omnibus (Reg. UE 2026/1744): calendario, pratiche vietate, articolo 4,
+  enforcement a due corsie, articoli 4a, 25(2) e 27(4).
+- Quattordicesimo caso, «Il pregiudizio corretto», sull'articolo 4a: dati
+  particolari per scoprire i bias, sei condizioni cumulative, cinque aperte.
+- Interfaccia: «crowded» misurato con `npm run diag:density`, due correzioni con
+  effetto misurato. Tre delle quattro ipotesi di partenza sono cadute.
+- **I salvataggi restano compatibili**: nessuna struttura dati cambia.
+- Incorpora il lavoro preparato come 2.3.0 e **mai taggato** — postazione
+  ispettiva, confronto fra prove citate, taccuino, percorso tastiera.
+- 107 URL pubblici nel ramo di revisione, su tre lingue. Restano necessarie le due tornate di playtest esterni prima
+  di dichiarare la build press-ready.
+- Dettagli: [`docs/RELEASE_NOTES_v3.0.0.md`](docs/RELEASE_NOTES_v3.0.0.md) ·
+  [`docs/RELEASE_NOTES_v2.3.0.md`](docs/RELEASE_NOTES_v2.3.0.md).
+
+**✅ v2.2.0 — Audio, tastiera, risoluzione** — [release](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v2.2.0)
+- Sei musiche in loop e dieci effetti (generati dall'autore con ElevenLabs,
+  CC BY-SA 4.0 come gli altri contenuti), con ripiego sulla sintesi quando
+  un campione manca; controlli separati per musica ed effetti. Ogni pulsante
+  disegnato è anche un `<button>` vero: TAB, anello di fuoco, screen reader.
+  Canvas 1:1 su Full HD, 2K e 4K. Dettagli:
+  [`docs/RELEASE_NOTES_v2.2.0.md`](docs/RELEASE_NOTES_v2.2.0.md).
+
+**✅ v2.1.0 — Consolidamento e passaggio al copyleft** — [release](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v2.1.0)
+- Codice GPL-3.0-or-later e contenuti CC BY-SA 4.0 (eccezione CC BY per i
+  materiali stampa); copyright intestato all'autore. Il briefing apre un
+  fascicolo invece di un menu; la homepage mostra quattro fotogrammi reali di
+  gioco; navigazione uniforme sulle 30 pagine inglesi; le pagine GPAI ancorano
+  il Capo V. Dettagli:
+  [`docs/RELEASE_NOTES_v2.1.0.md`](docs/RELEASE_NOTES_v2.1.0.md).
+
+**✅ v2.0.0 — Research-grade, internazionalmente rintracciabile** — [release](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v2.0.0)
+- Modello di apprendimento tipizzato e matrice legale, capitoli tematici,
+  autocontrollo locale facoltativo, fiducia/riflessione, schema di salvataggio
+  v2 con migrazione testata, strato di lettura semantico + percorso da
+  tastiera, 2 nuovi casi (13 totali), infrastruttura di citazione e ricerca,
+  56 URL pubblici IT/EN. Dettagli:
+  [`docs/RELEASE_NOTES_v2.0.0.md`](docs/RELEASE_NOTES_v2.0.0.md).
+- Tag e release pubblicati il 2026-07-26
+  ([`docs/OWNER_ACTIONS_2_0.md`](docs/OWNER_ACTIONS_2_0.md)).
+
+**🔭 Lavori futuri**
+- Validazione empirica dell'efficacia didattica
+  (`docs/RESEARCH_VALIDATION_FRAMEWORK.md`), DOI Zenodo, eventuali lingue
+  aggiuntive (struttura i18n predisposta per FR/ES).
+
+**✅ v1.0.0 — Prima release pubblica stabile (storico; nessun tag `v1.0.0`
+è mai stato pubblicato)**
+- Landing SEO/content pack IT/EN, visual bug pass pre-playtest, versioning e
+  documentazione di release. Contenuti di gioco invariati rispetto alla v0.6.
+  Dettagli: [`docs/RELEASE_NOTES_v1.0.0.md`](docs/RELEASE_NOTES_v1.0.0.md).
+
+**✅ v0.6.0 — Advanced Case Pack**
+- 4 casi avanzati (7 → 11): chatbot pubblico, procurement AI, piattaforma
+  educativa adattiva, GPAI — casi più ambigui da governare per contesto d'uso.
+- Nuovo percorso "Casi avanzati", glossario ampliato, learning card aggiornate,
+  fascicolo città esteso. Nessun nuovo backend/account; salvataggi v0.5 compatibili.
+  Dettagli: [`docs/RELEASE_NOTES_v0.6.0.md`](docs/RELEASE_NOTES_v0.6.0.md) ·
+  [`docs/V0.6_DESIGN_NOTES.md`](docs/V0.6_DESIGN_NOTES.md).
+
+**✅ v0.5.0 — Investigation & Learning Layer**
+- Tassonomia delle fragilità decisionali, analisi della decisione nel rapporto,
+  schede didattiche, reperti investigativi, fascicolo città, glossario operativo,
+  export docente arricchito (locale). [`docs/RELEASE_NOTES_v0.5.0.md`](docs/RELEASE_NOTES_v0.5.0.md).
+
+**✅ Base (v0.4.0)**
+- 7 casi base, difficoltà Base/Standard/Esperto, percorsi/missioni, modalità
+  docente locale, mobile guard, IT/EN, analytics privacy-by-design (off).
+
+## <a name="stato-release"></a>Stato release
+
+Fonte machine-readable: [`release.config.json`](release.config.json)
+(coerenza garantita da test automatici).
+Note di rilascio: [`docs/RELEASE_NOTES_v5.2.2.md`](docs/RELEASE_NOTES_v5.2.2.md).
+
+- **Versione**: v5.2.2 (fonte: `package.json`)
+- **Tag della versione**: `v5.2.2` — **pubblicato**
+- **Ultima release effettivamente taggata**: `v5.2.2`
+- **Nota**: il tag software e lo stato del deploy web sono verifiche distinte; l’efficacia educativa resta da validare.
+- **Casi giocabili**: 14
+- **Lingue**: italiano, inglese, francese, tedesco, spagnolo e portoghese europeo
+- **URL pubblici**: 155 (33 IT + 37 EN + 37 FR + 16 DE + 16 ES + 16 PT)
+- **Localizzazioni del sito**: tedesco, spagnolo e portoghese europeo (`pt-PT`), 16 risorse introduttive, pratiche e stampa per lingua, inclusi laboratori e casi sul reclutamento. Gioco e press kit sono disponibili in tutte e sei le lingue. [Contenuti, fonti e verifiche](docs/seo/CONTENT_CAMPAIGN_2026-10-18.md).
+- **Salvataggi**: schema v2, con migrazione testata dei salvataggi v1
+- **Backend**: Cloudflare Workers/D1 · **Account giocatore**: nessuno · **Registro**: pseudonimo e facoltativo con consenso 18+, nessun collegamento tra visite; retention 90 giorni, export e cancellazione. Lo storico aggregato resta separato
+- **DOI**: non ancora disponibile (previsto via Zenodo dopo il tag)
+- **Efficacia didattica**: non ancora validata empiricamente
+- **Test / build**: suite Vitest completa + build + verifiche dist verdi in CI
+  (il numero esatto di test evolve con il progetto: fonte di verità `npm test`)
+
+Riferimenti correnti:
+[`docs/RELEASE_NOTES_v2.0.0.md`](docs/RELEASE_NOTES_v2.0.0.md) ·
+[`docs/OWNER_ACTIONS_2_0.md`](docs/OWNER_ACTIONS_2_0.md) ·
+[`release.config.json`](release.config.json) ·
+[`CITATION.cff`](CITATION.cff) ·
+[`docs/RESEARCH_VALIDATION_FRAMEWORK.md`](docs/RESEARCH_VALIDATION_FRAMEWORK.md) ·
+checklist di rilascio: [`docs/RELEASE_CHECKLIST.md`](docs/RELEASE_CHECKLIST.md).
+
+## Autore e responsabilità editoriale
+
+**NO AI ACT è ideato, scritto e sviluppato da [Matteo Angeloni](https://www.no-ai-act.eu/matteo-angeloni/)**, dottorando presso l'Università degli Studi della Tuscia. La sua ricerca riguarda l'impatto dell'intelligenza artificiale sui processi formativi e decisionali, sul reskilling e sulla governance del cambiamento.
+
+Nel progetto cura game design, sviluppo software, contenuti educativi, ricerca delle fonti, versionamento e revisione editoriale interna. NO AI ACT è un progetto indipendente, non una pubblicazione ufficiale dell'ateneo; non costituisce consulenza legale e non ha ancora ricevuto una revisione giuridica indipendente. Profilo accademico, attività scientifiche, metodo editoriale e collegamenti verificabili sono disponibili nella [pagina autore IT](https://www.no-ai-act.eu/matteo-angeloni/) e nella [author page EN](https://www.no-ai-act.eu/en/matteo-angeloni/).
+
+## Contribuire / testare
+
+- Esegui `npm install && npm run dev`, gioca un percorso e segui la
+  [smoke checklist](docs/SMOKE_CHECKLIST.md).
+- Per organizzare un playtest con 4–5 persone:
+  [`docs/PLAYTEST_QUICK_START.md`](docs/PLAYTEST_QUICK_START.md).
+- Non raccogliere dati personali dei tester: usa codici anonimi (T1, T2, …).
+
+## Licenze
+
+- **Codice** (sistemi, generatori procedurali, UI, configurazione): **GPL-3.0-or-later** — `LICENSE`, Sezione 1.
+- **Contenuti narrativi e didattici** (casi, carte norma, documentazione): **CC BY-SA 4.0** — `LICENSE`, Sezione 2.
+- **Fino a v2.0.0 compresa** il progetto era MIT + CC BY 4.0: i diritti concessi
+  su quelle versioni restano validi e non sono revocati.
+- **Terze parti**: il bundle distribuito include Phaser (MIT); il notice viaggia
+  con la build perché `npm run build` copia `THIRD_PARTY_LICENSES.md`, `LICENSE`
+  e `CREDITS.md` in `dist/` (`scripts/copy-notices.mjs`).
+- Registro asset completo: `ASSET_REGISTER.md`; dettagli: `LICENSE_NOTES.md`.
+
+## Come citare
+
+Il repository include un file `CITATION.cff` (GitHub mostra "Cite this
+repository"); formati pronti — APA, BibTeX, citazione del software con versione
+esatta — sono su [no-ai-act.eu/come-citare](https://www.no-ai-act.eu/come-citare/)
+(EN: [how-to-cite](https://www.no-ai-act.eu/en/how-to-cite/)). Un DOI Zenodo è
+previsto con la release 2.0. Il quadro metodologico per studiare il gioco è in
+`docs/RESEARCH_VALIDATION_FRAMEWORK.md` e su
+[ricerca-e-metodologia](https://www.no-ai-act.eu/ricerca-e-metodologia/).
+
+## Fonti normative
+
+- Regolamento (UE) 2024/1689 — AI Act
+- art. 5 (pratiche vietate), art. 50 (trasparenza), Allegato III (alto rischio)
+- Obblighi per sistemi ad alto rischio: gestione del rischio, qualità dei dati,
+  documentazione tecnica, logging, trasparenza, supervisione umana, accuratezza,
+  robustezza, cybersicurezza.
+
+I testi in gioco sono sintesi divulgative marcate "versione didattica
+semplificata". La rilevanza del rischio dipende sempre dal contesto d'uso.
+
+---
+
+## English summary
+
+**NO AI ACT — Simulator of an unregulated society** is a browser-based
+investigative serious game about the EU AI Act (Regulation (EU) 2024/1689).
+It is 2032 in an alternate European city where the AI Act never entered into
+force: you are the Inspector for Algorithmic Incidents. Each of the
+**14 playable cases** — organized in **four thematic chapters** — is a
+plausible algorithmic disaster (social scoring, opaque AI recruiting,
+unlabeled synthetic government media, emotion recognition in schools,
+predictive triage, public biometrics, civic credit/welfare scoring, public
+chatbots, AI procurement, adaptive EdTech, general-purpose AI, individual
+predictive policing, welfare fraud scoring) to investigate, classify under the
+AI Act risk pyramid and remedy with a reasoned **inspection report**. An
+optional **local self-check**, a **confidence and reflection layer**, and a
+**semantic reading layer** (real HTML synchronized with the canvas scenes,
+with aria-live announcements and a keyboard path through a full case) support
+learning and accessibility. Three difficulty modes, mission paths, IT/EN/FR/DE/ES/PT.
+
+No accounts; basic aggregate counters and consented pseudonymous session records during
+gameplay: graphics are procedural and recorded audio has a local synthetic
+fallback; saves stay in `localStorage`. **Teacher mode** is local debrief
+support only, with on-device `.txt`/`.json` exports. Version **5** provides guided inquiry across all 14 cases; **5.2.2** adds optional consented session records. The latest tagged release is **v5.2.2**.
+Educational simplification of the AI Act, not legal advice. Its educational effectiveness has **not yet been empirically
+validated**. Code: GPL-3.0-or-later · narrative and didactic content: CC BY-SA 4.0.
+
+**Play now:** <https://www.no-ai-act.eu/>
+
+```bash
+npm install && npm run dev
+```

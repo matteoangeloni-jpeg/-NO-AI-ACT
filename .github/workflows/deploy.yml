@@ -45,6 +45,8 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm test
+      - name: Localization registry and public metadata audit
+        run: npm run audit:localization
       - name: SEO indexability audit
         run: npm run audit:seo
       - run: npm run build

@@ -1,0 +1,34 @@
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import {PUBLIC_COPY} from '../../docs/public-copy.mjs';
+const cfg=JSON.parse(readFileSync('scripts/seo/routes.config.json','utf8'));
+const release=JSON.parse(readFileSync('release.config.json','utf8'));
+const version=JSON.parse(readFileSync('package.json','utf8')).version;
+const languages=['it','en','fr','de','es','pt'],names={it:'Italiano',en:'English',fr:'Français',de:'Deutsch',es:'Español',pt:'Português'};
+const families=['METHODOLOGY','LEGAL_LEARNING_MATRIX','COVERAGE_COMPLETION','ARGUMENTATION_STUDY02','METHODOLOGY_TEST_PLAN','METHODOLOGY_IMPLEMENTATION','TEST_RESULTS','SESSION_JOURNAL'];
+const readme=lang=>`README${lang==='it'?'':'.'+lang}.md`;
+const nav=prefix=>languages.map(lang=>`[${names[lang]}](${prefix}${readme(lang)})`).join(' · ');
+const href=(en,lang)=>release.domain+'/'+cfg.pairs.find(g=>g.en===en)[lang]+'/';
+const escape=text=>text.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
+const releaseFile=lang=>`RELEASE_NOTES_v${version}${lang==='it'?'':'.'+lang}.md`;
+const releaseNav=languages.map(lang=>`[${names[lang]}](${releaseFile(lang)})`).join(' · ');
+const dossierNav=languages.map(lang=>`[${names[lang]}](${readme(lang)})`).join(' · ');
+for(const lang of languages){
+ const c=PUBLIC_COPY[lang],folder=lang==='it'?'':lang+'/';
+ const text=`# NO AI ACT · v${version}\n\n${nav('')}\n\n**${c.tagline}**\n\n[▶ ${c.play}](${release.domain}/play/?lang=${lang}) · [${c.site}](${release.domain}/${lang==='it'?'':lang+'/'}) · [${c.release}](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v${version})\n\n${c.intro}\n\n## ${c.coverage}\n\n${c.coverageText}\n\n## ${c.features}\n\n${c.items.map(item=>'- '+item).join('\n')}\n\n## ${c.method}\n\n${c.methodText}\n\n[${c.method}](docs/v5/${readme(lang)}) · [${c.docTitles[0]}](docs/v5/${folder}METHODOLOGY.md) · [${c.docTitles[1]}](docs/v5/${folder}LEGAL_LEARNING_MATRIX.md)\n\n## ${c.privacy}\n\n${c.privacyText}\n\n[${c.privacy}](${release.domain}/game-statistics.html#${lang}) · [${c.docTitles[7]}](docs/v5/${folder}SESSION_JOURNAL.md)\n\n## ${c.study}\n\n${c.studyText}\n\n[${c.docTitles[3]}](docs/v5/${folder}ARGUMENTATION_STUDY02.md) · [Study 02](research/study02/)\n\n## ${c.development}\n\nNode.js 22+ · TypeScript · Phaser 3 · Vite.\n\n\`\`\`sh\nnpm ci\nnpm run dev\n# http://localhost:5173/play/?lang=${lang}\nnpm run site:generate\nnpm run build\nnpm run study02:local\n# http://127.0.0.1:4262/\n\`\`\`\n\n## ${c.author}\n\n${c.authorText}\n\n[Matteo Angeloni](${href('en/matteo-angeloni',lang)})\n\n## ${c.license}\n\n${c.licenseText}\n\n[LICENSE](LICENSE) · [CREDITS](CREDITS.md) · [THIRD_PARTY_LICENSES](THIRD_PARTY_LICENSES.md)\n\n## ${c.archive}\n\n[${c.release}](docs/${releaseFile(lang)}) · [${c.method}](docs/v5/${readme(lang)}) · [Press kit](${href('en/press-kit',lang)}) · [GDD](docs/GDD.md) · [README < v5.3.0](docs/archive/README_pre_v5.3.0.it.md)\n`;
+ writeFileSync(readme(lang),text);
+ let index=`# NO AI ACT V5 · ${c.method}\n\n${dossierNav}\n\n${c.coverageText}\n\n${c.methodText}\n\n${c.studyText}\n\n| ${c.method} | ${names[lang]} |\n|---|---|\n${families.map((name,i)=>`| ${c.docTitles[i]} | [${names[lang]}](${folder}${name}.md) |`).join('\n')}\n\n${c.privacyText}\n\n[${c.docTitles[7]}](${folder}SESSION_JOURNAL.md) · [${c.privacy}](${release.domain}/game-statistics.html#${lang}) · [v${version}](../${releaseFile(lang)})\n`;
+ writeFileSync('docs/v5/'+readme(lang),index);
+ const notes=`# NO AI ACT v${version} — ${c.releaseTitle}\n\n${releaseNav}\n\n2026-11-23 · ${c.release}\n\n${c.changes.map(item=>'- '+item).join('\n')}\n\n${c.methodText}\n\n${c.privacyText}\n\n${c.studyText}\n\n[${c.play}](${release.domain}/play/?lang=${lang}) · [${c.site}](${release.domain}/${lang==='it'?'':lang+'/'}) · [${c.method}](v5/${readme(lang)})\n`;
+ writeFileSync('docs/'+releaseFile(lang),notes);
+ const press=`# NO AI ACT · v${version} · ${names[lang]}\n\n${c.tagline}\n\n${c.intro}\n\n${c.coverageText}\n\n${c.items.map(item=>'- '+item).join('\n')}\n\n${c.methodText}\n\n${c.privacyText}\n\n${c.studyText}\n\n${c.authorText}\n\n${c.licenseText}\n\n${release.domain}/play/?lang=${lang}\n${href('en/press-kit',lang)}\n`;
+ mkdirSync('public/assets/press',{recursive:true});writeFileSync(`public/assets/press/no-ai-act-v${version}-${lang}.md`,press);
+ const target=cfg.pairs.find(g=>g.en==='en/press-kit')[lang]+'/index.html';let html=readFileSync(target,'utf8');
+ html=html.replace(/<section id="localized-materials"[\s\S]*?<\/section>/g,'');
+ const heading={it:'Materiali aggiornati nelle sei lingue',en:'Current materials in six languages',fr:'Matériaux actualisés dans les six langues',de:'Aktuelle Materialien in sechs Sprachen',es:'Materiales actualizados en seis idiomas',pt:'Materiais atualizados nas seis línguas'}[lang];
+ const archiveNote={it:'Le dieci immagini originali sono della V5.0.0 in italiano; restano nell’archivio storico con la loro versione.',en:'The ten original screenshots show V5.0.0 in Italian; their historical archive retains that version.',fr:'Les dix captures originales montrent la V5.0.0 en italien ; leur archive historique conserve cette version.',de:'Die zehn ursprünglichen Screenshots zeigen V5.0.0 auf Italienisch; das historische Archiv behält diese Versionsangabe.',es:'Las diez capturas originales muestran la V5.0.0 en italiano; su archivo histórico conserva esa versión.',pt:'As dez capturas originais mostram a V5.0.0 em italiano; o arquivo histórico mantém essa versão.'}[lang];
+ const block=`<section id="localized-materials" aria-labelledby="localized-materials-title"><div class="wrap"><h2 id="localized-materials-title">${heading} · v${version}</h2><p>${escape(c.coverageText)}</p><p><a href="/assets/press/no-ai-act-v${version}-${lang}.md" download>${c.tagline} · ${names[lang]} · Markdown</a> · <a href="/assets/press/no-ai-act-v${version}-${lang}-materials.zip" download>${names[lang]} · ZIP</a></p><p>${archiveNote}</p><p><a href="https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/v5/${readme(lang)}">${c.method}</a></p></div></section>`;
+ writeFileSync(target,html.replace('</main>',block+'\n</main>'));
+}
+const body=languages.map(lang=>`## ${names[lang]}\n\n${PUBLIC_COPY[lang].changes.map(item=>'- '+item).join('\n')}\n\n[${PUBLIC_COPY[lang].site}](${release.domain}/${lang==='it'?'':lang+'/'}) · [README](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/${readme(lang)}) · [${PUBLIC_COPY[lang].method}](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/v5/${readme(lang)})`).join('\n\n');
+writeFileSync(`docs/GITHUB_RELEASE_BODY_v${version}.md`,body+'\n');
+console.log('Published-source copy generated: six full READMEs, dossier indexes, release notes and press fact sheets.');

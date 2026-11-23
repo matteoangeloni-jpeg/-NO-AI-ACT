@@ -1,0 +1,29 @@
+# C. Casos, direito, mediação e reflexão final
+
+[Italiano](../LEGAL_LEARNING_MATRIX.md) · [English](../en/LEGAL_LEARNING_MATRIX.md) · [Français](../fr/LEGAL_LEARNING_MATRIX.md) · [Deutsch](../de/LEGAL_LEARNING_MATRIX.md) · [Español](../es/LEGAL_LEARNING_MATRIX.md) · [Português](../pt/LEGAL_LEARNING_MATRIX.md)
+
+> Edição linguística V5.3.0 · 23 de novembro de 2026. O dossier e os materiais locais de Study 02 estão disponíveis em seis línguas. As datas, contagens e resultados do protótipo descrevem execuções históricas. O contrato atual do registo facultativo para adultos está em SESSION_JOURNAL.md e substitui a anterior restrição aos agregados. As traduções não demonstram equivalência dos instrumentos, eficácia educativa ou validade da rubrica. Não foram executados novos testes nesta atualização de conteúdos.
+
+
+Verificação documental de 21 de novembro de 2026 com a versão consolidada do EUR-Lex de 27 de julho de 2026. A matriz apoia a conceção e a revisão. A interpretação jurídica das circunstâncias de cada caso continua a exigir revisão humana especializada. Esta ampliação não altera as soluções jurídicas nem as pontuações do jogo.
+
+Fonte comum: [Regulamento 2024/1689 consolidado](https://eur-lex.europa.eu/eli/reg/2024/1689). Importa verificar a finalidade prevista e as condições específicas. Antes de alterar um caso, devem verificar-se os prazos e as exceções do artigo 113.º. A narrativa decorre em 2032. A literacia em IA e os direitos são objetivos transversais; o artigo 4.º e CM/Rec(2026)12 têm funções e natureza jurídica distintas.
+
+| Caso de investigação | Disposições a aplicar e a verificar | Conhecimentos necessários | Apoio à aprendizagem planeado | Abordagem da reflexão final |
+|---|---|---|---|---|
+| case_scoring — Câmara Municipal | Artigo 5.º, n.º 1, alínea c): condições relativas à classificação social | Contextos, dados, efeitos prejudiciais e proporcionalidade | Distinguir finalidade declarada, dados utilizados e consequências | Por que razão uma queixa de transparência poderia ser insuficiente para explicar o problema central? |
+| case_lavoro — recrutamento | Artigo 6.º, anexo III, ponto 4, alínea a), e artigos 10.º, 14.º e 26.º | Recrutamento, viés e controlo humano eficaz | Compare a promessa do prestador com o procedimento real | Que verificação pode alterar uma decisão? |
+| case_media — conteúdo sintético | Artigo 50.º, n.os 2 e 4: definições e contexto | Proveniência, falsificações profundas, marcação e informação | Distinguir a identificação técnica da informação ao público | Que público precisa entender o que, e que exceções se aplicam? |
+| case_scuola — emoções | Artigo 5.º, n.º 1, alínea f): exceções por motivos médicos ou de segurança | Inferência de emoção, instituição e finalidade | Pergunte o que é inferido e onde | Que mudança de finalidade exigiria uma reavaliação? |
+| case_ospedale — suporte clínico | Artigo 6.º, n.º 1, e anexo I quando o produto se qualifique como dispositivo médico; artigos 9.º, 14.º e 26.º | Estado do dispositivo, decisões clínicas e supervisão | Distinguir o uso de cuidados de saúde das condições de classificação | Pode uma recomendação ser genuinamente revista? |
+| case_biometria — vigilância | Artigo 5.º, n.º 1, alínea h), e n.os 2–7; anexo III, ponto 1 | Identificação/verificação, tempo e finalidade reais | Perguntas sobre lugar, ator e propósito | Que condições fazem uma exceção relevante? |
+| case_credito — pontuação | Artigo 5.º, n.º 1, alínea c), em comparação com o anexo III, ponto 5, alínea b) | Crédito, pontuação social e reutilização fora do contexto original | Comparar os dados relevantes com os dados comportamentais | Por que razão o sector do crédito, por si só, não determina se uma utilização é de risco elevado ou proibida? |
+| case_chatbot — mesa de serviço | Artigo 50.º, n.º 1: obrigação de informação e condições | Interacção com IA, reconhecimento e responsabilidade | Compare a experiência do utilizador com as garantias declaradas | O que o utilizador deve ser capaz de reconhecer? |
+| case_procurement — compras | Artigos 13.º, 25.º e 26.º; documentação nos termos dos artigos 11.º–12.º quando o sistema seja de risco elevado | Cadeia de prestador e responsável pela implantação e finalidade prevista | Reconstruir os actores e os documentos disponíveis | Só os contratos públicos são suficientes para classificar um sistema como de risco elevado? |
+| case_edtech — avaliação | Artigo 6.º e anexo III, ponto 3; artigos 14.º e 26.º | Acesso/avaliação educacional e consequências | Distinguir o apoio ao estudo das decisões sobre pessoas | Que decisão educativa está sendo influenciada? |
+| case_gpai — modelos | Artigos 3.º, 51.º e 53.º; obrigações ao integrar modelos em sistemas | Distinção modelo/sistema, finalidade geral e risco sistémico | Comparar o papel do modelo com o seu uso de decisão real | Porque é que um modelo de finalidade geral não implica automaticamente uma proibição? |
+| case_predpol — policiamento preditivo | Artigo 5.º, n.º 1, alínea d): avaliações individuais e condições | Definição de perfis e factos verificáveis | Correlação separada de uma base factual individual | Que provas substituiriam a confiança num perfil? |
+| case_frodi — bem-estar | Artigo 6.º, anexo III, ponto 5, alínea a), e artigos 14.º e 26.º | Prestações públicas, risco e responsabilidade | Compare seleção automatizada com revisão | Quão eficaz é o controlo humano? |
+| case_bias — auditoria de viés | Artigo 4.º-A: condições cumulativas e relação com o RGPD | Categorias especiais, necessidades e salvaguardas | Exame fundamentado das condições e dos dados alternativos | Como conciliar a avaliação e minimização de desvios? |
+
+As indicações apoiam perguntas de investigação. A matriz destina-se a quem concebe e facilita a atividade. Mostrá-la integralmente antes da investigação sugeriria respostas e aumentaria a carga cognitiva.

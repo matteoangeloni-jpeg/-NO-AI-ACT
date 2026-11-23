@@ -1,4 +1,5 @@
-import { L } from '../i18n';
+import { L, LOCALES, languageTag } from '../i18n';
+import { SITE_LINKS } from '../data/concepts';
 import { StateManager } from './StateManager';
 
 /**
@@ -50,6 +51,18 @@ let lastScene: { title: string; sections: ReadingSection[] } | null = null;
 let overlayDepth = 0;
 let current: { title: string; sections: ReadingSection[] } | null = null;
 const overlayParents: Array<{ title: string; sections: ReadingSection[] } | null> = [];
+
+function syncShellLocale(): void {
+  if (typeof document === 'undefined') return;
+  const locale = LOCALES[StateManager.language];
+  document.documentElement.lang = languageTag(StateManager.language);
+  const title = `${locale.ui.gameTitle} — ${locale.ui.gameSubtitle}`;
+  document.title = title;
+  el('game-container')?.setAttribute('aria-label', title);
+  const back = el('site-return');
+  back?.setAttribute('href', SITE_LINKS[StateManager.language].home);
+  back?.setAttribute('aria-label', locale.ui.siteLinks.backToSite);
+}
 
 export const ReadingLayer = {
   /** Pubblica il contenuto testuale della schermata corrente. */
@@ -118,14 +131,12 @@ function render(title: string, sections: ReadingSection[]): void {
   }
   current = { title, sections };
   updateToggleLabel();
-  const documentLanguage = StateManager.language === 'pt' ? 'pt-PT' : StateManager.language;
-  if (typeof document !== 'undefined') {
-    document.documentElement.lang = documentLanguage;
-    document.title = `${L().ui.gameTitle} — ${L().ui.gameSubtitle}`;
-  }
+  const documentLanguage = languageTag(StateManager.language);
+  syncShellLocale();
   const layer = el('reading-layer');
   if (!layer) return;
   layer.setAttribute('lang', documentLanguage);
+  layer.setAttribute('aria-label', title);
   // costruzione DOM con textContent, senza markup interpretato: il testo dei casi
   // non può mai essere interpretato come markup
   layer.replaceChildren(node('h2', title));
@@ -169,7 +180,7 @@ function render(title: string, sections: ReadingSection[]): void {
 function updateToggleLabel(): void {
   const toggle = el('reading-toggle') as HTMLButtonElement | null;
   if (!toggle) return;
-  const t = L().a11y;
+  const t = LOCALES[StateManager.language].a11y;
   const visible = document.body.classList.contains('reading-visible');
   toggle.textContent = visible ? t.readingHide : t.readingShow;
   toggle.setAttribute('aria-pressed', String(visible));
@@ -184,6 +195,7 @@ function revealFocusedInput(): void {
 }
 
 export function initReadingLayer(): void {
+  syncShellLocale();
   const toggle = el('reading-toggle') as HTMLButtonElement | null;
   if (!toggle) return;
   toggle.addEventListener('click', () => {

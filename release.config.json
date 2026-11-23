@@ -5,10 +5,10 @@
   "tagline_en": "Simulator of an unregulated society",
   "domain": "https://www.no-ai-act.eu",
   "repository": "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT",
-  "versionTag": "v5.2.2",
-  "lastTaggedRelease": "v5.2.2",
-  "contentLastReviewed": "2026-11-22",
-  "languages": [
+  "versionTag": "v5.3.0",
+  "lastTaggedRelease": "v5.3.0",
+  "contentLastReviewed": "2026-11-23",
+  "playableLanguages": [
     "it",
     "en",
     "fr",
@@ -18,13 +18,13 @@
   ],
   "playableCases": 14,
   "publicUrls": {
-    "it": 33,
+    "it": 37,
     "en": 37,
     "fr": 37,
-    "total": 155,
-    "de": 16,
-    "es": 16,
-    "pt": 16
+    "de": 37,
+    "es": 37,
+    "pt": 37,
+    "total": 222
   },
   "saveSchema": {
     "storageKey": "no-ai-act-save-v2",
@@ -74,7 +74,23 @@
     "es",
     "pt"
   ],
-  "releaseDate": "2026-11-22",
+  "caseLocalizationStatus": {
+    "it": "complete",
+    "en": "complete",
+    "fr": "complete",
+    "de": "complete",
+    "es": "complete",
+    "pt": "complete"
+  },
+  "learningResourcesLanguages": [
+    "it",
+    "en",
+    "fr",
+    "de",
+    "es",
+    "pt"
+  ],
+  "releaseDate": "2026-11-23",
   "pressScreenshotVersion": "5.0.0",
   "publicChannels": {
     "production": "https://www.no-ai-act.eu/play/",

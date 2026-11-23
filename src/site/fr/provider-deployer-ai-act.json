@@ -8,8 +8,8 @@
     "Breadcrumb": "Fil d'Ariane"
   },
   "blocks": [
-    "<a href=\"../../en/\">NO AI ACT</a>",
-    "<a href=\"../../en/eu-ai-act-guide/\">Guide de l'AI Act</a>",
+    "<a href=\"/fr/\">NO AI ACT</a>",
+    "<a href=\"/fr/guide-ai-act/\">Guide de l'AI Act</a>",
     "Fournisseur et déployeur",
     "Articles 3, 16, 25 et 26 · Rôles · Responsabilité",
     "Fournisseur et déployeur dans l'AI Act européen",
@@ -53,7 +53,7 @@
     "change la destination d'un système non classé à haut risque de manière à le rendre à haut risque.",
     "<strong>Et le fournisseur initial ?</strong> Le règlement (UE) 2026/1744, dit Digital Omnibus, a réécrit l'article 25, paragraphe 2. Dans ces circonstances, il <strong>cesse d'être fournisseur</strong> du système concerné, mais doit coopérer étroitement avec les nouveaux fournisseurs : documentation permettant d'évaluer la conformité à l'article 16, informations sur les limites et défaillances connues, accès technique ciblé pour les essais et la validation. Une exception existe lorsqu'il a <strong>clairement indiqué</strong> que son système ne devait pas être transformé en système à haut risque. L'acheteur qui transforme le système ne peut donc pas présumer cette coopération : les indications du fournisseur comptent.",
     "Intégrer un modèle à usage général, personnaliser un produit ou changer son usage ne conduit pas toujours au même résultat. Destination, documentation, modification effective et risque résultant comptent. Il faut demander ce qui a été transformé et sous quel nom le système est mis en service, au-delà du simple achat.",
-    "Pour une entreprise, <a href=\"../../en/ai-act-for-business/\">l'AI Act pour les entreprises</a> organise ces questions dans un ordre pratique.",
+    "Pour une entreprise, <a href=\"/fr/ai-act-entreprises/\">l'AI Act pour les entreprises</a> organise ces questions dans un ordre pratique.",
     "<span class=\"num\">04</span>Avant d'acheter ou d'utiliser un système",
     "<strong>Cartographier la chaîne :</strong> qui développe, intègre, vend, choisit la destination et agit sur les sorties.",
     "<strong>Définir le contexte :</strong> personnes concernées, décisions influencées, données et conséquences des défaillances.",
@@ -62,12 +62,12 @@
     "<strong>Attribuer une autorité interne :</strong> quelqu'un doit pouvoir interrompre ou corriger l'usage, pas seulement l'observer.",
     "<strong>Suivre les changements :</strong> nouvelles finalités, ajustement du modèle, intégrations et changement de marque peuvent modifier le rôle.",
     "<span class=\"num\">05</span>La transparence répartit aussi les tâches",
-    "L'article 50 montre que les rôles ne sont pas interchangeables. En simplifiant, les fournisseurs rendent reconnaissables certaines interactions ou sorties de synthèse ; la publication d'hypertrucages ou l'usage de certains systèmes biométriques impose aussi des obligations aux déployeurs. Voir les <a href=\"../transparency-obligations/\">obligations de transparence</a>.",
+    "L'article 50 montre que les rôles ne sont pas interchangeables. En simplifiant, les fournisseurs rendent reconnaissables certaines interactions ou sorties de synthèse ; la publication d'hypertrucages ou l'usage de certains systèmes biométriques impose aussi des obligations aux déployeurs. Voir les <a href=\"/fr/obligations-de-transparence/\">obligations de transparence</a>.",
     "<span class=\"num\">06</span>Pourquoi le jeu demande qui est responsable",
     "Dans NO AI ACT, reconnaître le risque ne suffit pas. Dans « L'appel d'offres opaque », un organisme public achète un système sans obtenir sa documentation ni encadrer son usage. Imputer tout au vendeur fragilise le rapport : le fournisseur doit rendre le système vérifiable, tandis que le déployeur détermine son insertion dans le processus et son contrôle.",
     "Ouvrir les dossiers",
     "<span class=\"num\">07</span>Sources officielles et limites",
-    "La source faisant autorité est le <a href=\"https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng\" hreflang=\"fr\">règlement (UE) 2024/1689 sur EUR-Lex</a>. Le service d'assistance de la Commission permet de consulter les <a href=\"https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-3\">articles 3</a>, <a href=\"https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-25\">25</a> et <a href=\"https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-26\">26</a>, ainsi que la <a href=\"https://digital-strategy.ec.europa.eu/en/faqs/navigating-ai-act\">FAQ de la Commission</a>. Vérifiez le texte consolidé et le droit sectoriel applicables.",
+    "La source faisant autorité est le <a href=\"https://eur-lex.europa.eu/eli/reg/2024/1689/oj/fra\" hreflang=\"fr\">règlement (UE) 2024/1689 sur EUR-Lex</a>. Le service d'assistance de la Commission permet de consulter les <a href=\"https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-3\">articles 3</a>, <a href=\"https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-25\">25</a> et <a href=\"https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-26\">26</a>, ainsi que la <a href=\"https://digital-strategy.ec.europa.eu/en/faqs/navigating-ai-act\">FAQ de la Commission</a>. Vérifiez le texte consolidé et le droit sectoriel applicables.",
     "<strong>Version pédagogique simplifiée.</strong> Cette page ne détermine pas le rôle d'une organisation particulière et ne constitue pas un conseil juridique ou de conformité."
   ]
 }

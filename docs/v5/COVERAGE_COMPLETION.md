@@ -1,6 +1,9 @@
 # Copertura operativa dei feedback
 
-[Italiano](COVERAGE_COMPLETION.md) · [English](en/COVERAGE_COMPLETION.md) · [Français](fr/COVERAGE_COMPLETION.md)
+
+> Edizione linguistica V5.3.0 · 23 novembre 2026. Il dossier e i materiali locali di Study 02 sono ora disponibili in sei lingue. Date, conteggi e risultati del prototipo descrivono le esecuzioni storiche. Il contratto attuale del registro facoltativo per maggiorenni è in SESSION_JOURNAL.md e supera il precedente vincolo dei soli aggregati. Le traduzioni non dimostrano equivalenza degli strumenti, efficacia educativa o validità della rubrica. Non sono stati eseguiti nuovi test per questo aggiornamento dei contenuti.
+
+
 
 Incremento richiesto dal proprietario il 21 novembre 2026. Questa lista definisce il lavoro da implementare prima di avviare la nuova verifica finale.
 

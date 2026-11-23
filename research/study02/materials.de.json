@@ -1,0 +1,110 @@
+{
+  "copy": {
+    "title": "NO AI ACT · Study 02 Labor",
+    "notice": "Lokaler Prototyp für fiktive Materialversuche. Teilnehmersitzungen erfordern ein autorisiertes Protokoll, eine Informationsmitteilung und eine menschliche Überprüfung. Alles bleibt in dieser Registerkarte und geht beim Neuladen verloren; das Herunterladen ist eine explizite Wahl. Geben Sie keine Namen oder persönlichen Daten ein.",
+    "language": "Sprache",
+    "form": "Formblatt",
+    "occasion": "Gelegenheiten",
+    "pre": "Vor dem Spiel",
+    "post": "Nach dem Spiel",
+    "participant": "Unabhängige Aufgabe",
+    "observer": "Beobachtung und Rubrik",
+    "task": "Anweisungen",
+    "prompt": "Schreiben Sie eine eigenständige Beurteilung: Klären Sie die Entscheidungsfrage, vergleichen Sie mindestens zwei Quellen und begründen Sie deren Gewicht. Verbinden Sie Belege mit einer Schlussfolgerung und einer verhältnismäßigen Maßnahme. Prüfen Sie eine alternative Deutung, benennen Sie fehlende Informationen und Folgen für Menschen. Eine begründete bedingte Schlussfolgerung ist möglich. Keine Antwortauswahl. Vorgesehene Zeit: 10–15 Minuten; keine automatische Korrektur.",
+    "legal": "Gemeinsame Rahmenbedingungen für beide Formulare",
+    "legalText": "Orientierung: Artikel 6 und Anhang III Nummer 3 Buchstabe a erfordern eine Prüfung der Zweckbestimmung und des Einflusses auf Zulassungsentscheidungen. Artikel 6 Absatz 3 hat besondere Voraussetzungen. Die Bezeichnungen „kulturell“ oder „vereinsbezogen“ entscheiden nicht über die Einstufung. Der konsolidierte EU-Rechtstext und die Empfehlung des Europarats unterscheiden sich in ihrer rechtlichen Natur.",
+    "lawLink": "EU-Verordnung · konsolidiert 27. Juli 2026",
+    "councilLink": "Europarat · CM/Rec(2026)12",
+    "answer": "Mein Argument",
+    "seal": "Einreichen und Sperren von Text",
+    "sealed": "Eingereichter Text, der nicht automatisch bewertet wurde.",
+    "required": "Schreiben Sie eine Antwort, bevor Sie einreichen.",
+    "print": "Bedrucken Sie sichtbare Materialien",
+    "context": "CEPAJe Kontext",
+    "contextPrompt": "Einstellung und Gerät; Sprache und Zugänglichkeit; Ziel und Dauer; Lehrervermittlung; Vorkenntnisse; Spielmodus. Beschreiben Sie die Bedingungen, ohne Personen zu identifizieren.",
+    "observation": "Strukturierte Spielbeobachtung",
+    "observed": "Beobachtete Handlung oder Äußerung und Reihenfolge der Episoden",
+    "interpretation": "Vorläufige Auslegung und alternative Erläuterungen",
+    "observationRows": [
+      "Exploration, Revisits und angeforderte Hilfe",
+      "Bewertung der Herkunft der Quelle und der Grenzwerte",
+      "Erklärte Verbindung zwischen Beweisen",
+      "Begründete Beibehaltung oder Überarbeitung einer Hypothese",
+      "Argument vor dem Feedback",
+      "Unsicherheit und Folgen für den Menschen",
+      "Verwendung von Feedback und Strategie für einen neuen Fall"
+    ],
+    "rubric": "Vorläufige Rubrik · nur menschliche Kodierung",
+    "rubricRows": [
+      "Kontextualisierter Anspruch, Maßnahme und Verantwortung",
+      "Provenienz und Relevanz",
+      "Verbindung zwischen Beweisen und Schlussfolgerungen",
+      "Alternative Interpretation und diskriminierende Beweise",
+      "Unsicherheit und Rechte",
+      "Revision nach Feedback (nur Game Debrief)"
+    ],
+    "anchors": [
+      "Nicht beachtet/entfällt",
+      "0 · Beweise, die in dieser Aufgabe nicht explizit gemacht wurden",
+      "1 · Teilnachweis",
+      "2 · Ausführliche Nachweise"
+    ],
+    "rationale": "Textauszug, Grund für den Code und mögliche alternative Erklärung",
+    "noTotal": "Keine Gesamtsumme und keine automatische Bewertung. Nicht beobachtet ist von 0 zu unterscheiden. Rechtliche Richtigkeit gesondert codieren. Bei PRE/POST-Aufgaben bleibt die Überarbeitung nach Feedback nicht anwendbar. Zwei unabhängige Beurteilende vergleichen ihre Codes vor der gemeinsamen Diskussion.",
+    "legalJudgment": "Getrennte rechtliche Beurteilung, abhängig von Fakten und rechtlicher Überprüfung",
+    "guidance": "Führung des Facilitators",
+    "release": "Sammlung ist fertig: Show Debrief",
+    "afterOnly": "Diese Aktion korrigiert den Text nicht oder weist keine Punkte zu.",
+    "debrief": "Vergleichen Sie das Versprechen des Anbieters mit Protokoll und Verfahren. Das Protokoll dokumentiert eine Woche und beweist für sich allein nicht die Ursache jedes Ausschlusses. Prüfen Sie fehlende Plätze oder Verwaltungsfehler als Alternativen. Fordern Sie Ausschreibung, tatsächliche Zweckbestimmung, Kriterien, Überprüfungsbefugnisse und Ergebnisse an. Bildungszweck und Einfluss auf die Zulassung müssen geklärt werden; begründete bedingte Schlüsse sind zulässig. Rekonstruieren Sie Gründe und Rechte und formulieren Sie anschließend eine anderswo anwendbare Prüfung.",
+    "download": "Ausdrücklich eine lokale Kopie herunterladen",
+    "downloadNote": "Die Datei enthält den eingereichten Text und eventuell vorhandene menschliche Notizen ohne Identifikatoren oder Telemetrie; sie wird nur im genehmigten Forschungssystem aufbewahrt.",
+    "reset": "Neues Rohblech",
+    "resetConfirm": "Löschen Sie die Arbeit dieses Tabs? Es kann nicht wiederhergestellt werden.",
+    "statusDownload": "Lokale Kopie vorbereitet; nichts an einen Server gesendet.",
+    "draft": "Vorläufiges Instrument: Gleichwertigkeit der Aufgabenformen, Rubrik und Übersetzungen müssen mit Menschen validiert werden."
+  },
+  "A": {
+    "title": "Die Workshops des Stadtarchivs",
+    "scenario": "Im Jahr 2032 bietet ein städtisches Archiv Workshops zur Restaurierung und zum Lesen historischer Dokumente an. Die Plätze sind begrenzt. Ein KI-Dienst schlägt Besuchenden Angebote vor. Die Leitung verlangt eine beleggestützte Beurteilung seines Einsatzes. Alle Materialien sind fiktiv; wenden Sie den bereitgestellten Rechtsrahmen an, ohne unbelegte Tatsachen anzunehmen.",
+    "sources": [
+      [
+        "A1 · Angaben des Anbieters",
+        "Der Dienst schlägt Workshops anhand angegebener Interessen und früherer Teilnahme vor. Er berechnet einen Interessenindex, ohne über die Zulassung zu entscheiden. Mitarbeitende können jeden Vorschlag korrigieren. Der Anbieter beschreibt kulturelle Orientierung; die Angaben nennen nicht die im Archiv tatsächlich verwendeten Einstellungen."
+      ],
+      [
+        "A2 · Verfahren der Leitung",
+        "Jeder Workshop hat zwölf Plätze. Mitarbeitende prüfen Verfügbarkeit und die Anforderungen der Ausschreibung und teilen danach das Ergebnis mit. Empfehlungen dürfen keine Anträge ausschließen. Auf Antrag ist eine Überprüfung vorgesehen. Die Ausschreibung zu Art und Voraussetzungen der Workshops liegt nicht bei."
+      ],
+      [
+        "A3 · Betriebsprotokoll einer Woche",
+        "Anträge oberhalb des Interessenschwellenwerts erhalten eine Einladung. Andere bleiben inaktiv, bis ein Mitarbeitender sie aktiviert. Das Feld „Grund der Nichtaktivierung“ ist leer. In der beobachteten Woche sind keine manuellen Änderungen dokumentiert. Frühere Wochen und Ergebnisse von Überprüfungen sind nicht enthalten."
+      ],
+      [
+        "A4 · Meldung eines Besuchers",
+        "Ich habe mich für einen Workshop mit weiterhin angezeigten freien Plätzen beworben. Ich bekam keine Einladung. Am Schalter wurde mir eine andere vom Dienst vorgeschlagene Aktivität empfohlen. Ich beantragte eine Überprüfung; das Ergebnis kenne ich noch nicht. Ich weiß nicht, welche Information den Vorschlag beeinflusst hat."
+      ]
+    ]
+  },
+  "B": {
+    "title": "Die Angebote der Handwerksgenossenschaft",
+    "scenario": "Im Jahr 2032 bietet eine Handwerksgenossenschaft ihren Mitgliedern Treffen zum praktischen Lernen an. Die Plätze sind begrenzt. Ein KI-Dienst schlägt Interessierten Angebote vor. Der Vorstand verlangt eine beleggestützte Beurteilung seines Einsatzes. Alle Materialien sind fiktiv; wenden Sie den bereitgestellten Rechtsrahmen an, ohne unbelegte Tatsachen anzunehmen.",
+    "sources": [
+      [
+        "B1 · Angaben des Anbieters",
+        "Der Dienst schlägt Treffen anhand angegebener Interessen und früherer Aktivitäten vor. Er berechnet einen Kompatibilitätsindex, ohne Plätze zu vergeben. Verantwortliche können jeden Vorschlag korrigieren. Der Anbieter beschreibt vereinsbezogene Orientierung; die Angaben nennen nicht die in der Genossenschaft tatsächlich verwendeten Einstellungen."
+      ],
+      [
+        "B2 · Verfahren des Vorstands",
+        "Jedes Treffen hat zwölf Plätze. Verantwortliche prüfen Verfügbarkeit und Anforderungen des Aufrufs und teilen danach das Ergebnis mit. Empfehlungen dürfen keine Anfragen ausschließen. Auf Antrag ist eine Überprüfung vorgesehen. Der Aufruf zu Art und Voraussetzungen der Treffen liegt nicht bei."
+      ],
+      [
+        "B3 · Betriebsprotokoll einer Woche",
+        "Anfragen oberhalb des Kompatibilitätsschwellenwerts erhalten ein Platzangebot. Andere bleiben ausgesetzt, bis ein Verantwortlicher sie reaktiviert. Das Feld „Grund der Aussetzung“ ist leer. In der beobachteten Woche sind keine manuellen Eingriffe dokumentiert. Frühere Wochen und Ergebnisse von Überprüfungen sind nicht enthalten."
+      ],
+      [
+        "B4 · Meldung eines Mitglieds",
+        "Ich habe ein Treffen mit weiterhin angezeigten freien Plätzen angefragt. Ich bekam kein Angebot. Im Büro wurde mir eine andere vom Dienst vorgeschlagene Möglichkeit empfohlen. Ich beantragte eine Überprüfung; das Ergebnis kenne ich noch nicht. Ich weiß nicht, welche Information den Vorschlag beeinflusst hat."
+      ]
+    ]
+  }
+}

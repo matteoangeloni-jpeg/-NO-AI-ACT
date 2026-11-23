@@ -1,0 +1,16 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+import {REVIEW,SOURCE_REVIEW} from '../../research/study02/localized-review.mjs';
+const scenarios={
+ de:['Im Jahr 2032 bietet ein städtisches Archiv Workshops zur Restaurierung und zum Lesen historischer Dokumente an. Die Plätze sind begrenzt. Ein KI-Dienst schlägt Besuchenden Angebote vor. Die Leitung verlangt eine beleggestützte Beurteilung seines Einsatzes. Alle Materialien sind fiktiv; wenden Sie den bereitgestellten Rechtsrahmen an, ohne unbelegte Tatsachen anzunehmen.','Im Jahr 2032 bietet eine Handwerksgenossenschaft ihren Mitgliedern Treffen zum praktischen Lernen an. Die Plätze sind begrenzt. Ein KI-Dienst schlägt Interessierten Angebote vor. Der Vorstand verlangt eine beleggestützte Beurteilung seines Einsatzes. Alle Materialien sind fiktiv; wenden Sie den bereitgestellten Rechtsrahmen an, ohne unbelegte Tatsachen anzunehmen.'],
+ es:['En 2032, un archivo municipal ofrece talleres de restauración y lectura de documentos históricos. Las plazas son limitadas. Un servicio de IA sugiere oportunidades a los visitantes. La dirección solicita una evaluación documentada de su uso. Todos los materiales son ficticios; aplica el marco jurídico proporcionado sin suponer hechos no documentados.','En 2032, una cooperativa artesanal ofrece encuentros de aprendizaje práctico a sus socios. Las plazas son limitadas. Un servicio de IA sugiere oportunidades a los solicitantes. El consejo solicita una evaluación documentada de su uso. Todos los materiales son ficticios; aplica el marco jurídico proporcionado sin suponer hechos no documentados.'],
+ pt:['Em 2032, um arquivo municipal oferece oficinas de restauro e leitura de documentos históricos. Os lugares são limitados. Um serviço de IA sugere oportunidades aos visitantes. A direção solicita uma avaliação documentada da sua utilização. Todos os materiais são fictícios; aplique o quadro jurídico fornecido sem presumir factos não documentados.','Em 2032, uma cooperativa artesanal oferece encontros de aprendizagem prática aos sócios. Os lugares são limitados. Um serviço de IA sugere oportunidades aos requerentes. O conselho solicita uma avaliação documentada da sua utilização. Todos os materiais são fictícios; aplique o quadro jurídico fornecido sem presumir factos não documentados.']
+};
+const titles={de:['Die Workshops des Stadtarchivs','Die Angebote der Handwerksgenossenschaft'],es:['Los talleres del archivo municipal','Las oportunidades de la cooperativa artesanal'],pt:['As oficinas do arquivo municipal','As oportunidades da cooperativa artesanal']};
+const extra={};
+for(const lang of ['de','es','pt']){
+ const path=`research/study02/materials.${lang}.json`,data=JSON.parse(readFileSync(path,'utf8'));
+ Object.assign(data.copy,REVIEW[lang]);for(const[index,form]of ['A','B'].entries())Object.assign(data[form],{title:titles[lang][index],scenario:scenarios[lang][index],sources:SOURCE_REVIEW[lang][form]});
+ writeFileSync(path,JSON.stringify(data,null,2)+'\n');extra[lang]=data;
+}
+writeFileSync('research/study02/materials.locales.mjs','// Generated linguistic materials; no participant data.\nexport const EXTRA_MATERIALS = '+JSON.stringify(extra,null,2)+';\n');
+console.log('Prepared reviewed local Study 02 language materials; public study activation unchanged.');

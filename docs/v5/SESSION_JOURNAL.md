@@ -1,5 +1,9 @@
 # V5.2 — Registro volontario delle singole sessioni
 
+
+> Edizione linguistica V5.3.0 · 23 novembre 2026. Il dossier e i materiali locali di Study 02 sono ora disponibili in sei lingue. Date, conteggi e risultati del prototipo descrivono le esecuzioni storiche. Il contratto attuale del registro facoltativo per maggiorenni è in SESSION_JOURNAL.md e supera il precedente vincolo dei soli aggregati. Le traduzioni non dimostrano equivalenza degli strumenti, efficacia educativa o validità della rubrica. Non sono stati eseguiti nuovi test per questo aggiornamento dei contenuti.
+
+
 22 novembre 2026. Attua la successiva richiesta del proprietario di ampliare
 la raccolta oltre gli aggregati. Il precedente vincolo «nessun dato individuale»
 resta documentato nel dossier storico V5.0. Non cambia il protocollo Study 02.

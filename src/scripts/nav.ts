@@ -15,6 +15,18 @@ if (nav) {
   const toggle = nav.querySelector<HTMLButtonElement>('.nav-toggle');
   const subButtons = Array.from(nav.querySelectorAll<HTMLButtonElement>('.nav-sub-btn'));
 
+  // Localized labels can make a rightmost dropdown wider than its trigger.
+  // Keep the disclosed list inside the viewport, including after resizing.
+  const fitSubmenu = (button: HTMLButtonElement): void => {
+    const menu = button.nextElementSibling as HTMLElement | null;
+    if (!menu?.classList.contains('nav-sub')) return;
+    menu.style.transform = '';
+    if (window.innerWidth <= 640) return;
+    const bounds = menu.getBoundingClientRect();
+    const offset = Math.max(20 - bounds.left, Math.min(0, window.innerWidth - 20 - bounds.right));
+    if (offset) menu.style.transform = `translateX(${offset}px)`;
+  };
+
   const closeAllSubs = (except?: HTMLButtonElement): void => {
     for (const b of subButtons) {
       if (b !== except) b.setAttribute('aria-expanded', 'false');
@@ -40,8 +52,13 @@ if (nav) {
       const open = btn.getAttribute('aria-expanded') === 'true';
       closeAllSubs(open ? undefined : btn);
       btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      if (!open) fitSubmenu(btn);
     });
   }
+
+  window.addEventListener('resize', () => {
+    for (const button of subButtons) if (button.getAttribute('aria-expanded') === 'true') fitSubmenu(button);
+  });
 
   // selecting a link closes the drawer and any open submenu
   nav.addEventListener('click', (e) => {

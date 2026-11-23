@@ -1,6 +1,9 @@
 # Couverture opérationnelle des retours
 
-[Italiano](../COVERAGE_COMPLETION.md) · [English](../en/COVERAGE_COMPLETION.md) · [Français](COVERAGE_COMPLETION.md)
+
+> Édition linguistique V5.3.0 · 23 novembre 2026. Le dossier et les matériaux locaux de Study 02 sont désormais disponibles dans les six langues. Les dates, nombres et résultats du prototype décrivent les exécutions historiques. Le contrat actuel du registre facultatif réservé aux adultes figure dans SESSION_JOURNAL.md et remplace la restriction antérieure aux seuls agrégats. Les traductions ne démontrent ni équivalence des instruments, ni efficacité éducative, ni validité de la grille. Aucun nouveau test pour cette mise à jour des contenus.
+
+
 
 Incrément demandé par le propriétaire le 21 novembre 2026. Cette liste définit le travail à implémenter avant de commencer la nouvelle vérification finale.
 
