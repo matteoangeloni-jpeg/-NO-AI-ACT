@@ -1,10 +1,13 @@
 import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
 import {FORMS,COPY} from '../../research/study02/materials.mjs';
 import {BIBLIOGRAPHY_NOTES} from '../../src/site/unified/bibliography-notes.mjs';
+import {SITE_LANGUAGE_NAMES} from '../../src/site/language-names.mjs';
+import {currentDictionary,currentAvailability} from '../../src/site/language-availability.mjs';
 const read=file=>readFileSync(file,'utf8'),write=(file,text)=>writeFileSync(file,text);
-const names={it:'Italiano',en:'English',fr:'Français',de:'Deutsch',es:'Español',pt:'Português'};
+const names=SITE_LANGUAGE_NAMES;
 const files=['METHODOLOGY','LEGAL_LEARNING_MATRIX','COVERAGE_COMPLETION','ARGUMENTATION_STUDY02','METHODOLOGY_TEST_PLAN','METHODOLOGY_IMPLEMENTATION','TEST_RESULTS','SESSION_JOURNAL'];
 const notices={
+ nl:'Taaleditie V5.4.0 · 23 november 2026. Het dossier en de lokale materialen voor Study 02 zijn beschikbaar in zeven talen. Datums, aantallen en resultaten van het prototype beschrijven historische uitvoeringen. De huidige afspraken voor het vrijwillige sessieverslag voor volwassenen staan in SESSION_JOURNAL.md en vervangen de eerdere beperking tot uitsluitend geaggregeerde gegevens. Vertalingen bewijzen geen gelijkwaardigheid van instrumenten, onderwijseffectiviteit of validiteit van de rubric. Voor deze inhoudelijke update zijn geen nieuwe tests uitgevoerd.',
  it:'Edizione linguistica V5.3.0 · 23 novembre 2026. Il dossier e i materiali locali di Study 02 sono ora disponibili in sei lingue. Date, conteggi e risultati del prototipo descrivono le esecuzioni storiche. Il contratto attuale del registro facoltativo per maggiorenni è in SESSION_JOURNAL.md e supera il precedente vincolo dei soli aggregati. Le traduzioni non dimostrano equivalenza degli strumenti, efficacia educativa o validità della rubrica. Non sono stati eseguiti nuovi test per questo aggiornamento dei contenuti.',
  en:'V5.3.0 language edition · 23 November 2026. The dossier and local Study 02 materials now have six language versions. Prototype dates, counts and outcomes describe historical executions. The current optional adult journal contract is in SESSION_JOURNAL.md and supersedes the earlier aggregates-only restriction. Translations do not establish instrument equivalence, educational effectiveness or rubric validity. No new tests were run for this content update.',
  fr:'Édition linguistique V5.3.0 · 23 novembre 2026. Le dossier et les matériaux locaux de Study 02 sont désormais disponibles dans les six langues. Les dates, nombres et résultats du prototype décrivent les exécutions historiques. Le contrat actuel du registre facultatif réservé aux adultes figure dans SESSION_JOURNAL.md et remplace la restriction antérieure aux seuls agrégats. Les traductions ne démontrent ni équivalence des instruments, ni efficacité éducative, ni validité de la grille. Aucun nouveau test pour cette mise à jour des contenus.',
@@ -12,12 +15,13 @@ const notices={
  es:'Edición lingüística V5.3.0 · 23 de noviembre de 2026. El dossier y los materiales locales de Study 02 están disponibles en seis idiomas. Las fechas, cifras y resultados del prototipo corresponden a ejecuciones históricas. El contrato actual del registro voluntario para adultos figura en SESSION_JOURNAL.md y sustituye la restricción anterior a datos agregados. Las traducciones no demuestran equivalencia de los instrumentos, eficacia educativa ni validez de la rúbrica. No se ejecutaron nuevas pruebas para esta actualización de contenidos.',
  pt:'Edição linguística V5.3.0 · 23 de novembro de 2026. O dossier e os materiais locais de Study 02 estão disponíveis em seis línguas. As datas, contagens e resultados do protótipo descrevem execuções históricas. O contrato atual do registo facultativo para adultos está em SESSION_JOURNAL.md e substitui a anterior restrição aos agregados. As traduções não demonstram equivalência dos instrumentos, eficácia educativa ou validade da rubrica. Não foram executados novos testes nesta atualização de conteúdos.'
 };
+for(const language of Object.keys(notices))notices[language]=currentAvailability(notices[language].replaceAll('V5.3.0','V5.4.0'),language);
 function selector(lang,name){return Object.entries(names).map(([code,label])=>`[${label}](${lang==='it'?'':'../'}${code==='it'?'':code+'/'}${name}.md)`).join(' · ');}
-for(const lang of ['de','es','pt']){
- const dictionary=JSON.parse(read(`src/site/unified/${lang}.json`));mkdirSync(`docs/v5/${lang}`,{recursive:true});
+for(const lang of ['de','es','pt','nl']){
+ const dictionary=currentDictionary(JSON.parse(read(`src/site/unified/${lang}.json`)),lang);mkdirSync(`docs/v5/${lang}`,{recursive:true});
  for(const name of files){
   const source=read(`docs/v5/en/${name}.md`);let fenced=false;
-  const lines=source.split(/\r?\n/).filter(line=>!/^\[Italiano\]|^> V5\.3\.0 language edition/.test(line)).map(line=>{
+  const lines=source.split(/\r?\n/).filter(line=>!/^\[Italiano\]|^> V5\.\d+\.\d+ language edition/.test(line)).map(line=>{
    if(line.startsWith('```')){fenced=!fenced;return line;}if(fenced||/^\|[- :|]+\|$/.test(line)||!line.trim())return line;
    if(name==='METHODOLOGY'&&/^\d+\. .*(?:https?:\/\/|DOI)/.test(line)){
     const index=Number(line.match(/^\d+/)[0])-1;
@@ -27,7 +31,7 @@ for(const lang of ['de','es','pt']){
     return citation+' '+BIBLIOGRAPHY_NOTES[lang][index]+(links?' '+links:'');
    }
    if(/^\d+\. .*(?:https?:\/\/|DOI)/.test(line))return line;
-   const translate=cell=>{if(!/[A-Za-z]/.test(cell))return cell;const value=dictionary[cell.trim()];if(value===undefined)throw new Error(`Missing ${lang} document text: ${cell}`);return cell.replace(cell.trim(),value);};
+   const translate=cell=>{if(!/[A-Za-z]/.test(cell))return cell;const value=dictionary[cell.trim()];if(value===undefined)throw new Error(`Missing ${lang} document text: ${cell}`);const urls=[...cell.matchAll(/\]\(([^)]+)\)/g)].map(match=>match[1]);let link=0;let restored=value.replace(/\]\(([^)]+)\)/g,()=>`](${urls[link++]})`);if(link!==urls.length)throw new Error(`Changed document link count ${lang}: ${cell}`);const code=[...cell.matchAll(/`([^`]+)`/g)].map(match=>match[0]);let literal=0;restored=restored.replace(/`([^`]+)`/g,()=>code[literal++]);if(literal!==code.length)throw new Error(`Changed document literal count ${lang}: ${cell}`);return cell.replace(cell.trim(),restored);};
    return line.startsWith('|')?line.split('|').map((cell,index,array)=>index===0||index===array.length-1?cell:translate(cell)).join('|'):translate(line);
   });
   lines.splice(1,0,'',selector(lang,name),'',`> ${notices[lang]}`,'');write(`docs/v5/${lang}/${name}.md`,lines.join('\n').replace(/\n{4,}/g,'\n\n\n'));
@@ -37,9 +41,8 @@ for(const lang of ['de','es','pt']){
 }
 // Keep original historical IT/EN/FR prose while making current scope explicit.
 for(const lang of ['it','en','fr'])for(const name of files){
- if(lang==='fr'&&name==='SESSION_JOURNAL')continue;
- const path=`docs/v5/${lang==='it'?'':lang+'/'}${name}.md`,lines=read(path).split(/\r?\n/).filter(line=>!/^\[Italiano\]/.test(line));
- if(!lines.some(line=>line.includes(notices[lang])))lines.splice(1,0,'',selector(lang,name),'',`> ${notices[lang]}`,'');write(path,lines.join('\n'));
+ const path=`docs/v5/${lang==='it'?'':lang+'/'}${name}.md`,lines=read(path).split(/\r?\n/).filter(line=>!/^\[Italiano\]/.test(line)&&!Object.values(notices).some(notice=>line===`> ${notice}`)&&!/^> (?:Edizione linguistica|V5\.\d+\.\d+ language edition|Édition linguistique)/.test(line));
+ if(!lines.some(line=>line.includes(notices[lang])))lines.splice(1,0,'',selector(lang,name),'',`> ${notices[lang]}`,'');write(path,lines.join('\n').replace(/\n{4,}/g,'\n\n\n'));
 }
-write('docs/v5/languages.json',JSON.stringify({methodologyDossier:Object.keys(names),independentStudy02:Object.keys(names),sessionJournal:Object.keys(names),note:'Six linguistic versions of the same materials. Linguistic availability does not establish scientific equivalence or validate Study 02. Historical dates and outcomes are preserved.'},null,2)+'\n');
-console.log('Generated full document translations and six-language local research materials. Historical executions preserved.');
+write('docs/v5/languages.json',JSON.stringify({methodologyDossier:Object.keys(names),independentStudy02:Object.keys(names),sessionJournal:Object.keys(names),note:'Seven linguistic versions of the same materials. Linguistic availability does not establish scientific equivalence or validate Study 02. Historical dates and outcomes are preserved.'},null,2)+'\n');
+console.log('Generated full document translations and seven-language local research materials. Historical executions preserved.');

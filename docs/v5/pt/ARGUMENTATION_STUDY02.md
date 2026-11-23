@@ -1,8 +1,8 @@
 # Rubric preliminar e Study 02 tarefa de transferência
 
-[Italiano](../ARGUMENTATION_STUDY02.md) · [English](../en/ARGUMENTATION_STUDY02.md) · [Français](../fr/ARGUMENTATION_STUDY02.md) · [Deutsch](../de/ARGUMENTATION_STUDY02.md) · [Español](../es/ARGUMENTATION_STUDY02.md) · [Português](../pt/ARGUMENTATION_STUDY02.md)
+[Italiano](../ARGUMENTATION_STUDY02.md) · [English](../en/ARGUMENTATION_STUDY02.md) · [Français](../fr/ARGUMENTATION_STUDY02.md) · [Deutsch](../de/ARGUMENTATION_STUDY02.md) · [Español](../es/ARGUMENTATION_STUDY02.md) · [Português](../pt/ARGUMENTATION_STUDY02.md) · [Nederlands](../nl/ARGUMENTATION_STUDY02.md)
 
-> Edição linguística V5.3.0 · 23 de novembro de 2026. O dossier e os materiais locais de Study 02 estão disponíveis em seis línguas. As datas, contagens e resultados do protótipo descrevem execuções históricas. O contrato atual do registo facultativo para adultos está em SESSION_JOURNAL.md e substitui a anterior restrição aos agregados. As traduções não demonstram equivalência dos instrumentos, eficácia educativa ou validade da rubrica. Não foram executados novos testes nesta atualização de conteúdos.
+> Edição linguística V5.4.0 · 23 de novembro de 2026. O dossier e os materiais locais de Study 02 estão disponíveis em sete línguas. As datas, contagens e resultados do protótipo descrevem execuções históricas. O contrato atual do registo facultativo para adultos está em SESSION_JOURNAL.md e substitui a anterior restrição aos agregados. As traduções não demonstram equivalência dos instrumentos, eficácia educativa ou validade da rubrica. Não foram executados novos testes nesta atualização de conteúdos.
 
 
 Versão de trabalho de 21 de novembro de 2026. Desenho proposto; nenhum estudo foi realizado. A rubrica requer validação com avaliadores humanos e participantes do público pretendido.

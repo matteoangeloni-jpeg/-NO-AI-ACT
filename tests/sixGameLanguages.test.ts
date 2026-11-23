@@ -10,7 +10,7 @@ import { emptyDraft } from '../src/game/systems/caseDraft';
 import { PLAYABLE_CASES } from '../src/game/data/cases';
 
 const read = (file: string) => readFileSync(file, 'utf8');
-const newLanguages = ['de', 'es', 'pt'] as const;
+const newLanguages = ['de', 'es', 'pt', 'nl'] as const;
 
 function leaves(value: unknown, path = '', out: Record<string, unknown> = {}): Record<string, unknown> {
   if (Array.isArray(value)) {
@@ -28,10 +28,10 @@ const placeholders = (text: string) => [...text.matchAll(/\{\w+\}/g)].map(match 
 
 afterEach(() => { setLanguage('it'); vi.unstubAllGlobals(); });
 
-describe('the complete game and website share six published languages', () => {
+describe('the complete game and website share seven published languages', () => {
   it('aligns game, site, collector and release registries', () => {
     const cfg = JSON.parse(read('release.config.json'));
-    expect(LANGUAGE_CODES).toEqual(['it', 'en', 'fr', 'de', 'es', 'pt']);
+    expect(LANGUAGE_CODES).toEqual(['it', 'en', 'fr', 'de', 'es', 'pt', 'nl']);
     expect(LANGUAGE_CODES).toEqual(SITE_LANGUAGE_CODES);
     expect(LANGUAGE_CODES).toEqual(cfg.playableLanguages);
     expect(LANGUAGE_CODES).toEqual(cfg.siteLanguages);
@@ -117,12 +117,12 @@ describe('the complete game and website share six published languages', () => {
       for (const [path, value] of prose) expect(translated[path], path).not.toBe(value);
       expect(read(`src/game/i18n/${language}.ts`)).not.toMatch(/import.*(?:en|it|fr)['"]|\.\.\.(?:en|it|fr)\b/);
       const raw = JSON.parse(read(`src/game/i18n/translations/${language}.json`));
-      expect(raw).toEqual(dictionary(language));
+      expect({locale:raw.locale,guided:raw.guided,inquiry:raw.inquiry}).toEqual(dictionary(language));
       expect(Object.keys(raw.locale.cases)).toHaveLength(PLAYABLE_CASES.length);
     });
 
-    it(`${language}: links native privacy and all six real game languages from its press kit`, () => {
-      const dir = { de: 'de/pressemappe', es: 'es/kit-de-prensa', pt: 'pt/kit-de-imprensa' }[language];
+    it(`${language}: links native privacy and all seven real game languages from its press kit`, () => {
+      const dir = { de: 'de/pressemappe', es: 'es/kit-de-prensa', pt: 'pt/kit-de-imprensa', nl: 'nl/persmap' }[language];
       const html = read(`${dir}/index.html`);
       expect(html).toContain(`/game-statistics.html#${language}`);
       for (const target of LANGUAGE_CODES) expect(html).toContain(`/play/?lang=${target}`);

@@ -1,11 +1,11 @@
 # Incremento metodológico V5 — cobertura completa
 
-[Italiano](../METHODOLOGY_IMPLEMENTATION.md) · [English](../en/METHODOLOGY_IMPLEMENTATION.md) · [Français](../fr/METHODOLOGY_IMPLEMENTATION.md) · [Deutsch](../de/METHODOLOGY_IMPLEMENTATION.md) · [Español](../es/METHODOLOGY_IMPLEMENTATION.md) · [Português](../pt/METHODOLOGY_IMPLEMENTATION.md)
+[Italiano](../METHODOLOGY_IMPLEMENTATION.md) · [English](../en/METHODOLOGY_IMPLEMENTATION.md) · [Français](../fr/METHODOLOGY_IMPLEMENTATION.md) · [Deutsch](../de/METHODOLOGY_IMPLEMENTATION.md) · [Español](../es/METHODOLOGY_IMPLEMENTATION.md) · [Português](../pt/METHODOLOGY_IMPLEMENTATION.md) · [Nederlands](../nl/METHODOLOGY_IMPLEMENTATION.md)
 
-> Edición lingüística V5.3.0 · 23 de noviembre de 2026. El dossier y los materiales locales de Study 02 están disponibles en seis idiomas. Las fechas, cifras y resultados del prototipo corresponden a ejecuciones históricas. El contrato actual del registro voluntario para adultos figura en SESSION_JOURNAL.md y sustituye la restricción anterior a datos agregados. Las traducciones no demuestran equivalencia de los instrumentos, eficacia educativa ni validez de la rúbrica. No se ejecutaron nuevas pruebas para esta actualización de contenidos.
+> Edición lingüística V5.4.0 · 23 de noviembre de 2026. El dossier y los materiales locales de Study 02 están disponibles en siete idiomas. Las fechas, cifras y resultados del prototipo corresponden a ejecuciones históricas. El contrato actual del registro voluntario para adultos figura en SESSION_JOURNAL.md y sustituye la restricción anterior a datos agregados. Las traducciones no demuestran equivalencia de los instrumentos, eficacia educativa ni validez de la rúbrica. No se ejecutaron nuevas pruebas para esta actualización de contenidos.
 
 
-rama de trabajo `codex/v5-methodology-guided-path`, base principal `527fde5`. Revisión del 21 de noviembre de 2026. En el presente informe se registra la terminación local antes de la puesta en libertad. El propietario posteriormente autorizó la publicación como V5.0.0; el estado de liberación y las notas están disponibles en GitHub y en [RELEASE_NOTES_v5.0.0.en.md](.././RELEASE_NOTES_v5.0.0.en.md).
+rama de trabajo `codex/v5-methodology-guided-path`, base principal `527fde5`. Revisión del 21 de noviembre de 2026. En el presente informe se registra la terminación local antes de la puesta en libertad. El propietario posteriormente autorizó la publicación como V5.0.0; el estado de liberación y las notas están disponibles en GitHub y en [RELEASE_NOTES_v5.0.0.en.md](../../RELEASE_NOTES_v5.0.0.en.md).
 
 ## Cambios implementados
 

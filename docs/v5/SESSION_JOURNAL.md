@@ -1,7 +1,8 @@
 # V5.2 — Registro volontario delle singole sessioni
 
+[Italiano](SESSION_JOURNAL.md) · [English](en/SESSION_JOURNAL.md) · [Français](fr/SESSION_JOURNAL.md) · [Deutsch](de/SESSION_JOURNAL.md) · [Español](es/SESSION_JOURNAL.md) · [Português](pt/SESSION_JOURNAL.md) · [Nederlands](nl/SESSION_JOURNAL.md)
 
-> Edizione linguistica V5.3.0 · 23 novembre 2026. Il dossier e i materiali locali di Study 02 sono ora disponibili in sei lingue. Date, conteggi e risultati del prototipo descrivono le esecuzioni storiche. Il contratto attuale del registro facoltativo per maggiorenni è in SESSION_JOURNAL.md e supera il precedente vincolo dei soli aggregati. Le traduzioni non dimostrano equivalenza degli strumenti, efficacia educativa o validità della rubrica. Non sono stati eseguiti nuovi test per questo aggiornamento dei contenuti.
+> Edizione linguistica V5.4.0 · 23 novembre 2026. Il dossier e i materiali locali di Study 02 sono ora disponibili in sette lingue. Date, conteggi e risultati del prototipo descrivono le esecuzioni storiche. Il contratto attuale del registro facoltativo per maggiorenni è in SESSION_JOURNAL.md e supera il precedente vincolo dei soli aggregati. Le traduzioni non dimostrano equivalenza degli strumenti, efficacia educativa o validità della rubrica. Non sono stati eseguiti nuovi test per questo aggiornamento dei contenuti.
 
 
 22 novembre 2026. Attua la successiva richiesta del proprietario di ampliare

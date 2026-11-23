@@ -1,8 +1,8 @@
 # C. Casos, derecho, mediación y reflexión final
 
-[Italiano](../LEGAL_LEARNING_MATRIX.md) · [English](../en/LEGAL_LEARNING_MATRIX.md) · [Français](../fr/LEGAL_LEARNING_MATRIX.md) · [Deutsch](../de/LEGAL_LEARNING_MATRIX.md) · [Español](../es/LEGAL_LEARNING_MATRIX.md) · [Português](../pt/LEGAL_LEARNING_MATRIX.md)
+[Italiano](../LEGAL_LEARNING_MATRIX.md) · [English](../en/LEGAL_LEARNING_MATRIX.md) · [Français](../fr/LEGAL_LEARNING_MATRIX.md) · [Deutsch](../de/LEGAL_LEARNING_MATRIX.md) · [Español](../es/LEGAL_LEARNING_MATRIX.md) · [Português](../pt/LEGAL_LEARNING_MATRIX.md) · [Nederlands](../nl/LEGAL_LEARNING_MATRIX.md)
 
-> Edición lingüística V5.3.0 · 23 de noviembre de 2026. El dossier y los materiales locales de Study 02 están disponibles en seis idiomas. Las fechas, cifras y resultados del prototipo corresponden a ejecuciones históricas. El contrato actual del registro voluntario para adultos figura en SESSION_JOURNAL.md y sustituye la restricción anterior a datos agregados. Las traducciones no demuestran equivalencia de los instrumentos, eficacia educativa ni validez de la rúbrica. No se ejecutaron nuevas pruebas para esta actualización de contenidos.
+> Edición lingüística V5.4.0 · 23 de noviembre de 2026. El dossier y los materiales locales de Study 02 están disponibles en siete idiomas. Las fechas, cifras y resultados del prototipo corresponden a ejecuciones históricas. El contrato actual del registro voluntario para adultos figura en SESSION_JOURNAL.md y sustituye la restricción anterior a datos agregados. Las traducciones no demuestran equivalencia de los instrumentos, eficacia educativa ni validez de la rúbrica. No se ejecutaron nuevas pruebas para esta actualización de contenidos.
 
 
 Verificación documental del 21 de noviembre de 2026 con la versión consolidada de EUR-Lex del 27 de julio de 2026. La matriz apoya el diseño y la revisión. La interpretación jurídica de cada caso sigue requiriendo revisión humana especializada. Esta ampliación no modifica las soluciones jurídicas ni las puntuaciones del juego.

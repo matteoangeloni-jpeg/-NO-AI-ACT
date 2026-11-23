@@ -9,7 +9,8 @@ const organizationDescriptions={
  fr:'Jeu éducatif d’enquête gratuit et ressources pédagogiques sur le règlement européen sur l’intelligence artificielle.',
  de:'Kostenloses investigatives Lernspiel und Lernmaterialien zur europäischen KI-Verordnung.',
  es:'Juego educativo de investigación gratuito y recursos didácticos sobre el Reglamento europeo de Inteligencia Artificial.',
- pt:'Jogo educativo de investigação gratuito e recursos pedagógicos sobre o Regulamento europeu da Inteligência Artificial.'
+ pt:'Jogo educativo de investigação gratuito e recursos pedagógicos sobre o Regulamento europeu da Inteligência Artificial.',
+ nl:'Gratis educatief onderzoeksspel en leermaterialen over de Europese AI-verordening.'
 };
 function nodes(root,out=[]){out.push(root);for(const child of root.childNodes??[])nodes(child,out);return out;}
 let changed=0;

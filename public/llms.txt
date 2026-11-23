@@ -10,15 +10,15 @@
 > to be governed, or compliant). It is an educational simulation about
 > algorithmic risk governance — not legal advice.
 
-- Version: v5.3.1
+- Version: v5.4.0
 - Status: published web version; tagged-release history is listed separately below.
-- Game languages: Italian, English, French, German, Spanish and European Portuguese (pt-PT).
-- Website languages: Italian, English, French, German, Spanish and European Portuguese (pt-PT), each with the same 37 complete editorial sections and press kit.
+- Game languages: Italian, English, French, German, Spanish, European Portuguese (pt-PT) and Dutch.
+- Website languages: Italian, English, French, German, Spanish, European Portuguese (pt-PT) and Dutch, each with the same 37 complete editorial sections and press kit.
 - Audience: teachers and trainers, upper-secondary and university students, researchers, professionals working with AI governance
 - Pricing: free and open source, copyleft (GPL-3.0-or-later code, CC BY-SA 4.0 educational content; up to v2.0.0 it was MIT + CC BY 4.0)
-- 14 playable cases in each of six languages; 222 indexable website URLs (37 per language).
+- 14 playable cases in each of seven languages; 259 indexable website URLs (37 per language).
 - Every public page shares a global navigation (Play · Education/Resources · Teachers · AI Act guide · Glossary · Privacy · language switch); the game and the education hub are reachable from every page, and the game links back to the site.
-- Best entry points: the home and education hub in the reader's language. Lesson plans, references, READMEs and the methodology dossier share six-language coverage.
+- Best entry points: the home and education hub in the reader's language. Lesson plans, references, READMEs and the methodology dossier share seven-language coverage.
 
 ## Guided inquiry in V5
 
@@ -43,13 +43,15 @@
 
 ## Play
 
-- Play the game (IT/EN/FR/DE/ES/PT): https://www.no-ai-act.eu/play/
+- Play the game (IT/EN/FR/DE/ES/PT/NL): https://www.no-ai-act.eu/play/
 - Italian landing page: https://www.no-ai-act.eu/
 - English landing page: https://www.no-ai-act.eu/en/
 - French landing page: https://www.no-ai-act.eu/fr/
 - German introductory pages: https://www.no-ai-act.eu/de/
 - Spanish introductory pages: https://www.no-ai-act.eu/es/
 - European Portuguese introductory pages: https://www.no-ai-act.eu/pt/
+- Dutch landing page: https://www.no-ai-act.eu/nl/
+- Dutch game: https://www.no-ai-act.eu/play/?lang=nl
 - How the game works (EN): https://www.no-ai-act.eu/en/how-it-works/
 - Come funziona il gioco (IT): https://www.no-ai-act.eu/come-funziona/
 
@@ -144,7 +146,7 @@
 ## Project links
 
 - GitHub repository: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT
-- Last tagged release: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.3.1 (tagged 2026-11-23; consented session journal)
+- Last tagged release: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.4.0 (tagged 2026-11-23; consented session journal)
 - Project brief: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/NO_AI_ACT_PROJECT_BRIEF.md
 - Teacher quick start: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/TEACHER_QUICK_START.md
 - Legal disclaimer: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/LEGAL_DISCLAIMER.md

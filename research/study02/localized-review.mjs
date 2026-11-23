@@ -1,6 +1,30 @@
-// Human editorial corrections to the linguistic drafts. These are not
+// Editorial corrections to the linguistic drafts. These are not
 // psychometric validation or a new authorised participant protocol.
 export const REVIEW={
+ nl:{
+  title:'NO AI ACT · Study 02-laboratorium',
+  notice:'Lokaal prototype voor het uitproberen van fictieve materialen. Sessies met deelnemers vereisen een goedgekeurd protocol, informatie voor deelnemers en menselijke beoordeling. Alles blijft in dit tabblad en gaat bij herladen verloren; downloaden is een uitdrukkelijke keuze. Voer geen namen of persoonsgegevens in.',
+  language:'Taal',form:'Taakvorm',occasion:'Meetmoment',pre:'Vóór het spel',post:'Na het spel',participant:'Zelfstandige opdracht',observer:'Observatie en rubric',task:'Instructies',
+  prompt:'Schrijf een zelfstandige beoordeling: leg uit wat moet worden besloten, vergelijk minstens twee bronnen en motiveer hun gewicht. Verbind bewijs met een conclusie en een evenredige maatregel. Overweeg een alternatieve interpretatie en benoem ontbrekende informatie en gevolgen voor mensen. Je mag een voorwaardelijke conclusie onderbouwen. Er zijn geen antwoordopties. Verwachte duur: 10–15 minuten; geen automatische beoordeling.',
+  legal:'Gezamenlijk kader voor beide taakvormen',
+  legalText:'Oriëntatie: artikel 6 en bijlage III, punt 3, onder a), vereisen onderzoek naar het beoogde doel en de invloed op toelating. Artikel 6, lid 3, kent specifieke voorwaarden. De labels „cultureel” of „verenigingsgericht” bepalen de classificatie niet. De geconsolideerde EU-tekst en de aanbeveling van de Raad van Europa verschillen in juridische status.',
+  lawLink:'EU-verordening · geconsolideerd op 27 juli 2026',councilLink:'Raad van Europa · CM/Rec(2026)12',
+  answer:'Mijn argumentatie',seal:'Tekst indienen en vergrendelen',sealed:'Tekst ingediend. Deze is niet automatisch beoordeeld.',required:'Schrijf een antwoord voordat je het indient.',print:'Zichtbare materialen afdrukken',
+  context:'CEPAJe-context',contextPrompt:'Omgeving en apparaat; taal en toegankelijkheid; doel en duur; begeleiding door de docent; voorkennis; spelmodus. Beschrijf de omstandigheden zonder personen te identificeren.',
+  observation:'Gestructureerde spelobservatie',observed:'Waargenomen handeling of uitspraak en volgorde van gebeurtenissen',interpretation:'Voorlopige interpretatie en alternatieve verklaring',
+  observationRows:['Verkenning, opnieuw raadplegen en gevraagde hulp','Beoordeling van herkomst en beperkingen van bronnen','Toegelicht verband tussen bewijsstukken','Gemotiveerd behouden of herzien van een hypothese','Argumentatie vóór feedback','Onzekerheid en gevolgen voor mensen','Gebruik van feedback en strategie voor een nieuwe casus'],
+  rubric:'Voorlopige rubric · uitsluitend menselijke codering',
+  rubricRows:['Contextgebonden stelling, maatregel en verantwoordelijkheid','Herkomst en relevantie','Verband tussen bewijs en conclusie','Alternatieve interpretatie en onderscheidend bewijs','Onzekerheid en rechten','Herziening na feedback (alleen tijdens de spelbespreking)'],
+  anchors:['Niet waargenomen / niet van toepassing','0 · Bewijs niet expliciet gemaakt in deze opdracht','1 · Gedeeltelijk uitgewerkt bewijs','2 · Uitgewerkt bewijs'],
+  rationale:'Tekstfragment, reden voor de code en mogelijke alternatieve verklaring',
+  noTotal:'Geen totaalscore of automatische beoordeling. Niet waargenomen verschilt van 0. Codeer juridische juistheid afzonderlijk. Markeer herziening na feedback als niet van toepassing bij PRE/POST-opdrachten. Twee onafhankelijke beoordelaars vergelijken hun codes vóór de gezamenlijke bespreking.',
+  legalJudgment:'Afzonderlijke juridische beoordeling, afhankelijk van feiten en juridische controle',guidance:'Aanwijzingen voor de begeleider',release:'Gegevensverzameling afgerond: nabespreking tonen',
+  afterOnly:'Toon dit alleen na POST of op het vooraf in het protocol vastgelegde moment. Deze handeling corrigeert de tekst niet en kent geen punten toe.',
+  debrief:'Vergelijk de belofte van de aanbieder met het logboek en de procedure. Het logboek beschrijft één week en bewijst op zichzelf niet de oorzaak van elke uitsluiting. Onderzoek plaatsgebrek of een administratieve fout als alternatieven. Vraag de aankondiging of oproep, het werkelijke doel, de criteria, de bevoegdheden voor herbeoordeling en de uitkomsten op. Het educatieve karakter en de invloed op toelating moeten worden onderzocht; onderbouwde voorwaardelijke conclusies zijn toegestaan. Reconstrueer redenen en rechten en formuleer daarna een controle die in een andere context bruikbaar is.',
+  download:'Bewust een lokale kopie downloaden',downloadNote:'Het bestand bevat de ingediende tekst en eventuele menselijke aantekeningen, zonder identificatiecodes of telemetrie. Bewaar het uitsluitend binnen het goedgekeurde onderzoekssysteem.',
+  reset:'Nieuw leeg formulier',resetConfirm:'Het werk in dit tabblad wissen? Dit kan niet worden hersteld.',statusDownload:'Lokale kopie gereed; niets naar een server verstuurd.',
+  draft:'Voorlopig instrument: gelijkwaardigheid van taakvormen, rubrics en vertalingen moet met deelnemers worden gevalideerd.'
+ },
  de:{
   prompt:'Schreiben Sie eine eigenständige Beurteilung: Klären Sie die Entscheidungsfrage, vergleichen Sie mindestens zwei Quellen und begründen Sie deren Gewicht. Verbinden Sie Belege mit einer Schlussfolgerung und einer verhältnismäßigen Maßnahme. Prüfen Sie eine alternative Deutung, benennen Sie fehlende Informationen und Folgen für Menschen. Eine begründete bedingte Schlussfolgerung ist möglich. Keine Antwortauswahl. Vorgesehene Zeit: 10–15 Minuten; keine automatische Korrektur.',
   legalText:'Orientierung: Artikel 6 und Anhang III Nummer 3 Buchstabe a erfordern eine Prüfung der Zweckbestimmung und des Einflusses auf Zulassungsentscheidungen. Artikel 6 Absatz 3 hat besondere Voraussetzungen. Die Bezeichnungen „kulturell“ oder „vereinsbezogen“ entscheiden nicht über die Einstufung. Der konsolidierte EU-Rechtstext und die Empfehlung des Europarats unterscheiden sich in ihrer rechtlichen Natur.',
@@ -25,6 +49,20 @@ export const REVIEW={
  }
 };
 export const SOURCE_REVIEW={
+ nl:{
+  A:[
+   ['A1 · Specificatie van de aanbieder','De dienst stelt workshops voor op basis van opgegeven interesses en eerdere deelname. Hij berekent een affiniteitsindex zonder over toelating te beslissen. Medewerkers kunnen elk voorstel corrigeren. De aanbieder beschrijft het systeem als culturele oriëntatie; de specificatie vermeldt niet welke instellingen het archief daadwerkelijk gebruikt.'],
+   ['A2 · Procedure van de directie','Elke workshop heeft twaalf plaatsen. Medewerkers controleren beschikbaarheid en de voorwaarden in de aankondiging en delen daarna de uitkomst mee. Aanbevelingen mogen aanvragen niet uitsluiten. Herbeoordeling is op verzoek mogelijk. De aankondiging waarin aard en voorwaarden van de workshops staan, is niet bijgevoegd.'],
+   ['A3 · Operationeel logboek van één week','Aanvragen boven de affiniteitsdrempel ontvangen een uitnodiging. Andere blijven inactief totdat een medewerker ze activeert. Het veld „reden van niet-activering” is leeg. In de waargenomen week zijn geen handmatige wijzigingen geregistreerd. Het logboek bevat geen eerdere weken of uitkomsten van herbeoordelingen.'],
+   ['A4 · Melding van een bezoeker','Ik meldde me aan voor een workshop waarvoor nog beschikbare plaatsen werden getoond. Ik kreeg geen uitnodiging. Aan de balie werd mij een andere activiteit aangeraden die de dienst had voorgesteld. Ik vroeg om herbeoordeling van mijn aanvraag; de uitkomst ken ik nog niet. Ik weet niet welke informatie het voorstel heeft beïnvloed.']
+  ],
+  B:[
+   ['B1 · Specificatie van de aanbieder','De dienst stelt bijeenkomsten voor op basis van opgegeven interesses en eerdere activiteiten. Hij berekent een compatibiliteitsindex zonder plaatsen toe te wijzen. Verantwoordelijken kunnen elk voorstel corrigeren. De aanbieder beschrijft het systeem als verenigingsgerichte oriëntatie; de specificatie vermeldt niet welke instellingen de coöperatie daadwerkelijk gebruikt.'],
+   ['B2 · Procedure van het bestuur','Elke bijeenkomst heeft twaalf plaatsen. Verantwoordelijken controleren beschikbaarheid en de voorwaarden in de oproep en delen daarna de uitkomst mee. Aanbevelingen mogen verzoeken niet uitsluiten. Herbeoordeling is op verzoek mogelijk. De oproep waarin aard en voorwaarden van de bijeenkomsten staan, is niet bijgevoegd.'],
+   ['B3 · Operationeel logboek van één week','Verzoeken boven de compatibiliteitsdrempel krijgen een plaats aangeboden. Andere blijven opgeschort totdat een verantwoordelijke ze heractiveert. Het veld „reden van opschorting” is leeg. In de waargenomen week zijn geen handmatige ingrepen geregistreerd. Het logboek bevat geen eerdere weken of uitkomsten van herbeoordelingen.'],
+   ['B4 · Melding van een lid','Ik vroeg deelname aan een bijeenkomst waarvoor nog beschikbare plaatsen werden getoond. Ik kreeg geen plaats aangeboden. Op kantoor werd mij een andere mogelijkheid aangeraden die de dienst had voorgesteld. Ik vroeg om herbeoordeling van mijn verzoek; de uitkomst ken ik nog niet. Ik weet niet welke informatie het voorstel heeft beïnvloed.']
+  ]
+ },
  de:{
   A:[
    ['A1 · Angaben des Anbieters','Der Dienst schlägt Workshops anhand angegebener Interessen und früherer Teilnahme vor. Er berechnet einen Interessenindex, ohne über die Zulassung zu entscheiden. Mitarbeitende können jeden Vorschlag korrigieren. Der Anbieter beschreibt kulturelle Orientierung; die Angaben nennen nicht die im Archiv tatsächlich verwendeten Einstellungen.'],

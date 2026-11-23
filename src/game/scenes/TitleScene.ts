@@ -176,12 +176,14 @@ export class TitleScene extends Phaser.Scene {
     // era scritta due volte — 500 nel pannello e 250 nel calcolo delle
     // righe — e bastava crescere di una riga perché le due smettessero di
     // corrispondere senza che nulla lo dicesse.
-    const PANEL_H = 600;
+    const languageColumns = Math.min(3, LANGUAGE_CODES.length);
+    const languageRows = Math.ceil(LANGUAGE_CODES.length / languageColumns);
+    const PANEL_H = 600 + Math.max(0, languageRows - 2) * 52;
     const c = this.openPanel(g.settingsTitle, PANEL_H);
     const colL = cx - 190;
     const colR = cx + 190;
     const BW = 360;
-    const rowY = (r: number): number => cy - PANEL_H / 2 + 78 + (r + (r > 3 ? 1 : 0)) * 52;
+    const rowY = (r: number): number => cy - PANEL_H / 2 + 78 + (r + (r > 3 ? languageRows - 1 : 0)) * 52;
 
     const audioBtn = new Button(this, colL, rowY(0), StateManager.audioMuted ? m.audioOff : m.audioOn, () => {
       AudioSystem.init();
@@ -264,7 +266,7 @@ export class TitleScene extends Phaser.Scene {
      */
     const lingue = LANGUAGE_CODES;
     const spazio = 6;
-    const colonne = Math.min(3, lingue.length);
+    const colonne = languageColumns;
     const lw = Math.floor((BW - spazio * (colonne - 1)) / colonne);
     const langBtns = lingue.map((code, i) => {
       const x = colR - BW / 2 + lw / 2 + (i % colonne) * (lw + spazio);

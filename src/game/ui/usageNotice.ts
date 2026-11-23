@@ -10,7 +10,8 @@ export function initUsageNotice(analytics: Analytics): void {
     fr: ['Statistiques agregees actives', 'Statistiques desactivees', 'Confidentialite des statistiques', 'Desactiver', 'Activer', 'Fermer la notification'],
     de: ['Aggregierte Statistik aktiv', 'Statistik deaktiviert', 'Datenschutzhinweise zur Statistik', 'Deaktivieren', 'Aktivieren', 'Hinweis schließen'],
     es: ['Estadísticas agregadas activas', 'Estadísticas desactivadas', 'Información de privacidad de las estadísticas', 'Desactivar', 'Activar', 'Cerrar aviso'],
-    pt: ['Estatísticas agregadas ativas', 'Estatísticas desativadas', 'Informação sobre as estatísticas', 'Desativar', 'Ativar', 'Fechar aviso']
+    pt: ['Estatísticas agregadas ativas', 'Estatísticas desativadas', 'Informação sobre as estatísticas', 'Desativar', 'Ativar', 'Fechar aviso'],
+    nl: ['Geaggregeerde statistieken actief', 'Statistieken uitgeschakeld', 'Privacyverklaring voor statistieken', 'Uitschakelen', 'Inschakelen', 'Melding sluiten']
   };
   const bar = document.createElement('aside'); bar.id = 'game-usage';
   const status = document.createElement('span');

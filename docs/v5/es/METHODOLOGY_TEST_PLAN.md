@@ -1,8 +1,8 @@
 # Plan de verificación de la guía
 
-[Italiano](../METHODOLOGY_TEST_PLAN.md) · [English](../en/METHODOLOGY_TEST_PLAN.md) · [Français](../fr/METHODOLOGY_TEST_PLAN.md) · [Deutsch](../de/METHODOLOGY_TEST_PLAN.md) · [Español](../es/METHODOLOGY_TEST_PLAN.md) · [Português](../pt/METHODOLOGY_TEST_PLAN.md)
+[Italiano](../METHODOLOGY_TEST_PLAN.md) · [English](../en/METHODOLOGY_TEST_PLAN.md) · [Français](../fr/METHODOLOGY_TEST_PLAN.md) · [Deutsch](../de/METHODOLOGY_TEST_PLAN.md) · [Español](../es/METHODOLOGY_TEST_PLAN.md) · [Português](../pt/METHODOLOGY_TEST_PLAN.md) · [Nederlands](../nl/METHODOLOGY_TEST_PLAN.md)
 
-> Edición lingüística V5.3.0 · 23 de noviembre de 2026. El dossier y los materiales locales de Study 02 están disponibles en seis idiomas. Las fechas, cifras y resultados del prototipo corresponden a ejecuciones históricas. El contrato actual del registro voluntario para adultos figura en SESSION_JOURNAL.md y sustituye la restricción anterior a datos agregados. Las traducciones no demuestran equivalencia de los instrumentos, eficacia educativa ni validez de la rúbrica. No se ejecutaron nuevas pruebas para esta actualización de contenidos.
+> Edición lingüística V5.4.0 · 23 de noviembre de 2026. El dossier y los materiales locales de Study 02 están disponibles en siete idiomas. Las fechas, cifras y resultados del prototipo corresponden a ejecuciones históricas. El contrato actual del registro voluntario para adultos figura en SESSION_JOURNAL.md y sustituye la restricción anterior a datos agregados. Las traducciones no demuestran equivalencia de los instrumentos, eficacia educativa ni validez de la rúbrica. No se ejecutaron nuevas pruebas para esta actualización de contenidos.
 
 
 Antes del cambio. Las matrices A, B y C fueron escritas en METODOLOGÍA.md y LEGAL_LEARNING_MATRIX.md. El código inicial proporciona orientación contextual, comparación, un informe con razones predefinidas, análisis y revisión. La producción autónoma y una comparación explícita entre la interpretación inicial y la retroalimentación faltan en esa línea de referencia.

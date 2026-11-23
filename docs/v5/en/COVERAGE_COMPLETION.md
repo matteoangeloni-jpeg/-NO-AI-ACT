@@ -1,8 +1,8 @@
 # Operational coverage of the feedback
 
+[Italiano](../COVERAGE_COMPLETION.md) · [English](../en/COVERAGE_COMPLETION.md) · [Français](../fr/COVERAGE_COMPLETION.md) · [Deutsch](../de/COVERAGE_COMPLETION.md) · [Español](../es/COVERAGE_COMPLETION.md) · [Português](../pt/COVERAGE_COMPLETION.md) · [Nederlands](../nl/COVERAGE_COMPLETION.md)
 
-> V5.3.0 language edition · 23 November 2026. The dossier and local Study 02 materials now have six language versions. Prototype dates, counts and outcomes describe historical executions. The current optional adult journal contract is in SESSION_JOURNAL.md and supersedes the earlier aggregates-only restriction. Translations do not establish instrument equivalence, educational effectiveness or rubric validity. No new tests were run for this content update.
-
+> V5.4.0 language edition · 23 November 2026. The dossier and local Study 02 materials now have seven language versions. Prototype dates, counts and outcomes describe historical executions. The current optional adult journal contract is in SESSION_JOURNAL.md and supersedes the earlier aggregates-only restriction. Translations do not establish instrument equivalence, educational effectiveness or rubric validity. No new tests were run for this content update.
 
 
 Increment requested by the owner on 21 November 2026. This list defines the work to implement before starting the new final verification.

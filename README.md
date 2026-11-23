@@ -1,16 +1,16 @@
-# NO AI ACT · v5.3.1
+# NO AI ACT · v5.4.0
 
-[Italiano](README.md) · [English](README.en.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Português](README.pt.md)
+[Italiano](README.md) · [English](README.en.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Português](README.pt.md) · [Nederlands](README.nl.md)
 
 **Serious game investigativo sull’AI Act europeo**
 
-[▶ Gioca](https://www.no-ai-act.eu/play/?lang=it) · [Sito e risorse](https://www.no-ai-act.eu/) · [Versione stabile](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.3.1)
+[▶ Gioca](https://www.no-ai-act.eu/play/?lang=it) · [Sito e risorse](https://www.no-ai-act.eu/) · [Versione stabile](https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.4.0)
 
 Anno 2032, in una città europea immaginaria in cui l’AI Act non è mai entrato in vigore. Nel ruolo di ispettore, ricostruisci l’impiego di sistemi di IA attraverso documenti, testimonianze e registri. Il gioco è gratuito, open source e utilizzabile nel browser senza account.
 
 ## Copertura
 
-Le stesse lingue coprono gioco, sito, risorse educative, press kit, README e dossier metodologico: italiano, inglese, francese, tedesco, spagnolo e portoghese europeo (pt-PT). Ogni lingua comprende tutti i 14 casi e le stesse 37 sezioni del portale. Le URL esistenti sono conservate.
+Le stesse lingue coprono gioco, sito, risorse educative, press kit, README e dossier metodologico: italiano, inglese, francese, tedesco, spagnolo, portoghese europeo (pt-PT) e olandese. Ogni lingua comprende tutti i 14 casi e le stesse 37 sezioni del portale. Le URL esistenti sono conservate.
 
 ## Il percorso di gioco
 
@@ -34,7 +34,7 @@ I progressi restano nel browser. I contatori aggregati sono disattivabili. Solo 
 
 ## Materiali di ricerca
 
-Study 02 è un laboratorio locale separato dalla build pubblica, con due forme e rubrica umana nelle sei lingue. Non attiva una ricerca con partecipanti. Equivalenza linguistica, validità della rubrica ed efficacia educativa richiedono ancora valutazione con persone. I risultati di verifica nel dossier sono registrazioni storiche.
+Study 02 è un laboratorio locale separato dalla build pubblica, con due forme e rubrica umana nelle sette lingue. Non attiva una ricerca con partecipanti. Equivalenza linguistica, validità della rubrica ed efficacia educativa richiedono ancora valutazione con persone. I risultati di verifica nel dossier sono registrazioni storiche.
 
 [Rubrica e prova di trasferimento Study 02](docs/v5/ARGUMENTATION_STUDY02.md) · [Study 02](research/study02/)
 
@@ -66,4 +66,4 @@ Codice GPL-3.0-or-later; contenuti CC BY-SA 4.0. Consultare LICENSE, CREDITS e T
 
 ## Documentazione tecnica e storico
 
-[Versione stabile](docs/RELEASE_NOTES_v5.3.1.md) · [Metodo e limiti](docs/v5/README.md) · [Press kit](https://www.no-ai-act.eu/press-kit/) · [GDD](docs/GDD.md) · [README < v5.3.0](docs/archive/README_pre_v5.3.0.it.md)
+[Versione stabile](docs/RELEASE_NOTES_v5.4.0.md) · [Metodo e limiti](docs/v5/README.md) · [Press kit](https://www.no-ai-act.eu/press-kit/) · [GDD](docs/GDD.md) · [README < v5.3.0](docs/archive/README_pre_v5.3.0.it.md)

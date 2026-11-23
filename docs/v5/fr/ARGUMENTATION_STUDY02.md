@@ -1,8 +1,8 @@
 # Grille préliminaire et épreuve de transfert Study 02
 
+[Italiano](../ARGUMENTATION_STUDY02.md) · [English](../en/ARGUMENTATION_STUDY02.md) · [Français](../fr/ARGUMENTATION_STUDY02.md) · [Deutsch](../de/ARGUMENTATION_STUDY02.md) · [Español](../es/ARGUMENTATION_STUDY02.md) · [Português](../pt/ARGUMENTATION_STUDY02.md) · [Nederlands](../nl/ARGUMENTATION_STUDY02.md)
 
-> Édition linguistique V5.3.0 · 23 novembre 2026. Le dossier et les matériaux locaux de Study 02 sont désormais disponibles dans les six langues. Les dates, nombres et résultats du prototype décrivent les exécutions historiques. Le contrat actuel du registre facultatif réservé aux adultes figure dans SESSION_JOURNAL.md et remplace la restriction antérieure aux seuls agrégats. Les traductions ne démontrent ni équivalence des instruments, ni efficacité éducative, ni validité de la grille. Aucun nouveau test pour cette mise à jour des contenus.
-
+> Édition linguistique V5.4.0 · 23 novembre 2026. Le dossier et les matériaux locaux de Study 02 sont désormais disponibles dans les sept langues. Les dates, nombres et résultats du prototype décrivent les exécutions historiques. Le contrat actuel du registre facultatif réservé aux adultes figure dans SESSION_JOURNAL.md et remplace la restriction antérieure aux seuls agrégats. Les traductions ne démontrent ni équivalence des instruments, ni efficacité éducative, ni validité de la grille. Aucun nouveau test pour cette mise à jour des contenus.
 
 
 Version de travail du 21 novembre 2026. Protocole proposé, aucune étude réalisée. La grille doit être validée avec des évaluateurs humains et des participants du public visé.

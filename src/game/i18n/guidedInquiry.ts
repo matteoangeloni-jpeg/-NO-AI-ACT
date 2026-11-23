@@ -2,6 +2,7 @@ import type { LanguageCode } from '../data/types';
 import deTranslation from './translations/de.json';
 import esTranslation from './translations/es.json';
 import ptTranslation from './translations/pt.json';
+import nlTranslation from './translations/nl.json';
 
 interface GuidedCopy {
   entry: string;
@@ -181,5 +182,6 @@ export const GUIDED_COPY: Record<LanguageCode, GuidedCopy & GuidedExtra> = {
   fr: { ...BASE_COPY.fr, ...EXTRA_COPY.fr },
   de: deTranslation.guided,
   es: esTranslation.guided,
-  pt: ptTranslation.guided
+  pt: ptTranslation.guided,
+  nl: nlTranslation.guided
 };

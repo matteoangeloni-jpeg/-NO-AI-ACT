@@ -1,8 +1,8 @@
 # Verificación final de la cobertura metodológica V5
 
-[Italiano](../TEST_RESULTS.md) · [English](../en/TEST_RESULTS.md) · [Français](../fr/TEST_RESULTS.md) · [Deutsch](../de/TEST_RESULTS.md) · [Español](../es/TEST_RESULTS.md) · [Português](../pt/TEST_RESULTS.md)
+[Italiano](../TEST_RESULTS.md) · [English](../en/TEST_RESULTS.md) · [Français](../fr/TEST_RESULTS.md) · [Deutsch](../de/TEST_RESULTS.md) · [Español](../es/TEST_RESULTS.md) · [Português](../pt/TEST_RESULTS.md) · [Nederlands](../nl/TEST_RESULTS.md)
 
-> Edición lingüística V5.3.0 · 23 de noviembre de 2026. El dossier y los materiales locales de Study 02 están disponibles en seis idiomas. Las fechas, cifras y resultados del prototipo corresponden a ejecuciones históricas. El contrato actual del registro voluntario para adultos figura en SESSION_JOURNAL.md y sustituye la restricción anterior a datos agregados. Las traducciones no demuestran equivalencia de los instrumentos, eficacia educativa ni validez de la rúbrica. No se ejecutaron nuevas pruebas para esta actualización de contenidos.
+> Edición lingüística V5.4.0 · 23 de noviembre de 2026. El dossier y los materiales locales de Study 02 están disponibles en siete idiomas. Las fechas, cifras y resultados del prototipo corresponden a ejecuciones históricas. El contrato actual del registro voluntario para adultos figura en SESSION_JOURNAL.md y sustituye la restricción anterior a datos agregados. Las traducciones no demuestran equivalencia de los instrumentos, eficacia educativa ni validez de la rúbrica. No se ejecutaron nuevas pruebas para esta actualización de contenidos.
 
 
 21 de noviembre de 2026. Informe de tipo anterior a la versión V5.0.0. Las pruebas comenzaron después de la aplicación de toda la lista operacional en COVERAGE_COMPLETION.md; las correcciones fueron seguidas por nuevas carreras. Estos resultados se refieren al clon local. Los cheques de publicación se documentan por separado en la versión. Esta traducción registra esas ejecuciones anteriores; no es una nueva prueba de humo para V5.0.1.

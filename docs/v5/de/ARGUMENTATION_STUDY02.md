@@ -1,8 +1,8 @@
 # Vorläufige Rubrik und Study 02 Transfer Task
 
-[Italiano](../ARGUMENTATION_STUDY02.md) · [English](../en/ARGUMENTATION_STUDY02.md) · [Français](../fr/ARGUMENTATION_STUDY02.md) · [Deutsch](../de/ARGUMENTATION_STUDY02.md) · [Español](../es/ARGUMENTATION_STUDY02.md) · [Português](../pt/ARGUMENTATION_STUDY02.md)
+[Italiano](../ARGUMENTATION_STUDY02.md) · [English](../en/ARGUMENTATION_STUDY02.md) · [Français](../fr/ARGUMENTATION_STUDY02.md) · [Deutsch](../de/ARGUMENTATION_STUDY02.md) · [Español](../es/ARGUMENTATION_STUDY02.md) · [Português](../pt/ARGUMENTATION_STUDY02.md) · [Nederlands](../nl/ARGUMENTATION_STUDY02.md)
 
-> Sprachausgabe V5.3.0 · 23. November 2026. Das Dossier und die lokalen Materialien für Study 02 liegen jetzt in sechs Sprachen vor. Daten, Zahlen und Ergebnisse des Prototyps dokumentieren frühere Ausführungen. Der aktuelle Vertrag für das freiwillige Sitzungsprotokoll für Erwachsene steht in SESSION_JOURNAL.md und ersetzt die frühere Beschränkung auf aggregierte Daten. Übersetzungen belegen weder die Gleichwertigkeit der Instrumente noch Bildungswirksamkeit oder Rubrikvalidität. Für diese Inhaltsaktualisierung wurden keine neuen Tests ausgeführt.
+> Sprachausgabe V5.4.0 · 23. November 2026. Das Dossier und die lokalen Materialien für Study 02 liegen jetzt in sieben Sprachen vor. Daten, Zahlen und Ergebnisse des Prototyps dokumentieren frühere Ausführungen. Der aktuelle Vertrag für das freiwillige Sitzungsprotokoll für Erwachsene steht in SESSION_JOURNAL.md und ersetzt die frühere Beschränkung auf aggregierte Daten. Übersetzungen belegen weder die Gleichwertigkeit der Instrumente noch Bildungswirksamkeit oder Rubrikvalidität. Für diese Inhaltsaktualisierung wurden keine neuen Tests ausgeführt.
 
 
 Arbeitsversion vom 21. November 2026. Vorgeschlagenes Design; Es wurde keine Studie durchgeführt. Die Rubrik erfordert eine Validierung mit menschlichen Bewertern und Teilnehmern des beabsichtigten Publikums.

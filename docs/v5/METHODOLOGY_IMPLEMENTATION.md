@@ -1,8 +1,8 @@
 # Incremento metodologico V5 — copertura completa
 
+[Italiano](METHODOLOGY_IMPLEMENTATION.md) · [English](en/METHODOLOGY_IMPLEMENTATION.md) · [Français](fr/METHODOLOGY_IMPLEMENTATION.md) · [Deutsch](de/METHODOLOGY_IMPLEMENTATION.md) · [Español](es/METHODOLOGY_IMPLEMENTATION.md) · [Português](pt/METHODOLOGY_IMPLEMENTATION.md) · [Nederlands](nl/METHODOLOGY_IMPLEMENTATION.md)
 
-> Edizione linguistica V5.3.0 · 23 novembre 2026. Il dossier e i materiali locali di Study 02 sono ora disponibili in sei lingue. Date, conteggi e risultati del prototipo descrivono le esecuzioni storiche. Il contratto attuale del registro facoltativo per maggiorenni è in SESSION_JOURNAL.md e supera il precedente vincolo dei soli aggregati. Le traduzioni non dimostrano equivalenza degli strumenti, efficacia educativa o validità della rubrica. Non sono stati eseguiti nuovi test per questo aggiornamento dei contenuti.
-
+> Edizione linguistica V5.4.0 · 23 novembre 2026. Il dossier e i materiali locali di Study 02 sono ora disponibili in sette lingue. Date, conteggi e risultati del prototipo descrivono le esecuzioni storiche. Il contratto attuale del registro facoltativo per maggiorenni è in SESSION_JOURNAL.md e supera il precedente vincolo dei soli aggregati. Le traduzioni non dimostrano equivalenza degli strumenti, efficacia educativa o validità della rubrica. Non sono stati eseguiti nuovi test per questo aggiornamento dei contenuti.
 
 
 Ramo di lavoro `codex/v5-methodology-guided-path`, base main `527fde5`. Revisione del 21 novembre 2026. Il rapporto documenta il completamento locale precedente al rilascio. La pubblicazione come V5.0.0 è stata poi autorizzata dal proprietario; stato corrente e note sono nella release GitHub e in RELEASE_NOTES_v5.0.0.md.

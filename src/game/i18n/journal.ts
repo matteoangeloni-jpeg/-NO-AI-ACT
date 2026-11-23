@@ -1,11 +1,13 @@
 import type { LanguageCode } from '../data/types';
 import type { JournalStatus } from '../systems/SessionJournal';
+import nlTranslation from './translations/nl.json';
 interface JournalCopy {
  button:string;title:string;purpose:string;scope:string;rights:string;adult:string;writing:string;accept:string;decline:string;close:string;
  erase:string;export:string;receipt:string;recover:string;policy:string;pending:string;failure:string;privateWarning:string;
  status:Record<JournalStatus,string>;
 }
 export const JOURNAL_COPY:Record<LanguageCode,JournalCopy>={
+ nl:nlTranslation.sessionJournal,
  it:{button:'Registro della sessione',title:'Vuoi condividere questa sessione?',
  purpose:'Puoi aiutare a migliorare il gioco condividendo il percorso di questa scheda: casi, scelte, reperti consultati e citati, confronti, revisioni, aiuti, feedback, lingua e tempi stimati di attività. Il registro inizia solo se accetti e può continuare al ricaricamento della stessa scheda per 24 ore.',
  scope:'Il titolare è Matteo Angeloni. Cloudflare tratta i dati per il servizio; il database è nell’UE. Si usa un codice casuale di sessione, senza nome, email, indirizzo IP registrato dal gioco o identificatore tra visite. È un dato pseudonimo, non una garanzia di anonimato. Conservazione: 90 giorni. Le statistiche di base aggregate restano separate.',

@@ -1,8 +1,8 @@
 # NO AI ACT V5 — desenho metodológico
 
-[Italiano](../METHODOLOGY.md) · [English](../en/METHODOLOGY.md) · [Français](../fr/METHODOLOGY.md) · [Deutsch](../de/METHODOLOGY.md) · [Español](../es/METHODOLOGY.md) · [Português](../pt/METHODOLOGY.md)
+[Italiano](../METHODOLOGY.md) · [English](../en/METHODOLOGY.md) · [Français](../fr/METHODOLOGY.md) · [Deutsch](../de/METHODOLOGY.md) · [Español](../es/METHODOLOGY.md) · [Português](../pt/METHODOLOGY.md) · [Nederlands](../nl/METHODOLOGY.md)
 
-> Edição linguística V5.3.0 · 23 de novembro de 2026. O dossier e os materiais locais de Study 02 estão disponíveis em seis línguas. As datas, contagens e resultados do protótipo descrevem execuções históricas. O contrato atual do registo facultativo para adultos está em SESSION_JOURNAL.md e substitui a anterior restrição aos agregados. As traduções não demonstram equivalência dos instrumentos, eficácia educativa ou validade da rubrica. Não foram executados novos testes nesta atualização de conteúdos.
+> Edição linguística V5.4.0 · 23 de novembro de 2026. O dossier e os materiais locais de Study 02 estão disponíveis em sete línguas. As datas, contagens e resultados do protótipo descrevem execuções históricas. O contrato atual do registo facultativo para adultos está em SESSION_JOURNAL.md e substitui a anterior restrição aos agregados. As traduções não demonstram equivalência dos instrumentos, eficácia educativa ou validade da rubrica. Não foram executados novos testes nesta atualização de conteúdos.
 
 
 Revisão de 21 de novembro de 2026. Linha de base verificada no ramo local do principal 527fde5. PR 128 implantação concluída com sucesso. O proprietário posteriormente autorizou a publicação como V5.0.0; notas de lançamento e status estão disponíveis em [RELEASE_NOTES_v5.0.0.en.md](../../RELEASE_NOTES_v5.0.0.en.md) e no lançamento GitHub.

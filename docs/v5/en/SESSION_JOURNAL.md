@@ -1,7 +1,8 @@
 # V5.2 — Voluntary individual session journal
 
+[Italiano](../SESSION_JOURNAL.md) · [English](../en/SESSION_JOURNAL.md) · [Français](../fr/SESSION_JOURNAL.md) · [Deutsch](../de/SESSION_JOURNAL.md) · [Español](../es/SESSION_JOURNAL.md) · [Português](../pt/SESSION_JOURNAL.md) · [Nederlands](../nl/SESSION_JOURNAL.md)
 
-> V5.3.0 language edition · 23 November 2026. The dossier and local Study 02 materials now have six language versions. Prototype dates, counts and outcomes describe historical executions. The current optional adult journal contract is in SESSION_JOURNAL.md and supersedes the earlier aggregates-only restriction. Translations do not establish instrument equivalence, educational effectiveness or rubric validity. No new tests were run for this content update.
+> V5.4.0 language edition · 23 November 2026. The dossier and local Study 02 materials now have seven language versions. Prototype dates, counts and outcomes describe historical executions. The current optional adult journal contract is in SESSION_JOURNAL.md and supersedes the earlier aggregates-only restriction. Translations do not establish instrument equivalence, educational effectiveness or rubric validity. No new tests were run for this content update.
 
 
 22 November 2026. Implements the owner's subsequent request to extend collection beyond aggregates. The earlier restriction to aggregate data remains in the historical V5.0 dossier. The Study 02 protocol is unchanged. This translation describes the same existing service, without extending its collection.

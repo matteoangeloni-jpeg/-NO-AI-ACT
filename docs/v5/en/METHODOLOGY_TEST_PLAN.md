@@ -1,8 +1,8 @@
 # Guided-path verification plan
 
+[Italiano](../METHODOLOGY_TEST_PLAN.md) · [English](../en/METHODOLOGY_TEST_PLAN.md) · [Français](../fr/METHODOLOGY_TEST_PLAN.md) · [Deutsch](../de/METHODOLOGY_TEST_PLAN.md) · [Español](../es/METHODOLOGY_TEST_PLAN.md) · [Português](../pt/METHODOLOGY_TEST_PLAN.md) · [Nederlands](../nl/METHODOLOGY_TEST_PLAN.md)
 
-> V5.3.0 language edition · 23 November 2026. The dossier and local Study 02 materials now have six language versions. Prototype dates, counts and outcomes describe historical executions. The current optional adult journal contract is in SESSION_JOURNAL.md and supersedes the earlier aggregates-only restriction. Translations do not establish instrument equivalence, educational effectiveness or rubric validity. No new tests were run for this content update.
-
+> V5.4.0 language edition · 23 November 2026. The dossier and local Study 02 materials now have seven language versions. Prototype dates, counts and outcomes describe historical executions. The current optional adult journal contract is in SESSION_JOURNAL.md and supersedes the earlier aggregates-only restriction. Translations do not establish instrument equivalence, educational effectiveness or rubric validity. No new tests were run for this content update.
 
 
 Before the change. Matrices A, B and C were written in METHODOLOGY.md and LEGAL_LEARNING_MATRIX.md. The starting code provides contextual guidance, comparison, a report with predefined reasons, debriefing and review. Autonomous production and an explicit comparison between the initial interpretation and feedback are missing at that baseline.

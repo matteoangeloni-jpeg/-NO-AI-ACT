@@ -46,7 +46,7 @@ export type ErrorType =
 export type IncidentChoice = 'document' | 'suspend' | 'minimize';
 
 /** Compile-time dictionary keys; runtime availability comes from release.config.json. */
-export type LanguageCode = 'it' | 'en' | 'fr' | 'de' | 'es' | 'pt';
+export type LanguageCode = 'it' | 'en' | 'fr' | 'de' | 'es' | 'pt' | 'nl';
 
 export type NormLevel = 'vietata' | 'alto' | 'trasparenza' | 'restrittivo';
 

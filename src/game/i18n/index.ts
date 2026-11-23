@@ -5,6 +5,7 @@ import { fr } from './fr';
 import { de } from './de';
 import { es } from './es';
 import { pt } from './pt';
+import { nl } from './nl';
 // @ts-expect-error Shared ESM release and route inventory.
 import { PLAYABLE_LANGUAGES, languageCode } from '../../site/route-inventory.mjs';
 
@@ -37,7 +38,7 @@ export type Locale = typeof it;
  * DRAFT_LANGUAGES): registrarla a metà non produrrebbe una traduzione
  * parziale pubblicata, produrrebbe una build rotta.
  */
-export const LOCALES: Record<LanguageCode, Locale> = { it, en, fr, de, es, pt };
+export const LOCALES: Record<LanguageCode, Locale> = { it, en, fr, de, es, pt, nl };
 
 /**
  * The release inventory is shared with the portal and validation schemas.
@@ -81,7 +82,8 @@ export const LANGUAGE_LABELS: Record<LanguageCode, string> = {
   fr: 'FRANÇAIS',
   de: 'DEUTSCH',
   es: 'ESPAÑOL',
-  pt: 'PORTUGUÊS'
+  pt: 'PORTUGUÊS',
+  nl: 'NEDERLANDS'
 };
 
 let current: LanguageCode = 'it';
@@ -112,6 +114,7 @@ export function isLanguageCode(value: unknown): value is LanguageCode {
 export function languageFromQuery(search: string): LanguageCode | null {
   const lang = new URLSearchParams(search).get('lang');
   if (lang === 'pt-PT') return 'pt';
+  if (lang === 'nl-NL' || lang === 'nl-BE') return 'nl';
   return isLanguageCode(lang) ? lang : null;
 }
 

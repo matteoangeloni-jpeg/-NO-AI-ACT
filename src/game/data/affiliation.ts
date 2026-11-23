@@ -26,7 +26,8 @@ export const AFFILIATION_LINKS = {
     // L'ateneo pubblica questa scheda in IT/EN; gli altri dizionari segnalano (EN).
     de: 'https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/',
     es: 'https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/',
-    pt: 'https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/'
+    pt: 'https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/',
+    nl: 'https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/'
   },
   university: 'https://www.unitus.it/'
 } as const;

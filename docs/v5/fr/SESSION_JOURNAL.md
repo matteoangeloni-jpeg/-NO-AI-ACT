@@ -1,6 +1,9 @@
 # V5.2 — Registre volontaire des sessions individuelles
 
-[Italiano](../SESSION_JOURNAL.md) · [English](../en/SESSION_JOURNAL.md) · [Français](SESSION_JOURNAL.md) · [Deutsch](../de/SESSION_JOURNAL.md) · [Español](../es/SESSION_JOURNAL.md) · [Português](../pt/SESSION_JOURNAL.md)
+[Italiano](../SESSION_JOURNAL.md) · [English](../en/SESSION_JOURNAL.md) · [Français](../fr/SESSION_JOURNAL.md) · [Deutsch](../de/SESSION_JOURNAL.md) · [Español](../es/SESSION_JOURNAL.md) · [Português](../pt/SESSION_JOURNAL.md) · [Nederlands](../nl/SESSION_JOURNAL.md)
+
+> Édition linguistique V5.4.0 · 23 novembre 2026. Le dossier et les matériaux locaux de Study 02 sont désormais disponibles dans les sept langues. Les dates, nombres et résultats du prototype décrivent les exécutions historiques. Le contrat actuel du registre facultatif réservé aux adultes figure dans SESSION_JOURNAL.md et remplace la restriction antérieure aux seuls agrégats. Les traductions ne démontrent ni équivalence des instruments, ni efficacité éducative, ni validité de la grille. Aucun nouveau test pour cette mise à jour des contenus.
+
 
 22 novembre 2026. Ce contrat répond à la demande ultérieure du propriétaire d’étendre la collecte au-delà des agrégats. La restriction antérieure reste documentée dans le dossier historique V5.0. Le protocole Study 02 ne change pas. Cette traduction décrit le service existant, sans étendre sa collecte.
 

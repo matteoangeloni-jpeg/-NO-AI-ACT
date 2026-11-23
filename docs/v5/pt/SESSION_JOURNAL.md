@@ -1,8 +1,8 @@
 # V5.2 — Diário de sessão individual voluntário
 
-[Italiano](../SESSION_JOURNAL.md) · [English](../en/SESSION_JOURNAL.md) · [Français](../fr/SESSION_JOURNAL.md) · [Deutsch](../de/SESSION_JOURNAL.md) · [Español](../es/SESSION_JOURNAL.md) · [Português](../pt/SESSION_JOURNAL.md)
+[Italiano](../SESSION_JOURNAL.md) · [English](../en/SESSION_JOURNAL.md) · [Français](../fr/SESSION_JOURNAL.md) · [Deutsch](../de/SESSION_JOURNAL.md) · [Español](../es/SESSION_JOURNAL.md) · [Português](../pt/SESSION_JOURNAL.md) · [Nederlands](../nl/SESSION_JOURNAL.md)
 
-> Edição linguística V5.3.0 · 23 de novembro de 2026. O dossier e os materiais locais de Study 02 estão disponíveis em seis línguas. As datas, contagens e resultados do protótipo descrevem execuções históricas. O contrato atual do registo facultativo para adultos está em SESSION_JOURNAL.md e substitui a anterior restrição aos agregados. As traduções não demonstram equivalência dos instrumentos, eficácia educativa ou validade da rubrica. Não foram executados novos testes nesta atualização de conteúdos.
+> Edição linguística V5.4.0 · 23 de novembro de 2026. O dossier e os materiais locais de Study 02 estão disponíveis em sete línguas. As datas, contagens e resultados do protótipo descrevem execuções históricas. O contrato atual do registo facultativo para adultos está em SESSION_JOURNAL.md e substitui a anterior restrição aos agregados. As traduções não demonstram equivalência dos instrumentos, eficácia educativa ou validade da rubrica. Não foram executados novos testes nesta atualização de conteúdos.
 
 
 22 Novembro 2026. Implementa o pedido posterior do proprietário para estender a coleta para além dos agregados. A restrição anterior aos dados agregados permanece no dossiê histórico do V5.0. O protocolo Study 02 está inalterado. Esta tradução descreve o mesmo serviço existente, sem estender sua coleção.
@@ -39,7 +39,7 @@ A retirada imediatamente interrompe a recolha. A rasura off-line é mostrada com
 
 Os registos tornam-se inacessíveis 90 dias após o consentimento e são removidos por limpeza diária. A retirada remove todos os eventos e o registo da sessão. Apenas um recibo técnico permanece até o mesmo termo de validade: UUID, hash credencial, datas de revogação e expiração, para rejeitar resubmissões atrasadas.
 
-Base jurídica: autorização nos termos do n.º 1, alínea a), do artigo 6.º do RGPD. Controlador: Matteo Angeloni; os contatos aparecem nas páginas do autor. O Cloudflare fornece aos trabalhadores/D1 e processa metadados de conexão para entrega e segurança. A base de dados existente está configurada na jurisdição da UE, o que não garante o anonimato nem a ausência de transferências em toda a infra-estrutura. [Notificação de privacidade em seis línguas](https://www.no-ai-act.eu/game-statistics.html).
+Base jurídica: autorização nos termos do n.º 1, alínea a), do artigo 6.º do RGPD. Controlador: Matteo Angeloni; os contatos aparecem nas páginas do autor. O Cloudflare fornece aos trabalhadores/D1 e processa metadados de conexão para entrega e segurança. A base de dados existente está configurada na jurisdição da UE, o que não garante o anonimato nem a ausência de transferências em toda a infra-estrutura. [Notificação de privacidade em sete línguas](https://www.no-ai-act.eu/game-statistics.html).
 
 O objetivo é corrigir e melhorar os suportes de jogabilidade e aprendizagem. A janela de 90 dias suporta comparações entre iterações sem um arquivo individual indefinido. O consentimento não autoriza uma recolha independente ou desproporcionada: as Orientações da EDB 05/2020, ponto 5, mantêm a necessidade, a proporcionalidade e os princípios do artigo 5.º do RGPD. A coleção não se estende à navegação externa, chamada identificação, impressão digital ou pedidos de dados sensíveis do jogador.
 
@@ -68,8 +68,8 @@ Não foram realizados testes de fumaça ou navegador para essa versão, conforme
 - [GDPR consolidado](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02016R0679-20160504).
 - [Orientações de consentimento do EDPB](https://www.edpb.europa.eu/documents/guideline/guidelines-052020-on-consent-under-regulation-2016679_en).
 - [EDPB ePrivacy n.º 3 do artigo 5.º](https://www.edpb.europa.eu/system/files/documents/2024-10/edpb_guidelines_202302_technical_scope_art_53_eprivacydirective_v2_en_0.pdf).
-- [Garante tracking guidelines] (https://www.garanteprivacy.it/home/docweb/-/docweb-display/docweb/9677876).
+- [Orientações do Garante sobre rastreamento](https://www.garanteprivacy.it/home/docweb/-/docweb-display/docweb/9677876).
 - [W3C Beacon](https://www.w3.org/TR/beacon/).
-- [D1 localização de dados] (https://developers.cloudflare.com/d1/configuration/data-location/).
+- [D1 localização de dados](https://developers.cloudflare.com/d1/configuration/data-location/).
 - [Limitação da taxa de Cloudflare](https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/).
 - [Serrano-Laguna et al.](https://pubman.e-ucm.es/drafts/e-UCM_draft_297.pdf), DOI 10.1016/j.csi.2016.09.014: inspiração semântica sem alegar conformidade com xAPI.

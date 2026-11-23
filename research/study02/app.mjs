@@ -30,7 +30,7 @@ function render() {
     if (dirty && !window.confirm(ui.resetConfirm)) { renderSelects(); return; }
     update(el.value); render();
   }
-  const langSelect = select(ui.language, 'language', LANGUAGES.map(code => [code, { it: 'Italiano', en: 'English', fr: 'Français', de: 'Deutsch', es: 'Español', pt: 'Português' }[code]]), language,
+  const langSelect = select(ui.language, 'language', LANGUAGES.map(code => [code, { it: 'Italiano', en: 'English', fr: 'Français', de: 'Deutsch', es: 'Español', pt: 'Português', nl: 'Nederlands' }[code]]), language,
     el => change(el, value => { language = value; }), config);
   const formSelect = select(ui.form, 'form', ['A', 'B'].map(value => [value, value]), form,
     el => change(el, value => { form = value; }), config);

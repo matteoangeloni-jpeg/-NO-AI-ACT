@@ -1,8 +1,8 @@
 # C. Fälle, Recht, Lernbegleitung und Nachbesprechung
 
-[Italiano](../LEGAL_LEARNING_MATRIX.md) · [English](../en/LEGAL_LEARNING_MATRIX.md) · [Français](../fr/LEGAL_LEARNING_MATRIX.md) · [Deutsch](../de/LEGAL_LEARNING_MATRIX.md) · [Español](../es/LEGAL_LEARNING_MATRIX.md) · [Português](../pt/LEGAL_LEARNING_MATRIX.md)
+[Italiano](../LEGAL_LEARNING_MATRIX.md) · [English](../en/LEGAL_LEARNING_MATRIX.md) · [Français](../fr/LEGAL_LEARNING_MATRIX.md) · [Deutsch](../de/LEGAL_LEARNING_MATRIX.md) · [Español](../es/LEGAL_LEARNING_MATRIX.md) · [Português](../pt/LEGAL_LEARNING_MATRIX.md) · [Nederlands](../nl/LEGAL_LEARNING_MATRIX.md)
 
-> Sprachausgabe V5.3.0 · 23. November 2026. Das Dossier und die lokalen Materialien für Study 02 liegen jetzt in sechs Sprachen vor. Daten, Zahlen und Ergebnisse des Prototyps dokumentieren frühere Ausführungen. Der aktuelle Vertrag für das freiwillige Sitzungsprotokoll für Erwachsene steht in SESSION_JOURNAL.md und ersetzt die frühere Beschränkung auf aggregierte Daten. Übersetzungen belegen weder die Gleichwertigkeit der Instrumente noch Bildungswirksamkeit oder Rubrikvalidität. Für diese Inhaltsaktualisierung wurden keine neuen Tests ausgeführt.
+> Sprachausgabe V5.4.0 · 23. November 2026. Das Dossier und die lokalen Materialien für Study 02 liegen jetzt in sieben Sprachen vor. Daten, Zahlen und Ergebnisse des Prototyps dokumentieren frühere Ausführungen. Der aktuelle Vertrag für das freiwillige Sitzungsprotokoll für Erwachsene steht in SESSION_JOURNAL.md und ersetzt die frühere Beschränkung auf aggregierte Daten. Übersetzungen belegen weder die Gleichwertigkeit der Instrumente noch Bildungswirksamkeit oder Rubrikvalidität. Für diese Inhaltsaktualisierung wurden keine neuen Tests ausgeführt.
 
 
 Dokumentenprüfung vom 21. November 2026 anhand der EUR-Lex-Fassung vom 27. Juli 2026. Die Matrix unterstützt Gestaltung und Überprüfung. Die rechtliche Einordnung der Fallumstände erfordert weiterhin eine fachkundige menschliche Prüfung. Diese Erweiterung verändert weder die rechtlichen Lösungen noch die Spielwertung.

@@ -79,12 +79,14 @@ export class TeacherGuideOverlay {
 
     container.add(scene.add.text(left, y, ui.resourcesLabel, textStyle(11.5, COLOR_STR.paperDim)));
     y += 46; // i pulsanti-risorsa sono centrati verticalmente: spazio per l'etichetta
-    // Three columns, two rows per language; a second group holds DE/ES/PT.
-    const linkW = (wrap - 24) / 3;
+    // Keep each language's two links together. Four columns accommodate
+    // seven languages within the existing four-row resource area.
+    const resourceColumns = Math.min(4, Math.ceil(TEACHER_RESOURCES.length / 2));
+    const linkW = (wrap - 12 * (resourceColumns - 1)) / resourceColumns;
     TEACHER_RESOURCES.forEach((res, i) => {
       const label = ui.links[res.id as keyof typeof ui.links];
       container.add(
-        new Button(scene, left + linkW / 2 + (Math.floor(i / 2) % 3) * (linkW + 12), y + (Math.floor(i / 6) * 2 + i % 2) * 48, label, () => window.open(res.url, '_blank', 'noopener,noreferrer'), {
+        new Button(scene, left + linkW / 2 + (Math.floor(i / 2) % resourceColumns) * (linkW + 12), y + (Math.floor(i / (resourceColumns * 2)) * 2 + i % 2) * 48, label, () => window.open(res.url, '_blank', 'noopener,noreferrer'), {
           width: linkW,
           height: 44,
           fontSize: 11,

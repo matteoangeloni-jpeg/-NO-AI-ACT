@@ -1,8 +1,8 @@
 # C. Casi, diritto, mediazione e debrief
 
+[Italiano](LEGAL_LEARNING_MATRIX.md) · [English](en/LEGAL_LEARNING_MATRIX.md) · [Français](fr/LEGAL_LEARNING_MATRIX.md) · [Deutsch](de/LEGAL_LEARNING_MATRIX.md) · [Español](es/LEGAL_LEARNING_MATRIX.md) · [Português](pt/LEGAL_LEARNING_MATRIX.md) · [Nederlands](nl/LEGAL_LEARNING_MATRIX.md)
 
-> Edizione linguistica V5.3.0 · 23 novembre 2026. Il dossier e i materiali locali di Study 02 sono ora disponibili in sei lingue. Date, conteggi e risultati del prototipo descrivono le esecuzioni storiche. Il contratto attuale del registro facoltativo per maggiorenni è in SESSION_JOURNAL.md e supera il precedente vincolo dei soli aggregati. Le traduzioni non dimostrano equivalenza degli strumenti, efficacia educativa o validità della rubrica. Non sono stati eseguiti nuovi test per questo aggiornamento dei contenuti.
-
+> Edizione linguistica V5.4.0 · 23 novembre 2026. Il dossier e i materiali locali di Study 02 sono ora disponibili in sette lingue. Date, conteggi e risultati del prototipo descrivono le esecuzioni storiche. Il contratto attuale del registro facoltativo per maggiorenni è in SESSION_JOURNAL.md e supera il precedente vincolo dei soli aggregati. Le traduzioni non dimostrano equivalenza degli strumenti, efficacia educativa o validità della rubrica. Non sono stati eseguiti nuovi test per questo aggiornamento dei contenuti.
 
 
 Verifica documentale del 21 novembre 2026 sul consolidato EUR-Lex del 27 luglio 2026. Le righe sono una mappa di progettazione e revisione. L'interpretazione delle circostanze di ogni caso richiede ancora un revisore giuridico umano. In questo incremento non si modificano risposte normative o punteggi.
