@@ -16,10 +16,9 @@ import { PLAYABLE_LANGUAGES, languageCode } from '../../site/route-inventory.mjs
  *  - La persistenza della lingua è responsabilità dello StateManager:
  *    questo modulo non tocca localStorage (testabile in Node).
  *  - Aggiungere una lingua: allargare LanguageCode (data/types.ts), creare il
- *    dizionario tipizzato `Locale`, registrarlo in LOCALES. Nient'altro: gli
- *    elenchi di lingue di questo modulo sono DERIVATI da LOCALES, non
- *    trascritti, e una lingua ancora in traduzione sta in DRAFT_LANGUAGES
- *    finché non è completa.
+ *    dizionario tipizzato `Locale`, registrarlo in LOCALES e dichiararne la
+ *    disponibilità in release.config.json. I test verificano contenuti,
+ *    registro e percorsi; DRAFT_LANGUAGES resta escluso finché incompleto.
  */
 export type Locale = typeof it;
 
@@ -106,8 +105,7 @@ export function nextLanguage(): LanguageCode {
  * null for missing or unknown values, so the caller keeps the saved language.
  */
 export function isLanguageCode(value: unknown): value is LanguageCode {
-  // Chiede a LOCALES, che è la fonte di verità, invece di riscriverne le
-  // chiavi: è questa riga che prima conteneva la coppia 'it' | 'en' a mano.
+  // Dictionary keys are checked against the central release registry by tests.
   return typeof value === 'string' && Object.prototype.hasOwnProperty.call(LOCALES, value);
 }
 
