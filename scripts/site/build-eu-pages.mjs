@@ -4,7 +4,7 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'parse5';
 import { TOPICS, topicDir } from '../../src/site/eu-topics.mjs';
-import { publicRoutes, publishedLanguages, languageCode } from '../../src/site/route-inventory.mjs';
+import { publicRoutes, publishedLanguages, languageCode, PLAYABLE_LANGUAGES } from '../../src/site/route-inventory.mjs';
 import * as de from '../../src/site/de-content.mjs';
 import * as es from '../../src/site/es-content.mjs';
 import * as pt from '../../src/site/pt-content.mjs';
@@ -97,7 +97,7 @@ ${page.illustrated?`<section aria-label="NO AI ACT"><div class="wrap"><figure cl
 ${page.links?`<section aria-labelledby="next-reading-title"><div class="wrap"><h2 id="next-reading-title">${ui.related}</h2><ul class="plain">${page.links.map(([target,label])=>`<li><a href="${href(topicDir(TOPICS.find(t=>t[0]===target),lang))}">${escape(label)}</a></li>`).join('')}</ul></div></section>`:''}
 ${page.sources?`<section aria-labelledby="source-reading-title"><div class="wrap"><h2 id="source-reading-title">${ui.source}</h2><ul class="plain">${page.sources.map(([link,label])=>`<li><a href="${escape(link)}">${escape(label)}</a></li>`).join('')}</ul></div></section>`:''}
 ${id==='home'?press(lang):''}
-  <section aria-labelledby="play-languages"><div class="wrap"><h2 id="play-languages">${ui.play}</h2><p>${escape(ui.game)}</p><p class="eu-play-links">${['it','en','fr','de','es','pt'].map((l,i)=>`<a href="/play/?lang=${l}" hreflang="${languageCode(l)}">${ui.gameLanguages[i]}</a>`).join(' · ')}</p></div></section>
+  <section aria-labelledby="play-languages"><div class="wrap"><h2 id="play-languages">${ui.play}</h2><p>${escape(ui.game)}</p><p class="eu-play-links">${PLAYABLE_LANGUAGES.map((l,i)=>`<a href="/play/?lang=${l}" hreflang="${languageCode(l)}">${ui.gameLanguages[i]}</a>`).join(' · ')}</p></div></section>
 ${page.links?'':`  <section aria-labelledby="related-title"><div class="wrap"><h2 id="related-title">${ui.related}</h2><ul class="plain">${TOPICS.filter(t=>t[0]!==id).map(t=>`<li><a href="${href(topicDir(t,lang))}">${escape(t[0]==='home'?ui.home:pages[t[0]].h1)}</a></li>`).join('')}</ul></div></section>`}
   </main><footer aria-labelledby="footer-title"><div class="wrap"><h2 id="footer-title" class="stamp">${ui.legal}</h2><p>${escape(ui.disclaimer)}</p><p><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/${ui.official}" hreflang="${ui.lang}">${ui.source}</a> · <a href="/en/research-and-methodology/" hreflang="en" lang="en">${ui.authorLink}</a> · <a href="/game-statistics.html#${lang}" hreflang="${ui.lang}">${ui.privacyLink}</a></p><p class="credit">${ui.author} · v${version}<br />${escape(ui.disclosure)}</p></div></footer>
   <script type="module" src="/src/scripts/nav.ts"></script>

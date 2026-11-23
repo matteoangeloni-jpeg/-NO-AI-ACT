@@ -38,10 +38,15 @@ try{
   const controls=await page.getByRole('button').evaluateAll(elements=>elements.filter(el=>el.getClientRects().length).map(el=>({name:el.getAttribute('aria-label')||el.textContent?.trim(),width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height})));
   assert(controls.length>0&&controls.every(control=>control.name),`${language}: unnamed visible control`);
   const locale=await page.evaluate(async()=>(await import('/src/game/i18n/index.ts')).L());
+  assert.equal(await page.locator('#site-return').getAttribute('aria-label'),locale.ui.siteLinks.backToSite);
+  assert.equal(await page.locator('#game-container').getAttribute('aria-label'),`${locale.ui.gameTitle} — ${locale.ui.gameSubtitle}`);
   await page.getByRole('button',{name:locale.ui.menu.newGame,exact:true}).click();
   const start=page.getByRole('button',{name:locale.ui.newGamePanel.start,exact:true});await start.focus();await page.keyboard.press('Enter');
   await page.waitForFunction(()=>['Case','Briefing','CityMap'].some(key=>window.game.scene.isActive(key)));
-  results.push({language,documentTag:languageCode(language),portal:true,queryPriority:true,migratedV1:true,keyboardSelection:next,persistedWithoutQuery:true,mobile:true,namedControls:controls.length,newGame:true});
+  await page.setViewportSize({width:1440,height:900});await page.waitForFunction(()=>!document.body.classList.contains('mobile-presentation'));
+  await page.locator('#site-return').click();await page.waitForURL(base+portal);
+  assert.equal(await page.locator('html').getAttribute('lang'),languageCode(language));
+  results.push({language,documentTag:languageCode(language),portal:true,queryPriority:true,migratedV1:true,keyboardSelection:next,persistedWithoutQuery:true,mobile:true,namedControls:controls.length,newGame:true,returnToSameLocale:true});
   writeFileSync(`${out}/progress.json`,JSON.stringify({results,errors,blocked},null,2));console.log(`${language}: portal, v1 migration, selector, reload, mobile and keyboard start PASS`);
   await context.close();
  }

@@ -6,6 +6,7 @@ import { ReadingLayer } from '../src/game/systems/ReadingLayer';
 import { shouldShowMobileGuard, savedLanguage } from '../src/mobileGuard';
 import { it as itLocale } from '../src/game/i18n/it';
 import { en as enLocale } from '../src/game/i18n/en';
+import { SITE_LINKS } from '../src/game/data/concepts';
 
 /**
  * ACCESSIBILITY LAYER GUARD (2.0 — mission §11).
@@ -71,10 +72,13 @@ describe('ReadingLayer — read-only, local, no duplicated interaction', () => {
   for (const language of LANGUAGE_CODES) {
     it(`${language}: synchronises real document and reading-layer language and title`, () => {
       const attributes = new Map<string, string>();
+      const backAttributes = new Map<string, string>(), gameAttributes = new Map<string, string>();
+      const back = { setAttribute: (name: string, value: string) => backAttributes.set(name, value) };
+      const game = { setAttribute: (name: string, value: string) => gameAttributes.set(name, value) };
       const layer = { setAttribute: (name: string, value: string) => attributes.set(name, value),
         replaceChildren: vi.fn(), appendChild: vi.fn(), dataset: {} };
       const doc = { documentElement: { lang: '' }, title: '',
-        getElementById: (id: string) => id === 'reading-layer' ? layer : null,
+        getElementById: (id: string) => id === 'reading-layer' ? layer : id === 'site-return' ? back : id === 'game-container' ? game : null,
         createElement: () => ({ textContent: '', className: '' }), dispatchEvent: vi.fn() };
       vi.stubGlobal('document', doc);
       vi.stubGlobal('CustomEvent', class { constructor(public type: string, public detail: unknown) {} });
@@ -83,6 +87,10 @@ describe('ReadingLayer — read-only, local, no duplicated interaction', () => {
       const expected = language === 'pt' ? 'pt-PT' : language;
       expect(doc.documentElement.lang).toBe(expected);
       expect(attributes.get('lang')).toBe(expected);
+      expect(attributes.get('aria-label')).toBe(LOCALES[language].ui.gameTitle);
+      expect(backAttributes.get('href')).toBe(SITE_LINKS[language].home);
+      expect(backAttributes.get('aria-label')).toBe(LOCALES[language].ui.siteLinks.backToSite);
+      expect(gameAttributes.get('aria-label')).toBe(`${LOCALES[language].ui.gameTitle} — ${LOCALES[language].ui.gameSubtitle}`);
       expect(doc.title).toBe(`${LOCALES[language].ui.gameTitle} — ${LOCALES[language].ui.gameSubtitle}`);
       expect(layer.replaceChildren).toHaveBeenCalledOnce();
     });
