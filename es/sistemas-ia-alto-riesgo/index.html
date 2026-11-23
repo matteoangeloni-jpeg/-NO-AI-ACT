@@ -1,12 +1,98 @@
-<!doctype html>
-<html lang="es"><head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <title>Sistemas de IA de alto riesgo: contexto y obligaciones</title>
-  <meta name="description" content="Qué significa alto riesgo en el Reglamento de IA: finalidad, documentación, supervisión humana y funciones del proveedor y responsable del despliegue." />
-  <meta name="author" content="Matteo Angeloni" />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
-  <link rel="canonical" href="https://www.no-ai-act.eu/es/sistemas-ia-alto-riesgo/" />
+<!DOCTYPE html><html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="https://www.no-ai-act.eu/favicon.svg">
+
+  <title>Sistemas de IA de alto riesgo en la Ley de IA de la UE: lo que requiere</title>
+  <meta name="description" content="Lo que hace que un sistema de IA sea de alto riesgo en virtud de la Ley de IA de la UE, por qué las obligaciones son más estrictas y cómo funcionan la supervisión humana y la gobernanza de los datos.">
+  <meta name="author" content="NO AI ACT">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <link rel="canonical" href="https://www.no-ai-act.eu/es/sistemas-ia-alto-riesgo/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="NO AI ACT">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Sistemas de IA de alto riesgo, explicó">
+  <meta property="og:description" content="Educación, empleo, servicios esenciales, salud: donde la IA lleva obligaciones estrictas en lugar de prohibiciones, y por qué. Una visión general de la educación.">
+  <meta property="og:url" content="https://www.no-ai-act.eu/es/sistemas-ia-alto-riesgo/">
+  <meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png">
+  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="NO AI ACT: guía en lengua simple de la Ley de AI de la UE.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sistemas de IA de alto riesgo, explicó">
+  <meta name="twitter:description" content="Educación, empleo, servicios esenciales, salud: donde la IA lleva obligaciones estrictas en lugar de prohibiciones, y por qué. Una visión general de la educación.">
+  <meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png">
+  <meta name="twitter:image:alt" content="NO AI ACT: guía en lengua simple de la Ley de AI de la UE.">
+  <link rel="stylesheet" href="https://www.no-ai-act.eu/src/styles/landing.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "NO AI ACT",
+      "item": "https://www.no-ai-act.eu/es/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "EU AI Act guide",
+      "item": "https://www.no-ai-act.eu/es/guia-reglamento-ia/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Sistemas de IA de alto riesgo",
+      "item": "https://www.no-ai-act.eu/es/sistemas-ia-alto-riesgo/"
+    }
+  ]
+}
+</script>
+  <script>document.documentElement.classList.add('has-js');</script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NO AI ACT",
+  "url": "https://www.no-ai-act.eu/es/",
+  "description": "Juego educativo de investigación gratuito y recursos didácticos sobre el Reglamento europeo de Inteligencia Artificial.",
+  "logo": "https://www.no-ai-act.eu/favicon.svg",
+  "sameAs": [
+    "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"
+  ],
+  "dateModified": "2026-11-22T00:00:00Z"
+}
+</script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Sistemas de IA de alto riesgo en la Ley de IA de la UE",
+  "description": "Lo que hace que un sistema de IA sea de alto riesgo en virtud de la Ley de IA de la UE y cuyas obligaciones se aplican.",
+  "inLanguage": "es",
+  "mainEntityOfPage": "https://www.no-ai-act.eu/es/sistemas-ia-alto-riesgo/",
+  "author": {
+    "@type": "Person",
+    "name": "Matteo Angeloni",
+    "url": "https://www.no-ai-act.eu/es/matteo-angeloni/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "NO AI ACT",
+    "url": "https://www.no-ai-act.eu/es/",
+    "description": "Juego educativo de investigación gratuito y recursos didácticos sobre el Reglamento europeo de Inteligencia Artificial."
+  },
+  "dateModified": "2026-11-22T00:00:00Z"
+}
+</script>
   <link rel="alternate" hreflang="it" href="https://www.no-ai-act.eu/sistemi-ai-ad-alto-rischio/" />
   <link rel="alternate" hreflang="en" href="https://www.no-ai-act.eu/en/high-risk-ai-systems/" />
   <link rel="alternate" hreflang="fr" href="https://www.no-ai-act.eu/fr/systemes-ia-a-haut-risque/" />
@@ -14,42 +100,188 @@
   <link rel="alternate" hreflang="es" href="https://www.no-ai-act.eu/es/sistemas-ia-alto-riesgo/" />
   <link rel="alternate" hreflang="pt-PT" href="https://www.no-ai-act.eu/pt/sistemas-ia-risco-elevado/" />
   <link rel="alternate" hreflang="x-default" href="https://www.no-ai-act.eu/sistemi-ai-ad-alto-rischio/" />
-  <meta property="og:type" content="website" /><meta property="og:site_name" content="NO AI ACT" />
-  <meta property="og:locale" content="es_ES" />
   <meta property="og:locale:alternate" content="it_IT" />
   <meta property="og:locale:alternate" content="en_GB" />
   <meta property="og:locale:alternate" content="fr_FR" />
   <meta property="og:locale:alternate" content="de_DE" />
   <meta property="og:locale:alternate" content="pt_PT" />
-  <meta property="og:title" content="Sistemas de IA de alto riesgo: contexto y obligaciones" /><meta property="og:description" content="Qué significa alto riesgo en el Reglamento de IA: finalidad, documentación, supervisión humana y funciones del proveedor y responsable del despliegue." />
-  <meta property="og:url" content="https://www.no-ai-act.eu/es/sistemas-ia-alto-riesgo/" /><meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
-  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" /><meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta property="og:image:alt" content="Sistemas de IA de alto riesgo" />
-  <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="Sistemas de IA de alto riesgo: contexto y obligaciones" />
-  <meta name="twitter:description" content="Qué significa alto riesgo en el Reglamento de IA: finalidad, documentación, supervisión humana y funciones del proveedor y responsable del despliegue." /><meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" /><meta name="twitter:image:alt" content="Sistemas de IA de alto riesgo" />
-  <link rel="stylesheet" href="/src/styles/landing.css" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"NO AI ACT","item":"https://www.no-ai-act.eu/es/"},{"@type":"ListItem","position":2,"name":"Sistemas de IA de alto riesgo","item":"https://www.no-ai-act.eu/es/sistemas-ia-alto-riesgo/"}]}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Sistemas de IA de alto riesgo","url":"https://www.no-ai-act.eu/es/sistemas-ia-alto-riesgo/","inLanguage":"es","isAccessibleForFree":true,"learningResourceType":"Reading","image":"https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png"}</script>
-  <script>document.documentElement.classList.add('has-js');</script>
-</head><body class="eu-site">
-  <a class="skip-link" href="#main">Ir al contenido</a>
-  <header class="topbar"><div class="wrap"><a class="brand" href="/es/">NO AI ACT</a>
-    <nav class="site-nav" aria-label="Navegación"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Navegación">Navegación</button>
-    <ul class="nav-menu" id="site-menu"><li><a href="#play-languages">Jugar: elegir idioma</a></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="eu-topics">Temas</button><ul class="nav-sub" id="eu-topics"><li><a href="/es/">Inicio</a></li><li><a href="/es/como-funciona/">Cómo funciona NO AI ACT</a></li><li><a href="/es/educacion/">Recursos educativos sobre el Reglamento de IA</a></li><li><a href="/es/reglamento-ia-para-docentes/">El AI Act en la escuela: usos y responsabilidades</a></li><li><a href="/es/guia-reglamento-ia/">Guía introductoria del Reglamento de IA</a></li><li><a href="/es/glosario-ia/">Glosario del Reglamento de IA</a></li><li><a href="/es/privacidad/">Privacidad y estadísticas de uso</a></li><li><a href="/es/categorias-riesgo-ia/">Cómo interpretar las categorías de riesgo</a></li><li><a href="/es/practicas-ia-prohibidas/">Prácticas de inteligencia artificial prohibidas</a></li><li><a href="/es/sistemas-ia-alto-riesgo/" aria-current="page">Sistemas de IA de alto riesgo</a></li><li><a href="/es/obligaciones-transparencia-ia/">Obligaciones de transparencia en IA</a></li><li><a href="/es/modelos-ia-uso-general/">Modelos de IA de uso general</a></li><li><a href="/es/alfabetizacion-ia/">Alfabetización en inteligencia artificial</a></li><li><a href="/es/taller-ai-act-aula/">Un taller del AI Act para investigar y argumentar en el aula</a></li><li><a href="/es/ia-seleccion-personal/">IA en selección de personal: del filtro a la responsabilidad</a></li><li><a href="/es/kit-de-prensa/">NO AI ACT – Kit de prensa</a></li></ul></li></ul></nav>
-  </div></header>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar"><div class="wrap"><a class="brand" href="/es/">NO AI ACT</a><nav class="site-nav" aria-label="Menú"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menú">Menú</button><ul class="nav-menu" id="site-menu"><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-0">Jugar</button><ul class="nav-sub" id="topics-0"><li><a href="/es/">NO AI ACT: un juego serio de AI Act.Investiga las consecuencias.</a></li><li><a href="/es/como-funciona/">Cómo funciona NO AI ACT</a></li><li><a href="/es/para-formadores/">NO AI ACT para educadores</a></li><li><a href="/es/juego-serio-reglamento-ia/">Un juego serio sobre la Ley de AI de la UE</a></li><li><a href="/es/kit-de-prensa/">Kit de prensa</a></li><li><a href="/es/como-citar/">Cómo citar NO AI ACT</a></li><li><a href="/es/matteo-angeloni/">Matteo Angeloni</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-1">Aprender</button><ul class="nav-sub" id="topics-1"><li><a href="/es/educacion/">Centro de enseñanza de la Ley de Amnistía Internacional</a></li><li><a href="/es/alfabetizacion-ia/">Alfabetización de la AI y artículo 4 de la Ley de AI de la UE</a></li><li><a href="/es/ciudadania-digital-regulacion-ia/">La ciudadanía digital y la regulación de la IA</a></li><li><a href="/es/juegos-serios-regulacion-ia/">Juegos serios para la regulación de AI</a></li><li><a href="/es/investigacion-metodologia/">Investigación y metodología</a></li><li><a href="/es/aprendizaje-respetuoso-privacidad/">Aprendizaje consciente de la privacidad</a></li><li><a href="/es/preguntas-frecuentes/">Preguntas frecuentes</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-2">Docentes</button><ul class="nav-sub" id="topics-2"><li><a href="/es/reglamento-ia-para-docentes/">Ley de IA de la UE para los docentes</a></li><li><a href="/es/actividades-didacticas/">Actividades auladas</a></li><li><a href="/es/plan-clase-introduccion-ia/">Plan de lecciones: introducción a la Ley de AI</a></li><li><a href="/es/plan-clase-riesgo/">Plan de lecciones: enfoque basado en el riesgo</a></li><li><a href="/es/plan-clase-transparencia/">Plan de lecciones: transparencia y usuarios</a></li><li><a href="/es/taller-ai-act-aula/">The AI Act classroom lab</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-3">Reglamento de IA</button><ul class="nav-sub" id="topics-3"><li><a href="/es/guia-reglamento-ia/">The EU AI Act, explained simply</a></li><li><a href="/es/categorias-riesgo-ia/">Categorías de riesgo de la Ley de Inteligencia Artificial</a></li><li><a href="/es/practicas-ia-prohibidas/">Prácticas prohibidas de la AI</a></li><li><a href="/es/sistemas-ia-alto-riesgo/" aria-current="page">Sistemas de IA de alto riesgo</a></li><li><a href="/es/obligaciones-transparencia-ia/">Obligaciones de transparencia</a></li><li><a href="/es/modelos-ia-uso-general/">AI para fines generales</a></li><li><a href="/es/sanciones-reglamento-ia/">Sanciones de la ley AI: montos, que están expuestos, desde cuándo</a></li><li><a href="/es/reglamento-ia-rgpd/">La Ley de IA y el RGPD: cuando se aplica cada uno, y cuando ambos</a></li><li><a href="/es/glosario-ia/">Glosario de la Ley de AI</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-4">Organizaciones</button><ul class="nav-sub" id="topics-4"><li><a href="/es/reglamento-ia-empresas/">Reglamento de IA para empresas: obligaciones y actuaciones</a></li><li><a href="/es/ia-administracion-publica/">El Reglamento de IA en la administración y la contratación públicas</a></li><li><a href="/es/proveedor-responsable-despliegue-ia/">Proveedor vs responsable del despliegue en virtud de la Ley de AI de la UE</a></li><li><a href="/es/ia-seleccion-personal/">IA en la contratación y el empleo</a></li><li><a href="/es/evaluacion-impacto-derechos-fundamentales-ia/">Reglamento de IA: evaluación de impacto en los derechos fundamentales</a></li><li><a href="/es/deepfakes-transparencia/">Profundización y transparencia</a></li><li><a href="/es/calendario-reglamento-ia/">The AI Act application timeline</a></li></ul></li><li><a href="/es/privacidad/">Privacidad</a></li></ul></nav></div></header>
 <nav class="locale-links" aria-label="Idiomas"><div class="wrap"><a href="/sistemi-ai-ad-alto-rischio/" hreflang="it" lang="it"><img src="/assets/flags/it.png" width="28" height="20" alt="" /><span>Italiano</span></a><a href="/en/high-risk-ai-systems/" hreflang="en" lang="en"><img src="/assets/flags/gb.png" width="28" height="20" alt="" /><span>English</span></a><a href="/fr/systemes-ia-a-haut-risque/" hreflang="fr" lang="fr"><img src="/assets/flags/fr.png" width="28" height="20" alt="" /><span>Français</span></a><a href="/de/hochrisiko-ki-systeme/" hreflang="de" lang="de"><img src="/assets/flags/de.png" width="28" height="20" alt="" /><span>Deutsch</span></a><a href="/es/sistemas-ia-alto-riesgo/" hreflang="es" lang="es" aria-current="page"><img src="/assets/flags/es.png" width="28" height="20" alt="" /><span>Español</span></a><a href="/pt/sistemas-ia-risco-elevado/" hreflang="pt-PT" lang="pt-PT"><img src="/assets/flags/pt.png" width="28" height="20" alt="" /><span>Português</span></a></div></nav>
-  <main id="main"><section class="hero" aria-labelledby="page-title"><div class="wrap"><p class="stamp">NO AI ACT · Español</p><h1 id="page-title">Sistemas de IA de alto riesgo</h1><p class="lead">Alto riesgo no significa automáticamente prohibición; tampoco significa que una sola medida baste para cumplir todos los requisitos.</p><p class="cta-row"><a class="btn btn-primary" href="#play-languages">Jugar: elegir idioma</a></p></div></section>
-<section aria-labelledby="section-0"><div class="wrap"><h2 id="section-0"><span class="num">01</span>Una clasificación vinculada al contexto</h2><p>Determinados sistemas están sujetos a las reglas de alto riesgo cuando concurren las condiciones jurídicas previstas. Los ámbitos sensibles son un punto de partida importante, pero el análisis no debe terminar al mencionar un sector. La finalidad, la función del sistema y las disposiciones concretas deben examinarse conjuntamente.</p></div></section>
-<section aria-labelledby="section-1"><div class="wrap"><h2 id="section-1"><span class="num">02</span>Medidas que se puedan comprobar</h2><p>Documentación, calidad de los datos, registros y supervisión humana tratan aspectos diferentes de la gestión del riesgo. Decir que una persona lo revisa todo no basta si carece de información o de capacidad efectiva de intervención. Por eso el juego exige medidas concretas y justificadas, no simplemente expresiones que suenen tranquilizadoras.</p></div></section>
-<section aria-labelledby="section-2"><div class="wrap"><h2 id="section-2"><span class="num">03</span>Asignar las responsabilidades</h2><p>El proveedor y el responsable del despliegue no realizan necesariamente las mismas tareas. Distingue quién proporciona el sistema y quién lo utiliza en la situación analizada. Un informe del juego no comprueba todas las exigencias aplicables. Para adquirir, implantar o utilizar un sistema real siguen siendo esenciales la normativa vigente, las demás normas pertinentes y una evaluación profesional.</p></div></section>
 
+  <main id="main">
 
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <div class="wrap">
+        <ol>
+          <li><a href="/es/">NO AI ACT</a></li>
+          <li><a href="/es/guia-reglamento-ia/">EU AI Act guide</a></li>
+          <li aria-current="page">Sistemas de IA de alto riesgo</li>
+        </ol>
+      </div>
+    </nav>
+    <section class="hero" aria-labelledby="page-title">
+      <div class="wrap">
+        <p class="kicker">· Obligaciones</p>
+        <h1 id="page-title">Sistemas de IA de alto riesgo</h1>
+        <p class="lead">Entre &quot;banada&quot; y &quot;todo va&quot; se encuentra el centro de gravedad de la regulación: sistemas que pueden dar forma a su educación, trabajo, salud o acceso a los servicios. Se les permite, en condiciones diseñadas para hacerlos confiables y controvertidos.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/play/?lang=es">Inspeccione un caso de alto riesgo</a>
+          <a class="btn btn-ghost" href="/es/categorias-riesgo-ia/">Todas las categorías de riesgo</a>
+        </div>
+      </div>
+    </section>
 
+    <section aria-labelledby="meaning-title">
+      <div class="wrap">
+        <h2 id="meaning-title"><span class="num">01</span>Lo que significa &quot;alta riesgo&quot; en términos educativos</h2>
 
+        <p class="section-intro">El alto riesgo no significa mal o prohibido. Significa: <strong>si este sistema falla o discrimina, la gente real pierde cosas reales</strong> — un lugar en la escuela, una entrevista de trabajo, un diagnóstico, un beneficio. Así que la carga de la prueba cambia: el sistema debe demostrar que merece el despliegue.</p>
+      </div>
+    </section>
+    <section aria-labelledby="where-title">
+      <div class="wrap">
+        <h2 id="where-title"><span class="num">02</span>Donde la etiqueta normalmente aterriza</h2>
 
-  <section aria-labelledby="play-languages"><div class="wrap"><h2 id="play-languages">Jugar: elegir idioma</h2><p>El juego está disponible en italiano, inglés, francés, alemán, español y portugués europeo. Estas páginas están en español; las opciones siguientes abren el juego en el idioma indicado.</p><p class="eu-play-links"><a href="/play/?lang=it" hreflang="it">Italiano</a> · <a href="/play/?lang=en" hreflang="en">Inglés</a> · <a href="/play/?lang=fr" hreflang="fr">Francés</a> · <a href="/play/?lang=de" hreflang="de">Alemán</a> · <a href="/play/?lang=es" hreflang="es">Español</a> · <a href="/play/?lang=pt" hreflang="pt-PT">Portugués</a></p></div></section>
-  <section aria-labelledby="related-title"><div class="wrap"><h2 id="related-title">Seguir leyendo</h2><ul class="plain"><li><a href="/es/">Inicio</a></li><li><a href="/es/como-funciona/">Cómo funciona NO AI ACT</a></li><li><a href="/es/educacion/">Recursos educativos sobre el Reglamento de IA</a></li><li><a href="/es/reglamento-ia-para-docentes/">El AI Act en la escuela: usos y responsabilidades</a></li><li><a href="/es/guia-reglamento-ia/">Guía introductoria del Reglamento de IA</a></li><li><a href="/es/glosario-ia/">Glosario del Reglamento de IA</a></li><li><a href="/es/privacidad/">Privacidad y estadísticas de uso</a></li><li><a href="/es/categorias-riesgo-ia/">Cómo interpretar las categorías de riesgo</a></li><li><a href="/es/practicas-ia-prohibidas/">Prácticas de inteligencia artificial prohibidas</a></li><li><a href="/es/obligaciones-transparencia-ia/">Obligaciones de transparencia en IA</a></li><li><a href="/es/modelos-ia-uso-general/">Modelos de IA de uso general</a></li><li><a href="/es/alfabetizacion-ia/">Alfabetización en inteligencia artificial</a></li><li><a href="/es/taller-ai-act-aula/">Un taller del AI Act para investigar y argumentar en el aula</a></li><li><a href="/es/ia-seleccion-personal/">IA en selección de personal: del filtro a la responsabilidad</a></li><li><a href="/es/kit-de-prensa/">NO AI ACT – Kit de prensa</a></li></ul></div></section>
-  </main><footer aria-labelledby="footer-title"><div class="wrap"><h2 id="footer-title" class="stamp">Simplificación educativa, no asesoramiento jurídico</h2><p>NO AI ACT es un juego educativo independiente, gratuito y de código abierto. Estas explicaciones introducen conceptos seleccionados y no sustituyen el texto vigente ni una evaluación profesional. Su eficacia educativa no se ha demostrado mediante un estudio controlado.</p><p><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/spa" hreflang="es">Texto jurídico oficial de la UE</a> · <a href="/en/research-and-methodology/" hreflang="en" lang="en">Autor y metodología (en inglés)</a> · <a href="/game-statistics.html#es" hreflang="es">Información sobre las estadísticas</a></p><p class="credit">Desarrollado por Matteo Angeloni · v5.2.2<br />Contenido elaborado con ayuda de IA y revisión editorial; no es una traducción oficial.</p></div><p class="session-record-policy">Partidas guardadas locales y estadísticas agregadas desactivables. Solo con consentimiento de adultos: registro de sesión durante 90 días; textos del recorrido guiado con consentimiento aparte. Retirada, borrado y exportación en la barra del juego. <a href="/game-statistics.html#es">Información sobre las estadísticas</a></p></footer>
+        <ul class="plain">
+          <li><strong>Educación</strong> — admisiones, evaluaciones, plataformas adaptativas que dirigen caminos de aprendizaje.</li>
+          <li><strong>Empleo</strong> — Revisión de CV, entrevista de puntuación, promoción y soporte de terminación.</li>
+          <li><strong>Servicios esenciales</strong> - crédito, beneficios, priorización de la vivienda.</li>
+          <li><strong>Salud</strong> - soporte de decisión clínica y triaje.</li>
+        </ul>
+        <p>Cuatro de los casos del juego viven aquí: la entrevista que no existe, triaje invisible, el aula perfilada, la licitación opaca.</p>
+      </div>
+    </section>
+    <section aria-labelledby="duties-title">
+      <div class="wrap">
+        <h2 id="duties-title"><span class="num">03</span>Las obligaciones, en palabras claras</h2>
+
+        <ul class="plain">
+          <li><strong>Gestión de riesgos</strong> - identificar qué puede ir mal, para quién, y mitigar antes del despliegue.</li>
+          <li><strong>Gobernanza de datos</strong> - datos de capacitación pertinentes y representativos para la población afectada.</li>
+          <li><strong>Documentación &amp;quot; registro</strong> — el sistema debe ser explicable a una autoridad y rastreable después del hecho.</li>
+          <li><strong>Supervisión humana</strong> - una persona con competencia, información y autoridad para intervenir.</li>
+          <li><strong>Precisión y robustez</strong> - apropiado para las apuestas.</li>
+        </ul>
+        <p>Para todo el cuadro del lado de una empresa — papel, riesgo, competencia, plazos— véase <a href="/es/reglamento-ia-empresas/">AI Act for business</a>.</p>
+
+        <p><strong>Cuando se vuelven ejecutables.</strong> Estas obligaciones están en la regulación, pero el Omnibus Digital (Reg. (EU) 2026/1744) movió su fecha de aplicación: <strong>2 de diciembre 2027</strong> para los sistemas del anexo III: empleo, educación, servicios esenciales, justicia y <strong>2 de agosto de 2028</strong> para aquellos incrustados en productos ya regulados (Anexo I). No se eliminan las obligaciones: las obligaciones son idénticas en sustancia, lo que cambia es la fecha de la que una autoridad puede requerirlas, y cualquier persona que diseñe un sistema hoy que caerá en estas categorías tiene menos tiempo de lo que parece. El conjunto completo de fechas está en el <a href="/es/calendario-reglamento-ia/">tiempo de aplicación</a>.</p>
+      </div>
+    </section>
+    <section aria-labelledby="oversight-title">
+      <div class="wrap">
+        <h2 id="oversight-title"><span class="num">04</span>La trampa de la supervisión</h2>
+
+        <p class="section-intro">El modo de falla más enseñable: supervisión que existe en papel. Un operador que &quot;revisa&quot; 400 decisiones automatizadas al día no revisa ninguna. La evidencia del juego sigue regresando a esto — notas internas admitiendo personal &quot;seguir la puntuación&quot; — porque reconocer la supervisión falsa es una habilidad que los estudiantes pueden utilizar en cualquier sistema que conozcan.</p>
+      </div>
+    </section>
+    <section aria-labelledby="classroom-title">
+      <div class="wrap">
+        <h2 id="classroom-title"><span class="num">05</span>Debate de clase</h2>
+
+        <p class="section-intro">Fuertes impulsos: <em>¿Cuál de los deberes anteriores habría atrapado el fracaso en nuestro escenario? ¿Quién debería verificarlos – comprador, vendedor, autoridad? ¿Qué debería pasar cuando falta documentación?</em> El <a href="/es/actividades-didacticas/">página de actividades</a> tiene un ejercicio de clasificación listo. <a href="/es/proveedor-responsable-despliegue-ia/">proveedor e responsable del despliegue</a> para separar las responsabilidades, y <a href="/es/evaluacion-impacto-derechos-fundamentales-ia/">Guía para la evaluación de los efectos de los derechos fundamentales</a> para usos sensibles del sector público.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="obligations-practice-title">
+      <div class="wrap">
+        <h2 id="obligations-practice-title"><span class="num">06</span>Las obligaciones en la práctica: qué buscar</h2>
+
+        <p class="section-intro">Las obligaciones de alto riesgo leen mejor como preguntas para poner a un sistema real que como una lista para memorizar. Cada fila de abajo es una pregunta que un estudiante puede hacer de un caso concreto, además de la señal de que algo falta.</p>
+
+        <div class="table-wrap">
+          <table>
+            <caption>Obligación, cuestión operacional, y el síntoma de su ausencia</caption>
+            <thead>
+              <tr><th scope="col">Obligación (simplificada)</th><th scope="col">La pregunta a hacer</th><th scope="col">¿Cómo puedes decir que falta?</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Gestión de riesgos</th>
+                <td>¿Alguien ha escrito lo que puede salir mal, y para quién?</td>
+                <td>Nadie puede decir quién sería perjudicado primero por un error.</td>
+              </tr>
+              <tr>
+                <th scope="row">Gobernanza de datos</th>
+                <td>¿En qué datos se entrenaba, y quién estaba insuficientemente representado en él?</td>
+                <td>Los errores siguen concentrándose en los mismos grupos de personas.</td>
+              </tr>
+              <tr>
+                <th scope="row">Documentación técnica</th>
+                <td>¿Hay un documento que explica cómo funciona, que se mantiene al día?</td>
+                <td>La respuesta es &quot;el vendedor sabe&quot; y el vendedor señala en el folleto de ventas.</td>
+              </tr>
+              <tr>
+                <th scope="row">Registro (logging)</th>
+                <td>Si me opongo a una decisión hoy, ¿ quedaría un rastro?</td>
+                <td>No puede reconstruir qué versión del sistema decidió, o cuándo.</td>
+              </tr>
+              <tr>
+                <th scope="row">Supervisión humana</th>
+                <td>¿Puede la persona que supervisa realmente revocar el resultado?</td>
+                <td>Sólo pueden confirmar, o consiguen treinta segundos por archivo.</td>
+              </tr>
+              <tr>
+                <th scope="row">Precisión y robustez</th>
+                <td>¿La tasa de error se mide y publica, o simplemente se reclama?</td>
+                <td>Se cita un solo porcentaje agregado, sin desglose por grupo.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>La columna de la mano derecha es la útil didácticamente: mueve la atención del cumplimiento declarado al cumplimiento observable. <a href="/play/?lang=es">juego</a> construye sus archivos de casos - las exposiciones muestran síntomas, no certificados.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="compare-hr-title">
+      <div class="wrap">
+        <h2 id="compare-hr-title"><span class="num">07</span>Tres sistemas comparados</h2>
+
+        <p class="section-intro">Por qué la etiqueta de &quot;alta riesgo&quot; depende del contexto en lugar de la tecnología se hace más clara cuando se comparan los usos similares con diferentes resultados.</p>
+
+        <div class="table-wrap">
+          <table>
+            <caption>La misma familia técnica, diferentes ubicaciones</caption>
+            <thead>
+              <tr><th scope="col">Sistema</th><th scope="col">Donde se utiliza</th><th scope="col">Lectura educativa</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Clasificación automatizada de aplicaciones</th>
+                <td><a href="/es/ia-seleccion-personal/">Contratación</a></td>
+                <td>Típico <strong>alto riesgo</strong>: afecta el acceso al trabajo, por lo que necesita supervisión real, trazabilidad e información a las personas involucradas.</td>
+              </tr>
+              <tr>
+                <th scope="row">Clasificación automatizada del contenido</th>
+                <td>Una lista de reproducción musical</td>
+                <td><strong>Riesgo mínimo</strong>: la misma técnica de clasificación no toca ni los derechos fundamentales ni el acceso a servicios esenciales.</td>
+              </tr>
+              <tr>
+                <th scope="row">Anotación preventiva de los ciudadanos</th>
+                <td>Acceso a las prestaciones sociales</td>
+                <td>Territorio de frontera: puede ser <strong>alto riesgo</strong> cuando gobierna el acceso a un servicio esencial, o caer entre <a href="/es/practicas-ia-prohibidas/">prácticas prohibidas</a> si se convierte en puntuación social generalizada.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>La tercera fila produce las mejores discusiones, y es por eso que el juego dedica un caso de espejo al crédito cívico: la diferencia no está en el algoritmo, pero en lo que la puntuación decide y cuánto de una vida que alcanza.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer aria-labelledby="footer-title">
+    <div class="wrap">
+      <h2 id="footer-title" class="stamp">Simulación educativa – no asesoramiento jurídico</h2>
+      <p>NO AI ACT es una herramienta educativa independiente y de código abierto. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/spa" hreflang="es">Reglamento (UE) 2024/1689 (Ley de la AI)</a> y no reemplaza el texto legal o el asesoramiento profesional.</p>
+      <p><a href="/es/educacion/">Centro de educación</a> · <a href="/es/como-funciona/">Cómo funciona</a> · <a href="/es/para-formadores/">Para educadores</a> · <a href="/es/glosario-ia/">Glosario</a> · <a href="/es/sistemas-ia-alto-riesgo/" hreflang="it">Versione italiana</a></p>
+      <p class="credit">Diseñado y desarrollado por <a href="/es/matteo-angeloni/">Matteo Angeloni</a> · v5.3.0 · <span class="ai-disclosure">Hecho con AI, no por AI</span><br><span class="credit-affil">Doctor en doctorado en doctorado <a href="https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/">Società in mutamento: politiche, diritti e sicurezza</a> · <a href="https://www.unitus.it/">University of Tuscia</a> — proyecto independiente, no producto oficial de la universidad</span></p>
+    </div>
+  <p class="session-record-policy">Economías locales y estadísticas agregadas opcionales. Sólo con el consentimiento de los adultos: un registro de sesión durante 90 días; el texto guía requiere un consentimiento separado. Retirar, borrar o exportar desde la barra de juego. <a href="/game-statistics.html#es">Aviso de privacidad y contacto</a></p><p class="shared-play-languages">Jugar: <a href="/play/?lang=it" hreflang="it" lang="it">Italiano</a> · <a href="/play/?lang=en" hreflang="en" lang="en">English</a> · <a href="/play/?lang=fr" hreflang="fr" lang="fr">Français</a> · <a href="/play/?lang=de" hreflang="de" lang="de">Deutsch</a> · <a href="/play/?lang=es" hreflang="es" lang="es">Español</a> · <a href="/play/?lang=pt" hreflang="pt-PT" lang="pt-PT">Português</a></p></footer>
+  <!-- Cloudflare Web Analytics --><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;7c85578fc8ad4488a54c6bc670a10dcf&quot;}"></script><!-- End Cloudflare Web Analytics -->
   <script type="module" src="/src/scripts/nav.ts"></script>
 
 </body></html>

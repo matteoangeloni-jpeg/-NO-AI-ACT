@@ -25,6 +25,6 @@ Terminologia principale: Anbieter/Betreiber, proveedor/responsable del despliegu
 
 Le verifiche della release comprendono struttura completa dei dizionari, segnaposto, assenza di ripiego su altre lingue, indici delle prove e delle motivazioni nei 14 casi, query e persistenza di tutte le lingue, report e link, accessibilità semantica, parser dei contatori, typecheck, test unitari, build e integrità del dist. Non sono eseguiti smoke test, come richiesto dal proprietario. Gli esiti effettivi sono riportati nella release.
 
-Il dossier metodologico storico e il laboratorio indipendente Study 02 conservano le proprie versioni IT/EN/FR, dichiarate in `languages.json`. Sono risorse di ricerca separate dalla build pubblica, non interfacce mancanti del gioco. Questa traduzione non amplia automaticamente il protocollo sperimentale a nuove lingue o partecipanti.
+Aggiornamento V5.3.0: dossier metodologico e laboratorio locale Study 02 sono ora disponibili in IT/EN/FR/DE/ES/PT. I conteggi e i risultati riportati più sotto descrivono la V5.1 storica. Le traduzioni non dimostrano equivalenza sperimentale né autorizzano nuovi partecipanti. [Dossier attuale](README.md).
 
 Copertura tecnica e revisione dei testi non equivalgono a validazione linguistica umana o equivalenza delle forme. Restano da svolgere revisione bilingue specialistica, prove con tecnologie assistive reali e validazione educativa. Nessuno scoring automatico del pensiero critico, certificazione di competenza o raccolta individuale viene aggiunto.

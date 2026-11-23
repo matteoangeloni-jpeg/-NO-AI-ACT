@@ -10,15 +10,15 @@
 > to be governed, or compliant). It is an educational simulation about
 > algorithmic risk governance — not legal advice.
 
-- Version: v5.2.2
+- Version: v5.3.0
 - Status: published web version; tagged-release history is listed separately below.
 - Game languages: Italian, English, French, German, Spanish and European Portuguese (pt-PT).
-- Website languages: Italian, English and French; 16 introductory, practical and press resources each in German, Spanish and European Portuguese (pt-PT), including classroom workshops and recruitment cases. Press kits exist in all six website languages. The game supports the same six languages; editorial depth in the educational hub varies by locale.
+- Website languages: Italian, English, French, German, Spanish and European Portuguese (pt-PT), each with the same 37 complete editorial sections and press kit.
 - Audience: teachers and trainers, upper-secondary and university students, researchers, professionals working with AI governance
 - Pricing: free and open source, copyleft (GPL-3.0-or-later code, CC BY-SA 4.0 educational content; up to v2.0.0 it was MIT + CC BY 4.0)
-- 14 playable cases; 155 indexable website URLs (33 IT, 37 EN, 37 FR, 16 DE, 16 ES, 16 PT).
+- 14 playable cases in each of six languages; 222 indexable website URLs (37 per language).
 - Every public page shares a global navigation (Play · Education/Resources · Teachers · AI Act guide · Glossary · Privacy · language switch); the game and the education hub are reachable from every page, and the game links back to the site.
-- Best entry points: the home and education hub in the reader's language. Detailed lesson-plan and reference coverage varies by locale.
+- Best entry points: the home and education hub in the reader's language. Lesson plans, references, READMEs and the methodology dossier share six-language coverage.
 
 ## Guided inquiry in V5
 
@@ -144,7 +144,7 @@
 ## Project links
 
 - GitHub repository: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT
-- Last tagged release: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.2.2 (tagged 2026-11-22; consented session journal)
+- Last tagged release: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases/tag/v5.3.0 (tagged 2026-11-23; consented session journal)
 - Project brief: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/NO_AI_ACT_PROJECT_BRIEF.md
 - Teacher quick start: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/TEACHER_QUICK_START.md
 - Legal disclaimer: https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/docs/LEGAL_DISCLAIMER.md

@@ -22,7 +22,7 @@ function select(labelText, name, options, selected, callback, parent) {
 function render() {
   sheet = new StudySheet(form, language, occasion); dirty = false;
   const ui = COPY[language]; const material = FORMS[form][language];
-  document.documentElement.lang = language; document.title = ui.title;
+  document.documentElement.lang = language === 'pt' ? 'pt-PT' : language; document.title = ui.title;
   root.replaceChildren();
   node('h1', ui.title); node('p', ui.draft).className = 'notice'; node('p', ui.notice);
   const config = node('div'); config.className = 'config';
@@ -30,7 +30,7 @@ function render() {
     if (dirty && !window.confirm(ui.resetConfirm)) { renderSelects(); return; }
     update(el.value); render();
   }
-  const langSelect = select(ui.language, 'language', LANGUAGES.map(code => [code, { it: 'Italiano', en: 'English', fr: 'Français' }[code]]), language,
+  const langSelect = select(ui.language, 'language', LANGUAGES.map(code => [code, { it: 'Italiano', en: 'English', fr: 'Français', de: 'Deutsch', es: 'Español', pt: 'Português' }[code]]), language,
     el => change(el, value => { language = value; }), config);
   const formSelect = select(ui.form, 'form', ['A', 'B'].map(value => [value, value]), form,
     el => change(el, value => { form = value; }), config);

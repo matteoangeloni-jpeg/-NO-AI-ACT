@@ -1,5 +1,5 @@
 {
-  "$comment": "Language groups declare only existing page equivalents. IT/EN/FR cover the current full inventory; DE/ES/PT contain 16 introductory and practical resources each. Portuguese targets pt-PT. /play/ is noindex and supports IT/EN/FR/DE/ES/PT.",
+  "$comment": "37 complete topic groups in IT/EN/FR/DE/ES/PT (pt-PT); every language has the same editorial coverage. Existing URLs preserved. /play/ is noindex.",
   "site": "https://www.no-ai-act.eu/",
   "pairs": [
     {
@@ -21,12 +21,18 @@
     {
       "it": "per-docenti",
       "en": "en/for-educators",
-      "fr": "fr/pour-les-formateurs"
+      "fr": "fr/pour-les-formateurs",
+      "de": "de/fuer-lehrende",
+      "es": "es/para-formadores",
+      "pt": "pt/para-formadores"
     },
     {
       "it": "ai-act-serious-game",
       "en": "en/ai-act-serious-game",
-      "fr": "fr/serious-game-ai-act"
+      "fr": "fr/serious-game-ai-act",
+      "de": "de/serious-game-ki-verordnung",
+      "es": "es/juego-serio-reglamento-ia",
+      "pt": "pt/jogo-serio-regulamento-ia"
     },
     {
       "it": "privacy-by-design",
@@ -111,52 +117,82 @@
     {
       "it": "provider-deployer-ai-act",
       "en": "en/provider-deployer-ai-act",
-      "fr": "fr/fournisseur-deployeur-ai-act"
+      "fr": "fr/fournisseur-deployeur-ai-act",
+      "de": "de/anbieter-betreiber-ki-verordnung",
+      "es": "es/proveedor-responsable-despliegue-ia",
+      "pt": "pt/prestador-responsavel-implantacao"
     },
     {
       "it": "ai-act-pubblica-amministrazione",
       "en": "en/ai-act-public-administration",
-      "fr": "fr/ai-act-administration-publique"
+      "fr": "fr/ai-act-administration-publique",
+      "de": "de/ki-oeffentliche-verwaltung",
+      "es": "es/ia-administracion-publica",
+      "pt": "pt/ia-administracao-publica"
     },
     {
       "it": "ai-act-per-le-aziende",
       "en": "en/ai-act-for-business",
-      "fr": "fr/ai-act-entreprises"
+      "fr": "fr/ai-act-entreprises",
+      "de": "de/ki-verordnung-unternehmen",
+      "es": "es/reglamento-ia-empresas",
+      "pt": "pt/regulamento-ia-empresas"
     },
     {
       "it": "sanzioni-ai-act",
       "en": "en/ai-act-penalties",
-      "fr": "fr/sanctions-ai-act"
+      "fr": "fr/sanctions-ai-act",
+      "de": "de/ki-verordnung-sanktionen",
+      "es": "es/sanciones-reglamento-ia",
+      "pt": "pt/sancoes-regulamento-ia"
     },
     {
       "it": "ai-act-e-gdpr",
       "en": "en/ai-act-and-gdpr",
-      "fr": "fr/ai-act-et-rgpd"
+      "fr": "fr/ai-act-et-rgpd",
+      "de": "de/ki-verordnung-dsgvo",
+      "es": "es/reglamento-ia-rgpd",
+      "pt": "pt/regulamento-ia-rgpd"
     },
     {
       "it": "fria-ai-act-valutazione-diritti-fondamentali",
       "en": "en/fria-ai-act-fundamental-rights-impact-assessment",
-      "fr": "fr/analyse-impact-droits-fondamentaux-ai-act"
+      "fr": "fr/analyse-impact-droits-fondamentaux-ai-act",
+      "de": "de/grundrechte-folgenabschaetzung-ki",
+      "es": "es/evaluacion-impacto-derechos-fundamentales-ia",
+      "pt": "pt/avaliacao-impacto-direitos-fundamentais-ia"
     },
     {
       "it": "apprendimento-privacy-consapevole",
       "en": "en/privacy-conscious-learning",
-      "fr": "fr/apprentissage-respectueux-vie-privee"
+      "fr": "fr/apprentissage-respectueux-vie-privee",
+      "de": "de/datenschutzbewusstes-lernen",
+      "es": "es/aprendizaje-respetuoso-privacidad",
+      "pt": "pt/aprendizagem-respeitadora-privacidade"
     },
     {
       "it": "serious-game-regolazione-ai",
       "en": "en/serious-games-for-ai-regulation",
-      "fr": "fr/serious-games-reglementation-ia"
+      "fr": "fr/serious-games-reglementation-ia",
+      "de": "de/serious-games-ki-regulierung",
+      "es": "es/juegos-serios-regulacion-ia",
+      "pt": "pt/jogos-serios-regulacao-ia"
     },
     {
       "it": "attivita-didattiche",
       "en": "en/classroom-activities",
-      "fr": "fr/activites-pedagogiques"
+      "fr": "fr/activites-pedagogiques",
+      "de": "de/unterrichtsaktivitaeten",
+      "es": "es/actividades-didacticas",
+      "pt": "pt/atividades-pedagogicas"
     },
     {
       "it": "lezione-introduzione-ai-act",
       "en": "en/lesson-plan-introduction-to-the-ai-act",
-      "fr": "fr/seance-introduction-ai-act"
+      "fr": "fr/seance-introduction-ai-act",
+      "de": "de/unterrichtsplan-ki-einstieg",
+      "es": "es/plan-clase-introduccion-ia",
+      "pt": "pt/plano-aula-introducao-ia"
     },
     {
       "it": "glossario",
@@ -169,17 +205,26 @@
     {
       "it": "come-citare",
       "en": "en/how-to-cite",
-      "fr": "fr/comment-citer"
+      "fr": "fr/comment-citer",
+      "de": "de/richtig-zitieren",
+      "es": "es/como-citar",
+      "pt": "pt/como-citar"
     },
     {
       "it": "ricerca-e-metodologia",
       "en": "en/research-and-methodology",
-      "fr": "fr/recherche-methodologie"
+      "fr": "fr/recherche-methodologie",
+      "de": "de/forschung-methodik",
+      "es": "es/investigacion-metodologia",
+      "pt": "pt/investigacao-metodologia"
     },
     {
       "it": "matteo-angeloni",
       "en": "en/matteo-angeloni",
-      "fr": "fr/matteo-angeloni"
+      "fr": "fr/matteo-angeloni",
+      "de": "de/matteo-angeloni",
+      "es": "es/matteo-angeloni",
+      "pt": "pt/matteo-angeloni"
     },
     {
       "it": "press-kit",
@@ -192,12 +237,18 @@
     {
       "it": "tempi-applicazione-ai-act",
       "en": "en/ai-act-application-timeline",
-      "fr": "fr/calendrier-application-ai-act"
+      "fr": "fr/calendrier-application-ai-act",
+      "de": "de/ki-verordnung-zeitplan",
+      "es": "es/calendario-reglamento-ia",
+      "pt": "pt/calendario-regulamento-ia"
     },
     {
       "it": "deepfake-e-trasparenza",
       "en": "en/deepfakes-and-transparency",
-      "fr": "fr/hypertrucages-transparence"
+      "fr": "fr/hypertrucages-transparence",
+      "de": "de/deepfakes-transparenz",
+      "es": "es/deepfakes-transparencia",
+      "pt": "pt/deepfakes-transparencia"
     },
     {
       "it": "ai-nel-lavoro-e-selezione",
@@ -214,18 +265,40 @@
       "de": "de/ai-act-unterrichtseinheit",
       "es": "es/taller-ai-act-aula",
       "pt": "pt/atividade-ai-act-sala-aula"
+    },
+    {
+      "it": "cittadinanza-digitale-regolazione-ia",
+      "en": "en/digital-citizenship-ai-regulation",
+      "fr": "fr/citoyennete-numerique-reglementation-ia",
+      "de": "de/digitale-buergerschaft-ki-regulierung",
+      "es": "es/ciudadania-digital-regulacion-ia",
+      "pt": "pt/cidadania-digital-regulacao-ia"
+    },
+    {
+      "it": "lezione-approccio-rischio",
+      "en": "en/lesson-plan-risk-based-approach",
+      "fr": "fr/seance-approche-par-les-risques",
+      "de": "de/unterrichtsplan-risiko",
+      "es": "es/plan-clase-riesgo",
+      "pt": "pt/plano-aula-risco"
+    },
+    {
+      "it": "lezione-trasparenza-utenti",
+      "en": "en/lesson-plan-transparency-and-users",
+      "fr": "fr/seance-transparence-utilisateurs",
+      "de": "de/unterrichtsplan-transparenz",
+      "es": "es/plan-clase-transparencia",
+      "pt": "pt/plano-aula-transparencia"
+    },
+    {
+      "it": "faq",
+      "en": "en/faq",
+      "fr": "fr/faq",
+      "de": "de/faq",
+      "es": "es/preguntas-frecuentes",
+      "pt": "pt/perguntas-frequentes"
     }
   ],
-  "enOnly": [
-    "en/digital-citizenship-ai-regulation",
-    "en/lesson-plan-risk-based-approach",
-    "en/lesson-plan-transparency-and-users",
-    "en/faq"
-  ],
-  "frForEn": {
-    "en/digital-citizenship-ai-regulation": "fr/citoyennete-numerique-reglementation-ia",
-    "en/faq": "fr/faq",
-    "en/lesson-plan-risk-based-approach": "fr/seance-approche-par-les-risques",
-    "en/lesson-plan-transparency-and-users": "fr/seance-transparence-utilisateurs"
-  }
+  "enOnly": [],
+  "frForEn": {}
 }

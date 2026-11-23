@@ -1,0 +1,110 @@
+{
+  "copy": {
+    "title": "NO AI ACT · Study 02 laboratório",
+    "notice": "Protótipo local para ensaios fictícios. As sessões dos participantes requerem um protocolo autorizado, um aviso de informação e uma revisão humana. Tudo permanece nesta aba e é perdido ao recarregar; baixar é uma escolha explícita. Não introduza nomes ou dados pessoais.",
+    "language": "Língua",
+    "form": "Forma",
+    "occasion": "Ocasião",
+    "pre": "Antes do jogo",
+    "post": "Após o jogo",
+    "participant": "Tarefa independente",
+    "observer": "Observação e rubrica",
+    "task": "Instruções",
+    "prompt": "Escreva uma avaliação autónoma: esclareça o que é preciso decidir, compare pelo menos duas fontes justificando o seu peso, relacione as provas com a conclusão e uma medida proporcional, considere uma interpretação alternativa e indique informação em falta e consequências para as pessoas. Pode fundamentar uma conclusão condicionada. Não existem respostas para selecionar. Tempo previsto: 10–15 minutos; sem correção automática.",
+    "legal": "Quadro comum a ambas as formas",
+    "legalText": "Orientação: o artigo 6.º e o anexo III, ponto 3, alínea a), exigem verificar a finalidade prevista e a influência nas admissões. O artigo 6.º, n.º 3, tem condições específicas. As designações «cultural» ou «associativo» não resolvem a qualificação. O texto consolidado da UE e a recomendação do Conselho da Europa têm natureza jurídica distinta.",
+    "lawLink": "Regulamento da UE · consolidado 27 de julho de 2026",
+    "councilLink": "Conselho da Europa · CM/Rec(2026)12",
+    "answer": "O meu argumento",
+    "seal": "Enviar e bloquear texto",
+    "sealed": "Texto enviado. Não foi avaliado automaticamente.",
+    "required": "Escreva uma resposta antes de enviar.",
+    "print": "Imprimir materiais visíveis",
+    "context": "CEPAJe contexto",
+    "contextPrompt": "Configuração e dispositivo; linguagem e acessibilidade; objetivo e duração; mediação do professor; conhecimento prévio; modo de jogo. Descreva as condições sem identificar pessoas.",
+    "observation": "Observação estruturada de jogos",
+    "observed": "Ação ou enunciação observada e ordem de episódios",
+    "interpretation": "Interpretação provisória e explicação alternativa",
+    "observationRows": [
+      "Exploração, revisita e ajuda solicitada",
+      "Avaliação da origem e dos limites",
+      "Explicada a ligação entre as provas",
+      "Retenção ou revisão fundamentada de uma hipótese",
+      "Argumento antes do feedback",
+      "Incerteza e consequências para as pessoas",
+      "Utilização de feedback e estratégia para um novo caso"
+    ],
+    "rubric": "Rubric preliminar · somente codificação humana",
+    "rubricRows": [
+      "Requisito, medida e responsabilidade contextualizados",
+      "Provença e relevância",
+      "Ligação entre a prova e a conclusão",
+      "Interpretação alternativa e evidência discriminativa",
+      "Incerteza e direitos",
+      "Revisão após feedback (apenas debrief do jogo)"
+    ],
+    "anchors": [
+      "Não observado / não aplicável",
+      "0 · Provas não explicitadas nesta tarefa",
+      "1 · Provas parciais",
+      "2 · Evidências elaboradas"
+    ],
+    "rationale": "Excerto de texto, razão do código e possível explicação alternativa",
+    "noTotal": "Sem total nem pontuação automática. Não observado distingue-se de 0. Codifique a correção jurídica separadamente. Nas tarefas PRE/POST, a revisão após feedback fica como não aplicável. Dois avaliadores independentes comparam os códigos antes da discussão.",
+    "legalJudgment": "Avaliação jurídica separada, condicionada aos factos e à revisão jurídica",
+    "guidance": "Guia Facilitador",
+    "release": "A coleção está terminada: show debrief",
+    "afterOnly": "Mostrar somente após POST ou no momento predefinido no protocolo. Esta ação não corrige o texto ou atribui pontos.",
+    "debrief": "Compare a promessa do prestador com o registo e o procedimento. O registo documenta uma semana e não demonstra, por si só, a causa de cada exclusão. Examine a falta de lugares ou o erro administrativo como alternativas. Solicite aviso ou concurso, finalidade efetiva, critérios, poderes de revisão e resultados. A natureza educativa e a influência nas admissões exigem verificação; são admissíveis conclusões condicionadas e fundamentadas. Reconstitua razões e direitos e formule depois uma verificação aplicável noutro contexto.",
+    "download": "Transfira explicitamente uma cópia local",
+    "downloadNote": "O ficheiro contém o texto apresentado e quaisquer notas humanas presentes, sem identificadores ou telemetria. Apenas o conservará no sistema de investigação autorizado.",
+    "reset": "Nova folha em branco",
+    "resetConfirm": "Apagar o trabalho desta aba? Não pode ser recuperado.",
+    "statusDownload": "Cópia local preparada; nada enviado para um servidor.",
+    "draft": "Instrumento preliminar: a equivalência das formas, das rubricas e das traduções requer validação com pessoas."
+  },
+  "A": {
+    "title": "As oficinas do arquivo municipal",
+    "scenario": "Em 2032, um arquivo municipal oferece oficinas de restauro e leitura de documentos históricos. Os lugares são limitados. Um serviço de IA sugere oportunidades aos visitantes. A direção solicita uma avaliação documentada da sua utilização. Todos os materiais são fictícios; aplique o quadro jurídico fornecido sem presumir factos não documentados.",
+    "sources": [
+      [
+        "A1 · Ficha do prestador",
+        "O serviço propõe oficinas com base nos interesses declarados e nas participações anteriores. Produz um índice de afinidade sem decidir a admissão. O pessoal pode corrigir cada sugestão. O prestador apresenta orientação cultural; a ficha não descreve as definições efetivamente utilizadas pelo arquivo."
+      ],
+      [
+        "A2 · Procedimento da direção",
+        "Cada oficina tem doze lugares. O pessoal verifica a disponibilidade e os requisitos do aviso e comunica o resultado. As recomendações não devem excluir candidaturas. Está prevista revisão a pedido. Não está anexado o aviso que define a natureza e os requisitos das oficinas."
+      ],
+      [
+        "A3 · Registo operacional de uma semana",
+        "As candidaturas acima do limiar de afinidade recebem um convite. As restantes ficam inativas até um funcionário as ativar. O campo «motivo da não ativação» está vazio. Não constam alterações manuais na semana observada. O registo não abrange semanas anteriores nem resultados das revisões."
+      ],
+      [
+        "A4 · Relato de um visitante",
+        "Candidatei-me a uma oficina que ainda indicava lugares disponíveis. Não recebi convite. No atendimento recomendaram outra atividade proposta pelo serviço. Pedi a revisão da candidatura; ainda desconheço o resultado. Não sei que informação influenciou a sugestão."
+      ]
+    ]
+  },
+  "B": {
+    "title": "As oportunidades da cooperativa artesanal",
+    "scenario": "Em 2032, uma cooperativa artesanal oferece encontros de aprendizagem prática aos sócios. Os lugares são limitados. Um serviço de IA sugere oportunidades aos requerentes. O conselho solicita uma avaliação documentada da sua utilização. Todos os materiais são fictícios; aplique o quadro jurídico fornecido sem presumir factos não documentados.",
+    "sources": [
+      [
+        "B1 · Ficha do prestador",
+        "O serviço propõe encontros com base nos interesses declarados e nas atividades anteriores. Produz um índice de compatibilidade sem atribuir lugares. Os responsáveis podem corrigir cada sugestão. O prestador apresenta orientação associativa; a ficha não descreve as definições efetivamente utilizadas pela cooperativa."
+      ],
+      [
+        "B2 · Procedimento do conselho",
+        "Cada encontro tem doze lugares. Os responsáveis verificam a disponibilidade e os requisitos do concurso e comunicam o resultado. As recomendações não devem excluir pedidos. Está prevista revisão a pedido. Não está anexado o concurso que define a natureza e os requisitos dos encontros."
+      ],
+      [
+        "B3 · Registo operacional de uma semana",
+        "Os pedidos acima do limiar de compatibilidade recebem uma proposta de lugar. Os restantes ficam suspensos até um responsável os reativar. O campo «motivo da suspensão» está vazio. Não constam intervenções manuais na semana observada. O registo não abrange semanas anteriores nem resultados das revisões."
+      ],
+      [
+        "B4 · Relato de um sócio",
+        "Pedi um encontro que ainda indicava lugares disponíveis. Não recebi proposta. Na secretaria recomendaram outra oportunidade proposta pelo serviço. Pedi a revisão do pedido; ainda desconheço o resultado. Não sei que informação influenciou a sugestão."
+      ]
+    ]
+  }
+}

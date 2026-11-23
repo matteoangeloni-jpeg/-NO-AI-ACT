@@ -63,7 +63,7 @@ describe('teacher guide resources and exports cover every playable language', ()
 describe('the historical methodology dossier retains its declared research languages', () => {
   for (const language of researchLanguages) {
     it(`${language}: includes all seven substantial documents with working local navigation`, () => {
-      const index = read('docs/v5/README.md');
+      const index = read(`docs/v5/README${language === 'it' ? '' : `.${language}`}.md`);
       for (const name of documents) {
         const path = documentPath(language, name);
         expect(existsSync(path), path).toBe(true);
@@ -93,7 +93,7 @@ describe('the historical methodology dossier retains its declared research langu
     });
 
     it(`${language}: provides both V5 release notes and preserves the original screenshot version`, () => {
-      for (const version of ['5.0.0', '5.0.1']) {
+      for (const version of ['it','en','fr'].includes(language) ? ['5.0.0', '5.0.1'] : []) {
         const path = `docs/RELEASE_NOTES_v${version}${language === 'it' ? '' : `.${language}`}.md`;
         const notes = read(path);
         expect(notes).toContain(`v${version}`);

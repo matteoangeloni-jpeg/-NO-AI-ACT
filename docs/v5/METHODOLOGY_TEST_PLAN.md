@@ -1,6 +1,9 @@
 # Piano di verifica del percorso guidato
 
-[Italiano](METHODOLOGY_TEST_PLAN.md) · [English](en/METHODOLOGY_TEST_PLAN.md) · [Français](fr/METHODOLOGY_TEST_PLAN.md)
+
+> Edizione linguistica V5.3.0 · 23 novembre 2026. Il dossier e i materiali locali di Study 02 sono ora disponibili in sei lingue. Date, conteggi e risultati del prototipo descrivono le esecuzioni storiche. Il contratto attuale del registro facoltativo per maggiorenni è in SESSION_JOURNAL.md e supera il precedente vincolo dei soli aggregati. Le traduzioni non dimostrano equivalenza degli strumenti, efficacia educativa o validità della rubrica. Non sono stati eseguiti nuovi test per questo aggiornamento dei contenuti.
+
+
 
 Prima della modifica. Le tre matrici A, B e C sono state scritte nei documenti METHODOLOGY.md e LEGAL_LEARNING_MATRIX.md. Il codice di partenza offre guida contestuale, confronto, rapporto con motivazioni predisposte, debrief e ripasso. Mancano produzione autonoma e confronto esplicito fra idea iniziale e feedback.
 

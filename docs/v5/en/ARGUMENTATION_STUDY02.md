@@ -1,6 +1,9 @@
 # Preliminary rubric and Study 02 transfer task
 
-[Italiano](../ARGUMENTATION_STUDY02.md) · [English](ARGUMENTATION_STUDY02.md) · [Français](../fr/ARGUMENTATION_STUDY02.md)
+
+> V5.3.0 language edition · 23 November 2026. The dossier and local Study 02 materials now have six language versions. Prototype dates, counts and outcomes describe historical executions. The current optional adult journal contract is in SESSION_JOURNAL.md and supersedes the earlier aggregates-only restriction. Translations do not establish instrument equivalence, educational effectiveness or rubric validity. No new tests were run for this content update.
+
+
 
 Working version of 21 November 2026. Proposed design; no study has been conducted. The rubric requires validation with human raters and participants from the intended audience.
 

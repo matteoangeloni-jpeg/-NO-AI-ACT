@@ -1,0 +1,28 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+const replace=(file,pairs)=>{let text=readFileSync(file,'utf8');for(const[from,to]of pairs)text=text.replaceAll(from,to);writeFileSync(file,text);};
+replace('en/faq/index.html',[
+ ['No. The game runs in the browser with no accounts, emails or identifiers. Progress is stored only in the browser\'s localStorage.','No account or email is required. Game progress is saved in the browser. The optional adult session journal uses a random session identifier only after consent.'],
+ ['Players are not profiled. Decisions, answers, scores and reports stay on the device. The game sends only limited aggregate usage and game-generated assessment categories, without cookies or persistent player identifiers; these counters can be disabled and respect DNT/GPC.','Basic aggregate counters can be disabled. Adults may separately consent to a pseudonymous session journal retained for 90 days; guided-path writing needs an additional consent. Withdraw consent, erase or export the record from the game bar. No advertising profiles or cross-visit tracking are added. DNT/GPC are respected.'],
+ ['Italian and English — the full game, and the educational hub on both sides of the site.','Italian, English, French, German, Spanish and European Portuguese: all 14 game cases, 37 website sections per language, press kits and the methodology dossier. The local Study 02 materials also have six linguistic versions; their equivalence still requires human validation.'],
+ ['. What it collects (nothing much, verifiably):','. What it collects and how consent works:']
+]);
+replace('fr/faq/index.html',[
+ ['Non. Le jeu fonctionne dans le navigateur sans compte, adresse électronique ni identifiant. La progression est conservée uniquement dans le localStorage du navigateur.','Aucun compte ni adresse électronique ne sont nécessaires. La progression est sauvegardée dans le navigateur. Le registre facultatif réservé aux adultes utilise un identifiant de session aléatoire uniquement après consentement.'],
+ ['Les joueurs ne sont pas profilés. Décisions, Sauvegardes locales et statistiques agrégées désactivables. Avec le consentement des adultes uniquement : registre de session pendant 90 jours ; accord distinct pour les textes du parcours guidé. Retrait, effacement et export dans la barre du jeu. Le jeu transmet uniquement des catégories agrégées et limitées d\'utilisation et d\'évaluation produite par le jeu, sans cookies ni identifiant persistant ; ces compteurs peuvent être désactivés et respectent DNT/GPC.','Les compteurs agrégés peuvent être désactivés. Les adultes peuvent consentir séparément à un registre de session pseudonyme conservé 90 jours ; les textes du parcours guidé nécessitent un accord supplémentaire. Retrait du consentement, effacement et export sont disponibles dans la barre du jeu. Aucun profil publicitaire ni suivi entre visites ne sont ajoutés. DNT/GPC sont respectés.'],
+ ["L'italien, l'anglais et le français : le jeu complet et les ressources éducatives sont accessibles dans ces langues dans cette version.",'Italien, anglais, français, allemand, espagnol et portugais européen : les 14 cas, 37 sections du site par langue, les dossiers de presse et le dossier méthodologique. Les matériaux locaux de Study 02 existent également dans les six langues ; leur équivalence reste à valider avec des personnes.']
+]);
+replace('en/press-kit/index.html',[
+ ['Guides, glossaries, activities and workshops are available in Italian, English and French, with selected resources also in German, Spanish and European Portuguese. The game supports all six languages.','Guides, glossaries, activities, lesson plans, workshops, press kits and the methodology dossier are available in Italian, English, French, German, Spanish and European Portuguese. Each language covers all 37 website sections and all 14 game cases.'],
+ ['Version 5.0 and educational resources','Version 5.3.0 and educational resources']
+]);
+replace('press-kit/index.html',[
+ ['Guide, glossari, attività e laboratori sono disponibili in italiano, inglese e francese, con una selezione di risorse anche in tedesco, spagnolo e portoghese europeo. Il gioco è disponibile in tutte e sei le lingue.','Guide, glossari, attività, lezioni, laboratori, press kit e dossier metodologico sono disponibili in italiano, inglese, francese, tedesco, spagnolo e portoghese europeo. Ogni lingua copre tutte le 37 sezioni del sito e tutti i 14 casi del gioco.'],
+ ['Versione 5.0 e risorse didattiche','Versione 5.3.0 e risorse didattiche']
+]);
+replace('fr/dossier-de-presse/index.html',[
+ ['Guides, glossaires, activités et ateliers sont disponibles en italien, anglais et français, avec une sélection de ressources en allemand, espagnol et portugais européen. Le jeu est disponible dans les six langues.','Guides, glossaires, activités, séances, ateliers, dossiers de presse et dossier méthodologique sont disponibles en italien, anglais, français, allemand, espagnol et portugais européen. Chaque langue couvre les 37 sections du site et les 14 cas du jeu.'],
+ ['Version 5.0 et ressources pédagogiques','Version 5.3.0 et ressources pédagogiques']
+]);
+replace('en/lesson-plan-risk-based-approach/index.html',[
+ ['Each student writes the "one detail that changes everything" for a scenario of their choice — the single most reliable indicator they grasped context-dependence. Collect and read three aloud.','Each student writes the "one detail that changes everything" for a scenario of their choice and explains why. Collect and discuss three examples. This is evidence for formative discussion, not proof of learning or a validated competence measure.']
+]);

@@ -1,5 +1,27 @@
 {
-  "methodologyDossier": ["it", "en", "fr"],
-  "independentStudy02": ["it", "en", "fr"],
-  "note": "Historical V5 methodology and separately controlled research materials. Public playable languages are derived from src/game/i18n, not from this document registry."
+  "methodologyDossier": [
+    "it",
+    "en",
+    "fr",
+    "de",
+    "es",
+    "pt"
+  ],
+  "independentStudy02": [
+    "it",
+    "en",
+    "fr",
+    "de",
+    "es",
+    "pt"
+  ],
+  "sessionJournal": [
+    "it",
+    "en",
+    "fr",
+    "de",
+    "es",
+    "pt"
+  ],
+  "note": "Six linguistic versions of the same materials. Linguistic availability does not establish scientific equivalence or validate Study 02. Historical dates and outcomes are preserved."
 }

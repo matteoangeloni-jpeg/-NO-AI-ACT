@@ -1,12 +1,178 @@
-<!doctype html>
-<html lang="es"><head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <title>NO AI ACT: juego educativo sobre el Reglamento de IA</title>
-  <meta name="description" content="Juego educativo gratuito sobre el Reglamento europeo de IA: investiga 14 casos, clasifica riesgos y justifica decisiones. Juega en el navegador sin cuenta." />
-  <meta name="author" content="Matteo Angeloni" />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
-  <link rel="canonical" href="https://www.no-ai-act.eu/es/" />
+<!DOCTYPE html><html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="https://www.no-ai-act.eu/favicon.svg">
+
+  <title>NO AI ACT — Un juego serio de investigación sobre la Ley de AI de la UE</title>
+  <meta name="description" content="Un juego serio de investigación gratuito sobre el Reglamento europeo de IA: investiga 14 casos y aprende a clasificar sus riesgos. No constituye asesoramiento jurídico.">
+  <meta name="author" content="NO AI ACT">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <link rel="canonical" href="https://www.no-ai-act.eu/es/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="NO AI ACT">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="NO AI ACT — Un juego serio de investigación sobre la Ley de AI de la UE">
+  <meta property="og:description" content="Investigar 14 sistemas de inteligencia artificial y aprender a clasificar su riesgo en virtud de la Ley europea de inteligencia artificial.">
+  <meta property="og:url" content="https://www.no-ai-act.eu/es/">
+  <meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png">
+  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="NO AI ACT de cobertura: juego educativo gratuito serio en la Ley de AI de la UE.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NO AI ACT — Un juego serio de investigación sobre la Ley de AI de la UE">
+  <meta name="twitter:description" content="Investigar 14 sistemas de inteligencia artificial y aprender a clasificar su riesgo en virtud de la Ley europea de inteligencia artificial.">
+  <meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png">
+  <meta name="twitter:image:alt" content="NO AI ACT de cobertura: juego educativo gratuito serio en la Ley de AI de la UE.">
+  <link rel="stylesheet" href="https://www.no-ai-act.eu/src/styles/landing.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NO AI ACT",
+  "alternateName": "NO AI ACT — Simulator of an unregulated society",
+  "url": "https://www.no-ai-act.eu/es/",
+  "inLanguage": [
+    "it",
+    "en",
+    "fr",
+    "de",
+    "es",
+    "pt-PT"
+  ],
+  "description": "Juego serio de investigación gratis sobre la Ley europea de inteligencia artificial: 14 casos para aprender a clasificar el riesgo de sistemas de inteligencia artificial."
+}
+</script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "NO AI ACT",
+  "applicationCategory": "EducationalApplication",
+  "applicationSubCategory": "Serious game",
+  "operatingSystem": "Web browser",
+  "url": "https://www.no-ai-act.eu/play/?lang=es",
+  "image": "https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png",
+  "inLanguage": [
+    "it",
+    "en",
+    "fr",
+    "de",
+    "es",
+    "pt-PT"
+  ],
+  "description": "Juego de investigación educativa sobre la Ley Europea de Inteligencia Artificial. El jugador analiza los sistemas AI, cita las pruebas y presenta un informe de inspección clasificando su riesgo.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  },
+  "isAccessibleForFree": true,
+  "license": "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/LICENSE"
+}
+</script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "NO AI ACT - Investigación de la Ley de IA",
+  "url": "https://www.no-ai-act.eu/es/",
+  "image": "https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png",
+  "inLanguage": "es",
+  "learningResourceType": "Serious game",
+  "educationalLevel": "Upper secondary, university, professional training",
+  "interactivityType": "active",
+  "isAccessibleForFree": true,
+  "teaches": [
+    "Risk classification of artificial intelligence systems",
+    "Prohibited AI practices under the European AI Act",
+    "High-risk systems and their obligations",
+    "Transparency, human oversight and deployer responsibility",
+    "Contestability of automated decisions"
+  ],
+  "about": {
+    "@type": "Thing",
+    "name": "Reglamento europeo de Inteligencia Artificial"
+  }
+}
+</script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "es",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Qué es NO AI ACT?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Es un juego serio de investigación gratuito sobre la Ley europea de inteligencia artificial. Usted investiga sistemas de inteligencia artificial, examina las pruebas y presenta un informe clasificando su riesgo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Es NO AI ACT asesoramiento legal?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Es una simulación educativa simplificada. No es un consejo legal y no reemplaza el texto de la regulación o la opinión de un profesional."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Necesito registrar o crear una cuenta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No se requiere registro ni cuenta. El progreso sigue siendo local. Los contadores de uso agregado automático pueden desactivarse en la barra de juego; las respuestas y los resultados no se envían."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuántos casos puedo jugar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Catorce casos, desde los más claros hasta los más ambiguos: desde el escorado social prohibido y la policía predictiva hasta sistemas de alto riesgo en la salud, las escuelas y el bienestar, hasta modelos generativos utilizados en la corriente baja."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Es adecuado para la enseñanza del aula?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Economías locales y estadísticas agregadas opcionales. Sólo con el consentimiento de los adultos: un registro de sesión durante 90 días; el texto guía requiere un consentimiento separado. Retirar, borrar o exportar desde la barra de juego."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿El NO AI ACT recopila datos personales?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Economías locales y estadísticas agregadas opcionales. Sólo con el consentimiento de los adultos: un registro de sesión durante 90 días; el texto guía requiere un consentimiento separado. Retirar, borrar o exportar desde la barra de juego. Las páginas públicas utilizan estadísticas agregadas y adaptadas a la privacidad a través de Cloudflare Web Analytics; no hay cuentas ni paneles de aula."
+      }
+    }
+  ]
+}
+</script>
+
+  <script>document.documentElement.classList.add('has-js');</script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NO AI ACT",
+  "url": "https://www.no-ai-act.eu/es/",
+  "description": "Juego educativo de investigación gratuito y recursos didácticos sobre el Reglamento europeo de Inteligencia Artificial.",
+  "logo": "https://www.no-ai-act.eu/favicon.svg",
+  "sameAs": [
+    "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"
+  ],
+  "dateModified": "2026-11-22T00:00:00Z"
+}
+</script>
   <link rel="alternate" hreflang="it" href="https://www.no-ai-act.eu/" />
   <link rel="alternate" hreflang="en" href="https://www.no-ai-act.eu/en/" />
   <link rel="alternate" hreflang="fr" href="https://www.no-ai-act.eu/fr/" />
@@ -14,42 +180,374 @@
   <link rel="alternate" hreflang="es" href="https://www.no-ai-act.eu/es/" />
   <link rel="alternate" hreflang="pt-PT" href="https://www.no-ai-act.eu/pt/" />
   <link rel="alternate" hreflang="x-default" href="https://www.no-ai-act.eu/" />
-  <meta property="og:type" content="website" /><meta property="og:site_name" content="NO AI ACT" />
-  <meta property="og:locale" content="es_ES" />
   <meta property="og:locale:alternate" content="it_IT" />
   <meta property="og:locale:alternate" content="en_GB" />
   <meta property="og:locale:alternate" content="fr_FR" />
   <meta property="og:locale:alternate" content="de_DE" />
   <meta property="og:locale:alternate" content="pt_PT" />
-  <meta property="og:title" content="NO AI ACT: juego educativo sobre el Reglamento de IA" /><meta property="og:description" content="Juego educativo gratuito sobre el Reglamento europeo de IA: investiga 14 casos, clasifica riesgos y justifica decisiones. Juega en el navegador sin cuenta." />
-  <meta property="og:url" content="https://www.no-ai-act.eu/es/" /><meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png" />
-  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png" /><meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta property="og:image:alt" content="NO AI ACT: juego educativo sobre el AI Act" />
-  <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="NO AI ACT: juego educativo sobre el Reglamento de IA" />
-  <meta name="twitter:description" content="Juego educativo gratuito sobre el Reglamento europeo de IA: investiga 14 casos, clasifica riesgos y justifica decisiones. Juega en el navegador sin cuenta." /><meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png" /><meta name="twitter:image:alt" content="NO AI ACT: juego educativo sobre el AI Act" />
-  <link rel="stylesheet" href="/src/styles/landing.css" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"NO AI ACT","item":"https://www.no-ai-act.eu/es/"}]}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"NO AI ACT: juego educativo sobre el AI Act","url":"https://www.no-ai-act.eu/es/","inLanguage":"es","isAccessibleForFree":true,"learningResourceType":"Reading","image":"https://www.no-ai-act.eu/assets/social/no-ai-act-en-og.png"}</script>
-  <script>document.documentElement.classList.add('has-js');</script>
-</head><body class="eu-site">
-  <a class="skip-link" href="#main">Ir al contenido</a>
-  <header class="topbar"><div class="wrap"><a class="brand" href="/es/">NO AI ACT</a>
-    <nav class="site-nav" aria-label="Navegación"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Navegación">Navegación</button>
-    <ul class="nav-menu" id="site-menu"><li><a href="#play-languages">Jugar: elegir idioma</a></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="eu-topics">Temas</button><ul class="nav-sub" id="eu-topics"><li><a href="/es/" aria-current="page">Inicio</a></li><li><a href="/es/como-funciona/">Cómo funciona NO AI ACT</a></li><li><a href="/es/educacion/">Recursos educativos sobre el Reglamento de IA</a></li><li><a href="/es/reglamento-ia-para-docentes/">El AI Act en la escuela: usos y responsabilidades</a></li><li><a href="/es/guia-reglamento-ia/">Guía introductoria del Reglamento de IA</a></li><li><a href="/es/glosario-ia/">Glosario del Reglamento de IA</a></li><li><a href="/es/privacidad/">Privacidad y estadísticas de uso</a></li><li><a href="/es/categorias-riesgo-ia/">Cómo interpretar las categorías de riesgo</a></li><li><a href="/es/practicas-ia-prohibidas/">Prácticas de inteligencia artificial prohibidas</a></li><li><a href="/es/sistemas-ia-alto-riesgo/">Sistemas de IA de alto riesgo</a></li><li><a href="/es/obligaciones-transparencia-ia/">Obligaciones de transparencia en IA</a></li><li><a href="/es/modelos-ia-uso-general/">Modelos de IA de uso general</a></li><li><a href="/es/alfabetizacion-ia/">Alfabetización en inteligencia artificial</a></li><li><a href="/es/taller-ai-act-aula/">Un taller del AI Act para investigar y argumentar en el aula</a></li><li><a href="/es/ia-seleccion-personal/">IA en selección de personal: del filtro a la responsabilidad</a></li><li><a href="/es/kit-de-prensa/">NO AI ACT – Kit de prensa</a></li></ul></li></ul></nav>
-  </div></header>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar"><div class="wrap"><a class="brand" href="/es/">NO AI ACT</a><nav class="site-nav" aria-label="Menú"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menú">Menú</button><ul class="nav-menu" id="site-menu"><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-0">Jugar</button><ul class="nav-sub" id="topics-0"><li><a href="/es/" aria-current="page">NO AI ACT: un juego serio de AI Act.Investiga las consecuencias.</a></li><li><a href="/es/como-funciona/">Cómo funciona NO AI ACT</a></li><li><a href="/es/para-formadores/">NO AI ACT para educadores</a></li><li><a href="/es/juego-serio-reglamento-ia/">Un juego serio sobre la Ley de AI de la UE</a></li><li><a href="/es/kit-de-prensa/">Kit de prensa</a></li><li><a href="/es/como-citar/">Cómo citar NO AI ACT</a></li><li><a href="/es/matteo-angeloni/">Matteo Angeloni</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-1">Aprender</button><ul class="nav-sub" id="topics-1"><li><a href="/es/educacion/">Centro de enseñanza de la Ley de Amnistía Internacional</a></li><li><a href="/es/alfabetizacion-ia/">Alfabetización de la AI y artículo 4 de la Ley de AI de la UE</a></li><li><a href="/es/ciudadania-digital-regulacion-ia/">La ciudadanía digital y la regulación de la IA</a></li><li><a href="/es/juegos-serios-regulacion-ia/">Juegos serios para la regulación de AI</a></li><li><a href="/es/investigacion-metodologia/">Investigación y metodología</a></li><li><a href="/es/aprendizaje-respetuoso-privacidad/">Aprendizaje consciente de la privacidad</a></li><li><a href="/es/preguntas-frecuentes/">Preguntas frecuentes</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-2">Docentes</button><ul class="nav-sub" id="topics-2"><li><a href="/es/reglamento-ia-para-docentes/">Ley de IA de la UE para los docentes</a></li><li><a href="/es/actividades-didacticas/">Actividades auladas</a></li><li><a href="/es/plan-clase-introduccion-ia/">Plan de lecciones: introducción a la Ley de AI</a></li><li><a href="/es/plan-clase-riesgo/">Plan de lecciones: enfoque basado en el riesgo</a></li><li><a href="/es/plan-clase-transparencia/">Plan de lecciones: transparencia y usuarios</a></li><li><a href="/es/taller-ai-act-aula/">The AI Act classroom lab</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-3">Reglamento de IA</button><ul class="nav-sub" id="topics-3"><li><a href="/es/guia-reglamento-ia/">The EU AI Act, explained simply</a></li><li><a href="/es/categorias-riesgo-ia/">Categorías de riesgo de la Ley de Inteligencia Artificial</a></li><li><a href="/es/practicas-ia-prohibidas/">Prácticas prohibidas de la AI</a></li><li><a href="/es/sistemas-ia-alto-riesgo/">Sistemas de IA de alto riesgo</a></li><li><a href="/es/obligaciones-transparencia-ia/">Obligaciones de transparencia</a></li><li><a href="/es/modelos-ia-uso-general/">AI para fines generales</a></li><li><a href="/es/sanciones-reglamento-ia/">Sanciones de la ley AI: montos, que están expuestos, desde cuándo</a></li><li><a href="/es/reglamento-ia-rgpd/">La Ley de IA y el RGPD: cuando se aplica cada uno, y cuando ambos</a></li><li><a href="/es/glosario-ia/">Glosario de la Ley de AI</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-4">Organizaciones</button><ul class="nav-sub" id="topics-4"><li><a href="/es/reglamento-ia-empresas/">Reglamento de IA para empresas: obligaciones y actuaciones</a></li><li><a href="/es/ia-administracion-publica/">El Reglamento de IA en la administración y la contratación públicas</a></li><li><a href="/es/proveedor-responsable-despliegue-ia/">Proveedor vs responsable del despliegue en virtud de la Ley de AI de la UE</a></li><li><a href="/es/ia-seleccion-personal/">IA en la contratación y el empleo</a></li><li><a href="/es/evaluacion-impacto-derechos-fundamentales-ia/">Reglamento de IA: evaluación de impacto en los derechos fundamentales</a></li><li><a href="/es/deepfakes-transparencia/">Profundización y transparencia</a></li><li><a href="/es/calendario-reglamento-ia/">The AI Act application timeline</a></li></ul></li><li><a href="/es/privacidad/">Privacidad</a></li></ul></nav></div></header>
 <nav class="locale-links" aria-label="Idiomas"><div class="wrap"><a href="/" hreflang="it" lang="it"><img src="/assets/flags/it.png" width="28" height="20" alt="" /><span>Italiano</span></a><a href="/en/" hreflang="en" lang="en"><img src="/assets/flags/gb.png" width="28" height="20" alt="" /><span>English</span></a><a href="/fr/" hreflang="fr" lang="fr"><img src="/assets/flags/fr.png" width="28" height="20" alt="" /><span>Français</span></a><a href="/de/" hreflang="de" lang="de"><img src="/assets/flags/de.png" width="28" height="20" alt="" /><span>Deutsch</span></a><a href="/es/" hreflang="es" lang="es" aria-current="page"><img src="/assets/flags/es.png" width="28" height="20" alt="" /><span>Español</span></a><a href="/pt/" hreflang="pt-PT" lang="pt-PT"><img src="/assets/flags/pt.png" width="28" height="20" alt="" /><span>Português</span></a></div></nav>
-  <main id="main"><section class="hero" aria-labelledby="page-title"><div class="wrap"><p class="stamp">NO AI ACT · Español</p><h1 id="page-title">NO AI ACT: juego educativo sobre el AI Act</h1><p class="lead">Un juego de investigación para acercarse al Reglamento europeo de Inteligencia Artificial. Examina pruebas y asume la responsabilidad de tus decisiones.</p><p class="cta-row"><a class="btn btn-primary" href="#play-languages">Jugar: elegir idioma</a></p></div></section>
-<section aria-labelledby="section-0"><div class="wrap"><h2 id="section-0"><span class="num">01</span>Una ciudad, catorce investigaciones</h2><p>La historia transcurre en 2032, en una ciudad ficticia donde el Reglamento de IA nunca llegó a aplicarse. Los sistemas automatizados influyen en el empleo, los servicios públicos y las oportunidades personales. Cada expediente presenta documentos, afirmaciones e indicios contradictorios. Esta distopía es una ficción narrativa, no una descripción de la situación jurídica real de Europa.</p></div></section>
-<section aria-labelledby="section-1"><div class="wrap"><h2 id="section-1"><span class="num">02</span>Razonar, no adivinar respuestas</h2><p>Debes elegir una clasificación del riesgo, una medida, el actor responsable y una justificación apoyada en pruebas. Acertar una categoría con indicios inadecuados no equivale a construir una decisión defendible. El informe posterior explica esas diferencias y ayuda a identificar qué información conviene examinar en el siguiente caso.</p></div></section>
-<section aria-labelledby="section-2"><div class="wrap"><h2 id="section-2"><span class="num">03</span>Gratis y sin registro</h2><p>El juego funciona en el navegador y no requiere una cuenta. Partidas guardadas locales y estadísticas agregadas desactivables. Solo con consentimiento de adultos: registro de sesión durante 90 días; textos del recorrido guiado con consentimiento aparte. Retirada, borrado y exportación en la barra del juego. Los contadores automáticos de uso, que pueden desactivarse, solo recogen eventos agregados limitados: no crean perfiles individuales de aprendizaje ni demuestran resultados educativos. Estas páginas permiten preparar la partida en español y elegir después uno de los idiomas disponibles del juego.</p></div></section>
 
+  <main id="main">
 
+    <section class="hero hero-investigation" aria-labelledby="hero-title">
+      <div class="wrap">
+        <div>
+          <p class="kicker">EUROPA · 2032 · UNIDAD DE INCIDENTES ALGORÍTMICOS</p>
+          <h1 id="hero-title">NO AI ACT: un juego serio de AI Act.<span class="hl">Investiga las consecuencias.</span></h1>
+          <p class="lead">Un juego gratuito de aprendizaje de investigación sobre inteligencia artificial. En una Europa ficticia de 2032 sin la Ley AI, examine catorce expedientes de casos, clasifique riesgos y firme su informe. La historia es ficción, no una descripción de la actual ley de la UE.</p>
+          <p class="hero-meta"><span>Juego serio</span><span>LIBERTAD</span><span>OPEN SOURCE</span><span>IT / EN / FR</span><span>NO ACCOUNT</span></p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="/play/?lang=es">Abra el primer archivo de caso</a>
+            <a class="btn btn-ghost" href="/es/como-funciona/">Ver cómo funciona</a>
+          </div>
+          <p class="callout">NO AI ACT no es una campaña contra la Ley de IA: es una simulación educativa de una sociedad no regulada, donde el reglamento nunca entró en vigor.</p>
+          <p style="margin-top:1.2rem"><span class="filestamp">CASE FILE 01 / STATUS: OPEN</span></p>
+        </div>
+        <figure class="hero-shot">
+          <picture>
+            <source srcset="/screenshots/citymap-en.webp" type="image/webp">
+            <img src="/screenshots/citymap-en.jpg" alt="Captura de pantalla del juego: el mapa cívico NO AI ACT con los 14 casos y los indicadores sociales" width="960" height="540" fetchpriority="high" decoding="async">
+          </picture>
+          <picture class="hero-shot-2">
+            <source srcset="/screenshots/loop-3-evidence-en.webp" type="image/webp">
+            <img src="/screenshots/loop-3-evidence-en.jpg" alt="Pantalla de juego: seis exposiciones de casos, dos de ellas citadas en el informe de inspección" width="1280" height="720" loading="lazy" decoding="async">
+          </picture>
+          <figcaption>MAP CIVIC y EXHIBITOS · REAL GAME SCREENS</figcaption>
+        </figure>
+      </div>
+    </section>
 
+    <section aria-labelledby="loop-title">
+      <div class="wrap">
+        <h2 id="loop-title"><span class="num">01</span>La respuesta correcta no es suficiente.</h2>
+        <p class="section-intro">Usted puede elegir la categoría correcta y todavía presentar un informe concursable. La calidad de una decisión depende de la evidencia que usted cita y cómo razona de ella.</p>
+        <ol class="loop-frames">
+          <li>
+            <figure>
+              <picture>
+                <source srcset="/screenshots/loop-2-file-en.webp" type="image/webp">
+                <img src="/screenshots/loop-2-file-en.jpg" alt="Pantalla de juego: un archivo de caso que muestra el contexto del sistema AI en investigación" width="1280" height="720" loading="lazy" decoding="async">
+              </picture>
+              <figcaption><span class="step-n">01</span><b>Abra el archivo</b><span class="step-d">El contexto, el sistema de IA involucrado, las personas que afecta.</span></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <picture>
+                <source srcset="/screenshots/loop-3-evidence-en.webp" type="image/webp">
+                <img src="/screenshots/loop-3-evidence-en.jpg" alt="Pantalla de juego: seis exposiciones de casos, dos de ellas citadas en el informe de inspección" width="1280" height="720" loading="lazy" decoding="async">
+              </picture>
+              <figcaption><span class="step-n">02</span><b>Examinar y citar las exposiciones</b><span class="step-d">Fuentes administrativas, técnicas y de proveedores, registros y quejas. Al menos dos exposiciones entran en el informe: la elección importa.</span></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <picture>
+                <source srcset="/screenshots/loop-4-decision-en.webp" type="image/webp">
+                <img src="/screenshots/loop-4-decision-en.jpg" alt="Pantalla de juego: las cinco clasificaciones de riesgo AI Act para elegir entre" width="1280" height="720" loading="lazy" decoding="async">
+              </picture>
+              <figcaption><span class="step-n">03</span><b>Clasifique el riesgo</b><span class="step-d">Prohibido, alto riesgo, deber de transparencia, riesgo mínimo o fuera de alcance. Luego la medida y quién es responsable.</span></figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <picture>
+                <source srcset="/screenshots/loop-5-report-en.webp" type="image/webp">
+                <img src="/screenshots/loop-5-report-en.jpg" alt="Pantalla de juego: el informe de inspección firmado con la evaluación del razonamiento" width="1280" height="720" loading="lazy" decoding="async">
+              </picture>
+              <figcaption><span class="step-n">04</span><b>Presentar el informe</b><span class="step-d">La argumentación cuenta. El informe se valora según las pruebas citadas, además de la categoría elegida.</span></figcaption>
+            </figure>
+          </li>
+        </ol>
+        <ul class="outcomes" aria-label="La respuesta correcta no es suficiente.">
+          <li class="o-ok">CONFORME</li>
+          <li class="o-part">PARCIALMENTE CONFORME</li>
+          <li class="o-weak">CONTESTABLE</li>
+          <li class="o-bad">NO CONFORME</li>
+        </ul>
+      </div>
+    </section>
+    <section class="starthere" aria-labelledby="start-title">
+      <div class="wrap">
+        <h2 id="start-title">Puntos de acceso</h2>
+        <ul class="start-grid">
+          <li><a href="/play/?lang=es"><b>Quiero jugar ahora</b></a><span class="desc">Abre el primer caso, unos quince minutos.</span></li>
+          <li><a href="/es/para-formadores/"><b>Enseño</b></a><span class="desc">Guía completa para educadores: formatos de 30, 60 y 90 minutos.</span></li>
+          <li><a href="/es/actividades-didacticas/"><b>Estoy preparando una lección.</b></a><span class="desc">Cinco actividades listas para funcionar, con fechas y materiales.</span></li>
+          <li><a href="/es/guia-reglamento-ia/"><b>Quiero entender la Ley de AI</b></a><span class="desc">La guía de lengua lisa, sin jerga.</span></li>
+          <li><a href="/es/glosario-ia/"><b>Estoy buscando un término</b></a><span class="desc">Definiciones cortas de los términos clave.</span></li>
+          <li><a href="/es/investigacion-metodologia/"><b>Estoy evaluando el proyecto</b></a><span class="desc">Objetivos, método y un estado de validación honesto.</span></li>
+        </ul>
+        <p class="section-intro">Para el aula: el <a href="/es/reglamento-ia-para-docentes/">guía para educadores</a>, el <a href="/es/educacion/">Centro de educación</a>, <a href="/es/alfabetizacion-ia/">alfabetización en materia de IA</a> y <a href="/es/juego-serio-reglamento-ia/">por qué un juego serio</a>. Sinopsis general: <a href="/es/como-funciona/">cómo funciona</a>.</p>
+        <nav class="page-toc" aria-label="En esta página">
+          <p class="toc-label">En esta página</p>
+          <ul>
+          <li><a href="#city-title">La ciudad reacciona.</a></li>
+          <li><a href="#cases-title">Los archivos del caso abierto.</a></li>
+          <li><a href="#press-title">En la prensa.</a></li>
+          <li><a href="#research-title">De la prueba de juego a la investigación.</a></li>
+          <li><a href="#teach-title">Llévalo al aula.</a></li>
+          <li><a href="#open-title">El código está abierto, tus casos son tuyos.</a></li>
+          <li><a href="#law-title">¿Quieres entender la regla antes de investigar?</a></li>
+          <li><a href="#faq-title">Preguntas frecuentes</a></li>
+          </ul>
+        </nav>
+      </div>
+    </section>
 
-<section aria-labelledby="press-title"><div class="wrap"><div class="press-heading"><h2 id="press-title">En los medios</h2><div class="press-controls" hidden><span class="press-position" aria-live="polite" aria-atomic="true">01 / 06</span><button type="button" data-press-prev aria-label="Contenido anterior" title="Contenido anterior" aria-controls="press-track"><i data-lucide="arrow-left" aria-hidden="true"></i></button><button type="button" data-press-next aria-label="Contenido siguiente" title="Contenido siguiente" aria-controls="press-track"><i data-lucide="arrow-right" aria-hidden="true"></i></button></div></div><ul class="press-track" id="press-track" tabindex="0" aria-label="En los medios"><li class="press-item"><div class="press-media press-media-logo"><img src="/assets/press/smartphonology.png" width="500" height="500" alt="Smartphonology" loading="lazy" decoding="async" /></div><div class="press-copy"><div class="press-meta"><span>Artículo · italiano</span><time datetime="2026-10-30">30 de octubre de 2026</time></div><p class="press-outlet">Smartphonology</p><h3><a href="https://www.smartphonology.it/no-ai-act-gioco-gratuito-browser/" hreflang="it" lang="it" rel="noopener external" target="_blank">NO AI ACT: il gioco gratuito da browser sui rischi dell’IA</a></h3><p>Presentación del juego, sus modos y sus límites, basada en la información enviada y los materiales públicos del desarrollador.</p></div></li><li class="press-item"><div class="press-media"><img src="/assets/press/videogiochi-italiani-intervista.jpg" width="480" height="360" alt="Videogiochi italiani — Matteo Angeloni" loading="lazy" decoding="async" /></div><div class="press-copy"><div class="press-meta"><span>Entrevista · italiano</span><time datetime="2026-10-26">26 de octubre de 2026</time></div><p class="press-outlet">Videogiochi italiani</p><h3><a href="https://www.youtube.com/watch?v=lzh-1yXEJGY&amp;t=11s" hreflang="it" lang="it" rel="noopener external" target="_blank">INTERVISTA a Matteo Angeloni: NO AI ACT</a></h3><p>Entrevista con Matteo Angeloni, creador y desarrollador de NO AI ACT.</p></div></li><li class="press-item"><div class="press-media press-media-logo"><img src="/assets/press/media-learning.svg" width="277" height="37" alt="Media &amp; Learning Association" loading="lazy" decoding="async" /></div><div class="press-copy"><div class="press-meta"><span>Contribución del autor · inglés</span><time datetime="2026-10-26">26 de octubre de 2026</time></div><p class="press-outlet">Media &amp; Learning Association</p><h3><a href="https://media-and-learning.eu/no-ai-act-what-if-learning-about-ai-regulation-began-with-an-investigation/" hreflang="en" lang="en" rel="noopener external" target="_blank">NO AI ACT: What if learning about AI regulation began with an investigation?</a></h3><p>Una contribución firmada por Matteo Angeloni sobre el proyecto y sus posibles usos educativos, no una reseña independiente.</p></div></li><li class="press-item"><div class="press-media press-media-logo"><img src="/assets/press/fix-gaming-channel.webp" width="1450" height="180" alt="Fix Gaming Channel" loading="lazy" decoding="async" /></div><div class="press-copy"><div class="press-meta"><span>Relato del desarrollador · inglés</span><time datetime="2026-10-16">16 de octubre de 2026</time></div><p class="press-outlet">Fix Gaming Channel</p><h3><a href="https://www.fixgamingchannel.com/fix-stories-no-ai-act-matteo-angeloni/" hreflang="en" lang="en" rel="noopener external" target="_blank">Fix Stories: From AI Research to a Game Built on Weekends</a></h3><p>Matteo Angeloni relata la creación y el desarrollo del juego; no es una reseña independiente.</p></div></li><li class="press-item"><div class="press-media"><img src="/assets/press/videogiochi-italiani.jpg" width="480" height="360" alt="Videogiochi italiani" loading="lazy" decoding="async" /></div><div class="press-copy"><div class="press-meta"><span>Gameplay · italiano</span><time datetime="2026-10-03">3 de octubre de 2026</time></div><p class="press-outlet">Videogiochi italiani</p><h3><a href="https://www.youtube.com/watch?v=BJO6aiElmrY" hreflang="it" lang="it" rel="noopener external" target="_blank">Abbiamo Giocato a NO AI ACT: Un’Europa Senza Regole sull’AI!</a></h3><p>Una partida comentada en italiano del 3 de octubre de 2026, anterior a las versiones 4 y 5.</p></div></li><li class="press-item"><div class="press-media press-media-logo"><img src="/assets/press/absolute-gamer.webp" width="1200" height="290" alt="Absolute Gamer" loading="lazy" decoding="async" /></div><div class="press-copy"><div class="press-meta"><span>Reseña · italiano</span><time datetime="2026-07-24">24 de julio de 2026</time></div><p class="press-outlet">Absolute Gamer</p><h3><a href="https://www.absolutegamer.it/no-ai-act-serious-game-gratuito-ai-act-europeo/" hreflang="it" lang="it" rel="noopener external" target="_blank">NO AI ACT, il serious game gratuito sull’AI Act europeo</a></h3><p>La reseña del serious game de investigación publicada por Absolute Gamer.</p></div></li></ul></div></section>
-  <section aria-labelledby="play-languages"><div class="wrap"><h2 id="play-languages">Jugar: elegir idioma</h2><p>El juego está disponible en italiano, inglés, francés, alemán, español y portugués europeo. Estas páginas están en español; las opciones siguientes abren el juego en el idioma indicado.</p><p class="eu-play-links"><a href="/play/?lang=it" hreflang="it">Italiano</a> · <a href="/play/?lang=en" hreflang="en">Inglés</a> · <a href="/play/?lang=fr" hreflang="fr">Francés</a> · <a href="/play/?lang=de" hreflang="de">Alemán</a> · <a href="/play/?lang=es" hreflang="es">Español</a> · <a href="/play/?lang=pt" hreflang="pt-PT">Portugués</a></p></div></section>
-  <section aria-labelledby="related-title"><div class="wrap"><h2 id="related-title">Seguir leyendo</h2><ul class="plain"><li><a href="/es/como-funciona/">Cómo funciona NO AI ACT</a></li><li><a href="/es/educacion/">Recursos educativos sobre el Reglamento de IA</a></li><li><a href="/es/reglamento-ia-para-docentes/">El AI Act en la escuela: usos y responsabilidades</a></li><li><a href="/es/guia-reglamento-ia/">Guía introductoria del Reglamento de IA</a></li><li><a href="/es/glosario-ia/">Glosario del Reglamento de IA</a></li><li><a href="/es/privacidad/">Privacidad y estadísticas de uso</a></li><li><a href="/es/categorias-riesgo-ia/">Cómo interpretar las categorías de riesgo</a></li><li><a href="/es/practicas-ia-prohibidas/">Prácticas de inteligencia artificial prohibidas</a></li><li><a href="/es/sistemas-ia-alto-riesgo/">Sistemas de IA de alto riesgo</a></li><li><a href="/es/obligaciones-transparencia-ia/">Obligaciones de transparencia en IA</a></li><li><a href="/es/modelos-ia-uso-general/">Modelos de IA de uso general</a></li><li><a href="/es/alfabetizacion-ia/">Alfabetización en inteligencia artificial</a></li><li><a href="/es/taller-ai-act-aula/">Un taller del AI Act para investigar y argumentar en el aula</a></li><li><a href="/es/ia-seleccion-personal/">IA en selección de personal: del filtro a la responsabilidad</a></li><li><a href="/es/kit-de-prensa/">NO AI ACT – Kit de prensa</a></li></ul></div></section>
-  </main><footer aria-labelledby="footer-title"><div class="wrap"><h2 id="footer-title" class="stamp">Simplificación educativa, no asesoramiento jurídico</h2><p>NO AI ACT es un juego educativo independiente, gratuito y de código abierto. Estas explicaciones introducen conceptos seleccionados y no sustituyen el texto vigente ni una evaluación profesional. Su eficacia educativa no se ha demostrado mediante un estudio controlado.</p><p><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/spa" hreflang="es">Texto jurídico oficial de la UE</a> · <a href="/en/research-and-methodology/" hreflang="en" lang="en">Autor y metodología (en inglés)</a> · <a href="/game-statistics.html#es" hreflang="es">Información sobre las estadísticas</a></p><p class="credit">Desarrollado por Matteo Angeloni · v5.2.2<br />Contenido elaborado con ayuda de IA y revisión editorial; no es una traducción oficial.</p></div><p class="session-record-policy">Partidas guardadas locales y estadísticas agregadas desactivables. Solo con consentimiento de adultos: registro de sesión durante 90 días; textos del recorrido guiado con consentimiento aparte. Retirada, borrado y exportación en la barra del juego. <a href="/game-statistics.html#es">Información sobre las estadísticas</a></p></footer>
+    <section aria-labelledby="city-title">
+      <div class="wrap">
+        <h2 id="city-title"><span class="num">02</span>La ciudad reacciona.</h2>
+        <p class="section-intro">Cada decisión firmada mueve cuatro indicadores. Después de cuatro archivos cerrados la ciudad toma una dirección: usted no está ganando una prueba, usted está construyendo un registro de gobernanza.</p>
+        <ul class="metrics">
+          <li><span class="m-name">Eficiencia</span><span class="m-bar"><i style="width:70%"></i></span></li>
+          <li><span class="m-name">Control social</span><span class="m-bar is-alert"><i style="width:40%"></i></span></li>
+          <li><span class="m-name">Derechos fundamentales</span><span class="m-bar"><i style="width:70%"></i></span></li>
+          <li><span class="m-name">Confianza pública</span><span class="m-bar"><i style="width:65%"></i></span></li>
+        </ul>
+        <ul class="endings">
+          <li>Ciudad de Opaque</li>
+          <li>Gobernanza frágil</li>
+          <li>Innovación en el futuro</li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="cases-title">
+      <div class="wrap">
+        <h2 id="cases-title"><span class="num">03</span>Los archivos del caso abierto.</h2>
+        <p class="section-intro">Catorce casos, desde los más claros hasta los más ambiguos. Cada uno tiene una señal decisiva, una cuenta que minimiza el problema, y un elemento contextual que puede voltear la lectura.</p>
+        <ul class="case-grid">
+          <li class="case-card"><span class="file-id">FILE 01</span><span class="c-status">AVAILABLE</span>
+            <b>La ciudad de las puntuaciones</b>
+            <span class="c-sector">Administración cívica</span>
+            <span class="c-tag is-prohibited">PRÁCTICA PROHIBIDA</span>
+            <span class="desc">Una puntuación decide vivienda, salud y escuela. La penalización migra a través de contextos no relacionados.</span>
+          </li>
+          <li class="case-card"><span class="file-id">FILE 02</span><span class="c-status">AVAILABLE</span>
+            <b>La entrevista que nunca sucedió</b>
+            <span class="c-sector">Empleo y contratación</span>
+            <span class="c-tag">ALTO RIESGO</span>
+            <span class="desc">Selección automatizada de aplicaciones, sin explicación ni manera de impugnarla.</span>
+          </li>
+          <li class="case-card"><span class="file-id">FILE 03</span><span class="c-status">AVAILABLE</span>
+            <b>La ciudad sintética</b>
+            <span class="c-sector">Comunicación pública</span>
+            <span class="c-tag">TRANSPARENCIA</span>
+            <span class="desc">Un ayuntamiento inunda sus canales con contenido generado, sin etiquetar y sin agua.</span>
+          </li>
+          <li class="case-card"><span class="file-id">FILE 04</span><span class="c-status">AVAILABLE</span>
+            <b>El aula observada</b>
+            <span class="c-sector">Educación · Reconocimiento de emociones</span>
+            <span class="c-tag is-prohibited">PRÁCTICA PROHIBIDA</span>
+            <span class="desc">El sistema infiere estados emocionales de las caras de los estudiantes.</span>
+          </li>
+          <li class="case-card"><span class="file-id">FILE 05</span><span class="c-status">AVAILABLE</span>
+            <b>El triaje invisible</b>
+            <span class="c-sector">Salud</span>
+            <span class="c-tag">ALTO RIESGO</span>
+            <span class="desc">Excelentes promedios, errores concentrados en ciertos grupos, y confianza ciega de los supervisores.</span>
+          </li>
+          <li class="case-card"><span class="file-id">FILE 06</span><span class="c-status">AVAILABLE</span>
+            <b>Rostros entre la multitud</b>
+            <span class="c-sector">Espacio público · Biometría</span>
+            <span class="c-tag is-prohibited">PRÁCTICA PROHIBIDA</span>
+            <span class="desc">Identificación biométrica en vivo, en plazas públicas, para fines de cumplimiento de la ley.</span>
+          </li>
+          <li class="case-card"><span class="file-id">FILE 07</span><span class="c-status">AVAILABLE</span>
+            <b>Crédito civil</b>
+            <span class="c-sector">Bienestar · Crédito</span>
+            <span class="c-tag">BOUNDARY CASE</span>
+            <span class="desc">Caso del espejo: ¿dónde termina la evaluación de la solvencia crediticia y comienza la puntuación social?</span>
+          </li>
+          <li class="case-card"><span class="file-id">FILE 08</span><span class="c-status">AVAILABLE</span>
+            <b>La ventanilla que siempre responde</b>
+            <span class="c-sector">Servicios públicos</span>
+            <span class="c-tag">TRANSPARENCIA</span>
+            <span class="desc">Un asistente automatizado crea confianza. La divulgación existe, pero ¿es suficiente?</span>
+          </li>
+          <li class="case-card"><span class="file-id">FILE 09</span><span class="c-status">AVAILABLE</span>
+            <b>La licitación opaca</b>
+            <span class="c-sector">Adquisiciones públicas</span>
+            <span class="c-tag">ALTO RIESGO</span>
+            <span class="desc">Adquisición de inteligencia artificial sin documentación técnica y sin gobernanza declarada.</span>
+          </li>
+          <li class="case-card"><span class="file-id">FILE 10</span><span class="c-status">AVAILABLE</span>
+            <b>El aula perfilada</b>
+            <span class="c-sector">Adaptive EdTech</span>
+            <span class="c-tag">ALTO RIESGO</span>
+            <span class="desc">Una plataforma de aprendizaje perfila a los estudiantes y dirige su camino educativo.</span>
+          </li>
+          <li class="case-card"><span class="file-id">QUIERO 11</span><span class="c-status">AVAILABLE</span>
+            <b>El modelo que hace de todo</b>
+            <span class="c-sector">GPAI · Uso aguas abajo</span>
+            <span class="c-tag">GPAI</span>
+            <span class="desc">Un modelo de uso general utilizado en las decisiones internas nadie clasificado.</span>
+          </li>
+          <li class="case-card"><span class="file-id">FILE 12</span><span class="c-status">AVAILABLE</span>
+            <b>El distrito señalado</b>
+            <span class="c-sector">Policía preventiva</span>
+            <span class="c-tag is-prohibited">PRÁCTICA PROHIBIDA</span>
+            <span class="desc">Predecir a la persona, no al fenómeno: la línea que la Ley de IA traza marcadamente.</span>
+          </li>
+          <li class="case-card"><span class="file-id">FILE 13</span><span class="c-status">AVAILABLE</span>
+            <b>El algoritmo de sospecha</b>
+            <span class="c-sector">Bienestar · Detección de fraude</span>
+            <span class="c-tag">ALTO RIESGO</span>
+            <span class="desc">Fraude anotando en un beneficio esencial, con la supervisión humana en nombre solamente.</span>
+          </li>
+          <li class="case-card"><span class="file-id">QUIERO 14</span><span class="c-status">AVAILABLE</span>
+            <b>El sesgo que corrigieron</b>
+            <span class="c-sector">Empleo · Selección automatizada</span>
+            <span class="c-tag">ALTO RIESGO</span>
+            <span class="desc">Datos sensibles procesados para encontrar un sesgo, y cinco bloqueos de seis.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="press-title"><div class="wrap"><div class="press-heading"><h2 id="press-title"><span class="num">04</span>En los medios</h2><div class="press-controls" hidden><span class="press-position" aria-live="polite" aria-atomic="true">01 / 06</span><button type="button" data-press-prev aria-label="Contenido anterior" title="Contenido anterior" aria-controls="press-track"><i data-lucide="arrow-left" aria-hidden="true"></i></button><button type="button" data-press-next aria-label="Contenido siguiente" title="Contenido siguiente" aria-controls="press-track"><i data-lucide="arrow-right" aria-hidden="true"></i></button></div></div><ul class="press-track" id="press-track" tabindex="0" aria-label="En los medios"><li class="press-item"><div class="press-media press-media-logo"><img src="/assets/press/smartphonology.png" width="500" height="500" alt="Smartphonology" loading="lazy" decoding="async" /></div><div class="press-copy"><div class="press-meta"><span>Artículo · italiano</span><time datetime="2026-10-30">30 de octubre de 2026</time></div><p class="press-outlet">Smartphonology</p><h3><a href="https://www.smartphonology.it/no-ai-act-gioco-gratuito-browser/" hreflang="it" lang="it" rel="noopener external" target="_blank">NO AI ACT: il gioco gratuito da browser sui rischi dell’IA</a></h3><p>Presentación del juego, sus modos y sus límites, basada en la información enviada y los materiales públicos del desarrollador.</p></div></li><li class="press-item"><div class="press-media"><img src="/assets/press/videogiochi-italiani-intervista.jpg" width="480" height="360" alt="Videogiochi italiani — Matteo Angeloni" loading="lazy" decoding="async" /></div><div class="press-copy"><div class="press-meta"><span>Entrevista · italiano</span><time datetime="2026-10-26">26 de octubre de 2026</time></div><p class="press-outlet">Videogiochi italiani</p><h3><a href="https://www.youtube.com/watch?v=lzh-1yXEJGY&amp;t=11s" hreflang="it" lang="it" rel="noopener external" target="_blank">INTERVISTA a Matteo Angeloni: NO AI ACT</a></h3><p>Entrevista con Matteo Angeloni, creador y desarrollador de NO AI ACT.</p></div></li><li class="press-item"><div class="press-media press-media-logo"><img src="/assets/press/media-learning.svg" width="277" height="37" alt="Media &amp; Learning Association" loading="lazy" decoding="async" /></div><div class="press-copy"><div class="press-meta"><span>Contribución del autor · inglés</span><time datetime="2026-10-26">26 de octubre de 2026</time></div><p class="press-outlet">Media &amp; Learning Association</p><h3><a href="https://media-and-learning.eu/no-ai-act-what-if-learning-about-ai-regulation-began-with-an-investigation/" hreflang="en" lang="en" rel="noopener external" target="_blank">NO AI ACT: What if learning about AI regulation began with an investigation?</a></h3><p>Una contribución firmada por Matteo Angeloni sobre el proyecto y sus posibles usos educativos, no una reseña independiente.</p></div></li><li class="press-item"><div class="press-media press-media-logo"><img src="/assets/press/fix-gaming-channel.webp" width="1450" height="180" alt="Fix Gaming Channel" loading="lazy" decoding="async" /></div><div class="press-copy"><div class="press-meta"><span>Relato del desarrollador · inglés</span><time datetime="2026-10-16">16 de octubre de 2026</time></div><p class="press-outlet">Fix Gaming Channel</p><h3><a href="https://www.fixgamingchannel.com/fix-stories-no-ai-act-matteo-angeloni/" hreflang="en" lang="en" rel="noopener external" target="_blank">Fix Stories: From AI Research to a Game Built on Weekends</a></h3><p>Matteo Angeloni relata la creación y el desarrollo del juego; no es una reseña independiente.</p></div></li><li class="press-item"><div class="press-media"><img src="/assets/press/videogiochi-italiani.jpg" width="480" height="360" alt="Videogiochi italiani" loading="lazy" decoding="async" /></div><div class="press-copy"><div class="press-meta"><span>Gameplay · italiano</span><time datetime="2026-10-03">3 de octubre de 2026</time></div><p class="press-outlet">Videogiochi italiani</p><h3><a href="https://www.youtube.com/watch?v=BJO6aiElmrY" hreflang="it" lang="it" rel="noopener external" target="_blank">Abbiamo Giocato a NO AI ACT: Un’Europa Senza Regole sull’AI!</a></h3><p>Una partida comentada en italiano del 3 de octubre de 2026, anterior a las versiones 4 y 5.</p></div></li><li class="press-item"><div class="press-media press-media-logo"><img src="/assets/press/absolute-gamer.webp" width="1200" height="290" alt="Absolute Gamer" loading="lazy" decoding="async" /></div><div class="press-copy"><div class="press-meta"><span>Reseña · italiano</span><time datetime="2026-07-24">24 de julio de 2026</time></div><p class="press-outlet">Absolute Gamer</p><h3><a href="https://www.absolutegamer.it/no-ai-act-serious-game-gratuito-ai-act-europeo/" hreflang="it" lang="it" rel="noopener external" target="_blank">NO AI ACT, il serious game gratuito sull’AI Act europeo</a></h3><p>La reseña del serious game de investigación publicada por Absolute Gamer.</p></div></li></ul></div></section>
+
+    <section aria-labelledby="research-title">
+      <div class="wrap">
+        <h2 id="research-title"><span class="num">05</span>De la prueba de juego a la investigación.</h2>
+        <p class="section-intro">El proyecto está construido para ser estudiado, no sólo jugado. El marco metodológico es público; la validación empírica de su eficacia educativa no se ha llevado a cabo, y hasta que sea usted no encontrará números en esta página.</p>
+        <div class="grid">
+          <div class="card"><b>Modelo de aprendizaje</b><p>Nueve objetivos de aprendizaje de tipo y nueve conceptos erróneos esperados, mapeados caso por caso.</p></div>
+          <div class="card"><b>Matriz jurídica</b><p>Área de disposición → tarjetas de regla → casos, en forma legible por máquina.</p></div>
+          <div class="card"><b>Protocolo propuesto</b><p>Pre/post cuestionarios y estímulos reproducibles descritos en el marco de validación.</p></div>
+          <div class="card"><b>Estado</b><p>No se ha completado el estudio. Los datos faltantes se declaran, no se estiman.</p></div>
+        </div>
+        <p class="cta-row"><a class="btn btn-ghost" href="/es/investigacion-metodologia/">Investigación y metodología</a></p>
+      </div>
+    </section>
+
+    <section aria-labelledby="teach-title">
+      <div class="wrap">
+        <h2 id="teach-title"><span class="num">06</span>Llévalo al aula.</h2>
+        <ul class="teach-modes">
+          <li><span class="t-time">30 min</span>Un caso y una discusión guiada.</li>
+          <li><span class="t-time">60 minutos</span>Investigación, comparación de grupos y escombros.</li>
+          <li><span class="t-time">90 min</span>Sesión completa, grupos y una ronda de cierre.</li>
+        </ul>
+        <ul class="plain">
+          <li>No hay cuentas estudiantiles</li>
+          <li>No se envían resultados a ningún servidor</li>
+          <li>Modo maestro con un informe local</li>
+          <li>Las exportaciones permanecen en el dispositivo</li>
+          <li>Actividades auladas listas para funcionar</li>
+        </ul>
+        <p class="cta-row">
+          <a class="btn btn-primary" href="/es/para-formadores/">Recursos para educadores</a>
+          <a class="btn btn-ghost" href="/es/actividades-didacticas/">Actividades auladas</a>
+        </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="open-title">
+      <div class="wrap">
+        <h2 id="open-title"><span class="num">07</span>El código está abierto, tus casos son tuyos.</h2>
+        <div class="split-two">
+          <div>
+            <h3>OPEN SOURCE</h3>
+            <ul class="plain">
+            <li>Código fuente pública en GitHub</li>
+            <li>Licencia GPL-3.0 para el código</li>
+            <li>CC BY-SA 4.0 para el contenido educativo</li>
+            <li>Cada cambio pasa a través de una solicitud de extracción</li>
+            </ul>
+          </div>
+          <div>
+            <h3>LOCAL FIRST</h3>
+            <ul class="plain">
+            <li>Sin cuenta, sin registro</li>
+            <li>El juego se ejecuta por completo en el navegador</li>
+            <li>Permanecimientos de progreso en el almacenamiento local</li>
+            <li>No se envía ningún informe de inspección a un servidor</li>
+            <li>Las páginas públicas utilizan Cloudflare Web Analytics: estadísticas agregadas, no cookies</li>
+            </ul>
+          </div>
+        </div>
+        <p class="section-intro" style="margin-top:1.2rem">Economías locales y estadísticas agregadas opcionales. Sólo con el consentimiento de los adultos: un registro de sesión durante 90 días; el texto guía requiere un consentimiento separado. Retirar, borrar o exportar desde la barra de juego. Las páginas públicas utilizan estadísticas agregadas y adaptadas a la privacidad a través de Cloudflare Web Analytics.</p>
+        <p><a href="https://github.com/matteoangeloni-jpeg/-NO-AI-ACT" rel="noopener external" target="_blank">Repositorio GitHub</a> · <a href="/es/privacidad/">Protección de datos desde el diseño</a> · <a href="/es/como-citar/">Cómo citar</a></p>
+      </div>
+    </section>
+
+    <section aria-labelledby="law-title">
+      <div class="wrap">
+        <h2 id="law-title"><span class="num">08</span>¿Quieres entender la regla antes de investigar?</h2>
+        <div class="grid">
+          <a class="card" href="/es/guia-reglamento-ia/"><b>EU AI Act guide</b></a>
+          <a class="card" href="/es/categorias-riesgo-ia/"><b>Categorías de riesgos</b></a>
+          <a class="card" href="/es/practicas-ia-prohibidas/"><b>Prácticas prohibidas</b></a>
+          <a class="card" href="/es/sistemas-ia-alto-riesgo/"><b>Sistemas de alto riesgo</b></a>
+          <a class="card" href="/es/obligaciones-transparencia-ia/"><b>Obligaciones de transparencia</b></a>
+          <a class="card" href="/es/modelos-ia-uso-general/"><b>AI para fines generales</b></a>
+          <a class="card" href="/es/glosario-ia/"><b>Glosario</b></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" aria-labelledby="faq-title">
+      <div class="wrap">
+        <h2 id="faq-title"><span class="num">09</span>Preguntas frecuentes</h2>
+          <details>
+            <summary>¿Qué es NO AI ACT?</summary>
+            <div class="answer">Es un juego serio de investigación gratuito sobre la Ley europea de inteligencia artificial. Usted investiga sistemas de inteligencia artificial, examina las pruebas y presenta un informe clasificando su riesgo.</div>
+          </details>
+          <details>
+            <summary>¿Es NO AI ACT asesoramiento legal?</summary>
+            <div class="answer">No. Es una simulación educativa simplificada. No es un consejo legal y no reemplaza el texto de la regulación o la opinión de un profesional.</div>
+          </details>
+          <details>
+            <summary>¿Necesito registrar o crear una cuenta?</summary>
+            <div class="answer">No se requiere registro ni cuenta. El progreso sigue siendo local. Los contadores de uso agregado automático pueden desactivarse en la barra de juego; las respuestas y los resultados no se envían.</div>
+          </details>
+          <details>
+            <summary>¿Cuántos casos puedo jugar?</summary>
+            <div class="answer">Catorce casos, desde los más claros hasta los más ambiguos: desde el escorado social prohibido y la policía predictiva hasta sistemas de alto riesgo en la salud, las escuelas y el bienestar, hasta modelos generativos utilizados en la corriente baja.</div>
+          </details>
+          <details>
+            <summary>¿Es adecuado para la enseñanza del aula?</summary>
+            <div class="answer">Economías locales y estadísticas agregadas opcionales. Sólo con el consentimiento de los adultos: un registro de sesión durante 90 días; el texto guía requiere un consentimiento separado. Retirar, borrar o exportar desde la barra de juego.</div>
+          </details>
+          <details>
+            <summary>¿El NO AI ACT recopila datos personales?</summary>
+            <div class="answer">Economías locales y estadísticas agregadas opcionales. Sólo con el consentimiento de los adultos: un registro de sesión durante 90 días; el texto guía requiere un consentimiento separado. Retirar, borrar o exportar desde la barra de juego. Las páginas públicas utilizan estadísticas agregadas y adaptadas a la privacidad a través de Cloudflare Web Analytics; no hay cuentas ni paneles de aula.</div>
+          </details>
+        <p style="margin-top:1rem">Cada otra pregunta vive en su propia página: <a href="/es/privacidad/">Privacidad y datos</a> · <a href="/es/para-formadores/">Uso de aulas</a> · <a href="/es/como-citar/">Cómo citar el proyecto</a> · <a href="/es/investigacion-metodologia/">Investigación y metodología</a> · <a href="/es/matteo-angeloni/">Autor y responsabilidad editorial</a></p>
+      </div>
+    </section>
+
+    <section class="final-cta" aria-labelledby="final-title">
+      <div class="wrap">
+        <p class="kicker">EXPEDIENTE / ESTADO: EN ESPERA DEL INSPECTOR</p>
+        <h2 id="final-title">El siguiente archivo está abierto.</h2>
+        <p class="lead">No hay registro, no hay descarga.</p>
+        <p class="cta-row"><a class="btn btn-primary" href="/play/?lang=es">Iniciar la investigación</a></p>
+        <p class="stamp" style="margin-top:1.4rem">Simulación educativa simplificada; no constituye asesoramiento jurídico.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer aria-labelledby="footer-title">
+    <div class="wrap">
+      <h2 id="footer-title" class="stamp" data-reveal="stamp">Simulación educativa – no asesoramiento jurídico</h2>
+      <p>NO AI ACT es una herramienta educativa. Simplifica deliberadamente <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/spa" hreflang="es">Reglamento (UE) 2024/1689 (Ley de la AI)</a> y no sustituye el texto legal o el asesoramiento profesional. Una revisión legal de terceros se recomienda antes de cualquier uso institucional formal.</p>
+      <p><a href="/es/educacion/">Centro de educación</a> · <a href="/es/como-funciona/">Cómo funciona</a> · <a href="/es/para-formadores/">Para educadores</a> · <a href="/es/guia-reglamento-ia/">Guía del Reglamento de IA</a> · <a href="/es/glosario-ia/">Glosario</a> · <a href="/es/privacidad/">Protección de datos desde el diseño</a></p>
+      <p><a href="/es/investigacion-metodologia/">Metodología de investigación</a> · <a href="/es/como-citar/">Cómo citar</a> · <a href="/es/kit-de-prensa/">Kit de prensa</a></p>
+      <p>Código GPL-3.0 · CC BY-SA 4.0 content · <a href="https://github.com/matteoangeloni-jpeg/-NO-AI-ACT">Repositorio en GitHub</a> · <a href="/es/" hreflang="it">Versione italiana</a></p>
+      <p class="credit">Diseñado y desarrollado por <a href="/es/matteo-angeloni/">Matteo Angeloni</a> · v5.3.0 · <span class="ai-disclosure">Hecho con AI, no por AI</span><br><span class="credit-affil">Doctor en doctorado en doctorado <a href="https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/">Società in mutamento: politiche, diritti e sicurezza</a> · <a href="https://www.unitus.it/">University of Tuscia</a> — proyecto independiente, no producto oficial de la universidad</span></p>
+    </div>
+  <p class="session-record-policy">Economías locales y estadísticas agregadas opcionales. Sólo con el consentimiento de los adultos: un registro de sesión durante 90 días; el texto guía requiere un consentimiento separado. Retirar, borrar o exportar desde la barra de juego. <a href="/game-statistics.html#es">Aviso de privacidad y contacto</a></p><p>Algunas páginas públicas utilizan Cloudflare Web Analytics para estadísticas agregadas sobre el sitio web.</p><p class="shared-play-languages">Jugar: <a href="/play/?lang=it" hreflang="it" lang="it">Italiano</a> · <a href="/play/?lang=en" hreflang="en" lang="en">English</a> · <a href="/play/?lang=fr" hreflang="fr" lang="fr">Français</a> · <a href="/play/?lang=de" hreflang="de" lang="de">Deutsch</a> · <a href="/play/?lang=es" hreflang="es" lang="es">Español</a> · <a href="/play/?lang=pt" hreflang="pt-PT" lang="pt-PT">Português</a></p></footer>
+  <!-- Cloudflare Web Analytics --><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;7c85578fc8ad4488a54c6bc670a10dcf&quot;}"></script><!-- End Cloudflare Web Analytics -->
+  <script type="module" src="/src/scripts/landing-reveal.ts"></script>
   <script type="module" src="/src/scripts/nav.ts"></script>
   <script type="module" src="/src/scripts/press-carousel.ts"></script>
+
 </body></html>

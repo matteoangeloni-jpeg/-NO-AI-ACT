@@ -1,7 +1,8 @@
 // Original fictional materials. Held outside the public game's dependency graph.
 // Parallel drafts, NOT empirically equated instruments or a validated legal key.
-export const MATERIALS_VERSION = 'study02-draft-2026-11-21';
-export const LANGUAGES = ['it', 'en', 'fr'];
+import {EXTRA_MATERIALS} from './materials.locales.mjs';
+export const MATERIALS_VERSION = 'study02-draft-2026-11-23';
+export const LANGUAGES = ['it', 'en', 'fr', ...Object.keys(EXTRA_MATERIALS)];
 export const RUBRIC_IDS = ['claim', 'provenance', 'reasoning', 'alternative', 'uncertainty', 'revision'];
 export const FORMS = {
   A: {
@@ -154,3 +155,9 @@ export const COPY = {
     statusDownload: 'Copie locale préparée ; aucun envoi à un serveur.', draft: 'Instrument préliminaire : équivalence des formes, grilles et traductions à valider avec des personnes.'
   }
 };
+
+for (const [language, materials] of Object.entries(EXTRA_MATERIALS)) {
+  COPY[language] = materials.copy;
+  FORMS.A[language] = materials.A;
+  FORMS.B[language] = materials.B;
+}

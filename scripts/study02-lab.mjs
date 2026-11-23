@@ -8,7 +8,7 @@ export async function startStudy02Server(port = 4262) {
   const assets = new Map([
     ['/', ['text/html; charset=utf-8', shell]], ['/style.css', ['text/css; charset=utf-8', style]]
   ]);
-  for (const file of ['app.mjs', 'model.mjs', 'materials.mjs']) {
+  for (const file of ['app.mjs', 'model.mjs', 'materials.mjs', 'materials.locales.mjs']) {
     assets.set('/' + file, ['text/javascript; charset=utf-8', await readFile(new URL('../research/study02/' + file, import.meta.url), 'utf8')]);
   }
   const server = createServer((req, res) => {

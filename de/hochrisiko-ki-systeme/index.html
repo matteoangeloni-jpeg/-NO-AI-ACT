@@ -1,12 +1,98 @@
-<!doctype html>
-<html lang="de"><head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <title>Hochrisiko-KI-Systeme: Pflichten und Kontext verstehen</title>
-  <meta name="description" content="Was Hochrisiko-KI im AI Act bedeutet: Einsatzkontext, Dokumentation, menschliche Aufsicht sowie unterschiedliche Rollen von Anbietern und Betreibern." />
-  <meta name="author" content="Matteo Angeloni" />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
-  <link rel="canonical" href="https://www.no-ai-act.eu/de/hochrisiko-ki-systeme/" />
+<!DOCTYPE html><html lang="de"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="https://www.no-ai-act.eu/favicon.svg">
+
+  <title>Hochrisiko-KI-Systeme im EU-KI-Gesetz: Was es braucht</title>
+  <meta name="description" content="Was macht ein KI-System nach dem EU-KI-Gesetz risikoreicher, warum die Verpflichtungen strenger sind und wie menschliche Aufsicht und Data Governance funktionieren.">
+  <meta name="author" content="NO AI ACT">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <link rel="canonical" href="https://www.no-ai-act.eu/de/hochrisiko-ki-systeme/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="NO AI ACT">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Hochrisiko-KI-Systeme, erklärt">
+  <meta property="og:description" content="Bildung, Beschäftigung, grundlegende Dienstleistungen, Gesundheit: wo KI strenge Pflichten anstelle von Verboten hat und warum. Ein Bildungsüberblick.">
+  <meta property="og:url" content="https://www.no-ai-act.eu/de/hochrisiko-ki-systeme/">
+  <meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png">
+  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="NO AI ACT: Klartext-Leitfaden zum EU AI Act.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hochrisiko-KI-Systeme, erklärt">
+  <meta name="twitter:description" content="Bildung, Beschäftigung, grundlegende Dienstleistungen, Gesundheit: wo KI strenge Pflichten anstelle von Verboten hat und warum. Ein Bildungsüberblick.">
+  <meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png">
+  <meta name="twitter:image:alt" content="NO AI ACT: Klartext-Leitfaden zum EU AI Act.">
+  <link rel="stylesheet" href="https://www.no-ai-act.eu/src/styles/landing.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "NO AI ACT",
+      "item": "https://www.no-ai-act.eu/de/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "EU AI Act Guide",
+      "item": "https://www.no-ai-act.eu/de/ki-verordnung-leitfaden/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Hochriskante KI-Systeme",
+      "item": "https://www.no-ai-act.eu/de/hochrisiko-ki-systeme/"
+    }
+  ]
+}
+</script>
+  <script>document.documentElement.classList.add('has-js');</script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NO AI ACT",
+  "url": "https://www.no-ai-act.eu/de/",
+  "description": "Kostenloses investigatives Lernspiel und Lernmaterialien zur europäischen KI-Verordnung.",
+  "logo": "https://www.no-ai-act.eu/favicon.svg",
+  "sameAs": [
+    "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"
+  ],
+  "dateModified": "2026-11-22T00:00:00Z"
+}
+</script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Hochriskante KI-Systeme im EU-KI-Gesetz",
+  "description": "Was macht ein KI-System nach dem EU-KI-Gesetz risikoreich und welche Verpflichtungen gelten?",
+  "inLanguage": "de",
+  "mainEntityOfPage": "https://www.no-ai-act.eu/de/hochrisiko-ki-systeme/",
+  "author": {
+    "@type": "Person",
+    "name": "Matteo Angeloni",
+    "url": "https://www.no-ai-act.eu/de/matteo-angeloni/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "NO AI ACT",
+    "url": "https://www.no-ai-act.eu/de/",
+    "description": "Kostenloses investigatives Lernspiel und Lernmaterialien zur europäischen KI-Verordnung."
+  },
+  "dateModified": "2026-11-22T00:00:00Z"
+}
+</script>
   <link rel="alternate" hreflang="it" href="https://www.no-ai-act.eu/sistemi-ai-ad-alto-rischio/" />
   <link rel="alternate" hreflang="en" href="https://www.no-ai-act.eu/en/high-risk-ai-systems/" />
   <link rel="alternate" hreflang="fr" href="https://www.no-ai-act.eu/fr/systemes-ia-a-haut-risque/" />
@@ -14,42 +100,188 @@
   <link rel="alternate" hreflang="es" href="https://www.no-ai-act.eu/es/sistemas-ia-alto-riesgo/" />
   <link rel="alternate" hreflang="pt-PT" href="https://www.no-ai-act.eu/pt/sistemas-ia-risco-elevado/" />
   <link rel="alternate" hreflang="x-default" href="https://www.no-ai-act.eu/sistemi-ai-ad-alto-rischio/" />
-  <meta property="og:type" content="website" /><meta property="og:site_name" content="NO AI ACT" />
-  <meta property="og:locale" content="de_DE" />
   <meta property="og:locale:alternate" content="it_IT" />
   <meta property="og:locale:alternate" content="en_GB" />
   <meta property="og:locale:alternate" content="fr_FR" />
   <meta property="og:locale:alternate" content="es_ES" />
   <meta property="og:locale:alternate" content="pt_PT" />
-  <meta property="og:title" content="Hochrisiko-KI-Systeme: Pflichten und Kontext verstehen" /><meta property="og:description" content="Was Hochrisiko-KI im AI Act bedeutet: Einsatzkontext, Dokumentation, menschliche Aufsicht sowie unterschiedliche Rollen von Anbietern und Betreibern." />
-  <meta property="og:url" content="https://www.no-ai-act.eu/de/hochrisiko-ki-systeme/" /><meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
-  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" /><meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta property="og:image:alt" content="Hochrisiko-KI-Systeme" />
-  <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="Hochrisiko-KI-Systeme: Pflichten und Kontext verstehen" />
-  <meta name="twitter:description" content="Was Hochrisiko-KI im AI Act bedeutet: Einsatzkontext, Dokumentation, menschliche Aufsicht sowie unterschiedliche Rollen von Anbietern und Betreibern." /><meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" /><meta name="twitter:image:alt" content="Hochrisiko-KI-Systeme" />
-  <link rel="stylesheet" href="/src/styles/landing.css" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"NO AI ACT","item":"https://www.no-ai-act.eu/de/"},{"@type":"ListItem","position":2,"name":"Hochrisiko-KI-Systeme","item":"https://www.no-ai-act.eu/de/hochrisiko-ki-systeme/"}]}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Hochrisiko-KI-Systeme","url":"https://www.no-ai-act.eu/de/hochrisiko-ki-systeme/","inLanguage":"de","isAccessibleForFree":true,"learningResourceType":"Reading","image":"https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png"}</script>
-  <script>document.documentElement.classList.add('has-js');</script>
-</head><body class="eu-site">
-  <a class="skip-link" href="#main">Zum Inhalt</a>
-  <header class="topbar"><div class="wrap"><a class="brand" href="/de/">NO AI ACT</a>
-    <nav class="site-nav" aria-label="Navigation"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Navigation">Navigation</button>
-    <ul class="nav-menu" id="site-menu"><li><a href="#play-languages">Spielen – Sprache wählen</a></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="eu-topics">Themen</button><ul class="nav-sub" id="eu-topics"><li><a href="/de/">Startseite</a></li><li><a href="/de/so-funktioniert-es/">So funktioniert NO AI ACT</a></li><li><a href="/de/bildung/">Bildungsressourcen zur KI-Verordnung</a></li><li><a href="/de/ki-verordnung-fuer-lehrkraefte/">KI-Verordnung für Schulen und Lehrkräfte</a></li><li><a href="/de/ki-verordnung-leitfaden/">Ein Leitfaden zur EU-KI-Verordnung</a></li><li><a href="/de/ki-verordnung-glossar/">Glossar zur KI-Verordnung</a></li><li><a href="/de/datenschutz/">Datenschutz und Nutzungsstatistik</a></li><li><a href="/de/ki-risikokategorien/">Die Risikokategorien richtig einordnen</a></li><li><a href="/de/verbotene-ki-praktiken/">Verbotene KI-Praktiken</a></li><li><a href="/de/hochrisiko-ki-systeme/" aria-current="page">Hochrisiko-KI-Systeme</a></li><li><a href="/de/ki-transparenzpflichten/">Transparenzpflichten für KI</a></li><li><a href="/de/ki-modelle-allgemeiner-verwendungszweck/">KI-Modelle mit allgemeinem Verwendungszweck</a></li><li><a href="/de/ki-kompetenz/">KI-Kompetenz im konkreten Einsatz</a></li><li><a href="/de/ai-act-unterrichtseinheit/">AI Act im Unterricht: Fälle prüfen und Entscheidungen begründen</a></li><li><a href="/de/ki-personalauswahl/">KI in der Personalauswahl: vom Bewerbungsfilter zur Verantwortung</a></li><li><a href="/de/pressemappe/">NO AI ACT – Pressemappe</a></li></ul></li></ul></nav>
-  </div></header>
+</head>
+<body>
+  <a class="skip-link" href="#main">Überspringen zum Inhalt</a>
+  <header class="topbar"><div class="wrap"><a class="brand" href="/de/">NO AI ACT</a><nav class="site-nav" aria-label="Menü"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menü">Menü</button><ul class="nav-menu" id="site-menu"><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-0">Spielen</button><ul class="nav-sub" id="topics-0"><li><a href="/de/">NO AI ACT: ein AI Act Serious Game.Untersuchen Sie die Konsequenzen.</a></li><li><a href="/de/so-funktioniert-es/">Wie NO AI ACT funktioniert</a></li><li><a href="/de/fuer-lehrende/">NO AI ACT für Erzieher</a></li><li><a href="/de/serious-game-ki-verordnung/">Ein ernstes Spiel über den EU AI Act</a></li><li><a href="/de/pressemappe/">Druckkästchen</a></li><li><a href="/de/richtig-zitieren/">Wie zu zitieren NO AI ACT</a></li><li><a href="/de/matteo-angeloni/">Matteo Angeloni</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-1">Lernen</button><ul class="nav-sub" id="topics-1"><li><a href="/de/bildung/">AI Act Bildungszentrum</a></li><li><a href="/de/ki-kompetenz/">KI-Kompetenz und Artikel 4 des EU AI Act</a></li><li><a href="/de/digitale-buergerschaft-ki-regulierung/">Digital Citizenship und KI-Regulierung</a></li><li><a href="/de/serious-games-ki-regulierung/">Serious Games für KI-Regulierung</a></li><li><a href="/de/forschung-methodik/">Forschung und Methodik</a></li><li><a href="/de/datenschutzbewusstes-lernen/">Datenschutzbewusstes Lernen</a></li><li><a href="/de/faq/">Häufig gestellte Fragen</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-2">Lehrkräfte</button><ul class="nav-sub" id="topics-2"><li><a href="/de/ki-verordnung-fuer-lehrkraefte/">Das EU AI Act für Lehrer</a></li><li><a href="/de/unterrichtsaktivitaeten/">Unterrichtsräume</a></li><li><a href="/de/unterrichtsplan-ki-einstieg/">Lesson Plan: Eine Einführung in den AI Act</a></li><li><a href="/de/unterrichtsplan-risiko/">Lesson Plan: Der risikobasierte Ansatz</a></li><li><a href="/de/unterrichtsplan-transparenz/">Lesson Plan: Transparenz und Nutzer</a></li><li><a href="/de/ai-act-unterrichtseinheit/">Das AI Act Klassenzimmerlabor</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-3">KI-Verordnung</button><ul class="nav-sub" id="topics-3"><li><a href="/de/ki-verordnung-leitfaden/">Das EU-KI-Gesetz, einfach erklärt</a></li><li><a href="/de/ki-risikokategorien/">Risikokategorien des AI Act</a></li><li><a href="/de/verbotene-ki-praktiken/">Verbotene KI-Praxis</a></li><li><a href="/de/hochrisiko-ki-systeme/" aria-current="page">Hochriskante KI-Systeme</a></li><li><a href="/de/ki-transparenzpflichten/">Transparenzverpflichtungen</a></li><li><a href="/de/ki-modelle-allgemeiner-verwendungszweck/">Allzweck-KI</a></li><li><a href="/de/ki-verordnung-sanktionen/">AI Act Strafen: Beträge, wer ausgesetzt ist, ab wann</a></li><li><a href="/de/ki-verordnung-dsgvo/">Das KI-Gesetz und die DSGVO: wenn jeder gilt und wenn beides gilt</a></li><li><a href="/de/ki-verordnung-glossar/">AI Act Glossar</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-4">Organisationen</button><ul class="nav-sub" id="topics-4"><li><a href="/de/ki-verordnung-unternehmen/">AI Act for Business: Welche Verpflichtungen und was zu tun ist</a></li><li><a href="/de/ki-oeffentliche-verwaltung/">EU-KI-Gesetz für öffentliche Verwaltung und Beschaffung von KI</a></li><li><a href="/de/anbieter-betreiber-ki-verordnung/">Provider vs Deployter nach EU AI Act</a></li><li><a href="/de/ki-personalauswahl/">KI in Rekrutierung und Beschäftigung</a></li><li><a href="/de/grundrechte-folgenabschaetzung-ki/">AI Act FRIA: Grundrechtsfolgenabschätzung</a></li><li><a href="/de/deepfakes-transparenz/">Deepfakes und Transparenz</a></li><li><a href="/de/ki-verordnung-zeitplan/">Die AI Act Anwendung Timeline</a></li></ul></li><li><a href="/de/datenschutz/">Datenschutz</a></li></ul></nav></div></header>
 <nav class="locale-links" aria-label="Sprachen"><div class="wrap"><a href="/sistemi-ai-ad-alto-rischio/" hreflang="it" lang="it"><img src="/assets/flags/it.png" width="28" height="20" alt="" /><span>Italiano</span></a><a href="/en/high-risk-ai-systems/" hreflang="en" lang="en"><img src="/assets/flags/gb.png" width="28" height="20" alt="" /><span>English</span></a><a href="/fr/systemes-ia-a-haut-risque/" hreflang="fr" lang="fr"><img src="/assets/flags/fr.png" width="28" height="20" alt="" /><span>Français</span></a><a href="/de/hochrisiko-ki-systeme/" hreflang="de" lang="de" aria-current="page"><img src="/assets/flags/de.png" width="28" height="20" alt="" /><span>Deutsch</span></a><a href="/es/sistemas-ia-alto-riesgo/" hreflang="es" lang="es"><img src="/assets/flags/es.png" width="28" height="20" alt="" /><span>Español</span></a><a href="/pt/sistemas-ia-risco-elevado/" hreflang="pt-PT" lang="pt-PT"><img src="/assets/flags/pt.png" width="28" height="20" alt="" /><span>Português</span></a></div></nav>
-  <main id="main"><section class="hero" aria-labelledby="page-title"><div class="wrap"><p class="stamp">NO AI ACT · Deutsch</p><h1 id="page-title">Hochrisiko-KI-Systeme</h1><p class="lead">Hohes Risiko bedeutet nicht automatisch Verbot. Es bedeutet auch nicht, dass eine einzelne Schutzmaßnahme bereits alle Anforderungen erfüllt.</p><p class="cta-row"><a class="btn btn-primary" href="#play-languages">Spielen – Sprache wählen</a></p></div></section>
-<section aria-labelledby="section-0"><div class="wrap"><h2 id="section-0"><span class="num">01</span>Eine kontextabhängige Einordnung</h2><p>Bestimmte KI-Systeme fallen bei Vorliegen der rechtlichen Voraussetzungen unter die Hochrisiko-Regeln. Sensible Einsatzbereiche sind ein wichtiger Ausgangspunkt, aber die Prüfung darf nicht bei einer Branchenbezeichnung stehen bleiben. Verwendungszweck, Funktion und die konkreten Bestimmungen müssen zusammen betrachtet werden.</p></div></section>
-<section aria-labelledby="section-1"><div class="wrap"><h2 id="section-1"><span class="num">02</span>Maßnahmen müssen überprüfbar sein</h2><p>Dokumentation, Datenqualität, Aufzeichnungen und menschliche Aufsicht betreffen unterschiedliche Teile des Umgangs mit Risiken. Die Aussage „Ein Mensch prüft alles“ reicht nicht, wenn diese Person weder die notwendigen Informationen noch eine echte Eingriffsmöglichkeit hat. Das Spiel fragt deshalb nach konkreten, begründbaren Maßnahmen und nicht nur nach beruhigenden Formulierungen.</p></div></section>
-<section aria-labelledby="section-2"><div class="wrap"><h2 id="section-2"><span class="num">03</span>Die richtige Rolle zuordnen</h2><p>Anbieter und Betreiber haben nicht dieselben Aufgaben. Kläre, wer das System bereitstellt und wer es im konkreten Kontext einsetzt. Ein Spielbericht stellt keine vollständige Prüfung aller Anforderungen dar. Für reale Beschaffung, Einführung oder Nutzung bleiben die aktuelle Rechtslage, mögliche weitere Vorschriften und eine fachkundige Prüfung entscheidend.</p></div></section>
 
+  <main id="main">
 
+    <nav class="breadcrumbs" aria-label="Brotkrume">
+      <div class="wrap">
+        <ol>
+          <li><a href="/de/">NO AI ACT</a></li>
+          <li><a href="/de/ki-verordnung-leitfaden/">EU AI Act Guide</a></li>
+          <li aria-current="page">Hochriskante KI-Systeme</li>
+        </ol>
+      </div>
+    </nav>
+    <section class="hero" aria-labelledby="page-title">
+      <div class="wrap">
+        <p class="kicker">Hohe Einsätze · Verpflichtungen</p>
+        <h1 id="page-title">Hochriskante KI-Systeme</h1>
+        <p class="lead">Zwischen &quot;verboten&quot; und &quot;alles geht&quot; liegt der Schwerpunkt der Verordnung: Systeme, die Ihre Bildung, Ihren Job, Ihre Gesundheit oder Ihren Zugang zu Dienstleistungen prägen können. Sie sind erlaubt - unter Bedingungen, die sie vertrauenswürdig und anfechtbar machen sollen.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/play/?lang=de">Inspizieren Sie einen Hochrisikofall</a>
+          <a class="btn btn-ghost" href="/de/ki-risikokategorien/">Alle Risikokategorien</a>
+        </div>
+      </div>
+    </section>
 
+    <section aria-labelledby="meaning-title">
+      <div class="wrap">
+        <h2 id="meaning-title"><span class="num">01</span>Was &quot;hohes Risiko&quot; in Bildungsbegriffen bedeutet</h2>
 
+        <p class="section-intro">Hochrisiko bedeutet nicht Böses oder Verbotenes, sondern bedeutet: <strong>Wenn dieses System versagt oder diskriminiert, verlieren echte Menschen echte Dinge</strong> — ein Schulplatz, ein Vorstellungsgespräch, eine Diagnose, ein Vorteil. Die Beweislast wird also umgedreht: Das System muss zeigen, dass es den Einsatz verdient.</p>
+      </div>
+    </section>
+    <section aria-labelledby="where-title">
+      <div class="wrap">
+        <h2 id="where-title"><span class="num">02</span>Wo das Etikett normalerweise landet</h2>
 
-  <section aria-labelledby="play-languages"><div class="wrap"><h2 id="play-languages">Spielen – Sprache wählen</h2><p>Das Spiel ist auf Italienisch, Englisch, Französisch, Deutsch, Spanisch und europäischem Portugiesisch verfügbar. Diese Seiten sind auf Deutsch; die Auswahl unten öffnet das Spiel in der angegebenen Sprache.</p><p class="eu-play-links"><a href="/play/?lang=it" hreflang="it">Italienisch</a> · <a href="/play/?lang=en" hreflang="en">Englisch</a> · <a href="/play/?lang=fr" hreflang="fr">Französisch</a> · <a href="/play/?lang=de" hreflang="de">Deutsch</a> · <a href="/play/?lang=es" hreflang="es">Spanisch</a> · <a href="/play/?lang=pt" hreflang="pt-PT">Portugiesisch</a></p></div></section>
-  <section aria-labelledby="related-title"><div class="wrap"><h2 id="related-title">Weiterlesen</h2><ul class="plain"><li><a href="/de/">Startseite</a></li><li><a href="/de/so-funktioniert-es/">So funktioniert NO AI ACT</a></li><li><a href="/de/bildung/">Bildungsressourcen zur KI-Verordnung</a></li><li><a href="/de/ki-verordnung-fuer-lehrkraefte/">KI-Verordnung für Schulen und Lehrkräfte</a></li><li><a href="/de/ki-verordnung-leitfaden/">Ein Leitfaden zur EU-KI-Verordnung</a></li><li><a href="/de/ki-verordnung-glossar/">Glossar zur KI-Verordnung</a></li><li><a href="/de/datenschutz/">Datenschutz und Nutzungsstatistik</a></li><li><a href="/de/ki-risikokategorien/">Die Risikokategorien richtig einordnen</a></li><li><a href="/de/verbotene-ki-praktiken/">Verbotene KI-Praktiken</a></li><li><a href="/de/ki-transparenzpflichten/">Transparenzpflichten für KI</a></li><li><a href="/de/ki-modelle-allgemeiner-verwendungszweck/">KI-Modelle mit allgemeinem Verwendungszweck</a></li><li><a href="/de/ki-kompetenz/">KI-Kompetenz im konkreten Einsatz</a></li><li><a href="/de/ai-act-unterrichtseinheit/">AI Act im Unterricht: Fälle prüfen und Entscheidungen begründen</a></li><li><a href="/de/ki-personalauswahl/">KI in der Personalauswahl: vom Bewerbungsfilter zur Verantwortung</a></li><li><a href="/de/pressemappe/">NO AI ACT – Pressemappe</a></li></ul></div></section>
-  </main><footer aria-labelledby="footer-title"><div class="wrap"><h2 id="footer-title" class="stamp">Didaktische Vereinfachung, keine Rechtsberatung</h2><p>NO AI ACT ist ein unabhängiges, kostenloses Open-Source-Lernspiel. Die Erläuterungen führen in ausgewählte Begriffe ein und ersetzen weder den geltenden Rechtstext noch eine fachliche Prüfung. Die pädagogische Wirksamkeit wurde nicht durch eine kontrollierte Studie nachgewiesen.</p><p><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/deu" hreflang="de">Offizieller EU-Rechtstext</a> · <a href="/en/research-and-methodology/" hreflang="en" lang="en">Autor und Methodik (Englisch)</a> · <a href="/game-statistics.html#de" hreflang="de">Informationen zur Statistik</a></p><p class="credit">Entwickelt von Matteo Angeloni · v5.2.2<br />Mit KI-Unterstützung erstellt und redaktionell bearbeitet; keine amtliche Übersetzung.</p></div><p class="session-record-policy">Lokale Spielstände und abschaltbare aggregierte Statistik. Nur mit Einwilligung Erwachsener: Sitzungsprotokoll für 90 Tage; Texte des geführten Wegs mit gesonderter Einwilligung. Widerruf, Löschung und Export in der Spielleiste. <a href="/game-statistics.html#de">Informationen zur Statistik</a></p></footer>
+        <ul class="plain">
+          <li><strong>Bildung</strong> - Zulassung, Bewertung, adaptive Plattformen, die Lernpfade steuern.</li>
+          <li><strong>Erwerbstätigkeit</strong> - CV-Screening, Interview-Scoring, Promotion und Terminierungsunterstützung.</li>
+          <li><strong>Wesentliche Dienstleistungen</strong> — Kredit, Leistungen, Wohnungspriorisierung.</li>
+          <li><strong>Gesundheit</strong> — klinische Entscheidungsunterstützung und Triage.</li>
+        </ul>
+        <p>Vier der Fälle des Spiels leben hier: das Interview, das nicht existiert, unsichtbare Triage, das profilierte Klassenzimmer, das undurchsichtige Tender.</p>
+      </div>
+    </section>
+    <section aria-labelledby="duties-title">
+      <div class="wrap">
+        <h2 id="duties-title"><span class="num">03</span>Die Verpflichtungen, in einfachen Worten</h2>
+
+        <ul class="plain">
+          <li><strong>Risikomanagement</strong> Identifizieren Sie, was schief gehen kann, für wen, und mildern Sie vor dem Einsatz.</li>
+          <li><strong>Daten-Governance</strong> — Ausbildungsdaten, die für die tatsächlich betroffene Bevölkerung relevant und repräsentativ sind.</li>
+          <li><strong>Dokumentation &amp; Protokollierung</strong> — Das System muss einer Behörde erklärbar und im Nachhinein nachvollziehbar sein.</li>
+          <li><strong>Menschliche Aufsicht</strong> eine Person, die über die Kompetenz, die Information und die Befugnis verfügt, einzugreifen.</li>
+          <li><strong>Genauigkeit und Robustheit</strong> - passend zu den Einsätzen.</li>
+        </ul>
+        <p>Für das Gesamtbild von der Seite eines Unternehmens - Rolle, Risiko, Kompetenz, Fristen - siehe <a href="/de/ki-verordnung-unternehmen/">AI Act für Unternehmen</a>.</p>
+
+        <p><strong>Wenn sie durchsetzbar werden.</strong> Diese Verpflichtungen sind in der Verordnung enthalten, aber der Digital Omnibus (Verordnung (EU) 2026/1744) hat sein Anwendungsdatum verschoben: <strong>2. Dezember 2027</strong> für die Systeme nach Anhang III — Beschäftigung, Bildung, wesentliche Dienste, Justiz und <strong>2. August 2028</strong> für Produkte, die in bereits regulierte Produkte eingebettet sind (Anhang I). Aufgeschoben wird nicht abgeschafft: Die Verpflichtungen sind im Wesentlichen identisch, was sich geändert hat, ist das Datum, ab dem eine Behörde sie verlangen kann, und wer heute ein System entwickelt, das in diese Kategorien fällt, hat weniger Zeit, als es aussieht. Die vollständigen Termine befinden sich auf der <a href="/de/ki-verordnung-zeitplan/">Anwendungszeitplan</a>.</p>
+      </div>
+    </section>
+    <section aria-labelledby="oversight-title">
+      <div class="wrap">
+        <h2 id="oversight-title"><span class="num">04</span>Die Aufsichtsfalle</h2>
+
+        <p class="section-intro">Der lehrreichste Fehlermodus: Aufsicht, die auf dem Papier existiert. Ein Betreiber, der 400 automatisierte Entscheidungen pro Tag &quot;überprüft&quot;, überprüft keine. Die Beweise des Spiels kehren immer wieder dazu zurück - interne Notizen, die zugeben, dass die Mitarbeiter &quot;der Punktzahl folgen&quot; - weil das Erkennen gefälschter Aufsicht eine Fähigkeit ist, die Schüler auf jedem System verwenden können, das sie treffen.</p>
+      </div>
+    </section>
+    <section aria-labelledby="classroom-title">
+      <div class="wrap">
+        <h2 id="classroom-title"><span class="num">05</span>Diskussion im Klassenzimmer</h2>
+
+        <p class="section-intro">Starke Aufforderungen: <em>Welche der oben genannten Aufgaben hätte das Scheitern in unserem Szenario erwischt? Wer sollte sie überprüfen - Käufer, Verkäufer, Autorität? Was passiert, wenn eine Dokumentation fehlt?</em> Die <a href="/de/unterrichtsaktivitaeten/">Aktivitätenseite</a> hat eine vorgefertigte Sortierung. <a href="/de/anbieter-betreiber-ki-verordnung/">Anbieter und Deployment</a> die Verantwortlichkeiten zu trennen und die <a href="/de/grundrechte-folgenabschaetzung-ki/">Leitfaden für die Folgenabschätzung der Grundrechte</a> für sensible Zwecke des öffentlichen Sektors.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="obligations-practice-title">
+      <div class="wrap">
+        <h2 id="obligations-practice-title"><span class="num">06</span>Die Verpflichtungen in der Praxis: was zu suchen</h2>
+
+        <p class="section-intro">Hochrisikoverpflichtungen lesen sich besser als Fragen an ein reales System als als eine Liste zum Auswendiglernen. Jede Zeile unten ist eine Frage, die ein Student von einem konkreten Fall stellen kann, plus das Zeichen, dass etwas fehlt.</p>
+
+        <div class="table-wrap">
+          <table>
+            <caption>Verpflichtung, operative Frage und das Symptom ihrer Abwesenheit</caption>
+            <thead>
+              <tr><th scope="col">Verpflichtung (vereinfacht)</th><th scope="col">Die Frage zu stellen</th><th scope="col">Wie Sie erkennen können, dass es fehlt</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Risikomanagement</th>
+                <td>Hat jemand aufgeschrieben, was schief gehen kann und für wen?</td>
+                <td>Niemand kann sagen, wer zuerst durch einen Fehler geschädigt würde.</td>
+              </tr>
+              <tr>
+                <th scope="row">Daten-Governance</th>
+                <td>Auf welche Daten wurde sie trainiert und wer war in ihr unterrepräsentiert?</td>
+                <td>Fehler konzentrieren sich weiterhin auf die gleichen Personengruppen.</td>
+              </tr>
+              <tr>
+                <th scope="row">Technische Dokumentation</th>
+                <td>Gibt es ein Dokument, das erklärt, wie es funktioniert, auf dem neuesten Stand gehalten?</td>
+                <td>Die Antwort ist &quot;der Verkäufer weiß&quot; - und der Verkäufer zeigt auf die Verkaufsbroschüre.</td>
+              </tr>
+              <tr>
+                <th scope="row">Aufbewahrung von Aufzeichnungen (Logging)</th>
+                <td>Wenn ich heute eine Entscheidung anfechten würde, würde eine Spur bleiben?</td>
+                <td>Sie können nicht rekonstruieren, welche Version des Systems sich entschieden hat oder wann.</td>
+              </tr>
+              <tr>
+                <th scope="row">Menschliche Aufsicht</th>
+                <td>Kann die betreuende Person das Ergebnis tatsächlich umkehren?</td>
+                <td>Sie können nur bestätigen, oder sie erhalten dreißig Sekunden pro Datei.</td>
+              </tr>
+              <tr>
+                <th scope="row">Genauigkeit und Robustheit</th>
+                <td>Wird die Fehlerquote gemessen und veröffentlicht oder lediglich beansprucht?</td>
+                <td>Es wird ein einziger aggregierter Prozentsatz ohne Untergliederung nach Gruppen angegeben.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Die rechte Spalte ist die didaktisch nützliche: Sie verschiebt die Aufmerksamkeit von deklarierter Compliance zu beobachtbarer Compliance. <a href="/play/?lang=de">Spiel</a> baut seine Fallakten - die Exponate zeigen Symptome, keine Zertifikate.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="compare-hr-title">
+      <div class="wrap">
+        <h2 id="compare-hr-title"><span class="num">07</span>Drei Systeme im Vergleich</h2>
+
+        <p class="section-intro">Warum das Label &quot;hohes Risiko&quot; vom Kontext und nicht von der Technologie abhängt, wird klarer, wenn Sie ähnliche Anwendungen mit unterschiedlichen Ergebnissen vergleichen.</p>
+
+        <div class="table-wrap">
+          <table>
+            <caption>Gleiche technische Familie, unterschiedliche Platzierungen</caption>
+            <thead>
+              <tr><th scope="col">System</th><th scope="col">Wo es verwendet wird</th><th scope="col">Bildungslesung</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Automatisiertes Ranking von Anwendungen</th>
+                <td><a href="/de/ki-personalauswahl/">Einstellung</a></td>
+                <td>Typisch <strong>hohes Risiko</strong>: sie wirkt sich auf den Zugang zur Arbeit aus und erfordert daher eine echte Aufsicht, Rückverfolgbarkeit und Informationen für die beteiligten Personen.</td>
+              </tr>
+              <tr>
+                <th scope="row">Automatisches Ranking von Inhalten</th>
+                <td>Eine Musik-Playlist</td>
+                <td><strong>Minimales Risiko</strong>: Die gleiche Ranking-Technik berührt weder Grundrechte noch den Zugang zu wesentlichen Diensten.</td>
+              </tr>
+              <tr>
+                <th scope="row">Predictive Scoring von Bürgern</th>
+                <td>Zugang zu Sozialleistungen</td>
+                <td>Grenzgebiet: es kann sein <strong>hohes Risiko</strong> wenn es den Zugang zu einem wesentlichen Dienst regelt oder zwischen <a href="/de/verbotene-ki-praktiken/">verbotene Praktiken</a> wenn es zu generalisiertem Social Scoring wird.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Die dritte Reihe führt zu den besten Diskussionen, und deshalb widmet das Spiel dem Bürgerkredit einen Spiegelfall: Der Unterschied liegt nicht im Algorithmus, sondern darin, was die Punktzahl entscheidet und wie viel von einem Leben es erreicht.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer aria-labelledby="footer-title">
+    <div class="wrap">
+      <h2 id="footer-title" class="stamp">Pädagogische Simulation – keine Rechtsberatung</h2>
+      <p>NO AI ACT ist ein unabhängiges Open-Source-Bildungsinstrument. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/deu" hreflang="de">Verordnung (EU) 2024/1689 (KI-Gesetz)</a> und ersetzt nicht den Rechtstext oder die professionelle Beratung.</p>
+      <p><a href="/de/bildung/">Bildungszentrum</a> · <a href="/de/so-funktioniert-es/">Wie es funktioniert</a> · <a href="/de/fuer-lehrende/">für Erzieher</a> · <a href="/de/ki-verordnung-glossar/">Glossar</a> · <a href="/de/hochrisiko-ki-systeme/" hreflang="it">Versione italiana</a></p>
+      <p class="credit">Entworfen und entwickelt von <a href="/de/matteo-angeloni/">Matteo Angeloni</a> · v5.3.0 · <span class="ai-disclosure">Hergestellt mit AI, nicht von AI</span><br><span class="credit-affil">PhD-Kandidat in <a href="https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/">Società in mutamento: politiche, diritti e sicurezza</a> · <a href="https://www.unitus.it/">Universität von Tuscia</a> — unabhängiges Projekt, kein offizielles Ergebnis der Universität</span></p>
+    </div>
+  <p class="session-record-policy">Lokale Speicher und optionale aggregierte Statistiken. Nur mit Zustimmung von Erwachsenen: ein Sitzungsprotokoll für 90 Tage; Guided-Path-Text erfordert eine separate Zustimmung. Ziehen, löschen oder exportieren Sie aus der Spielleiste. <a href="/game-statistics.html#de">Datenschutzhinweis und Kontakt</a></p><p class="shared-play-languages">Spielen: <a href="/play/?lang=it" hreflang="it" lang="it">Italiano</a> · <a href="/play/?lang=en" hreflang="en" lang="en">English</a> · <a href="/play/?lang=fr" hreflang="fr" lang="fr">Français</a> · <a href="/play/?lang=de" hreflang="de" lang="de">Deutsch</a> · <a href="/play/?lang=es" hreflang="es" lang="es">Español</a> · <a href="/play/?lang=pt" hreflang="pt-PT" lang="pt-PT">Português</a></p></footer>
+  <!-- Cloudflare Web Analytics --><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;7c85578fc8ad4488a54c6bc670a10dcf&quot;}"></script><!-- End Cloudflare Web Analytics -->
   <script type="module" src="/src/scripts/nav.ts"></script>
 
 </body></html>

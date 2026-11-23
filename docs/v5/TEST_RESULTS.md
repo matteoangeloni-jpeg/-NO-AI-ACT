@@ -1,6 +1,9 @@
 # Verifica finale della copertura metodologica V5
 
-[Italiano](TEST_RESULTS.md) · [English](en/TEST_RESULTS.md) · [Français](fr/TEST_RESULTS.md)
+
+> Edizione linguistica V5.3.0 · 23 novembre 2026. Il dossier e i materiali locali di Study 02 sono ora disponibili in sei lingue. Date, conteggi e risultati del prototipo descrivono le esecuzioni storiche. Il contratto attuale del registro facoltativo per maggiorenni è in SESSION_JOURNAL.md e supera il precedente vincolo dei soli aggregati. Le traduzioni non dimostrano equivalenza degli strumenti, efficacia educativa o validità della rubrica. Non sono stati eseguiti nuovi test per questo aggiornamento dei contenuti.
+
+
 
 21 novembre 2026. Rapporto del prototipo precedente al rilascio V5.0.0. Test avviati dopo l'implementazione dell'intera lista operativa in COVERAGE_COMPLETION.md. Le correzioni emerse nella verifica sono state seguite da nuove esecuzioni. I risultati qui descritti riguardano il clone locale; i controlli della pubblicazione sono documentati separatamente nella release.
 

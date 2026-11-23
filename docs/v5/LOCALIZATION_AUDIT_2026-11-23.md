@@ -1,5 +1,8 @@
 # Audit linguistico V5 — 23 novembre 2026
 
+> Documento storico dell’audit precedente alla V5.3.0. Le differenze di copertura elencate qui sono state colmate nella versione successiva: 37 sezioni per lingua e dossier/materiali locali in IT/EN/FR/DE/ES/PT. Stato attuale: [Italiano](README.md) · [English](README.en.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Português](README.pt.md). I risultati di verifica sottostanti restano riferiti alla revisione allora eseguita.
+
+
 Audit locale sul ramo `codex/v5-localization-audit`, basato sulla produzione
 stabile V5.2.2 (`911d9465bef34cc3d92aa476386204c50168e22a`). Le correzioni sono
 implementate e verificate, **non pubblicate in produzione**. Non viene creata

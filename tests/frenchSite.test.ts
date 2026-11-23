@@ -17,9 +17,9 @@ const attr = (n: any, name: string) => n.attrs?.find((a: any) => a.name === name
 const nodes = (html: string) => { const out: any[] = []; walk(parse(html), (n: any) => out.push(n)); return out; };
 
 describe('French publication candidate', () => {
-  it('covers all 37 English routes, including four without an Italian counterpart', () => {
+  it('covers all English routes with an Italian counterpart for every topic', () => {
     expect(french).toHaveLength(37);
-    expect(new Set(INVENTORY_DIRS.filter(d => !/^(de|es|pt)(\/|$)/.test(d))).size).toBe(107);
+    expect(new Set(INVENTORY_DIRS.filter(d => !/^(de|es|pt)(\/|$)/.test(d))).size).toBe(cfg.pairs.length * 3);
     expect(translations).toHaveLength(24);
     expect(Object.keys(cfg.frForEn).sort()).toEqual([...cfg.enOnly].sort());
   });

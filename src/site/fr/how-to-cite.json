@@ -1,7 +1,7 @@
 {
   "en": "en/how-to-cite",
   "slug": "comment-citer",
-  "sourceHash": "cc18c8d6f2dc7456c4a8d31770fe1d1dcc75d303efba85ba42792c2428144e48",
+  "sourceHash": "6e7b615fdebd54cc6e274443ac83781b66270863443f59122edfe24b93469d13",
   "title": "Comment citer NO AI ACT : APA, BibTeX et licences",
   "description": "Citer NO AI ACT dans une recherche ou un travail pédagogique : formats APA et BibTeX, version exacte, CITATION.cff, licences et limites méthodologiques.",
   "blocks": [
@@ -10,10 +10,10 @@
     "Si vous utilisez NO AI ACT dans un mémoire, un article, une étude en classe ou un travail dérivé, cette page fournit les formats de citation. Indiquez toujours la <strong>version exacte</strong> utilisée : le jeu évolue et les cas peuvent changer.",
     "<span class=\"num\">01</span>Citation APA",
     "Format APA (7e édition) pour un logiciel :",
-    "<code>Angeloni, M. (2026). <em>NO AI ACT — Simulatore di una società non regolata</em> (Version 5.2.2) [Logiciel]. https://www.no-ai-act.eu/</code>",
-    "Remplacez « 5.2.2 » par la version effectivement utilisée, indiquée dans le pied de page, sur l'écran titre du jeu et dans le fichier <code>package.json</code> du dépôt.",
+    "<code>Angeloni, M. (2026). <em>NO AI ACT — Simulatore di una società non regolata</em> (Version 5.3.0) [Logiciel]. https://www.no-ai-act.eu/</code>",
+    "Remplacez « 5.3.0 » par la version effectivement utilisée, indiquée dans le pied de page, sur l'écran titre du jeu et dans le fichier <code>package.json</code> du dépôt.",
     "<span class=\"num\">02</span>BibTeX",
-    "<code>@software{angeloni_no_ai_act_2026,\n  author = {Angeloni, Matteo},\n  title = {NO AI ACT --- Simulatore di una societ{\\`a} non regolata},\n  year = {2026},\n  version = {5.2.2},\n  url = {https://www.no-ai-act.eu/},\n  note = {Code source : https://github.com/matteoangeloni-jpeg/-NO-AI-ACT. Code sous GPL-3.0 ; contenus pédagogiques sous CC BY-SA 4.0.}\n}</code>",
+    "<code>@software{angeloni_no_ai_act_2026,\n  author = {Angeloni, Matteo},\n  title = {NO AI ACT --- Simulatore di una societ{\\`a} non regolata},\n  year = {2026},\n  version = {5.3.0},\n  url = {https://www.no-ai-act.eu/},\n  note = {Code source : https://github.com/matteoangeloni-jpeg/-NO-AI-ACT. Code sous GPL-3.0 ; contenus pédagogiques sous CC BY-SA 4.0.}\n}</code>",
     "<span class=\"num\">03</span>Pourquoi la version exacte compte",
     "<strong>Reproductibilité</strong> : cas, textes et règles d'évaluation sont associés à une version. Une étude doit pouvoir retrouver exactement ce qu'ont vu ses participants.",
     "<strong>Où la trouver</strong> : pied de page, <code>package.json</code> et versions étiquetées dans <a href=\"https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/releases\">GitHub Releases</a>.",
@@ -31,7 +31,7 @@
     "Les contenus pédagogiques et narratifs (cas, textes, glossaire) peuvent être réutilisés et adaptés avec attribution à « NO AI ACT — Matteo Angeloni », indication des modifications et respect du partage dans les mêmes conditions.",
     "Détails dans le dépôt : <a href=\"https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/LICENSE\">LICENSE</a> et <a href=\"https://github.com/matteoangeloni-jpeg/-NO-AI-ACT/blob/main/LICENSE_NOTES.md\">LICENSE_NOTES</a>.",
     "<span class=\"num\">07</span>Contexte pour les auteurs qui citent le projet",
-    "NO AI ACT est une <strong>simulation pédagogique</strong> du règlement (UE) 2024/1689 : il simplifie volontairement le droit et ne constitue pas un conseil juridique. Son efficacité pédagogique <strong>n'a pas encore été validée empiriquement</strong>. Décrivez-le comme un outil pédagogique open source, pas comme une intervention à l'efficacité démontrée. Voir <a href=\"../research-and-methodology/\">recherche et méthodologie</a> et le <a href=\"../press-kit/\">dossier de presse</a>.",
+    "NO AI ACT est une <strong>simulation pédagogique</strong> du règlement (UE) 2024/1689 : il simplifie volontairement le droit et ne constitue pas un conseil juridique. Son efficacité pédagogique <strong>n'a pas encore été validée empiriquement</strong>. Décrivez-le comme un outil pédagogique open source, pas comme une intervention à l'efficacité démontrée. Voir <a href=\"/fr/recherche-methodologie/\">recherche et méthodologie</a> et le <a href=\"/fr/dossier-de-presse/\">dossier de presse</a>.",
     "Essayer le jeu",
     "Recherche et méthodologie"
   ]
