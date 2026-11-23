@@ -1,73 +1,87 @@
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+<!DOCTYPE html><html lang="fr"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="https://www.no-ai-act.eu/favicon.svg">
 
-  <title>IA à usage général (GPAI) : obligations et usage en aval</title>
-  <meta name="description" content="Les modèles d'IA à usage général dans l'AI Act : obligations du fournisseur, risque systémique, et ce qui change quand un modèle entre dans une décision concrète." />
-  <meta name="author" content="NO AI ACT" />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <title>L'IA à usage général dans la Loi sur l'IA: l'IAGP et l'utilisation en aval</title>
+  <meta name="description" content="Ce que signifie l'IA à usage général dans la loi sur l'IA de l'UE, comment les modèles GPAI et générateurs diffèrent des systèmes à usage unique et pourquoi l'utilisation en aval est importante.">
+  <meta name="author" content="NO AI ACT">
+  <meta name="robots" content="index, follow, max-image-preview:large">
 
-  <link rel="canonical" href="https://www.no-ai-act.eu/fr/ia-a-usage-general/" />
+  <link rel="canonical" href="https://www.no-ai-act.eu/fr/ia-a-usage-general/">
 
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="NO AI ACT" />
-  <meta property="og:locale" content="fr_FR" />
-  <meta property="og:title" content="IA à usage général et usage en aval" />
-  <meta property="og:description" content="Un modèle polyvalent n'est ni interdit ni automatiquement à haut risque : le risque naît de l'usage concret, en aval." />
-  <meta property="og:url" content="https://www.no-ai-act.eu/fr/ia-a-usage-general/" />
-  <meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
-  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Couverture NO AI ACT : serious game pédagogique gratuit sur l'AI Act européen." />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="IA à usage général et usage en aval" />
-  <meta name="twitter:description" content="Un modèle polyvalent n'est ni interdit ni automatiquement à haut risque : le risque naît de l'usage concret, en aval." />
-  <meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png" />
-  <meta name="twitter:image:alt" content="Couverture NO AI ACT : serious game pédagogique gratuit sur l'AI Act européen." />
-  <link rel="stylesheet" href="/src/styles/landing.css" />
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="NO AI ACT">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="AI à usage général, expliqué">
+  <meta property="og:description" content="GPAI et modèles générateurs dans la loi sur l'IA: pourquoi ils obtiennent leur propre chapitre, et pourquoi «pour quoi l'utilisez-vous» reste la question décisive.">
+  <meta property="og:url" content="https://www.no-ai-act.eu/fr/ia-a-usage-general/">
+  <meta property="og:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png">
+  <meta property="og:image:secure_url" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="NO AI ACT: guide en langage simple de la loi de l'UE sur l'IA.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI à usage général, expliqué">
+  <meta name="twitter:description" content="GPAI et modèles générateurs dans la loi sur l'IA: pourquoi ils obtiennent leur propre chapitre, et pourquoi «pour quoi l'utilisez-vous» reste la question décisive.">
+  <meta name="twitter:image" content="https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png">
+  <meta name="twitter:image:alt" content="NO AI ACT: guide en langage simple de la loi de l'UE sur l'IA.">
+  <link rel="stylesheet" href="https://www.no-ai-act.eu/src/styles/landing.css">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "NO AI ACT",
-        "item": "https://www.no-ai-act.eu/fr/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "IA à usage général",
-        "item": "https://www.no-ai-act.eu/fr/ia-a-usage-general/"
-      }
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LearningResource",
-    "name": "IA à usage général et usage en aval",
-    "url": "https://www.no-ai-act.eu/fr/ia-a-usage-general/",
-    "image": "https://www.no-ai-act.eu/assets/social/no-ai-act-guide-og.png",
-    "inLanguage": "fr",
-    "learningResourceType": "Reading",
-    "isAccessibleForFree": true,
-    "about": {
-      "@type": "Thing",
-      "name": "IA à usage général"
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "NO AI ACT",
+      "item": "https://www.no-ai-act.eu/fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guide de la loi sur l'IA de l'UE",
+      "item": "https://www.no-ai-act.eu/fr/guide-ai-act/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "AI à usage général",
+      "item": "https://www.no-ai-act.eu/fr/ia-a-usage-general/"
     }
-  }
-  </script>
+  ]
+}
+</script>
   <script>document.documentElement.classList.add('has-js');</script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NO AI ACT",
+  "url": "https://www.no-ai-act.eu/fr/",
+  "description": "Jeu éducatif d’enquête gratuit et ressources pédagogiques sur le règlement européen sur l’intelligence artificielle.",
+  "logo": "https://www.no-ai-act.eu/favicon.svg",
+  "sameAs": [
+    "https://github.com/matteoangeloni-jpeg/-NO-AI-ACT"
+  ],
+  "dateModified": "2026-11-22T00:00:00Z"
+}
+</script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://www.no-ai-act.eu/fr/ia-a-usage-general/#webpage",
+  "url": "https://www.no-ai-act.eu/fr/ia-a-usage-general/",
+  "name": "L'IA à usage général dans la Loi sur l'IA: l'IAGP et l'utilisation en aval",
+  "description": "Ce que signifie l'IA à usage général dans la loi sur l'IA de l'UE, comment les modèles GPAI et générateurs diffèrent des systèmes à usage unique et pourquoi l'utilisation en aval est importante.",
+  "inLanguage": "fr"
+}
+</script>
   <link rel="alternate" hreflang="it" href="https://www.no-ai-act.eu/ai-generativa-e-gpai/" />
   <link rel="alternate" hreflang="en" href="https://www.no-ai-act.eu/en/general-purpose-ai/" />
   <link rel="alternate" hreflang="fr" href="https://www.no-ai-act.eu/fr/ia-a-usage-general/" />
@@ -82,62 +96,92 @@
   <meta property="og:locale:alternate" content="pt_PT" />
 </head>
 <body>
-  <a class="skip-link" href="#main">Aller au contenu</a>
-  <header class="topbar"><div class="wrap"><a class="brand" href="/fr/">NO AI ACT</a><nav class="site-nav" aria-label="Menu"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">Menu</button><ul class="nav-menu" id="site-menu"><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-0">Jouer</button><ul class="nav-sub" id="topics-0"><li><a href="/fr/">NO AI ACT : un jeu pédagogique sur l'AI Act</a></li><li><a href="/fr/comment-ca-marche/">Comment fonctionne NO AI ACT</a></li><li><a href="/fr/pour-les-formateurs/">NO AI ACT pour les enseignants et formateurs</a></li><li><a href="/fr/serious-game-ai-act/">Un serious game sur l'AI Act européen</a></li><li><a href="/fr/dossier-de-presse/">Dossier de presse</a></li><li><a href="/fr/comment-citer/">Comment citer NO AI ACT</a></li><li><a href="/fr/matteo-angeloni/">Matteo Angeloni</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-1">Apprendre</button><ul class="nav-sub" id="topics-1"><li><a href="/fr/education/">Ressources éducatives sur l'AI Act</a></li><li><a href="/fr/maitrise-de-l-ia/">La maîtrise de l'IA</a></li><li><a href="/fr/citoyennete-numerique-reglementation-ia/">Citoyenneté numérique et réglementation de l'IA</a></li><li><a href="/fr/serious-games-reglementation-ia/">Serious games pour la réglementation de l'IA</a></li><li><a href="/fr/recherche-methodologie/">Recherche et méthodologie</a></li><li><a href="/fr/apprentissage-respectueux-vie-privee/">Apprendre dans le respect de la vie privée</a></li><li><a href="/fr/faq/">Questions fréquentes</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-2">Enseignants</button><ul class="nav-sub" id="topics-2"><li><a href="/fr/ai-act-pour-enseignants/">L'AI Act à l'école : usages et responsabilités</a></li><li><a href="/fr/activites-pedagogiques/">Activités pédagogiques</a></li><li><a href="/fr/seance-introduction-ai-act/">Une séance d'introduction à l'AI Act</a></li><li><a href="/fr/seance-approche-par-les-risques/">Séance : l'approche fondée sur les risques</a></li><li><a href="/fr/seance-transparence-utilisateurs/">Séance : transparence et utilisateurs</a></li><li><a href="/fr/atelier-ai-act-en-classe/">L'atelier AI Act en classe</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-3">AI Act</button><ul class="nav-sub" id="topics-3"><li><a href="/fr/guide-ai-act/">Guide de l'AI Act européen</a></li><li><a href="/fr/categories-de-risque-ai-act/">Les catégories de risque de l'AI Act</a></li><li><a href="/fr/pratiques-interdites-ai-act/">Les pratiques interdites par l'AI Act</a></li><li><a href="/fr/systemes-ia-a-haut-risque/">Les systèmes d'IA à haut risque</a></li><li><a href="/fr/obligations-de-transparence/">Les obligations de transparence</a></li><li><a href="/fr/ia-a-usage-general/" aria-current="page">IA à usage général et usage en aval</a></li><li><a href="/fr/sanctions-ai-act/">Sanctions de l'AI Act : montants, acteurs concernés et calendrier</a></li><li><a href="/fr/ai-act-et-rgpd/">AI Act et RGPD : quand chacun s'applique, et quand les deux</a></li><li><a href="/fr/glossaire/">Glossaire de l'AI Act</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-4">Organisations</button><ul class="nav-sub" id="topics-4"><li><a href="/fr/ai-act-entreprises/">AI Act pour les entreprises : quelles obligations, quelles actions ?</a></li><li><a href="/fr/ai-act-administration-publique/">AI Act pour l'administration publique et les achats d'IA</a></li><li><a href="/fr/fournisseur-deployeur-ai-act/">Fournisseur et déployeur dans l'AI Act européen</a></li><li><a href="/fr/ia-recrutement-emploi/">L'IA dans le recrutement et l'emploi</a></li><li><a href="/fr/analyse-impact-droits-fondamentaux-ai-act/">AI Act : analyse d'impact sur les droits fondamentaux</a></li><li><a href="/fr/hypertrucages-transparence/">Hypertrucages et transparence</a></li><li><a href="/fr/calendrier-application-ai-act/">Le calendrier d'application de l'AI Act</a></li></ul></li><li><a href="/fr/protection-des-donnees-des-la-conception/">Confidentialité</a></li></ul></nav></div></header>
+  <a class="skip-link" href="#main">Passer au contenu</a>
+  <header class="topbar"><div class="wrap"><a class="brand" href="/fr/">NO AI ACT</a><nav class="site-nav" aria-label="Menu"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">Menu</button><ul class="nav-menu" id="site-menu"><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-0">Jouer</button><ul class="nav-sub" id="topics-0"><li><a href="/fr/">NO AI ACT</a></li><li><a href="/fr/comment-ca-marche/">Comment NO AI ACT fonctionne</a></li><li><a href="/fr/pour-les-formateurs/">NO AI ACT pour les enseignants et formateurs</a></li><li><a href="/fr/serious-game-ai-act/">Un serious game sur l'AI Act européen</a></li><li><a href="/fr/dossier-de-presse/">Dossier de presse</a></li><li><a href="/fr/comment-citer/">Comment citer NO AI ACT</a></li><li><a href="/fr/matteo-angeloni/">Matteo Angeloni</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-1">Apprendre</button><ul class="nav-sub" id="topics-1"><li><a href="/fr/education/">Point central de l'éducation de la loi sur l'IA</a></li><li><a href="/fr/maitrise-de-l-ia/">Alphabétisation en matière d'IA et article 4 de la loi de l'UE sur l'IA</a></li><li><a href="/fr/citoyennete-numerique-reglementation-ia/">Citoyenneté numérique et réglementation de l'IA</a></li><li><a href="/fr/serious-games-reglementation-ia/">Serious games pour la réglementation de l'IA</a></li><li><a href="/fr/recherche-methodologie/">Recherche et méthodologie</a></li><li><a href="/fr/apprentissage-respectueux-vie-privee/">Apprendre dans le respect de la vie privée</a></li><li><a href="/fr/faq/">Questions fréquentes</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-2">Enseignants</button><ul class="nav-sub" id="topics-2"><li><a href="/fr/ai-act-pour-enseignants/">La loi de l'UE sur l'IA pour les enseignants</a></li><li><a href="/fr/activites-pedagogiques/">Activités pédagogiques</a></li><li><a href="/fr/seance-introduction-ai-act/">Une séance d'introduction à l'AI Act</a></li><li><a href="/fr/seance-approche-par-les-risques/">Séance : l'approche fondée sur les risques</a></li><li><a href="/fr/seance-transparence-utilisateurs/">Séance : transparence et utilisateurs</a></li><li><a href="/fr/atelier-ai-act-en-classe/">L'atelier AI Act en classe</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-3">AI Act</button><ul class="nav-sub" id="topics-3"><li><a href="/fr/guide-ai-act/">La loi de l'UE sur l'IA, expliquée simplement</a></li><li><a href="/fr/categories-de-risque-ai-act/">Catégories de risque de la Loi sur l'IA</a></li><li><a href="/fr/pratiques-interdites-ai-act/">Pratiques interdites en matière d'IA</a></li><li><a href="/fr/systemes-ia-a-haut-risque/">Systèmes d'IA à haut risque</a></li><li><a href="/fr/obligations-de-transparence/">Obligations en matière de transparence</a></li><li><a href="/fr/ia-a-usage-general/" aria-current="page">AI à usage général</a></li><li><a href="/fr/sanctions-ai-act/">Sanctions de l'AI Act : montants, acteurs concernés et calendrier</a></li><li><a href="/fr/ai-act-et-rgpd/">AI Act et RGPD : quand chacun s'applique, et quand les deux</a></li><li><a href="/fr/glossaire/">Glossaire de la loi sur l'IA</a></li></ul></li><li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-4">Organisations</button><ul class="nav-sub" id="topics-4"><li><a href="/fr/ai-act-entreprises/">AI Act pour les entreprises : quelles obligations, quelles actions ?</a></li><li><a href="/fr/ai-act-administration-publique/">AI Act pour l'administration publique et les achats d'IA</a></li><li><a href="/fr/fournisseur-deployeur-ai-act/">Fournisseur et déployeur dans l'AI Act européen</a></li><li><a href="/fr/ia-recrutement-emploi/">L'IA dans le recrutement et l'emploi</a></li><li><a href="/fr/analyse-impact-droits-fondamentaux-ai-act/">AI Act : analyse d'impact sur les droits fondamentaux</a></li><li><a href="/fr/hypertrucages-transparence/">Hypertrucages et transparence</a></li><li><a href="/fr/calendrier-application-ai-act/">Le calendrier d'application de l'AI Act</a></li></ul></li><li><a href="/fr/protection-des-donnees-des-la-conception/">Confidentialité</a></li></ul></nav></div></header>
 <nav class="locale-links" aria-label="Langues"><div class="wrap"><a href="/ai-generativa-e-gpai/" hreflang="it" lang="it"><img src="/assets/flags/it.png" width="28" height="20" alt="" /><span>Italiano</span></a><a href="/en/general-purpose-ai/" hreflang="en" lang="en"><img src="/assets/flags/gb.png" width="28" height="20" alt="" /><span>English</span></a><a href="/fr/ia-a-usage-general/" hreflang="fr" lang="fr" aria-current="page"><img src="/assets/flags/fr.png" width="28" height="20" alt="" /><span>Français</span></a><a href="/de/ki-modelle-allgemeiner-verwendungszweck/" hreflang="de" lang="de"><img src="/assets/flags/de.png" width="28" height="20" alt="" /><span>Deutsch</span></a><a href="/es/modelos-ia-uso-general/" hreflang="es" lang="es"><img src="/assets/flags/es.png" width="28" height="20" alt="" /><span>Español</span></a><a href="/pt/modelos-ia-finalidade-geral/" hreflang="pt-PT" lang="pt-PT"><img src="/assets/flags/pt.png" width="28" height="20" alt="" /><span>Português</span></a></div></nav>
 
-  <main id="main">
+  <main id="main"><span id="s0-title" aria-hidden="true"></span><span id="s1-title" aria-hidden="true"></span><span id="s2-title" aria-hidden="true"></span>
+
+    <nav class="breadcrumbs" aria-label="Fil d'Ariane">
+      <div class="wrap">
+        <ol>
+          <li><a href="/fr/">NO AI ACT</a></li>
+          <li><a href="/fr/guide-ai-act/">Guide de la loi sur l'IA de l'UE</a></li>
+          <li aria-current="page">AI à usage général</li>
+        </ol>
+      </div>
+    </nav>
     <section class="hero" aria-labelledby="page-title">
       <div class="wrap">
-        <p class="stamp">MODÈLES À USAGE GÉNÉRAL</p>
-        <h1 id="page-title">IA à usage général et usage en aval</h1>
-        <p class="lead">Le modèle n'est pas le point. Ce qui compte, c'est le moment où quelqu'un passe de l'ébauche à la décision.</p>
+        <p class="kicker">GPAI · L'IA génétique</p>
+        <h1 id="page-title">AI à usage général</h1>
+        <p class="lead">La plupart des raisons de la réglementation au sujet des systèmes construits dans un but. Les modèles d'usage général, y compris les modèles générateurs derrière les chatbots modernes, sont construits pour presque n'importe quel usage. C'est pourquoi ils reçoivent leur propre traitement, et pourquoi ils font une bonne leçon finale.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/play/?lang=fr">Jouer l'affaire GPAI</a>
+          <a class="btn btn-ghost" href="/fr/guide-ai-act/">Guide complet</a>
+        </div>
       </div>
     </section>
 
-    <section aria-labelledby="s0-title">
+    <section aria-labelledby="what-title">
       <div class="wrap">
-        <h2 id="s0-title"><span class="num">01</span>Deux niveaux de responsabilité qui se superposent</h2>
+        <h2 id="what-title"><span class="num">01</span>Qu'est-ce que le GPAI, clairement</h2>
+
+        <p class="section-intro">Un modèle d'IA d'usage général affiche de vastes capacités et peut être intégré dans d'innombrables applications en aval : rédaction, codage, réponse, résumé. « L'IA génétique » est le visage familier de la catégorie — les modèles qui produisent du texte, des images ou du son.</p>
+        <p>La définition du règlement est plus étroite que l'usage courant. L'article 3 décrit un modèle formé sur une grande quantité de données à l'autosurveillance à l'échelle, présentant une généralité significative, capable d'exécuter avec compétence un large éventail de tâches distinctes, et intégrable dans de nombreux systèmes en aval. Les modèles utilisés uniquement pour la recherche, le développement ou le prototypage avant d'atteindre le marché tombent en dehors de celui-ci.</p>
+      </div>
+    </section>
+    <section aria-labelledby="differs-title">
+      <div class="wrap">
+        <h2 id="differs-title"><span class="num">02</span>Comment elle diffère des exemples habituels</h2>
+
+        <p class="section-intro">Un système de dépistage du CV a un seul objectif, un seul contexte, un seul profil de risque que vous pouvez évaluer à l'avance. Un modèle général n'a rien de cela jusqu'à ce que quelqu'un le déploie : le même modèle peut rédiger des poèmes d'anniversaire et, branché dans un bureau de protection sociale, des projets de décisions de prestations. Les vies à risque dans les <em>intégration</em>, pas la carte modèle.</p>
+      </div>
+    </section>
+    <section aria-labelledby="downstream-title">
+      <div class="wrap">
+        <h2 id="downstream-title"><span class="num">03</span>Utilisation en aval: la vraie leçon</h2>
+
+        <p class="section-intro">Le dernier cas du jeu (&quot;Le modèle do-it-all&quot;) capture le modèle: un bureau laisse tranquillement un modèle général de décisions — pas de critères, pas de révision, pas d'enregistrement. Le modèle n'est pas interdit; rien à ce sujet n'est automatiquement à haut risque; et pourtant le <em>Utilisation</em> exige une gouvernance : limites définies, examen humain qui passe en revue, traçabilité. La question « Quel est ce modèle ? » cède la place à « Qu'est-ce que nous laissons décider ? ».</p>
+      </div>
+    </section>
+    <section aria-labelledby="chapter5-title">
+      <div class="wrap">
+        <h2 id="chapter5-title"><span class="num">04</span>Ce que le règlement demande au fournisseur du modèle</h2>
+
+        <p class="section-intro">Le chapitre V de la loi sur l'intelligence artificielle — articles 51 à 56 — traite les modèles à usage général séparément des systèmes d'intelligence artificielle. La scission vaut la peine d'être enseignée, car elle explique qui porte ce devoir.</p>
         <ul class="plain">
-          <li><strong>Le fournisseur du modèle</strong> porte ses propres obligations : documentation, information des acteurs en aval, respect du droit d'auteur, et — pour les modèles présentant un risque systémique — évaluation et atténuation de ce risque.</li>
-          <li><strong>Le déployeur</strong> répond de l'usage concret. Intégrer un modèle polyvalent dans un flux de décision ne transfère pas la responsabilité au fournisseur : cela en ajoute une.</li>
+          <li><b>Le présent règlement est obligatoire dans tous ses éléments et directement applicable dans tout État membre.</b> s'adresse au fournisseur du modèle: conserver la documentation technique, donner aux fournisseurs en aval ce dont ils ont besoin pour l'intégrer de manière responsable, adopter une politique en matière de droit d'auteur et publier un résumé du contenu de formation.</li>
+          <li><b>Le présent règlement est obligatoire dans tous ses éléments et directement applicable dans tout État membre.</b> Il s'agit d'un groupe plus restreint — des modèles à risque systémique — identifié au moyen de critères de capacité qui comprennent une présomption fondée sur le calcul de la formation.</li>
+          <li><b>Le présent règlement est obligatoire dans tous ses éléments et directement applicable dans tout État membre.</b> ajoute des tâches plus lourdes pour ce groupe : évaluer le modèle, atténuer les risques systémiques, signaler les incidents graves, protéger contre les cybermenaces.</li>
+          <li><b>Le présent règlement est obligatoire dans tous ses éléments et directement applicable dans tout État membre.</b> permet aux fournisseurs de s'appuyer sur des codes de pratique pour démontrer leur conformité pendant que des normes harmonisées sont encore en cours d'élaboration.</li>
         </ul>
+        <p>Rien de tout cela ne règle la question que pose le jeu. Un modèle peut satisfaire le chapitre V et être encore intégré, en aval, dans une décision qui a besoin d'une gouvernance que personne n'a mise en place — et ce terrain appartient au déployeur, et non au fournisseur du modèle. Le guide pour <a href="/fr/fournisseur-deployeur-ai-act/">fournisseurs et déployeurs</a> les cartes de la chaîne de responsabilité; lorsque chaque partie du règlement a commencé à s'appliquer, voir <a href="/fr/calendrier-application-ai-act/">calendrier de l'application</a>.</p>
       </div>
     </section>
-
-    <section aria-labelledby="s1-title">
+    <section aria-labelledby="cautions-title">
       <div class="wrap">
-        <h2 id="s1-title"><span class="num">02</span>Ébaucher, ou décider</h2>
-        <p class="section-intro">C'est la frontière que le jeu met à l'épreuve dans son dernier dossier, et elle se franchit sans que personne ne l'annonce.</p>
-        <p>Un modèle qui résume un document appuie le travail. Le même modèle qui rédige un projet de décision que personne ne vérifie fait entrer dans un acte officiel une référence qu'il a simplement inventée. Entre les deux, aucune mise à jour technique : seulement une habitude qui s'installe.</p>
+        <h2 id="cautions-title"><span class="num">05</span>Mises en garde en matière d'éducation</h2>
+
         <ul class="plain">
-          <li>Une <strong>révision humaine effective</strong> des sorties, pas un avertissement en bas de page.</li>
-          <li>La <strong>traçabilité</strong> des requêtes et des réponses qui ont servi à décider.</li>
-          <li>Une <strong>politique d'usage</strong> aux frontières explicites : ce pour quoi le modèle peut servir, et ce pour quoi non.</li>
-          <li>Le <strong>contrôle des données saisies</strong> dans les requêtes.</li>
+          <li>Les règles GPAI sont la partie la plus récente et la plus discutée du cadre : enseignez la logique, pas les détails confiants qui peuvent dater rapidement.</li>
+          <li>Éviter les deux réflexes : « l'IA générative est non réglementée » est faux; « l'IA générative est interdite » est plus faux.</li>
+          <li>Les discussions d'ancrage dans les intégrations concrètes, pas dans le modèle comme une abstraction — et de vérifier les termes dans le <a href="/fr/glossaire/">glossaire</a> (GPAI, fournisseur, déployeur).</li>
         </ul>
-      </div>
-    </section>
-
-    <section aria-labelledby="s2-title">
-      <div class="wrap">
-        <h2 id="s2-title"><span class="num">03</span>Et si le fournisseur est aussi le déployeur</h2>
-        <p>Depuis 2026, le <strong>Bureau de l'IA</strong> est exclusivement compétent pour la surveillance des systèmes construits sur un modèle à usage général par le même fournisseur, et pour ceux intégrés dans les très grandes plateformes. Une entreprise qui construit une application sur son propre modèle n'a plus pour interlocuteur l'autorité de son pays : elle a la Commission.</p>
-        <div class="callout">Lecture pédagogique simplifiée. Pour une appréciation formelle de conformité, consultez un professionnel.</div>
+        <p>Suivi de l'autorisation: <a href="https://digital-strategy.ec.europa.eu/en/policies/ai-office">Office européen de l'intelligence artificielle</a>, qui supervise les questions GPAI.</p>
       </div>
     </section>
   </main>
 
   <footer aria-labelledby="footer-title">
     <div class="wrap">
-      <h2 id="footer-title" class="stamp">Simulation pédagogique — pas un conseil juridique</h2>
-      <p>NO AI ACT est un outil pédagogique indépendant et open source. Il simplifie délibérément le <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" hreflang="fr">règlement (UE) 2024/1689 (AI Act)</a> et ne remplace ni le texte juridique ni l'avis d'un professionnel.</p>
-      <p><a href="../education/">Ressources éducatives</a> · <a href="../comment-ca-marche/">Comment ça marche</a> · <a href="../ai-act-pour-enseignants/">Pour les enseignants</a> · <a href="../glossaire/">Glossaire</a> · <a href="../../ai-generativa-e-gpai/" hreflang="it">Version italienne</a> · <a href="../../en/general-purpose-ai/" hreflang="en">English version</a></p>
-      <p class="credit">Conçu et développé par <a href="../matteo-angeloni/">Matteo Angeloni</a> · v5.3.0 · <span class="ai-disclosure">Fait avec l'IA, non par l'IA</span><br /><span class="credit-affil">Doctorant en <a href="https://www.unitus.it/post-laurea/dottorati-di-ricerca/corsi-di-dottorato-attivi/societa-in-mutamento-politiche-diritti-e-sicurezza/">Società in mutamento: politiche, diritti e sicurezza</a> · <a href="https://www.unitus.it/">Università degli Studi della Tuscia</a> — projet indépendant, sans caractère officiel pour l'université</span></p>
+      <h2 id="footer-title" class="stamp">Simulation éducative — pas d'avis juridique</h2>
+      <p>NO AI ACT est un outil éducatif indépendant et ouvert. Il simplifie délibérément <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/fra" hreflang="fr">Règlement (UE) 2024/1689 (loi sur l'accès à l'information)</a> et ne remplace pas le texte juridique ou l'avis professionnel.</p>
+      <p><a href="/fr/education/">Centre pour l ' éducation</a> · <a href="/fr/comment-ca-marche/">Comment ça marche</a> · <a href="/fr/pour-les-formateurs/">Pour les éducateurs</a> · <a href="/fr/glossaire/">Glossaire</a> · <a href="/fr/ia-a-usage-general/" hreflang="it">Version italienne</a></p>
+      <p class="credit">Conçu et développé par <a href="/fr/matteo-angeloni/">Matteo Angeloni</a> · v53.0 · <span class="ai-disclosure">Fabriqué avec l'IA, pas par l'IA</span><br><span class="credit-affil">Candidate au doctorat <a href="https://www.unitus.it/en/post-graduation/phd-opportunities/ongoing-phd-programs/society-in-change-policies-rights-and-security/">Società in mutamento: politiche, diritti e sicurezza</a> · <a href="https://www.unitus.it/">Université de Tuscia</a> — projet indépendant, non pas une production officielle de l'université</span></p>
     </div>
-    <p class="session-record-policy">Sauvegardes locales et statistiques agrégées désactivables. Avec le consentement des adultes uniquement : registre de session pendant 90 jours ; accord distinct pour les textes du parcours guidé. Retrait, effacement et export dans la barre du jeu. <a href="/game-statistics.html#fr">Information et contact</a></p>
-  <p class="shared-play-languages">Jouer: <a href="/play/?lang=it" hreflang="it" lang="it">Italiano</a> · <a href="/play/?lang=en" hreflang="en" lang="en">English</a> · <a href="/play/?lang=fr" hreflang="fr" lang="fr">Français</a> · <a href="/play/?lang=de" hreflang="de" lang="de">Deutsch</a> · <a href="/play/?lang=es" hreflang="es" lang="es">Español</a> · <a href="/play/?lang=pt" hreflang="pt-PT" lang="pt-PT">Português</a></p></footer>
-  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7c85578fc8ad4488a54c6bc670a10dcf"}'></script><!-- End Cloudflare Web Analytics -->
+  <p class="session-record-policy">Économies locales et statistiques agrégées facultatives. Seulement avec le consentement de l'adulte: un enregistrement de session pendant 90 jours; le texte du chemin guidé nécessite un consentement séparé. Retirez, effacez ou exportez de la barre de jeu. <a href="/game-statistics.html#fr">Avis de confidentialité et contact</a></p><p class="shared-play-languages">Jouer: <a href="/play/?lang=it" hreflang="it" lang="it">Italiano</a> · <a href="/play/?lang=en" hreflang="en" lang="en">English</a> · <a href="/play/?lang=fr" hreflang="fr" lang="fr">Français</a> · <a href="/play/?lang=de" hreflang="de" lang="de">Deutsch</a> · <a href="/play/?lang=es" hreflang="es" lang="es">Español</a> · <a href="/play/?lang=pt" hreflang="pt-PT" lang="pt-PT">Português</a></p></footer>
+  <!-- Cloudflare Web Analytics --><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;7c85578fc8ad4488a54c6bc670a10dcf&quot;}"></script><!-- End Cloudflare Web Analytics -->
   <script type="module" src="/src/scripts/nav.ts"></script>
-</body>
-</html>
+
+</body></html>

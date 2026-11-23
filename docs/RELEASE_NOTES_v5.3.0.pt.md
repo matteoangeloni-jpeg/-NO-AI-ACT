@@ -4,7 +4,7 @@
 
 2026-11-23 · Versão estável
 
-- Portal completo: 37 secções por língua, 222 páginas no total. Acrescentadas quatro páginas italianas e 21 em cada língua DE/ES/PT; artigos temáticos ampliados.
+- Portal completo: 37 secções por língua, 222 páginas no total. Acrescentadas quatro páginas italianas e 21 em cada língua DE/ES/PT; os 13 antigos resumos franceses foram ampliados para artigos completos.
 - README, dossier metodológico, materiais locais de Study 02 e kits de imprensa com a mesma cobertura linguística.
 - Atualizados navegação, ligações a partir do jogo, perguntas frequentes, metadados, sitemaps e informações da versão. Títulos originais das publicações preservados.
 - Preservados os 14 casos, a migração das gravações e o contrato de consentimento. Sem novos testes ou smoke tests nesta atualização, conforme solicitado. A compilação produz os ficheiros para publicação.

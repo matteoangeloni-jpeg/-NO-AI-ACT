@@ -4,7 +4,7 @@
 
 2026-11-23 · Stabile Version
 
-- Vollständige Website: 37 Bereiche je Sprache, insgesamt 222 Seiten. Vier italienische Seiten sowie jeweils 21 Seiten auf DE/ES/PT ergänzt; Fachbeiträge erweitert.
+- Vollständige Website: 37 Bereiche je Sprache, insgesamt 222 Seiten. Vier italienische Seiten sowie jeweils 21 Seiten auf DE/ES/PT ergänzt; die bisherigen 13 französischen Kurzfassungen zu vollständigen Beiträgen erweitert.
 - README-Dateien, Methodendossier, lokale Study-02-Materialien und Pressemappen bieten denselben Sprachumfang.
 - Navigation, Links aus dem Spiel, FAQ, Metadaten, Sitemaps und Versionsangaben aktualisiert. Originaltitel der Publikationen bleiben erhalten.
 - Alle 14 Fälle, Spielstandmigration und Einwilligungsvertrag bleiben erhalten. Auf Wunsch keine neuen Tests oder Smoke-Tests für diese Inhaltsaktualisierung. Der Build erstellt die veröffentlichbaren Dateien.

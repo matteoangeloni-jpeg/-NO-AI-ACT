@@ -4,7 +4,7 @@
 
 2026-11-23 · Versione stabile
 
-- Portale completo: 37 sezioni per lingua, 222 pagine complessive. Aggiunte quattro pagine italiane e 21 per ciascuna tra DE/ES/PT; approfondimenti completati.
+- Portale completo: 37 sezioni per lingua, 222 pagine complessive. Aggiunte quattro pagine italiane e 21 per ciascuna tra DE/ES/PT; ampliate anche le 13 pagine francesi prima sintetiche.
 - README, dossier metodologico, materiali locali di Study 02 e press kit con la stessa copertura linguistica.
 - Navigazione, collegamenti dal gioco, FAQ, metadati, sitemap e informazioni di release aggiornati. I titoli originali delle pubblicazioni sono conservati.
 - Tutti i 14 casi, la migrazione dei salvataggi e il contratto del consenso sono preservati. Nessun nuovo test o smoke test per questo aggiornamento, come richiesto. La build serve a produrre i file pubblicabili.

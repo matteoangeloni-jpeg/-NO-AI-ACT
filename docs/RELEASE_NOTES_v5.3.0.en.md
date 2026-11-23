@@ -4,7 +4,7 @@
 
 2026-11-23 · Stable release
 
-- Complete website: 37 sections per language, 222 pages in total. Added four Italian pages and 21 each in DE/ES/PT; expanded the focused articles.
+- Complete website: 37 sections per language, 222 pages in total. Added four Italian pages and 21 each in DE/ES/PT; also expanded the 13 former French summaries into full articles.
 - READMEs, methodology dossier, local Study 02 materials and press kits now share the same language coverage.
 - Updated navigation, links from the game, FAQs, metadata, sitemaps and release information. Original publication titles are preserved.
 - All 14 cases, save migration and the consent contract are preserved. No new tests or smoke tests for this update, as requested. The build produces the publishable files.

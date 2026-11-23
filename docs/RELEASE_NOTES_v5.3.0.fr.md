@@ -4,7 +4,7 @@
 
 2026-11-23 · Version stable
 
-- Site complet : 37 sections par langue, soit 222 pages. Ajout de quatre pages italiennes et de 21 pages dans chacune des langues DE/ES/PT ; approfondissements complétés.
+- Site complet : 37 sections par langue, soit 222 pages. Ajout de quatre pages italiennes et de 21 pages dans chacune des langues DE/ES/PT ; les 13 anciens résumés français sont devenus des articles complets.
 - README, dossier méthodologique, matériaux locaux de Study 02 et dossiers de presse avec la même couverture linguistique.
 - Navigation, liens depuis le jeu, FAQ, métadonnées, sitemaps et informations de version actualisés. Titres originaux des publications conservés.
 - Les 14 cas, la migration des sauvegardes et le contrat de consentement sont préservés. Aucun nouveau test ni smoke test pour cette mise à jour, conformément à la demande. La compilation produit les fichiers à publier.

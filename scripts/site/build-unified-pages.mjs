@@ -4,6 +4,7 @@ import {parse} from 'parse5';
 import {routeGroups,languageCode,SITE_LANGUAGES} from '../../src/site/route-inventory.mjs';
 import {completeTopicGroups} from '../../src/site/unified-topics.mjs';
 import {renderPressCoverage,renderPressReferences} from '../../src/site/press-coverage.mjs';
+import {PAGINE} from '../../src/site/fr-content.mjs';
 
 const read=file=>readFileSync(file,'utf8').replace(/^\uFEFF/,'');
 const write=(file,value)=>{mkdirSync(dirname(file),{recursive:true});writeFileSync(file,value);};
@@ -20,7 +21,7 @@ const escape=text=>String(text).replaceAll('&','&amp;').replaceAll('<','&lt;').r
 const file=dir=>dir?`${dir}/index.html`:'index.html';
 const href=dir=>`/${dir?`${dir}/`:''}`;
 const canonical=dir=>origin+href(dir);
-const dictionaries=Object.fromEntries(['it','de','es','pt'].map(lang=>[lang,JSON.parse(read(`src/site/unified/${lang}.json`))]));
+const dictionaries=Object.fromEntries(['it','fr','de','es','pt'].map(lang=>[lang,JSON.parse(read(`src/site/unified/${lang}.json`))]));
 const normal=text=>text.replaceAll(version,'__GAME_VERSION__').replaceAll('5.2.2','__GAME_VERSION__');
 const get=(text,lang,required=true)=>{
  const key=text.trim(),value=dictionaries[lang]?.[normal(key)]??dictionaries[lang]?.[key];
@@ -103,6 +104,16 @@ for(const group of groups.filter(g=>!existsSync(file(g.it)))){
  write(file(group.it),translate(source,canonical(group.en),'it',{italianShell:true}));
 }
 for(const group of groups)for(const lang of ['de','es','pt'])write(file(group[lang]),translate(read(file(group.en)).replace(/<section id="localized-materials"[\s\S]*?<\/section>/g,'').replace(/<p class="shared-play-languages"[\s\S]*?<\/p>/g,''),canonical(group.en),lang));
+// The former thirteen French summaries now carry the complete English
+// reference content. Preserve the other 24 full editorial translations.
+for(const page of PAGINE){
+ const group=groups.find(g=>g.en===page.en.replace(/\/$/,'')),previous=read(file(group.fr));
+ let html=translate(read(file(group.en)).replace(/<p class="shared-play-languages"[\s\S]*?<\/p>/g,''),canonical(group.en),'fr');
+ const previousMain=flatten(parse(previous)).find(node=>node.tagName==='main');
+ const oldIds=flatten(previousMain).map(node=>attr(node,'id')).filter(Boolean),newIds=new Set(flatten(parse(html)).map(node=>attr(node,'id')).filter(Boolean));
+ const aliases=oldIds.filter(id=>!newIds.has(id)).map(id=>`<span id="${escape(id)}" aria-hidden="true"></span>`).join('');
+ html=html.replace(/(<main\b[^>]*>)/,'$1'+aliases);write(file(group.fr),html);
+}
 
 const navGroups=[
  ['en','en/how-it-works','en/for-educators','en/ai-act-serious-game','en/press-kit','en/how-to-cite','en/matteo-angeloni'],
@@ -111,7 +122,7 @@ const navGroups=[
  ['en/eu-ai-act-guide','en/ai-act-risk-categories','en/prohibited-ai-practices','en/high-risk-ai-systems','en/transparency-obligations','en/general-purpose-ai','en/ai-act-penalties','en/ai-act-and-gdpr','en/glossary'],
  ['en/ai-act-for-business','en/ai-act-public-administration','en/provider-deployer-ai-act','en/ai-in-recruitment-and-employment','en/fria-ai-act-fundamental-rights-impact-assessment','en/deepfakes-and-transparency','en/ai-act-application-timeline']
 ];
-const titles={};for(const group of groups)for(const lang of SITE_LANGUAGES){const doc=flatten(parse(read(file(group[lang])))),h1=doc.find(n=>n.tagName==='h1');titles[group[lang]]=flatten(h1).filter(n=>n.nodeName==='#text').map(n=>n.value).join('').trim();}
+const titles={};for(const group of groups)for(const lang of SITE_LANGUAGES){const doc=flatten(parse(read(file(group[lang])))),h1=doc.find(n=>n.tagName==='h1');titles[group[lang]]=group.en==='en'?'NO AI ACT':flatten(h1).filter(n=>n.nodeName==='#text').map(n=>n.value).join('').trim();}
 for(const group of groups)for(const lang of SITE_LANGUAGES){
  let html=read(file(group[lang]));const ui=labels[lang],current=group[lang];
  const header=`<header class="topbar"><div class="wrap"><a class="brand" href="${href(groups[0][lang])}">NO AI ACT</a><nav class="site-nav" aria-label="${ui[1]}"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="${ui[1]}">${ui[1]}</button><ul class="nav-menu" id="site-menu">${navGroups.map((routes,index)=>`<li class="has-sub"><button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="topics-${index}">${ui[index+2]}</button><ul class="nav-sub" id="topics-${index}">${routes.map(en=>{const destination=groups.find(g=>g.en===en)[lang];return`<li><a href="${href(destination)}"${destination===current?' aria-current="page"':''}>${escape(titles[destination])}</a></li>`;}).join('')}</ul></li>`).join('')}<li><a href="${href(groups.find(g=>g.en==='en/privacy-by-design')[lang])}">${ui[7]}</a></li></ul></nav></div></header>`;
